@@ -1,0 +1,295 @@
+---
+title: Introduction to Probability
+---
+
+## Background
+
+This is a graduate course on probability and random signals. I am going to assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:
+
+- A fair 6-sided dice is rolled twice. What is the probability that the sum of the rolls equals 7?
+- A biased coin with $\PR({\rm heads}) = 3/4$ is tossed 10 times. What is the probability of obtaining 3 consecutive heads?
+
+You should also be familiar with the following concepts:
+
+- Random variables, probability distributions, and expectations
+- Conditional distributions, independet random variables
+
+Some of you might also have seen the following concepts
+
+- Law of large numbers
+- Central limit theorem
+
+In this course, we revist these topics with a more formal approach. We start with a review of the basic concepts.
+
+## Review of Set Theory
+
+### Basic set operations
+
+A **set** is a collection of objects. We say that a set $B$ is a **subset** of set $A$ (written as $B \subseteq A$) if all elements of $B$ are also elements of $A$. We say that $B$ is a **proper subset** (written $B \subsetneq A$) if $B \subseteq A$ and $B \neq A$.
+
+:::{#exr-sets}
+Let $A = \{1, 2, 3\}$. Find all subsets of $A$.
+:::
+
+The set of all subsets of $A$ is also called the **power set** of $A$ (denoted by $2^A$). The notation $2^A$ is capturing the fact that the power set of $A$ has $2^{|A|}$ elements. For example, your answer to @exr-sets must have $2^3 = 8$ elements.
+
+Given two sets $A$ and $B$, we define the **set difference** $A\setminus B$ to be all elements of $A$ not in $B$. Note that mathematically $A \setminus B$ is well defined even when $B \not\subseteq A$. In particular
+$$
+A \setminus B = A \setminus (A \cap B).
+$$
+
+:::{#exr-set-difference}
+Compute $A \setminus B$ for the following:
+
+- $A = \{1,2,3,4\}$ and $B = \{1, 2\}$. 
+- $A = \{1,2,3,4\}$ and $B = \{1, 2, 5\}$. 
+:::
+
+Given a collection $\{A_1, A_2, \dots, A_n\}$ of sets, we define two operations:
+
+- **Union** $A_1 \cup A_2  \cup \cdots \cup A_n$ as follows
+  $$
+    \bigcup_{i=1}^n A_i = \{ a: a \in A_i \text{ for some } i \}
+  $$
+i.e., an element belongs to $A_1 \cup A_2  \cup \cdots \cup A_n$ if it belongs to at least one of $A_1$, $A_2$, $\ldots$, $A_n$.
+
+- **Intersection** $A_1 \cap A_2  \cap \cdots \cap A_n$ as follows
+  $$
+    \bigcap_{i=1}^n A_i = \{ a: a \in A_i \text{ for all } i \}
+  $$
+i.e., an element belongs to $A_1 \cap A_2  \cap \cdots \cap A_n$ if it belongs to all of $A_1$, $A_2$, $\ldots$, $A_n$.
+
+A collection $\{A_1, A_2, \dots, A_n\}$ is **disjoint** if for every $i \neq j$, $A_i \cap A_j = \emptyset$, where $\emptyset$ denotes the empty set.
+
+Given a **universal set** $Ω$ and a collection $\{A_1, A_2, \dots, A_n\}$ of subsets of $Ω$, we say that $\{A_1, A_2, \dots, A_n\}$ is a **partition** of $Ω$ if $\{A_1, A_2, \dots, A_n\}$ are disjoint and $\bigcup_{i=1}^n A_i = Ω$. 
+
+<!-- FIXME: Add a diagram -->
+
+:::{#exm-partion}
+Let $Ω = \{1,2,3,4\}$. The following are partitions of $Ω$:
+
+- $\{ \{1\}, \{2\}, \{3\}, \{4\} \}$.
+- $\{ \{1, 2\}, \{3, 4\} \}$.
+- $\{ \{1\}, \{2, 3\}, \{4\} \}$.
+
+The follow are **not** partitions of $Ω$ [Explain why?]
+
+- $\{ \{1\}, \{2\}, \{3\}, \}$.
+- $\{ \{1, 2, 3\}, \{3, 4\} \}$.
+- $\{ \{1\}, \{2, 3\}, \{4, 5\} \}$.
+:::
+
+In most of our discussion, we will work with a pre-specified universal set $Ω$. In this setting we use $A^c$ (read: $A$-complement) as a short hand for $Ω\setminus A$. 
+
+### Properties of set operations
+
+- **Commutative** 
+  $$A \cup B = B \cup A
+  \quad\text{and}\quad
+  A \cap B = B \cap A$$
+
+- **Associative**
+  $$A \cup (B \cup C)= (A \cup B) \cup C
+  \quad\text{and}\quad
+  A \cap (B \cap C)= (A \cap B) \cap C$$
+
+- **Distributive**
+  $$A \cup (B \cap C) = (A \cup B) \cap (A \cap C)
+  \quad\text{and}\quad
+  A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$$
+
+- **De Morgan's Law**
+  $$(A \cup B)^c = A^c \cap B^\cap
+  \quad\text{and}\quad
+  (A \cap B)^c = A^c \cup B^c$$
+
+:::{#exr-set-properties}
+Use distributive property to simplify:
+
+- $[1,4] \cap ([0,2] \cup [3,5])$.
+- $[2,4] \cup ([3,5] \cap [1,4])$.
+:::
+
+### An algebra (or field) on sets
+
+Given a universal set $Ω$, a collection $\ALPHABET F = \{F_1, F_2, \dots, F_m\}$ of subsets of $Ω$ is called an **algebra** if it satisfies the following properties:
+
+- $\emptyset \in \ALPHABET F$ and $Ω \in \ALPHABET F$.
+- **Closed under complements**: if $A \in \ALPHABET F$ then $A^c \in \ALPHABET F$.
+- **Closed under finite unions and finite intersections**: if $A_1, \dots, A_n \in \ALPHABET F$, then 
+  $$
+  A_1 \cup A_2 \cup \cdots \cup A_n \in \ALPHABET F
+  \quad\text{and}\quad
+  A_1 \cap A_2 \cap \cdots \cap A_n \in \ALPHABET F
+  $$
+
+We will sometimes use the notation "$(Ω,\ALPHABET F)$ is an algebra of sets" or "$\ALPHABET F$ is an algebra on $Ω$". Some examples of algebras are as follows:
+
+- The smallest algebra associated with $Ω$ is $\{\emptyset, Ω\}$. 
+- If $A$ is any subset of $Ω$, then $\{\emptyset, A, A^c, Ω\}$ is an algebra. 
+- For any set $Ω$, the power-set $2^Ω$ is an algebra on $Ω$.
+  As an illustration, check that the power set defined in @exr-sets is an algebra.
+- For those of you who have formally studied boolean algebra, it is an example of an algebra on sets. 
+
+## Probability Space
+
+Probability is a measure of uncertainty or our belief that a particular statement is true. In this course, we will not concerns ourselves with how such a measure of uncertainty is constructed; rather focus on the mathematical properties that it should satisfy and the implications of these properties. 
+
+Many everyday statements take the form: "The chance (or probability) of $A$ is $p$", where $A$ is some event (such as "sun shining tomorrow", "Team A winning a hockey game", etc.) and $p$ is a number (e.g., $1/8$) or an adjective describing quantity (e.g., "low"). 
+
+To mathematically model such statements, we need to model the sequence of events that may lead to the occurance of $A$: this is called a **random experiment**; the result of an experiment is called an **outcome**.  
+
+In general, the outcome of an experiment is not certain. We can only talk about the collection of possible outcomes. The collection of possible outcomes of an experiment is called the **sample space** and denoted by $Ω$. 
+
+:::{#exm-sample-space-coin-toss}
+  What is the sample space for the toss of a coin?
+:::
+
+:::{#exm-sample-space-die-roll}
+  What is the sample space for the roll of a (6-sided) die?
+:::
+
+An **event** is any subset of the sample space. Some examples of events are:
+
+- Head occurs in @exm-sample-space-coin-toss
+- Both head and tail occur in @exm-sample-space-coin-toss (this is an event that cannot happen, sometimes called the **impossible event**)
+- An even number is thrown in @exm-sample-space-die-roll.
+
+Note that events are subset of the sample space but not all subsets of a sample space may be events. The reasons are too complicated to explain, but the high-level explanation is that everything is okay for discrete sample spaces, but weird things can happen in continuous sample spaces. 
+
+**Probability** (denoted by $\PR$) is a function which assigns a number between $0$ and $1$ to every event. This number indicates what is the _chance_ that the event occurs. Such a function should satisfy some axioms, which we will explain below. 
+
+First, to define a function, we need to define it's domain and range. Let's denote the domain (i.e., the set of all events to which we can assign a probability) by $\ALPHABET F$. We expect probability to satisfy certain properties, which imposes constraints on the domain:
+
+- Probability of an impossible event (e.g., getting both heads and tails when we toss a coin) should be zero. Thus, $\emptyset \in \ALPHABET F$.
+
+- Probability of something happening (e.g., getting either a head or a tail when we toss a coin) should be one. Thus, $Ω \in \ALPHABET F$. 
+
+- If we assign probability to an event $A$ then we should be able to assign probability to "$A$ does not occur" i.e., $A^c$. Thus, if $A \in \ALPHABET F$ then $A^c \in \ALPHABET F$. 
+
+- If we can talk about probability of $A$ and $B$ and $A$ and $B$ are disjoint, then we should be able to talk about probability that either $A$ or $B$ occurs and both $A$ and $B$ occur. Thus, if $A, B \in \ALPHABET F$, then $A \cup B \in \ALPHABET F$ and $A \cap B \in \ALPHABET F$. 
+
+Thus, the domain of $\PR$ **must be an algebra**! However, when we go beyond finite sample spaces, being an algebra is not sufficient as is illustrated by the following example. 
+
+::: {#exm-infinite-coin-tosses}
+A coin is tossed repeatedly until a head turns up. The sample space is $Ω = \{ω_1, ω_2, \dots\}$ where $ω_n$ denotes the event that the first $n-1$ tosses are tails followed by a head. 
+:::
+
+Suppose we are interested in finding the probability of the event that the coin is tossed an even number of times, i.e., $A = \{ω_2, ω_4, \dots\}$. Note that $ω_2, ω_4, \dots \in \ALPHABET F$. However, $A$ is a \emph{countable} set. If we want to assign probability to $A$ in terms of probability of $ω_n$, we require $\ALPHABET F$ to be closed under **countable unions**. This motivates the following definition.
+
+:::{.callout-tip}
+### $σ$-algebra
+
+Given a universal set $Ω$, a collection $\ALPHABET F = \{F_1, F_2, \dots\}$ of subsets of $Ω$ is called a **$\boldsymbol{σ}$-algebra** if it satisfies the following properties:
+
+- $\emptyset \in \ALPHABET F$ and $Ω \in \ALPHABET F$.
+- **Closed under complements**: if $A \in \ALPHABET F$ then $A^c \in \ALPHABET F$.
+- **Closed under [countable]{.text-danger} unions**: if $A_1, A_2, \dots \in \ALPHABET F$, then 
+  $$
+  \bigcup_{n=1}^∞ A_n \in \ALPHABET F
+  $$
+:::
+
+:::{#def-probability}
+### Probability space
+
+A probability space is a tuple $(Ω, \ALPHABET F, \PR)$ comprising of a set $Ω$, a $σ$-algebra $\ALPHABET F$ on $Ω$, and a function $\PR \colon \ALPHABET F \to [0,1]$ that satisfies the following **axioms of proability**
+
+a) $\PR(\emptyset) = 0$ and $\PR(Ω) = 1$.
+b) **Countale additivity.** If $A_1, A_2, \dots Ω$ is a collection of disjoint events in $\ALPHABET F$, then,
+$$
+\PR\biggl( \bigcup_{n=1}^∞ A_n \biggr) =
+\sum_{n=1}^∞ \PR(A_n).
+$$
+:::
+
+
+Some immediate implications of the axioms of probability are the following.
+
+:::{#lem-probability-properties}
+### Properties of probability measures
+
+a. $\PR(A^c) = 1 - \PR(A)$. 
+b. **Monotonicity.** If $A \subset B$, then $\PR(B) = \PR(A) + \PR(B \setminus A) \ge \PR(A)$.
+c. **Continuity.** Let $A_1, A_2, \dots$ be (weakly) increasing sequence of events, i.e., $A_1 \subseteq A_2 \subseteq A_3 \subseteq \cdots$. Define
+$$
+  A = \lim_{n \to ∞} A_n = \bigcup_{n=1}^∞ A_n.
+$$
+Then, 
+$$
+  \PR(A) = \lim_{n \to ∞} \PR(A_n).
+$$
+
+    Similarly, let $B_1, B_2, \dots$ be (weakly) decreasing sequence of events, i.e., $B_1 \supseteq B_2 \supseteq B_3 \supseteq \cdots$. Define
+    $$
+      B = \lim_{n \to ∞} B_n = \bigcup_{n=1}^∞ B_n.
+    $$
+    Then, 
+    $$
+      \PR(B) = \lim_{n \to ∞} \PR(B_n).
+    $$
+:::
+
+:::{.callout-note collapse="true"}
+### Proof
+
+The proof of parts (a) and (b) is elementary and left as an exercise. Part (c) is more technical and is essentially equivalent to _countable_ additivity. See the textbook for a proof.
+:::
+
+:::{.callout-tip}
+### Some terminology
+
+- An event $A$ is called **null** if $\PR(A) = 0$. 
+  Null event should not be confused with impossible event $\emptyset$. 
+- We say that $A$ occurs **almost surely** (abbreviated to a.s.) if $\PR(A) = 1$. 
+:::
+
+## Conditional Probability
+
+Conditional probabilities quantify the uncertainty of an event when it is known that another event has occured. 
+
+:::{#def-conidtional-probability}
+Let $(Ω,\ALPHABET F, \PR)$ be a probability space and $A, B \in \ALPHABET F$ such that $\PR(B) > 0$. 
+Then, the **conditional probability** that $A$ occurs given that $B$ occurs is defined as
+$$
+\PR(A | B) = \dfrac{ \PR(A \cap B) }{ \PR(B) }.
+$$
+:::
+
+The notation $\PR(A | B)$ is read as "probability of $A$ given $B$" or "probability of $A$ conditioned on $B$". 
+
+:::{#exm-conidtional-dice}
+
+:::
+
+:::{#exm-conidtional-boys-and-girls}
+
+:::
+
+:::{#lem-total-probability}
+### Law of total probability
+
+Let $\{B_1, B_2, \dots, B_m\}$ be a partition of $Ω$ such that $\PR(B_i) > 0$ for all $i$. Then,
+$$
+\PR(A) = \sum_{i=1}^m \PR(A | B_i) \PR(B_i).
+$$
+:::
+
+:::{.callout-note collapse="true"}
+### Proof
+Consider $m=2$, in which case the result can be simplified as
+$$\PR(A) = \PR(A|B)\PR(B) + \PR(A|B^c) \PR(B^c).$$
+
+To prove this observe that 
+\begin{equation}\label{eq:two-step}
+A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
+\end{equation}
+The events $A \cap B$ and $A \cap B^c$ are disjoint. Therefore, by additivity, we have
+$$
+\PR(A) = \PR(A \cap B) + \PR(A \cap B^c).
+$$
+Then, by the definition of conditional probability, we have 
+$\PR(A \cap B) = \PR(A|B) \PR(B)$ and $\PR(A \cap B^c) = \PR(A|B^c) \PR(B^c)$. Substituting in the above, we get \eqref{eq:two-step}.
+
+The argument for the general case is similar. 
+:::

@@ -1,0 +1,66 @@
+project:
+  type: website
+  output-dir: docs/
+  # resources:
+
+website:
+  title: Probability and Random Signals II
+  description: "Course Notes for ECSE 509 (McGill University)"
+  site-url: "https://adityam.github.io/probability/"
+
+  repo-url: "https://github.com/adityam/probabiity"
+  repo-actions: [edit]
+  repo-branch: quarto
+  reader-mode: true
+
+  navbar:
+    background: dark
+    title: false
+    pinned: false
+    search: false
+    left:
+    - href: ../probability/index.html
+      text: Probability and Random Signals II
+        # - href: ../multi-agent-systems/index.html
+        #   text: Multi-Agent Systems
+
+format:
+  html:
+    author:
+      - name: Aditya Mahajan
+        url: https://adityam.github.io
+        affiliation: McGill University
+        affiliation-url: http://www.mcgill.ca/ece
+        # citation:
+        #   type: webpage
+        #   container-title: "Course notes for Probability and Random Signals"
+        #     # google-scholar: true
+    theme: 
+      light: 
+        - lumen
+        - static/css/style.scss
+      dark: 
+        - darkly
+        - static/css/style.scss
+    mermaid:
+      theme: neutral
+    include-in-header: 
+      - static/html/mathjax.html
+      - static/html/clicky.html
+
+    reference-location: margin
+      #    citation-location: margin
+    filters:
+      - _extensions/schochastics/nutshell/nutshell.lua
+    published-title: Updated
+    date: last-modified
+    notebook-links: inline
+
+    embed-resources: false
+    smooth-scroll: true
+
+    jupyter: julia-1.9
+    freeze: true
+
+    toc: true
+    number-sections: true
