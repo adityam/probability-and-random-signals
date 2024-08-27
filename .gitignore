@@ -1,1 +1,7 @@
 /.quarto/
+/docs/
+*.pdf
+*.tuc
+*.log
+*.pgf
+.jupyter_cache/
