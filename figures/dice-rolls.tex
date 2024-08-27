@@ -1,0 +1,73 @@
+\usepath[/home/adityam/Projects/presentations]
+
+\enablemode[lucida]
+\environment env-fonts.tex
+\setupbodyfont[slidefont,16pt]
+
+\definecolor[lightgray][s=0.5]
+
+\startsetups[dice]
+  \setupTABLE[each][each][width=3em,height=3em,align={middle,lohi},background=color]
+\stopsetups
+
+\starttext
+\startTEXpage[offset=1dk]
+
+\startluacode
+  local A = function(i,j)
+    return i + j <= 8
+  end
+
+  local B = function(i,j)
+    return i + j >= 6
+  end
+
+  local A_and_B = function(i,j)
+    return A(i,j) and B(i,j)
+  end
+
+  function sample_space(flag)
+      context.bTABLE{setups="dice"}
+        for i = 6, 1, -1 do
+          context.bTR()
+          for j = 1, 6 do
+            local background = ""
+            print(i,j, flag(i,j), "\n")
+            if flag(i,j) then
+              background = "lightgray"
+            end
+            context.bTD{backgroundcolor=background}
+            context("$(%d, %d)$", i, j)
+            context.eTD()
+          end
+          context.eTR()
+        end
+
+      context.eTABLE()
+    end
+
+    context.startcombination{nx=3, ny=1,distance="1em"}
+      context.startcontent()
+        sample_space(A)
+      context.stopcontent()
+      context.startcaption() 
+      context("Event $A$")
+      context.stopcaption()
+      context.startcontent()
+        sample_space(B)
+      context.stopcontent()
+      context.startcaption() 
+      context("Event $B$")
+      context.stopcaption()
+      context.startcontent()
+        sample_space(A_and_B)
+      context.stopcontent()
+      context.startcaption() 
+      context("Event $A \\cap B$")
+      context.stopcaption()
+    context.stopcombination()
+\stopluacode
+
+\stopTEXpage
+
+\stoptext

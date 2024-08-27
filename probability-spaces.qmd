@@ -12,14 +12,14 @@ This is a graduate course on probability and random signals. I am going to assum
 You should also be familiar with the following concepts:
 
 - Random variables, probability distributions, and expectations
-- Conditional distributions, independet random variables
+- Conditional distributions, independent random variables
 
 Some of you might also have seen the following concepts
 
 - Law of large numbers
 - Central limit theorem
 
-In this course, we revist these topics with a more formal approach. We start with a review of the basic concepts.
+In this course, we revisit these topics with a more formal approach. We start with a review of the basic concepts.
 
 ## Review of Set Theory
 
@@ -137,23 +137,35 @@ Probability is a measure of uncertainty or our belief that a particular statemen
 
 Many everyday statements take the form: "The chance (or probability) of $A$ is $p$", where $A$ is some event (such as "sun shining tomorrow", "Team A winning a hockey game", etc.) and $p$ is a number (e.g., $1/8$) or an adjective describing quantity (e.g., "low"). 
 
-To mathematically model such statements, we need to model the sequence of events that may lead to the occurance of $A$: this is called a **random experiment**; the result of an experiment is called an **outcome**.  
+To mathematically model such statements, we need to model the sequence of events that may lead to the occurrence of $A$: this is called a **random experiment**; the result of an experiment is called an **outcome**.  
 
 In general, the outcome of an experiment is not certain. We can only talk about the collection of possible outcomes. The collection of possible outcomes of an experiment is called the **sample space** and denoted by $Ω$. 
 
-:::{#exm-sample-space-coin-toss}
+:::{#exr-sample-space-coin-toss}
   What is the sample space for the toss of a coin?
 :::
 
-:::{#exm-sample-space-die-roll}
+:::{.callout-note collapse="true"}
+#### Solution
+
+$Ω = \{ H, T \}$.
+:::
+
+:::{#exr-sample-space-die-roll}
   What is the sample space for the roll of a (6-sided) die?
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+$Ω = \{ 1,2,3,4,5,6 \}$.
 :::
 
 An **event** is any subset of the sample space. Some examples of events are:
 
-- Head occurs in @exm-sample-space-coin-toss
-- Both head and tail occur in @exm-sample-space-coin-toss (this is an event that cannot happen, sometimes called the **impossible event**)
-- An even number is thrown in @exm-sample-space-die-roll.
+- Head occurs in @exr-sample-space-coin-toss ($A = \{H\}$)
+- Both head and tail occur in @exr-sample-space-coin-toss ($A = \emptyset$; this is an event that cannot happen, sometimes called the **impossible event**)
+- An even number is thrown in @exr-sample-space-die-roll ($A = \{2,4,6\}$).
 
 Note that events are subset of the sample space but not all subsets of a sample space may be events. The reasons are too complicated to explain, but the high-level explanation is that everything is okay for discrete sample spaces, but weird things can happen in continuous sample spaces. 
 
@@ -167,7 +179,7 @@ First, to define a function, we need to define it's domain and range. Let's deno
 
 - If we assign probability to an event $A$ then we should be able to assign probability to "$A$ does not occur" i.e., $A^c$. Thus, if $A \in \ALPHABET F$ then $A^c \in \ALPHABET F$. 
 
-- If we can talk about probability of $A$ and $B$ and $A$ and $B$ are disjoint, then we should be able to talk about probability that either $A$ or $B$ occurs and both $A$ and $B$ occur. Thus, if $A, B \in \ALPHABET F$, then $A \cup B \in \ALPHABET F$ and $A \cap B \in \ALPHABET F$. 
+- If we can talk about probability of $A$ and $B$, then we should be able to talk about probability that either $A$ or $B$ occurs and both $A$ and $B$ occur. Thus, if $A, B \in \ALPHABET F$, then $A \cup B \in \ALPHABET F$ and $A \cap B \in \ALPHABET F$. 
 
 Thus, the domain of $\PR$ **must be an algebra**! However, when we go beyond finite sample spaces, being an algebra is not sufficient as is illustrated by the following example. 
 
@@ -190,19 +202,34 @@ Given a universal set $Ω$, a collection $\ALPHABET F = \{F_1, F_2, \dots\}$ of 
   $$
 :::
 
+:::{.callout-warning appearance="simple"}
+
+The distinction between algebras and $σ$-algebras is technical. Given collection $\ALPHABET S$ of subsets of $Ω$,  we have the following:
+
+- The power-set $2^Ω$ contains $\ALPHABET S$. Therefore, there is at least one $σ$-algebra containing $\ALPHABET S$.
+- If $\ALPHABET F_1$ and $\ALPHABET F_2$ are $σ$-algebras containing $\ALPHABET S$, then $\ALPHABET F_1 \cap \ALPHABET F_2$ also contains $\ALPHABET S$.
+
+Thus, if we take the intersection of all $σ$-algebras containing $\ALPHABET S$, we get the **smallest $σ$-algebra containing $\ALPHABET S$**, which is sometimes denoted by $σ(\ALPHABET S)$. 
+
+One commonly used $σ$-algebra is the **Borel $σ$-algebra**, which is defined as follows.[^note] Let $Ω$ be a subset of $\reals$ and $\ALPHABET S$ be the collection of all open intervals in $Ω$. Then $σ(\ALPHABET S)$ is called the "Borel $σ$-algebra on Ω" and often denoted by $\mathscr{B}(Ω)$. 
+
+[^note]: Borel $σ$-algebra is usually defined for any topological space. We restrict our definition to subsets of reals.
+
+:::
+
+
 :::{#def-probability}
 ### Probability space
 
 A probability space is a tuple $(Ω, \ALPHABET F, \PR)$ comprising of a set $Ω$, a $σ$-algebra $\ALPHABET F$ on $Ω$, and a function $\PR \colon \ALPHABET F \to [0,1]$ that satisfies the following **axioms of proability**
 
 a) $\PR(\emptyset) = 0$ and $\PR(Ω) = 1$.
-b) **Countale additivity.** If $A_1, A_2, \dots Ω$ is a collection of disjoint events in $\ALPHABET F$, then,
+b) **Countable additivity.** If $A_1, A_2, \dots Ω$ is a collection of disjoint events in $\ALPHABET F$, then,
 $$
 \PR\biggl( \bigcup_{n=1}^∞ A_n \biggr) =
 \sum_{n=1}^∞ \PR(A_n).
 $$
 :::
-
 
 Some immediate implications of the axioms of probability are the following.
 
@@ -236,17 +263,36 @@ $$
 The proof of parts (a) and (b) is elementary and left as an exercise. Part (c) is more technical and is essentially equivalent to _countable_ additivity. See the textbook for a proof.
 :::
 
+:::{#exm-probability-continuity}
+Let $Ω = [0,1]$, $\ALPHABET F = \mathscr B[0,1]$, and $\PR$ be any probability measure on $(Ω, \ALPHABET F)$. Take any $a \in (0,1)$. 
+
+- Consider $A_n = \bigl[0, a - \frac 1n \bigr)$. Then $A = \lim_{n \to ∞} A_n =  [0, a)$. 
+- Consider $A_n = \bigl[0, a - \frac 1n \bigr]$. Then $A = \lim_{n \to ∞} A_n =  [0, a)$. 
+- Consider $B_n = \bigl[0, 1 + \frac 1n \bigr)$. Then $B = \lim_{n \to ∞} B_n = [0,a]$.
+- Consider $B_n = \bigl[0, 1 + \frac 1n \bigr]$. Then $B = \lim_{n \to ∞} B_n = [0,a]$.
+
+In these examples, continuity implies that $\PR(A) = \lim_{n \to ∞} \PR(A_n)$ and $\PR(B) = \lim_{n \to ∞} \PR(B_n)$. 
+:::
+
+
 :::{.callout-tip}
 ### Some terminology
 
 - An event $A$ is called **null** if $\PR(A) = 0$. 
   Null event should not be confused with impossible event $\emptyset$. 
+
 - We say that $A$ occurs **almost surely** (abbreviated to a.s.) if $\PR(A) = 1$. 
+:::
+
+:::{#exm-rational}
+Consider $Ω = [0,1]$, $\ALPHABET F = \mathscr B([0,1])$, and $\PR$ to be the uniform probability distribution on $Ω$. Consider the event $A$ that the outcome is a rational number. $A$ is a countable set (because the set of rational numbers is countable). For any $x \in A$, $\{x\} \in \ALPHABET F$, and $\PR(\{x\}) = 0$ (we can infer this from @exm-probability-continuity by thinking of $\{x\}$ as the limit of intervals $\bigl[x, x+ \frac 1n\bigr]$). Thus, by countable additivity, $\PR(A) = 0$. Hence, $A$ is null.
+
+The above analysis implies that $\PR(A^c) = 1$, thus the event that the outcome is irrational occurs almost surely.
 :::
 
 ## Conditional Probability
 
-Conditional probabilities quantify the uncertainty of an event when it is known that another event has occured. 
+Conditional probabilities quantify the uncertainty of an event when it is known that another event has occurred 
 
 :::{#def-conidtional-probability}
 Let $(Ω,\ALPHABET F, \PR)$ be a probability space and $A, B \in \ALPHABET F$ such that $\PR(B) > 0$. 
@@ -258,12 +304,61 @@ $$
 
 The notation $\PR(A | B)$ is read as "probability of $A$ given $B$" or "probability of $A$ conditioned on $B$". 
 
-:::{#exm-conidtional-dice}
+:::{#exr-conditional-dice}
+Suppose we roll a fair six-sided dice (a fair dice means that all outcomes are equally likely). Consider the events $A$ that the outcomes is prime and $B$ that the outcome is a multiple of $3$. Compute $\PR(A | B)$ and $\PR(B | A)$.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+We have $Ω = \{1, 2, 3, 4, 5, 6\}$, $A = \{2, 3, 5\}$, and $B = \{3, 6\}$. Note that $\PR(A) = \frac 12$ and $\PR(B) = \frac 13$.
+
+Thus,
+$$ \PR(A | B) = \frac{ \PR(A \cap B) }{ \PR(B) }
+= \frac{ \PR(\{3\}) }{ \PR(\{3,6\}) } 
+= \frac{ \ABS{\{3\}} }{ \ABS{\{3,6\}} } = \frac {1}{2}.
+$$
+Similarly,
+$$ \PR(B | A) = \frac{ \PR(B \cap A) }{ \PR(A) }
+= \frac{ \PR(\{3\}) }{ \PR(\{2,3,5\}) } 
+= \frac{ \ABS{\{3\}} }{ \ABS{\{2,3,5\}} } = \frac {1}{3}.
+$$
+:::
+
+:::{#exr-conditional-two-dice}
+Suppose we roll two fair six-sided dice. Consider the event $A$ that the minimum of the two rolls is greater than or equal to $6$ and the event $B$ that the maximum of the two rolls is less than or equal to $8$. Compute $\PR(A|B)$ and $\PR(B|A)$.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+Note that $Ω = \{ 1, 2,3, 4, 5, 6\}^2$ and $\PR$ is uniform probability on all outcomes. The sets $A$, $B$, and $A \cap B$ are shown in @fig-conditional-two-roll. Note that $\PR(A) = \PR(B) = \frac{26}{36} = \frac{13}{18}$. 
+
+![The different events in @exr-conditional-two-dice](figures/svg/dice-rolls1.svg){#fig-conditional-two-roll}
+
+Thus, we have 
+$$
+\PR(A|B) = \frac{ \PR(A \cap B) } { \PR(B) }
+= \frac{ \ABS{ A \cap B} }{ \ABS{B} }
+= \frac{16}{26} = \frac{8}{13}
+$$
+and
+$$
+\PR(B|A) = \frac{ \PR(B \cap A) } { \PR(A) }
+= \frac{ \ABS{ B \cap A} }{ \ABS{A} }
+= \frac{16}{26} = \frac{8}{13}
+$$
 
 :::
 
-:::{#exm-conidtional-boys-and-girls}
 
+:::{.callout-tip appearance="simple"}
+Conditional probabilities are legitimate probability measures on $(Ω, \ALPHABET F)$. In particular, if $\PR(B) > 0$, then
+
+- $\PR(A \mid B) \ge 0$.
+- $\PR(Ω \mid B) = \dfrac{\PR(Ω \cap B)}{\PR(B)} = 1$.
+- For disjoint events $A_1, A_2 \in \ALPHABET F$, 
+  $\PR(A_1 \cup A_2 \mid B) = \PR(A_1 \mid B) + \PR(A_2 \mid B)$.
 :::
 
 :::{#lem-total-probability}
@@ -292,4 +387,55 @@ Then, by the definition of conditional probability, we have
 $\PR(A \cap B) = \PR(A|B) \PR(B)$ and $\PR(A \cap B^c) = \PR(A|B^c) \PR(B^c)$. Substituting in the above, we get \eqref{eq:two-step}.
 
 The argument for the general case is similar. 
+:::
+
+:::{#lem-Bayes-rule}
+### Bayes rule
+For any events $A, B \in \ALPHABET F$ such that $\PR(A), \PR(B) > 0$, we have
+$$
+\PR(B|A) = \dfrac{\PR(A|B)\PR(B)}{\PR(A)}.
+$$
+
+In general, if $\{B_1, B_2, \dots, B_m\}$ is a partition of $Ω$ such that $\PR(B_i) > 0$ for all $i$. Then,
+$$
+\PR(B_i|A) = 
+\dfrac{ \PR(A|B_i) \PR(B_i) }
+{\displaystyle \sum_{j=1}^m \PR(A|B_j) \PR(B_j)}
+$$
+where we have used the law of total probability (@lem-total-probability) in the denominator.
+:::
+
+## Independence
+
+In general, the knowledge that an event $B$ has occurred changes the probability of event $A$, since $\PR(A)$ is replaced by $\PR(A|B)$. If the knowledge that $B$ has occurred does not does not change our belief about $A$, i.e., when $\PR(A|B) = \PR(A)$, we say "$A$ and $B$ are **independent**". This leads to the following definition.
+
+:::{#def-independent}
+The events $A, B \in \ALPHABET F$ are called **independent** if
+$$
+\PR(A|B) = \PR(A)
+\quad\text{or}\quad
+\PR(B|A) = \PR(B).
+$$
+An alternative but equivalent definition is
+$$
+\PR(A \cap B) = \PR(A) \PR(B).
+$$
+
+In general, a family of events $\{A_1, A_2, \dots, A_n\}$ is called **independent** if 
+$$
+\PR\biggl( \bigcap_{i=1}^n A_i \biggr) = 
+\prod_{i=1}^n \PR(A_i).
+$$
+:::
+
+:::{.callout-warning appearance="simple"}
+It is common for students to make the mistake and think that independence means $A \cap B = \emptyset$. This is not true!
+:::
+
+:::{#exm-independence-dice}
+The events $A$ and $B$ defined in @exr-conditional-dice are independent.
+:::
+
+:::{#exm-independence-two-dice}
+The events $A$ and $B$ defined in @exr-conditional-two-dice are **not** independent.
 :::
