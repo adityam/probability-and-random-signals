@@ -6,7 +6,7 @@ title: Introduction to Probability
 
 This is a graduate course on probability and random signals. I am going to assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:
 
-- A fair 6-sided dice is rolled twice. What is the probability that the sum of the rolls equals 7?
+- A fair 6-sided die is rolled twice. What is the probability that the sum of the rolls equals 7?
 - A biased coin with $\PR({\rm heads}) = 3/4$ is tossed 10 times. What is the probability of obtaining 3 consecutive heads?
 
 You should also be familiar with the following concepts:
@@ -61,9 +61,11 @@ i.e., an element belongs to $A_1 \cap A_2  \cap \cdots \cap A_n$ if it belongs t
 
 A collection $\{A_1, A_2, \dots, A_n\}$ is **disjoint** if for every $i \neq j$, $A_i \cap A_j = \emptyset$, where $\emptyset$ denotes the empty set.
 
-Given a **universal set** $Ω$ and a collection $\{A_1, A_2, \dots, A_n\}$ of subsets of $Ω$, we say that $\{A_1, A_2, \dots, A_n\}$ is a **partition** of $Ω$ if $\{A_1, A_2, \dots, A_n\}$ are disjoint and $\bigcup_{i=1}^n A_i = Ω$. 
+Given a **universal set** $Ω$ and a collection $\{B_1, B_2, \dots, B_m\}$ of subsets of $Ω$, we say that $\{B_1, B_2, \dots, B_m\}$ is a **partition** of $Ω$ if $\{B_1, B_2, \dots, B_m\}$ are disjoint and $\bigcup_{i=1}^m B_i = Ω$. 
 
-<!-- FIXME: Add a diagram -->
+::: {.column-margin}
+![Example of a partition](figures/svg/partitions1.svg){#fig-partition}
+:::
 
 :::{#exm-partion}
 Let $Ω = \{1,2,3,4\}$. The following are partitions of $Ω$:
@@ -80,6 +82,17 @@ The follow are **not** partitions of $Ω$ [Explain why?]
 :::
 
 In most of our discussion, we will work with a pre-specified universal set $Ω$. In this setting we use $A^c$ (read: $A$-complement) as a short hand for $Ω\setminus A$. 
+
+:::{.callout-tip appearance="simple"}
+Partitions are useful because they allow breaking up a set into disjoint pieces. In particular, suppose $\{B_1, \dots, B_m\}$ is a partition and 
+$A$ is any subset of $Ω$.
+
+Then, 
+$$
+A = (A \cap B_1) \cup (A \cap B_2) \cup \cdots \cup (A \cap B_m)
+$$
+where each of the components are disjoint.
+:::
 
 ### Properties of set operations
 
@@ -129,7 +142,12 @@ We will sometimes use the notation "$(Ω,\ALPHABET F)$ is an algebra of sets" or
 - If $A$ is any subset of $Ω$, then $\{\emptyset, A, A^c, Ω\}$ is an algebra. 
 - For any set $Ω$, the power-set $2^Ω$ is an algebra on $Ω$.
   As an illustration, check that the power set defined in @exr-sets is an algebra.
-- For those of you who have formally studied boolean algebra, it is an example of an algebra on sets. 
+
+These are all examples of a general principle: **The power-set of any partition of a set is an algebra.** 
+
+- If the partition is $\{Ω\}$, then the power-set $\{ \emptyset, Ω \}$ is an algebra.
+- If the partition is $\{A, A^c\}$, then the power-set $\{ \emptyset, A, A^c, Ω\}$ is an algebra.
+- If the partition is the collection of all singleton elements of a set, then the power-set $2^Ω$ is an algebra.
 
 ## Probability Space
 
@@ -161,7 +179,7 @@ $Ω = \{ H, T \}$.
 $Ω = \{ 1,2,3,4,5,6 \}$.
 :::
 
-An **event** is any subset of the sample space. Some examples of events are:
+An **event** is any subset of the sample space. If the outcome of the random experiment belongs to the event $A$, we say that "the event $A$ has occurred". Some examples of events are:
 
 - Head occurs in @exr-sample-space-coin-toss ($A = \{H\}$)
 - Both head and tail occur in @exr-sample-space-coin-toss ($A = \emptyset$; this is an event that cannot happen, sometimes called the **impossible event**)
@@ -181,7 +199,29 @@ First, to define a function, we need to define it's domain and range. Let's deno
 
 - If we can talk about probability of $A$ and $B$, then we should be able to talk about probability that either $A$ or $B$ occurs and both $A$ and $B$ occur. Thus, if $A, B \in \ALPHABET F$, then $A \cup B \in \ALPHABET F$ and $A \cap B \in \ALPHABET F$. 
 
-Thus, the domain of $\PR$ **must be an algebra**! However, when we go beyond finite sample spaces, being an algebra is not sufficient as is illustrated by the following example. 
+Thus, the domain of $\PR$ **must be an algebra**! However, when we go beyond finite sample spaces, being an algebra is not sufficient. But we first provide some examples of probability for finite sample spaces.
+
+:::{#exm-probability-domain}
+Consider a six-sided die where $Ω = \{1, 2, \dots, 6 \}$, $\ALPHABET F = 2^Ω$ and $\PR$ is given by 
+$$
+\PR(A) = \sum_{ω \in A} q(ω),
+\quad \forall A \in \ALPHABET F
+$$
+where
+$$
+q(1) = q(2) = q(3) = q(4) = q(5) = \frac 2{15}
+\quad\text{and}\quad
+q(6) = \frac{1}{3}.
+$$
+
+Verify that
+
+- $\PR(Ω) = 1$
+- $\PR(\{3,4,5\}) = \frac{6}{15}$.
+- $\PR(\{1,3,4,5\}) = \frac{8}{15}$.
+:::
+
+We now come back to the fact that restricting the domain of $\PR$ to be an algebra is not sufficient as is illustrated by the following example. 
 
 ::: {#exm-infinite-coin-tosses}
 A coin is tossed repeatedly until a head turns up. The sample space is $Ω = \{ω_1, ω_2, \dots\}$ where $ω_n$ denotes the event that the first $n-1$ tosses are tails followed by a head. 
@@ -204,7 +244,22 @@ Given a universal set $Ω$, a collection $\ALPHABET F = \{F_1, F_2, \dots\}$ of 
 
 :::{.callout-warning appearance="simple"}
 
-The distinction between algebras and $σ$-algebras is technical. Given collection $\ALPHABET S$ of subsets of $Ω$,  we have the following:
+The distinction between algebras and $σ$-algebras is technical. The reason that we need to consider $σ$-algebras is to do with the definition of probability on continuous sample spaces. Take $Ω = [0,1]$ and consider a random experiment where "any outcome is equally likely". Intuitively we capture this feature by assuming that for any interval $[a,b]$ with $0 \le a \le b \le 1$, we have
+\begin{equation}\label{eq:uniform}
+\PR([a,b]) = b - a.
+\end{equation}
+
+We have seen that if we want $\PR$ to be a meaningful measure, the domain $\ALPHABET F$ must at least be an algebra. We have also seen that the power-set $2^Ω$ is always an algebra. So, it is tempting to take $\ALPHABET F = 2^{[0,1]}$. However, it turns out that $2^{[0,1]}$ has includes some weird sets (technically, non-measurable sets) due to which we cannot define a function $\PR$ on $2^{[0,1]}$ that satisfies \eqref{eq:uniform}. 
+
+To workaround this technical limitation, we revisit the minimum requirements that we need from the domain of $\PR$. Since we are interested in $\PR([a,b])$, $\ALPHABET F$ must contains intervals (and therefore all finite unions and intersections of intervals). Since, we are working with continuous sample spaces, we also want $\PR$ to be continuous, i.e., for any sequence of sets $\{A_n\}_{n \ge 1}$, we want $\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)$. It turns out that the additional requirement of continuity implies that $\ALPHABET F$ must be closed under countable unions as well. Thus, the domain $\ALPHABET F$ must at least be a $σ$-algebra. 
+
+So, we restrict to the simplest choice of the domain $\ALPHABET F$ needed for \eqref{eq:uniform} and continuity to hold. [For technical reasons, we need another property known as **completeness**. See Sec. 1.6 of the textbook.]{.text-secondary}
+:::
+
+:::{.callout-tip}
+### $σ$-algebra generated by a collection and Borel $σ$-algebra
+
+Given collection $\ALPHABET S$ of subsets of $Ω$,  we have the following:
 
 - The power-set $2^Ω$ contains $\ALPHABET S$. Therefore, there is at least one $σ$-algebra containing $\ALPHABET S$.
 - If $\ALPHABET F_1$ and $\ALPHABET F_2$ are $σ$-algebras containing $\ALPHABET S$, then $\ALPHABET F_1 \cap \ALPHABET F_2$ also contains $\ALPHABET S$.
@@ -223,8 +278,9 @@ One commonly used $σ$-algebra is the **Borel $σ$-algebra**, which is defined a
 
 A probability space is a tuple $(Ω, \ALPHABET F, \PR)$ comprising of a set $Ω$, a $σ$-algebra $\ALPHABET F$ on $Ω$, and a function $\PR \colon \ALPHABET F \to [0,1]$ that satisfies the following **axioms of proability**
 
-a) $\PR(\emptyset) = 0$ and $\PR(Ω) = 1$.
-b) **Countable additivity.** If $A_1, A_2, \dots Ω$ is a collection of disjoint events in $\ALPHABET F$, then,
+a) **Non-negativity.** $\PR(A) \ge 0$.
+b) **Normalization.** $\PR(Ω) = 1$.
+c) **Countable additivity.** If $A_1, A_2, \dots Ω$ is a collection of disjoint events in $\ALPHABET F$, then,
 $$
 \PR\biggl( \bigcup_{n=1}^∞ A_n \biggr) =
 \sum_{n=1}^∞ \PR(A_n).
@@ -236,9 +292,13 @@ Some immediate implications of the axioms of probability are the following.
 :::{#lem-probability-properties}
 ### Properties of probability measures
 
-a. $\PR(A^c) = 1 - \PR(A)$. 
+a. **Probability of complement.** $\PR(A^c) = 1 - \PR(A)$. 
 b. **Monotonicity.** If $A \subset B$, then $\PR(B) = \PR(A) + \PR(B \setminus A) \ge \PR(A)$.
-c. **Continuity.** Let $A_1, A_2, \dots$ be (weakly) increasing sequence of events, i.e., $A_1 \subseteq A_2 \subseteq A_3 \subseteq \cdots$. Define
+c. **Inclusion-exclusion.** Given two events $A$ and $B$, 
+$$
+\PR(A \cup B) = \PR(A) + \PR(B) - \PR(A \cap B).
+$$
+d. **Continuity.** Let $A_1, A_2, \dots$ be (weakly) increasing sequence of events, i.e., $A_1 \subseteq A_2 \subseteq A_3 \subseteq \cdots$. Define
 $$
   A = \lim_{n \to ∞} A_n = \bigcup_{n=1}^∞ A_n.
 $$
@@ -255,12 +315,18 @@ $$
     $$
       \PR(B) = \lim_{n \to ∞} \PR(B_n).
     $$
+
+e. **Union bound.** For any sequence of events $\{A_n\}_{n \ge 1}$, we have
+$$
+\PR\biggl( \bigcup_{n=1}^{∞} A_n \biggr) \le
+\sum_{n=1}^{∞} \PR(A_n).
+$$
 :::
 
 :::{.callout-note collapse="true"}
 ### Proof
 
-The proof of parts (a) and (b) is elementary and left as an exercise. Part (c) is more technical and is essentially equivalent to _countable_ additivity. See the textbook for a proof.
+The proof of parts (a)--(c) is elementary and left as an exercise. Part (d) is more technical and is essentially equivalent to _countable_ additivity. See the textbook for a proof. Union bound is an immediate consequence of inclusion-exclusion and continuity.
 :::
 
 :::{#exm-probability-continuity}
@@ -304,8 +370,8 @@ $$
 
 The notation $\PR(A | B)$ is read as "probability of $A$ given $B$" or "probability of $A$ conditioned on $B$". 
 
-:::{#exr-conditional-dice}
-Suppose we roll a fair six-sided dice (a fair dice means that all outcomes are equally likely). Consider the events $A$ that the outcomes is prime and $B$ that the outcome is a multiple of $3$. Compute $\PR(A | B)$ and $\PR(B | A)$.
+:::{#exr-conditional-die}
+Suppose we roll a fair six-sided die (a fair die means that all outcomes are equally likely). Consider the events $A$ that the outcomes is prime and $B$ that the outcome is a multiple of $3$. Compute $\PR(A | B)$ and $\PR(B | A)$.
 :::
 
 :::{.callout-note collapse="true"}
@@ -352,22 +418,56 @@ $$
 :::
 
 
-:::{.callout-tip appearance="simple"}
-Conditional probabilities are legitimate probability measures on $(Ω, \ALPHABET F)$. In particular, if $\PR(B) > 0$, then
+:::{.callout-tip}
+### Conditional probabilities are probabilities
+
+Conditional probabilities are legitimate probability measures on $(Ω, \ALPHABET F)$. In particular, fix event $B$ with $\PR(B) > 0$. Then
 
 - $\PR(A \mid B) \ge 0$.
 - $\PR(Ω \mid B) = \dfrac{\PR(Ω \cap B)}{\PR(B)} = 1$.
 - For disjoint events $A_1, A_2 \in \ALPHABET F$, 
-  $\PR(A_1 \cup A_2 \mid B) = \PR(A_1 \mid B) + \PR(A_2 \mid B)$.
+  $$\PR(A_1 \cup A_2 \mid B) =
+   \frac{ \PR( (A_1 \cup A_2) \cap B) }{ \PR(B) } = 
+   \frac{ \PR( (A_1 \cap B) \cup (A_2 \cap B) ) }{ \PR(B) } = 
+   \frac{ \PR(A_1 \cap B) + \PR (A_2 \cap B) }{ \PR(B) } = 
+   \PR(A_1 \mid B) + \PR(A_2 \mid B)$$
+where we have used the fact that $(A_1 \cap B)$ and $(A_2 \cap B)$ are disjoint. 
 :::
+
+:::{#exr-conditional-prob}
+Given an event $B$ with $\PR(B) > 0$, show that
+
+- $\PR(A^c | B) = 1 - P(A|B)$.
+- $\PR(A_1 \cup A_2 | B) = \PR(A_1 | B) + \PR(A_2 | B) - \PR(A_1 \cap A_2 | B)$.
+- If $A_1 \subset A_2$ then $\PR(A_1 | B) \le \PR(A_2 | B)$.
+:::
+
+
+The definition of conditional probability gives rise to the chain rule.
+
+:::{#lem-chain-rule}
+### Chain rule of probability
+
+Let $A$ and $B$ be events in a probability space $(Ω, \ALPHABET F, \PR)$. 
+
+- If $\PR(B) > 0$, then $\PR(A \cap B) = \PR(A | B) \PR(B)$. 
+- If $\PR(A) > 0$, then $\PR(A \cap B) = \PR(B | A) \PR(A)$.
+:::
+
+Combining the chain rule with the basic properties of partitions, we get the law of total probability. 
 
 :::{#lem-total-probability}
 ### Law of total probability
 
 Let $\{B_1, B_2, \dots, B_m\}$ be a partition of $Ω$ such that $\PR(B_i) > 0$ for all $i$. Then,
 $$
-\PR(A) = \sum_{i=1}^m \PR(A | B_i) \PR(B_i).
+\PR(A) = \sum_{i=1}^m \PR(A \cap B_i) 
+= \sum_{i=1}^m \PR(A | B_i) \PR(B_i).
 $$
+:::
+
+::: {.column-margin}
+![Illustration of Law of total probability](figures/svg/partitions2.svg){#fig-total-probability}
 :::
 
 :::{.callout-note collapse="true"}
@@ -389,6 +489,36 @@ $\PR(A \cap B) = \PR(A|B) \PR(B)$ and $\PR(A \cap B^c) = \PR(A|B^c) \PR(B^c)$. S
 The argument for the general case is similar. 
 :::
 
+:::{#exr-total-probability}
+There are two routes for a packet to be transmitted from a source to the destination. 
+
+- The packet takes route $R_1$ with probability $\frac 34$ and takes route $R_2$ with probability $\frac 14$. 
+- On route $R_1$, the packet is dropped with probability $\frac 13$.
+- On route $R_2$, the packet is dropped with probability $\frac 14$.
+
+Find the probability that the packet reaches the destination.
+:::
+
+:::{.callout-note collapse="true"}
+### Solution
+
+We start by defining some events:
+Let $R_1$ denote the event that the packet took route $R_1$ and $R_2$ denote the event that the packet took route $R_2$. Let $D$ denote the event that the packet was dropped.
+
+Then, the information given in the question can be written as:
+
+- $\PR(R_1) = \frac 34$ and $\PR(R_2) = \frac 14$.
+- $\PR(D | R_1) = \frac 13$. Thus, $\PR(D^c | R_1) = 1 - \PR(D | R_1) = \frac 23$.
+- $\PR(D | R_2) = \frac 14$. Thus, $\PR(D^c | R_2) = 1 - \PR(D | R_2) = \frac 34$.
+
+Then, by the law of total probability, we have
+\begin{align*}
+\PR(D^c) &= \PR(D^c | R_1) \PR(R_1) + \PR(D^c | R_2) \PR(R_2) \\
+&= \frac 34 \frac 23 + \frac 14 \frac 34 
+= \frac {11}{16}.
+\end{align*}
+:::
+
 :::{#lem-Bayes-rule}
 ### Bayes rule
 For any events $A, B \in \ALPHABET F$ such that $\PR(A), \PR(B) > 0$, we have
@@ -403,6 +533,28 @@ $$
 {\displaystyle \sum_{j=1}^m \PR(A|B_j) \PR(B_j)}
 $$
 where we have used the law of total probability (@lem-total-probability) in the denominator.
+:::
+
+:::{#exr-routing}
+Consider the model of @exr-total-probability. Suppose we know that the packet was dropped. What is the probability that it was transmitted via route $R_1$?
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+Recall the events $R_1$, $R_2$, and $D$ defined in the solution of @exr-total-probability. We were given that 
+$$\PR(R_1) = \frac 34, \quad \PR(R_2) = \frac 14, \quad
+\PR(D|R_1) = \frac 13, \quad \PR(D|R_2) = \frac 14.$$
+We had compute that 
+$$
+\PR(D) = 1 - \PR(D^c) = \frac 5{16}.
+$$
+
+Thus, by Bayes rule, we have
+$$ 
+\PR(R_1 | D) = \frac{ \PR(D | R_1) \PR(R_1) }{ \PR(D) }
+= \frac{ \frac 13 \frac 34 } { \frac 5{16} } = \frac 45.
+$$
 :::
 
 ## Independence
@@ -432,8 +584,8 @@ $$
 It is common for students to make the mistake and think that independence means $A \cap B = \emptyset$. This is not true!
 :::
 
-:::{#exm-independence-dice}
-The events $A$ and $B$ defined in @exr-conditional-dice are independent.
+:::{#exm-independence-die}
+The events $A$ and $B$ defined in @exr-conditional-die are independent.
 :::
 
 :::{#exm-independence-two-dice}

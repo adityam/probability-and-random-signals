@@ -1,0 +1,81 @@
+\usepath[/home/adityam/Projects/presentations]
+
+\enablemode[lucida]
+\environment env-fonts.tex
+\setupbodyfont[slidefont,12pt]
+
+\definecolor[lightgray][s=0.5]
+
+\startsetups[dice]
+  \setupTABLE[each][each][width=3em,height=3em,align={middle,lohi},background=color]
+\stopsetups
+
+\starttext
+\startMPpage[offset=1dk]
+
+  path p;
+  p := unitsquare xyscaled (5cm, 3cm);
+
+  path q[];
+  q[1] := (0cm, 2cm) {dir 0} .. {dir -90} (2cm, 0);
+
+  q[2] := (0cm, 1cm) {dir 0} .. {dir 90} (2.5cm, 3cm);
+  q[2] := q[2] cutbefore q[1];
+
+  q[3] := (0cm, 2cm) {dir 40} .. {dir 0} (5cm, 2cm);
+  q[3] := q[3] cutbefore q[2];
+
+  q[4] := (3cm, 3cm) {dir -90} .. {dir -60} (4cm, 0) ;
+  q[4] := q[4] cutbefore q[3];
+
+  label("$B_1$", 0.35[ point 0.5 of q[1], origin ]);
+  label("$B_2$", 0.5[ (0, 2.5cm), 0.5[ point 0 of q[2], point 1 of q[2]]]);
+  label("$B_3$", 0.5[ point 0 of q[4], (5cm,2.8cm) ]);
+  label("$B_4$", 0.5[ point 0 of q[2], point 0.8 of q[4] ]);
+  label("$B_5$", 0.5[ point 0 of q[4], (5.6cm,0) ]);
+
+
+  pickup pencircle scaled 1bp;
+
+  draw p;
+  
+  draw q[1];
+  draw q[2];
+  draw q[3];
+  draw q[4];
+
+\stopMPpage
+
+\startMPpage[offset=1dk]
+  label("$B_1$", 0.35[ point 0.5 of q[1], origin ]);
+  label("$B_2$", 0.5[ (0, 2.5cm), 0.5[ point 0 of q[2], point 1 of q[2]]]);
+  label("$B_3$", 0.5[ point 0 of q[4], (5cm,2.8cm) ]);
+  label("$B_4$", 0.5[ point 0 of q[2], point 0.8 of q[4] ]);
+  label("$B_5$", 0.5[ point 0 of q[4], (5.6cm,0) ]);
+
+
+  pickup pencircle scaled 1bp;
+
+  draw p;
+  
+  draw q[1];
+  draw q[2];
+  draw q[3];
+  draw q[4];
+
+  path r;
+  r := fullcircle xyscaled (3cm, 2cm) shifted (2.5cm, 1.5cm);
+  r := r randomized 5pt;
+
+  fill r withcolor "lightgray" withstacking -1;
+  draw r;
+
+  drawarrow (6cm, 1cm) -- (2.5cm, 1.5cm) cutafter r 
+            withpen pencircle scaled 0.8bp
+            withcolor "lightgray";
+  label.bot("$A$", (6cm, 1cm));
+
+\stopMPpage
+
+
+\stoptext
