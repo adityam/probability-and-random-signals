@@ -6,9 +6,9 @@ project:
 website:
   title: Probability and Random Signals II
   description: "Course Notes for ECSE 509 (McGill University)"
-  site-url: "https://adityam.github.io/probability/"
+  site-url: "https://adityam.github.io/probability-and-random-signals/"
 
-  repo-url: "https://github.com/adityam/probabiity"
+  repo-url: "https://github.com/adityam/probabiity-and-random-signals"
   repo-actions: [edit]
   repo-branch: quarto
   reader-mode: true
