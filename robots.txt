@@ -1,1 +1,1 @@
-Sitemap: https://adityam.github.io/probability/sitemap.xml
+Sitemap: https://adityam.github.io/probability-and-random-signals/sitemap.xml
