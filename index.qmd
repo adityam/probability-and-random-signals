@@ -84,7 +84,7 @@ Textbook
 
 ## Evaluation
 
-- **Assignments (20%)** Weekly homework assignments. Typically, each assignment will consist of four questions, out of which one or two randomly selected questions will be grader. The lowest two homework assignments will be dropped.
+- **Assignments (25%)** Weekly homework assignments. Typically, each assignment will consist of four questions, out of which one or two randomly selected questions will be grader. The lowest two homework assignments will be dropped.
 
 - **Mid Term (25%)** Closed book in-class exam.
   [**{{< meta course.mid-term >}}**]{.text-danger} (during class time)
