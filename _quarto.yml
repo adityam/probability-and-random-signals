@@ -19,7 +19,7 @@ website:
     pinned: false
     search: false
     left:
-    - href: ../probability/index.html
+    - href: ../probability-and-random-signals
       text: Probability and Random Signals II
         # - href: ../multi-agent-systems/index.html
         #   text: Multi-Agent Systems
