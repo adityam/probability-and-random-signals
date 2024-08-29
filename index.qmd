@@ -2,7 +2,7 @@
 course:
   term: "Fall 2024"
   office-hours: "TBD"
-  teaching-assistants: "TBD"
+  teaching-assistants: "Alexander Fernandes"
   mid-term: "Oct 9"
   lectures:
     - "2:35pm–3:55pm Monday, Wednesday (ENGTR 2100)"
