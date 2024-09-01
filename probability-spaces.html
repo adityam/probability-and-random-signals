@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-08-28">
+<meta name="dcterms.date" content="2024-09-01">
 
 <title>Introduction to Probability – Probability and Random Signals II</title>
 <style>
@@ -102,6 +102,8 @@ window.MathJax = {
       integers: "\\mathbb{Z}",
       BLANK: "\\mathfrak{E}",
       TRANS: "\\intercal",
+      // independent: "⫫", // Too short
+      independent: "\\mathrel{\\perp \\mkern -10mu \\perp}",
       BELLMAN: "\\mathcal{B}",
       RICCATI: "\\mathcal{R}",
       GAIN: "\\mathcal{G}",
@@ -245,7 +247,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 28, 2024</p>
+      <p class="date">September 1, 2024</p>
     </div>
   </div>
   
@@ -851,10 +853,7 @@ Solution
 \]</span> An alternative but equivalent definition is <span class="math display">\[
 \PR(A \cap B) = \PR(A) \PR(B).
 \]</span></p>
-<p>In general, a family of events <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is called <strong>independent</strong> if <span class="math display">\[
-\PR\biggl( \bigcap_{i=1}^n A_i \biggr) =
-\prod_{i=1}^n \PR(A_i).
-\]</span></p>
+<p>We will use the notation <span class="math inline">\(A \independent B\)</span> to denote that the events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent.</p>
 </div>
 <div class="callout callout-style-simple callout-warning">
 <div class="callout-body d-flex">
@@ -871,6 +870,95 @@ Solution
 </div>
 <div id="exm-independence-two-dice" class="theorem example">
 <p><span class="theorem-title"><strong>Example 7</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;7</a> are <strong>not</strong> independent.</p>
+</div>
+<div id="exr-indendence-sigma-albra" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11</strong></span> <span class="math inline">\(A \independent B\)</span> implies the following:</p>
+<ul>
+<li><span class="math inline">\(A \independent B^c\)</span>.</li>
+<li><span class="math inline">\(A^c \independent B\)</span>.</li>
+<li><span class="math inline">\(A^c \independent B^c\)</span>.</li>
+</ul>
+</div>
+<div id="def-collective-independence" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4</strong></span> A family of events <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is called <strong>independent</strong> (sometimes <strong>mutually independent</strong> if for all non-empty subset of indices <span class="math inline">\(\{k_1, \dots, k_m\} \subset \{1,\dots,n\}\)</span>, we have <span class="math display">\[
+\PR\bigl( A_{k_1} \cap A_{k_2} \cap \cdots \cap A_{k_m} \bigr)
+= \PR(A_{k_1}) \PR(A_{k_2}) \cdots \PR(A_{k_m}).
+\]</span></p>
+</div>
+<div id="exr-bits" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 12</strong></span> Three bits are transmitted over a noisy channel. For each bit, the probability of correct reception is <span class="math inline">\(λ\)</span>. The error events for the three transmissions are mutually independent. Find the probability that two bits are received correctly.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For <span class="math inline">\(i \in \{1, 2, 3\}\)</span>, let</p>
+<ul>
+<li><span class="math inline">\(E_i\)</span> denote the event that bit <span class="math inline">\(i\)</span> is received incorrectly</li>
+<li><span class="math inline">\(C_i\)</span> denote the event that bit <span class="math inline">\(i\)</span> is received correctly</li>
+</ul>
+<p>Moreover let <span class="math inline">\(S\)</span> denote the event that two bits are received correctly. Then, <span class="math display">\[
+S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3)
+\cap (E_1 \cap C_2 \cap C_3).
+\]</span> Note that the three events in the right hand side are disjoint. Thus, <span class="math display">\[\begin{align*}
+\PR(S) &amp;=
+\PR(C_1 \cap C_2 \cap E_3) +  \PR(C_1 \cap E_2 \cap C_3) +
+\PR(E_1 \cap C_2 \cap C_3) \\
+&amp;=
+\PR(C_1)\PR(C_2)\PR(E_3) +  \PR(C_1)\PR(E_2)\PR(C_3) +
+\PR(E_1)\PR(C_2)\PR(C_3) \\
+&amp;= 3 (1-λ) λ^2.
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pairwise independence vs independence
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A family of events <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is <strong>pairwise independent</strong> if for every <span class="math inline">\(i,j \in \{1, \dots, n\}\)</span>, <span class="math inline">\(i \neq j\)</span>, we have <span class="math display">\[ \PR(A_i \cap A_j) = \PR(A_i) \PR(A_j). \]</span></p>
+<p>Pairwise independence is weaker than Independence. For instance, three events <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> are pairwise independent if <span class="math display">\[
+\PR(A \cap B) = \PR(A) \PR(B),
+\quad
+\PR(B \cap C) = \PR(B) \PR(C),
+\quad\text{and}\quad
+\PR(C \cap A) = \PR(C) \PR(A).
+\]</span> For independence, in addition to the above, we also need <span class="math display">\[ \PR(A \cap B \cap C) = \PR(A)\PR(B) \PR(C). \]</span></p>
+<p>The following example illustrates shows that independence is stronger than pairwise independence. Consider an urn with <span class="math inline">\(M\)</span> red balls and <span class="math inline">\(M\)</span> blue balls. Two balls are drawn at random, one at a time, with replacement. Consider the following events:</p>
+<ul>
+<li><span class="math inline">\(A\)</span> is the event that the first ball is red.</li>
+<li><span class="math inline">\(B\)</span> is the event that the second ball is blue.</li>
+<li><span class="math inline">\(C\)</span> is the event that both balls are of the same color.</li>
+</ul>
+<p>Observe that</p>
+<ul>
+<li><span class="math inline">\(A \cap B\)</span> is the event that the first is red and second is blue.</li>
+<li><span class="math inline">\(B \cap C\)</span> is the event that both balls are blue.</li>
+<li><span class="math inline">\(C \cap A\)</span> is the event that both balls are red.</li>
+<li><span class="math inline">\(A \cap B \cap C = \emptyset\)</span></li>
+</ul>
+<p>Therefore,</p>
+<ul>
+<li><span class="math inline">\(\PR(A) = \PR(B) = \PR(C) = \frac 14\)</span>.</li>
+<li><span class="math inline">\(\PR(A \cap B) = \PR(B \cap C) = \PR(C \cap A) = \frac 14\)</span>.</li>
+<li><span class="math inline">\(\PR(A \cap B \cap C) = \emptyset\)</span>.</li>
+</ul>
+<p>Thus, <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> are pairwise independent but not independent.</p>
+</div>
 </div>
 
 
