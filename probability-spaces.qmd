@@ -573,11 +573,7 @@ $$
 \PR(A \cap B) = \PR(A) \PR(B).
 $$
 
-In general, a family of events $\{A_1, A_2, \dots, A_n\}$ is called **independent** if 
-$$
-\PR\biggl( \bigcap_{i=1}^n A_i \biggr) = 
-\prod_{i=1}^n \PR(A_i).
-$$
+We will use the notation $A \independent B$ to denote that the events $A$ and $B$ are independent.
 :::
 
 :::{.callout-warning appearance="simple"}
@@ -591,3 +587,92 @@ The events $A$ and $B$ defined in @exr-conditional-die are independent.
 :::{#exm-independence-two-dice}
 The events $A$ and $B$ defined in @exr-conditional-two-dice are **not** independent.
 :::
+
+
+:::{#exr-indendence-sigma-albra}
+  $A \independent B$ implies the following:
+
+  - $A \independent B^c$.
+  - $A^c \independent B$.
+  - $A^c \independent B^c$.
+:::
+
+
+:::{#def-collective-independence}
+
+A family of events $\{A_1, A_2, \dots, A_n\}$ is called **independent** (sometimes **mutually independent** if for all non-empty subset of indices $\{k_1, \dots, k_m\} \subset \{1,\dots,n\}$, we have
+$$
+\PR\bigl( A_{k_1} \cap A_{k_2} \cap \cdots \cap A_{k_m} \bigr)
+= \PR(A_{k_1}) \PR(A_{k_2}) \cdots \PR(A_{k_m}).
+$$
+:::
+
+:::{#exr-bits}
+Three bits are transmitted over a noisy channel. For each bit, the probability of correct reception is $λ$. The error events for the three transmissions are mutually independent. Find the probability that two bits are received correctly.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+For $i \in \{1, 2, 3\}$, let
+
+- $E_i$ denote the event that bit $i$ is received incorrectly
+- $C_i$ denote the event that bit $i$ is received correctly
+
+Moreover let $S$ denote the event that two bits are received correctly. Then,
+$$
+S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3) 
+\cap (E_1 \cap C_2 \cap C_3).
+$$
+Note that the three events in the right hand side are disjoint. Thus,
+\begin{align*}
+\PR(S) &= 
+\PR(C_1 \cap C_2 \cap E_3) +  \PR(C_1 \cap E_2 \cap C_3) + 
+\PR(E_1 \cap C_2 \cap C_3) \\
+&= 
+\PR(C_1)\PR(C_2)\PR(E_3) +  \PR(C_1)\PR(E_2)\PR(C_3) + 
+\PR(E_1)\PR(C_2)\PR(C_3) \\
+&= 3 (1-λ) λ^2.
+\end{align*}
+:::
+
+:::{.callout-warning}
+### Pairwise independence vs independence
+
+A family of events $\{A_1, A_2, \dots, A_n\}$ is **pairwise independent** if for every $i,j \in \{1, \dots, n\}$, $i \neq j$, we have
+$$ \PR(A_i \cap A_j) = \PR(A_i) \PR(A_j). $$
+
+Pairwise independence is weaker than Independence. For instance, three events $A$, $B$, and $C$ are pairwise independent if
+$$
+\PR(A \cap B) = \PR(A) \PR(B),
+\quad
+\PR(B \cap C) = \PR(B) \PR(C),
+\quad\text{and}\quad
+\PR(C \cap A) = \PR(C) \PR(A).
+$$
+For independence, in addition to the above, we also need
+$$ \PR(A \cap B \cap C) = \PR(A)\PR(B) \PR(C). $$
+
+The following example illustrates shows that independence is stronger than pairwise independence. Consider an urn with $M$ red balls and $M$ blue balls. Two balls are drawn at random, one at a time, with replacement. Consider the following events:
+
+- $A$ is the event that the first ball is red.
+- $B$ is the event that the second ball is blue.
+- $C$ is the event that both balls are of the same color. 
+
+Observe that
+
+- $A \cap B$ is the event that the first is red and second is blue.
+- $B \cap C$ is the event that both balls are blue.
+- $C \cap A$ is the event that both balls are red. 
+- $A \cap B \cap C = \emptyset$
+
+Therefore,
+
+- $\PR(A) = \PR(B) = \PR(C) = \frac 14$.
+- $\PR(A \cap B) = \PR(B \cap C) = \PR(C \cap A) = \frac 14$.
+- $\PR(A \cap B \cap C) = \emptyset$.
+
+Thus, $A$, $B$, $C$ are pairwise independent but not independent. 
+:::
+
+
