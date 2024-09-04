@@ -675,4 +675,16 @@ Therefore,
 Thus, $A$, $B$, $C$ are pairwise independent but not independent. 
 :::
 
+## Product spaces
+
+So far, we have restricted attention to the outcome of one experiment. It is also possible to construct probability models which combine the outcome of two _independent_ experiments, e.g., suppose we toss a coin and also roll a die. Let $(Ω_1, \ALPHABET F_1, \PR_1)$ and $(Ω_2, \ALPHABET F_2, \PR_2)$ be the probability spaces associated with the two experiments? What is the probability space $(Ω, \ALPHABET F, \PR)$ of the joint experiments?
+
+The sample space should obviously be $Ω = Ω_1 \times Ω_2$. When $\ALPHABET F_1$ and $\ALPHABET F_2$ are finite, then we can simply define $\ALPHABET F = \ALPHABET F_1 \times \ALPHABET F_2$ and for any $A = (A_1, A_2) \in \ALPHABET F$, $\PR(A)$ to be $\PR(A_1) \PR(A_2)$. You would have implicitly consutrcted such product spaces when dealing with joint experiments (like the coin toss and die roll example above) in your undergrad courses.
+
+However, things are a bit more complicated when $\ALPHABET F_1$ and $\ALPHABET F_2$ are not finite. The difficulty is that $\ALPHABET F_1 \times \ALPHABET F_2$ is not a $σ$-algebra. So, take $\ALPHABET F$ to be $σ(\ALPHABET F_1 \times \ALPHABET F_2)$ (which is the smallest $σ$-algebra comtaining $\ALPHABET F_1 \times \ALPHABET F_2$) and define $\PR$ to be the extension of $\PR_1 \times \PR_2$ from $\ALPHABET F_1 \times \ALPHABET F_2$ to $σ(\ALPHABET F_1 \times \ALPHABET F_2)$ (one can show that such an extension exists). Such product space is often written as
+$$
+(Ω, \ALPHABET F, \PR) = (Ω_1 \times Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2, \PR_1 \otimes \PR_2). $$
+
+We will not worry too much about the technical details of such product spaces, but will use the above notation at times in the course. 
+
 
