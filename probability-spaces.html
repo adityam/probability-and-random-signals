@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-09-01">
+<meta name="dcterms.date" content="2024-09-04">
 
 <title>Introduction to Probability – Probability and Random Signals II</title>
 <style>
@@ -213,6 +213,7 @@ window.Quarto = {
   <li><a href="#probability-space" id="toc-probability-space" class="nav-link" data-scroll-target="#probability-space"><span class="header-section-number">3</span> Probability Space</a></li>
   <li><a href="#conditional-probability" id="toc-conditional-probability" class="nav-link" data-scroll-target="#conditional-probability"><span class="header-section-number">4</span> Conditional Probability</a></li>
   <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence"><span class="header-section-number">5</span> Independence</a></li>
+  <li><a href="#product-spaces" id="toc-product-spaces" class="nav-link" data-scroll-target="#product-spaces"><span class="header-section-number">6</span> Product spaces</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/probability-spaces.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -247,7 +248,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 1, 2024</p>
+      <p class="date">September 4, 2024</p>
     </div>
   </div>
   
@@ -960,6 +961,14 @@ Pairwise independence vs independence
 <p>Thus, <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> are pairwise independent but not independent.</p>
 </div>
 </div>
+</section>
+<section id="product-spaces" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="product-spaces"><span class="header-section-number">6</span> Product spaces</h2>
+<p>So far, we have restricted attention to the outcome of one experiment. It is also possible to construct probability models which combine the outcome of two <em>independent</em> experiments, e.g., suppose we toss a coin and also roll a die. Let <span class="math inline">\((Ω_1, \ALPHABET F_1, \PR_1)\)</span> and <span class="math inline">\((Ω_2, \ALPHABET F_2, \PR_2)\)</span> be the probability spaces associated with the two experiments? What is the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> of the joint experiments?</p>
+<p>The sample space should obviously be <span class="math inline">\(Ω = Ω_1 \times Ω_2\)</span>. When <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> are finite, then we can simply define <span class="math inline">\(\ALPHABET F = \ALPHABET F_1 \times \ALPHABET F_2\)</span> and for any <span class="math inline">\(A = (A_1, A_2) \in \ALPHABET F\)</span>, <span class="math inline">\(\PR(A)\)</span> to be <span class="math inline">\(\PR(A_1) \PR(A_2)\)</span>. You would have implicitly consutrcted such product spaces when dealing with joint experiments (like the coin toss and die roll example above) in your undergrad courses.</p>
+<p>However, things are a bit more complicated when <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> are not finite. The difficulty is that <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> is not a <span class="math inline">\(σ\)</span>-algebra. So, take <span class="math inline">\(\ALPHABET F\)</span> to be <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (which is the smallest <span class="math inline">\(σ\)</span>-algebra comtaining <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span>) and define <span class="math inline">\(\PR\)</span> to be the extension of <span class="math inline">\(\PR_1 \times \PR_2\)</span> from <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> to <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (one can show that such an extension exists). Such product space is often written as <span class="math display">\[
+(Ω, \ALPHABET F, \PR) = (Ω_1 \times Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2, \PR_1 \otimes \PR_2). \]</span></p>
+<p>We will not worry too much about the technical details of such product spaces, but will use the above notation at times in the course.</p>
 
 
 </section>
