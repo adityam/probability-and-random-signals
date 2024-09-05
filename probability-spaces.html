@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-09-04">
+<meta name="dcterms.date" content="2024-09-05">
 
 <title>Introduction to Probability – Probability and Random Signals II</title>
 <style>
@@ -248,7 +248,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 4, 2024</p>
+      <p class="date">September 5, 2024</p>
     </div>
   </div>
   
@@ -501,7 +501,7 @@ q(6) = \frac{1}{3}.
 </ul>
 </div>
 </div>
-<div class="callout callout-style-simple callout-warning">
+<div id="sigma-algebra" class="callout callout-style-simple callout-warning">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -516,7 +516,7 @@ q(6) = \frac{1}{3}.
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div id="Borel-algebra" class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -872,13 +872,31 @@ Solution
 <div id="exm-independence-two-dice" class="theorem example">
 <p><span class="theorem-title"><strong>Example 7</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;7</a> are <strong>not</strong> independent.</p>
 </div>
-<div id="exr-indendence-sigma-albra" class="theorem exercise">
+<div id="exr-indendence-sigma-algebra" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 11</strong></span> <span class="math inline">\(A \independent B\)</span> implies the following:</p>
 <ul>
 <li><span class="math inline">\(A \independent B^c\)</span>.</li>
 <li><span class="math inline">\(A^c \independent B\)</span>.</li>
 <li><span class="math inline">\(A^c \independent B^c\)</span>.</li>
 </ul>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Independence of <span class="math inline">\(σ\)</span>-algebras
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the discussion below, we assume that the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> is fixed.</p>
+<ol type="1">
+<li><p>Two sub-<span class="math inline">\(σ\)</span>-algebras <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> of <span class="math inline">\(\ALPHABET F\)</span> are said to be independent if every event <span class="math inline">\(A_1 \in \ALPHABET F_1\)</span> is independent of every event <span class="math inline">\(A_2 \in \ALPHABET F_2\)</span>.</p></li>
+<li><p>For any event <span class="math inline">\(A\)</span>, let <span class="math inline">\(σ(A)\)</span> denote the smallest <span class="math inline">\(σ\)</span>-algebra containing <span class="math inline">\(A\)</span>, i.e., <span class="math inline">\(σ(A) = \{\emptyset, A, A^c, Ω\}\)</span>.</p></li>
+<li><p><a href="#exr-indendence-sigma-algebra" class="quarto-xref">Exercise&nbsp;11</a> implies that independence of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> implies the independence of <span class="math inline">\(σ(A)\)</span> and <span class="math inline">\(σ(B)\)</span>. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest <span class="math inline">\(σ\)</span>-algebra containing those events.</p></li>
+</ol>
+</div>
 </div>
 <div id="def-collective-independence" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 4</strong></span> A family of events <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is called <strong>independent</strong> (sometimes <strong>mutually independent</strong> if for all non-empty subset of indices <span class="math inline">\(\{k_1, \dots, k_m\} \subset \{1,\dots,n\}\)</span>, we have <span class="math display">\[
@@ -890,7 +908,7 @@ Solution
 <p><span class="theorem-title"><strong>Exercise 12</strong></span> Three bits are transmitted over a noisy channel. For each bit, the probability of correct reception is <span class="math inline">\(λ\)</span>. The error events for the three transmissions are mutually independent. Find the probability that two bits are received correctly.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -899,7 +917,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>For <span class="math inline">\(i \in \{1, 2, 3\}\)</span>, let</p>
 <ul>
