@@ -203,8 +203,16 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#discrete-and-coninuous-random-variables" id="toc-discrete-and-coninuous-random-variables" class="nav-link active" data-scroll-target="#discrete-and-coninuous-random-variables"><span class="header-section-number">1</span> Discrete and coninuous random variables</a></li>
-  <li><a href="#random-vectors-and-joint-distributions." id="toc-random-vectors-and-joint-distributions." class="nav-link" data-scroll-target="#random-vectors-and-joint-distributions."><span class="header-section-number">2</span> Random vectors and joint distributions.</a></li>
+  <li><a href="#discrete-and-continuous-random-variables" id="toc-discrete-and-continuous-random-variables" class="nav-link active" data-scroll-target="#discrete-and-continuous-random-variables"><span class="header-section-number">1</span> Discrete and continuous random variables</a>
+  <ul class="collapse">
+  <li><a href="#some-examples-of-discrete-random-variables" id="toc-some-examples-of-discrete-random-variables" class="nav-link" data-scroll-target="#some-examples-of-discrete-random-variables"><span class="header-section-number">1.1</span> Some examples of discrete random variables</a></li>
+  <li><a href="#some-examples-of-continuous-random-variables" id="toc-some-examples-of-continuous-random-variables" class="nav-link" data-scroll-target="#some-examples-of-continuous-random-variables"><span class="header-section-number">1.2</span> Some examples of continuous random variables</a></li>
+  </ul></li>
+  <li><a href="#expectation-of-random-variables" id="toc-expectation-of-random-variables" class="nav-link" data-scroll-target="#expectation-of-random-variables"><span class="header-section-number">2</span> Expectation of random variables</a>
+  <ul class="collapse">
+  <li><a href="#higher-moments" id="toc-higher-moments" class="nav-link" data-scroll-target="#higher-moments"><span class="header-section-number">2.1</span> Higher moments</a></li>
+  </ul></li>
+  <li><a href="#random-vectors-and-joint-distributions." id="toc-random-vectors-and-joint-distributions." class="nav-link" data-scroll-target="#random-vectors-and-joint-distributions."><span class="header-section-number">3</span> Random vectors and joint distributions.</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -294,14 +302,6 @@ F_X(x) = \begin{cases}
 \tfrac 34, &amp; \hbox{if } 1 \le x &lt; 2,\\
 1, &amp;\hbox{if } 2 \le x.
 \end{cases}\]</span></p>
-<div id="lem-properties-of-CDFs" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 1</strong></span> CDFs have the following properties.</p>
-<ol type="1">
-<li><p><span class="math inline">\(\lim_{x \to -∞} F(x) = 0\)</span> and <span class="math inline">\(\lim_{x \to +∞} F(x) = 1\)</span>.</p></li>
-<li><p>CDFs are non-decreasing, i.e., if <span class="math inline">\(x &lt; y\)</span>, then <span class="math inline">\(F(x) \le F(y)\)</span>.</p></li>
-<li><p>CDFs are right continuous, i.e., <span class="math inline">\(\lim_{h \downarrow 0}F(x+h) = F(x)\)</span>.</p></li>
-</ol>
-</div>
 <div id="exm-constant" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2 (Constant random variables)</strong></span> The simplest random variable takes a constant value on the whole domain <span class="math inline">\(Ω\)</span>, i.e., <span class="math display">\[
 X(ω) = c, \quad \forall ω \in Ω
@@ -328,48 +328,124 @@ F(x) = \begin{cases}
     0, &amp; \hbox{otherwise }
 \end{cases}.\]</span> Observe that <span class="math inline">\(\IND_A\)</span> is a Bernoulli random variable which takes values <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span> with probabilities <span class="math inline">\(\PR(A)\)</span> and <span class="math inline">\(1 - \PR(A)\)</span>.</p>
 </div>
-<div id="lem-more-properties-of-CDFs" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 2</strong></span> Let <span class="math inline">\(F\)</span> be the distribution function of <span class="math inline">\(X\)</span>. Then,</p>
+<div id="lem-properties-of-CDFs" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1 (Properties of CDFs)</strong></span> &nbsp;</p>
 <ol type="1">
 <li><p><span class="math inline">\(\PR(X &gt; x) = 1 - F(x)\)</span>.</p></li>
 <li><p><span class="math inline">\(\PR(x &lt; X \le y) = F(y) - F(x)\)</span>.</p></li>
-<li><p><span class="math inline">\(\PR(X = x) = F(x) - F(x^{-})\)</span>.</p></li>
+<li><p><span class="math inline">\(\lim_{x \to -∞} F(x) = 0\)</span> and <span class="math inline">\(\lim_{x \to +∞} F(x) = 1\)</span>.</p></li>
+<li><p>CDFs are non-decreasing, i.e., if <span class="math inline">\(x &lt; y\)</span>, then <span class="math inline">\(F(x) \le F(y)\)</span>.</p></li>
+<li><p>CDFs are right continuous, i.e., <span class="math inline">\(\lim_{h \downarrow 0}F(x+h) = F(x)\)</span>.</p></li>
+<li><p><span class="math inline">\(\PR(X = x) = F(x) - F(x^{-})\)</span>, where <span class="math inline">\(F(x^{-})\)</span> is defined as <span class="math inline">\(\lim_{h \downarrow 0} F(x - h)\)</span></p></li>
 </ol>
 </div>
-<section id="discrete-and-coninuous-random-variables" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="discrete-and-coninuous-random-variables"><span class="header-section-number">1</span> Discrete and coninuous random variables</h2>
-<p>In the engineering literature, it is common to encouter two special type of random variables: discrete and continuous.</p>
-<ol type="1">
-<li><p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>discrete</strong> if it takes values in a countable subset <span class="math inline">\(\{x_1, x_2, \dots\}\)</span> of <span class="math inline">\(\reals\)</span>. A discrete random variable has a <strong>probability mass function (PMF)</strong> <span class="math inline">\(f \colon \reals \to [0,1]\)</span> which satisfies the following properties:</p>
-<ul>
-<li><span class="math inline">\(f(x) = \PR(X = x) = F(x) - F(x^{-1})\)</span>.</li>
-<li><span class="math inline">\(F(x) = \sum_{x_i : x_i \le x} f(x_i).\)</span></li>
-<li>An implication of the above is <span class="math inline">\(\sum_{i=1}^{∞} f(x_i) = 1\)</span>.</li>
-</ul></li>
-<li><p>A random variable <span class="math inline">\(X\)</span> is called <strong>continuous</strong> if there exists an integrable function <span class="math inline">\(f \colon \reals \to [0, ∞)\)</span> called the <strong>probability denisity function</strong> such that the CDF can be written as <span class="math display">\[
-F(x) = \int_{-∞}^x f(x) dx.
-\]</span></p></li>
-</ol>
-<p>Note that random variables are not restricted to being discrete or continuous. For instance, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then <span class="math inline">\(X \sim \text{Bernoulli}(0.25)\)</span>; if the outcome is tails; then <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>. Thus (from the law of total probability), the CDF of <span class="math inline">\(X\)</span> is <span class="math display">\[
-F_X(x) = \begin{cases}
-0, &amp; \hbox{if } x &lt; 0 \\
-\frac 12 &amp; \hbox{if } x = 0 \\
-\frac {(1+x)}2 &amp; \hbox{if } 0 &lt; x &lt; 1 \\
-1 &amp; \hbox{if } x \ge 1.
-\end{cases}.
-\]</span></p>
-<p>Note that discrete random variable creates a parition of the sample space. In particular, suppose <span class="math inline">\(X\)</span> is a random variable and <span class="math inline">\(\{x_1, x_2, \dots\}\)</span> is the range of <span class="math inline">\(X\)</span>. Define <span class="math display">\[A_i = \{ω \in Ω : X(ω) = x_i \} = X^{-1}(x_i)\]</span> Then, <span class="math inline">\(\{A_1, A_2, \dots \}\)</span> is a partition of <span class="math inline">\(Ω\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Proof of claim
+Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>By definition, <span class="math inline">\(\{X &gt; x\}^c = Ω\setminus \{X \le x\}\)</span>. Thus, <span class="math display">\[\PR(X &gt; x) = 1 - \PR(X \le x) = 1 - F(x).\]</span></p></li>
+<li><p><span class="math display">\[\PR(x &lt; X \le y) = \PR(X \le y) - \PR(X \le x) = F(y) - F(x).\]</span> [See assignment 1 for the first inequality.]</p></li>
+<li><p>Define the increasing sequence of events <span class="math inline">\(A_n = \{ X \le n\}\)</span>, <span class="math inline">\(n \in \naturalnumbers\)</span>. By continuity of probability, we have <span class="math display">\[\begin{align*}
+  &amp;\quad &amp; \PR\biggl( \bigcup_{n=1}^{∞} A_n \biggr)
+  &amp; = \lim_{n \to ∞} \PR(A_n) \\
+  \implies &amp;&amp; \PR(\{X &lt; ∞\}) &amp;= \lim_{n \to ∞} \PR(X \le n) \\
+  \implies &amp;&amp; \PR(Ω) &amp;= \lim_{n \to ∞} F(n) \\
+  \implies &amp;&amp; 1 &amp;= \lim_{n \to ∞} F(n).
+\end{align*}\]</span></p>
+<p>The reverse argument is similar where we consider the decreasing sequence of events <span class="math inline">\(B_n = \{ X_n \le -n \}\)</span>, <span class="math inline">\(n \in \naturalnumbers\)</span>. Then, by continuity of probability, we have <span class="math display">\[\begin{align*}
+     &amp;\quad &amp; \PR\biggl( \bigcap_{n=1}^{∞} B_n \biggr)
+     &amp; = \lim_{n \to ∞} \PR(B_n) \\
+     \implies &amp;&amp; \PR(\{X &lt; -∞\}) &amp;= \lim_{n \to ∞} \PR(X \le -n) \\
+     \implies &amp;&amp; \PR(\emptyset) &amp;= \lim_{n \to ∞} F(-n) \\
+     \implies &amp;&amp; 0 &amp;= \lim_{n \to ∞} F(-n).
+   \end{align*}\]</span></p></li>
+<li><p>Recall that <span class="math display">\[\begin{align*}
+   F(x) &amp;= \PR(X \le x) \\
+   F(y) &amp;= \PR(X \le y)
+\end{align*}\]</span> Observe that since <span class="math inline">\(x &lt; y\)</span>, we have <span class="math inline">\(\{X \le x\} \subseteq \{X \le y\}\)</span>. Hence, by monotonicity of probability, we have <span class="math display">\[\PR(X \le x) \le \PR(X \le y),\]</span> which proves the result.</p></li>
+<li><p>Consider the decreasing sequence of sets: <span class="math display">\[ A_n = \{ X \le x + \tfrac 1n \}, \quad n \in \naturalnumbers. \]</span> Then, by continuity of probability, we have <span class="math display">\[\begin{align*}
+  &amp;\quad &amp; \PR\biggl( \bigcap_{i=1}^{∞} A_n \biggr)
+  &amp; = \lim_{n \to ∞} \PR(A_n) \\
+  \implies &amp;&amp; \PR(X \le x) &amp;= \lim_{n \to ∞} \PR(X \le x + \tfrac 1n ) \\
+  \implies &amp;&amp; F(x) &amp;= \lim_{n \to ∞} F(x + \tfrac 1n).
+\end{align*}\]</span></p></li>
+<li><p>Define the decreasing sequence of sets <span class="math display">\[ A_n = \biggl\{ x - \frac 1n &lt; X \le x \biggr\},
+\quad n \in \naturalnumbers.\]</span> Observe that by the previous property <span class="math display">\[\PR(A_n) = F(x) - F(x - \tfrac 1n).\]</span> Since <span class="math inline">\(A_n\)</span> is a decreasing sequence of sets, we have <span class="math display">\[\begin{align*}
+&amp; \quad &amp;
+\PR\biggl( \bigcap_{n=1}^∞ A_n \biggr)
+&amp;= \lim_{n \to ∞} \PR(A_n) \\
+\implies &amp;&amp; \PR(X = x) &amp;= F(x) - \lim_{n \to ∞} F(x - \tfrac 1n) \\
+&amp;&amp;&amp; = F(x) - F(x^{-}).
+\end{align*}\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-CDF-expressions" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 1</strong></span> For <span class="math inline">\(x &lt; y\)</span>, express the following in terms of the CDF:</p>
+<ol type="1">
+<li><span class="math inline">\(\PR(x \le X \le y)\)</span>.</li>
+<li><span class="math inline">\(\PR(x \le X &lt; y)\)</span>.</li>
+</ol>
+</div>
+<section id="discrete-and-continuous-random-variables" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="discrete-and-continuous-random-variables"><span class="header-section-number">1</span> Discrete and continuous random variables</h2>
+<p>There are three types of random variables</p>
+<ol type="1">
+<li><p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>discrete</strong> if it takes values in a countable subset <span class="math inline">\(\{x_1, x_2, \dots\}\)</span> of <span class="math inline">\(\reals\)</span>. A discrete random variable has a <strong>probability mass function (PMF)</strong> <span class="math inline">\(f \colon \reals \to [0,1]\)</span> which satisfies the following properties:</p>
+<ul>
+<li><span class="math inline">\(f(x) = \PR(X = x) = F(x) - F(x^{-})\)</span>.</li>
+<li><span class="math inline">\(F(x) = \sum_{x_n : x_n \le x} f(x_n).\)</span></li>
+<li>An implication of the above is <span class="math inline">\(\sum_{n=1}^{∞} f(x_n) = 1\)</span>.</li>
+</ul>
+<p><span class="text-primary">Thus, for a discrete random variable, the CDF is a piecewise constant function</span></p>
+<p><!-- TODO: Add figure --></p></li>
+<li><p>A random variable <span class="math inline">\(X\)</span> is called <strong>continuous</strong> if there exists an integrable function <span class="math inline">\(f \colon \reals \to [0, ∞)\)</span> called the <strong>probability denisity function</strong> such that the CDF can be written as <span class="math display">\[
+F(x) = \int_{-∞}^x f(x) dx.
+\]</span></p>
+<p><span class="text-primary">Thus, for a continuous random variable, the CDF is a continuous function</span></p>
+<p><!-- TODO: Add figure --></p></li>
+<li><p>A random variable is called <strong>mixed</strong> if it is neither discrete nor continuous. <span class="text-primary">For a mixed random variable, the CDF has has jumps at a finite or countable infinite number of points and it is continuous over one or many intervals.</span></p>
+<p>As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then <span class="math inline">\(X \sim \text{Bernoulli}(0.25)\)</span>; if the outcome is tails; then <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>. Thus (from the law of total probability), the CDF of <span class="math inline">\(X\)</span> is <span class="math display">\[
+   F_X(x) = \begin{cases}
+   0, &amp; \hbox{if } x &lt; 0 \\
+   \frac 12 &amp; \hbox{if } x = 0 \\
+   \frac {(1+x)}2 &amp; \hbox{if } 0 &lt; x &lt; 1 \\
+   1 &amp; \hbox{if } x \ge 1.
+   \end{cases}.
+   \]</span></p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="math inline">\(σ\)</span>-algebra generated by random variables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A discrete random variable creates a partition of the sample space. In particular, suppose <span class="math inline">\(X\)</span> is a random variable and <span class="math inline">\(\{x_1, x_2, \dots\}\)</span> is the range of <span class="math inline">\(X\)</span>. Define <span class="math display">\[A_n = \{ω \in Ω : X(ω) = x_i \} = X^{-1}(x_n)\]</span> Then, <span class="math inline">\(\{A_1, A_2, \dots \}\)</span> is a partition of <span class="math inline">\(Ω\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof that it is a partition
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>To show that <span class="math inline">\(\{A_1, A_2, \dots \}\)</span> forms a partition, we need to establish two properties:</p>
 <ol type="1">
@@ -391,9 +467,136 @@ Figure&nbsp;1: Illustration of <span class="math inline">\(σ(X)\)</span> for <a
 </figcaption>
 </figure>
 </div>
+</div>
+</div>
+<section id="some-examples-of-discrete-random-variables" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="some-examples-of-discrete-random-variables"><span class="header-section-number">1.1</span> Some examples of discrete random variables</h3>
+<p>We now consider some other examples of discrete random variables</p>
+<div id="exm-Binomial" class="theorem example">
+<p><span class="theorem-title"><strong>Example 5 (Binomial random variable)</strong></span> A Binomial random variable is the sum of intendant and identically distributed random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binomial}(n,p)\)</span>. For such a random variable, <span class="math display">\[
+f(k) = \binom n k p^k (1-p)^{n-k}, \quad 0 \le k \le n.
+\]</span></p>
+</div>
+<div id="exm-Poisson" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6 (Poisson random variable)</strong></span> Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to <em>Poisson random variable with parameter <span class="math inline">\(λ &gt; 0\)</span></em>, which is denoted by <span class="math inline">\(\text{Poisson}(λ)\)</span>, if <span class="math display">\[
+f(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
+\]</span></p>
+</div>
+<div id="exm-Geometric" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7 (Geometeric random variable)</strong></span> A random variable is said to <em>Geometric random variable with parameter <span class="math inline">\(p \in (0,1)\)</span></em>, which is denoted by <span class="math inline">\(\text{Geo}(p)\)</span>, if <span class="math display">\[
+f(k) = (1-p)^{k-1} p, \quad k \in \integers_{&gt; 0}.
+\]</span></p>
+</div>
+<div id="exm-Uniform-discrete" class="theorem example">
+<p><span class="theorem-title"><strong>Example 8 (Uniform random variable)</strong></span> A random variable is said to have a (discrete) uniform distribution over a discrete set <span class="math inline">\(\ALPHABET S\)</span> if <span class="math display">\[f(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.\]</span></p>
+</div>
 </section>
-<section id="random-vectors-and-joint-distributions." class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="random-vectors-and-joint-distributions."><span class="header-section-number">2</span> Random vectors and joint distributions.</h2>
+<section id="some-examples-of-continuous-random-variables" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="some-examples-of-continuous-random-variables"><span class="header-section-number">1.2</span> Some examples of continuous random variables</h3>
+<div id="exm-Uniform-continuous" class="theorem example">
+<p><span class="theorem-title"><strong>Example 9 (Uniform random variable)</strong></span> A random variable is said to have a (continuous) uniform distribution over an interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(a &lt; b\)</span> if <span class="math display">\[f(x) = \frac 1{b - a}, \quad x \in [a,b].\]</span></p>
+</div>
+<div id="exm-exponential" class="theorem example">
+<p><span class="theorem-title"><strong>Example 10 (Exponential random variable)</strong></span> A random variable is said to have an exponential distribution with parameter <span class="math inline">\(λ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\text{exp}(λ)\)</span> if <span class="math display">\[f(x) = λ e^{-λ x}, \quad x \ge 0.\]</span></p>
+</div>
+<div id="exm-Gaussian" class="theorem example">
+<p><span class="theorem-title"><strong>Example 11 (Gaussian random variable)</strong></span> A random variable is said to have a Gaussian distribution with mean <span class="math inline">\(μ\)</span> and standard deviation <span class="math inline">\(σ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\mathcal N(μ, σ^2)\)</span> if <span class="math display">\[f(x) = \frac 1{\sqrt{2 π}\, σ}
+\exp\left( -\frac {(x-μ)^2}{2 σ^2} \right),
+\quad x \in \reals.\]</span></p>
+</div>
+</section>
+</section>
+<section id="expectation-of-random-variables" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="expectation-of-random-variables"><span class="header-section-number">2</span> Expectation of random variables</h2>
+<p>Suppose we generate <span class="math inline">\(N\)</span> i.i.d. (independent and identically distributed) samples <span class="math inline">\(\{s_1, s_2, \dots, s_N\}\)</span> of a random variable <span class="math inline">\(X\)</span> and compute the average: <span class="math display">\[ m = \frac 1N \sum_{n=1}^N s_n. \]</span> When <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n\}\)</span>, we expect that the number of times we obtain a value <span class="math inline">\(x_i\)</span> is approximately <span class="math inline">\(Nf(x_i)\)</span> when <span class="math inline">\(N\)</span> is large. Thus, <span class="math display">\[ m \approx \frac 1N \sum_{i=1}^n x_i \, N f(x_i)  = \sum_{i=1}^n x_i f(x_i). \]</span></p>
+<p>This quantity is called the <strong>expectation</strong> or the <strong>expected value</strong> or the <strong>mean value</strong> of the random variable <span class="math inline">\(X\)</span> and denoted by <span class="math inline">\(\EXP[X]\)</span>.</p>
+<div id="def-expectation" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> The <strong>expectation</strong> of a random variable <span class="math inline">\(X\)</span> is defined as follows:</p>
+<ul>
+<li><p>when <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n \}\)</span>, then <span class="math display">\[\EXP[X] = \sum_{i=1}^n x_i f(x_i).\]</span></p></li>
+<li><p>when <span class="math inline">\(X\)</span> is continuous, then <span class="math display">\[\EXP[X] = \int_{-∞}^{∞} x f(x)\, dx. \]</span></p></li>
+</ul>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Does the summation or integration exist?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When <span class="math inline">\(X\)</span> takes countably or uncountably infinite values, we need to be a bit more precise by what we mean by the summation (or the integration) formula above. In particular, we do not want the answer to depend on the order in which we do the summation or the integration (i.e., we do not want <span class="math inline">\(∞ - ∞\)</span> situation). This means that the sum or the integral should be <a href="https://en.wikipedia.org/wiki/Absolute_convergence">:<em>absolutely convergent</em></a>. Such random variables are called <strong>integrable random variables</strong>.</p>
+<p>Formally, expectation is defined only for integrable random variables.</p>
+<p>To illustrate why this is important, consider a discrete random variable defined over <span class="math inline">\(\integers\setminus\{0\}\)</span> where <span class="math display">\[
+f(n) = f(-n) = \frac {1}{2C n^2}, \quad n \in \naturalnumbers
+\]</span> where <span class="math inline">\(C\)</span> is a normalizing constant given by <span class="math display">\[
+C = \sum_{n=1}^∞ \frac 1{n^2} = \frac{π^2}{6}.
+\]</span> Then, observe that <span class="math display">\[\begin{align*}
+\EXP[X] &amp;= \sum_{n=1}^∞ \frac{n}{2 C n^2}
++ \sum_{n=-∞}^{-1} \frac{n}{2 C n^2} \\
+&amp;= \frac 1{2C} \sum_{n=1}^∞ \frac{1}{n}
++ \frac 1{2C} \sum_{n=-∞}^{-1} \frac{1}{n} \\
+&amp;= \frac{∞}{2C} - \frac{∞}{2C}
+\end{align*}\]</span> which is undefined.</p>
+<p>The concern here is that the summation is <strong>undefined</strong>. Mathematically, we are okay when the summation is infinity. For example, consider another random variable <span class="math inline">\(Y\)</span> defined over <span class="math inline">\(\naturalnumbers\)</span> for which <span class="math display">\[
+f(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
+\]</span> where <span class="math inline">\(C\)</span> is as defined above. This is called the <strong>Zipf</strong> distribution. By following an argument same as above, we see that <span class="math display">\[\EXP[Y] = ∞.\]</span></p>
+</div>
+</div>
+<p>As an exercise, compute the expected value for all the random variables described above.</p>
+<div id="lem-expectation" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 2</strong></span> For any (measurable) function <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have</p>
+<ul>
+<li><p>when <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n \}\)</span>, then <span class="math display">\[\EXP[g(X)] = \sum_{i=1}^n g(x_i) f(x_i).\]</span></p></li>
+<li><p>when <span class="math inline">\(X\)</span> is continuous, then <span class="math display">\[\EXP[g(X)] = \int_{-∞}^{∞} g(x) f(x)\, dx. \]</span></p></li>
+</ul>
+<p>Both expressions are defined only when the sum/integral is absolutely convergent.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How to avoid a proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This result is sometimes called *<strong>the law of the unconscious statistician (LOTUS).</strong> One typically shows this result by defining a new random variable <span class="math inline">\(Y = g(X)\)</span>, computing its PMF/PDF <span class="math inline">\(f_Y\)</span> and then using the definition in <a href="#def-expectation" class="quarto-xref">Definition&nbsp;2</a>.</p>
+<p>A simpler proof is to define expectation by <a href="#lem-expectation" class="quarto-xref">Lemma&nbsp;2</a> for any (measurable) function <span class="math inline">\(g\)</span>. Then the definition of <a href="#def-expectation" class="quarto-xref">Definition&nbsp;2</a> falls off as a special case for <span class="math inline">\(g(x) = x\)</span>. No proofs needed!</p>
+</div>
+</div>
+</div>
+<div id="lem-expectation-properties" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 3 (Properties of expectation)</strong></span> &nbsp;</p>
+<ol type="1">
+<li><p><strong>Linearity</strong> For any (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span> <span class="math display">\[\EXP[g(X) + h(X)] = \EXP[ g(X)] + \EXP[ h(X) ]. \]</span> As a special case, for a constant <span class="math inline">\(c\)</span>, <span class="math display">\[\EXP[X + c] = \EXP[X] + c.\]</span></p></li>
+<li><p><strong>Scaling</strong> For any constant <span class="math inline">\(c\)</span>, <span class="math display">\[\EXP[cX] = c\EXP[X].\]</span></p></li>
+</ol>
+</div>
+<section id="higher-moments" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="higher-moments"><span class="header-section-number">2.1</span> Higher moments</h3>
+<ol type="1">
+<li><p>The <span class="math inline">\(m\)</span>-th <strong>moment</strong>, <span class="math inline">\(m \ge 1\)</span> of a random variable <span class="math inline">\(X\)</span> is defined as <span class="math inline">\(\EXP[X^m]\)</span>.</p></li>
+<li><p>The <span class="math inline">\(m\)</span>-th <strong>central moment</strong> is defined as <span class="math inline">\(\EXP[(X - μ)^m]\)</span>, where <span class="math inline">\(μ = \EXP[X]\)</span>.</p></li>
+<li><p>For second central moment (i.e., <span class="math inline">\(m=2\)</span>) is called <strong>variance</strong>. The variance satisfies the following: <span class="math display">\[\VAR(X) = \EXP[X^2] - (\EXP[X])^2.\]</span></p></li>
+<li><p>The positive square root of variance is called the <strong>standard deviation.</strong> Variance is often denoted by <span class="math inline">\(σ^2\)</span> and the standard deviation by <span class="math inline">\(σ\)</span>.</p></li>
+</ol>
+<div id="lem-variance-properties" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 4 (Properties of variance)</strong></span> &nbsp;</p>
+<ol type="1">
+<li><p><strong>Scaling</strong> For any constant <span class="math inline">\(c\)</span>, <span class="math display">\[\VAR(cX) = c^2 \VAR(X).\]</span></p></li>
+<li><p><strong>Shift invariance</strong> For any constant <span class="math inline">\(c\)</span>, <span class="math display">\[\VAR(X + c) = \VAR(X).\]</span></p></li>
+</ol>
+</div>
+</section>
+</section>
+<section id="random-vectors-and-joint-distributions." class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="random-vectors-and-joint-distributions."><span class="header-section-number">3</span> Random vectors and joint distributions.</h2>
 
 
 </section>
