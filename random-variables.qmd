@@ -47,16 +47,6 @@ F_X(x) = \begin{cases}
 1, &\hbox{if } 2 \le x. 
 \end{cases}$$
 
-:::{#lem-properties-of-CDFs}
-CDFs have the following properties.
-
-1. $\lim_{x \to -∞} F(x) = 0$ and $\lim_{x \to +∞} F(x) = 1$.
-
-2. CDFs are non-decreasing, i.e., if $x < y$, then $F(x) \le F(y)$.
-
-3. CDFs are right continuous, i.e., $\lim_{h \downarrow 0}F(x+h) = F(x)$.
-:::
-
 :::{#exm-constant}
 ### Constant random variables
 
@@ -97,49 +87,139 @@ $$ \IND_{A}(ω) = \begin{cases}
 Observe that $\IND_A$ is a Bernoulli random variable which takes values $1$ and $0$ with probabilities $\PR(A)$ and $1 - \PR(A)$. 
 :::
 
-:::{#lem-more-properties-of-CDFs}
-Let $F$ be the distribution function of $X$. Then,
+:::{#lem-properties-of-CDFs}
+### Properties of CDFs
 
 1. $\PR(X > x) = 1 - F(x)$. 
 
 2. $\PR(x < X \le y) = F(y) - F(x)$.
 
-3. $\PR(X = x) = F(x) - F(x^{-})$.
+3. $\lim_{x \to -∞} F(x) = 0$ and $\lim_{x \to +∞} F(x) = 1$.
+
+4. CDFs are non-decreasing, i.e., if $x < y$, then $F(x) \le F(y)$.
+
+5. CDFs are right continuous, i.e., $\lim_{h \downarrow 0}F(x+h) = F(x)$.
+
+6. $\PR(X = x) = F(x) - F(x^{-})$, where $F(x^{-})$ is defined as $\lim_{h \downarrow 0} F(x - h)$
 :::
 
-## Discrete and coninuous random variables
 
-In the engineering literature, it is common to encouter two special type of random variables: discrete and continuous. 
+:::{.callout-note collapse="true"}
+#### Proof
+
+1. By definition, $\{X > x\}^c = Ω\setminus \{X \le x\}$. Thus,
+   $$\PR(X > x) = 1 - \PR(X \le x) = 1 - F(x).$$
+
+2. $$\PR(x < X \le y) = \PR(X \le y) - \PR(X \le x) = F(y) - F(x).$$
+   [See assignment 1 for the first inequality.]
+
+3. Define the increasing sequence of events $A_n = \{ X \le n\}$, $n \in \naturalnumbers$. By continuity of probability, we have
+   \begin{align*}
+     &\quad & \PR\biggl( \bigcup_{n=1}^{∞} A_n \biggr) 
+     & = \lim_{n \to ∞} \PR(A_n) \\
+     \implies && \PR(\{X < ∞\}) &= \lim_{n \to ∞} \PR(X \le n) \\
+     \implies && \PR(Ω) &= \lim_{n \to ∞} F(n) \\
+     \implies && 1 &= \lim_{n \to ∞} F(n).
+   \end{align*}
+
+      The reverse argument is similar where we consider the decreasing sequence of events $B_n = \{ X_n \le -n \}$, $n \in \naturalnumbers$. Then, by continuity of probability, we have
+      \begin{align*}
+        &\quad & \PR\biggl( \bigcap_{n=1}^{∞} B_n \biggr) 
+        & = \lim_{n \to ∞} \PR(B_n) \\
+        \implies && \PR(\{X < -∞\}) &= \lim_{n \to ∞} \PR(X \le -n) \\
+        \implies && \PR(\emptyset) &= \lim_{n \to ∞} F(-n) \\
+        \implies && 0 &= \lim_{n \to ∞} F(-n).
+      \end{align*}
+
+4. Recall that 
+   \begin{align*}
+      F(x) &= \PR(X \le x) \\
+      F(y) &= \PR(X \le y) 
+   \end{align*}
+   Observe that since $x < y$, we have $\{X \le x\} \subseteq \{X \le y\}$. Hence, by monotonicity of probability, we have
+   $$\PR(X \le x) \le \PR(X \le y),$$
+   which proves the result.
+
+5.  Consider the decreasing sequence of sets:
+    $$ A_n = \{ X \le x + \tfrac 1n \}, \quad n \in \naturalnumbers. $$
+    Then, by continuity of probability, we have
+    \begin{align*}
+      &\quad & \PR\biggl( \bigcap_{i=1}^{∞} A_n \biggr) 
+      & = \lim_{n \to ∞} \PR(A_n) \\
+      \implies && \PR(X \le x) &= \lim_{n \to ∞} \PR(X \le x + \tfrac 1n ) \\
+      \implies && F(x) &= \lim_{n \to ∞} F(x + \tfrac 1n).
+    \end{align*}
+      
+6. Define the decreasing sequence of sets
+   $$ A_n = \biggl\{ x - \frac 1n < X \le x \biggr\}, 
+   \quad n \in \naturalnumbers.$$
+   Observe that by the previous property
+   $$\PR(A_n) = F(x) - F(x - \tfrac 1n).$$
+   Since $A_n$ is a decreasing sequence of sets, we have
+   \begin{align*}
+   & \quad & 
+   \PR\biggl( \bigcap_{n=1}^∞ A_n \biggr) 
+   &= \lim_{n \to ∞} \PR(A_n) \\
+   \implies && \PR(X = x) &= F(x) - \lim_{n \to ∞} F(x - \tfrac 1n) \\
+   &&& = F(x) - F(x^{-}). 
+   \end{align*}
+:::
+
+:::{#exr-CDF-expressions}
+For $x < y$, express the following in terms of the CDF:
+
+1. $\PR(x \le X \le y)$.
+2. $\PR(x \le X < y)$.
+
+:::
+
+
+## Discrete and continuous random variables
+
+There are three types of random variables
 
 1. A random variable $X$ is said to be **discrete** if it takes values in a countable subset $\{x_1, x_2, \dots\}$ of $\reals$. A discrete random variable has a **probability mass function (PMF)** $f \colon \reals \to [0,1]$ which satisfies the following properties:
 
-    - $f(x) = \PR(X = x) = F(x) - F(x^{-1})$.
-    - $F(x) = \sum_{x_i : x_i \le x} f(x_i).$
-    - An implication of the above is $\sum_{i=1}^{∞} f(x_i) = 1$. 
+    - $f(x) = \PR(X = x) = F(x) - F(x^{-})$.
+    - $F(x) = \sum_{x_n : x_n \le x} f(x_n).$
+    - An implication of the above is $\sum_{n=1}^{∞} f(x_n) = 1$. 
 
+   [Thus, for a discrete random variable, the CDF is a piecewise constant function]{.text-primary}
+
+     <!-- TODO: Add figure -->
 
 2. A random variable $X$ is called **continuous** if there exists an integrable function $f \colon \reals \to [0, ∞)$ called the **probability denisity function** such that the CDF can be written as
     $$
     F(x) = \int_{-∞}^x f(x) dx.
     $$
 
+   [Thus, for a continuous random variable, the CDF is a continuous function]{.text-primary}
 
-Note that random variables are not restricted to being discrete or continuous. For instance, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then $X \sim \text{Bernoulli}(0.25)$; if the outcome is tails; then $X \sim \text{Uniform}[0,1]$. Thus (from the law of total probability), the CDF of $X$ is
-$$
-F_X(x) = \begin{cases}
-0, & \hbox{if } x < 0 \\
-\frac 12 & \hbox{if } x = 0 \\
-\frac {(1+x)}2 & \hbox{if } 0 < x < 1 \\
-1 & \hbox{if } x \ge 1.
-\end{cases}.
-$$
+     <!-- TODO: Add figure -->
 
-Note that discrete random variable creates a parition of the sample space. In particular, suppose $X$ is a random variable and $\{x_1, x_2, \dots\}$ is the range of $X$. Define
-$$A_i = \{ω \in Ω : X(ω) = x_i \} = X^{-1}(x_i)$$
+3. A random variable is called **mixed** if it is neither discrete nor continuous. [For a mixed random variable, the CDF has has jumps at a finite or countable infinite number of points and it is continuous over one or many intervals.]{.text-primary}
+
+
+      As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then $X \sim \text{Bernoulli}(0.25)$; if the outcome is tails; then $X \sim \text{Uniform}[0,1]$. Thus (from the law of total probability), the CDF of $X$ is
+      $$
+      F_X(x) = \begin{cases}
+      0, & \hbox{if } x < 0 \\
+      \frac 12 & \hbox{if } x = 0 \\
+      \frac {(1+x)}2 & \hbox{if } 0 < x < 1 \\
+      1 & \hbox{if } x \ge 1.
+      \end{cases}.
+      $$
+
+:::{.callout-tip}
+
+### $σ$-algebra generated by random variables
+
+A discrete random variable creates a partition of the sample space. In particular, suppose $X$ is a random variable and $\{x_1, x_2, \dots\}$ is the range of $X$. Define
+$$A_n = \{ω \in Ω : X(ω) = x_i \} = X^{-1}(x_n)$$
 Then, $\{A_1, A_2, \dots \}$ is a partition of $Ω$. 
 
 :::{.callout-note collapse="true"}
-### Proof of claim
+### Proof that it is a partition
 
 To show that $\{A_1, A_2, \dots \}$ forms a partition, we need to establish two properties:
 
@@ -154,6 +234,179 @@ The power-set of $\{A_1, A_2, \dots\}$ is called the **$σ$-algebra generated by
 
 ![Illustration of $σ(X)$ for @exm-coin-toss](TODO){#fig-sigma-X}
 
+:::
+
+### Some examples of discrete random variables
+
+We now consider some other examples of discrete random variables
+
+:::{#exm-Binomial}
+#### Binomial random variable
+
+A Binomial random variable is the sum of intendant and identically distributed random variables (we will prove this fact later). For example, if a biased coin (with $\PR(H) = p$) is tossed $n$ times, then the number of heads is a _binomial random variable with parameters $n$ and $p$_, which is denoted by $\text{Binomial}(n,p)$. For such a random variable,
+$$
+f(k) = \binom n k p^k (1-p)^{n-k}, \quad 0 \le k \le n.
+$$
+
+:::
+
+:::{#exm-Poisson}
+#### Poisson random variable
+
+Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to _Poisson random variable with parameter $λ > 0$_, which is denoted by $\text{Poisson}(λ)$, if
+$$
+f(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
+$$
+:::
+
+:::{#exm-Geometric}
+#### Geometeric random variable
+
+A random variable is said to _Geometric random variable with parameter $p \in (0,1)$_, which is denoted by $\text{Geo}(p)$, if
+$$
+f(k) = (1-p)^{k-1} p, \quad k \in \integers_{> 0}.
+$$
+:::
+
+
+:::{#exm-Uniform-discrete}
+#### Uniform random variable
+
+A random variable is said to have a (discrete) uniform distribution over a discrete set $\ALPHABET S$ if 
+$$f(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.$$
+:::
+
+### Some examples of continuous random variables
+
+:::{#exm-Uniform-continuous}
+#### Uniform random variable
+
+A random variable is said to have a (continuous) uniform distribution over an interval $[a, b]$, where $a < b$ if
+$$f(x) = \frac 1{b - a}, \quad x \in [a,b].$$
+:::
+
+:::{#exm-exponential}
+#### Exponential random variable
+
+A random variable is said to have an exponential distribution with parameter $λ > 0$, which is denoted by $\text{exp}(λ)$ if 
+$$f(x) = λ e^{-λ x}, \quad x \ge 0.$$
+:::
+
+:::{#exm-Gaussian}
+#### Gaussian random variable
+
+A random variable is said to have a Gaussian distribution with mean $μ$ and standard deviation $σ > 0$, which is denoted by $\mathcal N(μ, σ^2)$ if 
+$$f(x) = \frac 1{\sqrt{2 π}\, σ}
+\exp\left( -\frac {(x-μ)^2}{2 σ^2} \right),
+\quad x \in \reals.$$
+:::
+
+## Expectation of random variables
+
+Suppose we generate $N$ i.i.d. (independent and identically distributed) samples $\{s_1, s_2, \dots, s_N\}$ of a random variable $X$ and compute the average:
+$$ m = \frac 1N \sum_{n=1}^N s_n. $$
+When $X$ is discrete and takes values $\{x_1, x_2, \dots, x_n\}$, we expect that the number of times we obtain a value $x_i$ is approximately $Nf(x_i)$ when $N$ is large. Thus,
+$$ m \approx \frac 1N \sum_{i=1}^n x_i \, N f(x_i)  = \sum_{i=1}^n x_i f(x_i). $$
+
+This quantity is called the **expectation** or the **expected value** or the **mean value** of the random variable $X$ and denoted by $\EXP[X]$. 
+
+:::{#def-expectation}
+The **expectation** of a random variable $X$ is defined as follows:
+
+- when $X$ is discrete and takes values $\{x_1, x_2, \dots, x_n \}$, then
+  $$\EXP[X] = \sum_{i=1}^n x_i f(x_i).$$
+
+- when $X$ is continuous, then
+  $$\EXP[X] = \int_{-∞}^{∞} x f(x)\, dx. $$
+:::
+
+:::{.callout-warning}
+#### Does the summation or integration exist?
+
+When $X$ takes countably or uncountably infinite values, we need to be a bit more precise by what we mean by the summation (or the integration) formula above. In particular, we do not want the answer to depend on the order in which we do the summation or the integration (i.e., we do not want $∞ - ∞$ situation). This means that the sum or the integral should be [:_absolutely convergent_](https://en.wikipedia.org/wiki/Absolute_convergence). Such random variables are called **integrable random variables**. 
+
+Formally, expectation is defined only for integrable random variables. 
+
+To illustrate why this is important, consider a discrete random variable defined over $\integers\setminus\{0\}$ where
+$$
+f(n) = f(-n) = \frac {1}{2C n^2}, \quad n \in \naturalnumbers 
+$$
+where $C$ is a normalizing constant given by
+$$
+C = \sum_{n=1}^∞ \frac 1{n^2} = \frac{π^2}{6}.
+$$
+Then, observe that
+\begin{align*}
+\EXP[X] &= \sum_{n=1}^∞ \frac{n}{2 C n^2}
++ \sum_{n=-∞}^{-1} \frac{n}{2 C n^2} \\
+&= \frac 1{2C} \sum_{n=1}^∞ \frac{1}{n}
++ \frac 1{2C} \sum_{n=-∞}^{-1} \frac{1}{n} \\
+&= \frac{∞}{2C} - \frac{∞}{2C}
+\end{align*}
+which is undefined.
+
+The concern here is that the summation is **undefined**. Mathematically, we are okay when the summation is infinity. For example, consider another random variable $Y$ defined over $\naturalnumbers$ for which
+$$
+f(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers 
+$$
+where $C$ is as defined above. This is called the **Zipf** distribution. By following an argument same as above, we see that
+$$\EXP[Y] = ∞.$$
+:::
+
+As an exercise, compute the expected value for all the random variables described above.
+
+:::{#lem-expectation}
+For any (measurable) function $g \colon \reals \to \reals$, we have
+
+- when $X$ is discrete and takes values $\{x_1, x_2, \dots, x_n \}$, then
+  $$\EXP[g(X)] = \sum_{i=1}^n g(x_i) f(x_i).$$
+
+- when $X$ is continuous, then
+  $$\EXP[g(X)] = \int_{-∞}^{∞} g(x) f(x)\, dx. $$
+
+Both expressions are defined only when the sum/integral is absolutely convergent. 
+:::
+
+:::{.callout-note collapse="true"}
+#### How to avoid a proof
+
+This result is sometimes called ***the law of the unconscious statistician (LOTUS).** One typically shows this result by defining a new random variable $Y = g(X)$, computing its PMF/PDF $f_Y$ and then using the definition in @def-expectation. 
+
+A simpler proof is to define expectation by @lem-expectation for any (measurable) function $g$. Then the definition of @def-expectation falls off as a special case for $g(x) = x$. No proofs needed!
+:::
+
+:::{#lem-expectation-properties}
+### Properties of expectation
+
+1. **Linearity** For any (measurable) functions $g$ and $h$
+   $$\EXP[g(X) + h(X)] = \EXP[ g(X)] + \EXP[ h(X) ]. $$
+   As a special case, for a constant $c$, 
+   $$\EXP[X + c] = \EXP[X] + c.$$
+
+2. **Scaling** For any constant $c$, 
+   $$\EXP[cX] = c\EXP[X].$$
+:::
+
+### Higher moments
+
+1. The $m$-th **moment**, $m \ge 1$ of a random variable $X$ is defined as $\EXP[X^m]$. 
+
+2. The $m$-th **central moment** is defined as $\EXP[(X - μ)^m]$, where $μ = \EXP[X]$. 
+
+3. For second central moment (i.e., $m=2$) is called **variance**. The variance satisfies the following:
+   $$\VAR(X) = \EXP[X^2] - (\EXP[X])^2.$$
+
+4. The positive square root of variance is called the **standard deviation.** Variance is often denoted by $σ^2$ and the standard deviation by $σ$. 
+
+:::{#lem-variance-properties}
+#### Properties of variance
+
+1. **Scaling** For any constant $c$,
+   $$\VAR(cX) = c^2 \VAR(X).$$
+
+2. **Shift invariance** For any constant $c$,
+   $$\VAR(X + c) = \VAR(X).$$
+:::
 
 ## Random vectors and joint distributions.
 
