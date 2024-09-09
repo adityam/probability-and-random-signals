@@ -9,7 +9,7 @@
 <meta name="author" content="Aditya Mahajan">
 <meta name="dcterms.date" content="2024-09-09">
 
-<title>Probability and Random Signals II</title>
+<title>Random variables and random vectors – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -133,6 +133,35 @@ window.MathJax = {
 </script>
 <script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -174,24 +203,17 @@ window.MathJax = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a>
-  <ul class="collapse">
-  <li><a href="#general-information" id="toc-general-information" class="nav-link" data-scroll-target="#general-information">General Information (Fall 2024)</a></li>
-  <li><a href="#course-content" id="toc-course-content" class="nav-link" data-scroll-target="#course-content">Course Content</a></li>
-  <li><a href="#course-material" id="toc-course-material" class="nav-link" data-scroll-target="#course-material">Course Material</a></li>
-  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
-  <li><a href="#marking-policy" id="toc-marking-policy" class="nav-link" data-scroll-target="#marking-policy">Marking policy</a></li>
-  <li><a href="#course-delivery" id="toc-course-delivery" class="nav-link" data-scroll-target="#course-delivery">Course delivery</a></li>
-  <li><a href="#additional-notes" id="toc-additional-notes" class="nav-link" data-scroll-target="#additional-notes">Additional Notes</a></li>
-  </ul></li>
+  <li><a href="#discrete-and-coninuous-random-variables" id="toc-discrete-and-coninuous-random-variables" class="nav-link active" data-scroll-target="#discrete-and-coninuous-random-variables"><span class="header-section-number">1</span> Discrete and coninuous random variables</a></li>
+  <li><a href="#random-vectors-and-joint-distributions." id="toc-random-vectors-and-joint-distributions." class="nav-link" data-scroll-target="#random-vectors-and-joint-distributions."><span class="header-section-number">2</span> Random vectors and joint distributions.</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
+<h1 class="title">Random variables and random vectors</h1>
 </div>
 
 
@@ -229,195 +251,151 @@ window.MathJax = {
 </header>
 
 
-<section id="course-outline" class="level1 unnumbered">
-<h1 class="unnumbered">Course Outline</h1>
-<section id="general-information" class="level2">
-<h2 class="anchored" data-anchor-id="general-information">General Information (Fall 2024)</h2>
-<dl>
-<dt>Instructor</dt>
-<dd>
+<p>In many situations, we are not directly interested in the outcome of a random experiment, but a consequence of the outcome. Such consequences may be thought of as a function of the outcome. When they are real-valued, such functions of the outcome are called <strong>random variables</strong>.</p>
+<div id="exm-coin-toss" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> Suppose a fair coin is tossed twice. Thus, <span class="math inline">\(Ω = \{ HH, HT, TH, TT \}\)</span>, <span class="math inline">\(\ALPHABET F = 2^Ω\)</span>, and <span class="math inline">\(\PR\)</span> is such that all outcomes are equally likely. For an <span class="math inline">\(ω \in Ω\)</span>, let <span class="math inline">\(X(ω)\)</span> denote the number of heads. Thus, <span class="math display">\[
+X(HH) = 2, \quad X(HT) = 1, \quad X(TH) = 1, \quad X(TT) = 0.
+\]</span></p>
+</div>
+<p>The random variable <span class="math inline">\(X \colon Ω \to \reals\)</span> induces a probability measure on <span class="math inline">\(\reals\)</span>. Formally, to define such a probability measure, we need an associated <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\(\reals\)</span>. As discussed in <a href="./probability-spaces.html#Borel-algebra">last lecture</a>, the commonly used <span class="math inline">\(σ\)</span>-algebra on reals is the Borel <span class="math inline">\(σ\)</span>-algebra, <span class="math inline">\(\mathscr{B}(\reals)\)</span>. For everything to be consistent, we require the function <span class="math inline">\(X\)</span> to satisfy a property known as <strong>measurability</strong>.</p>
+<div id="def-measurability" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> A <strong>random variable</strong> is a function <span class="math inline">\(X \colon Ω \to \reals\)</span> with the property that for every <span class="math inline">\(x \in \reals\)</span> the event <span class="math inline">\(A(x) \coloneqq \{ω \in Ω : X(ω) \le x \} \in \ALPHABET F\)</span>. Such functions are said to be <strong><span class="math inline">\(\ALPHABET F/\mathscr{B}(\reals)\)</span>-measurable</strong>.</p>
+<p>The <strong>cumulative distribution function (CDF)</strong> of a random variable <span class="math inline">\(X\)</span> is the function <span class="math inline">\(F \colon \reals \to [0,1]\)</span> given by <span class="math display">\[
+F(x) \coloneqq \PR(A(x)) = \PR(\{ ω \in Ω : X(ω) \le x \}).
+\]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Some comments on notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>The standard notation in probability theory is to use uppercase letters such as <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, <span class="math inline">\(Z\)</span>, etc. to denote random variables and the corresponding lowercase letters <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span>, <span class="math inline">\(z\)</span>, etc. to denote the possible numerical values of these variables.</p></li>
+<li><p>Events such as <span class="math inline">\(\{ω \in Ω : X(ω) \le x \}\)</span> are commonly abbreviated as <span class="math inline">\(\{ω : X(ω) \le x \}\)</span> or <span class="math inline">\(\{X \le x\}\)</span>. Thus, we have</p>
 <ul>
-<li>Aditya Mahajan</li>
-<li><em>Office Hours</em>: TBD</li>
-</ul>
-</dd>
-<dt>Teaching Assistants</dt>
-<dd>
-<ul>
-<li><p>Alexander Fernandes</p></li>
-</ul>
-</dd>
-<dt>Lectures</dt>
-<dd>
-<ul>
-<li><p>2:35pm–3:55pm Monday, Wednesday (ENGTR 2100)</p></li>
-</ul>
-</dd>
-<dt>Tutorials</dt>
-<dd>
-<ul>
-<li><p>12:35am–1:25am Friday, (ENGTR 2100)</p></li>
-</ul>
-</dd>
-<dt>Prerequisites</dt>
-<dd>
-<ul>
-<li>ECSE 205 (Probability and Random Signals I)</li>
-<li>ECSE 206 or ECSE 316 (Signals and Systems)</li>
-</ul>
-</dd>
-<dt>Communication</dt>
-<dd>
-<span class="text-info">Use the discussion board on myCourses</span> for all questions related to the course. Only personal emails related to medical exceptions for missing a deliverable will be answered.
-</dd>
-</dl>
-<!--
-## Graduate Attributes and Learning Outcomes
-
-| Attribute | Description | Status |
-|-----------|-------------|--------|
-| KB | Knowledge Base for Engineering | Developed |
-| PA | Problem Analysis | Developed |
-| IN | Investigation | Developed |
-| DE | Design | Introduced |
-
-Upon the successful completion of this course, the student students will have demonstrated the ability to:
-
-- Apply time- and frequency-domain tools to analyze linear time-invariant systems (KB, PA)
-- Design controllers based on state-space methods and lead-lag compensators to meet time-response specifications (KB, PA, DE)
-- Use Matlab to analyze and synthesize controllers for linear time-invariant systems (DE, IN)
-
--->
-</section>
-<section id="course-content" class="level2">
-<h2 class="anchored" data-anchor-id="course-content">Course Content</h2>
-<table class="table-striped caption-top table">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 90%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Week</th>
-<th style="text-align: left;">Material Covered</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td style="text-align: left;"><a href="./probability-spaces.html">Probability spaces, algebra of events, axioms of probability</a></td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td style="text-align: left;"><a href="./random-variables.html">Random variables and random vectors</a></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td style="text-align: left;">Discrete and continuous random variables</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td style="text-align: left;">Conditional distributions and conditional expectations</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td style="text-align: left;">Moment generating functions and sums of random variables</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td style="text-align: left;">Probability inequalities</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td style="text-align: left;">Review and Mid-Term</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td style="text-align: left;">Convergence in probability and the weak law of large numbers</td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td style="text-align: left;">Almost sure convergence and the strong law of large numbers</td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td style="text-align: left;">Maximum likelihood estimation and minimum mean squared error estimation</td>
-</tr>
-<tr class="odd">
-<td>11</td>
-<td style="text-align: left;">Stochastic processes, Bernoulli process, Poisson process, and Gaussian process</td>
-</tr>
-<tr class="even">
-<td>12</td>
-<td style="text-align: left;">Markov chains</td>
-</tr>
-<tr class="odd">
-<td>13</td>
-<td style="text-align: left;">Wide sense stationary processes</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="course-material" class="level2">
-<h2 class="anchored" data-anchor-id="course-material">Course Material</h2>
-<dl>
-<dt>Textbook</dt>
-<dd>
-<ul>
-<li>Grimmett and Stirzaker, “Probability and Random Processes”, 4th edition, Oxford University Press</li>
-</ul>
-</dd>
-</dl>
-</section>
-<section id="evaluation" class="level2">
-<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
-<ul>
-<li><p><strong>Assignments (25%)</strong> Weekly homework assignments. Typically, each assignment will consist of four questions, out of which one or two randomly selected questions will be grader. The lowest two homework assignments will be dropped.</p></li>
-<li><p><strong>Mid Term (25%)</strong> Closed book in-class exam. <span class="text-danger"><strong>Oct 9</strong></span> (during class time)</p></li>
-<li><p><strong>Final Exam (50%)</strong> Closed book, in-person exam. Will be scheduled by the exam office and the dates will be announced later.</p>
-<p>The final exam will cover <strong>all</strong> the material seen in the class during the term.</p></li>
-</ul>
-</section>
-<section id="marking-policy" class="level2">
-<h2 class="anchored" data-anchor-id="marking-policy">Marking policy</h2>
-<ul>
-<li><p>Assignments must be submitted electronically on myCourses as a PDF. You may write the assignments on paper and then scan them as a PDF (there are several such apps available for all phone platforms), or write on a tablet and convert to PDF, or type using a word processor.</p></li>
-<li><p><strong>There will no make-up examination</strong> for students who miss a mid-term.</p>
-<ul>
-<li><p>Student who miss the exam due to a valid reason (see <a href="https://www.mcgill.ca/engineering/students/undergraduate/courses-registration/exams-assessment/midterms-and-class-tests/adjustments-missed-midterms-and-class-tests">Faculty of Engineering policy</a>) should <strong>notify the instructor within a week</strong> of the exam and provide <strong>necessary documentation</strong>.</p></li>
-<li><p>If, and only if, proper documentation for a missed exam is presented, the marks for the missed exam will be shifted to the final exam.</p></li>
-<li><p>Students who miss the mid-term exam for any other reason (e.g., no medical note, going to the exam at the wrong time, or on the wrong day, etc.) will get zero marks on the exam.</p></li>
+<li><span class="math inline">\(\PR(X \le x) = \PR(\{ω \in Ω : X(ω) \le x \})\)</span>.</li>
+<li><span class="math inline">\(\PR(X = x) = \PR(\{ω \in Ω : X(ω) = x \})\)</span>.</li>
+<li><span class="math inline">\(\PR(x &lt; X \le y) = \PR(\{ω \in Ω : x &lt; X(ω) \le y \})\)</span>.</li>
+<li>For any (Borel) subset <span class="math inline">\(B\)</span> of <span class="math inline">\(\reals\)</span>, <span class="math inline">\(\PR(X \in B) = \PR(\{ω \in Ω : X(ω) \in B \})\)</span>.</li>
 </ul></li>
-<li><p>Any request for reevaluation of a mid-term or an assignment must be made <strong>in writing within a week of its return</strong>. Note that requesting a re-grade will mean that you <strong>WHOLE</strong> assignment or exam will be re-graded.</p></li>
-<li><p><span class="text-danger">Due to paucity of grading hours, only one or two randomly selected questions will be graded in each assignment.</span></p></li>
-<li><p>The lowest two assignments and labs will be dropped. There will be no make-up for missed assignments and labs, <em>even if it is for a valid reason.</em> The whole point of dropping the lowest two assignments/labs is to reduce the administrative overhead of keeping track of such missed assignments/labs.</p></li>
-</ul>
-<dl>
-<dt>Right to submit in English or French written work that is to be graded.</dt>
-<dd>
-In accord with McGill University’s <a href="https://www.mcgill.ca/secretariat/files/secretariat/charter_of_student_rights_last_approved_october_262017.pdf">Charter of Students’ Rights</a>, students in this course have the right to submit in English or in French any written work that is to be graded.
-</dd>
-<dt>Academic Integrity</dt>
-<dd>
-<p>McGill University values academic integrity. Therefore all students must understand the meaning and consequences of cheating, plagiarism and other academic offences under the <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code of Student Conduct and Disciplinary Procedures</a> (see McGill’s <a href="http://www.mcgill.ca/students/srr/honest/">guide to academic honesty</a> for more information).</p>
-<p>L’université McGill attache une haute importance à l’honnêteté académique. Il incombe par conséquent à tous les étudiants de comprendre ce que l’on entend par tricherie, plagiat et autres infractions académiques, ainsi que les conséquences que peuvent avoir de telles actions, selon le <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code de conduite de l’étudiant et des procédures disciplinaires</a> (pour de plus amples renseignements, veuillez consulter le <a href="http://www.mcgill.ca/students/srr/honest/">guide pour l’honnêteté académique</a> de McGill.)</p>
-</dd>
-</dl>
-</section>
-<section id="course-delivery" class="level2">
-<h2 class="anchored" data-anchor-id="course-delivery">Course delivery</h2>
-<p>The course is taught in a “chalk and board” style; there will be no power point presentations. All students are expected to attend lectures and take notes. Partial notes on some of the material will be provided, but are not a substitute for the material covered in class.</p>
-<p>© Instructor-generated course materials (e.g., handouts, notes, summaries, exam questions) are protected by law and may not be copied or distributed in any form or in any medium without explicit permission of the instructor. Note that infringements of copyright can be subject to follow up by the University under the Code of Student Conduct and Disciplinary Procedures.</p>
-</section>
-<section id="additional-notes" class="level2">
-<h2 class="anchored" data-anchor-id="additional-notes">Additional Notes</h2>
+<li><p>When we need to emphasize the dependence of the CDF on the random variable, we use the notation <span class="math inline">\(F_X\)</span>, etc.</p></li>
+</ol>
+</div>
+</div>
+<p>For instance, for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;1</a>, the CDF is given by <span class="math display">\[
+F_X(x) = \begin{cases}
+0, &amp; \hbox{if } x &lt; 0,  \\
+\frac 14, &amp; \hbox{if } 0 \le x &lt; 1, \\
+\tfrac 34, &amp; \hbox{if } 1 \le x &lt; 2,\\
+1, &amp;\hbox{if } 2 \le x.
+\end{cases}\]</span></p>
+<div id="lem-properties-of-CDFs" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1</strong></span> CDFs have the following properties.</p>
+<ol type="1">
+<li><p><span class="math inline">\(\lim_{x \to -∞} F(x) = 0\)</span> and <span class="math inline">\(\lim_{x \to +∞} F(x) = 1\)</span>.</p></li>
+<li><p>CDFs are non-decreasing, i.e., if <span class="math inline">\(x &lt; y\)</span>, then <span class="math inline">\(F(x) \le F(y)\)</span>.</p></li>
+<li><p>CDFs are right continuous, i.e., <span class="math inline">\(\lim_{h \downarrow 0}F(x+h) = F(x)\)</span>.</p></li>
+</ol>
+</div>
+<div id="exm-constant" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2 (Constant random variables)</strong></span> The simplest random variable takes a constant value on the whole domain <span class="math inline">\(Ω\)</span>, i.e., <span class="math display">\[
+X(ω) = c, \quad \forall ω \in Ω
+\]</span> where <span class="math inline">\(c\)</span> is a constant. The CDF <span class="math inline">\(F(x) = \PR(X \le x)\)</span> is the step function <span class="math display">\[
+F(x) = \begin{cases}
+0, &amp; x &lt; c \\
+1, &amp; x \ge c.
+\end{cases}
+\]</span></p>
+<p>Slightly more generally, we say that <span class="math inline">\(X\)</span> is <em>almost surely</em> a constant if there exists a <span class="math inline">\(c \in \reals\)</span> such that <span class="math inline">\(\PR(X=c) = 1\)</span>.</p>
+</div>
+<div id="exm-bernoulli" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3 (Bernoulli random variable)</strong></span> A Bernoulli random variable takes two possible values: value <span class="math inline">\(0\)</span> with probability <span class="math inline">\(1-p\)</span> and value <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span>. It’s CDF is given by <span class="math display">\[
+F(x) = \begin{cases}
+0, &amp; x &lt; 0 \\
+1 - p, &amp; 0 \le x &lt; 1 \\
+1, &amp; x \ge 1.
+\end{cases}
+\]</span></p>
+</div>
+<div id="exm-indicator-functions" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4 (Indicator functions)</strong></span> Let <span class="math inline">\(A\)</span> be an event. Define the <em>indicator of event <span class="math inline">\(A\)</span></em> <span class="math inline">\(\IND_{A} \colon Ω \to \reals\)</span> as <span class="math display">\[ \IND_{A}(ω) = \begin{cases}
+    1, &amp; \hbox{if } ω \in A \\
+    0, &amp; \hbox{otherwise }
+\end{cases}.\]</span> Observe that <span class="math inline">\(\IND_A\)</span> is a Bernoulli random variable which takes values <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span> with probabilities <span class="math inline">\(\PR(A)\)</span> and <span class="math inline">\(1 - \PR(A)\)</span>.</p>
+</div>
+<div id="lem-more-properties-of-CDFs" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 2</strong></span> Let <span class="math inline">\(F\)</span> be the distribution function of <span class="math inline">\(X\)</span>. Then,</p>
+<ol type="1">
+<li><p><span class="math inline">\(\PR(X &gt; x) = 1 - F(x)\)</span>.</p></li>
+<li><p><span class="math inline">\(\PR(x &lt; X \le y) = F(y) - F(x)\)</span>.</p></li>
+<li><p><span class="math inline">\(\PR(X = x) = F(x) - F(x^{-})\)</span>.</p></li>
+</ol>
+</div>
+<section id="discrete-and-coninuous-random-variables" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="discrete-and-coninuous-random-variables"><span class="header-section-number">1</span> Discrete and coninuous random variables</h2>
+<p>In the engineering literature, it is common to encouter two special type of random variables: discrete and continuous.</p>
+<ol type="1">
+<li><p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>discrete</strong> if it takes values in a countable subset <span class="math inline">\(\{x_1, x_2, \dots\}\)</span> of <span class="math inline">\(\reals\)</span>. A discrete random variable has a <strong>probability mass function (PMF)</strong> <span class="math inline">\(f \colon \reals \to [0,1]\)</span> which satisfies the following properties:</p>
 <ul>
-<li><p>As the instructor of this course I endeavor to provide an inclusive learning environment. However, if you&nbsp;experience barriers to learning in this course, do not hesitate to discuss them with me or contact the office of <a href="https://www.mcgill.ca/access-achieve/">Student Accessibility and Achievement</a>.</p></li>
-<li><p><a href="http://www.mcgill.ca/mercury/">End-of-course evaluations</a> are one of the ways that McGill works towards maintaining and improving the quality of courses and the student’s learning experience. You will be notified by e-mail when the evaluations are available. Please note that a minimum number of responses must be received for results to be available to students.</p></li>
-</ul>
-
-
+<li><span class="math inline">\(f(x) = \PR(X = x) = F(x) - F(x^{-1})\)</span>.</li>
+<li><span class="math inline">\(F(x) = \sum_{x_i : x_i \le x} f(x_i).\)</span></li>
+<li>An implication of the above is <span class="math inline">\(\sum_{i=1}^{∞} f(x_i) = 1\)</span>.</li>
+</ul></li>
+<li><p>A random variable <span class="math inline">\(X\)</span> is called <strong>continuous</strong> if there exists an integrable function <span class="math inline">\(f \colon \reals \to [0, ∞)\)</span> called the <strong>probability denisity function</strong> such that the CDF can be written as <span class="math display">\[
+F(x) = \int_{-∞}^x f(x) dx.
+\]</span></p></li>
+</ol>
+<p>Note that random variables are not restricted to being discrete or continuous. For instance, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then <span class="math inline">\(X \sim \text{Bernoulli}(0.25)\)</span>; if the outcome is tails; then <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>. Thus (from the law of total probability), the CDF of <span class="math inline">\(X\)</span> is <span class="math display">\[
+F_X(x) = \begin{cases}
+0, &amp; \hbox{if } x &lt; 0 \\
+\frac 12 &amp; \hbox{if } x = 0 \\
+\frac {(1+x)}2 &amp; \hbox{if } 0 &lt; x &lt; 1 \\
+1 &amp; \hbox{if } x \ge 1.
+\end{cases}.
+\]</span></p>
+<p>Note that discrete random variable creates a parition of the sample space. In particular, suppose <span class="math inline">\(X\)</span> is a random variable and <span class="math inline">\(\{x_1, x_2, \dots\}\)</span> is the range of <span class="math inline">\(X\)</span>. Define <span class="math display">\[A_i = \{ω \in Ω : X(ω) = x_i \} = X^{-1}(x_i)\]</span> Then, <span class="math inline">\(\{A_1, A_2, \dots \}\)</span> is a partition of <span class="math inline">\(Ω\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof of claim
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To show that <span class="math inline">\(\{A_1, A_2, \dots \}\)</span> forms a partition, we need to establish two properties:</p>
+<ol type="1">
+<li><p><span class="math inline">\(A_i \cap A_j = \emptyset\)</span>.</p></li>
+<li><p><span class="math inline">\(\bigcup_{i=1}^∞ A_i = Ω\)</span>.</p></li>
+</ol>
+<p>The details are left as an exercise.</p>
+</div>
+</div>
+</div>
+<p>The power-set of <span class="math inline">\(\{A_1, A_2, \dots\}\)</span> is called the <strong><span class="math inline">\(σ\)</span>-algebra generated by <span class="math inline">\(X\)</span></strong> and denoted by <span class="math inline">\(σ(X)\)</span>. This <span class="math inline">\(σ\)</span>-algebra captures the crux of measurability. As an illustration, let’s reconsider <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;1</a>. In this case, the range of <span class="math inline">\(X\)</span> is <span class="math inline">\(\{0, 1, 2\}\)</span>. The partition corresponding to <span class="math inline">\(σ(X)\)</span> is shown in <a href="#fig-sigma-X" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-sigma-X" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sigma-X-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="TODO.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sigma-X-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Illustration of <span class="math inline">\(σ(X)\)</span> for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;1</a>
+</figcaption>
+</figure>
+</div>
 </section>
+<section id="random-vectors-and-joint-distributions." class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="random-vectors-and-joint-distributions."><span class="header-section-number">2</span> Random vectors and joint distributions.</h2>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -990,5 +968,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
