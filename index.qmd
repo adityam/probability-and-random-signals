@@ -61,7 +61,7 @@ Upon the successful completion of this course, the student students will have de
 | Week | Material Covered | 
 |------|:-----------------|
 | 1    | [Probability spaces, algebra of events, axioms of probability](probability-spaces.qmd) |
-| 2    | Random variables and random vectors | 
+| 2    | [Random variables and random vectors](random-variables.qmd) | 
 | 3    | Discrete and continuous random variables | 
 | 4    | Conditional distributions and conditional expectations |
 | 5    | Moment generating functions and sums of random variables |
