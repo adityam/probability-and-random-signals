@@ -392,7 +392,8 @@ $$
 :::
 
 :::{#exr-conditional-two-dice}
-Suppose we roll two fair six-sided dice. Consider the event $A$ that the minimum of the two rolls is greater than or equal to $6$ and the event $B$ that the maximum of the two rolls is less than or equal to $8$. Compute $\PR(A|B)$ and $\PR(B|A)$.
+Suppose we roll two fair six-sided dice. Consider the event $A$ that the 
+maximum of the two rolls is less than or equal to $8$ and the event $B$ that the minimum of the two rolls is greater than or equal to $6$. Compute $\PR(A|B)$ and $\PR(B|A)$.
 :::
 
 :::{.callout-note collapse="true"}
