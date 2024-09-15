@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-09-12">
+<meta name="dcterms.date" content="2024-09-15">
 
 <title>Random variables and random vectors – Probability and Random Signals II</title>
 <style>
@@ -205,7 +205,22 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#classification-of-random-variables" id="toc-classification-of-random-variables" class="nav-link active" data-scroll-target="#classification-of-random-variables"><span class="header-section-number">1</span> Classification of random variables</a></li>
+  <li><a href="#classification-of-random-variables" id="toc-classification-of-random-variables" class="nav-link active" data-scroll-target="#classification-of-random-variables"><span class="header-section-number">1</span> Classification of random variables</a>
+  <ul class="collapse">
+  <li><a href="#some-examples-of-discrete-random-variables" id="toc-some-examples-of-discrete-random-variables" class="nav-link" data-scroll-target="#some-examples-of-discrete-random-variables"><span class="header-section-number">1.1</span> Some examples of discrete random variables</a></li>
+  <li><a href="#some-examples-of-continuous-random-variables" id="toc-some-examples-of-continuous-random-variables" class="nav-link" data-scroll-target="#some-examples-of-continuous-random-variables"><span class="header-section-number">1.2</span> Some examples of continuous random variables</a></li>
+  </ul></li>
+  <li><a href="#expectation-of-random-variables" id="toc-expectation-of-random-variables" class="nav-link" data-scroll-target="#expectation-of-random-variables"><span class="header-section-number">2</span> Expectation of random variables</a>
+  <ul class="collapse">
+  <li><a href="#higher-moments" id="toc-higher-moments" class="nav-link" data-scroll-target="#higher-moments"><span class="header-section-number">2.1</span> Higher moments</a></li>
+  </ul></li>
+  <li><a href="#random-vectors-and-joint-distributions." id="toc-random-vectors-and-joint-distributions." class="nav-link" data-scroll-target="#random-vectors-and-joint-distributions."><span class="header-section-number">3</span> Random vectors and joint distributions.</a>
+  <ul class="collapse">
+  <li><a href="#classification-of-random-vectors" id="toc-classification-of-random-vectors" class="nav-link" data-scroll-target="#classification-of-random-vectors"><span class="header-section-number">3.1</span> Classification of random vectors</a></li>
+  </ul></li>
+  <li><a href="#independence-of-random-vectors" id="toc-independence-of-random-vectors" class="nav-link" data-scroll-target="#independence-of-random-vectors"><span class="header-section-number">4</span> Independence of random vectors</a></li>
+  <li><a href="#correlation-and-covariance" id="toc-correlation-and-covariance" class="nav-link" data-scroll-target="#correlation-and-covariance"><span class="header-section-number">5</span> Correlation and covariance</a></li>
+  <li><a href="#functions-of-random-variables" id="toc-functions-of-random-variables" class="nav-link" data-scroll-target="#functions-of-random-variables"><span class="header-section-number">6</span> Functions of random variables</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -240,7 +255,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 12, 2024</p>
+      <p class="date">September 15, 2024</p>
     </div>
   </div>
   
@@ -459,6 +474,8 @@ Figure&nbsp;1: Illustration of <span class="math inline">\(σ(X)\)</span> for <a
 </figcaption>
 </figure>
 </div>
+</div>
+</div>
 <div id="lem-properties-of-PMFs-PDFs" class="theorem lemma">
 <p><span class="theorem-title"><strong>Lemma 2 (Properties of PMFs and PDFs)</strong></span> &nbsp;</p>
 <ul>
@@ -471,6 +488,9 @@ Figure&nbsp;1: Illustration of <span class="math inline">\(σ(X)\)</span> for <a
 <ol type="1">
 <li><p>For a continuous random variable, <span class="math inline">\(\int_{-∞}^{∞} f(x)\, dx = 1\)</span>.</p></li>
 <li><p>For any event <span class="math inline">\(A \in \ALPHABET F\)</span>, <span class="math inline">\(\PR(X \in A) = \int_{x \in A} f(x)\,dx\)</span>.</p></li>
+<li><p>The PDF is the derivative of CDF: <span class="math display">\[
+f_X(x) = \frac{d}{dx} F_X(x).
+\]</span></p></li>
 </ol></li>
 </ul>
 </div>
@@ -510,6 +530,7 @@ p_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 \quad x \in \reals.\]</span></p>
 </div>
 </section>
+</section>
 <section id="expectation-of-random-variables" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="expectation-of-random-variables"><span class="header-section-number">2</span> Expectation of random variables</h2>
 <p>Suppose we generate <span class="math inline">\(N\)</span> i.i.d. (independent and identically distributed) samples <span class="math inline">\(\{s_1, s_2, \dots, s_N\}\)</span> of a random variable <span class="math inline">\(X\)</span> and compute the average: <span class="math display">\[ m = \frac 1N \sum_{n=1}^N s_n. \]</span> When <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n\}\)</span>, we expect that the number of times we obtain a value <span class="math inline">\(x_i\)</span> is approximately <span class="math inline">\(Np(x_i)\)</span> when <span class="math inline">\(N\)</span> is large. Thus, <span class="math display">\[ m \approx \frac 1N \sum_{i=1}^n x_i \, N p(x_i)  = \sum_{i=1}^n x_i p(x_i). \]</span></p>
@@ -518,7 +539,8 @@ p_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 <p><span class="theorem-title"><strong>Definition 2</strong></span> The <strong>expectation</strong> of a random variable <span class="math inline">\(X\)</span> is defined as follows:</p>
 <ul>
 <li><p>when <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n \}\)</span>, then <span class="math display">\[\EXP[X] = \sum_{i=1}^n x_i p(x_i).\]</span></p></li>
-<li><p>when <span class="math inline">\(X\)</span> is continuous, then <span class="math display">\[\EXP[X] = \int_{-∞}^{∞} x f(x)\, dx. \]</span></p></li>
+<li><p>when <span class="math inline">\(X\)</span> is continuous, then <span class="math display">\[\EXP[X] = \int_{-∞}^{∞} x f(x)\, dx. \]</span></p>
+<p><span class="text-primary">Thus, we can think of the expected value as the center of mass of the PDF.</span></p></li>
 </ul>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -549,7 +571,17 @@ p(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 \]</span> where <span class="math inline">\(C\)</span> is as defined above. This is called the <strong>Zipf</strong> distribution. By following an argument same as above, we see that <span class="math display">\[\EXP[Y] = ∞.\]</span></p>
 </div>
 </div>
-<p>As an exercise, compute the expected value for all the random variables described above.</p>
+<div id="exr-mean-common" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2</strong></span> Find the expected value of the random variables with the following distributions:</p>
+<ul>
+<li><span class="math inline">\(\text{Bernoulli}(p)\)</span>.</li>
+<li><span class="math inline">\(\text{Binomial}(n,p)\)</span>.</li>
+<li><span class="math inline">\(\text{Geo}(p)\)</span>.</li>
+<li><span class="math inline">\(\text{Poisson}(λ)\)</span>.</li>
+<li><span class="math inline">\(\text{Uniform}[a,b]\)</span>.</li>
+<li><span class="math inline">\(\text{Exp}(λ)\)</span>.</li>
+</ul>
+</div>
 <div id="lem-expectation" class="theorem lemma">
 <p><span class="theorem-title"><strong>Lemma 3</strong></span> For any (measurable) function <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have</p>
 <ul>
@@ -559,7 +591,7 @@ p(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 <p>Both expressions are defined only when the sum/integral is absolutely convergent.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -568,7 +600,7 @@ How to avoid a proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This result is sometimes called *<strong>the law of the unconscious statistician (LOTUS).</strong> One typically shows this result by defining a new random variable <span class="math inline">\(Y = g(X)\)</span>, computing its PMF/PDF <span class="math inline">\(f_Y\)</span> and then using the definition in <a href="#def-expectation" class="quarto-xref">Definition&nbsp;2</a>.</p>
 <p>A simpler proof is to define expectation by <a href="#lem-expectation" class="quarto-xref">Lemma&nbsp;3</a> for any (measurable) function <span class="math inline">\(g\)</span>. Then the definition of <a href="#def-expectation" class="quarto-xref">Definition&nbsp;2</a> falls off as a special case for <span class="math inline">\(g(x) = x\)</span>. No proofs needed!</p>
@@ -580,8 +612,13 @@ How to avoid a proof
 <ol type="1">
 <li><p><strong>Linearity.</strong> For any (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span> <span class="math display">\[\EXP[g(X) + h(X)] = \EXP[ g(X)] + \EXP[ h(X) ]. \]</span> As a special case, for a constant <span class="math inline">\(c\)</span>, <span class="math display">\[\EXP[X + c] = \EXP[X] + c.\]</span></p></li>
 <li><p><strong>Scaling.</strong> For any constant <span class="math inline">\(c\)</span>, <span class="math display">\[\EXP[cX] = c\EXP[X].\]</span></p></li>
+<li><p><strong>Bounds.</strong> If <span class="math inline">\(a \le X(ω) \le b\)</span> for all <span class="math inline">\(ω \in Ω\)</span>, then <span class="math display">\[ a \le \EXP[X] \le b. \]</span></p></li>
 </ol>
 </div>
+<ol type="1">
+<li><p>A continuous random variable is said to be symmetric if <span class="math inline">\(f_X(-x) = f_X(x)\)</span> for all <span class="math inline">\(x \in \reals\)</span>. A symmetric random variable has mean <span class="math inline">\(0\)</span>.</p></li>
+<li><p>A continuous random variable is said to be symmetric around <span class="math inline">\(m\)</span> if <span class="math inline">\(f(m - x) = f(m + x)\)</span>, for all <span class="math inline">\(x \in \reals\)</span>. The mean of such a random variable is <span class="math inline">\(m\)</span>.</p></li>
+</ol>
 <section id="higher-moments" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="higher-moments"><span class="header-section-number">2.1</span> Higher moments</h3>
 <ol type="1">
@@ -691,6 +728,13 @@ F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 </ol></li>
 </ul>
 </div>
+<div id="exr-joint-distribution" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint CDF <span class="math inline">\(F\)</span>. Show that <span class="math display">\[
+\PR(a &lt; X \le b, c &lt; Y \le d) = F(b,d) - F(a,d) - F(b,c) + F(a,c).
+\]</span></p>
+</div>
+<section id="classification-of-random-vectors" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="classification-of-random-vectors"><span class="header-section-number">3.1</span> Classification of random vectors</h3>
 <p>As was the case for random variables, we can also classify random vectors as discrete, continuous, and mixed.</p>
 <ol type="1">
 <li><p>A random vector <span class="math inline">\((X,Y)\)</span> is called <strong>jointly discrete</strong> if it takes values in a countable subset of <span class="math inline">\(\reals^2\)</span> (we denote this subset by <span class="math inline">\(\text{range}(X,Y)\)</span>). The jointly discrete random variables have a joint PMF <span class="math inline">\(f \colon \reals \to [0,1]\)</span> given by <span class="math display">\[ \PR(X = x, Y = y) = p(x,y). \]</span></p></li>
@@ -725,8 +769,52 @@ x,y \in \reals \]</span> for some integrable function <span class="math inline">
 </div>
 <p>The above discussion generalizes in the obvious manner to more than two random variables as well. Thus, we can talk about random vectors <span class="math inline">\(X = (X_1, \dots, X_n) \in \reals^n\)</span>. In practice, we often do not make a distinction between random <em>variables</em> and random <em>vectors</em> and refer both of them simply as <em>random variables</em>.</p>
 </section>
-<section id="indepdence-of-random-vectors" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="indepdence-of-random-vectors"><span class="header-section-number">4</span> Indepdence of random vectors</h2>
+</section>
+<section id="independence-of-random-vectors" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="independence-of-random-vectors"><span class="header-section-number">4</span> Independence of random vectors</h2>
+<div id="def-independence-RVs" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3</strong></span> Two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> are said to be independent if the sigma algebras <span class="math inline">\(σ(X)\)</span> and <span class="math inline">\(σ(Y)\)</span> are independent.</p>
+</div>
+<p>The above definition means that if we take any (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span>, then the events <span class="math inline">\(\{X \in B_1\}\)</span> and <span class="math inline">\(\{X \in B_2\}\)</span> are independent, i.e., <span class="math display">\[
+\PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2).
+\]</span></p>
+<p>Using this, we can show that following:</p>
+<ol type="1">
+<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[
+   F_{X,Y}(x,y) = F_X(x) F_Y(y), \quad \forall x, y \in \reals.
+\]</span></p></li>
+<li><p>Two jointly continuous random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[
+   f_{X,Y}(x,y) = f_X(x) f_Y(y), \quad \forall x, y \in \reals.
+\]</span></p></li>
+<li><p>Two jointly discrete random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[
+   p_{X,Y}(x,y) = p_X(x) p_Y(y), \quad \forall x, y \in \reals.
+\]</span></p></li>
+</ol>
+<p>An immediate implication of the above definition is the following.</p>
+<div id="prp-functions-of-RVs" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 1</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Consider <span class="math inline">\(U = g(X)\)</span> and <span class="math inline">\(V = h(Y)\)</span> for some (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>. Then, <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Consider any (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span> and consider the events <span class="math inline">\(\{ U \in B_1 \}\)</span> and <span class="math inline">\(\{ V \in B_2 \}\)</span>. Note that</p>
+<ul>
+<li><span class="math inline">\(\{ U \in B_1 \} = \{ X \in g^{-1}(B_1) \}\)</span>.</li>
+<li><span class="math inline">\(\{ V \in B_2 \} = \{ Y \in h^{-1}(B_2) \}\)</span>.</li>
+</ul>
+<p>Since the random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, the events <span class="math inline">\(\{ X \in g^{-1}(B_1) \}\)</span> and <span class="math inline">\(\{ Y \in h^{-1}(B_2) \}\)</span>. Which implies that the events <span class="math inline">\(\{ U \in B_1 \}\)</span> and <span class="math inline">\(\{ V \in B_2 \}\)</span> are independent. Consequently, the random variables <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="correlation-and-covariance" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="correlation-and-covariance"><span class="header-section-number">5</span> Correlation and covariance</h2>
@@ -735,9 +823,6 @@ x,y \in \reals \]</span> for some integrable function <span class="math inline">
 <h2 data-number="6" class="anchored" data-anchor-id="functions-of-random-variables"><span class="header-section-number">6</span> Functions of random variables</h2>
 
 
-</section>
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
