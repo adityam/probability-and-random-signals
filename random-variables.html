@@ -999,6 +999,32 @@ Note
 </div>
 </div>
 </div>
+<div id="exr-function-max-min" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
+U = \max(X,Y)
+\quad
+V = \min(X,Y).
+\]</span> Find <span class="math inline">\(F_U\)</span> and <span class="math inline">\(F_V\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>We first look at <span class="math inline">\(F_U\)</span>. By definition <span class="math display">\[ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).\]</span></p></li>
+<li><p>Now consider <span class="math inline">\(F_V\)</span>. The event <span class="math inline">\(\{V \le v\}\)</span> can be expressed as <span class="math display">\[ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \} \cap \{X \le v \} \cap \{Y \le v\}.\]</span> Thus, <span class="math display">\[F_V(v) = F_X(v) + F_Y(v) - F_{X,Y}(v,v). \]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
