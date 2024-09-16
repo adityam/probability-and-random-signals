@@ -772,6 +772,28 @@ In this case, $f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)$. Therefore, w
 $$f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y).$$
 :::
 
+:::{#exr-function-max-min}
+Let $X$ and $Y$ be random variables defined on a common probability space. Define
+$$
+U = \max(X,Y)
+\quad
+V = \min(X,Y).
+$$
+Find $F_U$ and $F_V$.
+:::
+
+:::{.callout-note collapse="false"}
+
+1. We first look at $F_U$. By definition
+   $$ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).$$
+
+2. Now consider $F_V$. The event $\{V \le v\}$ can be expressed as
+  $$ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \} \cap \{X \le v \} \cap \{Y \le v\}.$$
+  Thus,
+  $$F_V(v) = F_X(v) + F_Y(v) - F_{X,Y}(v,v). $$
+:::
+
+
 :::{.callout-important}
 ### Change of variables formula
 
