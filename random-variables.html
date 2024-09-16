@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-09-15">
+<meta name="dcterms.date" content="2024-09-16">
 
 <title>Random variables and random vectors – Probability and Random Signals II</title>
 <style>
@@ -97,6 +97,7 @@ window.MathJax = {
       PR: "\\mathbb{P}",
       EXP: "\\mathbb{E}",
       "VAR": "\\operatorname{var}",
+      COV: "\\operatorname{cov}",
       IND: "\\mathbb{1}",
       ONES: "\\mathbb{1}",
       reals: "\\mathbb{R}",
@@ -221,6 +222,12 @@ window.Quarto = {
   <li><a href="#independence-of-random-vectors" id="toc-independence-of-random-vectors" class="nav-link" data-scroll-target="#independence-of-random-vectors"><span class="header-section-number">4</span> Independence of random vectors</a></li>
   <li><a href="#correlation-and-covariance" id="toc-correlation-and-covariance" class="nav-link" data-scroll-target="#correlation-and-covariance"><span class="header-section-number">5</span> Correlation and covariance</a></li>
   <li><a href="#functions-of-random-variables" id="toc-functions-of-random-variables" class="nav-link" data-scroll-target="#functions-of-random-variables"><span class="header-section-number">6</span> Functions of random variables</a></li>
+  <li><a href="#conditional-cdf" id="toc-conditional-cdf" class="nav-link" data-scroll-target="#conditional-cdf"><span class="header-section-number">7</span> Conditional CDF</a>
+  <ul class="collapse">
+  <li><a href="#conditioning-on-an-event" id="toc-conditioning-on-an-event" class="nav-link" data-scroll-target="#conditioning-on-an-event"><span class="header-section-number">7.1</span> Conditioning on an event</a></li>
+  <li><a href="#conditioning-on-a-random-variable" id="toc-conditioning-on-a-random-variable" class="nav-link" data-scroll-target="#conditioning-on-a-random-variable"><span class="header-section-number">7.2</span> Conditioning on a random variable</a></li>
+  <li><a href="#conditional-expectation" id="toc-conditional-expectation" class="nav-link" data-scroll-target="#conditional-expectation"><span class="header-section-number">7.3</span> Conditional expectation</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -255,7 +262,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 15, 2024</p>
+      <p class="date">September 16, 2024</p>
     </div>
   </div>
   
@@ -607,12 +614,16 @@ How to avoid a proof
 </div>
 </div>
 </div>
+<div id="exr-expectation" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}[-1,1]\)</span>. Compute <span class="math inline">\(\EXP[X^2]\)</span>.</p>
+</div>
 <div id="lem-expectation-properties" class="theorem lemma">
 <p><span class="theorem-title"><strong>Lemma 4 (Properties of expectation)</strong></span> &nbsp;</p>
 <ol type="1">
 <li><p><strong>Linearity.</strong> For any (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span> <span class="math display">\[\EXP[g(X) + h(X)] = \EXP[ g(X)] + \EXP[ h(X) ]. \]</span> As a special case, for a constant <span class="math inline">\(c\)</span>, <span class="math display">\[\EXP[X + c] = \EXP[X] + c.\]</span></p></li>
 <li><p><strong>Scaling.</strong> For any constant <span class="math inline">\(c\)</span>, <span class="math display">\[\EXP[cX] = c\EXP[X].\]</span></p></li>
 <li><p><strong>Bounds.</strong> If <span class="math inline">\(a \le X(ω) \le b\)</span> for all <span class="math inline">\(ω \in Ω\)</span>, then <span class="math display">\[ a \le \EXP[X] \le b. \]</span></p></li>
+<li><p><strong>Indicator of events.</strong> For any (Borel) subset <span class="math inline">\(B\)</span> of <span class="math inline">\(\reals\)</span>, we have <span class="math display">\[\EXP[ \IND_{\{ X \in B \}}] = \PR(X \in B). \]</span></p></li>
 </ol>
 </div>
 <ol type="1">
@@ -729,7 +740,7 @@ F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 </ul>
 </div>
 <div id="exr-joint-distribution" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint CDF <span class="math inline">\(F\)</span>. Show that <span class="math display">\[
+<p><span class="theorem-title"><strong>Exercise 4</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint CDF <span class="math inline">\(F\)</span>. Show that <span class="math display">\[
 \PR(a &lt; X \le b, c &lt; Y \le d) = F(b,d) - F(a,d) - F(b,c) + F(a,c).
 \]</span></p>
 </div>
@@ -815,14 +826,246 @@ Proof
 </div>
 </div>
 </div>
+<div id="prp-independence-as-expectation" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[\begin{equation}\label{eq:expectation-product}
+  \EXP[ g(X) h(Y) ] = \EXP[ g(X) ] \EXP[ h(Y) ]
+\end{equation}\]</span> for all (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>There are two claims here.</p>
+<ol type="1">
+<li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent then <span class="math inline">\(\eqref{eq:expectation-product}\)</span> holds.</p></li>
+<li><p>If <span class="math inline">\(\eqref{eq:expectation-product}\)</span> holds, then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent.</p></li>
+</ol>
+<p>We will prove the first claim assuming that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are continuous. Similar argument works for the discrete case as well. <span class="math display">\[\begin{align*}
+  \EXP[ g(X) h(Y) ]
+  &amp;= \int_{-∞}^∞ \int_{-∞}^∞ g(x) h(y) f_{X,Y}(x,y)\, dx dy \\
+  &amp;\stackrel{(a)}= \int_{-∞}^∞ \int_{-∞}^∞ g(x) h(y) f_{X}(x) f_{Y}(y)\, dy dx \\
+  &amp;\stackrel{(b)}= \int_{-∞}^∞ \left[ \int_{-∞}^∞ g(x)f_{X}(x)\, dx \right]h(y) f_{Y}(y)  \, dy \\
+  &amp;\stackrel{(c)}= \left[ \int_{-∞}^∞ g(x)f_{X}(x)\, dx \right]
+  \left[\int_{-∞}^∞  h(y) f_{Y}(y)  \, dy \right] \\
+  &amp;= \EXP[ g(X) ] \EXP [ h(Y) ]
+\end{align*}\]</span> where <span class="math inline">\((a)\)</span> follows from the fact that <span class="math inline">\(X \independent Y\)</span>, <span class="math inline">\((b)\)</span> and <span class="math inline">\((c)\)</span> are simple algebra, and the last step uses the definition of expectation.</p>
+<p>To prove the second claim, pick any (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span> and consider the functions <span class="math inline">\(g(x) = \IND_{B_1}(x)\)</span> and <span class="math inline">\(h(y) = \IND_{B_2}(y)\)</span>. Observe that <span class="math display">\[\begin{align*}
+  \PR(X \in B_1, Y \in B_2)
+  &amp;= \EXP[\IND_{ \{ X \in B_1, Y \in B_2 \}}] \\
+  &amp;\stackrel{(d)}= \EXP[\IND_{ \{ X \in B_1 \}} \IND_{\{ Y \in B_2 \}}] \\
+  &amp;\stackrel{(e)}=\EXP[\IND_{ \{ X \in B_1 \}}\ \EXP[ \IND_{\{ Y \in B_2 \}}] \\
+  &amp;\stackrel{(f)}= \PR(X \in B_1) \PR(Y \in B_2)
+\end{align*}\]</span> where <span class="math inline">\((d)\)</span> follows from basic algebra, <span class="math inline">\((e)\)</span> follows from <span class="math inline">\(\eqref{eq:expectation-product}\)</span>, and <span class="math inline">\((f)\)</span> follows from expectation of an indicator.</p>
+<p>The above equation shows that for any arbitrary (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span>, <span class="math inline">\(\PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2)\)</span>. Hence, <span class="math inline">\(\{X \in B_1\} \independent \{Y \in B_2 \}\)</span>. Since <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> were arbirary, we have <span class="math inline">\(X \independent Y\)</span>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="correlation-and-covariance" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="correlation-and-covariance"><span class="header-section-number">5</span> Correlation and covariance</h2>
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on the same probability space.</p>
+<ul>
+<li><p><strong>Correlation</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\EXP[XY]\)</span>.</p></li>
+<li><p><strong>Covariance</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]\)</span>.</p></li>
+<li><p><strong>Correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
+<li><p>The correlation coefficeint satisfies <span class="math inline">\(\ABS{ρ_{XY}| \le 1\)</span> with equality if and only if <span class="math inline">\(\PR(aX + bY = c) = 1\)</span> for some <span class="math inline">\(a,b,c \in \reals\)</span>. [The proof follows from Cauchy-Schwartz inequality, which we will study later]</p></li>
+<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be uncorrelated if <span class="math inline">\(ρ_{XY} = 0\)</span>, which is equivalent to <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</p></li>
+<li><p>Indepdent random variables are uncorrelated but the reverse in not true.</p></li>
+</ul>
+<p>Some of these concepts also generalize to random vectors. First, we define expected value for random vectors and random matrices.</p>
+<ul>
+<li><p>If <span class="math inline">\(X = [X_1, \dots, X_n] \in \reals^n\)</span>, then <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_1] &amp; \cdots &amp; \EXP[X_n] }. \]</span></p></li>
+<li><p>If <span class="math inline">\(X = \MATRIX{ X_{1,1} &amp; \cdots &amp; X_{1,n} \\ X_{2,1} &amp; \cdots &amp; X_{2,n} \\
+\vdots &amp; \vdots &amp; \vdots \\
+X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span> is a ranom matrix, then <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] &amp; \cdots &amp; \EXP[X_{1,n}] \\ \EXP[X_{2,1}] &amp; \cdots &amp; \EXP[X_{2,n}] \\
+\vdots &amp; \vdots &amp; \vdots \\
+\EXP[X_{m,1}] &amp; \cdots &amp; \EXP[X_{m,n}] }.
+\]</span></p></li>
+</ul>
+<p>We the above notation, we can define the following:</p>
+<ul>
+<li><p>The <strong>correlation matrix</strong> of a random vector <span class="math inline">\(X \in \reals^n\)</span> is defined as <span class="math inline">\(\EXP[X X^\TRANS]\)</span>, where <span class="math inline">\(X^\TRANS\)</span> denotes the transpose of <span class="math inline">\(X\)</span>.</p></li>
+<li><p>The <strong>covariance matrix</strong> of a ranom vector <span class="math inline">\(X \in \reals^n\)</span> is defined as <span class="math inline">\(\EXP[ (X - μ_X) (X - μ_X)^\TRANS]\)</span>.</p></li>
+<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math display">\[\EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ] = 0 \]</span></p></li>
+<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>orthogonal</strong> if <span class="math display">\[\EXP[X Y^\TRANS] = 0 \]</span></p></li>
+<li><p>Both the coorelation and covariance matrices are positive semidefinite. Thus, their eigenvalues are real and non-negative.</p></li>
+</ul>
 </section>
 <section id="functions-of-random-variables" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="functions-of-random-variables"><span class="header-section-number">6</span> Functions of random variables</h2>
+<p>In an interconnected systems, the output of one system is used as input to another system. To analyze such systems, it is important to understand how to analyze functions of random variables.</p>
+<p>In particular, let <span class="math inline">\(X\)</span> be a random variable defined on <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. Suppose <span class="math inline">\(g \colon \reals \to \reals\)</span> is a (measurable) function. Define <span class="math inline">\(Y = g(X)\)</span>.</p>
+<ul>
+<li><p>Since <span class="math inline">\(g\)</span> is measurable, for any (Borel) subset of <span class="math inline">\(\reals\)</span>, we have that <span class="math inline">\(C = g^{-1}(B) \in \mathscr B(\reals)\)</span>. Therefore, <span class="math inline">\(X^{-1}(C) \in \ALPHABET F\)</span>. Thus, we can think of <span class="math inline">\(Y\)</span> as a random variable.</p></li>
+<li><p>Since <span class="math inline">\(Y\)</span> is a random variable, it is poosible to compute its CDF and PMF/PDF as appropriate. We illustrate this concept via some examples.</p></li>
+</ul>
+<div id="exm-function-uniform" class="theorem example">
+<p><span class="theorem-title"><strong>Example 12</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,2]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
+g(x) = \begin{cases}
+  x &amp; x \in (0,1] \\
+  1- x &amp; x \in (1,2] \\
+  0 &amp; \hbox{otherwise}
+\end{cases}
+\]</span> Define <span class="math inline">\(Y = g(X)\)</span>. Find <span class="math inline">\(F_Y(y)\)</span> and <span class="math inline">\(f_Y(y)\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>From the definition of <span class="math inline">\(g\)</span>, we know that the rannge of <span class="math inline">\(g\)</span> is <span class="math inline">\([0,1]\)</span>. Thus, we know that the support of <span class="math inline">\(Y\)</span> is <span class="math inline">\([0,1]\)</span>.</p>
+<ol type="1">
+<li><p>For any <span class="math inline">\(y &lt; 0\)</span>, the event <span class="math inline">\(\{Y \le y\} = \emptyset\)</span>. Therefore, <span class="math inline">\(F_Y(y) = 0\)</span>.</p></li>
+<li><p>For any <span class="math inline">\(y &gt; 1\)</span>, the event <span class="math inline">\(\{Y \le y\} = Ω\)</span>. Therefore, <span class="math inline">\(F_Y(y) = 1\)</span>.</p></li>
+<li><p>Now consider a <span class="math inline">\(y \in (0,1)\)</span>. We have <span class="math display">\[
+\{Y \le y \} = \{ X \le y \} \cup \{X \ge 2 - y \}.
+\]</span> Thus, <span class="math display">\[
+F_Y(y) = F_X(y) + F_X(2-y) = \frac {y}{2} + 1 - \frac{2-y}{2} = y.
+\]</span> Thus, <span class="math display">\[
+   f_Y(y) = \dfrac{d}{dy} F_Y(y) = 1, \quad y \in [0,1].
+\]</span> Thus, <span class="math inline">\(Y\)</span> is <span class="math inline">\(\text{Uniform}[0,1]\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-function-uniform" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 5</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,4]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
+g(x) = \begin{cases}
+  x &amp; x \in (0,1] \\
+  1 &amp; x \in (1, 3) \\
+  4- x &amp; x \in (3,4] \\
+  0 &amp; \hbox{otherwise}
+\end{cases}
+\]</span> Define <span class="math inline">\(Y = g(X)\)</span>. Find <span class="math inline">\(F_Y(y)\)</span> and <span class="math inline">\(f_Y(y)\)</span>.</p>
+</div>
+<p>The same idea can be used for functions of multiple random variables as we illustrate via the following examples.</p>
+<div id="exr-function-sum" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 6</strong></span> Suppose <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are continuous random variables and <span class="math inline">\(Y = X_1 + X_2\)</span>. Find the PDF <span class="math inline">\(f_Y(y)\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as follows: <span class="math display">\[
+F_Y(y)
+= \int_{-∞}^∞ \int_{-∞}^{y - x_1} f_{X_1,X_2}(x_1, x_2)\, d x_2 d x_1 \\
+\]</span> Therefore, <span class="math display">\[\begin{align*}
+f_Y(y) &amp;= \frac{d F_Y(y)}{dy} \\
+&amp;= \int_{-∞}^∞ \frac{d}{dy} \int_{-∞}^{y-x_1} f_{X_1, X_2}(x_1, x_2) \, dx_2\, dx_1 \\
+&amp;= \int_{-∞}^∞ f_{X_1, X_2}(x_1, y - x_1)\, dx_1.
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div id="exr-function-sum-independent" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7</strong></span> Repeat <a href="#exr-function-sum" class="quarto-xref">Exercise&nbsp;6</a> when <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>In this case, <span class="math inline">\(f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)\)</span>. Therefore, we get <span class="math display">\[f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y).\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Change of variables formula
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For continuous random variables, it is possible to obtain a general <strong>change of variable</strong> formula to obtain the PDF of functions of random variable in terms of their joint PDF. See Sec 4.7 of the textbook for details. In my view, it is usually easier to simply reason about such change of variables from first principles.</p>
+</div>
+</div>
+</section>
+<section id="conditional-cdf" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="conditional-cdf"><span class="header-section-number">7</span> Conditional CDF</h2>
+<section id="conditioning-on-an-event" class="level3" data-number="7.1">
+<h3 data-number="7.1" class="anchored" data-anchor-id="conditioning-on-an-event"><span class="header-section-number">7.1</span> Conditioning on an event</h3>
+<ol type="1">
+<li><p>If <span class="math inline">\(C\)</span> is an event with <span class="math inline">\(C &gt; 0\)</span>, then <span class="math display">\[F_X(x \mid C) = \PR(X \le x \mid C)
+= \dfrac{\PR(\{X \le x\} \cap C)}{\PR(C)}.\]</span></p></li>
+<li><p><span class="math inline">\(F_X(x \mid C)\)</span> inherits the properties of regular CDFs. In particular,</p>
+<ul>
+<li><span class="math inline">\(0 \le F_X(x\mid C) \le 1\)</span></li>
+<li><span class="math inline">\(\displaystyle \lim_{x \to -∞} F_X(x \mid C) = 0\)</span></li>
+<li><span class="math inline">\(\displaystyle \lim_{x \to +∞} F_X(x \mid C) = 1\)</span></li>
+<li><span class="math inline">\(F_X(x \mid C)\)</span> is non-decreasing function.</li>
+<li><span class="math inline">\(F_X(x \mid C)\)</span> is right-continuous function.</li>
+</ul></li>
+<li><p>If <span class="math inline">\(F_X(x \mid C)\)</span> is continuous, we can define the conditional PDF as <span class="math display">\[
+f_X(x\mid C) = \frac{d}{dx} F_X(x \mid C).
+\]</span></p></li>
+<li><p>If <span class="math inline">\(C_1, C_2, \dots, C_n\)</span> form a partition of <span class="math inline">\(Ω\)</span>, then the law of total probability implies that <span class="math display">\[
+  F_X(x) = \sum_{i=1}^n F_X(x \mid C_i) \PR(C_i).
+\]</span> If <span class="math inline">\(X\)</span> is continuous, then we also have <span class="math display">\[
+  f_X(x) = \sum_{i=1}^n f_X(x \mid C_i) \PR(C_i).
+\]</span></p></li>
+</ol>
+<div id="exm-communication" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13</strong></span> &nbsp;</p>
+<!-- TODO: Add details -->
+<p>Transmit <span class="math inline">\(+1\)</span> or <span class="math inline">\(-1\)</span> with probability <span class="math inline">\(p\)</span> and <span class="math inline">\(1-p\)</span>. Goes through AWGN channel.</p>
+</div>
+</section>
+<section id="conditioning-on-a-random-variable" class="level3" data-number="7.2">
+<h3 data-number="7.2" class="anchored" data-anchor-id="conditioning-on-a-random-variable"><span class="header-section-number">7.2</span> Conditioning on a random variable</h3>
+<ol type="1">
+<li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are random variables defined on a common probability space and <span class="math inline">\(X\)</span> is discrete, then <span class="math display">\[F_{Y|X}(y \mid x) = \PR(Y \le y \mid X = x)\]</span> for any <span class="math inline">\(x\)</span> such that <span class="math inline">\(\PR(X = x) &gt; 0\)</span>.</p></li>
+<li><p>If <span class="math inline">\(Y\)</span> is discrete, the conditional PMF <span class="math inline">\(p_{Y| X}\)</span> is defined as <span class="math display">\[p_{Y|X}(y|x) = \PR(Y = y \mid X = x) = \frac{p_{X,Y}(x,y)}{P_X(x)}\]</span> for any <span class="math inline">\(x\)</span> such that <span class="math inline">\(\PR(X = x) &gt; 0\)</span>.</p></li>
+<li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous, we define <span class="math display">\[f_{Y|X}(y|x) = \frac{f_{X,Y}(x,y)}{f_X(x)}.\]</span> Then, <span class="math display">\[Y_{Y|X}(y|x) = \int_{∞}^y \frac{f_{X,Y}(x,u)}{f_X(x)}\, du.\]</span></p></li>
+</ol>
+</section>
+<section id="conditional-expectation" class="level3" data-number="7.3">
+<h3 data-number="7.3" class="anchored" data-anchor-id="conditional-expectation"><span class="header-section-number">7.3</span> Conditional expectation</h3>
+<p>Define <span class="math inline">\(ψ(X) = \EXP[Y \mid X = x]\)</span>. Then, <span class="math inline">\(ψ(X)\)</span> is a random variable which is called the <strong>conditional expectation of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span></strong> and written as <span class="math inline">\(\EXP[Y|X]\)</span>.</p>
+<div id="thm-smoothing-property" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1 (Smoothing property of conditional expectation)</strong></span> <span class="math display">\[\EXP\bigl[ \EXP[Y \mid X] \bigr] = \EXP[Y].\]</span></p>
+</div>
+<p>This can be viewed as a special case of law of total probability.</p>
+<div id="thm-property-of-conditional-expectation" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2</strong></span> The conditional expectation <span class="math inline">\(ψ(X) = \EXP[Y\mid X]\)</span> satisfies <span class="math display">\[
+\EXP[ ψ(X) g(X) ] = \EXP[Y g(X)]
+\]</span> for any function <span class="math inline">\(g\)</span> for which both expectations exist.</p>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
