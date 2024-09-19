@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://adityam.github.io/probability-and-random-signals/index.html</loc>
-    <lastmod>2024-09-16T18:24:56.653Z</lastmod>
-  </url>
-  <url>
     <loc>https://adityam.github.io/probability-and-random-signals/random-variables.html</loc>
-    <lastmod>2024-09-16T18:24:56.657Z</lastmod>
+    <lastmod>2024-09-19T03:58:08.602Z</lastmod>
   </url>
   <url>
     <loc>https://adityam.github.io/probability-and-random-signals/probability-spaces.html</loc>
-    <lastmod>2024-09-16T18:24:56.653Z</lastmod>
+    <lastmod>2024-09-19T03:58:08.602Z</lastmod>
+  </url>
+  <url>
+    <loc>https://adityam.github.io/probability-and-random-signals/index.html</loc>
+    <lastmod>2024-09-19T03:58:08.602Z</lastmod>
   </url>
 </urlset>
