@@ -635,7 +635,7 @@ To prove the second claim, pick any (Borel) subsets $B_1$ and $B_2$ of $\reals$ 
 \end{align*}
 where $(d)$ follows from basic algebra, $(e)$ follows from \eqref{eq:expectation-product}, and $(f)$ follows from expectation of an indicator.
 
-The above equation shows that for any arbitrary (Borel) subsets $B_1$ and $B_2$ of $\reals$, $\PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2)$. Hence, $\{X \in B_1\} \independent \{Y \in B_2 \}$. Since $B_1$ and $B_2$ were arbirary, we have $X \independent Y$. 
+The above equation shows that for any arbitrary (Borel) subsets $B_1$ and $B_2$ of $\reals$, $\PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2)$. Hence, $\{X \in B_1\} \independent \{Y \in B_2 \}$. Since $B_1$ and $B_2$ were arbitrary, we have $X \independent Y$. 
 :::
 
 ## Correlation and covariance
@@ -649,11 +649,37 @@ Let $X$ and $Y$ be random variables defined on the same probability space.
 - **Correlation coefficient** between $X$ and $Y$ is defined as 
   $$ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.$$
 
-- The correlation coefficeint satisfies $\ABS{ρ_{XY}| \le 1$ with equality if and only if $\PR(aX + bY = c) = 1$ for some $a,b,c \in \reals$. [The proof follows from Cauchy-Schwartz inequality, which we will study later]
+- The correlation coefficeint satisfies $\ABS{ρ_{XY}} \le 1$ with equality if and only if $\PR(aX + bY = c) = 1$ for some $a,b,c \in \reals$. [The proof follows from Cauchy-Schwartz inequality, which we will study later]
 
 - $X$ and $Y$ are said to be uncorrelated if $ρ_{XY} = 0$, which is equivalent to $\EXP[XY] = \EXP[X] \EXP[Y]$.
 
 - Indepdent random variables are uncorrelated but the reverse in not true.
+
+:::{#exm-uncorrelated}
+Consider the probability space $(Ω, \ALPHABET F, \PR)$ where $Ω = [0, 2 π)$, $\ALPHABET F$ is the Borel $σ$-algebra on $[0, 2 π)$ and $\PR$ is the uniform distribution on $Ω$. Define $X(ω) = \cos ω$ and $Y(ω) = \sin ω$. 
+Show that $X$ and $Y$ are uncorrelated but not independent.
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+The event $\{X = 1\}$ corresponds to $ω = 0$ and therefore $\{Y = 0\}$. Thus, $X$ and $Y$ are not independent. 
+
+Observe that
+
+- $\displaystyle \EXP[X] = \int_{0}^{2 π} \cos ω \frac{1}{2 π}\, d ω = 0$.
+
+- $\displaystyle \EXP[Y] = \int_{0}^{2 π} \sin ω \frac{1}{2 π}\, d ω = 0$.
+
+- $\displaystyle \EXP[XY] = \int_{0}^{2 π} \cos ω \sin ω \frac{1}{2 π}\, d ω = 
+  \frac{1}{4{π}} \int_0^{2 π} \cos 2 ω\, d ω = 0$.
+
+Thus,
+$$\EXP[XY] = \EXP[X]\EXP[Y].$$
+:::
+
+
+### Correlation and covariance for random vectors
 
 Some of these concepts also generalize to random vectors. First, we define expected value for random vectors and random matrices.
 
@@ -670,9 +696,27 @@ Some of these concepts also generalize to random vectors. First, we define expec
 
 We the above notation, we can define the following:
 
-- The **correlation matrix** of a random vector $X \in \reals^n$ is defined as $\EXP[X X^\TRANS]$, where $X^\TRANS$ denotes the transpose of $X$. 
+- The **correlation matrix** of a random vector $X \in \reals^n$ is defined as 
+  $$ R = \EXP[X X^\TRANS],$$
+  where $X^\TRANS$ denotes the transpose of $X$. 
 
-- The **covariance matrix** of a ranom vector $X \in \reals^n$ is defined as $\EXP[ (X - μ_X) (X - μ_X)^\TRANS]$.
+- The correlation matrix is symmetric, i.e., $R = R^\TRANS$
+
+- The **covariance matrix** of a random vector $X \in \reals^n$ is defined as 
+  $$\COV(X) = \EXP[ (X - μ_X) (X - μ_X)^\TRANS].$$
+
+- The covariance matrix is symmetric. Moreover, 
+  $[\COV(X)]_{i,j} = \COV(X_i,X_j)$. 
+
+- The **cross correlation matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
+  $$
+    R_{XY} = \EXP[X Y^\TRANS].
+  $$
+
+- The **cross covariance matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
+  $$
+    \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
+  $$
 
 - Two random vectors $X$ and $Y$ are called **uncorrelated** if 
   $$\EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ] = 0 $$
@@ -680,7 +724,7 @@ We the above notation, we can define the following:
 - Two random vectors $X$ and $Y$ are called **orthogonal** if 
   $$\EXP[X Y^\TRANS] = 0 $$
 
-- Both the coorelation and covariance matrices are positive semidefinite. Thus, their eigenvalues are real and non-negative. 
+- Both the correlation and covariance matrices are positive semidefinite. Thus, their eigenvalues are real and non-negative. 
 
 
 ## Functions of random variables
@@ -691,10 +735,10 @@ In particular, let $X$ be a random variable defined on $(Ω, \ALPHABET F, \PR)$.
 
 - Since $g$ is measurable, for any (Borel) subset of $\reals$, we have that $C = g^{-1}(B) \in \mathscr B(\reals)$. Therefore, $X^{-1}(C) \in \ALPHABET F$. Thus, we can think of $Y$ as a random variable. 
 
-- Since $Y$ is a random variable, it is poosible to compute its CDF and PMF/PDF as appropriate. We illustrate this concept via some examples.
+- Since $Y$ is a random variable, it is possible to compute its CDF and PMF/PDF as appropriate. We illustrate this concept via some examples.
 
 
-:::{#exm-function-uniform}
+:::{#exm-function-uniform-1}
 Suppose $X \sim \text{Uniform}[0,2]$. Consider a function $g$ given by 
 $$
 g(x) = \begin{cases}
@@ -730,7 +774,7 @@ From the definition of $g$, we know that the rannge of $g$ is $[0,1]$. Thus, we 
    Thus, $Y$ is $\text{Uniform}[0,1]$.
 :::
 
-:::{#exr-function-uniform}
+:::{#exm-function-uniform-2}
 Suppose $X \sim \text{Uniform}[0,4]$. Consider a function $g$ given by 
 $$
 g(x) = \begin{cases}
@@ -745,11 +789,63 @@ Define $Y = g(X)$. Find $F_Y(y)$ and $f_Y(y)$.
 
 The same idea can be used for functions of multiple random variables as we illustrate via the following examples.
 
-:::{#exr-function-sum}
+:::{#exm-transformation-Gaussian}
+Suppose $X \sim \mathcal{N}(μ,σ^2)$. Show that $Z = (X - μ)/σ$ is a standard normal random variable, i.e., $Z \sim \mathcal{N}(0,1)$.
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+We can write the CDF $F_Z(z)$ as 
+\begin{align*}
+F_Z(z) &= \PR(Z \le z) = \PR\left( \frac{X - μ}{σ} \le z \right)
+= \PR(X \le σ z + μ)
+\\
+&= \int_{-∞}^{σ z + μ} \frac{1}{\sqrt{2 π}\, σ} \exp\left(
+- \frac{(x-μ)^2}{2 σ^2}\, dx \right)
+\\
+&= \int_{-∞}^{z} \frac{1}{\sqrt{2 π}} \exp\left(
+- \frac{y^2}{2}\, dy \right)
+\end{align*}
+where the last step uses the change of variables $y = (x-μ)/σ$. 
+
+Thus, 
+$$f_Z(z) = \frac{d F_Z(z)}{dz} = \frac{1}{\sqrt{2 π}} e^{-z^2/2}.$$
+Thus, $Z \sim \mathcal{N}(0,1)$.
+:::
+
+:::{#exm-generating-random-numbers}
+Suppose $X \sim \text{Uniform}[0,1]$, and $F \colon \reals \to [0,1]$ is a function that has properties of the CDF of a continuous random variable, i.e., there exist a pair $(a,b)$ with $a < b$ (we allow $a$ to be $-∞$ and $b$ to be $∞$) such that 
+
+- $F(y) = 0$ for $y \le a$
+- $F(y) = 1$ for $y \ge b$
+- $F(y)$ is strctly increasing in $(a,b)$. 
+
+Define $Y = F^{-1}(X)$. Show that $F_Y(y) = F(y)$. 
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+We can write the CDF $F_Y(y)$ as
+$$
+F_Y(y) = \PR(Y \le y) = \PR(F^{-1}(X) \le y)
+$$
+
+Since $F$ is strictly increasing, $F^{-1}(X) \le y$ is equivalent to $X \le F(y)$. Thus,
+$$
+F_Y(y) = \PR(X \le F(y)) = F_X(F(y)) = F(y)
+$$
+where the last step uses the fact tht $X$ is uniform over $[0,1]$.
+:::
+
+:::{#exm-function-sum}
 Suppose $X_1$ and $X_2$ are continuous random variables and $Y = X_1 + X_2$. Find the PDF $f_Y(y)$. 
 :::
 
 :::{.callout-note collapse="false"}
+### Solution
+
 We can write the CDF $F_Y(y)$ as follows:
 $$
 F_Y(y)
@@ -763,16 +859,48 @@ f_Y(y) &= \frac{d F_Y(y)}{dy} \\
 \end{align*}
 :::
 
-:::{#exr-function-sum-independent}
-Repeat @exr-function-sum when $X_1$ and $X_2$ are independent. 
+:::{#exm-function-sum-independent}
+Repeat @exm-function-sum when $X_1$ and $X_2$ are independent. 
 :::
 
 :::{.callout-note collapse="false"}
+### Solution
 In this case, $f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)$. Therefore, we get
-$$f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y).$$
+$$f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y)$$
+where $*$ denotes convolution.
 :::
 
-:::{#exr-function-max-min}
+:::{#exm-function-sum-Poisson}
+Repeat @exm-function-sum-independent when $X_1 \sim \text{Poisson}(λ_1)$ and $X_2 \sim \text{Poisson}(λ_2)$. 
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+Recall that for a Poisson random variable $X$ with parameter $λ$
+$$
+p_X(k) = e^{-λ} \frac{λ^k}{k!}, \quad k \ge 0
+$$
+
+Thus,
+\begin{align*}
+p_Y(n) &= (p_{X_1} * P_{X_2})(n) 
+= \sum_{k=-∞}^{∞} p_{X_1}(k) p_{X_2}(n-k) 
+\\
+&=\sum_{k=0}^{n} p_{X_1}(k) p_{X_2}(n-k)  
+\\
+&= \sum_{k=0}^n e^{-λ_1 - λ_2} \frac{ λ_1^k λ_2^{n-k} }{ k! (n-k)! }
+\\
+&= e^{-(λ_1 + λ_2)} \frac{1}{n!}
+\sum_{k=0}^n \frac{n!}{k!(n-k)!} λ_1^k λ_2^{n-k} 
+\\
+&= e^{-(λ_1 + λ_2)} \frac{(λ_1 + λ_2)^n}{n!}
+\end{align*}
+
+Thus, $Y \sim \text{Poisson}(λ_1 + λ_2)$. 
+:::
+
+:::{#exm-function-max-min}
 Let $X$ and $Y$ be random variables defined on a common probability space. Define
 $$
 U = \max(X,Y)
@@ -783,6 +911,7 @@ Find $F_U$ and $F_V$.
 :::
 
 :::{.callout-note collapse="false"}
+### Solution
 
 1. We first look at $F_U$. By definition
    $$ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).$$
@@ -794,10 +923,137 @@ Find $F_U$ and $F_V$.
 :::
 
 
-:::{.callout-important}
-### Change of variables formula
+### Change of variables formulas
 
-For continuous random variables, it is possible to obtain a general **change of variable** formula to obtain the PDF of functions of random variable in terms of their joint PDF. See Sec 4.7 of the textbook for details. In my view, it is usually easier to simply reason about such change of variables from first principles. 
+For continuous random variables, it is possible to obtain a general **change of variable** formula to obtain the PDF of functions of random variable in terms of their joint PDF. My personal view is that it is simpler to reason about such change of variables from first principles, but nonetheless it is good to know the results.
+
+
+1. Suppose $X$ is a continuous random variable with PDF $f_X$ and $Y = g(X)$, where $g$ is a continuous and one-to-one function (from $\text{Range}(X)$ to $\text{Range}{Y}$). Thus, $g$ must be either strictly increasing or strictly decreasing, and in both cases the inverse $g^{-}$ is well defined. 
+
+   - If $g^{-1}$ is strictly increasing, we have
+     $$ F_Y(y) = \PR(Y \le y) = \PR(X \le g^{-1}(y) = F_X(g^{-1}(y))$$
+     Therefore,
+     $$ f_Y(y) = \frac{d F_X(g^{-1}(y))}{dy} = f_X(g^{-1}(y)) \frac{d g^{-1}(y)}{dy}. $$
+
+   - If $g^{-1}$ is strictly decreasing, we have
+     $$ F_Y(y) = \PR(Y \le y) = \PR(X \ge g^{-1}(y)) = 1 - F_X(g^{-1}(y)).$$
+     Therefore,
+     $$ f_Y(y) = - \frac{d F_X(g^{-1}(y))}{dy} = - f_X(g^{-1}(y)) \frac{d g^{-1}(y)}{dy}. $$
+
+   - The above two formulas can be combined as
+     $$ \bbox[5pt,border: 1px solid]{f_Y(y) = f_X(g^{-1}(y)) \left| \frac{d g^{-1}(y)}{dy} \right|} $$
+
+2. From calculus, we know that if $h(y) = g^{-1}(y)$, then $h'(y) = 1/g'(h(y))$. Thus, the above expression can be simplified as
+$$ \bbox[5pt, border: 1px solid]{f_Y(y) = \frac{f_X(x)}{\ABS{g'(x)}}, \quad \text{where } x = g^{-1}(y).} $$
+
+   Resolve @exm-transformation-Gaussian using the above formula.
+
+3. If the transform $g(x)$ is not one-to-one (as in @exm-function-uniform-1), we can obtain $f_Y(y)$ as follows. Suppose $y = g(x)$ has finite roots, denoted by $\{x^{(k)}\}_{k=1}^m$. Then,
+   $$ f_Y(y) = \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{g'(x^{(k)})}}. $$
+
+    Resolve @exm-function-uniform-1 using the above formula.
+
+
+3. Now suppose $\{X_1, \dots, X_n\}$ are jointly continuous random variables with joint PDF $f$. Consider $n$ random variables:
+   \begin{align*}
+      Y_1 &= g_1(X_1, \dots, X_n) \\
+      Y_2 &= g_2(X_1, \dots, X_n) \\
+      \vdots &= \vdots \\
+      Y_n &= g_n(X_1, \dots, X_n).
+   \end{align*}
+   We can view this as an equation between two $n$-dimensional vectors $Y = \VEC(Y_1, \dots, Y_n)$ and $X = \VEC(X_1, \dots, X_n)$ written as 
+   $$ Y = g(X) $$
+
+   As was the case for the scalar system, for a given $y \in \reals^n$, the vector equation $y = g(x)$ may have zero, one, or multiple solutions. 
+
+   - If $y = g(x)$, $y \in \reals^n$ has no solution, then
+     $$ f_Y(y) = 0. $$
+
+   - If $y = g(x)$, $y \in \reals^n$ has one solution $x \in \reals^n$, then
+     $$ f_Y(y) = \frac{f_X(x)}{\ABS{J(x)}}, \quad \text{where } y = g(x)$$
+     and $J(x)$ denotes the Jacobian on $g(x)$ evaluated at $x = (x_1, \dots, x_n)$, i.e., 
+     $$
+     \def\1#1#2{\dfrac{∂ g_{#1}}{∂ x_{#2}}}
+     J(x_1, \dots, x_n) = 
+     \DET{ \1 11 & \cdots & \1 1n \\
+           \vdots & \vdots & \vdots \\
+           \1 n1 & \cdots & \1 nn }
+      $$
+
+   - If $y = g(x)$, $y \in \reals^n$ has multiple solutions given by $\{x^{(1)}, \dots, x^{(m)}\}$, then
+     $$ f_Y(y) = 
+     \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{J(x^{(k)})}}.$$
+
+:::{#exm-function-max-min-2}
+Resolve @exm-function-max-min using the change of variables formula.
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+Let $g_1(x,y) = \max\{x, y\}$ and $g_2(x,y) = \min\{x,y\}$. Define
+$$ U = g_1(X,Y) \quad\text{and}\quad V = g_2(X,Y).$$
+
+Define $g(x,y) = \VEC(g_1(x,y), g_2(x,y))$. Note that $g$ is not differentiable at $x=y$. 
+
+- When $x > y$, we have $g_1(x,y) = x$ and $g_2(x,y) = y$. Thus,
+  $$
+  J(x,y) = \DET{\1 11 & \1 12 \\ \1 21 & \1 22}
+  = \DET{1 & 0 \\ 0 & 1} = 1. $$
+
+- When $x < y$, we have $g_1(x,y) = y$ and $g_2(x,y) = x$. Thus,
+  $$
+  J(x,y) = \DET{\1 11 & \1 12 \\ \1 21 & \1 22}
+  = \DET{0 & 1 \\ 1 & 0} = -1. $$
+
+We now compute $f_{U,V}(u,v)$. 
+
+- If $u < v$, then the equation $(u,v) = g(x,y)$ has no solution. So we set 
+  $$ f_{U,V}(u,v) = 0. $$
+
+- If $u > v$, then the equation $(u,v) = g(x,y)$ has two solutions: $\{ (u,v), (v,u) \}$. Thus,
+  $$
+  f_{U,V}(u,v) = \frac{f_{X,Y}(u,v)}{\ABS{1}} + \frac{f_{X,Y}(v,u)}{\ABS{-1}}
+  = f_{X,Y}(u,v) + f_{X,Y}(v,u). $$
+
+- If $u = v$, then the equation $(u,u) = g(x,y)$ has one solution $(u,u)$. Thus,
+  $$ f_{U,V}(u,u) = f_{X,Y}(u,u). $$
+  Note that $u = v$ is a line in two-dimensional space. (Formally, it is a set of measure zero.) Hence, the choice of $f_{U,V}$ at $u = v$ will not affect any probability computations. So we can also set
+  $$ f_{U,V}(u,u) = 0. $$
+
+From the joint PDF $f_{U,V}$, we can compute the marginals as follows:
+
+- For $U$, we have
+  $$
+  f_U(u) = \int_{-∞}^{∞} f_{U,V}(u,v) dv 
+  = \int_{-∞}^{u} \bigl[ f_{X,Y}(u,v) + f_{X,Y}(v,u) \bigr] dv.
+  $$
+  Therefore,
+  $$
+  F_U(u) = \int_{-∞}^{u} f_U(\tilde u) d\tilde u
+  = \int_{-∞}^u \int_{-∞}^{\tilde u} \bigl[ f_{X,Y}(\tilde u,v) + f_{X,Y}(v,\tilde u) \bigr] dv d\tilde u.
+  $$
+  Note that
+  $$ \int_{-∞}^u \int_{-∞}^{\tilde u} f_{X,Y}(\tilde u, v) dv d\tilde u
+  = \int_{-∞}^u \int_{-∞}^{x} f_{X,Y}(x, y) dy dx
+  $$
+  and
+  \begin{align*}
+  \int_{-∞}^u \int_{-∞}^{\tilde u} f_{X,Y}(v, \tilde u) dv d\tilde u
+  &= \int_{-∞}^u \int_{-∞}^y f_{X,Y}(x,y) dx dy
+  \\
+  &= \int_{-∞}^u \int_{x}^u f_{X,Y}(x,y) dy dx
+  \end{align*}
+  where the last step follows from changing the order of integration. 
+
+  Substituting these back in the expression for $F_U(u)$, we get
+  $$
+  F_U(u) 
+  = \int_{-∞}^u \int_{-∞}^{x} f_{X,Y}(x, y) dy dx
+  + \int_{-∞}^u \int_{x}^u f_{X,Y}(x,y) dy dx
+  = \int_{-∞}^u \int_{-∞}^u f_{X,Y}(x,y) dy dx = F_{X,Y}(u,u). $$
+
+- For $V$, we can follow similar algebra as above.
 :::
 
 ## Conditional CDF
@@ -855,6 +1111,14 @@ Transmit $+1$ or $-1$ with probability $p$ and $1-p$. Goes through AWGN channel.
 
 Define $ψ(X) = \EXP[Y \mid X = x]$. Then, $ψ(X)$ is a random variable which is called the **conditional expectation of $Y$ given $X$** and written as $\EXP[Y|X]$. 
 
+We can similarly define conditional variance. 
+
+:::{#exr-conditional-expectation}
+Suppose we roll two independent fair 4-sided dice. Let $X$ denote the output of the first die, $Y$ denote the outcome of the second die, and $Z = X + Y$. 
+
+Find $\EXP[X | Z = z]$ for all $z \in \{2,8\}$. 
+:::
+
 :::{#thm-smoothing-property}
 ### Smoothing property of conditional expectation
 $$\EXP\bigl[ \EXP[Y \mid X] \bigr] = \EXP[Y].$$
@@ -869,3 +1133,4 @@ $$
 $$
 for any function $g$ for which both expectations exist.
 :::
+
