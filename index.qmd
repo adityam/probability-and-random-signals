@@ -79,7 +79,19 @@ Upon the successful completion of this course, the student students will have de
 ## Course Material
 
 Textbook
-: - Grimmett and Stirzaker, "Probability and Random Processes", 4th edition, Oxford University Press
+: - Grimmett and Stirzaker, _Probability and Random Processes,_ 4th edition, Oxford University Press, 2020.
+
+
+"Engineering" Graduate Probability textbooks
+
+: - J.A. Gubner, _Probability and Random Processes for Electrical and Computer Engineers,_ Cambridge University Press, 2006.
+- S.H. Chan, _Introduction to Probability for Data Science,_ Michigan Publishing, 2021.
+- H. Hsu, _Probability, Random Variables, and Random Processes,_ McGraw Hill, 1997.
+
+Exercise books
+
+: - F. Mosteller, _Fifty challenging problems in probability with solutions,_ Courier Corporation, 1987. [Available online](https://archive.org/details/fiftychallenging00most)
+- Grimmett and Stirzaker, _One Thousand Exercises in Probability,_ Oxford University Press, 2000. 
 
 
 ## Evaluation
