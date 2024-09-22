@@ -62,8 +62,8 @@ Upon the successful completion of this course, the student students will have de
 |------|:-----------------|
 | 1    | [Probability spaces, algebra of events, axioms of probability](probability-spaces.qmd) |
 | 2    | [Random variables and random vectors](random-variables.qmd) | 
-| 3    | Discrete and continuous random variables | 
-| 4    | Conditional distributions and conditional expectations |
+| 3    | [Random variables and random vectors (continued)](random-variables.qmd) | 
+| 4    | [Conditional distributions and conditional expectations](conditional-expectation.qmd) |
 | 5    | Moment generating functions and sums of random variables |
 | 6    | Probability inequalities |
 | 7    | Review and Mid-Term | 
@@ -75,6 +75,8 @@ Upon the successful completion of this course, the student students will have de
 | 13   | Wide sense stationary processes | 
 
 : {tbl-colwidths="[10,90]" .striped}
+
+<small>[The material for the lecture notes is taken from various sources including the textbook and the reference book, as well as the lecture notes of Prof. Ioannis Psaromiglikos (McGill) and Prof. Ashutosh Nayyar (USC).]{.text-muted}</small>
 
 ## Course Material
 
