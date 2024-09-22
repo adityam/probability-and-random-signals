@@ -1056,81 +1056,53 @@ From the joint PDF $f_{U,V}$, we can compute the marginals as follows:
 - For $V$, we can follow similar algebra as above.
 :::
 
-## Conditional CDF
-
-### Conditioning on an event
-
-1. If $C$ is an event with $C > 0$, then
-   $$F_X(x \mid C) = \PR(X \le x \mid C) 
-   = \dfrac{\PR(\{X \le x\} \cap C)}{\PR(C)}.$$
-
-2. $F_X(x \mid C)$ inherits the properties of regular CDFs. In particular, 
-  
-    - $0 \le F_X(x\mid C) \le 1$
-    - $\displaystyle \lim_{x \to -∞} F_X(x \mid C) = 0$
-    - $\displaystyle \lim_{x \to +∞} F_X(x \mid C) = 1$ 
-    - $F_X(x \mid C)$ is non-decreasing function.
-    - $F_X(x \mid C)$ is right-continuous function. 
-
-3. If $F_X(x \mid C)$ is continuous, we can define the conditional PDF as
-   $$
-   f_X(x\mid C) = \frac{d}{dx} F_X(x \mid C).
-   $$
-
-4. If $C_1, C_2, \dots, C_n$ form a partition of $Ω$, then the law of total probability implies that
-   $$
-     F_X(x) = \sum_{i=1}^n F_X(x \mid C_i) \PR(C_i).
-   $$
-   If $X$ is continuous, then we also have
-   $$
-     f_X(x) = \sum_{i=1}^n f_X(x \mid C_i) \PR(C_i).
-   $$
-
-:::{#exm-communication}
-<!-- TODO: Add details --> 
-Transmit $+1$ or $-1$ with probability $p$ and $1-p$. Goes through AWGN channel.
+:::{#exm-function-multiple}
+Let $X$ and $Y$ be random variables defined on a common probability space. Define
+$$
+  U = X^2 \quad\text{and}\quad V = X + Y.
+$$
+Find $F_{U,V}$?
 :::
 
-### Conditioning on a random variable
+:::{.callout-note collapse="false"}
+### Solution
 
-1. If $X$ and $Y$ are random variables defined on a common probability space and $X$ is discrete, then 
-   $$F_{Y|X}(y \mid x) = \PR(Y \le y \mid X = x)$$
-   for any $x$ such that $\PR(X = x) > 0$.
+Let's consider the system of equations
+$$
+  u = x^2 \quad\text{and}\quad v = x + y
+$$
+for a given value of $(u,v)$. First observe that
+$$
+  J(x,y) = \DET{ 2x & 0 \\ 1 & 1 } = 2x.
+$$
 
-2. If $Y$ is discrete, the conditional PMF $p_{Y| X}$ is defined as 
-   $$p_{Y|X}(y|x) = \PR(Y = y \mid X = x) = \frac{p_{X,Y}(x,y)}{P_X(x)}$$
-   for any $x$ such that $\PR(X = x) > 0$.
+1. If $u < 0$, then the system of equations has no solutions. Therefore,
+   $$ 
+      F_{U,V}(u,v) = 0, \quad u < 0.
+   $$
 
-3. If $X$ and $Y$ are jointly continuous, we define
-   $$f_{Y|X}(y|x) = \frac{f_{X,Y}(x,y)}{f_X(x)}.$$
-   Then,
-   $$Y_{Y|X}(y|x) = \int_{∞}^y \frac{f_{X,Y}(x,u)}{f_X(x)}\, du.$$
+2. If $u = 0$, then the system of equations has one solution:
+   $$
+      x^{(1)} = 0 \quad\text{and}\quad y^{(1)} = v.
+   $$
+   However, $J(0,v) = 0$. So,
+   $$
+      f_{U,V}(0,v) = \frac{f_{X,Y}(0,v)}{J(0,v)} 
+   $$
+   is undefined. However, since $u = 0$ is a line in two-dimensions (i.e., a set of measure zero), the choice of $f_{U,V}$ at $u = 0$ will not affect any probability computations. So, we set
+   $$
+      f_{U,V}(0,v) = 0.
+   $$
    
-
-### Conditional expectation
-
-Define $ψ(X) = \EXP[Y \mid X = x]$. Then, $ψ(X)$ is a random variable which is called the **conditional expectation of $Y$ given $X$** and written as $\EXP[Y|X]$. 
-
-We can similarly define conditional variance. 
-
-:::{#exr-conditional-expectation}
-Suppose we roll two independent fair 4-sided dice. Let $X$ denote the output of the first die, $Y$ denote the outcome of the second die, and $Z = X + Y$. 
-
-Find $\EXP[X | Z = z]$ for all $z \in \{2,8\}$. 
+3. If $u > 0$, then the system of equations has two solutions:
+   $$
+      (x^{(1)}, y^{(1)}) = (+\sqrt{u}, v - \sqrt{u})
+      \quad\text{and}\quad
+      (x^{(2)}, y^{(2)}) = (-\sqrt{u}, v + \sqrt{u})
+   $$
+   Therefore,
+   $$
+      f_{U,V}(u,v) = \frac{f_{X,Y}(\sqrt{u}, v - \sqrt{u})}{2 \sqrt{u}}
+      + \frac{f_{X,Y}(-\sqrt{u}, v + \sqrt{u})}{2 \sqrt{u}}.
+   $$
 :::
-
-:::{#thm-smoothing-property}
-### Smoothing property of conditional expectation
-$$\EXP\bigl[ \EXP[Y \mid X] \bigr] = \EXP[Y].$$
-:::
-
-This can be viewed as a special case of law of total probability. 
-
-:::{#thm-property-of-conditional-expectation}
-The conditional expectation $ψ(X) = \EXP[Y\mid X]$ satisfies
-$$
-\EXP[ ψ(X) g(X) ] = \EXP[Y g(X)]
-$$
-for any function $g$ for which both expectations exist.
-:::
-
