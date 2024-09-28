@@ -644,7 +644,10 @@ Let $X$ and $Y$ be random variables defined on the same probability space.
 
 - **Correlation** between $X$ and $Y$ is defined as $\EXP[XY]$. 
 
-- **Covariance** between $X$ and $Y$ is defined as $\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]$. 
+- **Covariance** between $X$ and $Y$ is defined as $\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]$. The covariance satisfies the following:
+  $$
+  \COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
+  $$
 
 - **Correlation coefficient** between $X$ and $Y$ is defined as 
   $$ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.$$
