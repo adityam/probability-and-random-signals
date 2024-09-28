@@ -151,7 +151,7 @@ These are all examples of a general principle: **The power-set of any partition 
 
 ## Probability Space
 
-Probability is a measure of uncertainty or our belief that a particular statement is true. In this course, we will not concerns ourselves with how such a measure of uncertainty is constructed; rather focus on the mathematical properties that it should satisfy and the implications of these properties. 
+Probability is a measure of uncertainty or our belief that a particular statement is true. In this course, we will not concern ourselves with how such a measure of uncertainty is constructed; rather focus on the mathematical properties that it should satisfy and the implications of these properties. 
 
 Many everyday statements take the form: "The chance (or probability) of $A$ is $p$", where $A$ is some event (such as "sun shining tomorrow", "Team A winning a hockey game", etc.) and $p$ is a number (e.g., $1/8$) or an adjective describing quantity (e.g., "low"). 
 
@@ -419,7 +419,7 @@ $$
 :::
 
 
-:::{.callout-tip}
+:::{.callout-tip #conditional-probabilities-are-probabilties}
 ### Conditional probabilities are probabilities
 
 Conditional probabilities are legitimate probability measures on $(Ω, \ALPHABET F)$. In particular, fix event $B$ with $\PR(B) > 0$. Then

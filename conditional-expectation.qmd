@@ -1,0 +1,55 @@
+---
+title: Conditional probability and conditional expectation
+---
+
+Conditional probability is perhaps the most important aspect of probability theory as it explains how to incorporate new information in a probability model. However, formally defining conditional probability is a bit intricate. In the notes, I will first provide an intuitive high-level explanation of conditional probabability. We will then do a deeper dive, trying to develop a bit more intuition about what is actually going on.
+
+## Conditioning on events
+
+Recall that [conditional probability for events](probability-spaces.qmd#conditional-probability) is defined as follows: given a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPHABET F$ such that $\PR(B) > 0$, we have
+$$
+\PR(A \mid B) = \frac{\PR(A \cap B)}{\PR(B)}. 
+$$
+
+Building on this definition, we can define the conditional CDF of a random variable $X$ conditioned on an event $C$ (such that $\PR(C) > 0$) as follows:
+$$
+F_{X|C}(x \mid C) = \PR(X \le x \mid C) = \frac{\PR( \{ X \le x \} \cap C)}{\PR(C)}.
+$$
+
+
+As we pointed out, [conditional probabilities are probabilities](probability-spaces.qmd#conditional-probabilities-are-probabilties), the conditional CDF defined above satisfies the properties of regular CDFs. In particular
+
+- $0 \le F_{X|C}(x\mid C) \le 1$
+- $\displaystyle \lim_{x \to -∞} F_{X|C}(x \mid C) = 0$
+- $\displaystyle \lim_{x \to +∞} F_{X|C}(x \mid C) = 1$ 
+- $F_{X|C}(x \mid C)$ is non-decreasing function.
+- $F_{X|C}(x \mid C)$ is right-continuous function. 
+
+Since $F_{X|C}$ is CDF, we can classify random variables conditioned on an event as discrete or continuous in the usual way. In particular
+
+- If $F_{X|C}$ is piecewise constant, then $X$ conditioned on $C$ is a discrete random variable which takes values in a finite or countable subset $\text{range}(X\mid C) = \{x_1, x_2, \dots\}$ of $\reals$. Furthermore, $X$ conditioned on $C$ has a conditional PMF $p_{X|C} \colon \reals \to [0,1]$ defined as
+  $$
+    p_{X|C}(x\mid C) = F_{X|C}(x\mid C) - F_{X|C}(x^{-} \mid C).
+  $$
+
+- If $F_{X|C}$ is continuous, then $X$ conditioned on $C$ is a continuous random variable which has a conditional PDF $f_{X|C}$ given by
+  $$
+  f_{X|C}(x\mid C) = \frac{d}{dx} F_X(x \mid C).
+  $$
+
+- If $F_{X|C}$ is neither piecewise constant nor continuous, then $X$ conditioned on $C$ is a mixed random variable.
+
+Therefore, a random variable conditioned on an event behaves exactly like a regular random variable. We can define conditional expectation $\EXP[X \mid C]$, conditional variance $\VAR(X \mid C)$ in the obvious manner. Furthermore, an immediate implication of the law of total probability is the following.
+
+If $C_1, C_2, \dots, C_n$ is a partition of $Ω$, then 
+$$
+ F_X(x) = \sum_{i=1}^n F_{X|C_i}(x \mid C_i) \PR(C_i).
+$$
+Furthermore, if $X$ and $X$ conditioned on $C$ are both discrete, we have
+$$
+p_X(x) = \sum_{i=1}^n p_{X|C_i}(x \mid C_i) \PR(C_i)
+$$
+and if $X$ and $X$ conditioned on $C$ are both continuous, we have
+$$
+ f_X(x) = \sum_{i=1}^n f_{X|C_i}(x \mid C_i) \PR(C_i).
+$$
