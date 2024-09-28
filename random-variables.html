@@ -875,7 +875,9 @@ Proof
 <p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on the same probability space.</p>
 <ul>
 <li><p><strong>Correlation</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\EXP[XY]\)</span>.</p></li>
-<li><p><strong>Covariance</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]\)</span>.</p></li>
+<li><p><strong>Covariance</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]\)</span>. The covariance satisfies the following: <span class="math display">\[
+\COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
+\]</span></p></li>
 <li><p><strong>Correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
 <li><p>The correlation coefficeint satisfies <span class="math inline">\(\ABS{ρ_{XY}} \le 1\)</span> with equality if and only if <span class="math inline">\(\PR(aX + bY = c) = 1\)</span> for some <span class="math inline">\(a,b,c \in \reals\)</span>. [The proof follows from Cauchy-Schwartz inequality, which we will study later]</p></li>
 <li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be uncorrelated if <span class="math inline">\(ρ_{XY} = 0\)</span>, which is equivalent to <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</p></li>
