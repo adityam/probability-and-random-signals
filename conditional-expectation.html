@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-09-28">
+<meta name="dcterms.date" content="2024-09-30">
 
 <title>Conditional probability and conditional expectation – Probability and Random Signals II</title>
 <style>
@@ -208,11 +208,18 @@ window.Quarto = {
    
   <ul>
   <li><a href="#conditioning-on-events" id="toc-conditioning-on-events" class="nav-link active" data-scroll-target="#conditioning-on-events"><span class="header-section-number">1</span> Conditioning on events</a></li>
+  <li><a href="#conditioning-on-random-variables" id="toc-conditioning-on-random-variables" class="nav-link" data-scroll-target="#conditioning-on-random-variables"><span class="header-section-number">2</span> Conditioning on random variables</a></li>
+  <li><a href="#conditional-expectation" id="toc-conditional-expectation" class="nav-link" data-scroll-target="#conditional-expectation"><span class="header-section-number">3</span> Conditional expectation</a>
+  <ul class="collapse">
+  <li><a href="#conditioning-on-a-σ-algebra" id="toc-conditioning-on-a-σ-algebra" class="nav-link" data-scroll-target="#conditioning-on-a-σ-algebra"><span class="header-section-number">3.1</span> Conditioning on a <span class="math inline">\(σ\)</span>-algebra</a></li>
+  <li><a href="#smoothing-property-of-conditional-expectation" id="toc-smoothing-property-of-conditional-expectation" class="nav-link" data-scroll-target="#smoothing-property-of-conditional-expectation"><span class="header-section-number">3.2</span> Smoothing property of conditional expectation</a></li>
+  <li><a href="#conditioning-on-random-variable" id="toc-conditioning-on-random-variable" class="nav-link" data-scroll-target="#conditioning-on-random-variable"><span class="header-section-number">3.3</span> Conditioning on random variable</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/conditional-expectation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -242,7 +249,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 28, 2024</p>
+      <p class="date">September 30, 2024</p>
     </div>
   </div>
   
@@ -257,21 +264,22 @@ window.Quarto = {
 <p>Conditional probability is perhaps the most important aspect of probability theory as it explains how to incorporate new information in a probability model. However, formally defining conditional probability is a bit intricate. In the notes, I will first provide an intuitive high-level explanation of conditional probabability. We will then do a deeper dive, trying to develop a bit more intuition about what is actually going on.</p>
 <section id="conditioning-on-events" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="conditioning-on-events"><span class="header-section-number">1</span> Conditioning on events</h2>
-<p>Recall that <a href="./probability-spaces.html#conditional-probability">conditional probability for events</a> is defined as follows: given a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> and events <span class="math inline">\(A, B \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(B) &gt; 0\)</span>, we have <span class="math display">\[
+<ol type="1">
+<li><p>Recall that <a href="./probability-spaces.html#conditional-probability">conditional probability for events</a> is defined as follows: given a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> and events <span class="math inline">\(A, B \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(B) &gt; 0\)</span>, we have <span class="math display">\[
 \PR(A \mid B) = \frac{\PR(A \cap B)}{\PR(B)}.
-\]</span></p>
-<p>Building on this definition, we can define the conditional CDF of a random variable <span class="math inline">\(X\)</span> conditioned on an event <span class="math inline">\(C\)</span> (such that <span class="math inline">\(\PR(C) &gt; 0\)</span>) as follows: <span class="math display">\[
+\]</span></p></li>
+<li><p>Building on this definition, we can define the conditional CDF of a random variable <span class="math inline">\(X\)</span> conditioned on an event <span class="math inline">\(C\)</span> (such that <span class="math inline">\(\PR(C) &gt; 0\)</span>) as follows: <span class="math display">\[
 F_{X|C}(x \mid C) = \PR(X \le x \mid C) = \frac{\PR( \{ X \le x \} \cap C)}{\PR(C)}.
-\]</span></p>
-<p>As we pointed out, <a href="./probability-spaces.html#conditional-probabilities-are-probabilties">conditional probabilities are probabilities</a>, the conditional CDF defined above satisfies the properties of regular CDFs. In particular</p>
+\]</span></p></li>
+<li><p>As we pointed out, <a href="./probability-spaces.html#conditional-probabilities-are-probabilties">conditional probabilities are probabilities</a>, the conditional CDF defined above satisfies the properties of regular CDFs. In particular</p>
 <ul>
 <li><span class="math inline">\(0 \le F_{X|C}(x\mid C) \le 1\)</span></li>
 <li><span class="math inline">\(\displaystyle \lim_{x \to -∞} F_{X|C}(x \mid C) = 0\)</span></li>
 <li><span class="math inline">\(\displaystyle \lim_{x \to +∞} F_{X|C}(x \mid C) = 1\)</span></li>
 <li><span class="math inline">\(F_{X|C}(x \mid C)\)</span> is non-decreasing function.</li>
 <li><span class="math inline">\(F_{X|C}(x \mid C)\)</span> is right-continuous function.</li>
-</ul>
-<p>Since <span class="math inline">\(F_{X|C}\)</span> is CDF, we can classify random variables conditioned on an event as discrete or continuous in the usual way. In particular</p>
+</ul></li>
+<li><p>Since <span class="math inline">\(F_{X|C}\)</span> is CDF, we can classify random variables conditioned on an event as discrete or continuous in the usual way. In particular</p>
 <ul>
 <li><p>If <span class="math inline">\(F_{X|C}\)</span> is piecewise constant, then <span class="math inline">\(X\)</span> conditioned on <span class="math inline">\(C\)</span> is a discrete random variable which takes values in a finite or countable subset <span class="math inline">\(\text{range}(X\mid C) = \{x_1, x_2, \dots\}\)</span> of <span class="math inline">\(\reals\)</span>. Furthermore, <span class="math inline">\(X\)</span> conditioned on <span class="math inline">\(C\)</span> has a conditional PMF <span class="math inline">\(p_{X|C} \colon \reals \to [0,1]\)</span> defined as <span class="math display">\[
   p_{X|C}(x\mid C) = F_{X|C}(x\mid C) - F_{X|C}(x^{-} \mid C).
@@ -281,17 +289,287 @@ f_{X|C}(x\mid C) = \frac{d}{dx} F_X(x \mid C).
 \]</span></p></li>
 <li><p>If <span class="math inline">\(F_{X|C}\)</span> is neither piecewise constant nor continuous, then <span class="math inline">\(X\)</span> conditioned on <span class="math inline">\(C\)</span> is a mixed random variable.</p></li>
 </ul>
-<p>Therefore, a random variable conditioned on an event behaves exactly like a regular random variable. We can define conditional expectation <span class="math inline">\(\EXP[X \mid C]\)</span>, conditional variance <span class="math inline">\(\VAR(X \mid C)\)</span> in the obvious manner. Furthermore, an immediate implication of the law of total probability is the following.</p>
+<p>Therefore, a random variable conditioned on an event behaves exactly like a regular random variable. We can define conditional expectation <span class="math inline">\(\EXP[X \mid C]\)</span>, conditional variance <span class="math inline">\(\VAR(X \mid C)\)</span> in the obvious manner.</p></li>
+<li><p>An immediate implication of the law of total probability is the following.</p>
 <p>If <span class="math inline">\(C_1, C_2, \dots, C_n\)</span> is a partition of <span class="math inline">\(Ω\)</span>, then <span class="math display">\[
-F_X(x) = \sum_{i=1}^n F_{X|C_i}(x \mid C_i) \PR(C_i).
+  F_X(x) = \sum_{i=1}^n F_{X|C_i}(x \mid C_i) \PR(C_i).
 \]</span> Furthermore, if <span class="math inline">\(X\)</span> and <span class="math inline">\(X\)</span> conditioned on <span class="math inline">\(C\)</span> are both discrete, we have <span class="math display">\[
 p_X(x) = \sum_{i=1}^n p_{X|C_i}(x \mid C_i) \PR(C_i)
 \]</span> and if <span class="math inline">\(X\)</span> and <span class="math inline">\(X\)</span> conditioned on <span class="math inline">\(C\)</span> are both continuous, we have <span class="math display">\[
-f_X(x) = \sum_{i=1}^n f_{X|C_i}(x \mid C_i) \PR(C_i).
+  f_X(x) = \sum_{i=1}^n f_{X|C_i}(x \mid C_i) \PR(C_i).
+\]</span></p></li>
+</ol>
+<div id="exr-mixed-random-variable" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 1</strong></span> Consider the following experiment. A fair coin is tossed. If the outcome is heads, <span class="math inline">\(X\)</span> is a uniform <span class="math inline">\([0,1]\)</span> random variable. If the outcome is tails, <span class="math inline">\(X\)</span> is <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variable. Find <span class="math inline">\(F_X(x)\)</span>.</p>
+</div>
+<div id="exm-geometric-memoryless" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Memoryless property of geometric random variable)</strong></span> Let <span class="math inline">\(X \sim \text{geometric}(p)\)</span> and <span class="math inline">\(m,n\)</span> be positive integers. Compute <span class="math display">\[ \PR(X &gt; n + m \mid X &gt; m). \]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Recall that the PMF of a geometric random variable is <span class="math display">\[
+P_X(k) = p (1-p)^{k-1}, \quad k \in \naturalnumbers.
+\]</span> Therefore, <span class="math display">\[
+\PR(X &gt; m) = \sum_{k = m + 1}^∞ P_X(k)
+= \sum_{k=m+1}^{∞} p (1-p)^{k-1} = (1-p)^m.
 \]</span></p>
+<p>Now consider <span class="math display">\[\begin{align*}
+\PR(X &gt; m + n \mid X &gt; m) &amp;=
+\frac{ \PR(\{ X &gt; m + n \} \cap \{X &gt; m \}) } {\PR(X &gt; m) }
+\\
+&amp;=
+\frac{ \PR(X &gt; m + n ) } {\PR(X &gt; m) } \\
+&amp;= \frac{(1-p)^{m+n}}{(1-p)^m} = (1-p)^n = \PR(X &gt; n).
+\end{align*}\]</span></p>
+<p>This is called the <strong>memoryless property</strong> of a geometric random variable.</p>
+</div>
+</div>
+</div>
+<div id="exm-exponential-memoryless" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2 (Memoryless property of exponential random variable)</strong></span> Let <span class="math inline">\(X \sim \text{Exponential}(λ)\)</span> and <span class="math inline">\(t,s\)</span> be positive reals. Compute <span class="math display">\[ \PR(X &gt; t + s \mid X &gt; t). \]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Recall that the PDF of an exponential random variable is <span class="math display">\[
+f_X(x) = λ e^{-λ x}, \quad x \ge 0.
+\]</span> Therefore, <span class="math display">\[
+\PR(X &gt; t) = \int_{t}^{∞} f_X(x)\, dx = e^{-λ t}.
+\]</span></p>
+<p>Now consider <span class="math display">\[\begin{align*}
+\PR(X &gt; t + s \mid X &gt; t) &amp;=
+\frac{ \PR(\{ X &gt; t + s \} \cap \{X &gt; t \}) } {\PR(X &gt; t) }
+\\
+&amp;=
+\frac{ \PR(X &gt; t + s ) } {\PR(X &gt; t) } \\
+&amp;= \frac{e^{-λ(t+s)}}{e^{-λt}} = e^{-λs} = \PR(X &gt; s).
+\end{align*}\]</span></p>
+<p>This is called the <strong>memoryless property</strong> of a exponential random variable.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="conditioning-on-random-variables" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="conditioning-on-random-variables"><span class="header-section-number">2</span> Conditioning on random variables</h2>
+<p>We first start with the case where we are conditioning on discrete random variables.</p>
+<ol type="1">
+<li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are random variables defined on a common probability space and <span class="math inline">\(Y\)</span> is discrete, then <span class="math display">\[F_{X|Y}(x \mid y) = \PR(X \le x \mid Y = y)\]</span> for any <span class="math inline">\(y\)</span> such that <span class="math inline">\(\PR(Y = y) &gt; 0\)</span>.</p></li>
+<li><p>If <span class="math inline">\(X\)</span> is also discrete, the conditional PMF <span class="math inline">\(p_{X| Y}\)</span> is defined as <span class="math display">\[p_{X|Y}(x|y) = \PR(X = x \mid Y = y) = \frac{p_{X,Y}(x,y)}{P_Y(y)}\]</span> for any <span class="math inline">\(y\)</span> such that <span class="math inline">\(\PR(Y = y) &gt; 0\)</span>.</p>
+<p>Moreover, we have that <span class="math display">\[ p_{X|Y}(x\mid y) = F_{X|Y}(x\mid y) - F_{X|Y}(x^{-}\mid y). \]</span></p></li>
+<li><p>The above expression can be written differently to give the <strong>chain rule</strong> for random variables: <span class="math display">\[
+   P_{X,Y}(x,y) = P_{Y}(y) P_{X|Y}(x|y).
+\]</span></p></li>
+<li><p>For any event <span class="math inline">\(B\)</span> in <span class="math inline">\(\mathscr B(\reals)\)</span>, <strong>the law of total probability</strong> may be written as <span class="math display">\[\PR(X \in B) = \sum_{x \in \text{range}(X)} \PR(X \in B \mid X = x) P_X(x). \]</span></p></li>
+<li><p>If <span class="math inline">\(X\)</span> is independent of <span class="math inline">\(Y\)</span>, we have <span class="math display">\[
+   p_{X|Y}(x\mid y) = p_X(x), \quad \forall x,y \in \reals.
+\]</span></p></li>
+</ol>
+<p>We now consider the case when we are conditioning on a continuous random variable.</p>
+<ol type="1">
+<li><p>If <span class="math inline">\(Y\)</span> is continuous, <span class="math inline">\(\PR(Y = y) = 0\)</span> for all <span class="math inline">\(y\)</span>. We may think of <span class="math display">\[ F_{X|Y}(x\mid y) = \lim_{δ \downarrow 0} \PR(X \le x \mid y \le Y \le y + δ).\]</span></p></li>
+<li><p>When <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous, we define the conditional PDF <span class="math display">\[ f_{X|Y}(x \mid y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}. \]</span></p>
+<p>Note that the conditional PDF cannot be interpreted in the same manner as the conditional PMF because it gives the impression that we are conditioning on a zero-probability event. However, we can view it as a limit as follows:</p>
+<p><span class="math display">\[\begin{align*}
+   F_{X|Y}(x\mid y) &amp;= \lim_{δ \downarrow 0} \PR(X \le x \mid y \le Y \le y + δ) \\
+   &amp;= \lim_{δ \downarrow 0} \dfrac{\PR(X \le x, y \le Y \le y + δ)}{\PR(y \le Y \le y + δ)} \\
+   &amp;= \lim_{δ \downarrow 0} \dfrac{\int_{-∞}^x \int_{y}^{y + δ} f_{X,Y}(u,v)\, dv\, du }{ \int_{y}^{y+δ} f_Y(v)\, dv }
+\end{align*}\]</span> If <span class="math inline">\(δ\)</span> is small, we can approximate <span class="math display">\[
+\int_{y}^{y + δ} f_Y(v)\, dv \approx f_Y(y) \cdot δ
+\]</span> and <span class="math display">\[
+\int_{y}^{y + δ} f_{X,Y}(u,v) dv \approx f_{X,Y}(u,y) \cdot δ.
+\]</span> Substituting in the above equation, we get <span class="math display">\[\begin{align*}
+   F_{X|Y}(x \mid y) &amp;\approx \lim_{δ \downarrow 0}
+   \dfrac{ \int_{-∞}^x f_{X,Y}(u,y) δ du }{ f_Y(y) δ }
+   \\
+   &amp;= \int_{-∞}^x \left[ \frac{f_{X,Y}(u,y)}{f_Y(y)} \right] du
+\end{align*}\]</span>. Thus, when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous, we have <span class="math display">\[
+f_{X|Y}(x\mid y) = \frac{d}{dx} F_{X|Y}(x \mid y) =
+  \dfrac{f_{X,Y}(x,y)}{f_Y(y)}.
+\]</span></p>
+<p>The formal definition of conditional densities requires some ideas from advanced probability theory, which we will not cover in this course. Nonetheless, I will try to explain the intuition behind the formal definitions in the next section.</p></li>
+<li><p>The above expression may be written differently to give the <strong>chain rule</strong> for random variables: <span class="math display">\[ f_{X,Y}(x,y) = f_Y(y) f_{X|Y}(x \mid y). \]</span></p></li>
+<li><p>For any event <span class="math inline">\(B \in \mathscr B(\reals)\)</span>, <strong>the law of total probability</strong> may be written as <span class="math display">\[
+\PR(X \in B) = \int_{-∞}^∞ \PR(X \in B \mid Y = y) f_Y(y)\, dy
+\]</span> An immediate implication of this is <span class="math display">\[
+F_X(x) = \PR(X \le x) = \int_{-∞}^{∞} \PR(X \le x \mid Y = y) f_Y(y)\, dy
+= \int_{-∞}^{∞} F_{X|Y}(x|y) f_Y(y)\, dy.
+\]</span></p></li>
+<li><p>If <span class="math inline">\(X\)</span> is independent of <span class="math inline">\(Y\)</span>, we have <span class="math display">\[
+f_{X|Y}(x\mid y) = f_X(x), \quad \forall x, y \in \reals.
+\]</span></p></li>
+<li><p>We can show that conditional PMF and conditional PDF satisfy all the properties of PMFs and PDFs. Therefore, we can define conditional expectation <span class="math inline">\(\EXP[ g(X) \mid Y = y ]\)</span> in terms of <span class="math inline">\(p_{X|Y}\)</span> or <span class="math inline">\(f_{X|Y}\)</span>. We can similarly define conditional variance</p></li>
+</ol>
+<div id="exm-conditional-density" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3</strong></span> Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous random variables with the joint PDF <span class="math display">\[
+f_{X,Y}(x,y) = \frac{e^{-x/y} e^{-y}}{y}, \quad 0 &lt; x &lt; ∞, 0 &lt; y &lt; ∞.
+\]</span> Find <span class="math inline">\(f_{X|Y}\)</span>?</p>
+</div>
+<div id="exm-conditional-uniform" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span> and given <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y\)</span> is uniformly distributed on <span class="math inline">\((0,x)\)</span>. Find the PDF of <span class="math inline">\(Y\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We first compute the marginal <span class="math inline">\(f_Y(y)\)</span>.</p>
+<p><span class="math display">\[\begin{align*}
+f_Y(y) &amp;= \int_{-∞}^{∞} f_{X,Y}(x,y) \, dx \\
+&amp;= \int_{0}^{∞} \frac{e^{-x/y} e^{-y}}{y} dx \\
+&amp;= \frac{e^{-y}}{y} \int_{0}^∞ e^{-x/y} dx \\
+&amp;= e^{-y}.
+\end{align*}\]</span> Thus, <span class="math display">\[ f_{X|Y}(x \mid y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}
+= \frac{e^{-x/y}}{y}, \quad 0 &lt; x &lt; ∞, 0 &lt; y &lt; ∞.
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We will use the law of total probability. <span class="math display">\[
+F_Y(y) = \int_{-∞}^{∞} F_{Y|X}(y \mid x) f_X(x) \, dx
+= \int_{0}^1 F_{Y|X}(y \mid x) \, dx
+\]</span> where we have used the fact that <span class="math inline">\(f_X(x) = 1\)</span> for <span class="math inline">\(x \in [0,1]\)</span>. Now, we know that given <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y \sim \text{uniform}[0,x]\)</span>. Therefore, <span class="math display">\[
+f_{Y|X}(y\mid x) = \frac 1x, \quad 0 &lt; y &lt; x.
+\]</span> Therefore, <span class="math display">\[
+F_{Y|X}(y \mid x) = \begin{cases}
+0 &amp; y &lt; 0 \\
+\dfrac{y}{x} &amp; 0 &lt; y &lt; x \\
+1 &amp; y \ge x
+\end{cases}
+\]</span></p>
+<p>We will compute <span class="math inline">\(F_Y(y)\)</span> for the three cases separately.</p>
+<ul>
+<li><p>For <span class="math inline">\(y &lt; 0\)</span>, <span class="math display">\[ F_Y(y) = \int_{0}^1 F_{Y|X}(y|x) dx = 0.\]</span></p></li>
+<li><p>For <span class="math inline">\(0 &lt; y &lt; 1\)</span>, <span class="math display">\[ F_Y(y) = \int_{0}^y 1\, dx + \int_{y}^1 \frac{y}{x} \, dx
+= y - y \ln y. \]</span></p></li>
+<li><p>For <span class="math inline">\(y &gt; 1\)</span>, <span class="math display">\[ F_Y(y) = \int_{0}^1 1 \, dx = 1. \]</span></p></li>
+</ul>
+<p>Thus, <span class="math display">\[
+F_Y(y) = \begin{cases}
+0 &amp; y &lt; 0 \\
+y - y \ln y &amp; 0 \le y &lt; 1 \\
+1 &amp; y &gt; 1.
+\end{cases}
+\]</span></p>
+<p>Hence, <span class="math display">\[
+f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="conditional-expectation" class="level2 page-columns page-full" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="conditional-expectation"><span class="header-section-number">3</span> Conditional expectation</h2>
+<p>Define <span class="math inline">\(ψ(y) = \EXP[ X \mid Y = y]\)</span>. In particular, if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are discrete, then <span class="math display">\[
+ψ(y) = \sum_{x \in \text{range}(X)} x p_{X|Y}(x|y)
+\]</span> and, if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are continuous, then <span class="math display">\[
+ψ(y) = \int_{-∞}^{∞} x f_{X|Y}(x|y)\, dx
+\]</span> Let <span class="math inline">\(Z = ψ(Y)\)</span>. Then <span class="math inline">\(Z\)</span> is a random variable! This is a subtle point, and we will spend some time to develop an intuition of what this means.</p>
+<section id="conditioning-on-a-σ-algebra" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="conditioning-on-a-σ-algebra"><span class="header-section-number">3.1</span> Conditioning on a <span class="math inline">\(σ\)</span>-algebra</h3>
+<p>The key idea is conditioning on a <span class="math inline">\(σ\)</span>-algebra. To avoid technical subtleties, we restrict to the discrete case.</p>
+<ol type="1">
+<li>Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(\ALPHABET F\)</span> is a finite <span class="math inline">\(σ\)</span>-algebra. Let <span class="math inline">\(\ALPHABET G\)</span> be a sub-<span class="math inline">\(σ\)</span>-algebra of <span class="math inline">\(\ALPHABET F\)</span>. In particular, we assume that there is a partition <span class="math inline">\(\{D_1, D_2, \dots, D_m\}\)</span> of <span class="math inline">\(Ω\)</span> such that <span class="math inline">\(\ALPHABET G = 2^{\{D_1, \dots, D_m\}}\)</span>. The elements <span class="math inline">\(D_1, \dots, D_m\)</span> are called the <strong>atoms</strong> of the <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET G\)</span>.</li>
+</ol>
+<p><strong>TODO</strong>: Add example. 4x4 grid. partition for <span class="math inline">\(\ALPHABET G\)</span>.</p>
+<ol start="2" type="1">
+<li><p>We define <span class="math inline">\(\PR(A \mid \ALPHABET G)\)</span> (which we will write as <span class="math inline">\(\EXP[\IND_{A} \mid \ALPHABET G]\)</span> as <span class="math display">\[
+\EXP[\IND_{A} \mid \ALPHABET G](ω)
+= \sum_{i=1}^m \EXP[ \IND_{A} \mid D_i ] \IND_{D_i}(ω).
+\]</span> Thus, on each <span class="math inline">\(ω \in D_i\)</span>, the value of <span class="math inline">\(\EXP[I_{A} \mid \ALPHABET G]\)</span> is equal to <span class="math inline">\(\EXP[I_{A} \mid D_i]\)</span>.</p></li>
+<li><p>This idea can be extended to any random variable instead of <span class="math inline">\(\IND_{A}\)</span>, that is, for any random variable <span class="math inline">\(X\)</span> <span class="math display">\[
+\EXP[X \mid \ALPHABET G](ω)
+= \sum_{i=1}^m \EXP[ X \mid D_i ] \IND_{D_i}(ω).
+\]</span> Thus, on each <span class="math inline">\(ω \in D_i\)</span>, the value of <span class="math inline">\(\EXP[X \mid \ALPHABET G]\)</span> is equal to <span class="math inline">\(\EXP[X \mid D_i]\)</span>.</p></li>
+<li><p>When <span class="math inline">\(\ALPHABET G = \{\emptyset, Ω\}\)</span> is the trivial <span class="math inline">\(σ\)</span>-algebra, <span class="math display">\[\EXP[X \mid \{\emptyset, Ω\}] = \EXP[X].\]</span></p></li>
+<li><p>When <span class="math inline">\(X = \IND_{A}\)</span>, <span class="math inline">\(\EXP[ \IND_{A} \mid \ALPHABET G] = \PR(A \mid \ALPHABET G)\)</span>.</p></li>
+<li><p>If <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are joint random variables and <span class="math inline">\(a_1\)</span> and <span class="math inline">\(a_2\)</span> are constants, then <span class="math display">\[ \EXP[ a_1 X_1 + a_2 X_2 \mid \ALPHABET G]
+= a_1 \EXP[X_1 \mid \ALPHABET G] + a_2 \EXP[X_2 \mid \ALPHABET G]. \]</span></p></li>
+<li><p>If <span class="math inline">\(Y\)</span> is another random variable which is <span class="math inline">\(\ALPHABET G\)</span> measurable (i.e., <span class="math inline">\(Y\)</span> takes constant values on the atoms of <span class="math inline">\(\ALPHABET G\)</span>), then <span class="math display">\[
+\EXP[X Y \mid \ALPHABET G] = Y \EXP[X \mid \ALPHABET G].
+\]</span></p>
+<p>[The result can be proved pictorially.]</p></li>
+</ol>
+</section>
+<section id="smoothing-property-of-conditional-expectation" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="smoothing-property-of-conditional-expectation"><span class="header-section-number">3.2</span> Smoothing property of conditional expectation</h3>
+<p>Let <span class="math inline">\(\ALPHABET H ⊂ \ALPHABET G ⊂ \ALPHABET F\)</span>, where <span class="math inline">\(⊂\)</span> means sub-<span class="math inline">\(σ\)</span>-algebra. Let <span class="math inline">\(\{E_1, \dots, E_k\}\)</span> denote the partition corresponding to <span class="math inline">\(\ALPHABET H\)</span> and <span class="math inline">\(\{D_1, \dots, D_m\}\)</span> denote the partition corresponding to <span class="math inline">\(\ALPHABET G\)</span>. The fact that <span class="math inline">\(\ALPHABET H\)</span> is a sub-<span class="math inline">\(σ\)</span>-algebra of <span class="math inline">\(\ALPHABET G\)</span> means that each atom <span class="math inline">\(D_i\)</span> of <span class="math inline">\(\ALPHABET H\)</span> is a union of atoms of <span class="math inline">\(\ALPHABET G\)</span> (i.e., <span class="math inline">\(\{D_1, \dots, D_m\}\)</span> is a <em>refinement</em> of the partition <span class="math inline">\(\{E_1, \dots, E_k\}\)</span>). Therefore, <span class="math display">\[\begin{equation}\tag{smoothing-property}
+\bbox[5pt,border: 1px solid]
+{\EXP[ \EXP[ X \mid \ALPHABET H ] \mid \ALPHABET G ] =
+\EXP[ X \mid \ALPHABET G].}
+\end{equation}\]</span> This is known as the smoothing property of conditional expectation.</p>
+<p>A special case of the above property is that <span class="math display">\[
+\EXP[ \EXP[ X \mid \ALPHABET H] ] =
+\EXP[ X ].
+\]</span> where we have taken <span class="math inline">\(\ALPHABET G = \{\emptyset, Ω\}\)</span> as the trivial <span class="math inline">\(σ\)</span>-algebra. Observe that the above definition is equivalent to the law of total probability!</p>
+</section>
+<section id="conditioning-on-random-variable" class="level3 page-columns page-full" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="conditioning-on-random-variable"><span class="header-section-number">3.3</span> Conditioning on random variable</h3>
+<ol type="1">
+<li><p>Now suppose <span class="math inline">\(Y\)</span> is a discrete random variable, then <span class="math inline">\(\PR(A \mid Y)\)</span> and <span class="math inline">\(\EXP[X \mid Y]\)</span> may be viewed as a short-hand notation for <span class="math inline">\(\PR(A \mid σ(Y))\)</span> and <span class="math inline">\(\EXP[X \mid σ(Y)]\)</span>. Similar interpretations hold for conditioning on multiple random variables (or, equivalently, conditioning on random vectors).</p></li>
+<li><p>The smoothing property of conditional expectation can then be stated as <span class="math display">\[
+\EXP[ \EXP[ X | Y_1, Y_2 ] Y_1 ] = \EXP[ X | Y_1 ].
+\]</span></p></li>
+<li><p>An implication of the smoothing property is the following: for any (measurable) function <span class="math inline">\(g \colon \reals \to \reals\)</span>, <span class="math display">\[ \EXP[ g(Y) \EXP[ X \mid Y] ] = \EXP[ X g(Y) ]. \]</span></p></li>
+</ol>
+<!-- BREAK to fix footnote placement-->
+<ol start="4" type="1">
+<li><p>This previous property is used for generalizing the definition of conditional expectation to continuous random variables. First, we consider conditioning wrt <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET G \subset \ALPHABET F\)</span>, which is not necessarily finite (or countable).</p>
+<p>Then, for any non-negative<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(\EXP[X \mid \ALPHABET G]\)</span> is defined as a <span class="math inline">\(\ALPHABET G\)</span>-measurable random variable that satisfies <span class="math display">\[ \EXP[ \IND_{A} \EXP[ X \mid \ALPHABET G] ] = \EXP[ X \IND_{A} ] \]</span> for every <span class="math inline">\(A \in \ALPHABET G\)</span>.</p></li>
+</ol>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;We start with non-negative random variables just to avoid the concerns with existence of expectation due to <span class="math inline">\(∞ - ∞\)</span> nature. A similar definition works in general as long as we can rule out <span class="math inline">\(∞ - ∞\)</span> case.</p></div></div><ol start="5" type="1">
+<li><p>It can be shown that <span class="math inline">\(\EXP[X \mid \ALPHABET G]\)</span> exists and is unique up to sets of measure zero. Formally, one takes about a “version” of conditional expectation.</p></li>
+<li><p>Then <span class="math inline">\(\EXP[X \mid Y]\)</span> for <span class="math inline">\(Y\)</span> continuous may be viewed as <span class="math inline">\(\EXP[X \mid σ(Y)]\)</span>.</p></li>
+</ol>
+<div id="exr-conditional-probability" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent and identically distributed <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variables.</p>
+<ol type="a">
+<li><p>Consider the events <span class="math inline">\(A_k = \{ ω : X(ω) + Y(ω) = k\}\)</span>, <span class="math inline">\(k \in \{0,1,2\}\)</span>. Find <span class="math inline">\(\PR(A_k \mid X)\)</span>.</p></li>
+<li><p>Compute <span class="math inline">\(\EXP[X + Y \mid X]\)</span>.</p></li>
+</ol>
+</div>
 
 
 </section>
+</section>
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
