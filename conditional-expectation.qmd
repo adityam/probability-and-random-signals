@@ -383,8 +383,38 @@ where we have taken $\ALPHABET G = \{\emptyset, Ω\}$ as the trivial $σ$-algebr
 
 5. It can be shown that $\EXP[X \mid \ALPHABET G]$ exists and is unique up to sets of measure zero. Formally, one takes about a "version" of conditional expectation.
 
-6. Then $\EXP[X \mid Y]$ for $Y$ continuous may be viewed as $\EXP[X \mid σ(Y)]$.
+6. Then $\EXP[X \mid Y]$ for $Y$ continuous may be viewed as $\EXP[X \mid σ(Y)]$. 
 
+7. The formal definition of conditional expectation implies that if we take any Borel subsets $B_X$ of $\reals$, then $\PR(X \in B_X \mid Y)$ is a (measurable) function $m(y)$ that satisfies
+   \begin{equation}\label{eq:defn-cond}
+   \PR(X \in B_X, Y \in B_Y) = \int_{B_Y} m(y) f_Y(y) dy 
+   \end{equation}
+   for all Borel subsets $B_Y$ of $\reals$. 
+
+    We will show that 
+    $$ m(y) = \int_{B_X} \frac{ f_{X,Y}(x,y) }{ f_{Y}(y) } \, dx $$
+    satisfies \eqref{eq:defn-cond}. In particular, the RHS of \eqref{eq:defn-cond} is 
+    $$
+    \int_{B_Y} \left[ \int_{B_X} \frac{ f_{X,Y}(x,y) }{ f_{Y}(y) } \, dx \right] f_Y(y) \, dy
+    = \int_{B_Y} \int_{B_X} f_{X,Y}(x,y) \, dx \, dy
+    = \PR(X \in B_X, Y \in B_X)
+    $$
+    which equals the LHS of \eqref{eq:defn-cond}. This is why the conditional density is defined the way it is defined!
+
+8. Finally, it can be shown that $\PR(A \mid Y) \coloneqq \EXP[\IND_{A} \mid σ(Y)]$, $A \in \ALPHABET F$, satisfies the axioms of probability.Therefore, conditional probability satisfies all the properties of probability (and consequently, conditional expectations satisfy all the properties of expectations). 
+
+9. Note that the definition of conditional expectation generalizes Bayes rule. In particular, for any (measurable) function $g \colon \reals \to \reals$ we have
+   \begin{align*}
+   \EXP[ g(X) \mid Y = y ] &= \int_{-∞}^∞ g(x) f_{X|Y}(x\mid y) \, dx
+   \\
+   &= \int_{-∞}^∞ g(x) \frac{f_{X,Y}(x,y)}{f_Y(y)} \, dx \\
+   &= \frac{ \displaystyle \int_{-∞}^{∞} g(x) f_{X,Y}(x,y)\, dx}
+      { f_Y(y)} \\
+   &= \frac{ \displaystyle \int_{-∞}^{∞} g(x) f_{X,Y}(x,y)\, dx}
+      {\displaystyle \int_{-∞}^{∞} f_{X,Y}(x,y)\, dx } \\
+   &= \frac{ \displaystyle \int_{-∞}^{∞} g(x) f_{Y|X}(y|x) f_X(x) \, dx}
+      {\displaystyle \int_{-∞}^{∞} f_{Y|X}(y|x) f_X(x) \, dx }. \\
+  \end{align*}
 
 :::{#exr-conditional-probability}
 Let $X$ and $Y$ be independent and identically distributed $\text{Bernoulli}(p)$ random variables. 
