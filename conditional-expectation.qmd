@@ -6,50 +6,390 @@ Conditional probability is perhaps the most important aspect of probability theo
 
 ## Conditioning on events
 
-Recall that [conditional probability for events](probability-spaces.qmd#conditional-probability) is defined as follows: given a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPHABET F$ such that $\PR(B) > 0$, we have
+1. Recall that [conditional probability for events](probability-spaces.qmd#conditional-probability) is defined as follows: given a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPHABET F$ such that $\PR(B) > 0$, we have
+   $$
+   \PR(A \mid B) = \frac{\PR(A \cap B)}{\PR(B)}. 
+   $$
+
+2. Building on this definition, we can define the conditional CDF of a random variable $X$ conditioned on an event $C$ (such that $\PR(C) > 0$) as follows:
+   $$
+   F_{X|C}(x \mid C) = \PR(X \le x \mid C) = \frac{\PR( \{ X \le x \} \cap C)}{\PR(C)}.
+   $$
+
+
+3. As we pointed out, [conditional probabilities are probabilities](probability-spaces.qmd#conditional-probabilities-are-probabilties), the conditional CDF defined above satisfies the properties of regular CDFs. In particular
+
+    - $0 \le F_{X|C}(x\mid C) \le 1$
+    - $\displaystyle \lim_{x \to -∞} F_{X|C}(x \mid C) = 0$
+    - $\displaystyle \lim_{x \to +∞} F_{X|C}(x \mid C) = 1$ 
+    - $F_{X|C}(x \mid C)$ is non-decreasing function.
+    - $F_{X|C}(x \mid C)$ is right-continuous function. 
+
+4. Since $F_{X|C}$ is CDF, we can classify random variables conditioned on an event as discrete or continuous in the usual way. In particular
+
+    - If $F_{X|C}$ is piecewise constant, then $X$ conditioned on $C$ is a discrete random variable which takes values in a finite or countable subset $\text{range}(X\mid C) = \{x_1, x_2, \dots\}$ of $\reals$. Furthermore, $X$ conditioned on $C$ has a conditional PMF $p_{X|C} \colon \reals \to [0,1]$ defined as
+      $$
+        p_{X|C}(x\mid C) = F_{X|C}(x\mid C) - F_{X|C}(x^{-} \mid C).
+      $$
+
+    - If $F_{X|C}$ is continuous, then $X$ conditioned on $C$ is a continuous random variable which has a conditional PDF $f_{X|C}$ given by
+      $$
+      f_{X|C}(x\mid C) = \frac{d}{dx} F_X(x \mid C).
+      $$
+
+    - If $F_{X|C}$ is neither piecewise constant nor continuous, then $X$ conditioned on $C$ is a mixed random variable.
+
+    Therefore, a random variable conditioned on an event behaves exactly like a regular random variable. We can define conditional expectation $\EXP[X \mid C]$, conditional variance $\VAR(X \mid C)$ in the obvious manner. 
+
+5. An immediate implication of the law of total probability is the following.
+
+    If $C_1, C_2, \dots, C_n$ is a partition of $Ω$, then 
+    $$
+     F_X(x) = \sum_{i=1}^n F_{X|C_i}(x \mid C_i) \PR(C_i).
+    $$
+    Furthermore, if $X$ and $X$ conditioned on $C$ are both discrete, we have
+    $$
+    p_X(x) = \sum_{i=1}^n p_{X|C_i}(x \mid C_i) \PR(C_i)
+    $$
+    and if $X$ and $X$ conditioned on $C$ are both continuous, we have
+    $$
+     f_X(x) = \sum_{i=1}^n f_{X|C_i}(x \mid C_i) \PR(C_i).
+    $$
+
+:::{#exr-mixed-random-variable}
+Consider the following experiment. A fair coin is tossed. If the outcome is heads, $X$ is a uniform $[0,1]$ random variable. If the outcome is tails, $X$ is $\text{Bernoulli}(p)$ random variable. Find $F_X(x)$.
+:::
+
+:::{#exm-geometric-memoryless}
+
+#### Memoryless property of geometric random variable
+
+Let $X \sim \text{geometric}(p)$ and $m,n$ be positive integers. Compute
+$$ \PR(X > n + m \mid X > m). $$
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+Recall that the PMF of a geometric random variable is
 $$
-\PR(A \mid B) = \frac{\PR(A \cap B)}{\PR(B)}. 
+P_X(k) = p (1-p)^{k-1}, \quad k \in \naturalnumbers.
+$$
+Therefore,
+$$
+\PR(X > m) = \sum_{k = m + 1}^∞ P_X(k)
+= \sum_{k=m+1}^{∞} p (1-p)^{k-1} = (1-p)^m.
 $$
 
-Building on this definition, we can define the conditional CDF of a random variable $X$ conditioned on an event $C$ (such that $\PR(C) > 0$) as follows:
+Now consider
+\begin{align*}
+\PR(X > m + n \mid X > m) &= 
+\frac{ \PR(\{ X > m + n \} \cap \{X > m \}) } {\PR(X > m) }
+\\
+&=
+\frac{ \PR(X > m + n ) } {\PR(X > m) } \\
+&= \frac{(1-p)^{m+n}}{(1-p)^m} = (1-p)^n = \PR(X > n).
+\end{align*}
+
+This is called the **memoryless property** of a geometric random variable.
+:::
+
+:::{#exm-exponential-memoryless}
+
+#### Memoryless property of exponential random variable
+
+Let $X \sim \text{Exponential}(λ)$ and $t,s$ be positive reals. Compute
+$$ \PR(X > t + s \mid X > t). $$
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+Recall that the PDF of an exponential random variable is
 $$
-F_{X|C}(x \mid C) = \PR(X \le x \mid C) = \frac{\PR( \{ X \le x \} \cap C)}{\PR(C)}.
+f_X(x) = λ e^{-λ x}, \quad x \ge 0.
+$$
+Therefore,
+$$
+\PR(X > t) = \int_{t}^{∞} f_X(x)\, dx = e^{-λ t}.
 $$
 
+Now consider
+\begin{align*}
+\PR(X > t + s \mid X > t) &= 
+\frac{ \PR(\{ X > t + s \} \cap \{X > t \}) } {\PR(X > t) }
+\\
+&=
+\frac{ \PR(X > t + s ) } {\PR(X > t) } \\
+&= \frac{e^{-λ(t+s)}}{e^{-λt}} = e^{-λs} = \PR(X > s).
+\end{align*}
 
-As we pointed out, [conditional probabilities are probabilities](probability-spaces.qmd#conditional-probabilities-are-probabilties), the conditional CDF defined above satisfies the properties of regular CDFs. In particular
+This is called the **memoryless property** of a exponential random variable.
+:::
 
-- $0 \le F_{X|C}(x\mid C) \le 1$
-- $\displaystyle \lim_{x \to -∞} F_{X|C}(x \mid C) = 0$
-- $\displaystyle \lim_{x \to +∞} F_{X|C}(x \mid C) = 1$ 
-- $F_{X|C}(x \mid C)$ is non-decreasing function.
-- $F_{X|C}(x \mid C)$ is right-continuous function. 
+## Conditioning on random variables
 
-Since $F_{X|C}$ is CDF, we can classify random variables conditioned on an event as discrete or continuous in the usual way. In particular
+We first start with the case where we are conditioning on discrete random variables.
 
-- If $F_{X|C}$ is piecewise constant, then $X$ conditioned on $C$ is a discrete random variable which takes values in a finite or countable subset $\text{range}(X\mid C) = \{x_1, x_2, \dots\}$ of $\reals$. Furthermore, $X$ conditioned on $C$ has a conditional PMF $p_{X|C} \colon \reals \to [0,1]$ defined as
-  $$
-    p_{X|C}(x\mid C) = F_{X|C}(x\mid C) - F_{X|C}(x^{-} \mid C).
-  $$
+1. If $X$ and $Y$ are random variables defined on a common probability space and $Y$ is discrete, then 
+   $$F_{X|Y}(x \mid y) = \PR(X \le x \mid Y = y)$$
+   for any $y$ such that $\PR(Y = y) > 0$.
 
-- If $F_{X|C}$ is continuous, then $X$ conditioned on $C$ is a continuous random variable which has a conditional PDF $f_{X|C}$ given by
-  $$
-  f_{X|C}(x\mid C) = \frac{d}{dx} F_X(x \mid C).
-  $$
+2. If $X$ is also discrete, the conditional PMF $p_{X| Y}$ is defined as 
+   $$p_{X|Y}(x|y) = \PR(X = x \mid Y = y) = \frac{p_{X,Y}(x,y)}{P_Y(y)}$$
+   for any $y$ such that $\PR(Y = y) > 0$.
 
-- If $F_{X|C}$ is neither piecewise constant nor continuous, then $X$ conditioned on $C$ is a mixed random variable.
+     Moreover, we have that
+     $$ p_{X|Y}(x\mid y) = F_{X|Y}(x\mid y) - F_{X|Y}(x^{-}\mid y). $$
 
-Therefore, a random variable conditioned on an event behaves exactly like a regular random variable. We can define conditional expectation $\EXP[X \mid C]$, conditional variance $\VAR(X \mid C)$ in the obvious manner. Furthermore, an immediate implication of the law of total probability is the following.
+3. The above expression can be written differently to give the **chain rule** for random variables:
+   $$
+      P_{X,Y}(x,y) = P_{Y}(y) P_{X|Y}(x|y).
+   $$
 
-If $C_1, C_2, \dots, C_n$ is a partition of $Ω$, then 
+4. For any event $B$ in $\mathscr B(\reals)$, **the law of total probability** may be written as
+   $$\PR(X \in B) = \sum_{x \in \text{range}(X)} \PR(X \in B \mid X = x) P_X(x). $$
+
+5. If $X$ is independent of $Y$, we have
+   $$
+      p_{X|Y}(x\mid y) = p_X(x), \quad \forall x,y \in \reals.
+   $$
+
+We now consider the case when we are conditioning on a continuous random variable. 
+
+1. If $Y$ is continuous, $\PR(Y = y) = 0$ for all $y$. We may think of 
+   $$ F_{X|Y}(x\mid y) = \lim_{δ \downarrow 0} \PR(X \le x \mid y \le Y \le y + δ).$$
+
+2. When $X$ and $Y$ are jointly continuous, we define the conditional PDF
+   $$ f_{X|Y}(x \mid y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}. $$
+
+     Note that the conditional PDF cannot be interpreted in the same manner as the conditional PMF because it gives the impression that we are conditioning on a zero-probability event. However, we can view it as a limit as follows:
+
+     \begin{align*}
+      F_{X|Y}(x\mid y) &= \lim_{δ \downarrow 0} \PR(X \le x \mid y \le Y \le y + δ) \\
+      &= \lim_{δ \downarrow 0} \dfrac{\PR(X \le x, y \le Y \le y + δ)}{\PR(y \le Y \le y + δ)} \\
+      &= \lim_{δ \downarrow 0} \dfrac{\int_{-∞}^x \int_{y}^{y + δ} f_{X,Y}(u,v)\, dv\, du }{ \int_{y}^{y+δ} f_Y(v)\, dv } 
+    \end{align*}
+    If $δ$ is small, we can approximate
+    $$
+    \int_{y}^{y + δ} f_Y(v)\, dv \approx f_Y(y) \cdot δ
+    $$
+    and 
+    $$
+    \int_{y}^{y + δ} f_{X,Y}(u,v) dv \approx f_{X,Y}(u,y) \cdot δ.
+    $$
+    Substituting in the above equation, we get
+    \begin{align*}
+      F_{X|Y}(x \mid y) &\approx \lim_{δ \downarrow 0} 
+      \dfrac{ \int_{-∞}^x f_{X,Y}(u,y) δ du }{ f_Y(y) δ }
+      \\
+      &= \int_{-∞}^x \left[ \frac{f_{X,Y}(u,y)}{f_Y(y)} \right] du
+    \end{align*}.
+    Thus, when $X$ and $Y$ are jointly continuous, we have
+    $$
+    f_{X|Y}(x\mid y) = \frac{d}{dx} F_{X|Y}(x \mid y) = 
+     \dfrac{f_{X,Y}(x,y)}{f_Y(y)}.
+    $$
+
+     The formal definition of conditional densities requires some ideas from advanced probability theory, which we will not cover in this course. Nonetheless, I will try to explain the intuition behind the formal definitions in the next section.
+
+3. The above expression may be written differently to give the **chain rule** for random variables:
+   $$ f_{X,Y}(x,y) = f_Y(y) f_{X|Y}(x \mid y). $$
+
+4. For any event $B \in \mathscr B(\reals)$, **the law of total probability** may be written as
+   $$
+    \PR(X \in B) = \int_{-∞}^∞ \PR(X \in B \mid Y = y) f_Y(y)\, dy
+   $$
+   An immediate implication of this is
+   $$
+   F_X(x) = \PR(X \le x) = \int_{-∞}^{∞} \PR(X \le x \mid Y = y) f_Y(y)\, dy
+   = \int_{-∞}^{∞} F_{X|Y}(x|y) f_Y(y)\, dy.
+   $$
+
+6. If $X$ is independent of $Y$, we have
+   $$
+    f_{X|Y}(x\mid y) = f_X(x), \quad \forall x, y \in \reals.
+   $$
+
+5. We can show that conditional PMF and conditional PDF satisfy all the properties of PMFs and PDFs. Therefore, we can define conditional expectation $\EXP[ g(X) \mid Y = y ]$ in terms of $p_{X|Y}$ or $f_{X|Y}$. We can similarly define conditional variance
+
+:::{#exm-conditional-density}
+Suppose $X$ and $Y$ are jointly continuous random variables with the joint PDF
+$$ 
+f_{X,Y}(x,y) = \frac{e^{-x/y} e^{-y}}{y}, \quad 0 < x < ∞, 0 < y < ∞.
 $$
- F_X(x) = \sum_{i=1}^n F_{X|C_i}(x \mid C_i) \PR(C_i).
+Find $f_{X|Y}$?
+:::
+
+:::{#exm-conditional-uniform}
+Suppose $X \sim \text{Uniform}[0,1]$ and given $X = x$, $Y$ is uniformly distributed on $(0,x)$. Find the PDF of $Y$.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+We first compute the marginal $f_Y(y)$. 
+
+\begin{align*}
+f_Y(y) &= \int_{-∞}^{∞} f_{X,Y}(x,y) \, dx \\
+&= \int_{0}^{∞} \frac{e^{-x/y} e^{-y}}{y} dx \\
+&= \frac{e^{-y}}{y} \int_{0}^∞ e^{-x/y} dx \\
+&= e^{-y}.
+\end{align*}
+Thus,
+$$ f_{X|Y}(x \mid y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}
+= \frac{e^{-x/y}}{y}, \quad 0 < x < ∞, 0 < y < ∞.
 $$
-Furthermore, if $X$ and $X$ conditioned on $C$ are both discrete, we have
+:::
+
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+We will use the law of total probability.
 $$
-p_X(x) = \sum_{i=1}^n p_{X|C_i}(x \mid C_i) \PR(C_i)
+F_Y(y) = \int_{-∞}^{∞} F_{Y|X}(y \mid x) f_X(x) \, dx 
+= \int_{0}^1 F_{Y|X}(y \mid x) \, dx
 $$
-and if $X$ and $X$ conditioned on $C$ are both continuous, we have
+where we have used the fact that $f_X(x) = 1$ for $x \in [0,1]$. Now, we know that given $X = x$, $Y \sim \text{uniform}[0,x]$. Therefore,
 $$
- f_X(x) = \sum_{i=1}^n f_{X|C_i}(x \mid C_i) \PR(C_i).
+f_{Y|X}(y\mid x) = \frac 1x, \quad 0 < y < x.
 $$
+Therefore,
+$$
+F_{Y|X}(y \mid x) = \begin{cases}
+0 & y < 0 \\
+\dfrac{y}{x} & 0 < y < x \\
+1 & y \ge x 
+\end{cases}
+$$
+
+We will compute $F_Y(y)$ for the three cases separately.
+
+- For $y < 0$, 
+  $$ F_Y(y) = \int_{0}^1 F_{Y|X}(y|x) dx = 0.$$
+
+- For $0 < y < 1$, 
+  $$ F_Y(y) = \int_{0}^y 1\, dx + \int_{y}^1 \frac{y}{x} \, dx
+  = y - y \ln y. $$
+
+- For $y > 1$, 
+  $$ F_Y(y) = \int_{0}^1 1 \, dx = 1. $$
+
+Thus,
+$$
+F_Y(y) = \begin{cases}
+0 & y < 0 \\
+y - y \ln y & 0 \le y < 1 \\
+1 & y > 1.
+\end{cases}
+$$
+
+Hence,
+$$
+f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 < y < 1.
+$$
+:::
+
+## Conditional expectation
+
+Define $ψ(y) = \EXP[ X \mid Y = y]$. In particular, if $X$ and $Y$ are discrete, then
+$$
+ψ(y) = \sum_{x \in \text{range}(X)} x p_{X|Y}(x|y)
+$$
+and, if $X$ and $Y$ are continuous, then
+$$
+ψ(y) = \int_{-∞}^{∞} x f_{X|Y}(x|y)\, dx
+$$
+Let $Z = ψ(Y)$. Then $Z$ is a random variable! This is a subtle point, and we will spend some time to develop an intuition of what this means.
+
+### Conditioning on a $σ$-algebra
+
+The key idea is conditioning on a $σ$-algebra. To avoid technical subtleties, we restrict to the discrete case. 
+
+1. Consider a probability space $(Ω, \ALPHABET F, \PR)$ where $\ALPHABET F$ is a finite $σ$-algebra. Let $\ALPHABET G$ be a sub-$σ$-algebra of $\ALPHABET F$. In particular, we assume that there is a partition $\{D_1, D_2, \dots, D_m\}$ of $Ω$ such that $\ALPHABET G = 2^{\{D_1, \dots, D_m\}}$. The elements $D_1, \dots, D_m$ are called the **atoms** of the $σ$-algebra $\ALPHABET G$. 
+
+**TODO**: Add example. 4x4 grid. partition for $\ALPHABET G$. 
+
+2. We define $\PR(A \mid \ALPHABET G)$ (which we will write as $\EXP[\IND_{A} \mid \ALPHABET G]$ as
+   $$
+   \EXP[\IND_{A} \mid \ALPHABET G](ω) 
+   = \sum_{i=1}^m \EXP[ \IND_{A} \mid D_i ] \IND_{D_i}(ω).
+   $$
+   Thus, on each $ω \in D_i$, the value of $\EXP[I_{A} \mid \ALPHABET G]$ is equal to $\EXP[I_{A} \mid D_i]$. 
+
+3. This idea can be extended to any random variable instead of $\IND_{A}$, that is, for any random variable $X$
+   $$
+   \EXP[X \mid \ALPHABET G](ω) 
+   = \sum_{i=1}^m \EXP[ X \mid D_i ] \IND_{D_i}(ω).
+   $$
+   Thus, on each $ω \in D_i$, the value of $\EXP[X \mid \ALPHABET G]$ is equal to $\EXP[X \mid D_i]$. 
+
+
+4. When $\ALPHABET G = \{\emptyset, Ω\}$ is the trivial $σ$-algebra, 
+   $$\EXP[X \mid \{\emptyset, Ω\}] = \EXP[X].$$
+
+5. When $X = \IND_{A}$, $\EXP[ \IND_{A} \mid \ALPHABET G] = \PR(A \mid \ALPHABET G)$.
+
+6. If $X_1$ and $X_2$ are joint random variables and $a_1$ and $a_2$ are constants, then
+   $$ \EXP[ a_1 X_1 + a_2 X_2 \mid \ALPHABET G]
+   = a_1 \EXP[X_1 \mid \ALPHABET G] + a_2 \EXP[X_2 \mid \ALPHABET G]. $$
+
+5. If $Y$ is another random variable which is $\ALPHABET G$ measurable (i.e., $Y$ takes constant values on the atoms of $\ALPHABET G$), then
+   $$
+   \EXP[X Y \mid \ALPHABET G] = Y \EXP[X \mid \ALPHABET G].
+   $$
+
+   [The result can be proved pictorially.]
+
+### Smoothing property of conditional expectation
+
+Let $\ALPHABET H ⊂ \ALPHABET G ⊂ \ALPHABET F$, where $⊂$ means sub-$σ$-algebra. Let $\{E_1, \dots, E_k\}$ denote the partition corresponding to $\ALPHABET H$ and $\{D_1, \dots, D_m\}$ denote the partition corresponding to $\ALPHABET G$. The fact that $\ALPHABET H$ is a sub-$σ$-algebra of $\ALPHABET G$ means that each atom $D_i$ of $\ALPHABET H$ is a union of atoms of $\ALPHABET G$ (i.e., $\{D_1, \dots, D_m\}$ is a _refinement_ of the partition $\{E_1, \dots, E_k\}$). Therefore, 
+\begin{equation}\tag{smoothing-property}
+\bbox[5pt,border: 1px solid]
+{\EXP[ \EXP[ X \mid \ALPHABET H ] \mid \ALPHABET G ] =
+\EXP[ X \mid \ALPHABET G].}
+\end{equation}
+This is known as the smoothing property of conditional expectation. 
+
+A special case of the above property is that
+$$
+\EXP[ \EXP[ X \mid \ALPHABET H] ] =
+\EXP[ X ].
+$$
+where we have taken $\ALPHABET G = \{\emptyset, Ω\}$ as the trivial $σ$-algebra. Observe that the above definition is equivalent to the law of total probability!
+
+### Conditioning on random variable
+
+1. Now suppose $Y$ is a discrete random variable, then $\PR(A \mid Y)$ and $\EXP[X \mid Y]$ may be viewed as a short-hand notation for $\PR(A \mid σ(Y))$ and $\EXP[X \mid σ(Y)]$. Similar interpretations hold for conditioning on multiple random variables (or, equivalently, conditioning on random vectors).
+
+2. The smoothing property of conditional expectation can then be stated as
+   $$
+   \EXP[ \EXP[ X | Y_1, Y_2 ] Y_1 ] = \EXP[ X | Y_1 ].
+   $$
+
+3. An implication of the smoothing property is the following: for any (measurable) function $g \colon \reals \to \reals$,
+   $$ \EXP[ g(Y) \EXP[ X \mid Y] ] = \EXP[ X g(Y) ]. $$
+
+<!-- BREAK to fix footnote placement-->
+
+4. This previous property is used for generalizing the definition of conditional expectation to continuous random variables. First, we consider conditioning wrt $σ$-algebra $\ALPHABET G \subset \ALPHABET F$, which is not necessarily finite (or countable). 
+
+   Then, for any non-negative[^non-negative] random variable $X$, $\EXP[X \mid \ALPHABET G]$ is defined as a $\ALPHABET G$-measurable random variable that satisfies
+   $$ \EXP[ \IND_{A} \EXP[ X \mid \ALPHABET G] ] = \EXP[ X \IND_{A} ] $$
+   for every $A \in \ALPHABET G$.
+
+[^non-negative]: We start with non-negative random variables just to avoid the concerns with existence of expectation due to $∞ - ∞$ nature. A similar definition works in general as long as we can rule out $∞ - ∞$ case. 
+
+5. It can be shown that $\EXP[X \mid \ALPHABET G]$ exists and is unique up to sets of measure zero. Formally, one takes about a "version" of conditional expectation.
+
+6. Then $\EXP[X \mid Y]$ for $Y$ continuous may be viewed as $\EXP[X \mid σ(Y)]$.
+
+
+:::{#exr-conditional-probability}
+Let $X$ and $Y$ be independent and identically distributed $\text{Bernoulli}(p)$ random variables. 
+
+a. Consider the events $A_k = \{ ω : X(ω) + Y(ω) = k\}$, $k \in \{0,1,2\}$. Find $\PR(A_k \mid X)$. 
+
+b. Compute $\EXP[X + Y \mid X]$.
+:::
