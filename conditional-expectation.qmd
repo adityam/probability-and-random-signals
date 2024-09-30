@@ -221,10 +221,6 @@ $$
 Find $f_{X|Y}$?
 :::
 
-:::{#exm-conditional-uniform}
-Suppose $X \sim \text{Uniform}[0,1]$ and given $X = x$, $Y$ is uniformly distributed on $(0,x)$. Find the PDF of $Y$.
-:::
-
 :::{.callout-note collapse="true"}
 #### Solution
 
@@ -242,6 +238,10 @@ $$ f_{X|Y}(x \mid y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}
 $$
 :::
 
+
+:::{#exm-conditional-uniform}
+Suppose $X \sim \text{Uniform}[0,1]$ and given $X = x$, $Y$ is uniformly distributed on $(0,x)$. Find the PDF of $Y$.
+:::
 
 :::{.callout-note collapse="true"}
 #### Solution
