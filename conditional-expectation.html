@@ -557,6 +557,26 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;We start with non-negative random variables just to avoid the concerns with existence of expectation due to <span class="math inline">\(∞ - ∞\)</span> nature. A similar definition works in general as long as we can rule out <span class="math inline">\(∞ - ∞\)</span> case.</p></div></div><ol start="5" type="1">
 <li><p>It can be shown that <span class="math inline">\(\EXP[X \mid \ALPHABET G]\)</span> exists and is unique up to sets of measure zero. Formally, one takes about a “version” of conditional expectation.</p></li>
 <li><p>Then <span class="math inline">\(\EXP[X \mid Y]\)</span> for <span class="math inline">\(Y\)</span> continuous may be viewed as <span class="math inline">\(\EXP[X \mid σ(Y)]\)</span>.</p></li>
+<li><p>The formal definition of conditional expectation implies that if we take any Borel subsets <span class="math inline">\(B_X\)</span> of <span class="math inline">\(\reals\)</span>, then <span class="math inline">\(\PR(X \in B_X \mid Y)\)</span> is a (measurable) function <span class="math inline">\(m(y)\)</span> that satisfies <span class="math display">\[\begin{equation}\label{eq:defn-cond}
+\PR(X \in B_X, Y \in B_Y) = \int_{B_Y} m(y) f_Y(y) dy
+\end{equation}\]</span> for all Borel subsets <span class="math inline">\(B_Y\)</span> of <span class="math inline">\(\reals\)</span>.</p>
+<p>We will show that <span class="math display">\[ m(y) = \int_{B_X} \frac{ f_{X,Y}(x,y) }{ f_{Y}(y) } \, dx \]</span> satisfies <span class="math inline">\(\eqref{eq:defn-cond}\)</span>. In particular, the RHS of <span class="math inline">\(\eqref{eq:defn-cond}\)</span> is <span class="math display">\[
+\int_{B_Y} \left[ \int_{B_X} \frac{ f_{X,Y}(x,y) }{ f_{Y}(y) } \, dx \right] f_Y(y) \, dy
+= \int_{B_Y} \int_{B_X} f_{X,Y}(x,y) \, dx \, dy
+= \PR(X \in B_X, Y \in B_X)
+\]</span> which equals the LHS of <span class="math inline">\(\eqref{eq:defn-cond}\)</span>. This is why the conditional density is defined the way it is defined!</p></li>
+<li><p>Finally, it can be shown that <span class="math inline">\(\PR(A \mid Y) \coloneqq \EXP[\IND_{A} \mid σ(Y)]\)</span>, <span class="math inline">\(A \in \ALPHABET F\)</span>, satisfies the axioms of probability.Therefore, conditional probability satisfies all the properties of probability (and consequently, conditional expectations satisfy all the properties of expectations).</p></li>
+<li><p>Note that the definition of conditional expectation generalizes Bayes rule. In particular, for any (measurable) function <span class="math inline">\(g \colon \reals \to \reals\)</span> we have <span class="math display">\[\begin{align*}
+\EXP[ g(X) \mid Y = y ] &amp;= \int_{-∞}^∞ g(x) f_{X|Y}(x\mid y) \, dx
+\\
+&amp;= \int_{-∞}^∞ g(x) \frac{f_{X,Y}(x,y)}{f_Y(y)} \, dx \\
+&amp;= \frac{ \displaystyle \int_{-∞}^{∞} g(x) f_{X,Y}(x,y)\, dx}
+   { f_Y(y)} \\
+&amp;= \frac{ \displaystyle \int_{-∞}^{∞} g(x) f_{X,Y}(x,y)\, dx}
+   {\displaystyle \int_{-∞}^{∞} f_{X,Y}(x,y)\, dx } \\
+&amp;= \frac{ \displaystyle \int_{-∞}^{∞} g(x) f_{Y|X}(y|x) f_X(x) \, dx}
+   {\displaystyle \int_{-∞}^{∞} f_{Y|X}(y|x) f_X(x) \, dx }. \\
+  \end{align*}\]</span></p></li>
 </ol>
 <div id="exr-conditional-probability" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent and identically distributed <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variables.</p>
