@@ -266,7 +266,7 @@ window.Quarto = {
 
 <section id="background" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="background"><span class="header-section-number">1</span> Background</h2>
-<p>This is a graduate course on probability and random signals. I am going to assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:</p>
+<p>This is a graduate course on probability and random signals. I assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:</p>
 <ul>
 <li>A fair 6-sided die is rolled twice. What is the probability that the sum of the rolls equals 7?</li>
 <li>A biased coin with <span class="math inline">\(\PR({\rm heads}) = 3/4\)</span> is tossed 10 times. What is the probability of obtaining 3 consecutive heads?</li>
@@ -274,14 +274,14 @@ window.Quarto = {
 <p>You should also be familiar with the following concepts:</p>
 <ul>
 <li>Random variables, probability distributions, and expectations</li>
-<li>Conditional distributions, independent random variables</li>
+<li>Conditional distributions and independent random variables</li>
 </ul>
-<p>Some of you might also have seen the following concepts</p>
+<p>Some of you might have also seen the following concepts</p>
 <ul>
 <li>Law of large numbers</li>
 <li>Central limit theorem</li>
 </ul>
-<p>In this course, we revisit these topics with a more formal approach. We start with a review of the basic concepts.</p>
+<p>In this course, we will revisit these topics with a more formal approach. We start with a review of the basic concepts.</p>
 </section>
 <section id="review-of-set-theory" class="level2 page-columns page-full" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="review-of-set-theory"><span class="header-section-number">2</span> Review of Set Theory</h2>
@@ -291,8 +291,8 @@ window.Quarto = {
 <div id="exr-sets" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 1</strong></span> Let <span class="math inline">\(A = \{1, 2, 3\}\)</span>. Find all subsets of <span class="math inline">\(A\)</span>.</p>
 </div>
-<p>The set of all subsets of <span class="math inline">\(A\)</span> is also called the <strong>power set</strong> of <span class="math inline">\(A\)</span> (denoted by <span class="math inline">\(2^A\)</span>). The notation <span class="math inline">\(2^A\)</span> is capturing the fact that the power set of <span class="math inline">\(A\)</span> has <span class="math inline">\(2^{|A|}\)</span> elements. For example, your answer to <a href="#exr-sets" class="quarto-xref">Exercise&nbsp;1</a> must have <span class="math inline">\(2^3 = 8\)</span> elements.</p>
-<p>Given two sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, we define the <strong>set difference</strong> <span class="math inline">\(A\setminus B\)</span> to be all elements of <span class="math inline">\(A\)</span> not in <span class="math inline">\(B\)</span>. Note that mathematically <span class="math inline">\(A \setminus B\)</span> is well defined even when <span class="math inline">\(B \not\subseteq A\)</span>. In particular <span class="math display">\[
+<p>The set of all subsets of <span class="math inline">\(A\)</span> is also called the <strong>power set</strong> of <span class="math inline">\(A\)</span> (denoted by <span class="math inline">\(2^A\)</span>). The notation <span class="math inline">\(2^A\)</span> represents that the power set of <span class="math inline">\(A\)</span> contains <span class="math inline">\(2^{|A|}\)</span> elements. For example, your answer to <a href="#exr-sets" class="quarto-xref">Exercise&nbsp;1</a> must have <span class="math inline">\(2^3 = 8\)</span> elements.</p>
+<p>Given two sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, we define the <strong>set difference</strong> <span class="math inline">\(A\setminus B\)</span> to be all elements of <span class="math inline">\(A\)</span> not in <span class="math inline">\(B\)</span>. Note that mathematically <span class="math inline">\(A \setminus B\)</span> is well defined even if <span class="math inline">\(B \not\subseteq A\)</span>. In particular <span class="math display">\[
 A \setminus B = A \setminus (A \cap B).
 \]</span></p>
 <div id="exr-set-difference" class="theorem exercise">
@@ -305,14 +305,14 @@ A \setminus B = A \setminus (A \cap B).
 <p>Given a collection <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> of sets, we define two operations:</p>
 <ul>
 <li><p><strong>Union</strong> <span class="math inline">\(A_1 \cup A_2  \cup \cdots \cup A_n\)</span> as follows <span class="math display">\[
-  \bigcup_{i=1}^n A_i = \{ a: a \in A_i \text{ for some } i \}
-\]</span> i.e., an element belongs to <span class="math inline">\(A_1 \cup A_2  \cup \cdots \cup A_n\)</span> if it belongs to at least one of <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_2\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(A_n\)</span>.</p></li>
+  \bigcup_{i=1}^n A_i = \{ a: a \in A_i \text{ for some } i \}.
+\]</span> This means that an element belongs to <span class="math inline">\(A_1 \cup A_2  \cup \cdots \cup A_n\)</span> if it belongs to at least one of <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_2\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(A_n\)</span>.</p></li>
 <li><p><strong>Intersection</strong> <span class="math inline">\(A_1 \cap A_2  \cap \cdots \cap A_n\)</span> as follows <span class="math display">\[
   \bigcap_{i=1}^n A_i = \{ a: a \in A_i \text{ for all } i \}
-\]</span> i.e., an element belongs to <span class="math inline">\(A_1 \cap A_2  \cap \cdots \cap A_n\)</span> if it belongs to all of <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_2\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(A_n\)</span>.</p></li>
+\]</span> This means that an element belongs to <span class="math inline">\(A_1 \cap A_2  \cap \cdots \cap A_n\)</span> if it belongs to all of <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_2\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(A_n\)</span>.</p></li>
 </ul>
 <p>A collection <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is <strong>disjoint</strong> if for every <span class="math inline">\(i \neq j\)</span>, <span class="math inline">\(A_i \cap A_j = \emptyset\)</span>, where <span class="math inline">\(\emptyset\)</span> denotes the empty set.</p>
-<p>Given a <strong>universal set</strong> <span class="math inline">\(Ω\)</span> and a collection <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> of subsets of <span class="math inline">\(Ω\)</span>, we say that <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> is a <strong>partition</strong> of <span class="math inline">\(Ω\)</span> if <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> are disjoint and <span class="math inline">\(\bigcup_{i=1}^m B_i = Ω\)</span>.</p>
+<p>Given a <strong>universal set</strong> <span class="math inline">\(Ω\)</span> and a collection <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> of subsets of <span class="math inline">\(Ω\)</span>, we say that <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> is a <strong>partition</strong> of <span class="math inline">\(Ω\)</span> if <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> are disjoint and their union equals <span class="math inline">\(Ω\)</span>.</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <div id="fig-partition" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -339,7 +339,7 @@ Figure&nbsp;1: Example of a partition
 <li><span class="math inline">\(\{ \{1\}, \{2, 3\}, \{4, 5\} \}\)</span>.</li>
 </ul>
 </div>
-<p>In most of our discussion, we will work with a pre-specified universal set <span class="math inline">\(Ω\)</span>. In this setting we use <span class="math inline">\(A^c\)</span> (read: <span class="math inline">\(A\)</span>-complement) as a short hand for <span class="math inline">\(Ω\setminus A\)</span>.</p>
+<p>In most of our discussion, we will work with a pre-specified universal set <span class="math inline">\(Ω\)</span>. In this setting we use <span class="math inline">\(A^c\)</span> (read as the complement of <span class="math inline">\(A\)</span>) as a short hand for <span class="math inline">\(Ω\setminus A\)</span>.</p>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -349,7 +349,7 @@ Figure&nbsp;1: Example of a partition
 <p>Partitions are useful because they allow breaking up a set into disjoint pieces. In particular, suppose <span class="math inline">\(\{B_1, \dots, B_m\}\)</span> is a partition and <span class="math inline">\(A\)</span> is any subset of <span class="math inline">\(Ω\)</span>.</p>
 <p>Then, <span class="math display">\[
 A = (A \cap B_1) \cup (A \cap B_2) \cup \cdots \cup (A \cap B_m)
-\]</span> where each of the components are disjoint.</p>
+\]</span> where each of the components is disjoint.</p>
 </div>
 </div>
 </div>
@@ -515,7 +515,7 @@ q(6) = \frac{1}{3}.
 \PR([a,b]) = b - a.
 \end{equation}\]</span></p>
 <p>We have seen that if we want <span class="math inline">\(\PR\)</span> to be a meaningful measure, the domain <span class="math inline">\(\ALPHABET F\)</span> must at least be an algebra. We have also seen that the power-set <span class="math inline">\(2^Ω\)</span> is always an algebra. So, it is tempting to take <span class="math inline">\(\ALPHABET F = 2^{[0,1]}\)</span>. However, it turns out that <span class="math inline">\(2^{[0,1]}\)</span> has includes some weird sets (technically, non-measurable sets) due to which we cannot define a function <span class="math inline">\(\PR\)</span> on <span class="math inline">\(2^{[0,1]}\)</span> that satisfies <span class="math inline">\(\eqref{eq:uniform}\)</span>.</p>
-<p>To workaround this technical limitation, we revisit the minimum requirements that we need from the domain of <span class="math inline">\(\PR\)</span>. Since we are interested in <span class="math inline">\(\PR([a,b])\)</span>, <span class="math inline">\(\ALPHABET F\)</span> must contains intervals (and therefore all finite unions and intersections of intervals). Since, we are working with continuous sample spaces, we also want <span class="math inline">\(\PR\)</span> to be continuous, i.e., for any sequence of sets <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span>, we want <span class="math inline">\(\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)\)</span>. It turns out that the additional requirement of continuity implies that <span class="math inline">\(\ALPHABET F\)</span> must be closed under countable unions as well. Thus, the domain <span class="math inline">\(\ALPHABET F\)</span> must at least be a <span class="math inline">\(σ\)</span>-algebra.</p>
+<p>To workaround this technical limitation, we revisit the minimum requirements that we need from the domain of <span class="math inline">\(\PR\)</span>. Since we are interested in <span class="math inline">\(\PR([a,b])\)</span>, <span class="math inline">\(\ALPHABET F\)</span> must contain intervals (and therefore all finite unions and intersections of intervals). Since we are working with continuous sample spaces, we also want <span class="math inline">\(\PR\)</span> to be continuous, i.e., for any sequence of sets <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span>, we want <span class="math inline">\(\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)\)</span>. It turns out that the additional requirement of continuity implies that <span class="math inline">\(\ALPHABET F\)</span> must be closed under countable unions as well. Thus, the domain <span class="math inline">\(\ALPHABET F\)</span> must at least be a <span class="math inline">\(σ\)</span>-algebra.</p>
 <p>So, we restrict to the simplest choice of the domain <span class="math inline">\(\ALPHABET F\)</span> needed for <span class="math inline">\(\eqref{eq:uniform}\)</span> and continuity to hold. <span class="text-secondary">For technical reasons, we need another property known as <strong>completeness</strong>. See Sec.&nbsp;1.6 of the textbook.</span></p>
 </div>
 </div>
