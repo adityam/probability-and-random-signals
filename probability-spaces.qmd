@@ -4,7 +4,7 @@ title: Introduction to Probability
 
 ## Background
 
-This is a graduate course on probability and random signals. I am going to assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:
+This is a graduate course on probability and random signals. I assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:
 
 - A fair 6-sided die is rolled twice. What is the probability that the sum of the rolls equals 7?
 - A biased coin with $\PR({\rm heads}) = 3/4$ is tossed 10 times. What is the probability of obtaining 3 consecutive heads?
@@ -12,14 +12,14 @@ This is a graduate course on probability and random signals. I am going to assum
 You should also be familiar with the following concepts:
 
 - Random variables, probability distributions, and expectations
-- Conditional distributions, independent random variables
+- Conditional distributions and independent random variables
 
-Some of you might also have seen the following concepts
+Some of you might have also seen the following concepts
 
 - Law of large numbers
 - Central limit theorem
 
-In this course, we revisit these topics with a more formal approach. We start with a review of the basic concepts.
+In this course, we will revisit these topics with a more formal approach. We start with a review of the basic concepts.
 
 ## Review of Set Theory
 
@@ -31,9 +31,9 @@ A **set** is a collection of objects. We say that a set $B$ is a **subset** of s
 Let $A = \{1, 2, 3\}$. Find all subsets of $A$.
 :::
 
-The set of all subsets of $A$ is also called the **power set** of $A$ (denoted by $2^A$). The notation $2^A$ is capturing the fact that the power set of $A$ has $2^{|A|}$ elements. For example, your answer to @exr-sets must have $2^3 = 8$ elements.
+The set of all subsets of $A$ is also called the **power set** of $A$ (denoted by $2^A$). The notation $2^A$ represents that the power set of $A$ contains $2^{|A|}$ elements. For example, your answer to @exr-sets must have $2^3 = 8$ elements.
 
-Given two sets $A$ and $B$, we define the **set difference** $A\setminus B$ to be all elements of $A$ not in $B$. Note that mathematically $A \setminus B$ is well defined even when $B \not\subseteq A$. In particular
+Given two sets $A$ and $B$, we define the **set difference** $A\setminus B$ to be all elements of $A$ not in $B$. Note that mathematically $A \setminus B$ is well defined even if $B \not\subseteq A$. In particular
 $$
 A \setminus B = A \setminus (A \cap B).
 $$
@@ -49,19 +49,19 @@ Given a collection $\{A_1, A_2, \dots, A_n\}$ of sets, we define two operations:
 
 - **Union** $A_1 \cup A_2  \cup \cdots \cup A_n$ as follows
   $$
-    \bigcup_{i=1}^n A_i = \{ a: a \in A_i \text{ for some } i \}
+    \bigcup_{i=1}^n A_i = \{ a: a \in A_i \text{ for some } i \}.
   $$
-i.e., an element belongs to $A_1 \cup A_2  \cup \cdots \cup A_n$ if it belongs to at least one of $A_1$, $A_2$, $\ldots$, $A_n$.
+This means that an element belongs to $A_1 \cup A_2  \cup \cdots \cup A_n$ if it belongs to at least one of $A_1$, $A_2$, $\ldots$, $A_n$.
 
 - **Intersection** $A_1 \cap A_2  \cap \cdots \cap A_n$ as follows
   $$
     \bigcap_{i=1}^n A_i = \{ a: a \in A_i \text{ for all } i \}
   $$
-i.e., an element belongs to $A_1 \cap A_2  \cap \cdots \cap A_n$ if it belongs to all of $A_1$, $A_2$, $\ldots$, $A_n$.
+This means that an element belongs to $A_1 \cap A_2  \cap \cdots \cap A_n$ if it belongs to all of $A_1$, $A_2$, $\ldots$, $A_n$.
 
 A collection $\{A_1, A_2, \dots, A_n\}$ is **disjoint** if for every $i \neq j$, $A_i \cap A_j = \emptyset$, where $\emptyset$ denotes the empty set.
 
-Given a **universal set** $Ω$ and a collection $\{B_1, B_2, \dots, B_m\}$ of subsets of $Ω$, we say that $\{B_1, B_2, \dots, B_m\}$ is a **partition** of $Ω$ if $\{B_1, B_2, \dots, B_m\}$ are disjoint and $\bigcup_{i=1}^m B_i = Ω$. 
+Given a **universal set** $Ω$ and a collection $\{B_1, B_2, \dots, B_m\}$ of subsets of $Ω$, we say that $\{B_1, B_2, \dots, B_m\}$ is a **partition** of $Ω$ if $\{B_1, B_2, \dots, B_m\}$ are disjoint and their union equals $Ω$.
 
 ::: {.column-margin}
 ![Example of a partition](figures/svg/partitions1.svg){#fig-partition}
@@ -81,7 +81,7 @@ The follow are **not** partitions of $Ω$ [Explain why?]
 - $\{ \{1\}, \{2, 3\}, \{4, 5\} \}$.
 :::
 
-In most of our discussion, we will work with a pre-specified universal set $Ω$. In this setting we use $A^c$ (read: $A$-complement) as a short hand for $Ω\setminus A$. 
+In most of our discussion, we will work with a pre-specified universal set $Ω$. In this setting we use $A^c$ (read as the complement of $A$) as a short hand for $Ω\setminus A$. 
 
 :::{.callout-tip appearance="simple"}
 Partitions are useful because they allow breaking up a set into disjoint pieces. In particular, suppose $\{B_1, \dots, B_m\}$ is a partition and 
@@ -91,7 +91,7 @@ Then,
 $$
 A = (A \cap B_1) \cup (A \cap B_2) \cup \cdots \cup (A \cap B_m)
 $$
-where each of the components are disjoint.
+where each of the components is disjoint.
 :::
 
 ### Properties of set operations
@@ -251,7 +251,7 @@ The distinction between algebras and $σ$-algebras is technical. The reason that
 
 We have seen that if we want $\PR$ to be a meaningful measure, the domain $\ALPHABET F$ must at least be an algebra. We have also seen that the power-set $2^Ω$ is always an algebra. So, it is tempting to take $\ALPHABET F = 2^{[0,1]}$. However, it turns out that $2^{[0,1]}$ has includes some weird sets (technically, non-measurable sets) due to which we cannot define a function $\PR$ on $2^{[0,1]}$ that satisfies \eqref{eq:uniform}. 
 
-To workaround this technical limitation, we revisit the minimum requirements that we need from the domain of $\PR$. Since we are interested in $\PR([a,b])$, $\ALPHABET F$ must contains intervals (and therefore all finite unions and intersections of intervals). Since, we are working with continuous sample spaces, we also want $\PR$ to be continuous, i.e., for any sequence of sets $\{A_n\}_{n \ge 1}$, we want $\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)$. It turns out that the additional requirement of continuity implies that $\ALPHABET F$ must be closed under countable unions as well. Thus, the domain $\ALPHABET F$ must at least be a $σ$-algebra. 
+To workaround this technical limitation, we revisit the minimum requirements that we need from the domain of $\PR$. Since we are interested in $\PR([a,b])$, $\ALPHABET F$ must contain intervals (and therefore all finite unions and intersections of intervals). Since we are working with continuous sample spaces, we also want $\PR$ to be continuous, i.e., for any sequence of sets $\{A_n\}_{n \ge 1}$, we want $\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)$. It turns out that the additional requirement of continuity implies that $\ALPHABET F$ must be closed under countable unions as well. Thus, the domain $\ALPHABET F$ must at least be a $σ$-algebra. 
 
 So, we restrict to the simplest choice of the domain $\ALPHABET F$ needed for \eqref{eq:uniform} and continuity to hold. [For technical reasons, we need another property known as **completeness**. See Sec. 1.6 of the textbook.]{.text-secondary}
 :::
