@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-09-30">
+<meta name="dcterms.date" content="2024-10-01">
 
 <title>Conditional probability and conditional expectation – Probability and Random Signals II</title>
 <style>
@@ -249,7 +249,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2024</p>
+      <p class="date">October 1, 2024</p>
     </div>
   </div>
   
@@ -532,13 +532,13 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 <h3 data-number="3.2" class="anchored" data-anchor-id="smoothing-property-of-conditional-expectation"><span class="header-section-number">3.2</span> Smoothing property of conditional expectation</h3>
 <p>Let <span class="math inline">\(\ALPHABET H ⊂ \ALPHABET G ⊂ \ALPHABET F\)</span>, where <span class="math inline">\(⊂\)</span> means sub-<span class="math inline">\(σ\)</span>-algebra. Let <span class="math inline">\(\{E_1, \dots, E_k\}\)</span> denote the partition corresponding to <span class="math inline">\(\ALPHABET H\)</span> and <span class="math inline">\(\{D_1, \dots, D_m\}\)</span> denote the partition corresponding to <span class="math inline">\(\ALPHABET G\)</span>. The fact that <span class="math inline">\(\ALPHABET H\)</span> is a sub-<span class="math inline">\(σ\)</span>-algebra of <span class="math inline">\(\ALPHABET G\)</span> means that each atom <span class="math inline">\(D_i\)</span> of <span class="math inline">\(\ALPHABET H\)</span> is a union of atoms of <span class="math inline">\(\ALPHABET G\)</span> (i.e., <span class="math inline">\(\{D_1, \dots, D_m\}\)</span> is a <em>refinement</em> of the partition <span class="math inline">\(\{E_1, \dots, E_k\}\)</span>). Therefore, <span class="math display">\[\begin{equation}\tag{smoothing-property}
 \bbox[5pt,border: 1px solid]
-{\EXP[ \EXP[ X \mid \ALPHABET H ] \mid \ALPHABET G ] =
-\EXP[ X \mid \ALPHABET G].}
+{\EXP[ \EXP[ X \mid \ALPHABET G ] \mid \ALPHABET H ] =
+\EXP[ X \mid \ALPHABET H].}
 \end{equation}\]</span> This is known as the smoothing property of conditional expectation.</p>
 <p>A special case of the above property is that <span class="math display">\[
-\EXP[ \EXP[ X \mid \ALPHABET H] ] =
+\EXP[ \EXP[ X \mid \ALPHABET G] ] =
 \EXP[ X ].
-\]</span> where we have taken <span class="math inline">\(\ALPHABET G = \{\emptyset, Ω\}\)</span> as the trivial <span class="math inline">\(σ\)</span>-algebra. Observe that the above definition is equivalent to the law of total probability!</p>
+\]</span> where we have taken <span class="math inline">\(\ALPHABET H = \{\emptyset, Ω\}\)</span> as the trivial <span class="math inline">\(σ\)</span>-algebra. Observe that the above definition is equivalent to the law of total probability!</p>
 </section>
 <section id="conditioning-on-random-variable" class="level3 page-columns page-full" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="conditioning-on-random-variable"><span class="header-section-number">3.3</span> Conditioning on random variable</h3>
