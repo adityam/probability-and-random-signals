@@ -64,7 +64,7 @@ Upon the successful completion of this course, the student students will have de
 | 2    | [Random variables and random vectors](random-variables.qmd) | 
 | 3    | [Random variables and random vectors (continued)](random-variables.qmd) | 
 | 4    | [Conditional probability and conditional expectation](conditional-expectation.qmd) |
-| 5    | Moment generating functions and sums of random variables |
+| 5    | [Moment generating functions and sums of random variables](moment-generating-functions.qmd) |
 | 6    | Probability inequalities |
 | 7    | Review and Mid-Term | 
 | 8    | Convergence in probability and the weak law of large numbers | 

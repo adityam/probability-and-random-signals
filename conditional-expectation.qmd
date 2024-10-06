@@ -344,7 +344,7 @@ The key idea is conditioning on a $σ$-algebra. To avoid technical subtleties, w
 
 ### Smoothing property of conditional expectation
 
-Let $\ALPHABET H ⊂ \ALPHABET G ⊂ \ALPHABET F$, where $⊂$ means sub-$σ$-algebra. Let $\{E_1, \dots, E_k\}$ denote the partition corresponding to $\ALPHABET H$ and $\{D_1, \dots, D_m\}$ denote the partition corresponding to $\ALPHABET G$. The fact that $\ALPHABET H$ is a sub-$σ$-algebra of $\ALPHABET G$ means that each atom $D_i$ of $\ALPHABET H$ is a union of atoms of $\ALPHABET G$ (i.e., $\{D_1, \dots, D_m\}$ is a _refinement_ of the partition $\{E_1, \dots, E_k\}$). Therefore, 
+Let $\ALPHABET H ⊂ \ALPHABET G ⊂ \ALPHABET F$, where $⊂$ means sub-$σ$-algebra. Let $\{E_1, \dots, E_k\}$ denote the partition corresponding to $\ALPHABET H$ and $\{D_1, \dots, D_m\}$ denote the partition corresponding to $\ALPHABET G$. The fact that $\ALPHABET H$ is a sub-$σ$-algebra of $\ALPHABET G$ means that each atom $E_i$ of $\ALPHABET H$ is a union of atoms of $\ALPHABET G$ (i.e., $\{D_1, \dots, D_m\}$ is a _refinement_ of the partition $\{E_1, \dots, E_k\}$). Therefore, 
 \begin{equation}\tag{smoothing-property}
 \bbox[5pt,border: 1px solid]
 {\EXP[ \EXP[ X \mid \ALPHABET G ] \mid \ALPHABET H ] =

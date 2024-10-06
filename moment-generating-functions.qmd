@@ -1,0 +1,150 @@
+---
+title: Moment Generating Functions
+---
+
+## Moment Generating Functions
+
+The **moment generating function (MGF)** of a random variable $X$ is defined as
+$$ 
+M_X(s) = \EXP[e^{sX}]
+$$
+provided the expectation exists.
+
+- When $X$ is discrete, we have
+  $$ M_X(s) = \sum_{x \in \text{range}(X)} e^{sx} p_X(x). $$
+
+- When $X$ is continuous, we have
+  $$ M_X(s) = \int_{-∞}^∞ e^{sx} f_X(x) \, dx. $$
+
+:::{.callout-important}
+### Relationship to Laplace transforms
+
+Although most texts (including the textbook) restrict $s$ to be real, my personal view is that one should really interpret $s$ as a complex number. If we do so, then we have the following:
+
+- $M_X(-s)$ is the Laplace transform of the PDF. 
+- $M_X(-j ω)$ is the Fourier transform of the PDF, which is called the **characteristic function** of $X$.
+
+Therefore, we can recover the PDF by taking the inverse Laplace transform of MGF. Thus, specifying the MGF of a random variable is equivalent to specifying the PDF.
+
+Historically, MGF is defined for $s \in \reals$ and there are distributions (e.g., Cauchy) for which MGF does not exist for any $s \neq 0$. In avoid such situations, one uses the characteristic function because the characteristic function always exists. However, if we view the domain of MGF to be $\mathbb{C}$, then there is no need for a distinction between MGF and characteristic function. 
+:::
+
+:::{#exm-MGF-discrete}
+Suppose $X$ is a random variable which takes values $\{0, 1, 2\}$ with probabilities $\{\frac 12, \frac 13, \frac 16\}$. Then,
+\begin{align*}
+M_X(s) &= \EXP[e^{sX}] \\
+&= \frac 12 e^{s 0} + \frac 13 e^{s 1} + \frac 16 e^{s 2} \\
+&= \frac 12 + \frac 13 e^{s} + \frac 16 e^{2s}.
+\end{align*}
+:::
+
+:::{#exm-MGF-Poisson}
+Find the MGF of a Poisson random variable with parameter $λ$. 
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+\begin{align*}
+M_X(s) &= \EXP[e^{sX}] = \sum_{k=0}^{∞}e^{ks} \frac{λ^k e^{-λ}}{k!} \\
+&= e^{-λ} \sum_{k=0}^{∞} \frac{(λe^s)^k}{k!} \\
+&= e^{-λ} e^{λ e^{s}}.
+\end{align*}
+:::
+
+:::{#exm-MGF-exponential}
+Find the MGF of an exponential random variable with parameter $λ$. 
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+\begin{align*}
+M_X(s) &= \EXP[e^{sX}] \\
+&= \int_{0}^∞ e^{sx} λ e^{-λx} \, dx \\
+&= λ \int_{0}^∞ e^{(s-λ)x} \, dx \\
+&= \frac{λ}{λ-s}.
+\end{align*}
+
+Note that we could have looked up this result from the Laplace transform tables which show that
+$$
+e^{at} \xleftrightarrow{\hskip 0.5em \mathcal{L}\hskip 0.5em } \frac{1}{s-a}
+$$
+:::
+
+The MGF of common random variables is shown in @tbl-MGF.
+
+| **Random variable** | **Parameter(s)** | **MGF** |
+|:---------------:|:------------:|:----:|
+| Bernoulli       | $p$          | $1 - p + p e^s$ | 
+| Binomial        | $(n,p)$      | $(1-p + p e^s)^n$ | 
+| Geometric       | $p$          | $\dfrac{p e^s}{1 - (1-p)e^s}$ |
+| Poisson         | $λ$          | $\exp(λ e^s - 1)$ |
+| Uniform         | $(a,b)$      | $\dfrac{e^{sb} - e^{sa}}{s(b-a)}$ |
+| Exponential     | $λ$          | $\dfrac{λ}{λ-s}$ |
+| Gaussian        | $(μ,σ)$      | $\exp\bigl(μ s + \frac 12 σ^2 s^2 \bigr)$ |
+
+
+: MGF of common random vables {#tbl-MGF}
+
+
+If there exist a neighborhood around origin where $M_X(s)$ is well-defined. Then, we can use the MGF to "generate the moments" of $X$ as follows:
+
+1. $M_X(0) = 1$
+
+2. $\dfrac{d}{ds} M_X(s) \biggr|_{s=0} = \EXP[X]$.
+
+3. $\dfrac{d^2}{ds^2} M_X(s) \biggr|_{s=0} = \EXP[X^2]$.
+
+4. and in general 
+   $\dfrac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \EXP[X^k]$.
+
+
+:::{.callout-note collapse="true"}
+#### Proof
+
+The first property follows from definition:
+$$ 
+M_X(0) = \EXP[e^{0 X}] = \EXP[1] = 1.
+$$
+
+For the general derivative, we have 
+\begin{align*}
+\frac{d^k}{ds^k} M_X(s) 
+&= \int_{-∞}^∞ \frac{d^k}{ds^k} e^{sx} f_X(x) \, dx \\
+&= \int_{-∞}^∞ x^k e^{sx} f_X(x) \, dx.
+\end{align*}
+
+Therefore
+$$
+\frac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \int_{-∞}^∞ x^k f_X(x) \, dx. 
+$$
+:::
+
+:::{#exm-MGF-Bernoulli}
+Use the MGF of Bernoulli to find its first all the moments of $X$.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+From @tbl-MGF, we see that 
+$$ M_X(s) = 1 - p + p e^{s}. $$
+Therefore,
+
+- $\dfrac{d}{ds} M_X(s) = p e^s$. 
+
+- $\dfrac{d^2}{ds^2} M_X(s) = p e^s$. 
+
+- and in general
+  $\dfrac{d^k}{ds^k} M_X(s) = p e^s$. 
+
+Thus,
+
+- $\EXP[X] = \dfrac{d}{ds} M_X(s) \biggr|_{s=0} = p$. 
+
+- $\EXP[X^2] = \dfrac{d^2}{ds^2} M_X(s) \biggr|_{s=0} = p$. 
+
+- and in general
+  $\EXP[X^k] = \dfrac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = p$. 
+
+:::
+
