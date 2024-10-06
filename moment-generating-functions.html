@@ -9,7 +9,7 @@
 <meta name="author" content="Aditya Mahajan">
 <meta name="dcterms.date" content="2024-10-06">
 
-<title>Probability and Random Signals II</title>
+<title>Moment Generating Functions – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -137,6 +137,35 @@ window.MathJax = {
 </script>
 <script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -178,24 +207,16 @@ window.MathJax = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a>
-  <ul class="collapse">
-  <li><a href="#general-information" id="toc-general-information" class="nav-link" data-scroll-target="#general-information">General Information (Fall 2024)</a></li>
-  <li><a href="#course-content" id="toc-course-content" class="nav-link" data-scroll-target="#course-content">Course Content</a></li>
-  <li><a href="#course-material" id="toc-course-material" class="nav-link" data-scroll-target="#course-material">Course Material</a></li>
-  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
-  <li><a href="#marking-policy" id="toc-marking-policy" class="nav-link" data-scroll-target="#marking-policy">Marking policy</a></li>
-  <li><a href="#course-delivery" id="toc-course-delivery" class="nav-link" data-scroll-target="#course-delivery">Course delivery</a></li>
-  <li><a href="#additional-notes" id="toc-additional-notes" class="nav-link" data-scroll-target="#additional-notes">Additional Notes</a></li>
-  </ul></li>
+  <li><a href="#moment-generating-functions" id="toc-moment-generating-functions" class="nav-link active" data-scroll-target="#moment-generating-functions"><span class="header-section-number">1</span> Moment Generating Functions</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/moment-generating-functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
+<h1 class="title">Moment Generating Functions</h1>
 </div>
 
 
@@ -233,211 +254,217 @@ window.MathJax = {
 </header>
 
 
-<section id="course-outline" class="level1 unnumbered">
-<h1 class="unnumbered">Course Outline</h1>
-<section id="general-information" class="level2">
-<h2 class="anchored" data-anchor-id="general-information">General Information (Fall 2024)</h2>
-<dl>
-<dt>Instructor</dt>
-<dd>
+<section id="moment-generating-functions" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="moment-generating-functions"><span class="header-section-number">1</span> Moment Generating Functions</h2>
+<p>The <strong>moment generating function (MGF)</strong> of a random variable <span class="math inline">\(X\)</span> is defined as <span class="math display">\[
+M_X(s) = \EXP[e^{sX}]
+\]</span> provided the expectation exists.</p>
 <ul>
-<li>Aditya Mahajan</li>
-<li><em>Office Hours</em>: TBD</li>
+<li><p>When <span class="math inline">\(X\)</span> is discrete, we have <span class="math display">\[ M_X(s) = \sum_{x \in \text{range}(X)} e^{sx} p_X(x). \]</span></p></li>
+<li><p>When <span class="math inline">\(X\)</span> is continuous, we have <span class="math display">\[ M_X(s) = \int_{-∞}^∞ e^{sx} f_X(x) \, dx. \]</span></p></li>
 </ul>
-</dd>
-<dt>Teaching Assistants</dt>
-<dd>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Relationship to Laplace transforms
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Although most texts (including the textbook) restrict <span class="math inline">\(s\)</span> to be real, my personal view is that one should really interpret <span class="math inline">\(s\)</span> as a complex number. If we do so, then we have the following:</p>
 <ul>
-<li><p>Alexander Fernandes</p></li>
+<li><span class="math inline">\(M_X(-s)\)</span> is the Laplace transform of the PDF.</li>
+<li><span class="math inline">\(M_X(-j ω)\)</span> is the Fourier transform of the PDF, which is called the <strong>characteristic function</strong> of <span class="math inline">\(X\)</span>.</li>
 </ul>
-</dd>
-<dt>Lectures</dt>
-<dd>
-<ul>
-<li><p>2:35pm–3:55pm Monday, Wednesday (ENGTR 2100)</p></li>
-</ul>
-</dd>
-<dt>Tutorials</dt>
-<dd>
-<ul>
-<li><p>12:35am–1:25am Friday, (ENGTR 2100)</p></li>
-</ul>
-</dd>
-<dt>Prerequisites</dt>
-<dd>
-<ul>
-<li>ECSE 205 (Probability and Random Signals I)</li>
-<li>ECSE 206 or ECSE 316 (Signals and Systems)</li>
-</ul>
-</dd>
-<dt>Communication</dt>
-<dd>
-<span class="text-info">Use the discussion board on myCourses</span> for all questions related to the course. Only personal emails related to medical exceptions for missing a deliverable will be answered.
-</dd>
-</dl>
-<!--
-## Graduate Attributes and Learning Outcomes
-
-| Attribute | Description | Status |
-|-----------|-------------|--------|
-| KB | Knowledge Base for Engineering | Developed |
-| PA | Problem Analysis | Developed |
-| IN | Investigation | Developed |
-| DE | Design | Introduced |
-
-Upon the successful completion of this course, the student students will have demonstrated the ability to:
-
-- Apply time- and frequency-domain tools to analyze linear time-invariant systems (KB, PA)
-- Design controllers based on state-space methods and lead-lag compensators to meet time-response specifications (KB, PA, DE)
-- Use Matlab to analyze and synthesize controllers for linear time-invariant systems (DE, IN)
-
--->
-</section>
-<section id="course-content" class="level2">
-<h2 class="anchored" data-anchor-id="course-content">Course Content</h2>
-<table class="table-striped caption-top table">
+<p>Therefore, we can recover the PDF by taking the inverse Laplace transform of MGF. Thus, specifying the MGF of a random variable is equivalent to specifying the PDF.</p>
+<p>Historically, MGF is defined for <span class="math inline">\(s \in \reals\)</span> and there are distributions (e.g., Cauchy) for which MGF does not exist for any <span class="math inline">\(s \neq 0\)</span>. In avoid such situations, one uses the characteristic function because the characteristic function always exists. However, if we view the domain of MGF to be <span class="math inline">\(\mathbb{C}\)</span>, then there is no need for a distinction between MGF and characteristic function.</p>
+</div>
+</div>
+<div id="exm-MGF-discrete" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> Suppose <span class="math inline">\(X\)</span> is a random variable which takes values <span class="math inline">\(\{0, 1, 2\}\)</span> with probabilities <span class="math inline">\(\{\frac 12, \frac 13, \frac 16\}\)</span>. Then, <span class="math display">\[\begin{align*}
+M_X(s) &amp;= \EXP[e^{sX}] \\
+&amp;= \frac 12 e^{s 0} + \frac 13 e^{s 1} + \frac 16 e^{s 2} \\
+&amp;= \frac 12 + \frac 13 e^{s} + \frac 16 e^{2s}.
+\end{align*}\]</span></p>
+</div>
+<div id="exm-MGF-Poisson" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2</strong></span> Find the MGF of a Poisson random variable with parameter <span class="math inline">\(λ\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\begin{align*}
+M_X(s) &amp;= \EXP[e^{sX}] = \sum_{k=0}^{∞}e^{ks} \frac{λ^k e^{-λ}}{k!} \\
+&amp;= e^{-λ} \sum_{k=0}^{∞} \frac{(λe^s)^k}{k!} \\
+&amp;= e^{-λ} e^{λ e^{s}}.
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div id="exm-MGF-exponential" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3</strong></span> Find the MGF of an exponential random variable with parameter <span class="math inline">\(λ\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\begin{align*}
+M_X(s) &amp;= \EXP[e^{sX}] \\
+&amp;= \int_{0}^∞ e^{sx} λ e^{-λx} \, dx \\
+&amp;= λ \int_{0}^∞ e^{(s-λ)x} \, dx \\
+&amp;= \frac{λ}{λ-s}.
+\end{align*}\]</span></p>
+<p>Note that we could have looked up this result from the Laplace transform tables which show that <span class="math display">\[
+e^{at} \xleftrightarrow{\hskip 0.5em \mathcal{L}\hskip 0.5em } \frac{1}{s-a}
+\]</span></p>
+</div>
+</div>
+</div>
+<p>The MGF of common random variables is shown in <a href="#tbl-MGF" class="quarto-xref">Table&nbsp;1</a>.</p>
+<div id="tbl-MGF" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-MGF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: MGF of common random vables
+</figcaption>
+<div aria-describedby="tbl-MGF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 90%">
+<col style="width: 45%">
+<col style="width: 37%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Week</th>
-<th style="text-align: left;">Material Covered</th>
+<th style="text-align: center;"><strong>Random variable</strong></th>
+<th style="text-align: center;"><strong>Parameter(s)</strong></th>
+<th style="text-align: center;"><strong>MGF</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td style="text-align: left;"><a href="./probability-spaces.html">Probability spaces, algebra of events, axioms of probability</a></td>
+<td style="text-align: center;">Bernoulli</td>
+<td style="text-align: center;"><span class="math inline">\(p\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1 - p + p e^s\)</span></td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td style="text-align: left;"><a href="./random-variables.html">Random variables and random vectors</a></td>
+<td style="text-align: center;">Binomial</td>
+<td style="text-align: center;"><span class="math inline">\((n,p)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\((1-p + p e^s)^n\)</span></td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td style="text-align: left;"><a href="./random-variables.html">Random variables and random vectors (continued)</a></td>
+<td style="text-align: center;">Geometric</td>
+<td style="text-align: center;"><span class="math inline">\(p\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{p e^s}{1 - (1-p)e^s}\)</span></td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td style="text-align: left;"><a href="./conditional-expectation.html">Conditional probability and conditional expectation</a></td>
+<td style="text-align: center;">Poisson</td>
+<td style="text-align: center;"><span class="math inline">\(λ\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\exp(λ e^s - 1)\)</span></td>
 </tr>
 <tr class="odd">
-<td>5</td>
-<td style="text-align: left;"><a href="./moment-generating-functions.html">Moment generating functions and sums of random variables</a></td>
+<td style="text-align: center;">Uniform</td>
+<td style="text-align: center;"><span class="math inline">\((a,b)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{e^{sb} - e^{sa}}{s(b-a)}\)</span></td>
 </tr>
 <tr class="even">
-<td>6</td>
-<td style="text-align: left;">Probability inequalities</td>
+<td style="text-align: center;">Exponential</td>
+<td style="text-align: center;"><span class="math inline">\(λ\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{λ}{λ-s}\)</span></td>
 </tr>
 <tr class="odd">
-<td>7</td>
-<td style="text-align: left;">Review and Mid-Term</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td style="text-align: left;">Convergence in probability and the weak law of large numbers</td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td style="text-align: left;">Almost sure convergence and the strong law of large numbers</td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td style="text-align: left;">Maximum likelihood estimation and minimum mean squared error estimation</td>
-</tr>
-<tr class="odd">
-<td>11</td>
-<td style="text-align: left;">Stochastic processes, Bernoulli process, Poisson process, and Gaussian process</td>
-</tr>
-<tr class="even">
-<td>12</td>
-<td style="text-align: left;">Markov chains</td>
-</tr>
-<tr class="odd">
-<td>13</td>
-<td style="text-align: left;">Wide sense stationary processes</td>
+<td style="text-align: center;">Gaussian</td>
+<td style="text-align: center;"><span class="math inline">\((μ,σ)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\exp\bigl(μ s + \frac 12 σ^2 s^2 \bigr)\)</span></td>
 </tr>
 </tbody>
 </table>
-<p><small><span class="text-muted">The material for the lecture notes is taken from various sources including the textbook and the reference book, as well as the lecture notes of Prof.&nbsp;Ioannis Psaromiglikos (McGill) and Prof.&nbsp;Ashutosh Nayyar (USC).</span></small></p>
-</section>
-<section id="course-material" class="level2">
-<h2 class="anchored" data-anchor-id="course-material">Course Material</h2>
-<dl>
-<dt>Textbook</dt>
-<dd>
+</div>
+</figure>
+</div>
+<p>If there exist a neighborhood around origin where <span class="math inline">\(M_X(s)\)</span> is well-defined. Then, we can use the MGF to “generate the moments” of <span class="math inline">\(X\)</span> as follows:</p>
+<ol type="1">
+<li><p><span class="math inline">\(M_X(0) = 1\)</span></p></li>
+<li><p><span class="math inline">\(\dfrac{d}{ds} M_X(s) \biggr|_{s=0} = \EXP[X]\)</span>.</p></li>
+<li><p><span class="math inline">\(\dfrac{d^2}{ds^2} M_X(s) \biggr|_{s=0} = \EXP[X^2]\)</span>.</p></li>
+<li><p>and in general <span class="math inline">\(\dfrac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \EXP[X^k]\)</span>.</p></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The first property follows from definition: <span class="math display">\[
+M_X(0) = \EXP[e^{0 X}] = \EXP[1] = 1.
+\]</span></p>
+<p>For the general derivative, we have <span class="math display">\[\begin{align*}
+\frac{d^k}{ds^k} M_X(s)
+&amp;= \int_{-∞}^∞ \frac{d^k}{ds^k} e^{sx} f_X(x) \, dx \\
+&amp;= \int_{-∞}^∞ x^k e^{sx} f_X(x) \, dx.
+\end{align*}\]</span></p>
+<p>Therefore <span class="math display">\[
+\frac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \int_{-∞}^∞ x^k f_X(x) \, dx.
+\]</span></p>
+</div>
+</div>
+</div>
+<div id="exm-MGF-Bernoulli" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4</strong></span> Use the MGF of Bernoulli to find its first all the moments of <span class="math inline">\(X\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>From <a href="#tbl-MGF" class="quarto-xref">Table&nbsp;1</a>, we see that <span class="math display">\[ M_X(s) = 1 - p + p e^{s}. \]</span> Therefore,</p>
 <ul>
-<li>Grimmett and Stirzaker, <em>Probability and Random Processes,</em> 4th edition, Oxford University Press, 2020.</li>
+<li><p><span class="math inline">\(\dfrac{d}{ds} M_X(s) = p e^s\)</span>.</p></li>
+<li><p><span class="math inline">\(\dfrac{d^2}{ds^2} M_X(s) = p e^s\)</span>.</p></li>
+<li><p>and in general <span class="math inline">\(\dfrac{d^k}{ds^k} M_X(s) = p e^s\)</span>.</p></li>
 </ul>
-</dd>
-<dt>“Engineering” Graduate Probability textbooks</dt>
-<dd>
+<p>Thus,</p>
 <ul>
-<li>J.A. Gubner, <em>Probability and Random Processes for Electrical and Computer Engineers,</em> Cambridge University Press, 2006.</li>
-<li>S.H. Chan, <em>Introduction to Probability for Data Science,</em> Michigan Publishing, 2021.</li>
-<li>H. Hsu, <em>Probability, Random Variables, and Random Processes,</em> McGraw Hill, 1997.</li>
+<li><p><span class="math inline">\(\EXP[X] = \dfrac{d}{ds} M_X(s) \biggr|_{s=0} = p\)</span>.</p></li>
+<li><p><span class="math inline">\(\EXP[X^2] = \dfrac{d^2}{ds^2} M_X(s) \biggr|_{s=0} = p\)</span>.</p></li>
+<li><p>and in general <span class="math inline">\(\EXP[X^k] = \dfrac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = p\)</span>.</p></li>
 </ul>
-</dd>
-<dt>Exercise books</dt>
-<dd>
-<ul>
-<li>F. Mosteller, <em>Fifty challenging problems in probability with solutions,</em> Courier Corporation, 1987. <a href="https://archive.org/details/fiftychallenging00most">Available online</a></li>
-<li>Grimmett and Stirzaker, <em>One Thousand Exercises in Probability,</em> Oxford University Press, 2000.</li>
-</ul>
-</dd>
-</dl>
-</section>
-<section id="evaluation" class="level2">
-<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
-<ul>
-<li><p><strong>Assignments (25%)</strong> Weekly homework assignments. Typically, each assignment will consist of four questions, out of which one or two randomly selected questions will be grader. The lowest two homework assignments will be dropped.</p></li>
-<li><p><strong>Mid Term (25%)</strong> Closed book in-class exam. <span class="text-danger"><strong>Oct 9</strong></span> (during class time)</p></li>
-<li><p><strong>Final Exam (50%)</strong> Closed book, in-person exam. Will be scheduled by the exam office and the dates will be announced later.</p>
-<p>The final exam will cover <strong>all</strong> the material seen in the class during the term.</p></li>
-</ul>
-</section>
-<section id="marking-policy" class="level2">
-<h2 class="anchored" data-anchor-id="marking-policy">Marking policy</h2>
-<ul>
-<li><p>Assignments must be submitted electronically on myCourses as a PDF. You may write the assignments on paper and then scan them as a PDF (there are several such apps available for all phone platforms), or write on a tablet and convert to PDF, or type using a word processor.</p></li>
-<li><p><strong>There will no make-up examination</strong> for students who miss a mid-term.</p>
-<ul>
-<li><p>Student who miss the exam due to a valid reason (see <a href="https://www.mcgill.ca/engineering/students/undergraduate/courses-registration/exams-assessment/midterms-and-class-tests/adjustments-missed-midterms-and-class-tests">Faculty of Engineering policy</a>) should <strong>notify the instructor within a week</strong> of the exam and provide <strong>necessary documentation</strong>.</p></li>
-<li><p>If, and only if, proper documentation for a missed exam is presented, the marks for the missed exam will be shifted to the final exam.</p></li>
-<li><p>Students who miss the mid-term exam for any other reason (e.g., no medical note, going to the exam at the wrong time, or on the wrong day, etc.) will get zero marks on the exam.</p></li>
-</ul></li>
-<li><p>Any request for reevaluation of a mid-term or an assignment must be made <strong>in writing within a week of its return</strong>. Note that requesting a re-grade will mean that you <strong>WHOLE</strong> assignment or exam will be re-graded.</p></li>
-<li><p><span class="text-danger">Due to paucity of grading hours, only one or two randomly selected questions will be graded in each assignment.</span></p></li>
-<li><p>The lowest two assignments and labs will be dropped. There will be no make-up for missed assignments and labs, <em>even if it is for a valid reason.</em> The whole point of dropping the lowest two assignments/labs is to reduce the administrative overhead of keeping track of such missed assignments/labs.</p></li>
-</ul>
-<dl>
-<dt>Right to submit in English or French written work that is to be graded.</dt>
-<dd>
-In accord with McGill University’s <a href="https://www.mcgill.ca/secretariat/files/secretariat/charter_of_student_rights_last_approved_october_262017.pdf">Charter of Students’ Rights</a>, students in this course have the right to submit in English or in French any written work that is to be graded.
-</dd>
-<dt>Academic Integrity</dt>
-<dd>
-<p>McGill University values academic integrity. Therefore all students must understand the meaning and consequences of cheating, plagiarism and other academic offences under the <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code of Student Conduct and Disciplinary Procedures</a> (see McGill’s <a href="http://www.mcgill.ca/students/srr/honest/">guide to academic honesty</a> for more information).</p>
-<p>L’université McGill attache une haute importance à l’honnêteté académique. Il incombe par conséquent à tous les étudiants de comprendre ce que l’on entend par tricherie, plagiat et autres infractions académiques, ainsi que les conséquences que peuvent avoir de telles actions, selon le <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code de conduite de l’étudiant et des procédures disciplinaires</a> (pour de plus amples renseignements, veuillez consulter le <a href="http://www.mcgill.ca/students/srr/honest/">guide pour l’honnêteté académique</a> de McGill.)</p>
-</dd>
-</dl>
-</section>
-<section id="course-delivery" class="level2">
-<h2 class="anchored" data-anchor-id="course-delivery">Course delivery</h2>
-<p>The course is taught in a “chalk and board” style; there will be no power point presentations. All students are expected to attend lectures and take notes. Partial notes on some of the material will be provided, but are not a substitute for the material covered in class.</p>
-<p>© Instructor-generated course materials (e.g., handouts, notes, summaries, exam questions) are protected by law and may not be copied or distributed in any form or in any medium without explicit permission of the instructor. Note that infringements of copyright can be subject to follow up by the University under the Code of Student Conduct and Disciplinary Procedures.</p>
-</section>
-<section id="additional-notes" class="level2">
-<h2 class="anchored" data-anchor-id="additional-notes">Additional Notes</h2>
-<ul>
-<li><p>As the instructor of this course I endeavor to provide an inclusive learning environment. However, if you&nbsp;experience barriers to learning in this course, do not hesitate to discuss them with me or contact the office of <a href="https://www.mcgill.ca/access-achieve/">Student Accessibility and Achievement</a>.</p></li>
-<li><p><a href="http://www.mcgill.ca/mercury/">End-of-course evaluations</a> are one of the ways that McGill works towards maintaining and improving the quality of courses and the student’s learning experience. You will be notified by e-mail when the evaluations are available. Please note that a minimum number of responses must be received for results to be available to students.</p></li>
-</ul>
+</div>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1010,5 +1037,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/moment-generating-functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
