@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-10-06">
+<meta name="dcterms.date" content="2024-10-07">
 
 <title>Random variables and random vectors – Probability and Random Signals II</title>
 <style>
@@ -263,7 +263,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 6, 2024</p>
+      <p class="date">October 7, 2024</p>
     </div>
   </div>
   
@@ -339,7 +339,7 @@ F(x) = \begin{cases}
 \]</span></p>
 </div>
 <div id="exm-indicator-functions" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4 (Indicator functions)</strong></span> Let <span class="math inline">\(A\)</span> be an event. Define the <em>indicator of event <span class="math inline">\(A\)</span></em> <span class="math inline">\(\IND_{A} \colon Ω \to \reals\)</span> as <span class="math display">\[ \IND_{A}(ω) = \begin{cases}
+<p><span class="theorem-title"><strong>Example 4 (Indicator functions)</strong></span> Let <span class="math inline">\(A\)</span> be an event. Define the <em>indicator of event <span class="math inline">\(A\)</span></em>, denoted by <span class="math inline">\(\IND_{A} \colon Ω \to \reals\)</span>, as <span class="math display">\[ \IND_{A}(ω) = \begin{cases}
     1, &amp; \hbox{if } ω \in A \\
     0, &amp; \hbox{otherwise }
 \end{cases}.\]</span> Observe that <span class="math inline">\(\IND_A\)</span> is a Bernoulli random variable which takes values <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span> with probabilities <span class="math inline">\(\PR(A)\)</span> and <span class="math inline">\(1 - \PR(A)\)</span>.</p>
@@ -369,7 +369,7 @@ Proof
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><p>By definition, <span class="math inline">\(\{X &gt; x\}^c = Ω\setminus \{X \le x\}\)</span>. Thus, <span class="math display">\[\PR(X &gt; x) = 1 - \PR(X \le x) = 1 - F(x).\]</span></p></li>
-<li><p><span class="math display">\[\PR(x &lt; X \le y) = \PR(X \le y) - \PR(X \le x) = F(y) - F(x).\]</span> [See assignment 1 for the first inequality.]</p></li>
+<li><p><span class="math display">\[\PR(x &lt; X \le y) = \PR(X \le y) - \PR(X \le x) = F(y) - F(x).\]</span> [See assignment 1 for the first equality.]</p></li>
 <li><p>Define the increasing sequence of events <span class="math inline">\(A_n = \{ X \le n\}\)</span>, <span class="math inline">\(n \in \naturalnumbers\)</span>. By continuity of probability, we have <span class="math display">\[\begin{align*}
   &amp;\quad &amp; \PR\biggl( \bigcup_{n=1}^{∞} A_n \biggr)
   &amp; = \lim_{n \to ∞} \PR(A_n) \\
@@ -430,11 +430,11 @@ F(x) = \int_{-∞}^x f(x) dx.
 <p><span class="text-primary">Thus, for a continuous random variable, the CDF is a continuous function</span></p>
 <p><!-- TODO: Add figure --></p></li>
 <li><p>A random variable is called <strong>mixed</strong> if it is neither discrete nor continuous. <span class="text-primary">For a mixed random variable, the CDF has has jumps at a finite or countable infinite number of points and it is continuous over one or many intervals.</span></p>
-<p>As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then <span class="math inline">\(X \sim \text{Bernoulli}(0.25)\)</span>; if the outcome is tails; then <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>. Thus (from the law of total probability), the CDF of <span class="math inline">\(X\)</span> is <span class="math display">\[
+<p>As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then <span class="math inline">\(X \sim \text{Bernoulli}(0.5)\)</span>; if the outcome is tails; then <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>. Thus (from the law of total probability), the CDF of <span class="math inline">\(X\)</span> is <span class="math display">\[
    F_X(x) = \begin{cases}
    0, &amp; \hbox{if } x &lt; 0 \\
-   \frac 12 &amp; \hbox{if } x = 0 \\
-   \frac {(1+x)}2 &amp; \hbox{if } 0 &lt; x &lt; 1 \\
+   \frac 14 &amp; \hbox{if } x = 0 \\
+   \frac 14 + \frac x2 &amp; \hbox{if } 0 &lt; x &lt; 1 \\
    1 &amp; \hbox{if } x \ge 1.
    \end{cases}.
    \]</span></p></li>
