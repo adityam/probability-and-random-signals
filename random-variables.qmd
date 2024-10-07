@@ -79,7 +79,7 @@ $$
 
 :::{#exm-indicator-functions}
 ### Indicator functions
-Let $A$ be an event. Define the _indicator of event $A$_ $\IND_{A} \colon Ω \to \reals$ as 
+Let $A$ be an event. Define the _indicator of event $A$_, denoted by $\IND_{A} \colon Ω \to \reals$, as 
 $$ \IND_{A}(ω) = \begin{cases}
     1, & \hbox{if } ω \in A \\
     0, & \hbox{otherwise }
@@ -111,7 +111,7 @@ Observe that $\IND_A$ is a Bernoulli random variable which takes values $1$ and 
    $$\PR(X > x) = 1 - \PR(X \le x) = 1 - F(x).$$
 
 2. $$\PR(x < X \le y) = \PR(X \le y) - \PR(X \le x) = F(y) - F(x).$$
-   [See assignment 1 for the first inequality.]
+   [See assignment 1 for the first equality.]
 
 3. Define the increasing sequence of events $A_n = \{ X \le n\}$, $n \in \naturalnumbers$. By continuity of probability, we have
    \begin{align*}
@@ -199,12 +199,12 @@ There are three types of random variables
 3. A random variable is called **mixed** if it is neither discrete nor continuous. [For a mixed random variable, the CDF has has jumps at a finite or countable infinite number of points and it is continuous over one or many intervals.]{.text-primary}
 
 
-      As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then $X \sim \text{Bernoulli}(0.25)$; if the outcome is tails; then $X \sim \text{Uniform}[0,1]$. Thus (from the law of total probability), the CDF of $X$ is
+      As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then $X \sim \text{Bernoulli}(0.5)$; if the outcome is tails; then $X \sim \text{Uniform}[0,1]$. Thus (from the law of total probability), the CDF of $X$ is
       $$
       F_X(x) = \begin{cases}
       0, & \hbox{if } x < 0 \\
-      \frac 12 & \hbox{if } x = 0 \\
-      \frac {(1+x)}2 & \hbox{if } 0 < x < 1 \\
+      \frac 14 & \hbox{if } x = 0 \\
+      \frac 14 + \frac x2 & \hbox{if } 0 < x < 1 \\
       1 & \hbox{if } x \ge 1.
       \end{cases}.
       $$
