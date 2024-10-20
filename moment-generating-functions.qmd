@@ -97,6 +97,12 @@ If there exist a neighborhood around origin where $M_X(s)$ is well-defined. Then
 4. and in general 
    $\dfrac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \EXP[X^k]$.
 
+5. Hence, by Taylor series expansion of $M_X(s)$ within the radius of convergence, we get
+   $$
+    M_X(s) = \sum_{k=0}^∞ \frac{\EXP[X^k]}{k!} s^k.
+   $$
+   Thus, when if the MGF is well defined in a neighborhood around origin, knowing all the moments of a distribution is sufficient to construct the MGF. We already saw that the MGF is sufficient to constrct the PDF/PMF of the distribution. Thus, **the distribution of a random variable is completely characterized by its moments.**
+
 
 :::{.callout-note collapse="true"}
 #### Proof
@@ -118,6 +124,7 @@ $$
 \frac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \int_{-∞}^∞ x^k f_X(x) \, dx. 
 $$
 :::
+
 
 :::{#exm-MGF-Bernoulli}
 Use the MGF of Bernoulli to find its first all the moments of $X$.
@@ -148,3 +155,62 @@ Thus,
 
 :::
 
+### Moment generating functions and sums of independent random variables
+
+:::{#thm-sum-of-iid}
+Suppose $X_1, X_2, \dots, X_n$ are independent random variables defined on the same probability space. Let
+$$
+  Z = X_1 + X_2 + \dots + X_n
+$$
+Then,
+$$
+  M_Z(s) = M_{X_1}(s) M_{X_2}(s) \cdots M_{X_n}(s).
+$$
+
+Furthermore, if the variables are identically distributed, then
+$$
+  M_Z(s) = (M_{X_1}(s))^n.
+$$
+
+:::
+
+:::{.callout-note collapse="true"}
+#### Proof
+
+The proof follows immediately from properties of independent random variables. We prove the result for $n=2$.
+$$
+M_Z(s) = \EXP[e^{sX_1} e^{sX_2}] 
+= \EXP[e^{sX_1} e^{sX_2}] = M_{X_1}(s) M_{X_2}(s). 
+$$
+:::
+
+@thm-sum-of-iid is a very useful result. An immediate implication of the result is that following:
+
+1. **Sum of i.i.d. Bernoulli random variables is a Binomial random variable**
+
+    Let $X_i \sim \text{Ber}(p)$. Then $M_{X_i}(s) = (1 - p + pe^s)$.
+
+    Let $Z = \sum_{i=1}^n X_i$. Then $M_Z(s) = (1 - p + pe^s)^n$. 
+
+2. **Sum of independent Binomial random variables with the same $p$ is a Binomial random variable.**
+
+   Let $X_i \sim \text{Binom}(m_i,p)$. Then $M_{X_i}(s) = (1 - p + p e^s)^{m_i}$.
+
+   Let $Z = \sum_{i=1}^n X_i$. Then $M_Z(s) = (1 - p + p e^s)^M$, where $M = \sum_{i=1}^n m_i$.
+
+3. **Sum of independent Poisson random variables is Poisson.**
+
+    Let $X_i \sim \text{Pois}(λ_i)$. Then $M_{X_i}(s) = e^{λ_i(e^s - 1)}$.
+
+    Let $Z = \sum_{i=1}^n X_i$. Then $M_Z(s) = e^{λ(e^s - 1)}$, where $λ = \sum_{i=1}^n λ_i$. 
+
+4. **Sum of Gaussian random variables is Gaussian.**
+
+    Let $X_i \sim \mathcal N(μ_i, σ_i)$. Then, $M_{X_i}(s) = \exp( μ_i s + \frac 12 σ_i^2 s^2)$.
+
+    Let $Z = \sum_{i=1}^n X_i$. Then $M_Z(s) = \exp(μ s + \frac 12 σ^2 s^2)$, where
+    $$
+      μ = \sum_{i=1}^n μ_i
+      \quad\text{and}\quad
+      σ^2 = \sum_{i=1}^n σ_i^2.
+    $$
