@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-10-07">
+<meta name="dcterms.date" content="2024-10-21">
 
 <title>Moment Generating Functions – Probability and Random Signals II</title>
 <style>
@@ -207,7 +207,11 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#moment-generating-functions" id="toc-moment-generating-functions" class="nav-link active" data-scroll-target="#moment-generating-functions"><span class="header-section-number">1</span> Moment Generating Functions</a></li>
+  <li><a href="#moment-generating-functions" id="toc-moment-generating-functions" class="nav-link active" data-scroll-target="#moment-generating-functions"><span class="header-section-number">1</span> Moment Generating Functions</a>
+  <ul class="collapse">
+  <li><a href="#moment-generating-functions-and-sums-of-independent-random-variables" id="toc-moment-generating-functions-and-sums-of-independent-random-variables" class="nav-link" data-scroll-target="#moment-generating-functions-and-sums-of-independent-random-variables"><span class="header-section-number">1.1</span> Moment generating functions and sums of independent random variables</a></li>
+  </ul></li>
+  <li><a href="#approximations-via-moment-generating-functions" id="toc-approximations-via-moment-generating-functions" class="nav-link" data-scroll-target="#approximations-via-moment-generating-functions"><span class="header-section-number">2</span> Approximations via moment generating functions</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/moment-generating-functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -242,7 +246,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 7, 2024</p>
+      <p class="date">October 21, 2024</p>
     </div>
   </div>
   
@@ -406,6 +410,9 @@ Table&nbsp;1: MGF of common random vables
 <li><p><span class="math inline">\(\dfrac{d}{ds} M_X(s) \biggr|_{s=0} = \EXP[X]\)</span>.</p></li>
 <li><p><span class="math inline">\(\dfrac{d^2}{ds^2} M_X(s) \biggr|_{s=0} = \EXP[X^2]\)</span>.</p></li>
 <li><p>and in general <span class="math inline">\(\dfrac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \EXP[X^k]\)</span>.</p></li>
+<li><p>Hence, by Taylor series expansion of <span class="math inline">\(M_X(s)\)</span> within the radius of convergence, we get <span class="math display">\[
+M_X(s) = \sum_{k=0}^∞ \frac{\EXP[X^k]}{k!} s^k.
+\]</span> Thus, when if the MGF is well defined in a neighborhood around origin, knowing all the moments of a distribution is sufficient to construct the MGF. We already saw that the MGF is sufficient to constrct the PDF/PMF of the distribution. Thus, <strong>the distribution of a random variable is completely characterized by its moments.</strong></p></li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -463,6 +470,86 @@ Solution
 </div>
 </div>
 </div>
+<section id="moment-generating-functions-and-sums-of-independent-random-variables" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="moment-generating-functions-and-sums-of-independent-random-variables"><span class="header-section-number">1.1</span> Moment generating functions and sums of independent random variables</h3>
+<div id="thm-sum-of-iid" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Suppose <span class="math inline">\(X_1, X_2, \dots, X_n\)</span> are independent random variables defined on the same probability space. Let <span class="math display">\[
+  Z = X_1 + X_2 + \dots + X_n
+\]</span> Then, <span class="math display">\[
+  M_Z(s) = M_{X_1}(s) M_{X_2}(s) \cdots M_{X_n}(s).
+\]</span></p>
+<p>Furthermore, if the variables are identically distributed, then <span class="math display">\[
+  M_Z(s) = (M_{X_1}(s))^n.
+\]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The proof follows immediately from properties of independent random variables. We prove the result for <span class="math inline">\(n=2\)</span>. <span class="math display">\[
+M_Z(s) = \EXP[e^{sX_1} e^{sX_2}]
+= \EXP[e^{sX_1} e^{sX_2}] = M_{X_1}(s) M_{X_2}(s).
+\]</span></p>
+</div>
+</div>
+</div>
+<p><a href="#thm-sum-of-iid" class="quarto-xref">Theorem&nbsp;1</a> is a very useful result. An immediate implication of the result is that following:</p>
+<ol type="1">
+<li><p><strong>Sum of i.i.d. Bernoulli random variables is a Binomial random variable</strong></p>
+<p>Let <span class="math inline">\(X_i \sim \text{Ber}(p)\)</span>. Then <span class="math inline">\(M_{X_i}(s) = (1 - p + pe^s)\)</span>.</p>
+<p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = (1 - p + pe^s)^n\)</span>.</p></li>
+<li><p><strong>Sum of independent Binomial random variables with the same <span class="math inline">\(p\)</span> is a Binomial random variable.</strong></p>
+<p>Let <span class="math inline">\(X_i \sim \text{Binom}(m_i,p)\)</span>. Then <span class="math inline">\(M_{X_i}(s) = (1 - p + p e^s)^{m_i}\)</span>.</p>
+<p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = (1 - p + p e^s)^M\)</span>, where <span class="math inline">\(M = \sum_{i=1}^n m_i\)</span>.</p></li>
+<li><p><strong>Sum of independent Poisson random variables is Poisson.</strong></p>
+<p>Let <span class="math inline">\(X_i \sim \text{Pois}(λ_i)\)</span>. Then <span class="math inline">\(M_{X_i}(s) = e^{λ_i(e^s - 1)}\)</span>.</p>
+<p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = e^{λ(e^s - 1)}\)</span>, where <span class="math inline">\(λ = \sum_{i=1}^n λ_i\)</span>.</p></li>
+<li><p><strong>Sum of Gaussian random variables is Gaussian.</strong></p>
+<p>Let <span class="math inline">\(X_i \sim \mathcal N(μ_i, σ_i)\)</span>. Then, <span class="math inline">\(M_{X_i}(s) = \exp( μ_i s + \frac 12 σ_i^2 s^2)\)</span>.</p>
+<p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = \exp(μ s + \frac 12 σ^2 s^2)\)</span>, where <span class="math display">\[
+   μ = \sum_{i=1}^n μ_i
+   \quad\text{and}\quad
+   σ^2 = \sum_{i=1}^n σ_i^2.
+\]</span></p></li>
+</ol>
+</section>
+</section>
+<section id="approximations-via-moment-generating-functions" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="approximations-via-moment-generating-functions"><span class="header-section-number">2</span> Approximations via moment generating functions</h2>
+<p>One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sum of i.i.d. random variables. We will study such a behavior in more detail later on, but we provide an illustration of the results here.</p>
+<p>Let <span class="math inline">\(\{X_i\}_{i \ge 1}\)</span> be a sequence of i.i.d. <span class="math inline">\(\text{Ber}(p)\)</span> random variables. Define <span class="math display">\[
+  S_n = X_1 + \cdots + X_n.
+\]</span> As we saw above, <span class="math display">\[
+  M_{S_n}(s) = (1 - p + p e^s)^n
+\]</span> which is the MGF of <span class="math inline">\(\text{Ber}(n,p)\)</span> random variable.</p>
+<p>Write <span class="math inline">\(q\)</span> for <span class="math inline">\(1-p\)</span> and <span class="math inline">\(σ_n^2\)</span> for <span class="math inline">\(npq\)</span> (which is the variance of Bernoulli random variable). Define <span class="math display">\[
+  Z_n = \frac{S_n - np}{σ_n}
+\]</span> We know that <span class="math display">\[\begin{align*}
+  M_{Z_n}(s) &amp;= \EXP[ e^{s (S_n - np)/σ_n^2} ]
+  = e^{-s n p/σ_n} \EXP[ e^{s S_n/σ_n}]
+  = e^{-s n p/σ_n} M_{S_n}(s/σ_n).
+  \\
+  &amp;= e^{-s n p/σ_n} (q + p e^{s/σ_n})^n
+  = (q e^{-s p/σ_n} + p e^{s q / σ_n})^n
+\end{align*}\]</span> Let’s consider the power series expansion of <span class="math inline">\(q e^{-sp/σ_n} + pe^{sq/σ_n}\)</span>: <span class="math display">\[\begin{align*}
+&amp;q\left(1 - \frac{ps}{σ_n} + \frac{p^2 s^2}{2! σ_n^2} - \frac{p^3 s^3}{3! σ_n^3} + \cdots \right)
++
+p\left(1 + \frac{qs}{σ_n} + \frac{q^2 s^2}{2! σ_n^2} + \frac{q^3 s^3}{3! σ_n^3} + \cdots \right)
+\\
+&amp; \quad= 1 + \frac{pq s^2}{2 σ_n^2} + \frac{pq(p-q) s^3}{6 σ_n^2} + \cdots
+\end{align*}\]</span> Thus, for large values of <span class="math inline">\(n\)</span>, we have <span class="math inline">\(\log(1 + z)^n = n(z - z^2/2 + \cdots)\)</span>. Therefore, <span class="math display">\[
+\log M_{Z_n}(s) = \frac{s^2}{2} + \frac{(q-p) s^3}{6 \sqrt{n p q}}
++ \text{terms of order $\dfrac 1n$ or smaller}
+\]</span> Thus, the logarithm of the MGF of <span class="math inline">\(Z_n\)</span> matches that of the standard normal until the <span class="math inline">\(s^2/2\)</span> term. As <span class="math inline">\(n\)</span> tends to infinity, the remainder terms tend to zero.</p>
+<p>This convergence of <span class="math inline">\(M_{Z_n}(s)\)</span> to <span class="math inline">\(e^{s^2/2}\)</span> can be used to rigorously prove that the distribution of “standard Binomial” converges to standard normal as <span class="math inline">\(n\)</span> tends to infinity.</p>
 
 
 </section>
