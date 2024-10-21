@@ -214,3 +214,47 @@ $$
       \quad\text{and}\quad
       σ^2 = \sum_{i=1}^n σ_i^2.
     $$
+
+## Approximations via moment generating functions
+
+One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sum of i.i.d. random variables. We will study such a behavior in more detail later on, but we provide an illustration of the results here. 
+
+Let $\{X_i\}_{i \ge 1}$ be a sequence of i.i.d. $\text{Ber}(p)$ random variables. Define 
+$$
+  S_n = X_1 + \cdots + X_n.
+$$
+As we saw above, 
+$$
+  M_{S_n}(s) = (1 - p + p e^s)^n
+$$
+which is the MGF of $\text{Ber}(n,p)$ random variable. 
+
+Write $q$ for $1-p$ and $σ_n^2$ for $npq$ (which is the variance of Bernoulli random variable). Define
+$$
+  Z_n = \frac{S_n - np}{σ_n}
+$$
+We know that
+\begin{align*}
+  M_{Z_n}(s) &= \EXP[ e^{s (S_n - np)/σ_n^2} ]
+  = e^{-s n p/σ_n} \EXP[ e^{s S_n/σ_n}] 
+  = e^{-s n p/σ_n} M_{S_n}(s/σ_n).
+  \\
+  &= e^{-s n p/σ_n} (q + p e^{s/σ_n})^n 
+  = (q e^{-s p/σ_n} + p e^{s q / σ_n})^n
+\end{align*}
+Let's consider the power series expansion of $q e^{-sp/σ_n} + pe^{sq/σ_n}$:
+\begin{align*}
+&q\left(1 - \frac{ps}{σ_n} + \frac{p^2 s^2}{2! σ_n^2} - \frac{p^3 s^3}{3! σ_n^3} + \cdots \right)
++
+p\left(1 + \frac{qs}{σ_n} + \frac{q^2 s^2}{2! σ_n^2} + \frac{q^3 s^3}{3! σ_n^3} + \cdots \right)
+\\
+& \quad= 1 + \frac{pq s^2}{2 σ_n^2} + \frac{pq(p-q) s^3}{6 σ_n^2} + \cdots 
+\end{align*}
+Thus, for large values of $n$, we have $\log(1 + z)^n = n(z - z^2/2 + \cdots)$. Therefore, 
+$$
+\log M_{Z_n}(s) = \frac{s^2}{2} + \frac{(q-p) s^3}{6 \sqrt{n p q}}
++ \text{terms of order $\dfrac 1n$ or smaller}
+$$
+Thus, the logarithm of the MGF of $Z_n$ matches that of the standard normal until the $s^2/2$ term. As $n$ tends to infinity, the remainder terms tend to zero. 
+
+This convergence of $M_{Z_n}(s)$ to $e^{s^2/2}$ can be used to rigorously prove that the distribution of "standard Binomial" converges to standard normal as $n$ tends to infinity. 
