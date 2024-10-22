@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-10-21">
+<meta name="dcterms.date" content="2024-10-22">
 
 <title>Random variables and random vectors – Probability and Random Signals II</title>
 <style>
@@ -263,7 +263,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 21, 2024</p>
+      <p class="date">October 22, 2024</p>
     </div>
   </div>
   
@@ -880,7 +880,12 @@ Proof
 \]</span></p></li>
 <li><p><strong>Correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
 <li><p>The correlation coefficeint satisfies <span class="math inline">\(\ABS{ρ_{XY}} \le 1\)</span> with equality if and only if <span class="math inline">\(\PR(aX + bY = c) = 1\)</span> for some <span class="math inline">\(a,b,c \in \reals\)</span>. [The proof follows from Cauchy-Schwartz inequality, which we will study later]</p></li>
-<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be uncorrelated if <span class="math inline">\(ρ_{XY} = 0\)</span>, which is equivalent to <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</p></li>
+<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be uncorrelated if <span class="math inline">\(ρ_{XY} = 0\)</span>, which is equivalent to <span class="math inline">\(\COV(X,Y) = 0\)</span> or <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</p></li>
+<li><p>Note that <span class="math display">\[\begin{align*}
+  \VAR(X + Y) &amp;= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ]
+  \\
+  &amp;= \VAR(X) + \VAR(Y) + 2\COV(X,Y).
+\end{align*}\]</span> Thus, when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are uncorrelated, we have <span class="math display">\[ \VAR(X + Y) = \VAR(X) + \VAR(Y). \]</span></p></li>
 <li><p>Indepdent random variables are uncorrelated but the reverse in not true.</p></li>
 </ul>
 <div id="exm-uncorrelated" class="theorem example">

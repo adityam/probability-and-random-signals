@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-10-21">
+<meta name="dcterms.date" content="2024-10-22">
 
 <title>Moment Generating Functions – Probability and Random Signals II</title>
 <style>
@@ -211,12 +211,17 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#moment-generating-functions-and-sums-of-independent-random-variables" id="toc-moment-generating-functions-and-sums-of-independent-random-variables" class="nav-link" data-scroll-target="#moment-generating-functions-and-sums-of-independent-random-variables"><span class="header-section-number">1.1</span> Moment generating functions and sums of independent random variables</a></li>
   </ul></li>
-  <li><a href="#approximations-via-moment-generating-functions" id="toc-approximations-via-moment-generating-functions" class="nav-link" data-scroll-target="#approximations-via-moment-generating-functions"><span class="header-section-number">2</span> Approximations via moment generating functions</a></li>
+  <li><a href="#the-central-limit-theorem" id="toc-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-central-limit-theorem"><span class="header-section-number">2</span> The Central Limit Theorem</a>
+  <ul class="collapse">
+  <li><a href="#an-illustrative-example" id="toc-an-illustrative-example" class="nav-link" data-scroll-target="#an-illustrative-example"><span class="header-section-number">2.1</span> An illustrative example</a></li>
+  <li><a href="#two-limit-theorems" id="toc-two-limit-theorems" class="nav-link" data-scroll-target="#two-limit-theorems"><span class="header-section-number">2.2</span> Two limit theorems</a></li>
+  </ul></li>
+  <li><a href="#moment-generating-function-of-random-vectors" id="toc-moment-generating-function-of-random-vectors" class="nav-link" data-scroll-target="#moment-generating-function-of-random-vectors"><span class="header-section-number">3</span> Moment generating function of random vectors</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/moment-generating-functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -246,7 +251,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 21, 2024</p>
+      <p class="date">October 22, 2024</p>
     </div>
   </div>
   
@@ -282,7 +287,7 @@ Relationship to Laplace transforms
 <li><span class="math inline">\(M_X(-s)\)</span> is the Laplace transform of the PDF.</li>
 <li><span class="math inline">\(M_X(-j ω)\)</span> is the Fourier transform of the PDF, which is called the <strong>characteristic function</strong> of <span class="math inline">\(X\)</span>.</li>
 </ul>
-<p>Therefore, we can recover the PDF by taking the inverse Laplace transform of MGF. Thus, specifying the MGF of a random variable is equivalent to specifying the PDF.</p>
+<p>Therefore, we can recover the PDF by taking the inverse Laplace transform of MGF. <strong>Thus, specifying the MGF of a random variable is equivalent to specifying the PDF.</strong></p>
 <p>Historically, MGF is defined for <span class="math inline">\(s \in \reals\)</span> and there are distributions (e.g., Cauchy) for which MGF does not exist for any <span class="math inline">\(s \neq 0\)</span>. In avoid such situations, one uses the characteristic function because the characteristic function always exists. However, if we view the domain of MGF to be <span class="math inline">\(\mathbb{C}\)</span>, then there is no need for a distinction between MGF and characteristic function.</p>
 </div>
 </div>
@@ -412,7 +417,7 @@ Table&nbsp;1: MGF of common random vables
 <li><p>and in general <span class="math inline">\(\dfrac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \EXP[X^k]\)</span>.</p></li>
 <li><p>Hence, by Taylor series expansion of <span class="math inline">\(M_X(s)\)</span> within the radius of convergence, we get <span class="math display">\[
 M_X(s) = \sum_{k=0}^∞ \frac{\EXP[X^k]}{k!} s^k.
-\]</span> Thus, when if the MGF is well defined in a neighborhood around origin, knowing all the moments of a distribution is sufficient to construct the MGF. We already saw that the MGF is sufficient to constrct the PDF/PMF of the distribution. Thus, <strong>the distribution of a random variable is completely characterized by its moments.</strong></p></li>
+\]</span> Thus, when if the MGF is well defined in a neighborhood around origin, knowing all the moments of a distribution is sufficient to construct the MGF. We already saw that the MGF is sufficient to construct the PDF/PMF of the distribution. Thus, <strong>the distribution of a random variable is completely characterized by its moments.</strong></p></li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -522,9 +527,48 @@ M_Z(s) = \EXP[e^{sX_1} e^{sX_2}]
 </ol>
 </section>
 </section>
-<section id="approximations-via-moment-generating-functions" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="approximations-via-moment-generating-functions"><span class="header-section-number">2</span> Approximations via moment generating functions</h2>
-<p>One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sum of i.i.d. random variables. We will study such a behavior in more detail later on, but we provide an illustration of the results here.</p>
+<section id="the-central-limit-theorem" class="level2 page-columns page-full" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-central-limit-theorem"><span class="header-section-number">2</span> The Central Limit Theorem</h2>
+<p>One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sum of i.i.d.&nbsp;random variables.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Convergence in distribution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A sequence of random variables <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> is said to <strong>converge in distribution</strong> to a random variable <span class="math inline">\(X\)</span> (denoted by <span class="math inline">\(X_n \xrightarrow{D} X\)</span>) if <span class="math display">\[
+\lim_{n \to \infty} F_{X_n}(x) = F_X(x),
+\]</span> for all <span class="math inline">\(x\)</span> where <span class="math inline">\(F_X\)</span> is continuous.</p>
+</div>
+</div>
+<p>An important implication of convergence in distribution is that for any continuous bounded function <span class="math inline">\(g\)</span> <span class="math display">\[
+\EXP[g(X_n)] \to \EXP[g(X)].
+\]</span> For this reason, convergence in distribution is sometimes called <strong>weak convergence</strong>.</p>
+<p>The relationship between PDFs and MGFs implies the following continuity theorem:</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Continuity Theorem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Consider a sequence of random variables <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>. For ease of notation, we use <span class="math inline">\((F_n, M_n)\)</span> to denote the CDF and MGF of <span class="math inline">\(X_n\)</span>.</p>
+<ol type="a">
+<li>If <span class="math inline">\(F_n \to F\)</span> for some CDF <span class="math inline">\(F\)</span> with MGF <span class="math inline">\(M\)</span>, then <span class="math inline">\(M_n(s) \to M(s)\)</span> for all <span class="math inline">\(s\)</span>.</li>
+<li>Conversely, if <span class="math inline">\(M(s) = \lim_{n\to ∞} M_n(s)\)</span> exists and is continuous at <span class="math inline">\(s = 0\)</span>, then <span class="math inline">\(M\)</span> is the MGF of some CDF <span class="math inline">\(F\)</span> and <span class="math inline">\(F_n \to F\)</span>.</li>
+</ol>
+</div>
+</div>
+<p>The proof is a bit involved and technical but makes sense from a signal processing point of view: we know that if a sequence of signals <span class="math inline">\(x_n \to x\)</span>, then <span class="math inline">\(\mathcal L(x_n) \to \mathcal L(x)\)</span>.</p>
+<section id="an-illustrative-example" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="an-illustrative-example"><span class="header-section-number">2.1</span> An illustrative example</h3>
 <p>Let <span class="math inline">\(\{X_i\}_{i \ge 1}\)</span> be a sequence of i.i.d. <span class="math inline">\(\text{Ber}(p)\)</span> random variables. Define <span class="math display">\[
   S_n = X_1 + \cdots + X_n.
 \]</span> As we saw above, <span class="math display">\[
@@ -550,9 +594,94 @@ p\left(1 + \frac{qs}{σ_n} + \frac{q^2 s^2}{2! σ_n^2} + \frac{q^3 s^3}{3! σ_n^
 + \text{terms of order $\dfrac 1n$ or smaller}
 \]</span> Thus, the logarithm of the MGF of <span class="math inline">\(Z_n\)</span> matches that of the standard normal until the <span class="math inline">\(s^2/2\)</span> term. As <span class="math inline">\(n\)</span> tends to infinity, the remainder terms tend to zero.</p>
 <p>This convergence of <span class="math inline">\(M_{Z_n}(s)\)</span> to <span class="math inline">\(e^{s^2/2}\)</span> can be used to rigorously prove that the distribution of “standard Binomial” converges to standard normal as <span class="math inline">\(n\)</span> tends to infinity.</p>
+</section>
+<section id="two-limit-theorems" class="level3 page-columns page-full" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="two-limit-theorems"><span class="header-section-number">2.2</span> Two limit theorems</h3>
+<p>Building on the above example, we prove a form of the law of large numbers.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Traditionally, these results are proved via the characteristic function and not the MGF. However, as discussed above, my personal view is that we can do everything with MGFs if we define them over complex numbers (as is done in Signals and Systems) rather than real numbers (as is done in probability theory).</p></div></div><div id="thm-LLLN" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2 (A law of large numbers)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be a sequence of i.i.d.&nbsp;random variables with finite mean <span class="math inline">\(μ\)</span>. Then, their partial sums <span class="math inline">\(S_n = X_1 + \cdots + X_n\)</span> satisfy <span class="math display">\[
+\frac{1}{n} S_n \xrightarrow{D} μ
+\]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>The theorem asserts that as <span class="math inline">\(n \to ∞\)</span>, <span class="math display">\[
+\PR(n^{-1}S_n \le x) =
+\begin{cases}
+  0 &amp; \hbox{if } x &lt; μ, \\
+  1 &amp; \hbox{if } x \ge μ.
+\end{cases}
+\]</span></p>
+<p>Let <span class="math inline">\(M_X\)</span> denote the MGF of <span class="math inline">\(X_n\)</span>. From <a href="#thm-sum-of-iid" class="quarto-xref">Theorem&nbsp;1</a>, we know that <span class="math display">\[
+M_{n^{-1} S_n}(s) = M_X(s/n)^n.
+\]</span></p>
+<p>From the Taylor series expansion of <span class="math inline">\(M_X(s)\)</span>, we know that <span class="math display">\[
+M_X(s/n) = 1 + μ s + o(s).
+\]</span> Therefore, <span class="math display">\[M_{n^{-1} S_n}(s) = \left(1 + \frac{μs}{n} + o\left(\frac{s}{n}\right) \right)^n \to \exp(μ s)
+\quad \text{as} \quad n \to ∞,
+\]</span> which is the MGF of a constant random variable.</p>
+</div>
+</div>
+</div>
+<p>We will show later that convergence in distribution to a constant implies converge in probability. Therefore, the above implies the weak law of large numbers.</p>
+<p>The above result shows that when <span class="math inline">\(n\)</span> is large, the sum <span class="math inline">\(S_n\)</span> is approximately the same as <span class="math inline">\(n μ\)</span>. The answer to this is provided by the Central Limit Theorem, which asserts that when <span class="math inline">\(X_n\)</span> has finite variance <span class="math inline">\(σ\)</span>:</p>
+<ul>
+<li><span class="math inline">\(S_n - n μ\)</span> is about as big as <span class="math inline">\(\sqrt{n}\)</span>.</li>
+<li>Irrespective of the distribution of <span class="math inline">\(X_n\)</span>, <span class="math inline">\((S_n - n μ)/\sqrt{n}\)</span> converges in distribution to a normal distribution with variance <span class="math inline">\(σ\)</span>.</li>
+</ul>
+<p>We prove the result below.</p>
+<div id="thm-CLT" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3 (Central Limit Theorem)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be i.i.d. random variables with mean <span class="math inline">\(μ\)</span> and finite non-zero variance <span class="math inline">\(σ^2\)</span>. Then, their partial sums <span class="math inline">\(S_n = X_1 + \cdots + X_n\)</span> satisfy <span class="math display">\[
+\frac{S_n - n μ}{\sqrt{n}\, σ}
+\xrightarrow{D}
+{\cal N}(0,1).
+\]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>The proof idea is similar to that of <a href="#thm-LLLN" class="quarto-xref">Theorem&nbsp;2</a>. Consider the “normalized” sequence of random variables <span class="math inline">\(Y_n = (X_n - μ)/σ\)</span>, which have mean zero and unit variance. Let <span class="math inline">\(M_Y\)</span> denote their MGF. Then, the Taylor series expansion of <span class="math inline">\(M_Y\)</span> gives <span class="math display">\[ M_Y(s) = 1 + \frac{1}{2} s^2 + o(s^2). \]</span> Moreover, observe that <span class="math display">\[
+Z_n \coloneqq \frac{S_n - n μ }{\sqrt{n}\, σ}
+= \frac{1}{\sqrt{n}} \sum_{i=1}^n Y_i.
+\]</span> Therefore, by <a href="#thm-sum-of-iid" class="quarto-xref">Theorem&nbsp;1</a>, we have <span class="math display">\[
+M_{Z_n}(s) = M_Y(s/\sqrt{n})^n
+= \left(1 + \frac {s^2}{2n} + o\left( \frac {s^2}{n} \right) \right)^n
+\to \exp(-\tfrac 12 s^2),
+\]</span> which is the MGF of <span class="math inline">\({\cal N}(0,1)\)</span>.</p>
+</div>
+</div>
+</div>
+<p>The central limit theorem is one of the cornerstones of probability theory. The earliest statement of the result goes back to de Moivre (1773), but there was little follow up on that until Laplace <em>Théorie analytique des probabilités</em>, (1812). The term “central limit theorem” is due to Poyla (1920) who called is such because the limit theorem plays a “central role in probability theory”.</p>
+</section>
+</section>
+<section id="moment-generating-function-of-random-vectors" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="moment-generating-function-of-random-vectors"><span class="header-section-number">3</span> Moment generating function of random vectors</h2>
+<p>TODO:</p>
+<p><span class="math display">\[M_X(s) = \EXP[e^{ \langle s, X \rangle }]. \]</span></p>
+<p>Multivariate Gaussian. Relationship with correlation and covariance.</p>
 
 
 </section>
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
