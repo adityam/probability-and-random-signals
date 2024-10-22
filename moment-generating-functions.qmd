@@ -24,7 +24,7 @@ Although most texts (including the textbook) restrict $s$ to be real, my persona
 - $M_X(-s)$ is the Laplace transform of the PDF. 
 - $M_X(-j ω)$ is the Fourier transform of the PDF, which is called the **characteristic function** of $X$.
 
-Therefore, we can recover the PDF by taking the inverse Laplace transform of MGF. Thus, specifying the MGF of a random variable is equivalent to specifying the PDF.
+Therefore, we can recover the PDF by taking the inverse Laplace transform of MGF. **Thus, specifying the MGF of a random variable is equivalent to specifying the PDF.**
 
 Historically, MGF is defined for $s \in \reals$ and there are distributions (e.g., Cauchy) for which MGF does not exist for any $s \neq 0$. In avoid such situations, one uses the characteristic function because the characteristic function always exists. However, if we view the domain of MGF to be $\mathbb{C}$, then there is no need for a distinction between MGF and characteristic function. 
 :::
@@ -101,7 +101,7 @@ If there exist a neighborhood around origin where $M_X(s)$ is well-defined. Then
    $$
     M_X(s) = \sum_{k=0}^∞ \frac{\EXP[X^k]}{k!} s^k.
    $$
-   Thus, when if the MGF is well defined in a neighborhood around origin, knowing all the moments of a distribution is sufficient to construct the MGF. We already saw that the MGF is sufficient to constrct the PDF/PMF of the distribution. Thus, **the distribution of a random variable is completely characterized by its moments.**
+   Thus, when if the MGF is well defined in a neighborhood around origin, knowing all the moments of a distribution is sufficient to construct the MGF. We already saw that the MGF is sufficient to construct the PDF/PMF of the distribution. Thus, **the distribution of a random variable is completely characterized by its moments.**
 
 
 :::{.callout-note collapse="true"}
@@ -215,9 +215,41 @@ $$
       σ^2 = \sum_{i=1}^n σ_i^2.
     $$
 
-## Approximations via moment generating functions
+## The Central Limit Theorem
 
-One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sum of i.i.d. random variables. We will study such a behavior in more detail later on, but we provide an illustration of the results here. 
+One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sum of i.i.d.\ random variables. 
+
+:::{.callout-tip}
+### Convergence in distribution
+
+A sequence of random variables $\{X_n\}_{n \ge 1}$ is said to **converge in distribution** to a random variable $X$ (denoted by $X_n \xrightarrow{D} X$) if
+$$
+\lim_{n \to \infty} F_{X_n}(x) = F_X(x), 
+$$
+for all $x$ where $F_X$ is continuous. 
+:::
+
+An important implication of convergence in distribution is that for any continuous bounded function $g$
+$$
+\EXP[g(X_n)] \to \EXP[g(X)].
+$$
+For this reason, convergence in distribution is sometimes called **weak convergence**. 
+
+
+The relationship between PDFs and MGFs implies the following continuity theorem:
+
+:::{.callout-important}
+### Continuity Theorem
+
+Consider a sequence of random variables $\{X_n\}_{n \ge 1}$. For ease of notation, we use $(F_n, M_n)$ to denote the CDF and MGF of $X_n$.
+
+a. If $F_n \to F$ for some CDF $F$ with MGF $M$, then $M_n(s) \to M(s)$ for all $s$. 
+b. Conversely, if $M(s) = \lim_{n\to ∞} M_n(s)$ exists and is continuous at $s = 0$, then $M$ is the MGF of some CDF $F$ and $F_n \to F$. 
+:::
+
+The proof is a bit involved and technical but makes sense from a signal processing point of view: we know that if a sequence of signals $x_n \to x$, then $\mathcal L(x_n) \to \mathcal L(x)$. 
+
+### An illustrative example
 
 Let $\{X_i\}_{i \ge 1}$ be a sequence of i.i.d. $\text{Ber}(p)$ random variables. Define 
 $$
@@ -258,3 +290,97 @@ $$
 Thus, the logarithm of the MGF of $Z_n$ matches that of the standard normal until the $s^2/2$ term. As $n$ tends to infinity, the remainder terms tend to zero. 
 
 This convergence of $M_{Z_n}(s)$ to $e^{s^2/2}$ can be used to rigorously prove that the distribution of "standard Binomial" converges to standard normal as $n$ tends to infinity. 
+
+### Two limit theorems
+
+Building on the above example, we prove a form of the law of large numbers.[^note]
+
+[^note]: Traditionally, these results are proved via the characteristic function and not the MGF. However, as discussed above, my personal view is that we can do everything with MGFs if we define them over complex numbers (as is done in Signals and Systems) rather than real numbers (as is done in probability theory). 
+
+:::{#thm-LLLN}
+### A law of large numbers
+
+Let $\{X_n\}_{n \ge 1}$ be a sequence of i.i.d.\ random variables with finite mean $μ$. Then, their partial sums
+$S_n = X_1 + \cdots + X_n$ satisfy 
+$$
+\frac{1}{n} S_n \xrightarrow{D} μ 
+$$
+:::
+
+:::{.callout-note collapse="false"}
+### Proof
+
+The theorem asserts that as $n \to ∞$, 
+$$
+\PR(n^{-1}S_n \le x) = 
+\begin{cases}
+  0 & \hbox{if } x < μ, \\
+  1 & \hbox{if } x \ge μ.
+\end{cases}
+$$
+
+Let $M_X$ denote the MGF of $X_n$. From @thm-sum-of-iid, we know that 
+$$
+M_{n^{-1} S_n}(s) = M_X(s/n)^n.
+$$
+
+From the Taylor series expansion of $M_X(s)$, we know that 
+$$
+M_X(s/n) = 1 + μ s + o(s).
+$$
+Therefore,
+$$M_{n^{-1} S_n}(s) = \left(1 + \frac{μs}{n} + o\left(\frac{s}{n}\right) \right)^n \to \exp(μ s) 
+\quad \text{as} \quad n \to ∞,
+$$
+which is the MGF of a constant random variable. 
+:::
+
+We will show later that convergence in distribution to a constant implies converge in probability. Therefore, the above implies the weak law of large numbers. 
+
+The above result shows that when $n$ is large, the sum $S_n$ is approximately the same as $n μ$. The answer to this is provided by the Central Limit Theorem, which asserts that when $X_n$ has finite variance $σ$: 
+
+- $S_n - n μ$ is about as big as $\sqrt{n}$.
+- Irrespective of the distribution of $X_n$, $(S_n - n μ)/\sqrt{n}$ converges in distribution to a normal distribution with variance $σ$. 
+
+We prove the result below.
+
+:::{#thm-CLT}
+### Central Limit Theorem
+
+Let $\{X_n\}_{n \ge 1}$ be i.i.d. random variables with mean $μ$ and finite non-zero variance $σ^2$. Then, their partial sums $S_n = X_1 + \cdots + X_n$ satisfy
+$$
+\frac{S_n - n μ}{\sqrt{n}\, σ} 
+\xrightarrow{D}
+{\cal N}(0,1).
+$$
+:::
+
+:::{.callout-note collapse="false"}
+### Proof
+
+The proof idea is similar to that of @thm-LLLN. Consider the "normalized" sequence of random variables $Y_n = (X_n - μ)/σ$, which have mean zero and unit variance. Let $M_Y$ denote their MGF. Then, the Taylor series expansion of $M_Y$ gives 
+$$ M_Y(s) = 1 + \frac{1}{2} s^2 + o(s^2). $$
+Moreover, observe that
+$$
+Z_n \coloneqq \frac{S_n - n μ }{\sqrt{n}\, σ} 
+= \frac{1}{\sqrt{n}} \sum_{i=1}^n Y_i.
+$$
+Therefore, by @thm-sum-of-iid, we have
+$$
+M_{Z_n}(s) = M_Y(s/\sqrt{n})^n
+= \left(1 + \frac {s^2}{2n} + o\left( \frac {s^2}{n} \right) \right)^n
+\to \exp(-\tfrac 12 s^2),
+$$
+which is the MGF of ${\cal N}(0,1)$. 
+:::
+
+The central limit theorem is one of the cornerstones of probability theory. The earliest statement of the result goes back to de Moivre (1773), but there was little follow up on that until Laplace _Théorie analytique des probabilités_, (1812). The term "central limit theorem" is due to Poyla (1920) who called is such because the limit theorem plays a "central role in probability theory". 
+
+
+## Moment generating function of random vectors
+
+TODO: 
+
+$$M_X(s) = \EXP[e^{ \langle s, X \rangle }]. $$
+
+Multivariate Gaussian. Relationship with correlation and covariance. 

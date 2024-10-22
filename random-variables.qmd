@@ -654,7 +654,16 @@ Let $X$ and $Y$ be random variables defined on the same probability space.
 
 - The correlation coefficeint satisfies $\ABS{ρ_{XY}} \le 1$ with equality if and only if $\PR(aX + bY = c) = 1$ for some $a,b,c \in \reals$. [The proof follows from Cauchy-Schwartz inequality, which we will study later]
 
-- $X$ and $Y$ are said to be uncorrelated if $ρ_{XY} = 0$, which is equivalent to $\EXP[XY] = \EXP[X] \EXP[Y]$.
+- $X$ and $Y$ are said to be uncorrelated if $ρ_{XY} = 0$, which is equivalent to $\COV(X,Y) = 0$ or $\EXP[XY] = \EXP[X] \EXP[Y]$.
+
+- Note that
+  \begin{align*}
+    \VAR(X + Y) &= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ] 
+    \\
+    &= \VAR(X) + \VAR(Y) + 2\COV(X,Y).
+  \end{align*}
+  Thus, when $X$ and $Y$ are uncorrelated, we have
+  $$ \VAR(X + Y) = \VAR(X) + \VAR(Y). $$
 
 - Indepdent random variables are uncorrelated but the reverse in not true.
 
