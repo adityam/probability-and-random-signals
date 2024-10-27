@@ -519,7 +519,7 @@ Proof
 </div>
 </div>
 <p>In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.</p>
-<div id="exm-Binomail-comparison" class="theorem example">
+<div id="exm-Binomial-comparison" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -592,9 +592,93 @@ Solution
 </section>
 <section id="chernoff-bound" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="chernoff-bound"><span class="header-section-number">6</span> Chernoff bound</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chernoff Bound
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable. Then, for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
+\PR(X \ge a) \le e^{-φ(a)}
+\]</span> where <span class="math display">\[
+φ(a) = \max_{s &gt; 0} \{ s a - \log M_X(s) \}
+\]</span> is the <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Lengendre-Fenchel transform</a> of <span class="math inline">\(\log M_X(s)\)</span>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>The proof relies on two observations. First, for any <span class="math inline">\(s &gt; 0\)</span>, <span class="math inline">\(e^s x\)</span> is an increasing function of <span class="math inline">\(x\)</span>. Therefore, <span class="math display">\[
+\{ ω : X(ω) &gt; a \} = \{ ω : e^{sX(ω)} &gt; e^{sa} \}.
+\]</span> Hence, <span class="math display">\[
+\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
+\le \frac{\EXP[e^{sX}}{e^{sa}}
+= e^{-( sa - \log M_X(s) ) }
+\]</span> where the inequality follows from Markov inequality</p>
+<p>Second, observe that the above inequality holds for every <span class="math inline">\(s &gt; 0\)</span>. So, to get the tightest bound, we minimize the RHS over all <span class="math inline">\(s &gt; 0\)</span>, i.e., <span class="math display">\[
+\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
+\le \min_{s &gt; 0} e^{-( sa - \log M_X(s) ) }
+\]</span> Since <span class="math inline">\(e^x\)</span> is increasing in <span class="math inline">\(x\)</span>, the minimizer above is the same as the maximizer for <span class="math display">\[
+φ(a) = \max_{s &gt; 0} \{ sa - \log M_X(s) \}.
+\]</span></p>
+</div>
+</div>
+</div>
+<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;3</a>. For a Binomial random variable, <span class="math display">\[
+M_X(s) = (1 - p + p e^s)^n.
+\]</span> Then, <span class="math display">\[\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
+= \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
+\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;3</a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
+\PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
+\]</span> where <span class="math display">\[
+D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
+\]</span></p>
+<p>We now present another example to show the tightness of the Chernoff bound.</p>
+<div id="exm-Chernoff-Gaussian" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
+</div>
+<!-- TODO: Write solution -->
 </section>
 <section id="azuma-hoeffding-inequality" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="azuma-hoeffding-inequality"><span class="header-section-number">7</span> Azuma-Hoeffding inequality</h2>
+<p>Although Chernoff bound is fairly tight, one of the drawbacks is that it requires the knowledge of the MGF of <span class="math inline">\(X\)</span>. This is in contrast to Markov and Chebyshev inequalities which only require knowledge of the mean and variance. For sums of i.i.d. random variables, it is possible to get a tight bound that only depends on the mean (and a proxy for variance).</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Azuma-Hoeffding inequality
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables such that <span class="math inline">\(X_i \in [a,b]\)</span> and <span class="math inline">\(\EXP[X_i] = μ\)</span>. Define <span class="math display">\[
+\bar X_n = \frac 1n \sum_{i=1}^n X_i.
+\]</span> Then, <span class="math display">\[ \PR( \bar X_n - μ  &gt; ε ) \le e ^ {- 2 ε^2 n } \]</span> and <span class="math display">\[ \PR( \ABS{\bar X_n - μ}  &gt; ε ) \le 2 e ^ {- 2 ε^2 n } \]</span></p>
+</div>
+</div>
+<p>We will not provide a proof of this inequality. The Azuma-Hoeffding inequality can also be interpreted as follows. For any <span class="math inline">\(δ &gt; 0\)</span>, we have that the true mean lies in the interval <span class="math display">\[
+\left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} },
+       \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
+\]</span></p>
+<p>We can revisit <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;3</a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
+\PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
+\le e^{-2 (q - p)^2 n}.
+\]</span></p>
+<p>The bound is weaker than what we obtained via Chernoff bound, but it only requires the first moment and the fact that the random variables are bounded.</p>
 
 
 </section>
