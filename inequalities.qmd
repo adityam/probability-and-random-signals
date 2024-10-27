@@ -200,7 +200,7 @@ where $(a)$ follows from MArkov inequality.
 
 In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.
 
-:::{#exm-Binomail-comparison}
+:::{#exm-Binomial-comparison}
   Let $X \sim \text{Bin}(n,p)$ and consider any $q \in (p,1)$. Use both Markov and Chebyshev inequalities to bound $\PR(X \ge nq)$. 
 :::
 
@@ -263,4 +263,99 @@ $$
 
 ## Chernoff bound
 
+:::{.callout-tip}
+### Chernoff Bound
+
+Let $X$ be a real-valued random variable. Then, for any $a > 0$, we have
+$$
+\PR(X \ge a) \le e^{-φ(a)}
+$$
+where
+$$
+φ(a) = \max_{s > 0} \{ s a - \log M_X(s) \}
+$$ 
+is the [Lengendre-Fenchel transform](https://adityam.github.io/stochastic-control/convexity/duality.html) of $\log M_X(s)$.
+:::
+
+:::{.callout-note collapse="false"}
+### Proof
+
+The proof relies on two observations. First, for any $s > 0$, $e^s x$ is an increasing function of $x$. Therefore, 
+$$
+\{ ω : X(ω) > a \} = \{ ω : e^{sX(ω)} > e^{sa} \}.
+$$
+Hence,
+$$
+\PR(X > a) = \PR(e^{sX} \ge e^{sa}) 
+\le \frac{\EXP[e^{sX}}{e^{sa}}
+= e^{-( sa - \log M_X(s) ) }
+$$
+where the inequality follows from Markov inequality
+
+Second, observe that the above inequality holds for every $s > 0$. So, to get the tightest bound, we minimize the RHS over all $s > 0$, i.e.,
+$$
+\PR(X > a) = \PR(e^{sX} \ge e^{sa}) 
+\le \min_{s > 0} e^{-( sa - \log M_X(s) ) }
+$$
+Since $e^x$ is increasing in $x$, the minimizer above is the same as the maximizer for
+$$
+φ(a) = \max_{s > 0} \{ sa - \log M_X(s) \}.
+$$
+:::
+
+Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let's revisit the bound of @exm-Binomial-comparison. For a Binomial random variable, 
+$$ 
+M_X(s) = (1 - p + p e^s)^n.
+$$
+Then,
+$$\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
+= \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
+$$
+Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in @exm-Binomial-comparison. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero _exponentially fast_. A bit of algebra shows that the exact bound is
+$$
+\PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
+$$
+where 
+$$
+D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
+$$
+
+We now present another example to show the tightness of the Chernoff bound.
+
+:::{#exm-Chernoff-Gaussian}
+Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any $ε > 0$, bound
+$\PR(X \ge 0)$.
+:::
+
+<!-- TODO: Write solution --> 
+
 ## Azuma-Hoeffding inequality
+
+Although Chernoff bound is fairly tight, one of the drawbacks is that it requires the knowledge of the MGF of $X$. This is in contrast to Markov and Chebyshev inequalities which only require knowledge of the mean and variance. For sums of i.i.d. random variables, it is possible to get a tight bound that only depends on the mean (and a proxy for variance). 
+
+:::{.callout-tip}
+### Azuma-Hoeffding inequality
+
+Let $X_1, \dots, X_n$ be i.i.d. random variables such that $X_i \in [a,b]$ and $\EXP[X_i] = μ$. Define
+$$
+\bar X_n = \frac 1n \sum_{i=1}^n X_i.
+$$
+Then,
+$$ \PR( \bar X_n - μ  > ε ) \le e ^ {- 2 ε^2 n } $$
+and
+$$ \PR( \ABS{\bar X_n - μ}  > ε ) \le 2 e ^ {- 2 ε^2 n } $$
+:::
+
+We will not provide a proof of this inequality. The Azuma-Hoeffding inequality can also be interpreted as follows. For any $δ > 0$, we have that the true mean lies in the interval
+$$
+\left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} }, 
+       \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
+$$
+
+We can revisit @exm-Binomial-comparison using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have
+$$
+\PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
+\le e^{-2 (q - p)^2 n}.
+$$
+
+The bound is weaker than what we obtained via Chernoff bound, but it only requires the first moment and the fact that the random variables are bounded. 
