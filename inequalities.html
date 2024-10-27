@@ -9,7 +9,7 @@
 <meta name="author" content="Aditya Mahajan">
 <meta name="dcterms.date" content="2024-10-27">
 
-<title>Moment Generating Functions – Probability and Random Signals II</title>
+<title>Probability inequalities – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -207,25 +207,25 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#moment-generating-functions" id="toc-moment-generating-functions" class="nav-link active" data-scroll-target="#moment-generating-functions"><span class="header-section-number">1</span> Moment Generating Functions</a>
+  <li><a href="#union-bound" id="toc-union-bound" class="nav-link active" data-scroll-target="#union-bound"><span class="header-section-number">1</span> Union Bound</a></li>
+  <li><a href="#cauchy-schwartz-inequality" id="toc-cauchy-schwartz-inequality" class="nav-link" data-scroll-target="#cauchy-schwartz-inequality"><span class="header-section-number">2</span> Cauchy-Schwartz inequality</a></li>
+  <li><a href="#jensens-inequality" id="toc-jensens-inequality" class="nav-link" data-scroll-target="#jensens-inequality"><span class="header-section-number">3</span> Jensen’s inequality</a></li>
+  <li><a href="#markov-inequality" id="toc-markov-inequality" class="nav-link" data-scroll-target="#markov-inequality"><span class="header-section-number">4</span> Markov inequality</a>
   <ul class="collapse">
-  <li><a href="#moment-generating-functions-and-sums-of-independent-random-variables" id="toc-moment-generating-functions-and-sums-of-independent-random-variables" class="nav-link" data-scroll-target="#moment-generating-functions-and-sums-of-independent-random-variables"><span class="header-section-number">1.1</span> Moment generating functions and sums of independent random variables</a></li>
+  <li><a href="#union-bound-as-a-special-case-of-markov-inequality" id="toc-union-bound-as-a-special-case-of-markov-inequality" class="nav-link" data-scroll-target="#union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">4.1</span> Union bound as a special case of Markov inequality</a></li>
   </ul></li>
-  <li><a href="#the-central-limit-theorem" id="toc-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-central-limit-theorem"><span class="header-section-number">2</span> The Central Limit Theorem</a>
-  <ul class="collapse">
-  <li><a href="#an-illustrative-example" id="toc-an-illustrative-example" class="nav-link" data-scroll-target="#an-illustrative-example"><span class="header-section-number">2.1</span> An illustrative example</a></li>
-  <li><a href="#two-limit-theorems" id="toc-two-limit-theorems" class="nav-link" data-scroll-target="#two-limit-theorems"><span class="header-section-number">2.2</span> Two limit theorems</a></li>
-  </ul></li>
-  <li><a href="#moment-generating-function-of-random-vectors" id="toc-moment-generating-function-of-random-vectors" class="nav-link" data-scroll-target="#moment-generating-function-of-random-vectors"><span class="header-section-number">3</span> Moment generating function of random vectors</a></li>
+  <li><a href="#chebyshev-inequality" id="toc-chebyshev-inequality" class="nav-link" data-scroll-target="#chebyshev-inequality"><span class="header-section-number">5</span> Chebyshev inequality</a></li>
+  <li><a href="#chernoff-bound" id="toc-chernoff-bound" class="nav-link" data-scroll-target="#chernoff-bound"><span class="header-section-number">6</span> Chernoff bound</a></li>
+  <li><a href="#azuma-hoeffding-inequality" id="toc-azuma-hoeffding-inequality" class="nav-link" data-scroll-target="#azuma-hoeffding-inequality"><span class="header-section-number">7</span> Azuma-Hoeffding inequality</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/moment-generating-functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Moment Generating Functions</h1>
+<h1 class="title">Probability inequalities</h1>
 </div>
 
 
@@ -263,348 +263,72 @@ window.Quarto = {
 </header>
 
 
-<section id="moment-generating-functions" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="moment-generating-functions"><span class="header-section-number">1</span> Moment Generating Functions</h2>
-<p>The <strong>moment generating function (MGF)</strong> of a random variable <span class="math inline">\(X\)</span> is defined as <span class="math display">\[
-M_X(s) = \EXP[e^{sX}]
-\]</span> provided the expectation exists.</p>
-<ul>
-<li><p>When <span class="math inline">\(X\)</span> is discrete, we have <span class="math display">\[ M_X(s) = \sum_{x \in \text{range}(X)} e^{sx} p_X(x). \]</span></p></li>
-<li><p>When <span class="math inline">\(X\)</span> is continuous, we have <span class="math display">\[ M_X(s) = \int_{-∞}^∞ e^{sx} f_X(x) \, dx. \]</span></p></li>
-</ul>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Relationship to Laplace transforms
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Although most texts (including the textbook) restrict <span class="math inline">\(s\)</span> to be real, my personal view is that one should really interpret <span class="math inline">\(s\)</span> as a complex number. If we do so, then we have the following:</p>
-<ul>
-<li><span class="math inline">\(M_X(-s)\)</span> is the Laplace transform of the PDF.</li>
-<li><span class="math inline">\(M_X(-j ω)\)</span> is the Fourier transform of the PDF, which is called the <strong>characteristic function</strong> of <span class="math inline">\(X\)</span>.</li>
-</ul>
-<p>Therefore, we can recover the PDF by taking the inverse Laplace transform of MGF. <strong>Thus, specifying the MGF of a random variable is equivalent to specifying the PDF.</strong></p>
-<p>Historically, MGF is defined for <span class="math inline">\(s \in \reals\)</span> and there are distributions (e.g., Cauchy) for which MGF does not exist for any <span class="math inline">\(s \neq 0\)</span>. In avoid such situations, one uses the characteristic function because the characteristic function always exists. However, if we view the domain of MGF to be <span class="math inline">\(\mathbb{C}\)</span>, then there is no need for a distinction between MGF and characteristic function.</p>
-</div>
-</div>
-<div id="exm-MGF-discrete" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1</strong></span> Suppose <span class="math inline">\(X\)</span> is a random variable which takes values <span class="math inline">\(\{0, 1, 2\}\)</span> with probabilities <span class="math inline">\(\{\frac 12, \frac 13, \frac 16\}\)</span>. Then, <span class="math display">\[\begin{align*}
-M_X(s) &amp;= \EXP[e^{sX}] \\
-&amp;= \frac 12 e^{s 0} + \frac 13 e^{s 1} + \frac 16 e^{s 2} \\
-&amp;= \frac 12 + \frac 13 e^{s} + \frac 16 e^{2s}.
-\end{align*}\]</span></p>
-</div>
-<div id="exm-MGF-Poisson" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2</strong></span> Find the MGF of a Poisson random variable with parameter <span class="math inline">\(λ\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><span class="math display">\[\begin{align*}
-M_X(s) &amp;= \EXP[e^{sX}] = \sum_{k=0}^{∞}e^{ks} \frac{λ^k e^{-λ}}{k!} \\
-&amp;= e^{-λ} \sum_{k=0}^{∞} \frac{(λe^s)^k}{k!} \\
-&amp;= e^{-λ} e^{λ e^{s}}.
-\end{align*}\]</span></p>
-</div>
-</div>
-</div>
-<div id="exm-MGF-exponential" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3</strong></span> Find the MGF of an exponential random variable with parameter <span class="math inline">\(λ\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><span class="math display">\[\begin{align*}
-M_X(s) &amp;= \EXP[e^{sX}] \\
-&amp;= \int_{0}^∞ e^{sx} λ e^{-λx} \, dx \\
-&amp;= λ \int_{0}^∞ e^{(s-λ)x} \, dx \\
-&amp;= \frac{λ}{λ-s}.
-\end{align*}\]</span></p>
-<p>Note that we could have looked up this result from the Laplace transform tables which show that <span class="math display">\[
-e^{at} \xleftrightarrow{\hskip 0.5em \mathcal{L}\hskip 0.5em } \frac{1}{s-a}
-\]</span></p>
-</div>
-</div>
-</div>
-<p>The MGF of common random variables is shown in <a href="#tbl-MGF" class="quarto-xref">Table&nbsp;1</a>.</p>
-<div id="tbl-MGF" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-MGF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: MGF of common random vables
-</figcaption>
-<div aria-describedby="tbl-MGF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 45%">
-<col style="width: 37%">
-<col style="width: 16%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;"><strong>Random variable</strong></th>
-<th style="text-align: center;"><strong>Parameter(s)</strong></th>
-<th style="text-align: center;"><strong>MGF</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Bernoulli</td>
-<td style="text-align: center;"><span class="math inline">\(p\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(1 - p + p e^s\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Binomial</td>
-<td style="text-align: center;"><span class="math inline">\((n,p)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\((1-p + p e^s)^n\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Geometric</td>
-<td style="text-align: center;"><span class="math inline">\(p\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{p e^s}{1 - (1-p)e^s}\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Poisson</td>
-<td style="text-align: center;"><span class="math inline">\(λ\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\exp(λ e^s - 1)\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Uniform</td>
-<td style="text-align: center;"><span class="math inline">\((a,b)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{e^{sb} - e^{sa}}{s(b-a)}\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Exponential</td>
-<td style="text-align: center;"><span class="math inline">\(λ\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{λ}{λ-s}\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Gaussian</td>
-<td style="text-align: center;"><span class="math inline">\((μ,σ)\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\exp\bigl(μ s + \frac 12 σ^2 s^2 \bigr)\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-<p>If there exist a neighborhood around origin where <span class="math inline">\(M_X(s)\)</span> is well-defined. Then, we can use the MGF to “generate the moments” of <span class="math inline">\(X\)</span> as follows:</p>
-<ol type="1">
-<li><p><span class="math inline">\(M_X(0) = 1\)</span></p></li>
-<li><p><span class="math inline">\(\dfrac{d}{ds} M_X(s) \biggr|_{s=0} = \EXP[X]\)</span>.</p></li>
-<li><p><span class="math inline">\(\dfrac{d^2}{ds^2} M_X(s) \biggr|_{s=0} = \EXP[X^2]\)</span>.</p></li>
-<li><p>and in general <span class="math inline">\(\dfrac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \EXP[X^k]\)</span>.</p></li>
-<li><p>Hence, by Taylor series expansion of <span class="math inline">\(M_X(s)\)</span> within the radius of convergence, we get <span class="math display">\[
-M_X(s) = \sum_{k=0}^∞ \frac{\EXP[X^k]}{k!} s^k.
-\]</span> Thus, when if the MGF is well defined in a neighborhood around origin, knowing all the moments of a distribution is sufficient to construct the MGF. We already saw that the MGF is sufficient to construct the PDF/PMF of the distribution. Thus, <strong>the distribution of a random variable is completely characterized by its moments.</strong></p></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The first property follows from definition: <span class="math display">\[
-M_X(0) = \EXP[e^{0 X}] = \EXP[1] = 1.
-\]</span></p>
-<p>For the general derivative, we have <span class="math display">\[\begin{align*}
-\frac{d^k}{ds^k} M_X(s)
-&amp;= \int_{-∞}^∞ \frac{d^k}{ds^k} e^{sx} f_X(x) \, dx \\
-&amp;= \int_{-∞}^∞ x^k e^{sx} f_X(x) \, dx.
-\end{align*}\]</span></p>
-<p>Therefore <span class="math display">\[
-\frac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = \int_{-∞}^∞ x^k f_X(x) \, dx.
-\]</span></p>
-</div>
-</div>
-</div>
-<div id="exm-MGF-Bernoulli" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4</strong></span> Use the MGF of Bernoulli to find its first all the moments of <span class="math inline">\(X\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>From <a href="#tbl-MGF" class="quarto-xref">Table&nbsp;1</a>, we see that <span class="math display">\[ M_X(s) = 1 - p + p e^{s}. \]</span> Therefore,</p>
-<ul>
-<li><p><span class="math inline">\(\dfrac{d}{ds} M_X(s) = p e^s\)</span>.</p></li>
-<li><p><span class="math inline">\(\dfrac{d^2}{ds^2} M_X(s) = p e^s\)</span>.</p></li>
-<li><p>and in general <span class="math inline">\(\dfrac{d^k}{ds^k} M_X(s) = p e^s\)</span>.</p></li>
-</ul>
-<p>Thus,</p>
-<ul>
-<li><p><span class="math inline">\(\EXP[X] = \dfrac{d}{ds} M_X(s) \biggr|_{s=0} = p\)</span>.</p></li>
-<li><p><span class="math inline">\(\EXP[X^2] = \dfrac{d^2}{ds^2} M_X(s) \biggr|_{s=0} = p\)</span>.</p></li>
-<li><p>and in general <span class="math inline">\(\EXP[X^k] = \dfrac{d^k}{ds^k} M_X(s) \biggr|_{s=0} = p\)</span>.</p></li>
-</ul>
-</div>
-</div>
-</div>
-<section id="moment-generating-functions-and-sums-of-independent-random-variables" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="moment-generating-functions-and-sums-of-independent-random-variables"><span class="header-section-number">1.1</span> Moment generating functions and sums of independent random variables</h3>
-<div id="thm-sum-of-iid" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1</strong></span> Suppose <span class="math inline">\(X_1, X_2, \dots, X_n\)</span> are independent random variables defined on the same probability space. Let <span class="math display">\[
-  Z = X_1 + X_2 + \dots + X_n
-\]</span> Then, <span class="math display">\[
-  M_Z(s) = M_{X_1}(s) M_{X_2}(s) \cdots M_{X_n}(s).
-\]</span></p>
-<p>Furthermore, if the variables are identically distributed, then <span class="math display">\[
-  M_Z(s) = (M_{X_1}(s))^n.
-\]</span></p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The proof follows immediately from properties of independent random variables. We prove the result for <span class="math inline">\(n=2\)</span>. <span class="math display">\[
-M_Z(s) = \EXP[e^{sX_1} e^{sX_2}]
-= \EXP[e^{sX_1} e^{sX_2}] = M_{X_1}(s) M_{X_2}(s).
-\]</span></p>
-</div>
-</div>
-</div>
-<p><a href="#thm-sum-of-iid" class="quarto-xref">Theorem&nbsp;1</a> is a very useful result. An immediate implication of the result is that following:</p>
-<ol type="1">
-<li><p><strong>Sum of i.i.d. Bernoulli random variables is a Binomial random variable</strong></p>
-<p>Let <span class="math inline">\(X_i \sim \text{Ber}(p)\)</span>. Then <span class="math inline">\(M_{X_i}(s) = (1 - p + pe^s)\)</span>.</p>
-<p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = (1 - p + pe^s)^n\)</span>.</p></li>
-<li><p><strong>Sum of independent Binomial random variables with the same <span class="math inline">\(p\)</span> is a Binomial random variable.</strong></p>
-<p>Let <span class="math inline">\(X_i \sim \text{Binom}(m_i,p)\)</span>. Then <span class="math inline">\(M_{X_i}(s) = (1 - p + p e^s)^{m_i}\)</span>.</p>
-<p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = (1 - p + p e^s)^M\)</span>, where <span class="math inline">\(M = \sum_{i=1}^n m_i\)</span>.</p></li>
-<li><p><strong>Sum of independent Poisson random variables is Poisson.</strong></p>
-<p>Let <span class="math inline">\(X_i \sim \text{Pois}(λ_i)\)</span>. Then <span class="math inline">\(M_{X_i}(s) = e^{λ_i(e^s - 1)}\)</span>.</p>
-<p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = e^{λ(e^s - 1)}\)</span>, where <span class="math inline">\(λ = \sum_{i=1}^n λ_i\)</span>.</p></li>
-<li><p><strong>Sum of Gaussian random variables is Gaussian.</strong></p>
-<p>Let <span class="math inline">\(X_i \sim \mathcal N(μ_i, σ_i)\)</span>. Then, <span class="math inline">\(M_{X_i}(s) = \exp( μ_i s + \frac 12 σ_i^2 s^2)\)</span>.</p>
-<p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = \exp(μ s + \frac 12 σ^2 s^2)\)</span>, where <span class="math display">\[
-   μ = \sum_{i=1}^n μ_i
-   \quad\text{and}\quad
-   σ^2 = \sum_{i=1}^n σ_i^2.
-\]</span></p></li>
-</ol>
-</section>
-</section>
-<section id="the-central-limit-theorem" class="level2 page-columns page-full" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="the-central-limit-theorem"><span class="header-section-number">2</span> The Central Limit Theorem</h2>
-<p>One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sum of i.i.d.&nbsp;random variables.</p>
+<section id="union-bound" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="union-bound"><span class="header-section-number">1</span> Union Bound</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Convergence in distribution
+Union bound
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A sequence of random variables <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> is said to <strong>converge in distribution</strong> to a random variable <span class="math inline">\(X\)</span> (denoted by <span class="math inline">\(X_n \xrightarrow{D} X\)</span>) if <span class="math display">\[
-\lim_{n \to \infty} F_{X_n}(x) = F_X(x),
-\]</span> for all <span class="math inline">\(x\)</span> where <span class="math inline">\(F_X\)</span> is continuous.</p>
+<p>Let <span class="math inline">\(A_1, \dots, A_n\)</span> be a collection of events. Then, <span class="math display">\[
+\PR\biggl( \bigcup_{i=1}^n A_i \biggr)
+\le
+\sum_{i=1}^n \PR(A_n).
+\]</span></p>
 </div>
 </div>
-<p>An important implication of convergence in distribution is that for any continuous bounded function <span class="math inline">\(g\)</span> <span class="math display">\[
-\EXP[g(X_n)] \to \EXP[g(X)].
-\]</span> For this reason, convergence in distribution is sometimes called <strong>weak convergence</strong>.</p>
-<p>The relationship between PDFs and MGFs implies the following continuity theorem:</p>
-<div class="callout callout-style-default callout-important callout-titled">
+<p>We already proved this when talking about <a href="./probability-spaces.html#lem-probability-properties">probability spaces</a>.</p>
+<div id="exm-union-bound" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables with CDF <span class="math inline">\(F_X(x)\)</span>. Find an upper bound on the CDF of <span class="math display">\[
+Z_n = \min(X_1, \dots, X_n).
+\]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>We know that <span class="math display">\[Z_n = \min(X_1, \dots, X_n) \le z\]</span> if and only if <span class="math display">\[ X_i \le Z \quad \forall i \in \{1, \dots, n\}.\]</span> Therefore, <span class="math display">\[\PR(Z_n \le z) = \PR\biggl( \bigcup_{i=1}^n \{X_i \le z \} \biggr)
+\le \sum_{i=1}^n \PR(X_i \le z) = n F_X(z).
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="cauchy-schwartz-inequality" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="cauchy-schwartz-inequality"><span class="header-section-number">2</span> Cauchy-Schwartz inequality</h2>
+<p>This is a generalization of <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">:Cauchy-Schwartz inequality</a> on inner products to random variables.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Continuity Theorem
+Cauchy-Schwartz inequality
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Consider a sequence of random variables <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>. For ease of notation, we use <span class="math inline">\((F_n, M_n)\)</span> to denote the CDF and MGF of <span class="math inline">\(X_n\)</span>.</p>
-<ol type="a">
-<li>If <span class="math inline">\(F_n \to F\)</span> for some CDF <span class="math inline">\(F\)</span> with MGF <span class="math inline">\(M\)</span>, then <span class="math inline">\(M_n(s) \to M(s)\)</span> for all <span class="math inline">\(s\)</span>.</li>
-<li>Conversely, if <span class="math inline">\(M(s) = \lim_{n\to ∞} M_n(s)\)</span> exists and is continuous at <span class="math inline">\(s = 0\)</span>, then <span class="math inline">\(M\)</span> is the MGF of some CDF <span class="math inline">\(F\)</span> and <span class="math inline">\(F_n \to F\)</span>.</li>
-</ol>
-</div>
-</div>
-<p>The proof is a bit involved and technical but makes sense from a signal processing point of view: we know that if a sequence of signals <span class="math inline">\(x_n \to x\)</span>, then <span class="math inline">\(\mathcal L(x_n) \to \mathcal L(x)\)</span>.</p>
-<section id="an-illustrative-example" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="an-illustrative-example"><span class="header-section-number">2.1</span> An illustrative example</h3>
-<p>Let <span class="math inline">\(\{X_i\}_{i \ge 1}\)</span> be a sequence of i.i.d. <span class="math inline">\(\text{Ber}(p)\)</span> random variables. Define <span class="math display">\[
-  S_n = X_1 + \cdots + X_n.
-\]</span> As we saw above, <span class="math display">\[
-  M_{S_n}(s) = (1 - p + p e^s)^n
-\]</span> which is the MGF of <span class="math inline">\(\text{Ber}(n,p)\)</span> random variable.</p>
-<p>Write <span class="math inline">\(q\)</span> for <span class="math inline">\(1-p\)</span> and <span class="math inline">\(σ_n^2\)</span> for <span class="math inline">\(npq\)</span> (which is the variance of Bernoulli random variable). Define <span class="math display">\[
-  Z_n = \frac{S_n - np}{σ_n}
-\]</span> We know that <span class="math display">\[\begin{align*}
-  M_{Z_n}(s) &amp;= \EXP[ e^{s (S_n - np)/σ_n^2} ]
-  = e^{-s n p/σ_n} \EXP[ e^{s S_n/σ_n}]
-  = e^{-s n p/σ_n} M_{S_n}(s/σ_n).
-  \\
-  &amp;= e^{-s n p/σ_n} (q + p e^{s/σ_n})^n
-  = (q e^{-s p/σ_n} + p e^{s q / σ_n})^n
-\end{align*}\]</span> Let’s consider the power series expansion of <span class="math inline">\(q e^{-sp/σ_n} + pe^{sq/σ_n}\)</span>: <span class="math display">\[\begin{align*}
-&amp;q\left(1 - \frac{ps}{σ_n} + \frac{p^2 s^2}{2! σ_n^2} - \frac{p^3 s^3}{3! σ_n^3} + \cdots \right)
-+
-p\left(1 + \frac{qs}{σ_n} + \frac{q^2 s^2}{2! σ_n^2} + \frac{q^3 s^3}{3! σ_n^3} + \cdots \right)
-\\
-&amp; \quad= 1 + \frac{pq s^2}{2 σ_n^2} + \frac{pq(p-q) s^3}{6 σ_n^2} + \cdots
-\end{align*}\]</span> Thus, for large values of <span class="math inline">\(n\)</span>, we have <span class="math inline">\(\log(1 + z)^n = n(z - z^2/2 + \cdots)\)</span>. Therefore, <span class="math display">\[
-\log M_{Z_n}(s) = \frac{s^2}{2} + \frac{(q-p) s^3}{6 \sqrt{n p q}}
-+ \text{terms of order $\dfrac 1n$ or smaller}
-\]</span> Thus, the logarithm of the MGF of <span class="math inline">\(Z_n\)</span> matches that of the standard normal until the <span class="math inline">\(s^2/2\)</span> term. As <span class="math inline">\(n\)</span> tends to infinity, the remainder terms tend to zero.</p>
-<p>This convergence of <span class="math inline">\(M_{Z_n}(s)\)</span> to <span class="math inline">\(e^{s^2/2}\)</span> can be used to rigorously prove that the distribution of “standard Binomial” converges to standard normal as <span class="math inline">\(n\)</span> tends to infinity.</p>
-</section>
-<section id="two-limit-theorems" class="level3 page-columns page-full" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="two-limit-theorems"><span class="header-section-number">2.2</span> Two limit theorems</h3>
-<p>Building on the above example, we prove a form of the law of large numbers.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Traditionally, these results are proved via the characteristic function and not the MGF. However, as discussed above, my personal view is that we can do everything with MGFs if we define them over complex numbers (as is done in Signals and Systems) rather than real numbers (as is done in probability theory).</p></div></div><div id="thm-LLLN" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2 (A law of large numbers)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be a sequence of i.i.d.&nbsp;random variables with finite mean <span class="math inline">\(μ\)</span>. Then, their partial sums <span class="math inline">\(S_n = X_1 + \cdots + X_n\)</span> satisfy <span class="math display">\[
-\frac{1}{n} S_n \xrightarrow{D} μ
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be real-valued random variables. Then, <span class="math display">\[
+\EXP[XY]^2 \le \EXP[X^2] \EXP[Y^2].
+\]</span> or equivalently, <span class="math display">\[
+\COV(X,Y)^2 \le \VAR(X) \VAR(Y).
 \]</span></p>
 </div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -613,39 +337,166 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>The theorem asserts that as <span class="math inline">\(n \to ∞\)</span>, <span class="math display">\[
-\PR(n^{-1}S_n \le x) =
-\begin{cases}
-  0 &amp; \hbox{if } x &lt; μ, \\
-  1 &amp; \hbox{if } x \ge μ.
-\end{cases}
-\]</span></p>
-<p>Let <span class="math inline">\(M_X\)</span> denote the MGF of <span class="math inline">\(X_n\)</span>. From <a href="#thm-sum-of-iid" class="quarto-xref">Theorem&nbsp;1</a>, we know that <span class="math display">\[
-M_{n^{-1} S_n}(s) = M_X(s/n)^n.
-\]</span></p>
-<p>From the Taylor series expansion of <span class="math inline">\(M_X(s)\)</span>, we know that <span class="math display">\[
-M_X(s/n) = 1 + μ s + o(s).
-\]</span> Therefore, <span class="math display">\[M_{n^{-1} S_n}(s) = \left(1 + \frac{μs}{n} + o\left(\frac{s}{n}\right) \right)^n \to \exp(μ s)
-\quad \text{as} \quad n \to ∞,
-\]</span> which is the MGF of a constant random variable.</p>
+<p>Define <span class="math inline">\(f(s) = \EXP[ (sX + Y)^2\)</span> for any <span class="math inline">\(s \in \reals\)</span>. Then, by linearity of expectation, we have <span class="math display">\[
+f(s) = \EXP[ (sX + Y)^2 ] = s^2 \EXP[X^2] + 2s \EXP[XY] + \EXP[Y^2].
+\]</span> We know that <span class="math inline">\(f(s) \ge 0\)</span>. Recall that a quadratic form <span class="math display">\[
+A s^2 + B s + C \ge 0
+\]</span> for all values of <span class="math inline">\(s\)</span> if and only it has repeated or complex roots. Thus, the determinant must be non-positive, that is <span class="math display">\[
+Δ = B^2 - 4AC \le 0.
+\]</span> The result follows by taking <span class="math inline">\(A = \EXP[X^2]\)</span>, <span class="math inline">\(B = 2 \EXP[XY]\)</span>, and <span class="math inline">\(C = \EXP[Y^2]\)</span>.</p>
 </div>
 </div>
 </div>
-<p>We will show later that convergence in distribution to a constant implies converge in probability. Therefore, the above implies the weak law of large numbers.</p>
-<p>The above result shows that when <span class="math inline">\(n\)</span> is large, the sum <span class="math inline">\(S_n\)</span> is approximately the same as <span class="math inline">\(n μ\)</span>. The answer to this is provided by the Central Limit Theorem, which asserts that when <span class="math inline">\(X_n\)</span> has finite variance <span class="math inline">\(σ\)</span>:</p>
-<ul>
-<li><span class="math inline">\(S_n - n μ\)</span> is about as big as <span class="math inline">\(\sqrt{n}\)</span>.</li>
-<li>Irrespective of the distribution of <span class="math inline">\(X_n\)</span>, <span class="math inline">\((S_n - n μ)/\sqrt{n}\)</span> converges in distribution to a normal distribution with variance <span class="math inline">\(σ\)</span>.</li>
-</ul>
-<p>We prove the result below.</p>
-<div id="thm-CLT" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3 (Central Limit Theorem)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be i.i.d. random variables with mean <span class="math inline">\(μ\)</span> and finite non-zero variance <span class="math inline">\(σ^2\)</span>. Then, their partial sums <span class="math inline">\(S_n = X_1 + \cdots + X_n\)</span> satisfy <span class="math display">\[
-\frac{S_n - n μ}{\sqrt{n}\, σ}
-\xrightarrow{D}
-{\cal N}(0,1).
+</section>
+<section id="jensens-inequality" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="jensens-inequality"><span class="header-section-number">3</span> Jensen’s inequality</h2>
+<p>If we take <span class="math inline">\(Y = 1\)</span> in Cauchy-Schwartz inequality, we get that <span class="math display">\[
+\EXP[X^2] \ge \EXP[X]^2.
+\]</span> This also follows from the fact that <span class="math inline">\(\VAR(X) \ge 0\)</span>. Jensen’s inequality may be thought as a generalization of this to convex functions.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Jensen’s inequality
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Suppose <span class="math inline">\(X\)</span> is a real-valued random variable. Then for any <strong>convex</strong> <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
+\EXP[ g(X) ] \ge g(\EXP[X]).
 \]</span></p>
+<p>Moreover, for any **concave* <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
+\EXP[ g(X) ] \le g(\EXP[X]).
+\]</span></p>
+</div>
+</div>
+<p>For example, since <span class="math inline">\(g(x) = 1/x\)</span> is convex, we have <span class="math display">\[
+\EXP\left[\frac 1x\right] \le \frac{1}{\EXP[X]}.
+\]</span> Moreover, since <span class="math inline">\(g(x) = \log(x)\)</span> is concave, we have <span class="math display">\[
+\EXP[ \log(X)] \le \log(\EXP[X]).
+\]</span></p>
+</section>
+<section id="markov-inequality" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="markov-inequality"><span class="header-section-number">4</span> Markov inequality</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Markov inequality
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For any non-negative random variable <span class="math inline">\(X\)</span> and a number <span class="math inline">\(a &gt; 0\)</span>, <span class="math display">\[
+\PR(X \ge a) \le \frac{\EXP[X]}{a}.
+\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Define <span class="math inline">\(Z = \IND\{X \ge a\} a\)</span>, which moves all the “mass” of <span class="math inline">\(X\)</span> to the left.</p>
+<!-- TODO: Add figure -->
+<p>Thus, <span class="math display">\[
+\EXP[X] \ge \EXP[Z] = a \PR(X \ge a).
+\]</span></p>
+</div>
+</div>
+</div>
+<div id="exm-Markov" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>The table below compares the actual tail probability with the bound obtained from Markov inequality.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(a\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\PR(X \ge a)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\EXP[X]/a\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.5/0.2 = 2.5\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.5/0.5 = 1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.5/0.8 = .625\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;2</a> shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality of <span class="math inline">\(a \ge μ\)</span>.</p>
+<section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">4.1</span> Union bound as a special case of Markov inequality</h3>
+<p>Note that it is possible to derive the union bound as a corrollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
+X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
+1, &amp; ω \in A_i \\
+0, &amp; ω \not\in A_i
+\end{cases}.
+\]</span> Let <span class="math display">\[ X = X_1 + \dots + X_n. \]</span> <span class="math inline">\(X_i\)</span> takes the value <span class="math inline">\(1\)</span> when event <span class="math inline">\(A_i\)</span> occurs. Therefore, the event <span class="math inline">\(\bigcup_{i=1}^n A_i\)</span> is equal to the event <span class="math inline">\(X \ge 1\)</span>, i.e., <span class="math display">\[
+\PR\left(\bigcup_{i=1}^n A_i \right)
+= \PR(X \ge 1).
+\]</span> Now, by Markov inequality, we have <span class="math display">\[
+\PR(X \ge 1) \le \EXP[X] = \PR(A_1) + \cdots + \PR(A_n).
+\]</span> The union bound follows by combining the above equations.</p>
+</section>
+</section>
+<section id="chebyshev-inequality" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="chebyshev-inequality"><span class="header-section-number">5</span> Chebyshev inequality</h2>
+<!-- TODO: AN Lec 15 -->
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chebyshev inequality
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable with mean <span class="math inline">\(μ\)</span>. Then for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
+\PR( \ABS{X - μ} \ge a) \le \frac{ \VAR(X) }{a^2}.
+\]</span></p>
+<p>An alternative form of is as follows. Let <span class="math inline">\(a = k σ\)</span>. Then, <span class="math display">\[
+\PR(\ABS{X - μ} \ge k σ) \le \frac{1}{k^2}.
+\]</span></p>
+</div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
@@ -659,29 +510,94 @@ Proof
 </div>
 <div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>The proof idea is similar to that of <a href="#thm-LLLN" class="quarto-xref">Theorem&nbsp;2</a>. Consider the “normalized” sequence of random variables <span class="math inline">\(Y_n = (X_n - μ)/σ\)</span>, which have mean zero and unit variance. Let <span class="math inline">\(M_Y\)</span> denote their MGF. Then, the Taylor series expansion of <span class="math inline">\(M_Y\)</span> gives <span class="math display">\[ M_Y(s) = 1 + \frac{1}{2} s^2 + o(s^2). \]</span> Moreover, observe that <span class="math display">\[
-Z_n \coloneqq \frac{S_n - n μ }{\sqrt{n}\, σ}
-= \frac{1}{\sqrt{n}} \sum_{i=1}^n Y_i.
-\]</span> Therefore, by <a href="#thm-sum-of-iid" class="quarto-xref">Theorem&nbsp;1</a>, we have <span class="math display">\[
-M_{Z_n}(s) = M_Y(s/\sqrt{n})^n
-= \left(1 + \frac {s^2}{2n} + o\left( \frac {s^2}{n} \right) \right)^n
-\to \exp(-\tfrac 12 s^2),
-\]</span> which is the MGF of <span class="math inline">\({\cal N}(0,1)\)</span>.</p>
+<p>Observe that <span class="math display">\[\begin{align*}
+\PR( \ABS{X - μ} \ge a) &amp;= \PR((X - μ)^2 \ge a^2)
+\\
+&amp;\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
+\end{align*}\]</span> where <span class="math inline">\((a)\)</span> follows from MArkov inequality.</p>
 </div>
 </div>
 </div>
-<p>The central limit theorem is one of the cornerstones of probability theory. The earliest statement of the result goes back to de Moivre (1773), but there was little follow up on that until Laplace <em>Théorie analytique des probabilités</em>, (1812). The term “central limit theorem” is due to Poyla (1920) who called is such because the limit theorem plays a “central role in probability theory”.</p>
+<p>In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.</p>
+<div id="exm-Binomail-comparison" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Recall that <span class="math inline">\(\EXP[X] = np\)</span> and <span class="math inline">\(\VAR(X) = n p(1-p)\)</span>. Therefore, from Markov inequality we have <span class="math display">\[
+\PR(X \ge nq) \le \frac{np}{nq} = \frac{p}{q}.
+\]</span> Therefore, Markov inequality does not suggest any form of concentration with <span class="math inline">\(n\)</span>.</p>
+<p>We now consider Chebyshev inequality. To do so, we first massage the expression a bit <span class="math display">\[\begin{align*}
+\PR(X \ge nq) &amp;= \PR( X - np \ge n(q-p) ) \\
+&amp;\le \PR( \ABS{X - np} \ge n(q-p) )
+\le \frac{np(1-p)}{n^2(q-p)^2} = \frac{1}{n} \cdot \frac{p(1-p)}{(q-p)^2}
+\end{align*}\]</span> which shows that <span class="math inline">\(\PR(X \ge nq)\)</span> gets smaller as <span class="math inline">\(n\)</span> increases.</p>
+</div>
+</div>
+</div>
+<p>We can use Chebyshev inequality to prove the <strong>weak law of large numbers</strong>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Weak law of large numbers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(X_1, X_2, \dots\)</span> be i.i.d. random variables with <span class="math inline">\(\EXP[X_n] = μ\)</span> and <span class="math inline">\(\VAR(X_n) = σ^2\)</span>. Let <span class="math display">\[
+\bar X_n = \frac 1n \sum_{i=1}^n X_i
+\]</span> be the sample mean. Then, <span class="math display">\[\PR(\ABS{X_n - μ} &gt; ε) \le \frac{σ^2}{n ε^2}. \]</span></p>
+<p>Therefore, <span class="math inline">\(X_n \xrightarrow{p} μ\)</span> (which reads as <span class="math inline">\(X_n\)</span> converges in probability to <span class="math inline">\(μ\)</span>; we will study convergence in probability in next lecture).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Observe that <span class="math display">\[\begin{align*}
+\EXP[\bar X_n] &amp;= \frac{1}{n} \sum_{i=1}^n \EXP[X_i] = μ \\
+\VAR(\bar X_n) &amp;= \frac{1}{n^2} \sum_{i=1}^n \VAR(X_i) = \frac{σ^2}{n}.
+\end{align*}\]</span></p>
+<p>Then, by Chebyshev inequality, we have <span class="math display">\[
+\PR(\ABS{X_n - μ} &gt; ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
+\]</span></p>
+</div>
+</div>
+</div>
+<p>If we do not know <span class="math inline">\(\VAR(X)\)</span>, we can still use Chebyshev inequality with an upper bound on <span class="math inline">\(\VAR(X)\)</span>. For example, if <span class="math inline">\(X \in [a,b]\)</span>, then we can show that <span class="math display">\[
+\VAR(X) \le \frac{(b-a)^2}{4}.
+\]</span> So, for any random variable <span class="math inline">\(X \in [a,b]\)</span>, we have that <span class="math display">\[
+\PR(\ABS{X - μ} &gt; ε) \le \frac{(b-a)^2}{4 ε^2}.
+\]</span></p>
 </section>
+<section id="chernoff-bound" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="chernoff-bound"><span class="header-section-number">6</span> Chernoff bound</h2>
 </section>
-<section id="moment-generating-function-of-random-vectors" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="moment-generating-function-of-random-vectors"><span class="header-section-number">3</span> Moment generating function of random vectors</h2>
-<p>For random vectors, <span class="math inline">\(X \in \reals^n\)</span>, the MGF is a function <span class="math inline">\(M_X \colon \mathbb{C}^n \to \mathbb{C}\)</span> and for any <span class="math inline">\(s \in \mathbb{C}^n\)</span> is given by</p>
-<p><span class="math display">\[M_X(s) = \EXP[e^{ \langle s, X \rangle }]. \]</span></p>
-<p><strong>TODO</strong>: Multivariate Gaussian. Relationship with correlation and covariance.</p>
+<section id="azuma-hoeffding-inequality" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="azuma-hoeffding-inequality"><span class="header-section-number">7</span> Azuma-Hoeffding inequality</h2>
 
 
 </section>
-
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1253,5 +1169,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/moment-generating-functions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
