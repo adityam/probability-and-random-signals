@@ -379,8 +379,8 @@ The central limit theorem is one of the cornerstones of probability theory. The 
 
 ## Moment generating function of random vectors
 
-TODO: 
+For random vectors, $X \in \reals^n$, the MGF is a function $M_X \colon \mathbb{C}^n \to \mathbb{C}$ and for any $s \in \mathbb{C}^n$ is given by
 
 $$M_X(s) = \EXP[e^{ \langle s, X \rangle }]. $$
 
-Multivariate Gaussian. Relationship with correlation and covariance. 
+**TODO**: Multivariate Gaussian. Relationship with correlation and covariance. 
