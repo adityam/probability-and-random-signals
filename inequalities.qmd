@@ -1,0 +1,266 @@
+---
+title: Probability inequalities
+---
+
+## Union Bound
+
+:::{.callout-tip}
+### Union bound
+
+Let $A_1, \dots, A_n$ be a collection of events. Then,
+$$
+\PR\biggl( \bigcup_{i=1}^n A_i \biggr) 
+\le 
+\sum_{i=1}^n \PR(A_n).
+$$
+
+:::
+
+We already proved this when talking about [probability spaces](probability-spaces.qmd#lem-probability-properties).
+
+:::{#exm-union-bound}
+Let $X_1, \dots, X_n$ be i.i.d. random variables with CDF $F_X(x)$. Find an upper bound on the CDF of
+$$
+Z_n = \min(X_1, \dots, X_n).
+$$
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+We know that
+$$Z_n = \min(X_1, \dots, X_n) \le z$$
+if and only if
+$$ X_i \le Z \quad \forall i \in \{1, \dots, n\}.$$
+Therefore,
+$$\PR(Z_n \le z) = \PR\biggl( \bigcup_{i=1}^n \{X_i \le z \} \biggr)
+\le \sum_{i=1}^n \PR(X_i \le z) = n F_X(z).
+$$
+:::
+
+## Cauchy-Schwartz inequality
+
+This is a generalization of [:Cauchy-Schwartz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality) on inner products to random variables. 
+
+:::{.callout-tip}
+### Cauchy-Schwartz inequality
+
+Let $X$ and $Y$ be real-valued random variables. Then,
+$$
+\EXP[XY]^2 \le \EXP[X^2] \EXP[Y^2].
+$$
+or equivalently,
+$$
+\COV(X,Y)^2 \le \VAR(X) \VAR(Y).
+$$
+:::
+
+:::{.callout-note collapse="false"}
+### Proof
+
+Define $f(s) = \EXP[ (sX + Y)^2$ for any $s \in \reals$. Then, by linearity of expectation, we have
+$$
+f(s) = \EXP[ (sX + Y)^2 ] = s^2 \EXP[X^2] + 2s \EXP[XY] + \EXP[Y^2].
+$$
+We know that $f(s) \ge 0$. Recall that a quadratic form 
+$$
+A s^2 + B s + C \ge 0
+$$ 
+for all values of $s$ if and only it has repeated or complex roots. Thus, the determinant must be non-positive, that is
+$$
+Δ = B^2 - 4AC \le 0.
+$$
+The result follows by taking $A = \EXP[X^2]$, $B = 2 \EXP[XY]$, and $C = \EXP[Y^2]$. 
+:::
+
+## Jensen's inequality
+
+If we take $Y = 1$ in Cauchy-Schwartz inequality, we get that 
+$$
+\EXP[X^2] \ge \EXP[X]^2.
+$$
+This also follows from the fact that $\VAR(X) \ge 0$. Jensen's inequality may be thought as a generalization of this to convex functions.
+
+:::{.callout-tip}
+### Jensen's inequality
+
+Suppose $X$ is a real-valued random variable. Then for any **convex** $g \colon \reals \to \reals$, we have
+$$
+\EXP[ g(X) ] \ge g(\EXP[X]).
+$$
+
+Moreover, for any **concave* $g \colon \reals \to \reals$, we have
+$$
+\EXP[ g(X) ] \le g(\EXP[X]).
+$$
+:::
+
+For example, since $g(x) = 1/x$ is convex, we have
+$$
+\EXP\left[\frac 1x\right] \le \frac{1}{\EXP[X]}.
+$$
+Moreover, since $g(x) = \log(x)$ is concave, we have
+$$
+\EXP[ \log(X)] \le \log(\EXP[X]).
+$$
+
+
+## Markov inequality
+
+:::{.callout-tip}
+### Markov inequality
+
+For any non-negative random variable $X$ and a number $a > 0$, 
+$$
+\PR(X \ge a) \le \frac{\EXP[X]}{a}.
+$$
+:::
+
+:::{.callout-note collapse="false"}
+#### Proof
+
+Define $Z = \IND\{X \ge a\} a$, which moves all the "mass" of $X$ to the left.
+
+<!-- TODO: Add figure --> 
+
+Thus,
+$$
+\EXP[X] \ge \EXP[Z] = a \PR(X \ge a).
+$$
+:::
+
+:::{#exm-Markov}
+Suppose $X \sim \text{Unif}(0,1)$. Verify Markov inequality for $\PR(X \ge 0.2)$, $\PR(X \ge 0.5)$, and $\PR(X \ge 0.8)$. 
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+The table below compares the actual tail probability with the bound obtained from Markov inequality. 
+
+| $a$ | $\PR(X \ge a)$ | $\EXP[X]/a$ | 
+|:---:|:--------------:|:-----------:|
+| $0.2$ | $0.8$  | $0.5/0.2 = 2.5$ |
+| $0.5$ | $0.5$  | $0.5/0.5 = 1$ |
+| $0.8$ | $0.2$  | $0.5/0.8 = .625$ |
+
+:::
+
+@exm-Markov shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for $a < μ$. Thus, it only makes sense to apply the Markov inequality of $a \ge μ$.  
+
+### Union bound as a special case of Markov inequality
+
+Note that it is possible to derive the union bound as a corrollary of Markov inequality. Given events $A_1, \dots, A_n$, define the random variables $X_1, \dots, X_n$ as 
+$$
+X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
+1, & ω \in A_i \\
+0, & ω \not\in A_i
+\end{cases}.
+$$
+Let 
+$$ X = X_1 + \dots + X_n. $$
+$X_i$ takes the value $1$ when event $A_i$ occurs. Therefore, the event $\bigcup_{i=1}^n A_i$ is equal to the event $X \ge 1$, i.e., 
+$$
+\PR\left(\bigcup_{i=1}^n A_i \right) 
+= \PR(X \ge 1).
+$$
+Now, by Markov inequality, we have
+$$
+\PR(X \ge 1) \le \EXP[X] = \PR(A_1) + \cdots + \PR(A_n).
+$$
+The union bound follows by combining the above equations. 
+
+## Chebyshev inequality
+<!-- TODO: AN Lec 15 -->
+
+:::{.callout-tip}
+### Chebyshev inequality
+
+Let $X$ be a real-valued random variable with mean $μ$. Then for any $a > 0$, we have
+$$
+\PR( \ABS{X - μ} \ge a) \le \frac{ \VAR(X) }{a^2}.
+$$
+
+An alternative form of is as follows. Let $a = k σ$. Then,
+$$
+\PR(\ABS{X - μ} \ge k σ) \le \frac{1}{k^2}.
+$$
+:::
+
+:::{.callout-note collapse="false"}
+### Proof
+
+Observe that
+\begin{align*}
+\PR( \ABS{X - μ} \ge a) &= \PR((X - μ)^2 \ge a^2) 
+\\
+&\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
+\end{align*}
+where $(a)$ follows from MArkov inequality. 
+:::
+
+In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.
+
+:::{#exm-Binomail-comparison}
+  Let $X \sim \text{Bin}(n,p)$ and consider any $q \in (p,1)$. Use both Markov and Chebyshev inequalities to bound $\PR(X \ge nq)$. 
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+Recall that $\EXP[X] = np$ and $\VAR(X) = n p(1-p)$. Therefore, from Markov inequality we have
+$$
+\PR(X \ge nq) \le \frac{np}{nq} = \frac{p}{q}.
+$$
+Therefore, Markov inequality does not suggest any form of concentration with $n$. 
+
+We now consider Chebyshev inequality. To do so, we first massage the expression a bit
+\begin{align*}
+\PR(X \ge nq) &= \PR( X - np \ge n(q-p) ) \\
+&\le \PR( \ABS{X - np} \ge n(q-p) )
+\le \frac{np(1-p)}{n^2(q-p)^2} = \frac{1}{n} \cdot \frac{p(1-p)}{(q-p)^2}
+\end{align*}
+which shows that $\PR(X \ge nq)$ gets smaller as $n$ increases.
+:::
+
+We can use Chebyshev inequality to prove the **weak law of large numbers**.
+
+:::{.callout-tip}
+### Weak law of large numbers
+
+Let $X_1, X_2, \dots$ be i.i.d. random variables with $\EXP[X_n] = μ$ and $\VAR(X_n) = σ^2$. Let
+$$
+\bar X_n = \frac 1n \sum_{i=1}^n X_i
+$$
+be the sample mean. Then,
+$$\PR(\ABS{X_n - μ} > ε) \le \frac{σ^2}{n ε^2}. $$
+
+Therefore, $X_n \xrightarrow{p} μ$ (which reads as $X_n$ converges in probability to $μ$; we will study convergence in probability in next lecture).
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+Observe that
+\begin{align*}
+\EXP[\bar X_n] &= \frac{1}{n} \sum_{i=1}^n \EXP[X_i] = μ \\
+\VAR(\bar X_n) &= \frac{1}{n^2} \sum_{i=1}^n \VAR(X_i) = \frac{σ^2}{n}.
+\end{align*}
+
+Then, by Chebyshev inequality, we have
+$$
+\PR(\ABS{X_n - μ} > ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
+$$
+:::
+
+If we do not know $\VAR(X)$, we can still use Chebyshev inequality with an upper bound on $\VAR(X)$. For example, if $X \in [a,b]$, then we can show that
+$$
+\VAR(X) \le \frac{(b-a)^2}{4}.
+$$
+So, for any random variable $X \in [a,b]$, we have that
+$$
+\PR(\ABS{X - μ} > ε) \le \frac{(b-a)^2}{4 ε^2}.
+$$
+
+## Chernoff bound
+
+## Azuma-Hoeffding inequality
