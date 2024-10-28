@@ -220,7 +220,7 @@ $$
 One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sum of i.i.d.\ random variables. 
 
 :::{.callout-tip}
-### Convergence in distribution
+### Convergence in distribution {#conv-distribution}
 
 A sequence of random variables $\{X_n\}_{n \ge 1}$ is said to **converge in distribution** to a random variable $X$ (denoted by $X_n \xrightarrow{D} X$) if
 $$
@@ -228,6 +228,33 @@ $$
 $$
 for all $x$ where $F_X$ is continuous. 
 :::
+
+:::{#exm-convergence-1}
+Consider a sequence $\{X_n\}_{n \ge 1}$ of random variables where $X_n \sim \mathcal{N}(0,1/n)$. Show that $X_n \xrightarrow{D} 0$.
+:::
+
+:::{.callout-note collapse="true"}
+### Solution
+
+Let $F$ denote the CDF of the constant random variable $X=0$, i.e.,
+$$
+F(x) = \begin{cases}
+0, & x < 0 \\
+1, & x \ge 0 
+\end{cases}
+$$
+
+Let $Z$ denote the standard Gaussian random variable. Then
+$$
+F_{X_n}(x) = \PR(X_n \le x) = \PR(Z \le \sqrt{n} x)
+\to \begin{cases}
+1, & x > 0 \\
+0, & x < 0 
+\end{cases}
+$$
+Thus, $F_{X_n}(x)$ converges to $F(x)$ for all $x \neq 0$. Recall that the definition of convergence in distribution, does not require convergence of $F_{X_n}(x)$ at points of discontinuity of $F$. So, $X_n \xrightarrow{D} 0$.
+:::
+
 
 An important implication of convergence in distribution is that for any continuous bounded function $g$
 $$

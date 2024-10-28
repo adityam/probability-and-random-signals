@@ -227,7 +227,7 @@ We can use Chebyshev inequality to prove the **weak law of large numbers**.
 :::{.callout-tip}
 ### Weak law of large numbers
 
-Let $X_1, X_2, \dots$ be i.i.d. random variables with $\EXP[X_n] = μ$ and $\VAR(X_n) = σ^2$. Let
+Let $X_1, X_2, \dots$ be independent random variables with $\EXP[X_n] = μ$ and $\VAR(X_n) = σ^2$. Let
 $$
 \bar X_n = \frac 1n \sum_{i=1}^n X_i
 $$

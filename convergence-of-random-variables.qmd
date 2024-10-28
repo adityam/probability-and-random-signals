@@ -1,0 +1,377 @@
+---
+title: Convergence of random variables
+---
+
+Suppose we have an infinite **sequence of random variables** $\{X_n\}_{n \ge 1}$ defined on a common probability space $(Ω, \ALPHABET F, \PR)$. A sequence of random variables, also called a **stochastic process**, can be thought of a generalization of random vectors. When does this sequence converge?
+
+## Different notions of convergence
+
+Recall that a sequence $\{x_n\}_{n \ge 1}$ of real numbers converges to a limit $x^*$ if for every $ε > 0$, there exists a $N$ such that for all $n \ge N$, we have that
+$$ \ABS{ x_n - x^* } < ε. $$
+
+Convergence of a sequence of random variables is much different. We have already seen one form of convergence: [convergence in distribution](moment-generating-functions.qmd#conv-distribution)
+
+
+There are two ways in which this notion can be extended to sequence of random variables:
+
+- **Convergence in probability.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variale $X^*$ **in probability** if
+  $$
+    \lim_{n \to ∞} \PR( \ABS{ X_n - X^* } > ε ) = 0.
+  $$
+  Or, equivalently, for any $ε > 0$ and $δ > 0$, there exists a $N$ such that for all $n \ge N$, we have
+  $$ 
+    \PR( \ABS{ X_n - X^*} > ε ) \le δ.
+  $$
+  We denote such convergence as $X_n \xrightarrow{p} X^*$.
+
+- **Almost sure convergence.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X^*$ **almost surely** if 
+  $$
+    \PR\left( \left\{ ω : \lim_{n \to ∞} 
+     X_n(ω) = X^*(ω) \right\} \right) = 1
+  $$
+  Or, equivalently, for any $ε > 0$, 
+  $$
+    \PR\left( \limsup_{n \to ∞} \{ ω : | X_n(ω) - X^*(ω) | > ε \}  \right) = 0 
+  $$
+  We denote such convergence as $X_n \xrightarrow{a.s.} X^*$.
+
+
+:::{.callout-warning collapse="true"}
+### Lim inf and lim sup of sets
+
+Explanation adapted from math.stackexchange
+[[1](https://math.stackexchange.com/a/1912079/763)]
+and [[2](https://math.stackexchange.com/a/4080796/763)]
+
+Limits of sets is easy to describe when we have weakly increasing or weakly decreasing sequence of sets. In particular, if $\{I_n\}_{n \ge 1}$ is a **weakly increasing** sequence of sets, then 
+$$
+\lim_{n \to ∞} C_n = \bigcup_{n=1}^{∞} C_n.
+$$
+Thus, the limit is the union of all sets.
+Moreover, if $\{D_n\}_{n \ge 1}$ is **weakly decreasing** sequence of sets, then 
+$$
+\lim_{n \to ∞} D_n = \bigcap_{n=1}^{∞} D_n.
+$$
+Thus, the limit is the **intersection** of all sets.
+
+**What happens when a sequence $\{A_n\}_{n \ge 1}$ is neither increasing nor decreasing?** We can sandwitch it between an increasing sequence $\{C_n\}_{n \ge 1}$ and a decreasing sequence $\{D_n\}$ as follows:
+
+$$
+\begin{array}{lcl}
+C_1 = A_1 \cap A_2 \cap A_3 \cap \dotsb
+&\quad\subseteq\qquad
+A_1
+\qquad
+&\subseteq \qquad
+D_1 = A_1 \cup A_2 \cup A_3 \cup \dotsb
+\\
+C_2 = \phantom{A_1 \cap{}} A_2 \cap A_3 \cap \dotsb
+&\quad\subseteq\qquad
+A_2
+\qquad
+&\subseteq \qquad
+D_2 = \phantom{A_1 \cup{}} A_2 \cup A_3 \cup \dotsb
+\\
+C_3 = \phantom{A_1 \cap A_2 \cap{}} A_3 \cap \dotsb
+&\quad\subseteq\qquad
+A_3
+\qquad
+&\subseteq \qquad
+D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
+\\
+& \qquad\vdots &
+\end{array}
+$$
+
+The limit of $\{C_n\}_{n \ge 1}$ is called the **lim inf** of $\{A_n\}_{n \ge 1}$, i.e.,
+$$
+  \liminf_{n \to ∞} A_n = \lim_{n \to ∞} C_n = \bigcup_{n=1}^∞ C_n
+  = \bigcup_{n=1}^{∞} \bigcap_{i=n}^{∞} A_i.
+$$
+Similarly, the limit of $\{D_n\}_{n \ge 1}$ is call the **lim sup** of $\{A_n\}_{n \ge 1}$, i.e.,
+$$
+  \limsup_{n \to ∞} A_n = \lim_{n \to ∞} D_n = \bigcap_{n=1}^∞ D_n
+  = \bigcap_{n=1}^{∞} \bigcup_{i=n}^{∞} A_i.
+$$
+When the two limits are equal, we say that the sequence $\{A_n\}_{n \ge 1}$ has a limit.
+
+---
+
+Another way to think about these definitions is as follows. 
+$$
+  ω \in \limsup_{n \to ∞} A_n \iff 
+  \limsup_{n \to ∞} \IND_{A_n}(ω) = 1
+$$
+which holds if and only if the binary sequence $\{\IND_{A_n}(ω)\}$ has infinitely many ones, i.e., $ω$ is a member of infinitely many $A_n$.
+
+Similarly,
+$$
+  ω \in \liminf_{n \to ∞} A_n \iff 
+  \liminf_{n \to ∞} \IND_{A_n}(ω) = 1
+$$
+which holds if and only if the binary sequence $\{\IND_{A_n}(ω)\}$ eventually becomes $1$ forever, i.e., $ω$ is eventually a member of $A_n$ forever.
+:::
+
+## Examples of convergence in probability
+
+:::{#exm-convergence-1}
+Consider a probability space $(Ω, \ALPHABET F, \PR)$ where $Ω = [0,1]$, $\ALPHABET F = \mathscr{B}(0,1)$, and $\PR$ is the uniform distribution on $Ω$. Define
+$$
+X_n(ω) = \begin{cases}
+  1, & ω \in [0, \frac{1}{n^2}) \\
+  0, & ω \in [\frac{1}{n^2}, 1]
+\end{cases}
+$$
+Show that $X_n \xrightarrow{p} 0$. 
+
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+Note that
+   $$
+      X_n = \begin{cases}
+        1 & \text{with probability } \frac 1{n^2} \\
+        0 & \text{with probability } 1 - \frac 1{n^2} 
+      \end{cases}
+   $$
+Pick any $ε > 0$. If $ε > 1$, then $\PR(X_n > ε) = 0$. So, we assume that $ε \in (0,1)$. Then,
+$$
+  \PR(X_n > ε) = \PR(X_n = 1) = \frac 1{n^2}
+$$
+which converges to $0$ as $n \to ∞$. Therefore, $X_n \xrightarrow{p} 0$.
+:::
+
+
+:::{#exm-convergence-2}
+Consider the same setup as @exm-convergence-1, but the random variable $X_n$ defined as
+$$
+X_n(ω) = \begin{cases}
+  1, & ω \in [0, \frac{1}{n}) \\
+  0, & ω \in [\frac{1}{n}, 1]
+\end{cases}
+$$
+Show that $X_n \xrightarrow{p} 0$. 
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+This can be solved in exactly the same manner as @exm-convergence-1.
+:::
+
+:::{#exm-convergence-3}
+Consider the same setup as @exm-convergence-1, but the random variable $X_n$ defined as
+$$
+X_n(ω) = \begin{cases}
+  n, & ω \in [0, \frac{1}{n}) \\
+  0, & ω \in [\frac{1}{n}, 1]
+\end{cases}
+$$
+Show that $X_n \xrightarrow{p} 0$.
+:::
+
+:::{#exm-convergence-4}
+Consider an i.i.d. sequence $\{X_n\}_{n \ge 1}$, where $X_n \sim \text{Uniform}(0,1)$. Define
+$$
+  Y_n = \min\{X_1, \dots, X_n\}.
+$$
+Show that $Y_n \xrightarrow{p} 0$.
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+Pick any $ε > 0$. As in @exm-convergence-1, if $ε > 1$, then $\PR(Y_n > ε) = 0$. So, we assume that $ε \in (0,1)$. Then,
+\begin{align*}
+\PR(Y_n > ε) &= \PR\bigl( \min\{ X_1, \dots, X_n \} \ge ε ) \\
+&= \PR( X_1 \ge ε, X_2 \ge ε, \dots, X_n \ge ε ) \\
+&= (1-ε)^n
+\end{align*}
+which goes to zero as $n \to ∞$. Thus, $Y_n \xrightarrow{p} 0$. 
+:::
+
+
+## Examples of almost sure convergence
+
+We revisit the examples of previous section. 
+
+- In @exm-convergence-1, for any $ω \neq 0$, the sequence $\{X_n(ω)\}_{n \ge 1}$ is a finite sequence of $1$'s followed by infinite sequence of $0$'s. Thus, $\lim_{n\to ∞} X_n(ω) = 0$. Thus,
+  $$
+    \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞} X_n(ω) = 0 \Bigr\} \Bigr) 
+    = \PR( ω \in (0,1]) = 1.
+  $$
+  Hence, $X_n \xrightarrow{a.s} 0$.
+
+- In @exm-convergence-2, the same argument as above works.
+
+- In @exm-convergence-3, a slight variation of the above argument works.
+
+- In @exm-convergence-4, we proceed as follows. Fix $ω$ and consider the sequence $\{Y_n(ω)\}_{n \ge 1}$. Since this is a decreasing sequence, it must have a limit. Denote that limit by $Y(ω)$, i.e.,
+  $$
+    Y(ω) = \lim_{n \to ∞} Y_n(ω).
+   $$
+
+     Since $\{Y_n\}_{n \ge 1}$ is a decreasing sequence, we have that
+     $Y(ω) \le Y_n(ω)$. Hence, for any $ε > 0$,
+     $$
+        \PR(Y > ε) \le \PR(Y_n > ε) = (1 - ε)^n
+     $$
+     (where the last inequality follows from the calculation in the solution of @exm-convergence-4). 
+
+     The above inequality holds for every $n$, so we have 
+     $$
+        \PR(Y > ε) \le \lim_{n \to ∞} (1-ε)^n = 0.
+     $$
+     Recall that $ε > 0$ was arbitrary. Therefore, we have shown that
+     $$
+        \PR\Bigl( \lim_{n\to ∞} Y_n > ε \Bigr) = 0.
+     $$
+     Thus, the only possibility is that
+     $$
+        \PR\Bigl( \lim_{n\to ∞} Y_n = 0 \Bigr) = 1.
+     $$
+     Hence $Y_n \xrightarrow{a.s.} 0$. 
+      
+
+## Almost sure convergence from convergence in probability.
+
+It is possible to infer almost sure convergence from convergence in probability. For that we need to state a result. The proof is not difficult, but is omitted due to time.
+
+:::{#lem-Borel-Cantelli}
+### Borel Cantelli Lemma
+
+Let $\{A_n\}_{n \ge 1}$ be a sequence of events defined on a common probability space $(Ω, \ALPHABET F, \PR)$. If the sum of the probability of the events is finite, i.e.,
+$$
+\sum_{n=1}^∞ \PR(A_n) < ∞,
+$$
+then the probability that infinitely many of them occur is zero, i.e.,
+$$
+  \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 0.
+$$
+:::
+
+There is a partial converse of Borel-Cantelli lemma.
+
+:::{#lem-Borel-Cantelli-2}
+### Second Borel Cantelli Lemma
+
+Let $\{A_n\}_{n \ge 1}$ be a sequence of **independent** events defined on a common probability space $(Ω, \ALPHABET F, \PR)$. If the sum of the probability of the events is infinite, i.e.,
+$$
+\sum_{n=1}^∞ \PR(A_n) = ∞,
+$$
+then the probability that infinitely many of them occur is one, i.e.,
+$$
+  \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 1.
+$$
+:::
+
+An immediate implication of Borel-Cantelli lemma is the following:
+
+:::{#lem-as}
+Suppose  $X_n \xrightarrow{p} X$ and for any $ε > 0$, we have
+$$
+\sum_{n=1}^{∞} \PR(\ABS{X_n - X} > ε) < ∞ 
+$$
+then $X_n \xrightarrow{a.s.} X^*$.
+:::
+
+In light of the above result, we revisit some variations of the examples of the previous section. 
+
+- Consider a variation  @exm-convergence-1 where we no longer specify $X_n$ as a function of $ω$ but simply assume that
+  $$
+     X_n = \begin{cases}
+       1 & \text{with probability } \frac 1{n^2} \\
+       0 & \text{with probability } 1 - \frac 1{n^2} 
+     \end{cases}
+  $$
+  Then for any $ε > 0$, $\PR(\ABS{X_n} > ε) = \PR(X_n > ε) = 1/n^2$. Therefore, $\sum_{n \ge 1} \PR(\ABS{X_n} > ε) < ∞$; hence by @lem-as, $X_n \xrightarrow{a.s.} 0$.
+
+- Consider a variation  @exm-convergence-2 where we no longer specify $X_n$ as a function of $ω$ but simply assume that
+  $$
+     X_n = \begin{cases}
+       1 & \text{with probability } \frac 1{n} \\
+       0 & \text{with probability } 1 - \frac 1{n} 
+     \end{cases}
+  $$
+  **and $\{X_n\}_{n \ge 1}$ are independent.**
+
+  Then for any $ε > 0$, $\PR(\ABS{X_n} > ε) = \PR(X_n > ε) = 1/n$. Therefore, $\sum_{n \ge 1} \PR(\ABS{X_n} > ε) = ∞$; hence by the Second Borel-Cantelli lemma, 
+  $$ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} > ε \}) = 1. $$
+  So, $X_n$ does not converge almost surely!
+
+- In @exm-converge-4, we can directly apply @lem-as to argue that $Y_n \xrightarrow{a.s.} 0$.
+
+A variation of @lem-as-exp is the following:
+
+:::{#lem-as-exp}
+Let $\{X_n\}_{n \ge 1}$ be a sequence of random variables with finite expectations and let $X^*$ be another random variable. If
+$$
+\sum_{n=1}^{∞} \EXP[ \ABS{X_n - X^*} ]  < ∞ 
+$$
+then
+$$
+X_n \xrightarrow{a.s.} X^*.
+$$
+:::
+
+:::{.callout-note collapse="false"}
+### Proof
+
+To simplify the notation, we assume that $X^* = 0$. 
+
+Pick any $ε > 0$ and define the sequence of events 
+$$
+A_n = \bigl\{ ω : \ABS{X_i} > ε \bigr\}, 
+\quad n \in \naturalnumbers.
+$$
+
+From Markov inequality, we have
+$$\PR(A_n) = \PR\bigl( \ABS{X_i} > ε \bigr)
+\le \dfrac{\EXP[\ABS{X_i}]}{ε}. $$
+Therefore,
+$$ \sum_{n=1}^{∞} \PR(A_n) 
+\le \frac{1}{ε} \sum_{n=1}^{∞} \EXP[\ABS{X_i}]
+< ∞
+$$
+by the hypothesis of the result. Therefore, by Borel-Cantelli lemma, we have 
+$$
+\PR\Bigl( \limsup_{n \to ∞} A_n \Bigr) = 0.
+$$
+:::
+
+
+## Some properties of convergence of sequence of random variables
+
+We now state some properties without proof.
+
+1. The three notions of convergence that we have defined are related as follows:
+   $$
+     [X_n \xrightarrow{a.s.} X^*] 
+     \implies
+     [X_n \xrightarrow{p} X^*] 
+     \implies
+     [X_n \xrightarrow{D} X^*] 
+   $$
+
+2. There is a partial converse. For any constant $c$
+   $$
+     [X_n \xrightarrow{D} c] 
+     \implies
+     [X_n \xrightarrow{p} c].
+   $$
+
+3. If $X_n \xrightarrow{p} X$, then there exists a subsequence $\{n_k : k \in \naturalnumbers \}$ such that $\{X_{n_k}\}_{k \ge 1}$ converges almost surely to $X$.
+  
+4. Let $f \colon \reals \to \reals$ be a continuous function. Then,
+   
+    - $X_n \xrightarrow{a.s.} X^*$ implies $f(X_n) \xrightarrow{a.s.} f(X^*)$.
+    - $X_n \xrightarrow{p} X^*$ implies $f(X_n) \xrightarrow{p} f(X^*)$.
+    - $X_n \xrightarrow{D} X^*$ implies $f(X_n) \xrightarrow{D} f(X^*)$.
+
+5. If $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$, then $X_n + Y_n \to X + Y$ and  $X_n Y_n \xrightarrow X Y$.
+
+
+## There's more
+
+There's another type of convergence commonly used in engineering: convergence in mean-squared sense. In the interest of time, we will not study this notion in class. 
