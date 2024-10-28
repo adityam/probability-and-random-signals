@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-10-27">
+<meta name="dcterms.date" content="2024-10-28">
 
 <title>Moment Generating Functions – Probability and Random Signals II</title>
 <style>
@@ -251,7 +251,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 27, 2024</p>
+      <p class="date">October 28, 2024</p>
     </div>
   </div>
   
@@ -545,6 +545,37 @@ Convergence in distribution
 \]</span> for all <span class="math inline">\(x\)</span> where <span class="math inline">\(F_X\)</span> is continuous.</p>
 </div>
 </div>
+<div id="exm-convergence-1" class="theorem example">
+<p><span class="theorem-title"><strong>Example 5</strong></span> Consider a sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables where <span class="math inline">\(X_n \sim \mathcal{N}(0,1/n)\)</span>. Show that <span class="math inline">\(X_n \xrightarrow{D} 0\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(F\)</span> denote the CDF of the constant random variable <span class="math inline">\(X=0\)</span>, i.e., <span class="math display">\[
+F(x) = \begin{cases}
+0, &amp; x &lt; 0 \\
+1, &amp; x \ge 0
+\end{cases}
+\]</span></p>
+<p>Let <span class="math inline">\(Z\)</span> denote the standard Gaussian random variable. Then <span class="math display">\[
+F_{X_n}(x) = \PR(X_n \le x) = \PR(Z \le \sqrt{n} x)
+\to \begin{cases}
+1, &amp; x &gt; 0 \\
+0, &amp; x &lt; 0
+\end{cases}
+\]</span> Thus, <span class="math inline">\(F_{X_n}(x)\)</span> converges to <span class="math inline">\(F(x)\)</span> for all <span class="math inline">\(x \neq 0\)</span>. Recall that the definition of convergence in distribution, does not require convergence of <span class="math inline">\(F_{X_n}(x)\)</span> at points of discontinuity of <span class="math inline">\(F\)</span>. So, <span class="math inline">\(X_n \xrightarrow{D} 0\)</span>.</p>
+</div>
+</div>
+</div>
 <p>An important implication of convergence in distribution is that for any continuous bounded function <span class="math inline">\(g\)</span> <span class="math display">\[
 \EXP[g(X_n)] \to \EXP[g(X)].
 \]</span> For this reason, convergence in distribution is sometimes called <strong>weak convergence</strong>.</p>
@@ -604,7 +635,7 @@ p\left(1 + \frac{qs}{σ_n} + \frac{q^2 s^2}{2! σ_n^2} + \frac{q^3 s^3}{3! σ_n^
 \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -613,7 +644,7 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>The theorem asserts that as <span class="math inline">\(n \to ∞\)</span>, <span class="math display">\[
 \PR(n^{-1}S_n \le x) =
@@ -648,7 +679,7 @@ M_X(s/n) = 1 + μ s + o(s).
 \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -657,7 +688,7 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>The proof idea is similar to that of <a href="#thm-LLLN" class="quarto-xref">Theorem&nbsp;2</a>. Consider the “normalized” sequence of random variables <span class="math inline">\(Y_n = (X_n - μ)/σ\)</span>, which have mean zero and unit variance. Let <span class="math inline">\(M_Y\)</span> denote their MGF. Then, the Taylor series expansion of <span class="math inline">\(M_Y\)</span> gives <span class="math display">\[ M_Y(s) = 1 + \frac{1}{2} s^2 + o(s^2). \]</span> Moreover, observe that <span class="math display">\[
 Z_n \coloneqq \frac{S_n - n μ }{\sqrt{n}\, σ}

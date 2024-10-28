@@ -9,7 +9,7 @@
 <meta name="author" content="Aditya Mahajan">
 <meta name="dcterms.date" content="2024-10-28">
 
-<title>Probability inequalities – Probability and Random Signals II</title>
+<title>Convergence of random variables – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -207,25 +207,21 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#union-bound" id="toc-union-bound" class="nav-link active" data-scroll-target="#union-bound"><span class="header-section-number">1</span> Union Bound</a></li>
-  <li><a href="#cauchy-schwartz-inequality" id="toc-cauchy-schwartz-inequality" class="nav-link" data-scroll-target="#cauchy-schwartz-inequality"><span class="header-section-number">2</span> Cauchy-Schwartz inequality</a></li>
-  <li><a href="#jensens-inequality" id="toc-jensens-inequality" class="nav-link" data-scroll-target="#jensens-inequality"><span class="header-section-number">3</span> Jensen’s inequality</a></li>
-  <li><a href="#markov-inequality" id="toc-markov-inequality" class="nav-link" data-scroll-target="#markov-inequality"><span class="header-section-number">4</span> Markov inequality</a>
-  <ul class="collapse">
-  <li><a href="#union-bound-as-a-special-case-of-markov-inequality" id="toc-union-bound-as-a-special-case-of-markov-inequality" class="nav-link" data-scroll-target="#union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">4.1</span> Union bound as a special case of Markov inequality</a></li>
-  </ul></li>
-  <li><a href="#chebyshev-inequality" id="toc-chebyshev-inequality" class="nav-link" data-scroll-target="#chebyshev-inequality"><span class="header-section-number">5</span> Chebyshev inequality</a></li>
-  <li><a href="#chernoff-bound" id="toc-chernoff-bound" class="nav-link" data-scroll-target="#chernoff-bound"><span class="header-section-number">6</span> Chernoff bound</a></li>
-  <li><a href="#azuma-hoeffding-inequality" id="toc-azuma-hoeffding-inequality" class="nav-link" data-scroll-target="#azuma-hoeffding-inequality"><span class="header-section-number">7</span> Azuma-Hoeffding inequality</a></li>
+  <li><a href="#different-notions-of-convergence" id="toc-different-notions-of-convergence" class="nav-link active" data-scroll-target="#different-notions-of-convergence"><span class="header-section-number">1</span> Different notions of convergence</a></li>
+  <li><a href="#examples-of-convergence-in-probability" id="toc-examples-of-convergence-in-probability" class="nav-link" data-scroll-target="#examples-of-convergence-in-probability"><span class="header-section-number">2</span> Examples of convergence in probability</a></li>
+  <li><a href="#examples-of-almost-sure-convergence" id="toc-examples-of-almost-sure-convergence" class="nav-link" data-scroll-target="#examples-of-almost-sure-convergence"><span class="header-section-number">3</span> Examples of almost sure convergence</a></li>
+  <li><a href="#almost-sure-convergence-from-convergence-in-probability." id="toc-almost-sure-convergence-from-convergence-in-probability." class="nav-link" data-scroll-target="#almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">4</span> Almost sure convergence from convergence in probability.</a></li>
+  <li><a href="#some-properties-of-convergence-of-sequence-of-random-variables" id="toc-some-properties-of-convergence-of-sequence-of-random-variables" class="nav-link" data-scroll-target="#some-properties-of-convergence-of-sequence-of-random-variables"><span class="header-section-number">5</span> Some properties of convergence of sequence of random variables</a></li>
+  <li><a href="#theres-more" id="toc-theres-more" class="nav-link" data-scroll-target="#theres-more"><span class="header-section-number">6</span> There’s more</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/convergence-of-random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Probability inequalities</h1>
+<h1 class="title">Convergence of random variables</h1>
 </div>
 
 
@@ -263,30 +259,99 @@ window.Quarto = {
 </header>
 
 
-<section id="union-bound" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="union-bound"><span class="header-section-number">1</span> Union Bound</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
+<p>Suppose we have an infinite <strong>sequence of random variables</strong> <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. A sequence of random variables, also called a <strong>stochastic process</strong>, can be thought of a generalization of random vectors. When does this sequence converge?</p>
+<section id="different-notions-of-convergence" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="different-notions-of-convergence"><span class="header-section-number">1</span> Different notions of convergence</h2>
+<p>Recall that a sequence <span class="math inline">\(\{x_n\}_{n \ge 1}\)</span> of real numbers converges to a limit <span class="math inline">\(x^*\)</span> if for every <span class="math inline">\(ε &gt; 0\)</span>, there exists a <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n \ge N\)</span>, we have that <span class="math display">\[ \ABS{ x_n - x^* } &lt; ε. \]</span></p>
+<p>Convergence of a sequence of random variables is much different. We have already seen one form of convergence: <a href="./moment-generating-functions.html#conv-distribution">convergence in distribution</a></p>
+<p>There are two ways in which this notion can be extended to sequence of random variables:</p>
+<ul>
+<li><p><strong>Convergence in probability.</strong> A sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to a random variale <span class="math inline">\(X^*\)</span> <strong>in probability</strong> if <span class="math display">\[
+  \lim_{n \to ∞} \PR( \ABS{ X_n - X^* } &gt; ε ) = 0.
+\]</span> Or, equivalently, for any <span class="math inline">\(ε &gt; 0\)</span> and <span class="math inline">\(δ &gt; 0\)</span>, there exists a <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n \ge N\)</span>, we have <span class="math display">\[
+  \PR( \ABS{ X_n - X^*} &gt; ε ) \le δ.
+\]</span> We denote such convergence as <span class="math inline">\(X_n \xrightarrow{p} X^*\)</span>.</p></li>
+<li><p><strong>Almost sure convergence.</strong> A sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to a random variable <span class="math inline">\(X^*\)</span> <strong>almost surely</strong> if <span class="math display">\[
+  \PR\left( \left\{ ω : \lim_{n \to ∞}
+   X_n(ω) = X^*(ω) \right\} \right) = 1
+\]</span> Or, equivalently, for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math display">\[
+  \PR\left( \limsup_{n \to ∞} \{ ω : | X_n(ω) - X^*(ω) | &gt; ε \}  \right) = 0
+\]</span> We denote such convergence as <span class="math inline">\(X_n \xrightarrow{a.s.} X^*\)</span>.</p></li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Union bound
+Lim inf and lim sup of sets
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(A_1, \dots, A_n\)</span> be a collection of events. Then, <span class="math display">\[
-\PR\biggl( \bigcup_{i=1}^n A_i \biggr)
-\le
-\sum_{i=1}^n \PR(A_n).
+<p>Explanation adapted from math.stackexchange [<a href="https://math.stackexchange.com/a/1912079/763">1</a>] and [<a href="https://math.stackexchange.com/a/4080796/763">2</a>]</p>
+<p>Limits of sets is easy to describe when we have weakly increasing or weakly decreasing sequence of sets. In particular, if <span class="math inline">\(\{I_n\}_{n \ge 1}\)</span> is a <strong>weakly increasing</strong> sequence of sets, then <span class="math display">\[
+\lim_{n \to ∞} C_n = \bigcup_{n=1}^{∞} C_n.
+\]</span> Thus, the limit is the union of all sets. Moreover, if <span class="math inline">\(\{D_n\}_{n \ge 1}\)</span> is <strong>weakly decreasing</strong> sequence of sets, then <span class="math display">\[
+\lim_{n \to ∞} D_n = \bigcap_{n=1}^{∞} D_n.
+\]</span> Thus, the limit is the <strong>intersection</strong> of all sets.</p>
+<p><strong>What happens when a sequence <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> is neither increasing nor decreasing?</strong> We can sandwitch it between an increasing sequence <span class="math inline">\(\{C_n\}_{n \ge 1}\)</span> and a decreasing sequence <span class="math inline">\(\{D_n\}\)</span> as follows:</p>
+<p><span class="math display">\[
+\begin{array}{lcl}
+C_1 = A_1 \cap A_2 \cap A_3 \cap \dotsb
+&amp;\quad\subseteq\qquad
+A_1
+\qquad
+&amp;\subseteq \qquad
+D_1 = A_1 \cup A_2 \cup A_3 \cup \dotsb
+\\
+C_2 = \phantom{A_1 \cap{}} A_2 \cap A_3 \cap \dotsb
+&amp;\quad\subseteq\qquad
+A_2
+\qquad
+&amp;\subseteq \qquad
+D_2 = \phantom{A_1 \cup{}} A_2 \cup A_3 \cup \dotsb
+\\
+C_3 = \phantom{A_1 \cap A_2 \cap{}} A_3 \cap \dotsb
+&amp;\quad\subseteq\qquad
+A_3
+\qquad
+&amp;\subseteq \qquad
+D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
+\\
+&amp; \qquad\vdots &amp;
+\end{array}
 \]</span></p>
+<p>The limit of <span class="math inline">\(\{C_n\}_{n \ge 1}\)</span> is called the <strong>lim inf</strong> of <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span>, i.e., <span class="math display">\[
+  \liminf_{n \to ∞} A_n = \lim_{n \to ∞} C_n = \bigcup_{n=1}^∞ C_n
+  = \bigcup_{n=1}^{∞} \bigcap_{i=n}^{∞} A_i.
+\]</span> Similarly, the limit of <span class="math inline">\(\{D_n\}_{n \ge 1}\)</span> is call the <strong>lim sup</strong> of <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span>, i.e., <span class="math display">\[
+  \limsup_{n \to ∞} A_n = \lim_{n \to ∞} D_n = \bigcap_{n=1}^∞ D_n
+  = \bigcap_{n=1}^{∞} \bigcup_{i=n}^{∞} A_i.
+\]</span> When the two limits are equal, we say that the sequence <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> has a limit.</p>
+<hr>
+<p>Another way to think about these definitions is as follows. <span class="math display">\[
+  ω \in \limsup_{n \to ∞} A_n \iff
+  \limsup_{n \to ∞} \IND_{A_n}(ω) = 1
+\]</span> which holds if and only if the binary sequence <span class="math inline">\(\{\IND_{A_n}(ω)\}\)</span> has infinitely many ones, i.e., <span class="math inline">\(ω\)</span> is a member of infinitely many <span class="math inline">\(A_n\)</span>.</p>
+<p>Similarly, <span class="math display">\[
+  ω \in \liminf_{n \to ∞} A_n \iff
+  \liminf_{n \to ∞} \IND_{A_n}(ω) = 1
+\]</span> which holds if and only if the binary sequence <span class="math inline">\(\{\IND_{A_n}(ω)\}\)</span> eventually becomes <span class="math inline">\(1\)</span> forever, i.e., <span class="math inline">\(ω\)</span> is eventually a member of <span class="math inline">\(A_n\)</span> forever.</p>
 </div>
 </div>
-<p>We already proved this when talking about <a href="./probability-spaces.html#lem-probability-properties">probability spaces</a>.</p>
-<div id="exm-union-bound" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1</strong></span> Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables with CDF <span class="math inline">\(F_X(x)\)</span>. Find an upper bound on the CDF of <span class="math display">\[
-Z_n = \min(X_1, \dots, X_n).
-\]</span></p>
+</div>
+</section>
+<section id="examples-of-convergence-in-probability" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="examples-of-convergence-in-probability"><span class="header-section-number">2</span> Examples of convergence in probability</h2>
+<div id="exm-convergence-1" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr{B}(0,1)\)</span>, and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math display">\[
+X_n(ω) = \begin{cases}
+  1, &amp; ω \in [0, \frac{1}{n^2}) \\
+  0, &amp; ω \in [\frac{1}{n^2}, 1]
+\end{cases}
+\]</span> Show that <span class="math inline">\(X_n \xrightarrow{p} 0\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
@@ -300,32 +365,53 @@ Solution
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>We know that <span class="math display">\[Z_n = \min(X_1, \dots, X_n) \le z\]</span> if and only if <span class="math display">\[ X_i \le Z \quad \forall i \in \{1, \dots, n\}.\]</span> Therefore, <span class="math display">\[\PR(Z_n \le z) = \PR\biggl( \bigcup_{i=1}^n \{X_i \le z \} \biggr)
-\le \sum_{i=1}^n \PR(X_i \le z) = n F_X(z).
-\]</span></p>
+<p>Note that <span class="math display">\[
+      X_n = \begin{cases}
+        1 &amp; \text{with probability } \frac 1{n^2} \\
+        0 &amp; \text{with probability } 1 - \frac 1{n^2}
+      \end{cases}
+   \]</span> Pick any <span class="math inline">\(ε &gt; 0\)</span>. If <span class="math inline">\(ε &gt; 1\)</span>, then <span class="math inline">\(\PR(X_n &gt; ε) = 0\)</span>. So, we assume that <span class="math inline">\(ε \in (0,1)\)</span>. Then, <span class="math display">\[
+  \PR(X_n &gt; ε) = \PR(X_n = 1) = \frac 1{n^2}
+\]</span> which converges to <span class="math inline">\(0\)</span> as <span class="math inline">\(n \to ∞\)</span>. Therefore, <span class="math inline">\(X_n \xrightarrow{p} 0\)</span>.</p>
 </div>
 </div>
 </div>
-</section>
-<section id="cauchy-schwartz-inequality" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="cauchy-schwartz-inequality"><span class="header-section-number">2</span> Cauchy-Schwartz inequality</h2>
-<p>This is a generalization of <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">:Cauchy-Schwartz inequality</a> on inner products to random variables.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div id="exm-convergence-2" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2</strong></span> Consider the same setup as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;1</a>, but the random variable <span class="math inline">\(X_n\)</span> defined as <span class="math display">\[
+X_n(ω) = \begin{cases}
+  1, &amp; ω \in [0, \frac{1}{n}) \\
+  0, &amp; ω \in [\frac{1}{n}, 1]
+\end{cases}
+\]</span> Show that <span class="math inline">\(X_n \xrightarrow{p} 0\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Cauchy-Schwartz inequality
+Solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be real-valued random variables. Then, <span class="math display">\[
-\EXP[XY]^2 \le \EXP[X^2] \EXP[Y^2].
-\]</span> or equivalently, <span class="math display">\[
-\COV(X,Y)^2 \le \VAR(X) \VAR(Y).
-\]</span></p>
+<p>This can be solved in exactly the same manner as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;1</a>.</p>
 </div>
+</div>
+</div>
+<div id="exm-convergence-3" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3</strong></span> Consider the same setup as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;1</a>, but the random variable <span class="math inline">\(X_n\)</span> defined as <span class="math display">\[
+X_n(ω) = \begin{cases}
+  n, &amp; ω \in [0, \frac{1}{n}) \\
+  0, &amp; ω \in [\frac{1}{n}, 1]
+\end{cases}
+\]</span> Show that <span class="math inline">\(X_n \xrightarrow{p} 0\)</span>.</p>
+</div>
+<div id="exm-convergence-4" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4</strong></span> Consider an i.i.d. sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>, where <span class="math inline">\(X_n \sim \text{Uniform}(0,1)\)</span>. Define <span class="math display">\[
+  Y_n = \min\{X_1, \dots, X_n\}.
+\]</span> Show that <span class="math inline">\(Y_n \xrightarrow{p} 0\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
@@ -333,71 +419,97 @@ Cauchy-Schwartz inequality
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Proof
+Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(f(s) = \EXP[ (sX + Y)^2\)</span> for any <span class="math inline">\(s \in \reals\)</span>. Then, by linearity of expectation, we have <span class="math display">\[
-f(s) = \EXP[ (sX + Y)^2 ] = s^2 \EXP[X^2] + 2s \EXP[XY] + \EXP[Y^2].
-\]</span> We know that <span class="math inline">\(f(s) \ge 0\)</span>. Recall that a quadratic form <span class="math display">\[
-A s^2 + B s + C \ge 0
-\]</span> for all values of <span class="math inline">\(s\)</span> if and only it has repeated or complex roots. Thus, the determinant must be non-positive, that is <span class="math display">\[
-Δ = B^2 - 4AC \le 0.
-\]</span> The result follows by taking <span class="math inline">\(A = \EXP[X^2]\)</span>, <span class="math inline">\(B = 2 \EXP[XY]\)</span>, and <span class="math inline">\(C = \EXP[Y^2]\)</span>.</p>
+<p>Pick any <span class="math inline">\(ε &gt; 0\)</span>. As in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;1</a>, if <span class="math inline">\(ε &gt; 1\)</span>, then <span class="math inline">\(\PR(Y_n &gt; ε) = 0\)</span>. So, we assume that <span class="math inline">\(ε \in (0,1)\)</span>. Then, <span class="math display">\[\begin{align*}
+\PR(Y_n &gt; ε) &amp;= \PR\bigl( \min\{ X_1, \dots, X_n \} \ge ε ) \\
+&amp;= \PR( X_1 \ge ε, X_2 \ge ε, \dots, X_n \ge ε ) \\
+&amp;= (1-ε)^n
+\end{align*}\]</span> which goes to zero as <span class="math inline">\(n \to ∞\)</span>. Thus, <span class="math inline">\(Y_n \xrightarrow{p} 0\)</span>.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="jensens-inequality" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="jensens-inequality"><span class="header-section-number">3</span> Jensen’s inequality</h2>
-<p>If we take <span class="math inline">\(Y = 1\)</span> in Cauchy-Schwartz inequality, we get that <span class="math display">\[
-\EXP[X^2] \ge \EXP[X]^2.
-\]</span> This also follows from the fact that <span class="math inline">\(\VAR(X) \ge 0\)</span>. Jensen’s inequality may be thought as a generalization of this to convex functions.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Jensen’s inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Suppose <span class="math inline">\(X\)</span> is a real-valued random variable. Then for any <strong>convex</strong> <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
-\EXP[ g(X) ] \ge g(\EXP[X]).
+<section id="examples-of-almost-sure-convergence" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="examples-of-almost-sure-convergence"><span class="header-section-number">3</span> Examples of almost sure convergence</h2>
+<p>We revisit the examples of previous section.</p>
+<ul>
+<li><p>In <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;1</a>, for any <span class="math inline">\(ω \neq 0\)</span>, the sequence <span class="math inline">\(\{X_n(ω)\}_{n \ge 1}\)</span> is a finite sequence of <span class="math inline">\(1\)</span>’s followed by infinite sequence of <span class="math inline">\(0\)</span>’s. Thus, <span class="math inline">\(\lim_{n\to ∞} X_n(ω) = 0\)</span>. Thus, <span class="math display">\[
+  \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞} X_n(ω) = 0 \Bigr\} \Bigr)
+  = \PR( ω \in (0,1]) = 1.
+\]</span> Hence, <span class="math inline">\(X_n \xrightarrow{a.s} 0\)</span>.</p></li>
+<li><p>In <a href="#exm-convergence-2" class="quarto-xref">Example&nbsp;2</a>, the same argument as above works.</p></li>
+<li><p>In <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;3</a>, a slight variation of the above argument works.</p></li>
+<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;4</a>, we proceed as follows. Fix <span class="math inline">\(ω\)</span> and consider the sequence <span class="math inline">\(\{Y_n(ω)\}_{n \ge 1}\)</span>. Since this is a decreasing sequence, it must have a limit. Denote that limit by <span class="math inline">\(Y(ω)\)</span>, i.e., <span class="math display">\[
+  Y(ω) = \lim_{n \to ∞} Y_n(ω).
 \]</span></p>
-<p>Moreover, for any **concave* <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
-\EXP[ g(X) ] \le g(\EXP[X]).
-\]</span></p>
-</div>
-</div>
-<p>For example, since <span class="math inline">\(g(x) = 1/x\)</span> is convex, we have <span class="math display">\[
-\EXP\left[\frac 1x\right] \le \frac{1}{\EXP[X]}.
-\]</span> Moreover, since <span class="math inline">\(g(x) = \log(x)\)</span> is concave, we have <span class="math display">\[
-\EXP[ \log(X)] \le \log(\EXP[X]).
-\]</span></p>
+<p>Since <span class="math inline">\(\{Y_n\}_{n \ge 1}\)</span> is a decreasing sequence, we have that <span class="math inline">\(Y(ω) \le Y_n(ω)\)</span>. Hence, for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math display">\[
+      \PR(Y &gt; ε) \le \PR(Y_n &gt; ε) = (1 - ε)^n
+   \]</span> (where the last inequality follows from the calculation in the solution of <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;4</a>).</p>
+<p>The above inequality holds for every <span class="math inline">\(n\)</span>, so we have <span class="math display">\[
+      \PR(Y &gt; ε) \le \lim_{n \to ∞} (1-ε)^n = 0.
+   \]</span> Recall that <span class="math inline">\(ε &gt; 0\)</span> was arbitrary. Therefore, we have shown that <span class="math display">\[
+      \PR\Bigl( \lim_{n\to ∞} Y_n &gt; ε \Bigr) = 0.
+   \]</span> Thus, the only possibility is that <span class="math display">\[
+      \PR\Bigl( \lim_{n\to ∞} Y_n = 0 \Bigr) = 1.
+   \]</span> Hence <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
+</ul>
 </section>
-<section id="markov-inequality" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="markov-inequality"><span class="header-section-number">4</span> Markov inequality</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Markov inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>For any non-negative random variable <span class="math inline">\(X\)</span> and a number <span class="math inline">\(a &gt; 0\)</span>, <span class="math display">\[
-\PR(X \ge a) \le \frac{\EXP[X]}{a}.
+<section id="almost-sure-convergence-from-convergence-in-probability." class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">4</span> Almost sure convergence from convergence in probability.</h2>
+<p>It is possible to infer almost sure convergence from convergence in probability. For that we need to state a result. The proof is not difficult, but is omitted due to time.</p>
+<div id="lem-Borel-Cantelli" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1 (Borel Cantelli Lemma)</strong></span> Let <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> be a sequence of events defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. If the sum of the probability of the events is finite, i.e., <span class="math display">\[
+\sum_{n=1}^∞ \PR(A_n) &lt; ∞,
+\]</span> then the probability that infinitely many of them occur is zero, i.e., <span class="math display">\[
+  \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 0.
 \]</span></p>
 </div>
+<p>There is a partial converse of Borel-Cantelli lemma.</p>
+<div id="lem-Borel-Cantelli-2" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 2 (Second Borel Cantelli Lemma)</strong></span> Let <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> be a sequence of <strong>independent</strong> events defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. If the sum of the probability of the events is infinite, i.e., <span class="math display">\[
+\sum_{n=1}^∞ \PR(A_n) = ∞,
+\]</span> then the probability that infinitely many of them occur is one, i.e., <span class="math display">\[
+  \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 1.
+\]</span></p>
+</div>
+<p>An immediate implication of Borel-Cantelli lemma is the following:</p>
+<div id="lem-as" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 3</strong></span> Suppose <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and for any <span class="math inline">\(ε &gt; 0\)</span>, we have <span class="math display">\[
+\sum_{n=1}^{∞} \PR(\ABS{X_n - X} &gt; ε) &lt; ∞
+\]</span> then <span class="math inline">\(X_n \xrightarrow{a.s.} X^*\)</span>.</p>
+</div>
+<p>In light of the above result, we revisit some variations of the examples of the previous section.</p>
+<ul>
+<li><p>Consider a variation <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;1</a> where we no longer specify <span class="math inline">\(X_n\)</span> as a function of <span class="math inline">\(ω\)</span> but simply assume that <span class="math display">\[
+   X_n = \begin{cases}
+     1 &amp; \text{with probability } \frac 1{n^2} \\
+     0 &amp; \text{with probability } 1 - \frac 1{n^2}
+   \end{cases}
+\]</span> Then for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math inline">\(\PR(\ABS{X_n} &gt; ε) = \PR(X_n &gt; ε) = 1/n^2\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(\ABS{X_n} &gt; ε) &lt; ∞\)</span>; hence by <a href="#lem-as" class="quarto-xref">Lemma&nbsp;3</a>, <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p></li>
+<li><p>Consider a variation <a href="#exm-convergence-2" class="quarto-xref">Example&nbsp;2</a> where we no longer specify <span class="math inline">\(X_n\)</span> as a function of <span class="math inline">\(ω\)</span> but simply assume that <span class="math display">\[
+   X_n = \begin{cases}
+     1 &amp; \text{with probability } \frac 1{n} \\
+     0 &amp; \text{with probability } 1 - \frac 1{n}
+   \end{cases}
+\]</span> <strong>and <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> are independent.</strong></p>
+<p>Then for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math inline">\(\PR(\ABS{X_n} &gt; ε) = \PR(X_n &gt; ε) = 1/n\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(\ABS{X_n} &gt; ε) = ∞\)</span>; hence by the Second Borel-Cantelli lemma, <span class="math display">\[ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} &gt; ε \}) = 1. \]</span> So, <span class="math inline">\(X_n\)</span> does not converge almost surely!</p></li>
+<li><p>In <strong>?@exm-converge-4</strong>, we can directly apply <a href="#lem-as" class="quarto-xref">Lemma&nbsp;3</a> to argue that <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
+</ul>
+<p>A variation of <a href="#lem-as-exp" class="quarto-xref">Lemma&nbsp;4</a> is the following:</p>
+<div id="lem-as-exp" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 4</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be a sequence of random variables with finite expectations and let <span class="math inline">\(X^*\)</span> be another random variable. If <span class="math display">\[
+\sum_{n=1}^{∞} \EXP[ \ABS{X_n - X^*} ]  &lt; ∞
+\]</span> then <span class="math display">\[
+X_n \xrightarrow{a.s.} X^*.
+\]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -406,279 +518,53 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(Z = \IND\{X \ge a\} a\)</span>, which moves all the “mass” of <span class="math inline">\(X\)</span> to the left.</p>
-<!-- TODO: Add figure -->
-<p>Thus, <span class="math display">\[
-\EXP[X] \ge \EXP[Z] = a \PR(X \ge a).
+<p>To simplify the notation, we assume that <span class="math inline">\(X^* = 0\)</span>.</p>
+<p>Pick any <span class="math inline">\(ε &gt; 0\)</span> and define the sequence of events <span class="math display">\[
+A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
+\quad n \in \naturalnumbers.
+\]</span></p>
+<p>From Markov inequality, we have <span class="math display">\[\PR(A_n) = \PR\bigl( \ABS{X_i} &gt; ε \bigr)
+\le \dfrac{\EXP[\ABS{X_i}]}{ε}. \]</span> Therefore, <span class="math display">\[ \sum_{n=1}^{∞} \PR(A_n)
+\le \frac{1}{ε} \sum_{n=1}^{∞} \EXP[\ABS{X_i}]
+&lt; ∞
+\]</span> by the hypothesis of the result. Therefore, by Borel-Cantelli lemma, we have <span class="math display">\[
+\PR\Bigl( \limsup_{n \to ∞} A_n \Bigr) = 0.
 \]</span></p>
 </div>
 </div>
 </div>
-<div id="exm-Markov" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>The table below compares the actual tail probability with the bound obtained from Markov inequality.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><span class="math inline">\(a\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\PR(X \ge a)\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\EXP[X]/a\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.2 = 2.5\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.5 = 1\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.8 = .625\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;2</a> shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality of <span class="math inline">\(a \ge μ\)</span>.</p>
-<section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">4.1</span> Union bound as a special case of Markov inequality</h3>
-<p>Note that it is possible to derive the union bound as a corrollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
-X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
-1, &amp; ω \in A_i \\
-0, &amp; ω \not\in A_i
-\end{cases}.
-\]</span> Let <span class="math display">\[ X = X_1 + \dots + X_n. \]</span> <span class="math inline">\(X_i\)</span> takes the value <span class="math inline">\(1\)</span> when event <span class="math inline">\(A_i\)</span> occurs. Therefore, the event <span class="math inline">\(\bigcup_{i=1}^n A_i\)</span> is equal to the event <span class="math inline">\(X \ge 1\)</span>, i.e., <span class="math display">\[
-\PR\left(\bigcup_{i=1}^n A_i \right)
-= \PR(X \ge 1).
-\]</span> Now, by Markov inequality, we have <span class="math display">\[
-\PR(X \ge 1) \le \EXP[X] = \PR(A_1) + \cdots + \PR(A_n).
-\]</span> The union bound follows by combining the above equations.</p>
 </section>
+<section id="some-properties-of-convergence-of-sequence-of-random-variables" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="some-properties-of-convergence-of-sequence-of-random-variables"><span class="header-section-number">5</span> Some properties of convergence of sequence of random variables</h2>
+<p>We now state some properties without proof.</p>
+<ol type="1">
+<li><p>The three notions of convergence that we have defined are related as follows: <span class="math display">\[
+  [X_n \xrightarrow{a.s.} X^*]
+  \implies
+  [X_n \xrightarrow{p} X^*]
+  \implies
+  [X_n \xrightarrow{D} X^*]
+\]</span></p></li>
+<li><p>There is a partial converse. For any constant <span class="math inline">\(c\)</span> <span class="math display">\[
+  [X_n \xrightarrow{D} c]
+  \implies
+  [X_n \xrightarrow{p} c].
+\]</span></p></li>
+<li><p>If <span class="math inline">\(X_n \xrightarrow{p} X\)</span>, then there exists a subsequence <span class="math inline">\(\{n_k : k \in \naturalnumbers \}\)</span> such that <span class="math inline">\(\{X_{n_k}\}_{k \ge 1}\)</span> converges almost surely to <span class="math inline">\(X\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(f \colon \reals \to \reals\)</span> be a continuous function. Then,</p>
+<ul>
+<li><span class="math inline">\(X_n \xrightarrow{a.s.} X^*\)</span> implies <span class="math inline">\(f(X_n) \xrightarrow{a.s.} f(X^*)\)</span>.</li>
+<li><span class="math inline">\(X_n \xrightarrow{p} X^*\)</span> implies <span class="math inline">\(f(X_n) \xrightarrow{p} f(X^*)\)</span>.</li>
+<li><span class="math inline">\(X_n \xrightarrow{D} X^*\)</span> implies <span class="math inline">\(f(X_n) \xrightarrow{D} f(X^*)\)</span>.</li>
+</ul></li>
+<li><p>If <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{p} Y\)</span>, then <span class="math inline">\(X_n + Y_n \to X + Y\)</span> and <span class="math inline">\(X_n Y_n \xrightarrow X Y\)</span>.</p></li>
+</ol>
 </section>
-<section id="chebyshev-inequality" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="chebyshev-inequality"><span class="header-section-number">5</span> Chebyshev inequality</h2>
-<!-- TODO: AN Lec 15 -->
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Chebyshev inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable with mean <span class="math inline">\(μ\)</span>. Then for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
-\PR( \ABS{X - μ} \ge a) \le \frac{ \VAR(X) }{a^2}.
-\]</span></p>
-<p>An alternative form of is as follows. Let <span class="math inline">\(a = k σ\)</span>. Then, <span class="math display">\[
-\PR(\ABS{X - μ} \ge k σ) \le \frac{1}{k^2}.
-\]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Observe that <span class="math display">\[\begin{align*}
-\PR( \ABS{X - μ} \ge a) &amp;= \PR((X - μ)^2 \ge a^2)
-\\
-&amp;\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
-\end{align*}\]</span> where <span class="math inline">\((a)\)</span> follows from MArkov inequality.</p>
-</div>
-</div>
-</div>
-<p>In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.</p>
-<div id="exm-Binomial-comparison" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Recall that <span class="math inline">\(\EXP[X] = np\)</span> and <span class="math inline">\(\VAR(X) = n p(1-p)\)</span>. Therefore, from Markov inequality we have <span class="math display">\[
-\PR(X \ge nq) \le \frac{np}{nq} = \frac{p}{q}.
-\]</span> Therefore, Markov inequality does not suggest any form of concentration with <span class="math inline">\(n\)</span>.</p>
-<p>We now consider Chebyshev inequality. To do so, we first massage the expression a bit <span class="math display">\[\begin{align*}
-\PR(X \ge nq) &amp;= \PR( X - np \ge n(q-p) ) \\
-&amp;\le \PR( \ABS{X - np} \ge n(q-p) )
-\le \frac{np(1-p)}{n^2(q-p)^2} = \frac{1}{n} \cdot \frac{p(1-p)}{(q-p)^2}
-\end{align*}\]</span> which shows that <span class="math inline">\(\PR(X \ge nq)\)</span> gets smaller as <span class="math inline">\(n\)</span> increases.</p>
-</div>
-</div>
-</div>
-<p>We can use Chebyshev inequality to prove the <strong>weak law of large numbers</strong>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Weak law of large numbers
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, X_2, \dots\)</span> be independent random variables with <span class="math inline">\(\EXP[X_n] = μ\)</span> and <span class="math inline">\(\VAR(X_n) = σ^2\)</span>. Let <span class="math display">\[
-\bar X_n = \frac 1n \sum_{i=1}^n X_i
-\]</span> be the sample mean. Then, <span class="math display">\[\PR(\ABS{X_n - μ} &gt; ε) \le \frac{σ^2}{n ε^2}. \]</span></p>
-<p>Therefore, <span class="math inline">\(X_n \xrightarrow{p} μ\)</span> (which reads as <span class="math inline">\(X_n\)</span> converges in probability to <span class="math inline">\(μ\)</span>; we will study convergence in probability in next lecture).</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Observe that <span class="math display">\[\begin{align*}
-\EXP[\bar X_n] &amp;= \frac{1}{n} \sum_{i=1}^n \EXP[X_i] = μ \\
-\VAR(\bar X_n) &amp;= \frac{1}{n^2} \sum_{i=1}^n \VAR(X_i) = \frac{σ^2}{n}.
-\end{align*}\]</span></p>
-<p>Then, by Chebyshev inequality, we have <span class="math display">\[
-\PR(\ABS{X_n - μ} &gt; ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
-\]</span></p>
-</div>
-</div>
-</div>
-<p>If we do not know <span class="math inline">\(\VAR(X)\)</span>, we can still use Chebyshev inequality with an upper bound on <span class="math inline">\(\VAR(X)\)</span>. For example, if <span class="math inline">\(X \in [a,b]\)</span>, then we can show that <span class="math display">\[
-\VAR(X) \le \frac{(b-a)^2}{4}.
-\]</span> So, for any random variable <span class="math inline">\(X \in [a,b]\)</span>, we have that <span class="math display">\[
-\PR(\ABS{X - μ} &gt; ε) \le \frac{(b-a)^2}{4 ε^2}.
-\]</span></p>
-</section>
-<section id="chernoff-bound" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="chernoff-bound"><span class="header-section-number">6</span> Chernoff bound</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Chernoff Bound
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable. Then, for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
-\PR(X \ge a) \le e^{-φ(a)}
-\]</span> where <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ s a - \log M_X(s) \}
-\]</span> is the <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Lengendre-Fenchel transform</a> of <span class="math inline">\(\log M_X(s)\)</span>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>The proof relies on two observations. First, for any <span class="math inline">\(s &gt; 0\)</span>, <span class="math inline">\(e^s x\)</span> is an increasing function of <span class="math inline">\(x\)</span>. Therefore, <span class="math display">\[
-\{ ω : X(ω) &gt; a \} = \{ ω : e^{sX(ω)} &gt; e^{sa} \}.
-\]</span> Hence, <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \frac{\EXP[e^{sX}}{e^{sa}}
-= e^{-( sa - \log M_X(s) ) }
-\]</span> where the inequality follows from Markov inequality</p>
-<p>Second, observe that the above inequality holds for every <span class="math inline">\(s &gt; 0\)</span>. So, to get the tightest bound, we minimize the RHS over all <span class="math inline">\(s &gt; 0\)</span>, i.e., <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \min_{s &gt; 0} e^{-( sa - \log M_X(s) ) }
-\]</span> Since <span class="math inline">\(e^x\)</span> is increasing in <span class="math inline">\(x\)</span>, the minimizer above is the same as the maximizer for <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ sa - \log M_X(s) \}.
-\]</span></p>
-</div>
-</div>
-</div>
-<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;3</a>. For a Binomial random variable, <span class="math display">\[
-M_X(s) = (1 - p + p e^s)^n.
-\]</span> Then, <span class="math display">\[\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
-= \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
-\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;3</a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
-\PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
-\]</span> where <span class="math display">\[
-D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
-\]</span></p>
-<p>We now present another example to show the tightness of the Chernoff bound.</p>
-<div id="exm-Chernoff-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
-</div>
-<!-- TODO: Write solution -->
-</section>
-<section id="azuma-hoeffding-inequality" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="azuma-hoeffding-inequality"><span class="header-section-number">7</span> Azuma-Hoeffding inequality</h2>
-<p>Although Chernoff bound is fairly tight, one of the drawbacks is that it requires the knowledge of the MGF of <span class="math inline">\(X\)</span>. This is in contrast to Markov and Chebyshev inequalities which only require knowledge of the mean and variance. For sums of i.i.d. random variables, it is possible to get a tight bound that only depends on the mean (and a proxy for variance).</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Azuma-Hoeffding inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables such that <span class="math inline">\(X_i \in [a,b]\)</span> and <span class="math inline">\(\EXP[X_i] = μ\)</span>. Define <span class="math display">\[
-\bar X_n = \frac 1n \sum_{i=1}^n X_i.
-\]</span> Then, <span class="math display">\[ \PR( \bar X_n - μ  &gt; ε ) \le e ^ {- 2 ε^2 n } \]</span> and <span class="math display">\[ \PR( \ABS{\bar X_n - μ}  &gt; ε ) \le 2 e ^ {- 2 ε^2 n } \]</span></p>
-</div>
-</div>
-<p>We will not provide a proof of this inequality. The Azuma-Hoeffding inequality can also be interpreted as follows. For any <span class="math inline">\(δ &gt; 0\)</span>, we have that the true mean lies in the interval <span class="math display">\[
-\left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} },
-       \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
-\]</span></p>
-<p>We can revisit <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;3</a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
-\PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
-\le e^{-2 (q - p)^2 n}.
-\]</span></p>
-<p>The bound is weaker than what we obtained via Chernoff bound, but it only requires the first moment and the fact that the random variables are bounded.</p>
+<section id="theres-more" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="theres-more"><span class="header-section-number">6</span> There’s more</h2>
+<p>There’s another type of convergence commonly used in engineering: convergence in mean-squared sense. In the interest of time, we will not study this notion in class.</p>
 
 
 </section>
@@ -1253,5 +1139,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/convergence-of-random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
