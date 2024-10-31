@@ -195,7 +195,7 @@ Observe that
 \\
 &\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
 \end{align*}
-where $(a)$ follows from MArkov inequality. 
+where $(a)$ follows from Markov inequality. 
 :::
 
 In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.

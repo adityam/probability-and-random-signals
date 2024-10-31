@@ -14,26 +14,26 @@ Convergence of a sequence of random variables is much different. We have already
 
 There are two ways in which this notion can be extended to sequence of random variables:
 
-- **Convergence in probability.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variale $X^*$ **in probability** if
+- **Convergence in probability.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variale $X$ **in probability** if
   $$
-    \lim_{n \to ∞} \PR( \ABS{ X_n - X^* } > ε ) = 0.
+    \lim_{n \to ∞} \PR( \ABS{ X_n - X } > ε ) = 0.
   $$
   Or, equivalently, for any $ε > 0$ and $δ > 0$, there exists a $N$ such that for all $n \ge N$, we have
   $$ 
-    \PR( \ABS{ X_n - X^*} > ε ) \le δ.
+    \PR( \ABS{ X_n - X} > ε ) \le δ.
   $$
-  We denote such convergence as $X_n \xrightarrow{p} X^*$.
+  We denote such convergence as $X_n \xrightarrow{p} X$.
 
-- **Almost sure convergence.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X^*$ **almost surely** if 
+- **Almost sure convergence.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **almost surely** if 
   $$
     \PR\left( \left\{ ω : \lim_{n \to ∞} 
-     X_n(ω) = X^*(ω) \right\} \right) = 1
+     X_n(ω) = X(ω) \right\} \right) = 1
   $$
   Or, equivalently, for any $ε > 0$, 
   $$
-    \PR\left( \limsup_{n \to ∞} \{ ω : | X_n(ω) - X^*(ω) | > ε \}  \right) = 0 
+    \PR\left( \limsup_{n \to ∞} \{ ω : | X_n(ω) - X(ω) | > ε \}  \right) = 0 
   $$
-  We denote such convergence as $X_n \xrightarrow{a.s.} X^*$.
+  We denote such convergence as $X_n \xrightarrow{a.s.} X$.
 
 
 :::{.callout-warning collapse="true"}
@@ -171,6 +171,12 @@ $$
 Show that $X_n \xrightarrow{p} 0$.
 :::
 
+:::{.callout-note collapse="false"}
+### Solution
+
+This can be solved in exactly the same manner as @exm-convergence-1.
+:::
+
 :::{#exm-convergence-4}
 Consider an i.i.d. sequence $\{X_n\}_{n \ge 1}$, where $X_n \sim \text{Uniform}(0,1)$. Define
 $$
@@ -273,7 +279,7 @@ Suppose  $X_n \xrightarrow{p} X$ and for any $ε > 0$, we have
 $$
 \sum_{n=1}^{∞} \PR(\ABS{X_n - X} > ε) < ∞ 
 $$
-then $X_n \xrightarrow{a.s.} X^*$.
+then $X_n \xrightarrow{a.s.} X$.
 :::
 
 In light of the above result, we revisit some variations of the examples of the previous section. 
@@ -300,25 +306,25 @@ In light of the above result, we revisit some variations of the examples of the 
   $$ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} > ε \}) = 1. $$
   So, $X_n$ does not converge almost surely!
 
-- In @exm-converge-4, we can directly apply @lem-as to argue that $Y_n \xrightarrow{a.s.} 0$.
+- In @exm-convergence-4, we can directly apply @lem-as to argue that $Y_n \xrightarrow{a.s.} 0$.
 
 A variation of @lem-as-exp is the following:
 
 :::{#lem-as-exp}
-Let $\{X_n\}_{n \ge 1}$ be a sequence of random variables with finite expectations and let $X^*$ be another random variable. If
+Let $\{X_n\}_{n \ge 1}$ be a sequence of random variables with finite expectations and let $X$ be another random variable. If
 $$
-\sum_{n=1}^{∞} \EXP[ \ABS{X_n - X^*} ]  < ∞ 
+\sum_{n=1}^{∞} \EXP[ \ABS{X_n - X} ]  < ∞ 
 $$
 then
 $$
-X_n \xrightarrow{a.s.} X^*.
+X_n \xrightarrow{a.s.} X.
 $$
 :::
 
 :::{.callout-note collapse="false"}
 ### Proof
 
-To simplify the notation, we assume that $X^* = 0$. 
+To simplify the notation, we assume that $X = 0$. 
 
 Pick any $ε > 0$ and define the sequence of events 
 $$
@@ -340,37 +346,163 @@ $$
 $$
 :::
 
-
 ## Some properties of convergence of sequence of random variables
 
 We now state some properties without proof.
 
 1. The three notions of convergence that we have defined are related as follows:
    $$
-     [X_n \xrightarrow{a.s.} X^*] 
+     [X_n \xrightarrow{a.s.} X] 
      \implies
-     [X_n \xrightarrow{p} X^*] 
+     [X_n \xrightarrow{p} X] 
      \implies
-     [X_n \xrightarrow{D} X^*] 
+     [X_n \xrightarrow{D} X] 
    $$
 
-2. There is a partial converse. For any constant $c$
+:::{.callout-note collapse="false"}
+### Proof that almost sure convergence implies convergence in probability
+
+Fix $ε > 0$. Define
+$$
+A_n = \{ ω : \exists m \ge n, \ABS{X_m - X} \ge ε \}.
+$$
+Then, $\{A_n\}_{n \ge 1}$ is a decreasing sequence of events. If $ω \in \bigcap_{n \ge 1} A_n$, then $X_n(ω) \not\xrightarrow{a.s} X(ω)$. This implies
+$$\PR\Bigl( \bigcap_{n \ge 1} A_n \Bigr) \le 
+  \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞}X_n(ω) \neq X(ω) \Bigr\}\Bigr)
+= 0. $$
+By continuity of probability, 
+$$
+\lim_{n \to ∞} \PR(A_n) = \PR\Bigl( \lim_{n \to ∞} A_n \Bigr) = 0.
+$$
+:::
+
+:::{.callout-note collapse="false"}
+### Proof that convergence in probability implies convergence in distribution
+
+Let $F_n$ and $F$ denote the CDFs of $X_n$ and $X$, respectively. Fix $ε > 0$, pick $x$ such that $F$ is continuous at $x$, and consider
+\begin{align*}
+  F_n(x) &= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X > x + ε)
+\\
+&\le \PR(X \le x + ε) + \PR(X - X_n > ε) 
+\\
+&\le F(x + ε) + \PR(\ABS{X_n - X} > ε).
+\end{align*}
+Similarly, 
+\begin{align*}
+  F(x-ε) &= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n > x )
+\\
+&\le \PR(X_n \le x) + \PR(X_n - X > ε) 
+\\
+&\le F_n(x) + \PR(\ABS{X_n - X} > ε).
+\end{align*}
+
+Thus, 
+$$
+F(x-ε) - \PR(\ABS{X_n - X} > ε) \le F_n(x) \le F(x+ε) + \PR(\ABS{X_n - X} > ε).
+$$
+Taking $n \to ∞$, we have
+$$
+F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + ε).
+$$
+The result is true for all $ε > 0$. Since $F$ is continuous at $x$, when we take $ε \downarrow 0$, we have 
+$$ 
+F(x - ε) \uparrow F(x) 
+\quad\text{and}\quad
+F(x + ε) \downarrow F(x)
+$$
+which implies that $F_n(x) \to F(x)$. 
+
+:::
+
+2. There are partial converss. For any constant $c$
    $$
      [X_n \xrightarrow{D} c] 
      \implies
      [X_n \xrightarrow{p} c].
    $$
+   If $\{X_n\}_{n \ge 1}$ is a strictly decreasing sequence then
+   $$
+     [X_n \xrightarrow{p} c] 
+     \implies
+     [X_n \xrightarrow{a.s.} c].
+  $$
 
 3. If $X_n \xrightarrow{p} X$, then there exists a subsequence $\{n_k : k \in \naturalnumbers \}$ such that $\{X_{n_k}\}_{k \ge 1}$ converges almost surely to $X$.
+
+4. $X_n \xrightarrow{p} X$ if and only if every subsequence $\{n_k : k \in \naturalnumbers \}$ has a sub-subsequence $\{n_{k_m} : m \in \naturalnumbers \}$ such that $\{X_{n_{k_m}} \}_{m \ge 1}$ that converges to $X$ almost surely.
+
+5. **Skorokhod’s representation theorem.** If $X_n \xrightarrow{D} X$, then there exists a sequence $\{Y_n\}_{n \ge 1}$ that is identically distributed to $\{X_n\}_{n \ge 1}$ such that $Y_n \xrightarrow Y$, where $Y$ is identically distributed to $X$.
+
   
-4. Let $f \colon \reals \to \reals$ be a continuous function. Then,
+6. **Continuous mapping theorems.** Let $g \colon \reals \to \reals$ be a continuous function. Then,
    
-    - $X_n \xrightarrow{a.s.} X^*$ implies $f(X_n) \xrightarrow{a.s.} f(X^*)$.
-    - $X_n \xrightarrow{p} X^*$ implies $f(X_n) \xrightarrow{p} f(X^*)$.
-    - $X_n \xrightarrow{D} X^*$ implies $f(X_n) \xrightarrow{D} f(X^*)$.
+    - $X_n \xrightarrow{a.s.} X$ implies $g(X_n) \xrightarrow{a.s.} g(X)$.
+    - $X_n \xrightarrow{p} X$ implies $g(X_n) \xrightarrow{p} g(X)$.
+    - $X_n \xrightarrow{D} X$ implies $g(X_n) \xrightarrow{D} g(X)$.
 
-5. If $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$, then $X_n + Y_n \to X + Y$ and  $X_n Y_n \xrightarrow X Y$.
+7. **Convergence of sums.** 
+  
+    - If $X_n \xrightarrow{a.s.} X$ and $Y_n \xrightarrow{a.s.} Y$, then $X_n + Y_n \xrightarrow{a.s.} X + Y$. 
+    - If $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$, then $X_n + Y_n \xrightarrow{p} X + Y$. 
+    - It is not true in general that $X_n + Y_n \xrightarrow{D} X + Y$ whenever
+      $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$. The result is true when $X$ or $Y$ is a constant. 
 
+If $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$, then $X_n + Y_n \to X + Y$ and  $X_n Y_n \xrightarrow X Y$.
+
+
+## Strong law of large numbers
+
+:::{#thm-SLLN}
+Let $\{X_n\}_{n \ge 1}$ be an i.i.d. sequence of random variables with mean $μ$ and variance $σ^2$. Let 
+$$
+  \bar X_n = \frac 1n \sum_{i=1}^n X_i
+$$
+be the sameple average. 
+Then, $\bar X_n \xrightarrow{a.s} μ$, i.e.,
+$$
+\PR\Bigl( ω : \lim_{n \to ∞} X_n(ω) = μ \Bigr) = 1.
+$$
+:::
+
+We provide a proof under the assumption that the fouth moment's exist.
+
+:::{.callout-note collapse="false"}
+#### Proof
+
+We assume that $μ = 0$ (this is just for notational simplicity) and $\EXP[X^4] = γ < ∞$ (this is a strong assumption). 
+
+Since we know that the forth moment exist, we can use a forth moment version of Chebyshev inequality: 
+$$ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \EXP[ \bar X_n^4]}{ε^2}. $$
+
+Then, by the multinomial theorem, we have 
+$$ \EXP{\bar X_n^4} = \frac{1}{4} \EXP\biggl[
+\sum_{i} X_i^4 + \binom{4}{1,3} \sum_{i \neq j} X_i X_j^3 + \binom{4}{2,2} \sum_{i \neq j} X_i^2 X_j^2 
++ \binom{4}{1,1,2} \sum_{i \neq j \neq k} X_i X_j X_k^2 + \sum_{i \neq j \neq k \neq \ell} X_i X_j X_k X_{\ell} \biggr].
+$$
+
+Since the $\{X_i\}_{i \ge 1}$ are independent and zero mean, we have
+
+- $\EXP[X_i X_j^3] = \EXP[X_i] \EXP[X_j^3] = 0$.
+- \EXP[X_i X_j X_k X_{\ell}] = \EXP[X_i] \EXP[X_j] \EXP[X_k] \EXP[X_{\ell}] = 0$.
+
+Therefore,
+$$
+\EXP[\bar X_n^4= \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
+\le \frac{M_4}{n_3} + \frac{3 σ^4}{n^2}
+$$
+where $M_4$ is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have
+$$
+$$ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n_3} + \frac{3 σ^4}{n^2} }{ε^2}. $$
+This implies that
+$$
+\sum_{n=1}^{∞} \PR(\ABS{X_n} \ge ε) < ∞.
+$$
+Thus, from @lem-as, we have that $X_n \xrightarrow{a.s.} 0$. 
+
+
+
+**TODO**
+:::
 
 ## There's more
 
