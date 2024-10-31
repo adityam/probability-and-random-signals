@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-10-28">
+<meta name="dcterms.date" content="2024-10-31">
 
 <title>Convergence of random variables – Probability and Random Signals II</title>
 <style>
@@ -212,7 +212,8 @@ window.Quarto = {
   <li><a href="#examples-of-almost-sure-convergence" id="toc-examples-of-almost-sure-convergence" class="nav-link" data-scroll-target="#examples-of-almost-sure-convergence"><span class="header-section-number">3</span> Examples of almost sure convergence</a></li>
   <li><a href="#almost-sure-convergence-from-convergence-in-probability." id="toc-almost-sure-convergence-from-convergence-in-probability." class="nav-link" data-scroll-target="#almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">4</span> Almost sure convergence from convergence in probability.</a></li>
   <li><a href="#some-properties-of-convergence-of-sequence-of-random-variables" id="toc-some-properties-of-convergence-of-sequence-of-random-variables" class="nav-link" data-scroll-target="#some-properties-of-convergence-of-sequence-of-random-variables"><span class="header-section-number">5</span> Some properties of convergence of sequence of random variables</a></li>
-  <li><a href="#theres-more" id="toc-theres-more" class="nav-link" data-scroll-target="#theres-more"><span class="header-section-number">6</span> There’s more</a></li>
+  <li><a href="#strong-law-of-large-numbers" id="toc-strong-law-of-large-numbers" class="nav-link" data-scroll-target="#strong-law-of-large-numbers"><span class="header-section-number">6</span> Strong law of large numbers</a></li>
+  <li><a href="#theres-more" id="toc-theres-more" class="nav-link" data-scroll-target="#theres-more"><span class="header-section-number">7</span> There’s more</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/convergence-of-random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -247,7 +248,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 28, 2024</p>
+      <p class="date">October 31, 2024</p>
     </div>
   </div>
   
@@ -266,17 +267,17 @@ window.Quarto = {
 <p>Convergence of a sequence of random variables is much different. We have already seen one form of convergence: <a href="./moment-generating-functions.html#conv-distribution">convergence in distribution</a></p>
 <p>There are two ways in which this notion can be extended to sequence of random variables:</p>
 <ul>
-<li><p><strong>Convergence in probability.</strong> A sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to a random variale <span class="math inline">\(X^*\)</span> <strong>in probability</strong> if <span class="math display">\[
-  \lim_{n \to ∞} \PR( \ABS{ X_n - X^* } &gt; ε ) = 0.
+<li><p><strong>Convergence in probability.</strong> A sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to a random variale <span class="math inline">\(X\)</span> <strong>in probability</strong> if <span class="math display">\[
+  \lim_{n \to ∞} \PR( \ABS{ X_n - X } &gt; ε ) = 0.
 \]</span> Or, equivalently, for any <span class="math inline">\(ε &gt; 0\)</span> and <span class="math inline">\(δ &gt; 0\)</span>, there exists a <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n \ge N\)</span>, we have <span class="math display">\[
-  \PR( \ABS{ X_n - X^*} &gt; ε ) \le δ.
-\]</span> We denote such convergence as <span class="math inline">\(X_n \xrightarrow{p} X^*\)</span>.</p></li>
-<li><p><strong>Almost sure convergence.</strong> A sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to a random variable <span class="math inline">\(X^*\)</span> <strong>almost surely</strong> if <span class="math display">\[
+  \PR( \ABS{ X_n - X} &gt; ε ) \le δ.
+\]</span> We denote such convergence as <span class="math inline">\(X_n \xrightarrow{p} X\)</span>.</p></li>
+<li><p><strong>Almost sure convergence.</strong> A sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to a random variable <span class="math inline">\(X\)</span> <strong>almost surely</strong> if <span class="math display">\[
   \PR\left( \left\{ ω : \lim_{n \to ∞}
-   X_n(ω) = X^*(ω) \right\} \right) = 1
+   X_n(ω) = X(ω) \right\} \right) = 1
 \]</span> Or, equivalently, for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math display">\[
-  \PR\left( \limsup_{n \to ∞} \{ ω : | X_n(ω) - X^*(ω) | &gt; ε \}  \right) = 0
-\]</span> We denote such convergence as <span class="math inline">\(X_n \xrightarrow{a.s.} X^*\)</span>.</p></li>
+  \PR\left( \limsup_{n \to ∞} \{ ω : | X_n(ω) - X(ω) | &gt; ε \}  \right) = 0
+\]</span> We denote such convergence as <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span>.</p></li>
 </ul>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -408,11 +409,6 @@ X_n(ω) = \begin{cases}
 \end{cases}
 \]</span> Show that <span class="math inline">\(X_n \xrightarrow{p} 0\)</span>.</p>
 </div>
-<div id="exm-convergence-4" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4</strong></span> Consider an i.i.d. sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>, where <span class="math inline">\(X_n \sim \text{Uniform}(0,1)\)</span>. Define <span class="math display">\[
-  Y_n = \min\{X_1, \dots, X_n\}.
-\]</span> Show that <span class="math inline">\(Y_n \xrightarrow{p} 0\)</span>.</p>
-</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -424,6 +420,27 @@ Solution
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>This can be solved in exactly the same manner as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;1</a>.</p>
+</div>
+</div>
+</div>
+<div id="exm-convergence-4" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4</strong></span> Consider an i.i.d. sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>, where <span class="math inline">\(X_n \sim \text{Uniform}(0,1)\)</span>. Define <span class="math display">\[
+  Y_n = \min\{X_1, \dots, X_n\}.
+\]</span> Show that <span class="math inline">\(Y_n \xrightarrow{p} 0\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Pick any <span class="math inline">\(ε &gt; 0\)</span>. As in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;1</a>, if <span class="math inline">\(ε &gt; 1\)</span>, then <span class="math inline">\(\PR(Y_n &gt; ε) = 0\)</span>. So, we assume that <span class="math inline">\(ε \in (0,1)\)</span>. Then, <span class="math display">\[\begin{align*}
 \PR(Y_n &gt; ε) &amp;= \PR\bigl( \min\{ X_1, \dots, X_n \} \ge ε ) \\
@@ -481,7 +498,7 @@ Solution
 <div id="lem-as" class="theorem lemma">
 <p><span class="theorem-title"><strong>Lemma 3</strong></span> Suppose <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and for any <span class="math inline">\(ε &gt; 0\)</span>, we have <span class="math display">\[
 \sum_{n=1}^{∞} \PR(\ABS{X_n - X} &gt; ε) &lt; ∞
-\]</span> then <span class="math inline">\(X_n \xrightarrow{a.s.} X^*\)</span>.</p>
+\]</span> then <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span>.</p>
 </div>
 <p>In light of the above result, we revisit some variations of the examples of the previous section.</p>
 <ul>
@@ -498,18 +515,18 @@ Solution
    \end{cases}
 \]</span> <strong>and <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> are independent.</strong></p>
 <p>Then for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math inline">\(\PR(\ABS{X_n} &gt; ε) = \PR(X_n &gt; ε) = 1/n\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(\ABS{X_n} &gt; ε) = ∞\)</span>; hence by the Second Borel-Cantelli lemma, <span class="math display">\[ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} &gt; ε \}) = 1. \]</span> So, <span class="math inline">\(X_n\)</span> does not converge almost surely!</p></li>
-<li><p>In <strong>?@exm-converge-4</strong>, we can directly apply <a href="#lem-as" class="quarto-xref">Lemma&nbsp;3</a> to argue that <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
+<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;4</a>, we can directly apply <a href="#lem-as" class="quarto-xref">Lemma&nbsp;3</a> to argue that <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
 </ul>
 <p>A variation of <a href="#lem-as-exp" class="quarto-xref">Lemma&nbsp;4</a> is the following:</p>
 <div id="lem-as-exp" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 4</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be a sequence of random variables with finite expectations and let <span class="math inline">\(X^*\)</span> be another random variable. If <span class="math display">\[
-\sum_{n=1}^{∞} \EXP[ \ABS{X_n - X^*} ]  &lt; ∞
+<p><span class="theorem-title"><strong>Lemma 4</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be a sequence of random variables with finite expectations and let <span class="math inline">\(X\)</span> be another random variable. If <span class="math display">\[
+\sum_{n=1}^{∞} \EXP[ \ABS{X_n - X} ]  &lt; ∞
 \]</span> then <span class="math display">\[
-X_n \xrightarrow{a.s.} X^*.
+X_n \xrightarrow{a.s.} X.
 \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -518,9 +535,9 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>To simplify the notation, we assume that <span class="math inline">\(X^* = 0\)</span>.</p>
+<p>To simplify the notation, we assume that <span class="math inline">\(X = 0\)</span>.</p>
 <p>Pick any <span class="math inline">\(ε &gt; 0\)</span> and define the sequence of events <span class="math display">\[
 A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 \quad n \in \naturalnumbers.
@@ -540,30 +557,148 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 <h2 data-number="5" class="anchored" data-anchor-id="some-properties-of-convergence-of-sequence-of-random-variables"><span class="header-section-number">5</span> Some properties of convergence of sequence of random variables</h2>
 <p>We now state some properties without proof.</p>
 <ol type="1">
-<li><p>The three notions of convergence that we have defined are related as follows: <span class="math display">\[
-  [X_n \xrightarrow{a.s.} X^*]
+<li>The three notions of convergence that we have defined are related as follows: <span class="math display">\[
+  [X_n \xrightarrow{a.s.} X]
   \implies
-  [X_n \xrightarrow{p} X^*]
+  [X_n \xrightarrow{p} X]
   \implies
-  [X_n \xrightarrow{D} X^*]
-\]</span></p></li>
-<li><p>There is a partial converse. For any constant <span class="math inline">\(c\)</span> <span class="math display">\[
+  [X_n \xrightarrow{D} X]
+\]</span></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof that almost sure convergence implies convergence in probability
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Fix <span class="math inline">\(ε &gt; 0\)</span>. Define <span class="math display">\[
+A_n = \{ ω : \exists m \ge n, \ABS{X_m - X} \ge ε \}.
+\]</span> Then, <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> is a decreasing sequence of events. If <span class="math inline">\(ω \in \bigcap_{n \ge 1} A_n\)</span>, then <span class="math inline">\(X_n(ω) \not\xrightarrow{a.s} X(ω)\)</span>. This implies <span class="math display">\[\PR\Bigl( \bigcap_{n \ge 1} A_n \Bigr) \le
+  \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞}X_n(ω) \neq X(ω) \Bigr\}\Bigr)
+= 0. \]</span> By continuity of probability, <span class="math display">\[
+\lim_{n \to ∞} \PR(A_n) = \PR\Bigl( \lim_{n \to ∞} A_n \Bigr) = 0.
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof that convergence in probability implies convergence in distribution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(F_n\)</span> and <span class="math inline">\(F\)</span> denote the CDFs of <span class="math inline">\(X_n\)</span> and <span class="math inline">\(X\)</span>, respectively. Fix <span class="math inline">\(ε &gt; 0\)</span>, pick <span class="math inline">\(x\)</span> such that <span class="math inline">\(F\)</span> is continuous at <span class="math inline">\(x\)</span>, and consider <span class="math display">\[\begin{align*}
+  F_n(x) &amp;= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X &gt; x + ε)
+\\
+&amp;\le \PR(X \le x + ε) + \PR(X - X_n &gt; ε)
+\\
+&amp;\le F(x + ε) + \PR(\ABS{X_n - X} &gt; ε).
+\end{align*}\]</span> Similarly, <span class="math display">\[\begin{align*}
+  F(x-ε) &amp;= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n &gt; x )
+\\
+&amp;\le \PR(X_n \le x) + \PR(X_n - X &gt; ε)
+\\
+&amp;\le F_n(x) + \PR(\ABS{X_n - X} &gt; ε).
+\end{align*}\]</span></p>
+<p>Thus, <span class="math display">\[
+F(x-ε) - \PR(\ABS{X_n - X} &gt; ε) \le F_n(x) \le F(x+ε) + \PR(\ABS{X_n - X} &gt; ε).
+\]</span> Taking <span class="math inline">\(n \to ∞\)</span>, we have <span class="math display">\[
+F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + ε).
+\]</span> The result is true for all <span class="math inline">\(ε &gt; 0\)</span>. Since <span class="math inline">\(F\)</span> is continuous at <span class="math inline">\(x\)</span>, when we take <span class="math inline">\(ε \downarrow 0\)</span>, we have <span class="math display">\[
+F(x - ε) \uparrow F(x)
+\quad\text{and}\quad
+F(x + ε) \downarrow F(x)
+\]</span> which implies that <span class="math inline">\(F_n(x) \to F(x)\)</span>.</p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>There are partial converss. For any constant <span class="math inline">\(c\)</span> <span class="math display">\[
   [X_n \xrightarrow{D} c]
   \implies
   [X_n \xrightarrow{p} c].
-\]</span></p></li>
+\]</span> If <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> is a strictly decreasing sequence then <span class="math display">\[
+  [X_n \xrightarrow{p} c]
+  \implies
+  [X_n \xrightarrow{a.s.} c].
+  \]</span></p></li>
 <li><p>If <span class="math inline">\(X_n \xrightarrow{p} X\)</span>, then there exists a subsequence <span class="math inline">\(\{n_k : k \in \naturalnumbers \}\)</span> such that <span class="math inline">\(\{X_{n_k}\}_{k \ge 1}\)</span> converges almost surely to <span class="math inline">\(X\)</span>.</p></li>
-<li><p>Let <span class="math inline">\(f \colon \reals \to \reals\)</span> be a continuous function. Then,</p>
+<li><p><span class="math inline">\(X_n \xrightarrow{p} X\)</span> if and only if every subsequence <span class="math inline">\(\{n_k : k \in \naturalnumbers \}\)</span> has a sub-subsequence <span class="math inline">\(\{n_{k_m} : m \in \naturalnumbers \}\)</span> such that <span class="math inline">\(\{X_{n_{k_m}} \}_{m \ge 1}\)</span> that converges to <span class="math inline">\(X\)</span> almost surely.</p></li>
+<li><p><strong>Skorokhod’s representation theorem.</strong> If <span class="math inline">\(X_n \xrightarrow{D} X\)</span>, then there exists a sequence <span class="math inline">\(\{Y_n\}_{n \ge 1}\)</span> that is identically distributed to <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> such that <span class="math inline">\(Y_n \xrightarrow Y\)</span>, where <span class="math inline">\(Y\)</span> is identically distributed to <span class="math inline">\(X\)</span>.</p></li>
+<li><p><strong>Continuous mapping theorems.</strong> Let <span class="math inline">\(g \colon \reals \to \reals\)</span> be a continuous function. Then,</p>
 <ul>
-<li><span class="math inline">\(X_n \xrightarrow{a.s.} X^*\)</span> implies <span class="math inline">\(f(X_n) \xrightarrow{a.s.} f(X^*)\)</span>.</li>
-<li><span class="math inline">\(X_n \xrightarrow{p} X^*\)</span> implies <span class="math inline">\(f(X_n) \xrightarrow{p} f(X^*)\)</span>.</li>
-<li><span class="math inline">\(X_n \xrightarrow{D} X^*\)</span> implies <span class="math inline">\(f(X_n) \xrightarrow{D} f(X^*)\)</span>.</li>
+<li><span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span> implies <span class="math inline">\(g(X_n) \xrightarrow{a.s.} g(X)\)</span>.</li>
+<li><span class="math inline">\(X_n \xrightarrow{p} X\)</span> implies <span class="math inline">\(g(X_n) \xrightarrow{p} g(X)\)</span>.</li>
+<li><span class="math inline">\(X_n \xrightarrow{D} X\)</span> implies <span class="math inline">\(g(X_n) \xrightarrow{D} g(X)\)</span>.</li>
 </ul></li>
-<li><p>If <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{p} Y\)</span>, then <span class="math inline">\(X_n + Y_n \to X + Y\)</span> and <span class="math inline">\(X_n Y_n \xrightarrow X Y\)</span>.</p></li>
+<li><p><strong>Convergence of sums.</strong></p>
+<ul>
+<li>If <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{a.s.} Y\)</span>, then <span class="math inline">\(X_n + Y_n \xrightarrow{a.s.} X + Y\)</span>.</li>
+<li>If <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{p} Y\)</span>, then <span class="math inline">\(X_n + Y_n \xrightarrow{p} X + Y\)</span>.</li>
+<li>It is not true in general that <span class="math inline">\(X_n + Y_n \xrightarrow{D} X + Y\)</span> whenever <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{p} Y\)</span>. The result is true when <span class="math inline">\(X\)</span> or <span class="math inline">\(Y\)</span> is a constant.</li>
+</ul></li>
 </ol>
+<p>If <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{p} Y\)</span>, then <span class="math inline">\(X_n + Y_n \to X + Y\)</span> and <span class="math inline">\(X_n Y_n \xrightarrow X Y\)</span>.</p>
 </section>
-<section id="theres-more" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="theres-more"><span class="header-section-number">6</span> There’s more</h2>
+<section id="strong-law-of-large-numbers" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="strong-law-of-large-numbers"><span class="header-section-number">6</span> Strong law of large numbers</h2>
+<div id="thm-SLLN" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 1</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be an i.i.d. sequence of random variables with mean <span class="math inline">\(μ\)</span> and variance <span class="math inline">\(σ^2\)</span>. Let <span class="math display">\[
+  \bar X_n = \frac 1n \sum_{i=1}^n X_i
+\]</span> be the sameple average. Then, <span class="math inline">\(\bar X_n \xrightarrow{a.s} μ\)</span>, i.e., <span class="math display">\[
+\PR\Bigl( ω : \lim_{n \to ∞} X_n(ω) = μ \Bigr) = 1.
+\]</span></p>
+</div>
+<p>We provide a proof under the assumption that the fouth moment’s exist.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>We assume that <span class="math inline">\(μ = 0\)</span> (this is just for notational simplicity) and <span class="math inline">\(\EXP[X^4] = γ &lt; ∞\)</span> (this is a strong assumption).</p>
+<p>Since we know that the forth moment exist, we can use a forth moment version of Chebyshev inequality: <span class="math display">\[ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \EXP[ \bar X_n^4]}{ε^2}. \]</span></p>
+<p>Then, by the multinomial theorem, we have <span class="math display">\[ \EXP{\bar X_n^4} = \frac{1}{4} \EXP\biggl[
+\sum_{i} X_i^4 + \binom{4}{1,3} \sum_{i \neq j} X_i X_j^3 + \binom{4}{2,2} \sum_{i \neq j} X_i^2 X_j^2
++ \binom{4}{1,1,2} \sum_{i \neq j \neq k} X_i X_j X_k^2 + \sum_{i \neq j \neq k \neq \ell} X_i X_j X_k X_{\ell} \biggr].
+\]</span></p>
+<p>Since the <span class="math inline">\(\{X_i\}_{i \ge 1}\)</span> are independent and zero mean, we have</p>
+<ul>
+<li><span class="math inline">\(\EXP[X_i X_j^3] = \EXP[X_i] \EXP[X_j^3] = 0\)</span>.</li>
+<li>= = 0$.</li>
+</ul>
+<p>Therefore, <span class="math display">\[
+\EXP[\bar X_n^4= \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
+\le \frac{M_4}{n_3} + \frac{3 σ^4}{n^2}
+\]</span> where <span class="math inline">\(M_4\)</span> is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have <span class="math display">\[
+\]</span> ε) . <span class="math display">\[
+This implies that
+\]</span> _{n=1}^{∞} ( ε) &lt; ∞. $$ Thus, from <a href="#lem-as" class="quarto-xref">Lemma&nbsp;3</a>, we have that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p>
+<p><strong>TODO</strong></p>
+</div>
+</div>
+</div>
+</section>
+<section id="theres-more" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="theres-more"><span class="header-section-number">7</span> There’s more</h2>
 <p>There’s another type of convergence commonly used in engineering: convergence in mean-squared sense. In the interest of time, we will not study this notion in class.</p>
 
 
