@@ -491,17 +491,12 @@ $$
 \le \frac{M_4}{n_3} + \frac{3 σ^4}{n^2}
 $$
 where $M_4$ is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have
-$$
 $$ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n_3} + \frac{3 σ^4}{n^2} }{ε^2}. $$
 This implies that
 $$
 \sum_{n=1}^{∞} \PR(\ABS{X_n} \ge ε) < ∞.
 $$
 Thus, from @lem-as, we have that $X_n \xrightarrow{a.s.} 0$. 
-
-
-
-**TODO**
 :::
 
 ## There's more
