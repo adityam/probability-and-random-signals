@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-10-31">
+<meta name="dcterms.date" content="2024-11-04">
 
 <title>Convergence of random variables – Probability and Random Signals II</title>
 <style>
@@ -248,7 +248,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 31, 2024</p>
+      <p class="date">November 4, 2024</p>
     </div>
   </div>
   
@@ -688,11 +688,9 @@ Proof
 <p>Therefore, <span class="math display">\[
 \EXP[\bar X_n^4= \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
 \le \frac{M_4}{n_3} + \frac{3 σ^4}{n^2}
-\]</span> where <span class="math inline">\(M_4\)</span> is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have <span class="math display">\[
-\]</span> ε) . <span class="math display">\[
-This implies that
-\]</span> _{n=1}^{∞} ( ε) &lt; ∞. $$ Thus, from <a href="#lem-as" class="quarto-xref">Lemma&nbsp;3</a>, we have that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p>
-<p><strong>TODO</strong></p>
+\]</span> where <span class="math inline">\(M_4\)</span> is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have <span class="math display">\[ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n_3} + \frac{3 σ^4}{n^2} }{ε^2}. \]</span> This implies that <span class="math display">\[
+\sum_{n=1}^{∞} \PR(\ABS{X_n} \ge ε) &lt; ∞.
+\]</span> Thus, from <a href="#lem-as" class="quarto-xref">Lemma&nbsp;3</a>, we have that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p>
 </div>
 </div>
 </div>
