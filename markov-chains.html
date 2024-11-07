@@ -9,7 +9,7 @@
 <meta name="author" content="Aditya Mahajan">
 <meta name="dcterms.date" content="2024-11-07">
 
-<title>Probability inequalities – Probability and Random Signals II</title>
+<title>Markov chains – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -207,25 +207,18 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#union-bound" id="toc-union-bound" class="nav-link active" data-scroll-target="#union-bound"><span class="header-section-number">1</span> Union Bound</a></li>
-  <li><a href="#cauchy-schwartz-inequality" id="toc-cauchy-schwartz-inequality" class="nav-link" data-scroll-target="#cauchy-schwartz-inequality"><span class="header-section-number">2</span> Cauchy-Schwartz inequality</a></li>
-  <li><a href="#jensens-inequality" id="toc-jensens-inequality" class="nav-link" data-scroll-target="#jensens-inequality"><span class="header-section-number">3</span> Jensen’s inequality</a></li>
-  <li><a href="#markov-inequality" id="toc-markov-inequality" class="nav-link" data-scroll-target="#markov-inequality"><span class="header-section-number">4</span> Markov inequality</a>
-  <ul class="collapse">
-  <li><a href="#union-bound-as-a-special-case-of-markov-inequality" id="toc-union-bound-as-a-special-case-of-markov-inequality" class="nav-link" data-scroll-target="#union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">4.1</span> Union bound as a special case of Markov inequality</a></li>
-  </ul></li>
-  <li><a href="#chebyshev-inequality" id="toc-chebyshev-inequality" class="nav-link" data-scroll-target="#chebyshev-inequality"><span class="header-section-number">5</span> Chebyshev inequality</a></li>
-  <li><a href="#chernoff-bound" id="toc-chernoff-bound" class="nav-link" data-scroll-target="#chernoff-bound"><span class="header-section-number">6</span> Chernoff bound</a></li>
-  <li><a href="#azuma-hoeffding-inequality" id="toc-azuma-hoeffding-inequality" class="nav-link" data-scroll-target="#azuma-hoeffding-inequality"><span class="header-section-number">7</span> Azuma-Hoeffding inequality</a></li>
+  <li><a href="#hitting-times-and-expected-number-of-visits" id="toc-hitting-times-and-expected-number-of-visits" class="nav-link active" data-scroll-target="#hitting-times-and-expected-number-of-visits"><span class="header-section-number">1</span> Hitting times and expected number of visits</a></li>
+  <li><a href="#absorption-probabilities" id="toc-absorption-probabilities" class="nav-link" data-scroll-target="#absorption-probabilities"><span class="header-section-number">2</span> Absorption probabilities</a></li>
+  <li><a href="#expected-first-passage-time" id="toc-expected-first-passage-time" class="nav-link" data-scroll-target="#expected-first-passage-time"><span class="header-section-number">3</span> Expected first-passage time</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Probability inequalities</h1>
+<h1 class="title">Markov chains</h1>
 </div>
 
 
@@ -263,33 +256,85 @@ window.Quarto = {
 </header>
 
 
-<section id="union-bound" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="union-bound"><span class="header-section-number">1</span> Union Bound</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Union bound
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(A_1, \dots, A_n\)</span> be a collection of events. Then, <span class="math display">\[
-\PR\biggl( \bigcup_{i=1}^n A_i \biggr)
-\le
-\sum_{i=1}^n \PR(A_n).
+<p>Let <span class="math inline">\(\ALPHABET X\)</span> be a finite set. A stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span>, <span class="math inline">\(X_n \in \ALPHABET X\)</span>, is called a <strong>Markov chain</strong> if it satisfies the <em>Markov property</em>: for any <span class="math inline">\(n \in \integers_{\ge 0}\)</span> and any <span class="math inline">\(x_{1:n+1} \in \ALPHABET X^{n+1}\)</span>, we have <span class="math display">\[\begin{equation}\tag{Markov property}\label{eq:Markov}
+  \PR(X_{n+1} = x_{n+1} \mid X_{1:n} = x_{1:n})
+  = \PR(X_{n+1} = x_{n+1} \mid X_n = x_n).
+\end{equation}\]</span></p>
+<p>The variable <span class="math inline">\(X_n\)</span> is called the <strong>state</strong> of the Markov chain at time <span class="math inline">\(n\)</span>; the set <span class="math inline">\(\ALPHABET X\)</span> is called <strong>state space</strong>. The <span class="math inline">\(\eqref{eq:Markov}\)</span> implies that the current state captures all the information from the past that is relevant for the future.</p>
+<p>The Markov chain is called <strong>time-homogeneous</strong> if the right hand side does not depend on <span class="math inline">\(n\)</span>. In this case, we describe the Markov chain by a <strong>state transition matrix</strong> <span class="math inline">\(P\)</span>, where <span class="math inline">\(P_{ij} = \PR(X_{n+1} = j | X_n = i)\)</span>.</p>
+<p>Let <span class="math inline">\(μ^{(n)}\)</span> denote the PMF of the state of the Markov chain at time <span class="math inline">\(n\)</span>. Then, we have that <span class="math display">\[ μ^{(n)} = μ^{(n-1)} P \]</span> and, by recusively expanding the right hand side, we have <span class="math display">\[ μ^{(n)} = μ^{(0)} P^n. \]</span></p>
+<p>We will abbreviate <span class="math inline">\([P^n]_{ij}\)</span> as <span class="math inline">\(P^{(n)}_{ij}\)</span>.</p>
+<section id="hitting-times-and-expected-number-of-visits" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="hitting-times-and-expected-number-of-visits"><span class="header-section-number">1</span> Hitting times and expected number of visits</h2>
+<ol type="1">
+<li><p>We use the following notation:</p>
+<ul>
+<li><span class="math inline">\(P_i(A)\)</span> denotes <span class="math inline">\(\PR(A \mid X_0 = i)\)</span> and $</li>
+<li><span class="math inline">\(\EXP_i[Y]\)</span> denotes <span class="math inline">\(\EXP[Y \mid X_0 = i]\)</span>.</li>
+</ul></li>
+<li><p>Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\ALPHABET X\)</span>. The <strong>hitting time</strong> <span class="math inline">\(T_A\)</span> of <span class="math inline">\(A\)</span> is defined by <span class="math display">\[
+  T_A = \min_{n &gt; 0 : X_n \in A).
+\]</span> The standard convention is that <span class="math inline">\(T_A\)</span> is taken to be <span class="math inline">\(∞\)</span> if <span class="math inline">\(X_n \neq A\)</span> for any <span class="math inline">\(n &gt; 0\)</span>. For a state <span class="math inline">\(j \in \ALPHABET X\)</span>, we use the short-hand <span class="math inline">\(T_j\)</span> to denote <span class="math inline">\(T_{\{j\}}\)</span>.</p></li>
+<li><p>Define <span class="math display">\[
+  f^{(n)}_{ij} \coloneqq P_i(T_j = n) = P_i(X_1 \neq j, \dots, X_{n-1} \neq j, X_n = j).
+\]</span></p></li>
+<li><p><span class="math inline">\(f^{(n)}_{ij}\)</span> satisfies the following recursion.</p>
+<ul>
+<li><span class="math inline">\(f^{(1)}_{ij} = P_i(X_1 = j) = P_{ij}\)</span>.</li>
+<li>And for <span class="math inline">\(n &gt; 1\)</span>, <span class="math inline">\(f^{(n+1)}_{ij} = \sum_{k \neq j} P_{ik} f^{(n)}_{kj}\)</span>.</li>
+</ul></li>
+<li><p>Let <span class="math display">\[
+  f_{ij} = \sum_{n=1}^∞ f^{(n)}_{ij} = P_i(T_j &lt; ∞)
+\]</span> denotes the probability that a chain starting in <span class="math inline">\(i\)</span> eventually visits <span class="math inline">\(j\)</span>. In particular <span class="math inline">\(f_{jj}\)</span> denotes the probability that a chain starting in <span class="math inline">\(j\)</span> will return to <span class="math inline">\(j\)</span>.</p></li>
+<li><p><span class="math inline">\(f_{ij}\)</span> satisfy the following property.<br>
+<span class="math display">\[\displaystyle P^{(n)}_{ij} = \sum_{m=1}^n  f^{(m)}_{ij} P^{(n-m)}_{jj}.\]</span></p>
+<p>An immediate implication of the above is that if <span class="math inline">\(j\)</span> is an absorbing state then <span class="math inline">\(P^{(n)}_{ij} = \sum_{m=1}^n f^{(m)}_{ij} = P_i(T_j \le n).\)</span></p></li>
+<li><p>Let <span class="math inline">\(N_j = \sum_{n=1}^∞ \IND\{X_n = j \}\)</span> denote the number of visits to state <span class="math inline">\(j\)</span>. Define <span class="math display">\[
+   G_{ij} = \EXP_{i}[N_j] = \sum_{n=1}^{∞} P^{(n)}_{ij}
+\]</span> to denote the expected number of visits to state <span class="math inline">\(j\)</span> for a chain starting in <span class="math inline">\(i\)</span>.</p></li>
+<li><p>A state <span class="math inline">\(j\)</span> is <strong>recurrent</strong> if <span class="math inline">\(f_{jj} = 1\)</span> and <strong>transient</strong> if <span class="math inline">\(f_{jj} &lt; 1\)</span>.</p></li>
+<li><p>For every transient state <span class="math inline">\(j\)</span>, we have for every <span class="math inline">\(i\)</span>, <span class="math inline">\(P_i(N_j &lt; ∞) = 1\)</span> and <span class="math display">\[ G_{ij} = \dfrac{f_{ij}}{1 - f_{jj}}.\]</span> On the other hand, if <span class="math inline">\(j\)</span> is recurrent, then <span class="math inline">\(P_j(N_j = ∞) = 1\)</span> and <span class="math inline">\(G_{jj} = ∞\)</span>. Moreover, <span class="math display">\[ P_i(N_j = ∞) = P_i(T_j &lt; ∞) = f_{ij}. \]</span> So, if <span class="math inline">\(f_{ij} = 0\)</span>, then <span class="math inline">\(G_{ij} = 0\)</span> while if <span class="math inline">\(f_{ij} = ∞\)</span> then <span class="math inline">\(G_{ij} = ∞\)</span>.</p></li>
+<li><p>Thus, a state <span class="math inline">\(i\)</span> is recurrent if and only if <span class="math display">\[G_{ii} = \sum_{n=1}^∞ P^{(n)}_{ii} = ∞. \]</span></p></li>
+<li><p>A state <span class="math inline">\(j\)</span> is said to be <strong>accessible from</strong> <span class="math inline">\(i\)</span> (abbreviated as <span class="math inline">\(i \rightsquigarrow j\)</span>) if there is an ordered string of notes <span class="math inline">\((i_0, \dots, i_m)\)</span> such that <span class="math inline">\(i_0 = i\)</span> and <span class="math inline">\(i_m = j\)</span> and <span class="math inline">\(P_{i_k i_{k+1}} &gt; 0\)</span>. Equivalently, <span class="math inline">\(i \rightsquigarrow j\)</span> if there exists a <span class="math inline">\(m\)</span> such that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span>.</p></li>
+<li><p>Accessibility is an transitive relationship, i.e., if <span class="math inline">\(i \rightsquigarrow j\)</span> and <span class="math inline">\(j \rightsquigarrow k\)</span> implies that <span class="math inline">\(i \rightsquigarrow k\)</span>.</p></li>
+<li><p>If <span class="math inline">\(i\)</span> is recurrent and <span class="math inline">\(i \rightsquigarrow j\)</span>. Then, <span class="math inline">\(j\)</span> is also recurrent and <span class="math inline">\(f_{ij} = f_{ji} = 1\)</span>.</p></li>
+<li><p>A subset <span class="math inline">\(C\)</span> of <span class="math inline">\(\ALPHABET X\)</span> is said to be <strong>closed</strong> if no state inside <span class="math inline">\(C\)</span> can lead to any state outside <span class="math inline">\(C\)</span>, i.e., <span class="math display">\[
+    f_{ij} = 0, \quad \forall i \in C \text{ and } j \not\in C.
+\]</span></p></li>
+<li><p>A closed set <span class="math inline">\(C\)</span> is called <strong>irreducible</strong> if <span class="math inline">\(i \rightsquigarrow j\)</span> for all <span class="math inline">\(i,j \in C\)</span>. Thus, if <span class="math inline">\(C\)</span> is an irreducible set, then all states in <span class="math inline">\(C\)</span> are either recurrent or transient.</p></li>
+<li><p>Consequently, if <span class="math inline">\(C\)</span> is an irreducible and closed set of recurrent states. Then for all <span class="math inline">\(i,j \in C\)</span>,</p>
+<ul>
+<li><span class="math inline">\(f_{ij} = 1\)</span></li>
+<li><span class="math inline">\(P_i(N_j = ∞) = 1\)</span></li>
+<li><span class="math inline">\(G_{ij} = ∞\)</span></li>
+</ul></li>
+<li><p>If <span class="math inline">\(C\)</span> is a finite irreducible closed set of states. Then every state in <span class="math inline">\(C\)</span> is recurrent.</p></li>
+<li><p>Let <span class="math inline">\(\ALPHABET X_T\)</span> and <span class="math inline">\(\ALPHABET X_R\)</span> denote the set of transient and recurrent states. The set <span class="math inline">\(\ALPHABET X_R\)</span> can be paritioned into a finite or countable number of irreducible closed sets <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span>, <span class="math inline">\(\dots\)</span>.</p></li>
+</ol>
+</section>
+<section id="absorption-probabilities" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="absorption-probabilities"><span class="header-section-number">2</span> Absorption probabilities</h2>
+<ol type="1">
+<li><p>Let <span class="math inline">\(C\)</span> be one of the irreducible closed sets of recurrent states. Define <span class="math inline">\(f_{iC} = P_i(T_C &lt; ∞)\)</span> to be the probability that a chain starting at <span class="math inline">\(i\)</span> eventually hits <span class="math inline">\(C\)</span> (and is <em>absorbed</em> in <span class="math inline">\(C\)</span>).</p></li>
+<li><p>Clearly, <span class="math inline">\(f_{iC} = 1\)</span> for <span class="math inline">\(i \in C\)</span> and <span class="math inline">\(f_{iC} = 0\)</span> if <span class="math inline">\(i\)</span> is a recurrent state not in <span class="math inline">\(C\)</span>.</p></li>
+<li><p>Suppose <span class="math inline">\(i \in \ALPHABET X_T\)</span>. Then, <span class="math inline">\(f_{iC}\)</span> satisfies the following: <span class="math display">\[
+   f_{iC} = \sum_{j \in C} P_{ij}
+   + \sum_{j \in \ALPHABET X_T} P_{ij} f_{jC}.
 \]</span></p>
+<p>When <span class="math inline">\(\ALPHABET X_T\)</span> is finite, the above system has a unique solution.</p></li>
+</ol>
+<div id="exm-gambler-ruin" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> Consider a gambler’s ruin problem, where we start at state <span class="math inline">\(1\)</span> and stop if we hit state <span class="math inline">\(0\)</span> or <span class="math inline">\(3\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/markov-chains3.svg" class="img-fluid figure-img"></p>
+<figcaption>A gambler’s ruin problem</figcaption>
+</figure>
 </div>
+<p>Find the probability of getting absorbed in state <span class="math inline">\(0\)</span> before state <span class="math inline">\(3\)</span>.</p>
 </div>
-<p>We already proved this when talking about <a href="./probability-spaces.html#lem-probability-properties">probability spaces</a>.</p>
-<div id="exm-union-bound" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1</strong></span> Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables with CDF <span class="math inline">\(F_X(x)\)</span>. Find an upper bound on the CDF of <span class="math display">\[
-Z_n = \min(X_1, \dots, X_n).
-\]</span></p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -298,387 +343,44 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>We know that <span class="math display">\[Z_n = \min(X_1, \dots, X_n) \le z\]</span> if and only if <span class="math display">\[ X_i \le Z \quad \forall i \in \{1, \dots, n\}.\]</span> Therefore, <span class="math display">\[\PR(Z_n \le z) = \PR\biggl( \bigcup_{i=1}^n \{X_i \le z \} \biggr)
-\le \sum_{i=1}^n \PR(X_i \le z) = n F_X(z).
-\]</span></p>
+<p>Let <span class="math inline">\(f_{i0}\)</span> denote the probability of getting absorbed in state <span class="math inline">\(0\)</span> before <span class="math inline">\(3\)</span>. Then, we can write the following system of equations to describe the absorption probabilities: <span class="math display">\[\begin{align*}
+  f_{10} &amp;= q + p f_{20} \\
+  f_{20} &amp;= q f_{10}.
+\end{align*}\]</span> We can solve this system of equations to find <span class="math inline">\(f_{10}\)</span> and <span class="math inline">\(f_{20}\)</span>.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="cauchy-schwartz-inequality" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="cauchy-schwartz-inequality"><span class="header-section-number">2</span> Cauchy-Schwartz inequality</h2>
-<p>This is a generalization of <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">:Cauchy-Schwartz inequality</a> on inner products to random variables.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Cauchy-Schwartz inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be real-valued random variables. Then, <span class="math display">\[
-\EXP[XY]^2 \le \EXP[X^2] \EXP[Y^2].
-\]</span> or equivalently, <span class="math display">\[
-\COV(X,Y)^2 \le \VAR(X) \VAR(Y).
-\]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(f(s) = \EXP[ (sX + Y)^2\)</span> for any <span class="math inline">\(s \in \reals\)</span>. Then, by linearity of expectation, we have <span class="math display">\[
-f(s) = \EXP[ (sX + Y)^2 ] = s^2 \EXP[X^2] + 2s \EXP[XY] + \EXP[Y^2].
-\]</span> We know that <span class="math inline">\(f(s) \ge 0\)</span>. Recall that a quadratic form <span class="math display">\[
-A s^2 + B s + C \ge 0
-\]</span> for all values of <span class="math inline">\(s\)</span> if and only it has repeated or complex roots. Thus, the determinant must be non-positive, that is <span class="math display">\[
-Δ = B^2 - 4AC \le 0.
-\]</span> The result follows by taking <span class="math inline">\(A = \EXP[X^2]\)</span>, <span class="math inline">\(B = 2 \EXP[XY]\)</span>, and <span class="math inline">\(C = \EXP[Y^2]\)</span>.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="jensens-inequality" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="jensens-inequality"><span class="header-section-number">3</span> Jensen’s inequality</h2>
-<p>If we take <span class="math inline">\(Y = 1\)</span> in Cauchy-Schwartz inequality, we get that <span class="math display">\[
-\EXP[X^2] \ge \EXP[X]^2.
-\]</span> This also follows from the fact that <span class="math inline">\(\VAR(X) \ge 0\)</span>. Jensen’s inequality may be thought as a generalization of this to convex functions.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Jensen’s inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Suppose <span class="math inline">\(X\)</span> is a real-valued random variable. Then for any <strong>convex</strong> <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
-\EXP[ g(X) ] \ge g(\EXP[X]).
-\]</span></p>
-<p>Moreover, for any **concave* <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
-\EXP[ g(X) ] \le g(\EXP[X]).
-\]</span></p>
-</div>
-</div>
-<p>For example, since <span class="math inline">\(g(x) = 1/x\)</span> is convex, we have <span class="math display">\[
-\EXP\left[\frac 1x\right] \le \frac{1}{\EXP[X]}.
-\]</span> Moreover, since <span class="math inline">\(g(x) = \log(x)\)</span> is concave, we have <span class="math display">\[
-\EXP[ \log(X)] \le \log(\EXP[X]).
-\]</span></p>
-</section>
-<section id="markov-inequality" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="markov-inequality"><span class="header-section-number">4</span> Markov inequality</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Markov inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>For any non-negative random variable <span class="math inline">\(X\)</span> and a number <span class="math inline">\(a &gt; 0\)</span>, <span class="math display">\[
-\PR(X \ge a) \le \frac{\EXP[X]}{a}.
-\]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(Z = \IND\{X \ge a\} a\)</span>, which moves all the “mass” of <span class="math inline">\(X\)</span> to the left.</p>
-<!-- TODO: Add figure -->
-<p>Thus, <span class="math display">\[
-\EXP[X] \ge \EXP[Z] = a \PR(X \ge a).
-\]</span></p>
-</div>
-</div>
-</div>
-<div id="exm-Markov" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>The table below compares the actual tail probability with the bound obtained from Markov inequality.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><span class="math inline">\(a\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\PR(X \ge a)\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\EXP[X]/a\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.2 = 2.5\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.5 = 1\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.8 = .625\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;2</a> shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality of <span class="math inline">\(a \ge μ\)</span>.</p>
-<section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">4.1</span> Union bound as a special case of Markov inequality</h3>
-<p>Note that it is possible to derive the union bound as a corrollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
-X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
-1, &amp; ω \in A_i \\
-0, &amp; ω \not\in A_i
-\end{cases}.
-\]</span> Let <span class="math display">\[ X = X_1 + \dots + X_n. \]</span> <span class="math inline">\(X_i\)</span> takes the value <span class="math inline">\(1\)</span> when event <span class="math inline">\(A_i\)</span> occurs. Therefore, the event <span class="math inline">\(\bigcup_{i=1}^n A_i\)</span> is equal to the event <span class="math inline">\(X \ge 1\)</span>, i.e., <span class="math display">\[
-\PR\left(\bigcup_{i=1}^n A_i \right)
-= \PR(X \ge 1).
-\]</span> Now, by Markov inequality, we have <span class="math display">\[
-\PR(X \ge 1) \le \EXP[X] = \PR(A_1) + \cdots + \PR(A_n).
-\]</span> The union bound follows by combining the above equations.</p>
-</section>
-</section>
-<section id="chebyshev-inequality" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="chebyshev-inequality"><span class="header-section-number">5</span> Chebyshev inequality</h2>
-<!-- TODO: AN Lec 15 -->
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Chebyshev inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable with mean <span class="math inline">\(μ\)</span>. Then for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
-\PR( \ABS{X - μ} \ge a) \le \frac{ \VAR(X) }{a^2}.
-\]</span></p>
-<p>An alternative form of is as follows. Let <span class="math inline">\(a = k σ\)</span>. Then, <span class="math display">\[
-\PR(\ABS{X - μ} \ge k σ) \le \frac{1}{k^2}.
-\]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Observe that <span class="math display">\[\begin{align*}
-\PR( \ABS{X - μ} \ge a) &amp;= \PR((X - μ)^2 \ge a^2)
-\\
-&amp;\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
-\end{align*}\]</span> where <span class="math inline">\((a)\)</span> follows from Markov inequality.</p>
-</div>
-</div>
-</div>
-<p>In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.</p>
-<div id="exm-Binomial-comparison" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Recall that <span class="math inline">\(\EXP[X] = np\)</span> and <span class="math inline">\(\VAR(X) = n p(1-p)\)</span>. Therefore, from Markov inequality we have <span class="math display">\[
-\PR(X \ge nq) \le \frac{np}{nq} = \frac{p}{q}.
-\]</span> Therefore, Markov inequality does not suggest any form of concentration with <span class="math inline">\(n\)</span>.</p>
-<p>We now consider Chebyshev inequality. To do so, we first massage the expression a bit <span class="math display">\[\begin{align*}
-\PR(X \ge nq) &amp;= \PR( X - np \ge n(q-p) ) \\
-&amp;\le \PR( \ABS{X - np} \ge n(q-p) )
-\le \frac{np(1-p)}{n^2(q-p)^2} = \frac{1}{n} \cdot \frac{p(1-p)}{(q-p)^2}
-\end{align*}\]</span> which shows that <span class="math inline">\(\PR(X \ge nq)\)</span> gets smaller as <span class="math inline">\(n\)</span> increases.</p>
-</div>
-</div>
-</div>
-<p>We can use Chebyshev inequality to prove the <strong>weak law of large numbers</strong>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Weak law of large numbers
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, X_2, \dots\)</span> be independent random variables with <span class="math inline">\(\EXP[X_n] = μ\)</span> and <span class="math inline">\(\VAR(X_n) = σ^2\)</span>. Let <span class="math display">\[
-\bar X_n = \frac 1n \sum_{i=1}^n X_i
-\]</span> be the sample mean. Then, <span class="math display">\[\PR(\ABS{X_n - μ} &gt; ε) \le \frac{σ^2}{n ε^2}. \]</span></p>
-<p>Therefore, <span class="math inline">\(X_n \xrightarrow{p} μ\)</span> (which reads as <span class="math inline">\(X_n\)</span> converges in probability to <span class="math inline">\(μ\)</span>; we will study convergence in probability in next lecture).</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Observe that <span class="math display">\[\begin{align*}
-\EXP[\bar X_n] &amp;= \frac{1}{n} \sum_{i=1}^n \EXP[X_i] = μ \\
-\VAR(\bar X_n) &amp;= \frac{1}{n^2} \sum_{i=1}^n \VAR(X_i) = \frac{σ^2}{n}.
-\end{align*}\]</span></p>
-<p>Then, by Chebyshev inequality, we have <span class="math display">\[
-\PR(\ABS{X_n - μ} &gt; ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
-\]</span></p>
-</div>
-</div>
-</div>
-<p>If we do not know <span class="math inline">\(\VAR(X)\)</span>, we can still use Chebyshev inequality with an upper bound on <span class="math inline">\(\VAR(X)\)</span>. For example, if <span class="math inline">\(X \in [a,b]\)</span>, then we can show that <span class="math display">\[
-\VAR(X) \le \frac{(b-a)^2}{4}.
-\]</span> So, for any random variable <span class="math inline">\(X \in [a,b]\)</span>, we have that <span class="math display">\[
-\PR(\ABS{X - μ} &gt; ε) \le \frac{(b-a)^2}{4 ε^2}.
-\]</span></p>
-</section>
-<section id="chernoff-bound" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="chernoff-bound"><span class="header-section-number">6</span> Chernoff bound</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Chernoff Bound
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable. Then, for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
-\PR(X \ge a) \le e^{-φ(a)}
-\]</span> where <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ s a - \log M_X(s) \}
-\]</span> is the <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Lengendre-Fenchel transform</a> of <span class="math inline">\(\log M_X(s)\)</span>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-15" class="callout-15-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>The proof relies on two observations. First, for any <span class="math inline">\(s &gt; 0\)</span>, <span class="math inline">\(e^s x\)</span> is an increasing function of <span class="math inline">\(x\)</span>. Therefore, <span class="math display">\[
-\{ ω : X(ω) &gt; a \} = \{ ω : e^{sX(ω)} &gt; e^{sa} \}.
-\]</span> Hence, <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \frac{\EXP[e^{sX}}{e^{sa}}
-= e^{-( sa - \log M_X(s) ) }
-\]</span> where the inequality follows from Markov inequality</p>
-<p>Second, observe that the above inequality holds for every <span class="math inline">\(s &gt; 0\)</span>. So, to get the tightest bound, we minimize the RHS over all <span class="math inline">\(s &gt; 0\)</span>, i.e., <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \min_{s &gt; 0} e^{-( sa - \log M_X(s) ) }
-\]</span> Since <span class="math inline">\(e^x\)</span> is increasing in <span class="math inline">\(x\)</span>, the minimizer above is the same as the maximizer for <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ sa - \log M_X(s) \}.
-\]</span></p>
-</div>
-</div>
-</div>
-<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;3</a>. For a Binomial random variable, <span class="math display">\[
-M_X(s) = (1 - p + p e^s)^n.
-\]</span> Then, <span class="math display">\[\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
-= \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
-\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;3</a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
-\PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
-\]</span> where <span class="math display">\[
-D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
-\]</span></p>
-<p>We now present another example to show the tightness of the Chernoff bound.</p>
-<div id="exm-Chernoff-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
-</div>
-<!-- TODO: Write solution -->
-</section>
-<section id="azuma-hoeffding-inequality" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="azuma-hoeffding-inequality"><span class="header-section-number">7</span> Azuma-Hoeffding inequality</h2>
-<p>Although Chernoff bound is fairly tight, one of the drawbacks is that it requires the knowledge of the MGF of <span class="math inline">\(X\)</span>. This is in contrast to Markov and Chebyshev inequalities which only require knowledge of the mean and variance. For sums of i.i.d. random variables, it is possible to get a tight bound that only depends on the mean (and a proxy for variance).</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Azuma-Hoeffding inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables such that <span class="math inline">\(X_i \in [a,b]\)</span> and <span class="math inline">\(\EXP[X_i] = μ\)</span>. Define <span class="math display">\[
-\bar X_n = \frac 1n \sum_{i=1}^n X_i.
-\]</span> Then, <span class="math display">\[ \PR( \bar X_n - μ  &gt; ε ) \le e ^ {- 2 ε^2 n } \]</span> and <span class="math display">\[ \PR( \ABS{\bar X_n - μ}  &gt; ε ) \le 2 e ^ {- 2 ε^2 n } \]</span></p>
-</div>
-</div>
-<p>We will not provide a proof of this inequality. The Azuma-Hoeffding inequality can also be interpreted as follows. For any <span class="math inline">\(δ &gt; 0\)</span>, we have that the true mean lies in the interval <span class="math display">\[
-\left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} },
-       \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
-\]</span></p>
-<p>We can revisit <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;3</a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
-\PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
-\le e^{-2 (q - p)^2 n}.
-\]</span></p>
-<p>The bound is weaker than what we obtained via Chernoff bound, but it only requires the first moment and the fact that the random variables are bounded.</p>
+<section id="expected-first-passage-time" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="expected-first-passage-time"><span class="header-section-number">3</span> Expected first-passage time</h2>
+<p>Let’s start with a simple example. Suppose we toss a coin multiple times and stop at a heads. What are the expected number of tosses until stopping?</p>
+<p>From elementary probability we know that the number of tosses until stopping is a geometric random variable. However, we will model this using a Markov chain where the state denotes the number of consecutive heads so far. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. Then, the Markov chain model is as follows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/markov-chains1.svg" class="img-fluid figure-img"></p>
+<figcaption>Markov chain for coin tossing until one head</figcaption>
+</figure>
+</div>
+<p>Let <span class="math inline">\(v_i\)</span> denote the expected number of tosses until stopping when starting at state <span class="math inline">\(i\)</span>. Then, we have <span class="math display">\[\begin{align*}
+  v_0 &amp;= 1 + q v_0 + p v_1, \\
+  v_1 &amp;= 0.
+\end{align*}\]</span> Solving this system of equations, we get <span class="math inline">\(v_0 = 1/(1-q) = 1/p\)</span>.</p>
+<p>Now, let’s try a variation of the above model. Suppose we toss a coin multiple times and stop at two heads. What are the expected number of tosses until stopping.</p>
+<p>We can model this in the same manner as the before, where the state denotes the number of consecutive heads so far. The Markov chain is as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/markov-chains2.svg" class="img-fluid figure-img"></p>
+<figcaption>Markov chain for coin tossing until two heads</figcaption>
+</figure>
+</div>
+<p>As before, let <span class="math inline">\(v_i\)</span> denote the expected number of tosses until stopping when starting at state <span class="math inline">\(i\)</span>. Then, we have <span class="math display">\[\begin{align*}
+  v_0 &amp;= 1 + q v_0 + p v_1, \\
+  v_1 &amp;= 1 + q v_0 + p v_2, \\
+  v_2 &amp;= 0.
+\end{align*}\]</span> Solving this system of equations, we get <span class="math inline">\(v_0 = 1/(1-p)\)</span>.</p>
+<p>We can generalize these ideas to find time of hitting a state.</p>
 
 
 </section>
@@ -1253,5 +955,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

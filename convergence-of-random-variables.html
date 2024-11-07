@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-11-04">
+<meta name="dcterms.date" content="2024-11-07">
 
 <title>Convergence of random variables – Probability and Random Signals II</title>
 <style>
@@ -248,7 +248,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 4, 2024</p>
+      <p class="date">November 7, 2024</p>
     </div>
   </div>
   
@@ -578,7 +578,7 @@ Proof that almost sure convergence implies convergence in probability
 <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Fix <span class="math inline">\(ε &gt; 0\)</span>. Define <span class="math display">\[
-A_n = \{ ω : \exists m \ge n, \ABS{X_m - X} \ge ε \}.
+A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 \]</span> Then, <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> is a decreasing sequence of events. If <span class="math inline">\(ω \in \bigcap_{n \ge 1} A_n\)</span>, then <span class="math inline">\(X_n(ω) \not\xrightarrow{a.s} X(ω)\)</span>. This implies <span class="math display">\[\PR\Bigl( \bigcap_{n \ge 1} A_n \Bigr) \le
   \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞}X_n(ω) \neq X(ω) \Bigr\}\Bigr)
 = 0. \]</span> By continuity of probability, <span class="math display">\[
