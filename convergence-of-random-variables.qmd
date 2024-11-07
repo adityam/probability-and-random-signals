@@ -364,7 +364,7 @@ We now state some properties without proof.
 
 Fix $ε > 0$. Define
 $$
-A_n = \{ ω : \exists m \ge n, \ABS{X_m - X} \ge ε \}.
+A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 $$
 Then, $\{A_n\}_{n \ge 1}$ is a decreasing sequence of events. If $ω \in \bigcap_{n \ge 1} A_n$, then $X_n(ω) \not\xrightarrow{a.s} X(ω)$. This implies
 $$\PR\Bigl( \bigcap_{n \ge 1} A_n \Bigr) \le 

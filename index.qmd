@@ -68,7 +68,7 @@ Upon the successful completion of this course, the student students will have de
 | 6    | [Probability inequalities](inequalities.qmd) |
 | 7    | Review and Mid-Term | 
 | 8    | [Convergence of random variables and the strong law of large numbers](convergence-of-random-variables.qmd) | 
-| 9    | Markov chains | 
+| 9    | [Markov chains](markov-chains.qmd) | 
 | 10   | Markov chains (continued) | 
 | 11   | Poisson process |
 | 12   | Gaussian processes and minimum mean squared error estimation | 

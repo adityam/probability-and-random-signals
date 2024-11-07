@@ -1,0 +1,175 @@
+---
+title: Markov chains
+---
+
+Let $\ALPHABET X$ be a finite set. A stochastic process $\{X_n\}_{n \ge 0}$, $X_n \in \ALPHABET X$, is called a **Markov chain** if it satisfies the _Markov property_: for any $n \in \integers_{\ge 0}$ and any $x_{1:n+1} \in \ALPHABET X^{n+1}$, we have
+\begin{equation}\tag{Markov property}\label{eq:Markov}
+  \PR(X_{n+1} = x_{n+1} \mid X_{1:n} = x_{1:n}) 
+  = \PR(X_{n+1} = x_{n+1} \mid X_n = x_n).
+\end{equation}
+
+The variable $X_n$ is called the **state** of the Markov chain at time $n$; the set $\ALPHABET X$ is called **state space**. The \eqref{eq:Markov} implies that the current state captures all the information from the past that is relevant for the future. 
+
+The Markov chain is called **time-homogeneous** if the right hand side does not depend on $n$. In this case, we describe the Markov chain by a **state transition matrix** $P$, where $P_{ij} = \PR(X_{n+1} = j | X_n = i)$. 
+
+Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. Then, we have that
+$$ μ^{(n)} = μ^{(n-1)} P $$
+and, by recusively expanding the right hand side, we have
+$$ μ^{(n)} = μ^{(0)} P^n. $$
+
+We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$. 
+
+## Hitting times and expected number of visits
+
+1. We use the following notation:
+
+    - $P_i(A)$ denotes $\PR(A \mid X_0 = i)$ and $
+    - $\EXP_i[Y]$ denotes $\EXP[Y \mid X_0 = i]$.
+
+2. Let $A$ be a subset of $\ALPHABET X$. The **hitting time** $T_A$ of $A$ is defined by
+   $$
+     T_A = \min_{n > 0 : X_n \in A).
+   $$
+   The standard convention is that $T_A$ is taken to be $∞$ if $X_n \neq A$ for any $n > 0$. For a state $j \in \ALPHABET X$, we use the short-hand $T_j$ to denote $T_{\{j\}}$. 
+
+3. Define 
+   $$
+     f^{(n)}_{ij} \coloneqq P_i(T_j = n) = P_i(X_1 \neq j, \dots, X_{n-1} \neq j, X_n = j).
+   $$
+
+4. $f^{(n)}_{ij}$ satisfies the following recursion.
+
+   - $f^{(1)}_{ij} = P_i(X_1 = j) = P_{ij}$.
+   - And for $n > 1$, $f^{(n+1)}_{ij} = \sum_{k \neq j} P_{ik} f^{(n)}_{kj}$.
+
+5. Let
+   $$
+     f_{ij} = \sum_{n=1}^∞ f^{(n)}_{ij} = P_i(T_j < ∞)
+   $$
+   denotes the probability that a chain starting in $i$ eventually visits $j$. In particular $f_{jj}$ denotes the probability that a chain starting in $j$ will return to $j$. 
+
+6. $f_{ij}$ satisfy the following property.  
+   $$\displaystyle P^{(n)}_{ij} = \sum_{m=1}^n  f^{(m)}_{ij} P^{(n-m)}_{jj}.$$
+
+      An immediate implication of the above is that if $j$ is an absorbing state then 
+      $P^{(n)}_{ij} = \sum_{m=1}^n f^{(m)}_{ij} = P_i(T_j \le n).$
+
+
+7. Let $N_j = \sum_{n=1}^∞ \IND\{X_n = j \}$ denote the number of visits to state $j$. Define
+   $$
+      G_{ij} = \EXP_{i}[N_j] = \sum_{n=1}^{∞} P^{(n)}_{ij}
+   $$
+   to denote the expected number of visits to state $j$ for a chain starting in $i$.
+
+8. A state $j$ is **recurrent** if $f_{jj} = 1$ and **transient** if $f_{jj} < 1$. 
+
+9. For every transient state $j$, we have for every $i$, $P_i(N_j < ∞) = 1$ and 
+   $$ G_{ij} = \dfrac{f_{ij}}{1 - f_{jj}}.$$
+   On the other hand, if $j$ is recurrent, then $P_j(N_j = ∞) = 1$ and $G_{jj} = ∞$. Moreover,
+   $$ P_i(N_j = ∞) = P_i(T_j < ∞) = f_{ij}. $$
+   So, if $f_{ij} = 0$, then $G_{ij} = 0$ while if $f_{ij} = ∞$ then $G_{ij} = ∞$. 
+
+10. Thus, a state $i$ is recurrent if and only if 
+    $$G_{ii} = \sum_{n=1}^∞ P^{(n)}_{ii} = ∞. $$
+
+11. A state $j$ is said to be **accessible from** $i$ (abbreviated as $i \rightsquigarrow j$) if there is an ordered string of notes $(i_0, \dots, i_m)$ such that $i_0 = i$ and $i_m = j$ and $P_{i_k i_{k+1}} > 0$. Equivalently, $i \rightsquigarrow j$ if there exists a $m$ such that $P^{(m)}_{ij} > 0$. 
+
+12. Accessibility is an transitive relationship, i.e., if $i \rightsquigarrow j$ and $j \rightsquigarrow k$ implies that $i \rightsquigarrow k$. 
+
+13. If $i$ is recurrent and $i \rightsquigarrow j$. Then, $j$ is also recurrent and $f_{ij} = f_{ji} = 1$. 
+
+14. A subset $C$ of $\ALPHABET X$ is said to be **closed** if no state inside $C$ can lead to any state outside $C$, i.e.,
+    $$
+        f_{ij} = 0, \quad \forall i \in C \text{ and } j \not\in C.
+    $$
+
+15. A closed set $C$ is called **irreducible** if $i \rightsquigarrow j$ for all $i,j \in C$. Thus, if $C$ is an irreducible set, then all states in $C$ are either recurrent or transient. 
+
+16. Consequently, if $C$ is an irreducible and closed set of recurrent states. Then for all $i,j \in C$, 
+  
+      - $f_{ij} = 1$
+      - $P_i(N_j = ∞) = 1$
+      - $G_{ij} = ∞$
+
+17. If $C$ is a finite irreducible closed set of states. Then every state in $C$ is recurrent.
+
+18. Let $\ALPHABET X_T$ and $\ALPHABET X_R$ denote the set of transient and recurrent states. The set $\ALPHABET X_R$ can be paritioned into a finite or countable number of irreducible closed sets $C_1$, $C_2$, $\dots$. 
+
+## Absorption probabilities
+
+1. Let $C$ be one of the irreducible closed sets of recurrent states. Define $f_{iC} = P_i(T_C < ∞)$ to be the probability that a chain starting at $i$ eventually hits $C$ (and is _absorbed_ in $C$). 
+
+2. Clearly, $f_{iC} = 1$ for $i \in C$ and $f_{iC} = 0$ if $i$ is a recurrent state not in $C$. 
+
+3. Suppose $i \in \ALPHABET X_T$. Then, $f_{iC}$ satisfies the following:
+   $$
+      f_{iC} = \sum_{j \in C} P_{ij} 
+      + \sum_{j \in \ALPHABET X_T} P_{ij} f_{jC}.
+   $$
+
+    When $\ALPHABET X_T$ is finite, the above system has a unique solution.
+
+:::{#exm-gambler-ruin}
+Consider a gambler's ruin problem, where we start at state $1$ and stop if we hit state $0$ or $3$.
+
+![A gambler's ruin problem](figures/svg/markov-chains3.svg)
+
+Find the probability of getting absorbed in state $0$ before state $3$. 
+
+:::
+
+:::{.callout-warning collapse="true"}
+### Solution
+Let $f_{i0}$ denote the probability of getting absorbed in state $0$ before $3$.
+Then, we can write the following system of equations to describe the
+absorption probabilities:
+\begin{align*}
+  f_{10} &= q + p f_{20} \\
+  f_{20} &= q f_{10}. 
+\end{align*}
+We can solve this system of equations to find $f_{10}$ and $f_{20}$.
+:::
+
+
+## Expected first-passage time
+
+Let's start with a simple example. Suppose we toss a coin multiple times and
+stop at a heads. What are the expected number of tosses until stopping?
+
+From elementary probability we know that the number of tosses until stopping
+is a geometric random variable. However, we will model this using a Markov
+chain where the state denotes the number of consecutive heads so far. Let $p$
+denote the probability of heads and $q = 1-p$ denote the probability of tails.
+Then, the Markov chain model is as follows.
+
+![Markov chain for coin tossing until one head](figures/svg/markov-chains1.svg)
+
+
+Let $v_i$ denote the expected number of tosses until stopping when starting at
+state $i$. Then, we have
+\begin{align*}
+  v_0 &= 1 + q v_0 + p v_1, \\
+  v_1 &= 0.
+\end{align*}
+Solving this system of equations, we get $v_0 = 1/(1-q) = 1/p$. 
+
+Now, let's try a variation of the above model. Suppose we toss a coin multiple
+times and stop at two heads. What are the expected number of tosses until
+stopping. 
+
+We can model this in the same manner as the before, where the state denotes
+the number of consecutive heads so far. The Markov chain is as follows:
+
+![Markov chain for coin tossing until two heads](figures/svg/markov-chains2.svg)
+
+As before, let $v_i$ denote the expected number of tosses until stopping when
+starting at state $i$. Then, we have
+\begin{align*}
+  v_0 &= 1 + q v_0 + p v_1, \\
+  v_1 &= 1 + q v_0 + p v_2, \\
+  v_2 &= 0.
+\end{align*}
+Solving this system of equations, we get $v_0 = 1/(1-p)$. 
+
+We can generalize these ideas to find time of hitting a state.
+
