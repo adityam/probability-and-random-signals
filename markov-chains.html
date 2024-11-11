@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-11-07">
+<meta name="dcterms.date" content="2024-11-11">
 
 <title>Markov chains – Probability and Random Signals II</title>
 <style>
@@ -209,7 +209,9 @@ window.Quarto = {
   <ul>
   <li><a href="#hitting-times-and-expected-number-of-visits" id="toc-hitting-times-and-expected-number-of-visits" class="nav-link active" data-scroll-target="#hitting-times-and-expected-number-of-visits"><span class="header-section-number">1</span> Hitting times and expected number of visits</a></li>
   <li><a href="#absorption-probabilities" id="toc-absorption-probabilities" class="nav-link" data-scroll-target="#absorption-probabilities"><span class="header-section-number">2</span> Absorption probabilities</a></li>
-  <li><a href="#expected-first-passage-time" id="toc-expected-first-passage-time" class="nav-link" data-scroll-target="#expected-first-passage-time"><span class="header-section-number">3</span> Expected first-passage time</a></li>
+  <li><a href="#expected-duration-of-play" id="toc-expected-duration-of-play" class="nav-link" data-scroll-target="#expected-duration-of-play"><span class="header-section-number">3</span> Expected duration of play</a></li>
+  <li><a href="#classification-of-states" id="toc-classification-of-states" class="nav-link" data-scroll-target="#classification-of-states"><span class="header-section-number">4</span> Classification of states</a></li>
+  <li><a href="#steady-state-distribution" id="toc-steady-state-distribution" class="nav-link" data-scroll-target="#steady-state-distribution"><span class="header-section-number">5</span> Steady-state distribution</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -244,7 +246,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 7, 2024</p>
+      <p class="date">November 11, 2024</p>
     </div>
   </div>
   
@@ -273,7 +275,7 @@ window.Quarto = {
 <li><span class="math inline">\(\EXP_i[Y]\)</span> denotes <span class="math inline">\(\EXP[Y \mid X_0 = i]\)</span>.</li>
 </ul></li>
 <li><p>Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\ALPHABET X\)</span>. The <strong>hitting time</strong> <span class="math inline">\(T_A\)</span> of <span class="math inline">\(A\)</span> is defined by <span class="math display">\[
-  T_A = \min_{n &gt; 0 : X_n \in A).
+  T_A = \min\{n &gt; 0 : X_n \in A\}.
 \]</span> The standard convention is that <span class="math inline">\(T_A\)</span> is taken to be <span class="math inline">\(∞\)</span> if <span class="math inline">\(X_n \neq A\)</span> for any <span class="math inline">\(n &gt; 0\)</span>. For a state <span class="math inline">\(j \in \ALPHABET X\)</span>, we use the short-hand <span class="math inline">\(T_j\)</span> to denote <span class="math inline">\(T_{\{j\}}\)</span>.</p></li>
 <li><p>Define <span class="math display">\[
   f^{(n)}_{ij} \coloneqq P_i(T_j = n) = P_i(X_1 \neq j, \dots, X_{n-1} \neq j, X_n = j).
@@ -289,14 +291,19 @@ window.Quarto = {
 <li><p><span class="math inline">\(f_{ij}\)</span> satisfy the following property.<br>
 <span class="math display">\[\displaystyle P^{(n)}_{ij} = \sum_{m=1}^n  f^{(m)}_{ij} P^{(n-m)}_{jj}.\]</span></p>
 <p>An immediate implication of the above is that if <span class="math inline">\(j\)</span> is an absorbing state then <span class="math inline">\(P^{(n)}_{ij} = \sum_{m=1}^n f^{(m)}_{ij} = P_i(T_j \le n).\)</span></p></li>
-<li><p>Let <span class="math inline">\(N_j = \sum_{n=1}^∞ \IND\{X_n = j \}\)</span> denote the number of visits to state <span class="math inline">\(j\)</span>. Define <span class="math display">\[
-   G_{ij} = \EXP_{i}[N_j] = \sum_{n=1}^{∞} P^{(n)}_{ij}
+<li><p>Let <span class="math inline">\(N^{(n)}_j = \sum_{m=1}^{n} \IND\{X_m = j\}\)</span> denote the number of visits to state <span class="math inline">\(j\)</span> in <span class="math inline">\(n\)</span> steps. Define <span class="math display">\[
+  G_{ij}^{(n)} = \EXP_i[ N^{(n)}_j ] = \sum_{m=1}^n P^{(m)}_{ij}
+\]</span> to be the expected number of visits to state <span class="math inline">\(j\)</span> in <span class="math inline">\(n\)</span> steps, starting in <span class="math inline">\(i\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(N_j = \lim_{n \to ∞} N^{(n)}_j \sum_{m=1}^∞ \IND\{X_m = j \}\)</span> denote the number of visits to state <span class="math inline">\(j\)</span>. Similarly, define <span class="math display">\[
+   G_{ij} = \EXP_{i}[N_j] = \lim_{n \to ∞} G_{ij}^{(n)}
+   = \sum_{m=1}^{∞} P^{(m)}_{ij}
 \]</span> to denote the expected number of visits to state <span class="math inline">\(j\)</span> for a chain starting in <span class="math inline">\(i\)</span>.</p></li>
 <li><p>A state <span class="math inline">\(j\)</span> is <strong>recurrent</strong> if <span class="math inline">\(f_{jj} = 1\)</span> and <strong>transient</strong> if <span class="math inline">\(f_{jj} &lt; 1\)</span>.</p></li>
 <li><p>For every transient state <span class="math inline">\(j\)</span>, we have for every <span class="math inline">\(i\)</span>, <span class="math inline">\(P_i(N_j &lt; ∞) = 1\)</span> and <span class="math display">\[ G_{ij} = \dfrac{f_{ij}}{1 - f_{jj}}.\]</span> On the other hand, if <span class="math inline">\(j\)</span> is recurrent, then <span class="math inline">\(P_j(N_j = ∞) = 1\)</span> and <span class="math inline">\(G_{jj} = ∞\)</span>. Moreover, <span class="math display">\[ P_i(N_j = ∞) = P_i(T_j &lt; ∞) = f_{ij}. \]</span> So, if <span class="math inline">\(f_{ij} = 0\)</span>, then <span class="math inline">\(G_{ij} = 0\)</span> while if <span class="math inline">\(f_{ij} = ∞\)</span> then <span class="math inline">\(G_{ij} = ∞\)</span>.</p></li>
 <li><p>Thus, a state <span class="math inline">\(i\)</span> is recurrent if and only if <span class="math display">\[G_{ii} = \sum_{n=1}^∞ P^{(n)}_{ii} = ∞. \]</span></p></li>
 <li><p>A state <span class="math inline">\(j\)</span> is said to be <strong>accessible from</strong> <span class="math inline">\(i\)</span> (abbreviated as <span class="math inline">\(i \rightsquigarrow j\)</span>) if there is an ordered string of notes <span class="math inline">\((i_0, \dots, i_m)\)</span> such that <span class="math inline">\(i_0 = i\)</span> and <span class="math inline">\(i_m = j\)</span> and <span class="math inline">\(P_{i_k i_{k+1}} &gt; 0\)</span>. Equivalently, <span class="math inline">\(i \rightsquigarrow j\)</span> if there exists a <span class="math inline">\(m\)</span> such that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span>.</p></li>
 <li><p>Accessibility is an transitive relationship, i.e., if <span class="math inline">\(i \rightsquigarrow j\)</span> and <span class="math inline">\(j \rightsquigarrow k\)</span> implies that <span class="math inline">\(i \rightsquigarrow k\)</span>.</p></li>
+<li><p>If <span class="math inline">\(f_{ij} &gt; 0\)</span> but <span class="math inline">\(f_{ji} &lt; 1\)</span>, then <span class="math inline">\(i\)</span> is transient.</p></li>
 <li><p>If <span class="math inline">\(i\)</span> is recurrent and <span class="math inline">\(i \rightsquigarrow j\)</span>. Then, <span class="math inline">\(j\)</span> is also recurrent and <span class="math inline">\(f_{ij} = f_{ji} = 1\)</span>.</p></li>
 <li><p>A subset <span class="math inline">\(C\)</span> of <span class="math inline">\(\ALPHABET X\)</span> is said to be <strong>closed</strong> if no state inside <span class="math inline">\(C\)</span> can lead to any state outside <span class="math inline">\(C\)</span>, i.e., <span class="math display">\[
     f_{ij} = 0, \quad \forall i \in C \text{ and } j \not\in C.
@@ -353,8 +360,8 @@ Solution
 </div>
 </div>
 </section>
-<section id="expected-first-passage-time" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="expected-first-passage-time"><span class="header-section-number">3</span> Expected first-passage time</h2>
+<section id="expected-duration-of-play" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="expected-duration-of-play"><span class="header-section-number">3</span> Expected duration of play</h2>
 <p>Let’s start with a simple example. Suppose we toss a coin multiple times and stop at a heads. What are the expected number of tosses until stopping?</p>
 <p>From elementary probability we know that the number of tosses until stopping is a geometric random variable. However, we will model this using a Markov chain where the state denotes the number of consecutive heads so far. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. Then, the Markov chain model is as follows.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -381,6 +388,23 @@ Solution
   v_2 &amp;= 0.
 \end{align*}\]</span> Solving this system of equations, we get <span class="math inline">\(v_0 = 1/(1-p)\)</span>.</p>
 <p>We can generalize these ideas to find time of hitting a state.</p>
+</section>
+<section id="classification-of-states" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="classification-of-states"><span class="header-section-number">4</span> Classification of states</h2>
+<p>The states in a finite-state Markov chain can be partitioned into two sets: <em>recurrent states</em> and <em>transient states</em>. A state is recurrent if it is accessible from all states that is accessible from it (i.e., <span class="math inline">\(i\)</span> is recurrent if <span class="math inline">\(i \rightsquigarrow j\)</span> implies that <span class="math inline">\(j \rightsquigarrow i\)</span>). States that are not recurrent are <em>transient</em>.</p>
+<p>Two distinct states <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to <em>communicate</em> (abbreviated to <span class="math inline">\(i
+\leftrightsquigarrow j\)</span> if <span class="math inline">\(i\)</span> is accessible from <span class="math inline">\(j\)</span> (i.e., <span class="math inline">\(j
+\rightsquigarrow i\)</span>) and <span class="math inline">\(j\)</span> is accessible from <span class="math inline">\(i\)</span> (<span class="math inline">\(i \rightsquigarrow j\)</span>). An important fact about communicating states is that if <span class="math inline">\(i \leftrightsquigarrow j\)</span> and <span class="math inline">\(j \leftrightsquigarrow k\)</span>, then <span class="math inline">\(i \leftrightsquigarrow k\)</span>.</p>
+<p>A <em>class</em> <span class="math inline">\(C\)</span> of states is a non-empty set of states such that for each <span class="math inline">\(i \in C\)</span> satisfies that for each <span class="math inline">\(j \in C\)</span>, <span class="math inline">\(i
+\leftrightsquigarrow j\)</span> and for each <span class="math inline">\(j \not\in C\)</span>, <span class="math inline">\(i
+\not\leftrightsquigarrow j\)</span>. In a finite-state Markov chain, all states in a state are either recurrent or transient.</p>
+<p>The <em>period of a state</em> <span class="math inline">\(i\)</span>, denoted by <span class="math inline">\(d(i)\)</span>, is the greatest common divisor of those values of <span class="math inline">\(n\)</span> for which <span class="math inline">\(P^n_{ii} &gt; 0\)</span> for all <span class="math inline">\(i\)</span>. If the period is <span class="math inline">\(1\)</span>, the state is <em>aperiodic</em>, and if the period is <span class="math inline">\(2\)</span> or more, the state is periodic. It can be shown that all states in the same class have the same period.</p>
+<p>A Markov chain is said to be <em>ergodic</em> if it has only one recurrent class that is also aperiodic.</p>
+</section>
+<section id="steady-state-distribution" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="steady-state-distribution"><span class="header-section-number">5</span> Steady-state distribution</h2>
+<p>A Markov chain is said to have a <em>steady state distribution</em> if <span class="math inline">\(π_n\)</span> converges to a limit as <span class="math inline">\(n \to ∞\)</span> and the limit does not depend on the initial distribution <span class="math inline">\(π_0\)</span>.</p>
+<p>A Markov chain has a steady state distribution if it is ergodic. We can find the steady state distribution by solving the <em>balance equation</em>: <span class="math inline">\(π = π P\)</span>.</p>
 
 
 </section>
