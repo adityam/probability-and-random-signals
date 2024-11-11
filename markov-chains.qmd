@@ -28,7 +28,7 @@ We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$.
 
 2. Let $A$ be a subset of $\ALPHABET X$. The **hitting time** $T_A$ of $A$ is defined by
    $$
-     T_A = \min_{n > 0 : X_n \in A).
+     T_A = \min\{n > 0 : X_n \in A\}.
    $$
    The standard convention is that $T_A$ is taken to be $∞$ if $X_n \neq A$ for any $n > 0$. For a state $j \in \ALPHABET X$, we use the short-hand $T_j$ to denote $T_{\{j\}}$. 
 
@@ -55,9 +55,16 @@ We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$.
       $P^{(n)}_{ij} = \sum_{m=1}^n f^{(m)}_{ij} = P_i(T_j \le n).$
 
 
-7. Let $N_j = \sum_{n=1}^∞ \IND\{X_n = j \}$ denote the number of visits to state $j$. Define
+7. Let $N^{(n)}_j = \sum_{m=1}^{n} \IND\{X_m = j\}$ denote the number of visits to state $j$ in $n$ steps. Define
    $$
-      G_{ij} = \EXP_{i}[N_j] = \sum_{n=1}^{∞} P^{(n)}_{ij}
+     G_{ij}^{(n)} = \EXP_i[ N^{(n)}_j ] = \sum_{m=1}^n P^{(m)}_{ij}
+   $$
+   to be the expected number of visits to state $j$ in $n$ steps, starting in $i$.
+
+8. Let $N_j = \lim_{n \to ∞} N^{(n)}_j \sum_{m=1}^∞ \IND\{X_m = j \}$ denote the number of visits to state $j$. Similarly, define
+   $$
+      G_{ij} = \EXP_{i}[N_j] = \lim_{n \to ∞} G_{ij}^{(n)}
+      = \sum_{m=1}^{∞} P^{(m)}_{ij}
    $$
    to denote the expected number of visits to state $j$ for a chain starting in $i$.
 
@@ -75,6 +82,8 @@ We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$.
 11. A state $j$ is said to be **accessible from** $i$ (abbreviated as $i \rightsquigarrow j$) if there is an ordered string of notes $(i_0, \dots, i_m)$ such that $i_0 = i$ and $i_m = j$ and $P_{i_k i_{k+1}} > 0$. Equivalently, $i \rightsquigarrow j$ if there exists a $m$ such that $P^{(m)}_{ij} > 0$. 
 
 12. Accessibility is an transitive relationship, i.e., if $i \rightsquigarrow j$ and $j \rightsquigarrow k$ implies that $i \rightsquigarrow k$. 
+
+#. If $f_{ij} > 0$ but $f_{ji} < 1$, then $i$ is transient. 
 
 13. If $i$ is recurrent and $i \rightsquigarrow j$. Then, $j$ is also recurrent and $f_{ij} = f_{ji} = 1$. 
 
@@ -131,7 +140,7 @@ We can solve this system of equations to find $f_{10}$ and $f_{20}$.
 :::
 
 
-## Expected first-passage time
+## Expected duration of play
 
 Let's start with a simple example. Suppose we toss a coin multiple times and
 stop at a heads. What are the expected number of tosses until stopping?
@@ -172,4 +181,44 @@ starting at state $i$. Then, we have
 Solving this system of equations, we get $v_0 = 1/(1-p)$. 
 
 We can generalize these ideas to find time of hitting a state.
+
+## Classification of states
+
+
+The states in a finite-state Markov chain can be partitioned into two sets:
+_recurrent states_ and _transient states_. A state is recurrent if it is
+accessible from all states that is accessible from it (i.e., $i$ is recurrent
+if $i \rightsquigarrow j$ implies that $j \rightsquigarrow i$). States that
+are not recurrent are _transient_. 
+
+Two distinct states $i$ and $j$ are said to _communicate_ (abbreviated to $i
+\leftrightsquigarrow j$ if $i$ is accessible from $j$ (i.e., $j
+\rightsquigarrow i$) and $j$ is accessible
+from $i$ ($i \rightsquigarrow j$). An important fact about communicating
+states is that if $i \leftrightsquigarrow j$ and $j \leftrightsquigarrow k$,
+then $i \leftrightsquigarrow k$. 
+
+A _class_ $C$ of states is a non-empty set of states such that for
+each $i \in C$ satisfies that for each $j \in C$, $i
+\leftrightsquigarrow j$ and for each $j \not\in C$, $i
+\not\leftrightsquigarrow j$. In a finite-state Markov chain, all states in a
+state are either recurrent or transient. 
+
+The _period of a state_ $i$, denoted by $d(i)$, is the greatest common divisor
+of those values of $n$ for which $P^n_{ii} > 0$ for all $i$. If the period is $1$, the
+state is _aperiodic_, and if the period is $2$ or more, the state is periodic.
+It can be shown that all states in the same class have the same period. 
+
+A Markov chain is said to be _ergodic_ if it has only one recurrent class that
+is also aperiodic. 
+
+
+## Steady-state distribution
+
+A Markov chain is said to have a _steady state distribution_ if $π_n$
+converges to a limit as $n \to ∞$ and the limit does not depend on the initial
+distribution $π_0$. 
+
+A Markov chain has a steady state distribution if it is ergodic. We can find
+the steady state distribution by solving the _balance equation_: $π = π P$. 
 
