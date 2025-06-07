@@ -8,11 +8,97 @@ Let $\ALPHABET X$ be a finite set. A stochastic process $\{X_n\}_{n \ge 0}$, $X_
   = \PR(X_{n+1} = x_{n+1} \mid X_n = x_n).
 \end{equation}
 
-The variable $X_n$ is called the **state** of the Markov chain at time $n$; the set $\ALPHABET X$ is called **state space**. The \eqref{eq:Markov} implies that the current state captures all the information from the past that is relevant for the future. 
+The variable $X_n$ is called the **state** of the Markov chain at time $n$; the set $\ALPHABET X$ is called **state space**. The \eqref{eq:Markov} implies that the current state captures all the information from the past that is relevant for the future. Stated differently, **conditioned on the present, the past is independent of the future**.
 
-The Markov chain is called **time-homogeneous** if the right hand side does not depend on $n$. In this case, we describe the Markov chain by a **state transition matrix** $P$, where $P_{ij} = \PR(X_{n+1} = j | X_n = i)$. 
+Independence is a symmetric relationship. Thus, we expect the Markov property to also hold if time is reversed! The next exercise asks you to formally prove that. 
 
-Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. Then, we have that
+:::{#exr-time-reversal}
+#### Time reversal of Markov chains
+
+Let $\{X_n\}_{n \ge 1}$ is a Markov chain. Show that for any $N > n$,
+$$
+  \PR(X_n = x_n \mid X_{n+1:N} = x_{n+1:N})
+  = \PR(X_n = x_n \mid X_{n+1} = x_{n+1}).
+$$
+Thus, a time reversed Markov chain is also Markov.
+:::
+
+## Time-homogeneous Markov chains
+
+In this course, we will focus on time-homogeneous Markov chain.
+The Markov chain is called **time-homogeneous** if the right hand side of \eqref{eq:Markov} does not depend on $n$. In this case, we describe the Markov chain by a **state transition matrix** $P$, where $P_{ij} = \PR(X_{n+1} = j | X_n = i)$. Such Markov chains can also be visualized using **state transition diagrams** as we illustrate in the example below. 
+
+:::{#exm-random-walk}
+#### Random walk in one dimension
+
+Imagine a particle which moves in a straight line in unit steps. Each step is one unit to the right with probability $p$ or one unit to the left with probabity $q = 1-p$. It moves until it reaches one of two extreme points, which are called **boundary points**. The behavior of the particle at the boundary determines several different possibilities.
+
+We will consider the case where the state space is $\ALPHABET X = \{-2, -1, 0, 1, 2\}$ and the process starts in state $0$.
+
+1. **Absorbing random walk:** Assume that when the particle reaches a boundary state, it stays there from that time on. We may visualize the Markov chain as follows.
+
+   ![Absorbing random walk](figures/svg/random-walk1.svg)
+
+   In this case, the transition matrix is given by
+   $$
+      P = \MATRIX{ 1 & 0 & 0 & 0 & 0 \\
+                   q & 0 & p & 0 & 0 \\
+                   0 & q & 0 & p & 0 \\
+                   0 & 0 & q & 0 & p \\
+                   0 & 0 & 0 & 0 & 1}.
+   $$
+
+2. **Reflected random walk:** Assume that when the particle reaches a boundary states, it is _reflected_ and returns to the point it came from. We may visualize the Markov chain as follows.
+
+   ![Reflected random walk](figures/svg/random-walk2.svg)
+
+   In this case, the transition matrix is given by
+   $$
+      P = \MATRIX{ 0 & 1 & 0 & 0 & 0 \\
+                   q & 0 & p & 0 & 0 \\
+                   0 & q & 0 & p & 0 \\
+                   0 & 0 & q & 0 & p \\
+                   0 & 0 & 0 & 1 & 0}.
+   $$
+
+3. **Random walk with restart:** Assume that when the particle reaches a boundary state, it restarts in the initial state. We may visualize the Markov chain as follows.
+
+   ![Random walk with restart](figures/svg/random-walk3.svg)
+
+   In this case, the transition matrix is given by
+   $$
+      P = \MATRIX{ 0 & 0 & 1 & 0 & 0 \\
+                   q & 0 & p & 0 & 0 \\
+                   0 & q & 0 & p & 0 \\
+                   0 & 0 & q & 0 & p \\
+                   0 & 0 & 1 & 0 & 0}.
+   $$
+
+4. **Random walk with periodic boundary:** Assume that when the particle reaches a boundary state, it moves to the other boundary. We may visualize the Markov chain as follows.
+
+   ![Random walk with periodic boundary](figures/svg/random-walk4.svg)
+
+   In this case, the transition matrix is given by
+   $$
+      P = \MATRIX{ 0 & 0 & 0 & 0 & 1 \\
+                   q & 0 & p & 0 & 0 \\
+                   0 & q & 0 & p & 0 \\
+                   0 & 0 & q & 0 & p \\
+                   1 & 0 & 0 & 0 & 0}.
+   $$
+:::
+
+### State occupation probabilities
+
+Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. We will think of of $μ^{(n)}$ as a row vector. Then, by the law of total probability, we have
+$$
+  \PR(X_n = j) = \sum_{i \in \ALPHABET X} \PR(X_{n-1} = i) \PR(X_n = j | X_{n-1} = i)
+$$
+or, equivalently,
+$$
+  μ^{(n)}_j = \sum_{i \in \ALPHABET X} μ^{(n-1)}_i P_{ij}
+$$
+which can be written in matrix form as
 $$ μ^{(n)} = μ^{(n-1)} P $$
 and, by recusively expanding the right hand side, we have
 $$ μ^{(n)} = μ^{(0)} P^n. $$
@@ -69,6 +155,8 @@ We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$.
    to denote the expected number of visits to state $j$ for a chain starting in $i$.
 
 8. A state $j$ is **recurrent** if $f_{jj} = 1$ and **transient** if $f_{jj} < 1$. 
+
+9. A state is called periodic if $f_{ii}^(n)$ is non-zero only for multiples of some smallest integer $d$, $d > 1$. 
 
 9. For every transient state $j$, we have for every $i$, $P_i(N_j < ∞) = 1$ and 
    $$ G_{ij} = \dfrac{f_{ij}}{1 - f_{jj}}.$$
@@ -182,38 +270,43 @@ Solving this system of equations, we get $v_0 = 1/(1-p)$.
 
 We can generalize these ideas to find time of hitting a state.
 
-## Classification of states
 
+## Stationary distribution
 
-The states in a finite-state Markov chain can be partitioned into two sets:
-_recurrent states_ and _transient states_. A state is recurrent if it is
-accessible from all states that is accessible from it (i.e., $i$ is recurrent
-if $i \rightsquigarrow j$ implies that $j \rightsquigarrow i$). States that
-are not recurrent are _transient_. 
+1. A distribution $π$ is said the be a **stationary distribution** if 
+    $$
+      π = π P.
+    $$
 
-Two distinct states $i$ and $j$ are said to _communicate_ (abbreviated to $i
-\leftrightsquigarrow j$ if $i$ is accessible from $j$ (i.e., $j
-\rightsquigarrow i$) and $j$ is accessible
-from $i$ ($i \rightsquigarrow j$). An important fact about communicating
-states is that if $i \leftrightsquigarrow j$ and $j \leftrightsquigarrow k$,
-then $i \leftrightsquigarrow k$. 
+2. Stationary distributions can be computed by solving **balance equations.**
 
-A _class_ $C$ of states is a non-empty set of states such that for
-each $i \in C$ satisfies that for each $j \in C$, $i
-\leftrightsquigarrow j$ and for each $j \not\in C$, $i
-\not\leftrightsquigarrow j$. In a finite-state Markov chain, all states in a
-state are either recurrent or transient. 
+3. Let $C$ be an irreducible class of a Markov chain. Then, there is a unique stationary distribution $π$ that assigns positive probability only to states in $C$. 
 
-The _period of a state_ $i$, denoted by $d(i)$, is the greatest common divisor
-of those values of $n$ for which $P^n_{ii} > 0$ for all $i$. If the period is $1$, the
-state is _aperiodic_, and if the period is $2$ or more, the state is periodic.
-It can be shown that all states in the same class have the same period. 
+4. If $π_1$ and $π_2$ are stationary distributions of a Markov chain and $α \in (0,1)$, then $α π_1 + (1-α) π_2$ is also a stationary distribution. 
 
-A Markov chain is said to be _ergodic_ if it has only one recurrent class that
-is also aperiodic. 
+5. Thus, if a Markov chain has a single irreducible class, then it has a unique stationary distribution; if it has multiple irreducible classes, then it has uncountable number of stationary distributions.
 
+## Limiting distribution
 
-## Steady-state distribution
+1. Suppose $j$ is a transient state. Then, we know that $N_j < ∞$ and $G_{ij} < ∞$. Therefore,
+   $$
+      \lim_{n \to ∞}
+      \frac{N^{(n)}_{j}}{n} = 0, a.s., 
+      \quad\text{and}\quad
+      \lim_{n \to ∞}
+      \frac{G^{(n)}_{ij}}{n} = 0, \forall i \in \ALPHABET X.
+   $$
+
+2. Suppose $j$ is a recurrent state. Then, 
+   $$
+      \lim_{n \to ∞}
+      \frac{N^{(n)}_{j}}{n} = μ_j, a.s., 
+      \quad\text{and}\quad
+      \lim_{n \to ∞}
+      \frac{G^{(n)}_{ij}}{n} = μ_j, \forall i \in \ALPHABET X
+   $$
+   where $μ_j = \EXP_{j}[T_j]$ is the mean return time to state $j$. 
+
 
 A Markov chain is said to have a _steady state distribution_ if $π_n$
 converges to a limit as $n \to ∞$ and the limit does not depend on the initial
@@ -221,4 +314,5 @@ distribution $π_0$.
 
 A Markov chain has a steady state distribution if it is ergodic. We can find
 the steady state distribution by solving the _balance equation_: $π = π P$. 
+
 

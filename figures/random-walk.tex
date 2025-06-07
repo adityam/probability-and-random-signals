@@ -1,0 +1,75 @@
+\usemodule[tikz]
+\usetikzlibrary[positioning]
+
+\tikzset{state/.style={circle, draw,
+                line width=2bp,
+                inner sep=0.5em,
+                draw=blue!85,
+                minimum width=3em,
+                fill=blue!25!white,
+                }}
+
+
+\startbuffer[states]
+   \node[state] (N2) {$-2$};
+   \node[state, right=of N2] (N1) {$-1$};
+   \node[state, right=of N1] (N0) {$0$};
+   \node[state, right=of N0] (P1) {$1$};
+   \node[state, right=of P1] (P2) {$2$};
+
+   \draw[every loop]
+       %(N2) edge[bend left, auto=left] node {$p$} (N1)
+       (N1) edge[bend left, auto=left] node {$p$} (N0)
+       (N0) edge[bend left, auto=left] node {$p$} (P1)
+       (P1) edge[bend left, auto=left] node {$p$} (P2)
+       %
+       %(P2) edge[bend left, auto=left] node {$q$} (P1)
+       (P1) edge[bend left, auto=left] node {$q$} (N0)
+       (N0) edge[bend left, auto=left] node {$q$} (N1)
+       (N1) edge[bend left, auto=left] node {$q$} (N2)
+       ;
+\stopbuffer
+
+\starttext
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+  \getbuffer[states]
+  \draw[every loop]
+       (N2)  edge[loop left]  node {$1$} (N2)
+       (P2)  edge[loop right] node {$1$} (P2)
+       ;
+\stoptikzpicture}
+\stopTEXpage
+
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+  \getbuffer[states]
+  \draw[every loop]
+       (N2) edge[bend left, auto=left] node {$1$} (N1)
+       (P2) edge[bend left, auto=left] node {$1$} (P1)
+       ;
+\stoptikzpicture}
+\stopTEXpage
+
+
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+  \getbuffer[states]
+  \draw[every loop]
+       (N2) edge[bend left=60, auto=left] node {$1$} (N0)
+       (P2) edge[bend left=60, auto=left] node {$1$} (N0)
+       ;
+\stoptikzpicture}
+\stopTEXpage
+
+
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+  \getbuffer[states]
+  \draw[every loop]
+       (N2) edge[bend left=45, auto=left] node {$1$} (P2)
+       (P2) edge[bend left=45, auto=left] node {$1$} (N2)
+       ;
+\stoptikzpicture}
+\stopTEXpage
+\stoptext
