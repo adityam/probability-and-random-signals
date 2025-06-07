@@ -1,5 +1,11 @@
 ---
 title: Markov chains
+
+engine: jupyter
+execute:
+  echo: false
+  cache: true
+  freeze: true
 ---
 
 Let $\ALPHABET X$ be a finite set. A stochastic process $\{X_n\}_{n \ge 0}$, $X_n \in \ALPHABET X$, is called a **Markov chain** if it satisfies the _Markov property_: for any $n \in \integers_{\ge 0}$ and any $x_{1:n+1} \in \ALPHABET X^{n+1}$, we have
@@ -88,9 +94,9 @@ We will consider the case where the state space is $\ALPHABET X = \{-2, -1, 0, 1
    $$
 :::
 
-### State occupation probabilities
+### State occupancy probabilities
 
-Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. We will think of of $μ^{(n)}$ as a row vector. Then, by the law of total probability, we have
+Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. This is also called the **state occupancy probababilites**. We will think of of $μ^{(n)}$ as a row vector. Then, by the law of total probability, we have
 $$
   \PR(X_n = j) = \sum_{i \in \ALPHABET X} \PR(X_{n-1} = i) \PR(X_n = j | X_{n-1} = i)
 $$
@@ -104,6 +110,109 @@ and, by recusively expanding the right hand side, we have
 $$ μ^{(n)} = μ^{(0)} P^n. $$
 
 We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$. 
+
+:::{#exm-random-walk-occupancy}
+We now compute the state occupancy probabilities for the different examples of random walk presented in @exm-random-walk when $p = q = \tfrac 12$ for $n \in \{1, \dots, 8\}$. In all cases, the initial probability 
+$$
+  μ^{(0)} = \MATRIX{0 & 0 & 1 & 0 & 0 }.
+$$
+:::
+
+:::{.callout-note collapse="true"}
+### Solution
+
+```{julia}
+#| output: false
+
+using Printf, Latexify
+
+function random_walk(μ,P,N)
+  μn = [transpose(zeros(typeof(p), size(P,1))) for n in 1:N+1] 
+  μn[1][:] = μ
+  for n = 1:N
+    μn[n+1] = μn[n]*P
+  end
+  println()
+  for n=1:N+1
+    @printf("- \$μ^{(%d)} = %s\$\n", n-1, ltx(μn[n]))
+  end
+  println()
+end
+
+function ltx(x)
+  latexify(x, env=:raw)
+end
+```
+
+1. **Absorbing random walk:** 
+   In this case, we have
+
+    ```{julia}
+    #| output: asis
+      p = q = 1//2
+      N = 8
+      μ = [0 0 1 0 0]
+      P1 = [ 1 0 0 0 0; 
+            q 0 p 0 0;
+            0 q 0 p 0;
+            0 0 q 0 p;
+            0 0 0 0 1]
+      random_walk(μ,P1,N)
+    ```
+
+2. **Reflected random walk:** 
+   In this case, we have
+
+    ```{julia}
+    #| output: asis
+      P2 = [ 0 1 0 0 0; 
+            q 0 p 0 0;
+            0 q 0 p 0;
+            0 0 q 0 p;
+            0 0 0 1 0]
+      random_walk(μ,P2,N)
+    ```
+
+3. **Random walk with restart:** 
+   In this case, we have
+
+    ```{julia}
+    #| output: asis
+      P3 = [ 0 0 1 0 0; 
+            q 0 p 0 0;
+            0 q 0 p 0;
+            0 0 q 0 p;
+            0 0 1 0 0]
+      random_walk(μ,P3,N)
+    ```
+
+3. **Random walk with periodic boundary:** 
+   In this case, we have
+
+    ```{julia}
+    #| output: asis
+      P4 = [ 0 0 0 0 1; 
+            q 0 p 0 0;
+            0 q 0 p 0;
+            0 0 q 0 p;
+            1 0 0 0 0]
+      random_walk(μ,P4,N)
+    ```
+:::
+
+### Properties of interest
+
+Depending on the application, we are typically interested in the following properties of a Markov chain:
+
+- If the chain starts in state $i$, what is the probability that after $n$ steps it is in state $j$?
+
+- If the chain starts in state $i$, what is the expected number of visits to state $j$ in $n$ steps?
+
+- What is the expected number of steps that it takes for a chain starting in state $i$ to visit state $j$ for the first time?
+
+- What is the average number of times that the chain is in state $i$? How does this depend on the initial state?
+
+In the rest of this section, we will present results in Markov chain theory that answer the above questions. 
 
 ## Hitting times and expected number of visits
 
