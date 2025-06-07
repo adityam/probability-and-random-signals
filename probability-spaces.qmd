@@ -4,7 +4,7 @@ title: Introduction to Probability
 
 ## Background
 
-This is a graduate course on probability and random signals. I assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:
+This is a graduate course on probability and random signals. I am going to  assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:
 
 - A fair 6-sided die is rolled twice. What is the probability that the sum of the rolls equals 7?
 - A biased coin with $\PR({\rm heads}) = 3/4$ is tossed 10 times. What is the probability of obtaining 3 consecutive heads?
