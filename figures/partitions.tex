@@ -11,7 +11,7 @@
 \stopsetups
 
 \starttext
-\startMPpage[offset=1dk]
+\startMPpage[offset=1dk, scale=1500]
 
   path p;
   p := unitsquare xyscaled (5cm, 3cm);
@@ -43,10 +43,9 @@
   draw q[2];
   draw q[3];
   draw q[4];
-
 \stopMPpage
 
-\startMPpage[offset=1dk]
+\startMPpage[offset=1dk, scale=1500]
   label("$B_1$", 0.35[ point 0.5 of q[1], origin ]);
   label("$B_2$", 0.5[ (0, 2.5cm), 0.5[ point 0 of q[2], point 1 of q[2]]]);
   label("$B_3$", 0.5[ point 0 of q[4], (5cm,2.8cm) ]);

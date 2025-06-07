@@ -63,9 +63,7 @@ A collection $\{A_1, A_2, \dots, A_n\}$ is **disjoint** if for every $i \neq j$,
 
 Given a **universal set** $Ω$ and a collection $\{B_1, B_2, \dots, B_m\}$ of subsets of $Ω$, we say that $\{B_1, B_2, \dots, B_m\}$ is a **partition** of $Ω$ if $\{B_1, B_2, \dots, B_m\}$ are disjoint and their union equals $Ω$.
 
-::: {.column-margin}
 ![Example of a partition](figures/svg/partitions1.svg){#fig-partition}
-:::
 
 :::{#exm-partion}
 Let $Ω = \{1,2,3,4\}$. The following are partitions of $Ω$:
@@ -200,6 +198,18 @@ First, to define a function, we need to define it's domain and range. Let's deno
 - If we can talk about probability of $A$ and $B$, then we should be able to talk about probability that either $A$ or $B$ occurs and both $A$ and $B$ occur. Thus, if $A, B \in \ALPHABET F$, then $A \cup B \in \ALPHABET F$ and $A \cap B \in \ALPHABET F$. 
 
 Thus, the domain of $\PR$ **must be an algebra**! However, when we go beyond finite sample spaces, being an algebra is not sufficient. But we first provide some examples of probability for finite sample spaces.
+
+:::{#exm-probability-uniform}
+#### Uniform probability 
+
+Consider a finite set $Ω$ with $\ALPHABET F = 2^Ω$. The uniform probability $\PR$ on $Ω$ is given by
+$$
+\PR(A) = \frac{\ABS{A}}{\ABS{Ω}},
+\quad \forall A \in \ALPHABET F
+$$
+:::
+
+An illustration of uniform probability distirbution on the outcomes of a fair coin or a fair dice. Next we give an example of a probability measure that is not uniform.
 
 :::{#exm-probability-domain}
 Consider a six-sided die where $Ω = \{1, 2, \dots, 6 \}$, $\ALPHABET F = 2^Ω$ and $\PR$ is given by 
@@ -465,9 +475,7 @@ $$
 \PR(A) = \sum_{i=1}^m \PR(A \cap B_i) 
 = \sum_{i=1}^m \PR(A | B_i) \PR(B_i).
 $$
-:::
 
-::: {.column-margin}
 ![Illustration of Law of total probability](figures/svg/partitions2.svg){#fig-total-probability}
 :::
 

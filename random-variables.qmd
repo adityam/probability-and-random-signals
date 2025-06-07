@@ -376,6 +376,16 @@ where $C$ is as defined above. This is called the **Zipf** distribution. By foll
 $$\EXP[Y] = ∞.$$
 :::
 
+:::{#exm-coin-toss-mean}
+Find the mean of $X$ defined in @exm-coin-toss.
+:::
+:::{.callout-note collapse="true"}
+#### Solution
+$$
+\EXP[X] = \frac 14 \cdot 0 + \frac 12 \cdot 1 + \frac 14 \cdot 2 = 1.
+$$
+:::
+
 :::{#exr-mean-common}
 Find the expected value of the random variables with the following distributions:
 
@@ -446,6 +456,21 @@ Suppose $X \sim \text{Unif}[-1,1]$. Compute $\EXP[X^2]$.
    $$\VAR(X) = \EXP[X^2] - (\EXP[X])^2.$$
 
 4. The positive square root of variance is called the **standard deviation.** Variance is often denoted by $σ^2$ and the standard deviation by $σ$. 
+
+:::{#exm-coin-toss-variance}
+Find the variance of $X$ defined in @exm-coin-toss.
+:::
+:::{.callout-note collapse="true"}
+#### Solution
+We first compute
+$$
+\EXP[X^2] = \frac 14 \cdot 0^2 + \frac 12 \cdot 1^2 + \frac 14 \cdot 2^2 = \frac 32.
+$$
+Therefore,
+$$
+\VAR(X) = \EXP[X^2] - \EXP[X]^2 = \frac 32 - 1 = \frac 12.
+$$
+:::
 
 :::{#lem-variance-properties}
 #### Properties of variance
@@ -636,6 +661,13 @@ To prove the second claim, pick any (Borel) subsets $B_1$ and $B_2$ of $\reals$ 
 where $(d)$ follows from basic algebra, $(e)$ follows from \eqref{eq:expectation-product}, and $(f)$ follows from expectation of an indicator.
 
 The above equation shows that for any arbitrary (Borel) subsets $B_1$ and $B_2$ of $\reals$, $\PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2)$. Hence, $\{X \in B_1\} \independent \{Y \in B_2 \}$. Since $B_1$ and $B_2$ were arbitrary, we have $X \independent Y$. 
+:::
+
+:::{#exr-mean-var-indendent}
+Let $X$ and $Y$ be independent random variables defined on a common probability space. Show that
+
+a. $\EXP[XY] = \EXP[X] \EXP[Y]$.
+b. $\VAR(XY) = \VAR(X) \VAR(Y)$. 
 :::
 
 ## Correlation and covariance
