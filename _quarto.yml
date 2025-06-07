@@ -1,9 +1,8 @@
 project:
-  type: website
-  output-dir: docs/
+  type: book
   # resources:
 
-website:
+book:
   title: Probability and Random Signals II
   description: "Course Notes for ECSE 509 (McGill University)"
   site-url: "https://adityam.github.io/probability-and-random-signals/"
@@ -19,18 +18,27 @@ website:
     pinned: false
     search: false
     left:
-    - href: ../probability-and-random-signals
+    - href: index.html
       text: Probability and Random Signals II
-        # - href: ../multi-agent-systems/index.html
-        #   text: Multi-Agent Systems
+
+  chapters:
+      - index.qmd
+      - probability-spaces.qmd
+      - random-variables.qmd
+      - conditional-expectation.qmd
+      - moment-generating-functions.qmd
+      - inequalities.qmd
+      - convergence-of-random-variables.qmd
+      - markov-chains.qmd
+      - poisson-processes.qmd
 
 format:
   html:
     author:
       - name: Aditya Mahajan
-        url: https://adityam.github.io
+        url: "https://adityam.github.io"
         affiliation: McGill University
-        affiliation-url: http://www.mcgill.ca/ece
+        affiliation-url: "http://www.mcgill.ca/ece"
         # citation:
         #   type: webpage
         #   container-title: "Course notes for Probability and Random Signals"
@@ -58,9 +66,3 @@ format:
 
     embed-resources: false
     smooth-scroll: true
-
-    jupyter: julia-1.9
-    freeze: true
-
-    toc: true
-    number-sections: true

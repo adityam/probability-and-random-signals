@@ -1,4 +1,5 @@
 /.quarto/
+/_book/
 /docs/
 *.pdf
 *.tuc
