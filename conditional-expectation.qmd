@@ -148,7 +148,7 @@ We first start with the case where we are conditioning on discrete random variab
    $$
 
 4. For any event $B$ in $\mathscr B(\reals)$, **the law of total probability** may be written as
-   $$\PR(X \in B) = \sum_{x \in \text{range}(X)} \PR(X \in B \mid X = x) P_X(x). $$
+   $$\PR(X \in B) = \sum_{y \in \text{range}(Y)} \PR(X \in B \mid Y = y) P_Y(y). $$
 
 5. If $X$ is independent of $Y$, we have
    $$
