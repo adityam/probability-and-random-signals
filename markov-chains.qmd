@@ -16,23 +16,82 @@ Let $\ALPHABET X$ be a finite set. A stochastic process $\{X_n\}_{n \ge 0}$, $X_
 
 The variable $X_n$ is called the **state** of the Markov chain at time $n$; the set $\ALPHABET X$ is called **state space**. The \eqref{eq:Markov} implies that the current state captures all the information from the past that is relevant for the future. Stated differently, **conditioned on the present, the past is independent of the future**.
 
-Independence is a symmetric relationship. Thus, we expect the Markov property to also hold if time is reversed! The next exercise asks you to formally prove that. 
+Independence is a symmetric relationship. Thus, we expect the Markov property to also hold if time is reversed! @exr-time-reversal asks you to formally prove that. 
 
-:::{#exr-time-reversal}
-#### Time reversal of Markov chains
+We now present some examples of Markov chains arising in different applications.
 
-Let $\{X_n\}_{n \ge 1}$ is a Markov chain. Show that for any $N > n$,
-$$
-  \PR(X_n = x_n \mid X_{n+1:N} = x_{n+1:N})
-  = \PR(X_n = x_n \mid X_{n+1} = x_{n+1}).
-$$
-Thus, a time reversed Markov chain is also Markov.
+:::{#exm-Gilbert-Elliot-channel}
+#### Gilbert Elliot channel model for burst erasures
+
 :::
+
+:::{#exm-Ehrenfest-diffusion}
+#### Ehrenfest model of diffusion
+
+The following simplified model of diffusion through a porous membrane was proposed by @Ehrenfest1907 to describe the exchange of heat between two systems at different temperature. 
+
+There are $K$ particles that can either be in compartment $A$ or compartment $B$. At each time, a particle is picked at random and moved from its compartment to the other. Thus, if there are $X_n = i$ particles in compartment $A$ at time $n$, then the next state $X_{n+1}$ is either $i-1$ (a particle was displaced from compartment $A$ to $B$) with probability $i/K$, or $i+1$ (a particle was displaced from compartment $B$ to $A$) with probability $(K-i)/K$. 
+:::
+
+:::{#exm-gamblers-ruin}
+#### Gambler's ruin
+
+Consider a gambler who is playing in a casino. The gambler starts with an initial fortune of \$$x_0$. At each time, the gambler places a bet where he wins \$$1$ with probability $p$ and loses \$$1$ with probability $1-p$. Thus, his fortune evolves as 
+$$
+  X_{n+1} = X_n + Z_n
+$$
+where $\{Z_n\}_{n \ge 0}$ is an i.i.d.\ sequence which takes values $+1$ with probability $p$ and $-1$ with probability $1-p$. 
+
+The gambler stops when his fortune is ruined, i.e., $X_n = 0$. In some variations, the gambler may also stop when his fortune reaches a pre-specified amount of \$$K$.
+:::
+
+<!--
+**TODO:** Add examples and non-examples of Markov processes. Not necessarily the mathematical description, but simply models that are Markov
+
+- iid coin tosses
+- Success runs
+- On off Markov chain (Gilbert Elliot)
+- Gambler's ruin
+
+-->
 
 ## Time-homogeneous Markov chains
 
 In this course, we will focus on time-homogeneous Markov chain.
-The Markov chain is called **time-homogeneous** if the right hand side of \eqref{eq:Markov} does not depend on $n$. In this case, we describe the Markov chain by a **state transition matrix** $P$, where $P_{ij} = \PR(X_{n+1} = j | X_n = i)$. Such Markov chains can also be visualized using **state transition diagrams** as we illustrate in the example below. 
+The Markov chain is called **time-homogeneous** if the right hand side of \eqref{eq:Markov} does not depend on $n$. In this case, we describe the Markov chain by a **state transition matrix** $P$, where $P_{ij} = \PR(X_{n+1} = j | X_n = i)$. Such Markov chains can also be visualized using **state transition diagrams** as we illustrate in the examples below. 
+
+:::{#exm-on-off}
+#### On-Off Markov chain
+
+The On-Off Markov chain discussed earlier can be modelled with $\ALPHABET X = \{0, 1\}$ and general transition probability matrix of the form.
+$$
+  P = \MATRIX{ 1 - a & a \\ b & 1 - b }.
+$$
+The transition matrix can be visualized as follows.
+
+![On-Off Markov chain](figures/svg/markov-examples1.svg)
+:::
+
+In spite of its simplicity, such simple on-off Markov chains are used in various applications including telecommunication systems, network traffic modeling, machine failure-repair models, gene activation, and others. Some properties of the on-off Markov chain are as follows:
+
+- If $a + b = 1$, then both rows of the transition matrix are identical. Therefore, the Markov chain _has no memory_ and is equivalent to a Bernoulli process with success probability $a = 1-b$.
+
+- When $a$ or $b$ are small, the corresponding state is "sticky", i.e., when the Markov chain enters a sticky state, it stays there for a long time.
+
+:::{#exm-Ehrenfest-diffusion-model}
+The Ehrenfest model of diffusion presented in @exm-Ehrenfest-diffusion can be modelled as a Markov chain with state space $\{0, 1, \dots, K\}$ and transition probability
+$$
+  P_{ij} = \begin{cases}
+    i/K     & j = i-1 \\
+    (K-i)/K & j = i + 1 \\
+    0 & \text{otherwise}.
+  \end{cases}
+$$
+The transition matrix can be visualized as follows.
+
+![Ehrenfest model of diffusion](figures/svg/markov-examples2.svg)
+
+:::
 
 :::{#exm-random-walk}
 #### Random walk in one dimension
@@ -94,7 +153,27 @@ We will consider the case where the state space is $\ALPHABET X = \{-2, -1, 0, 1
    $$
 :::
 
-### State occupancy probabilities
+Note that the gambler's fortune in @exm-gamblers-ruin is a random walk on non-negative integers $\{0,1,2, \dots\}$ with absorption at $0$. In the variation where the gambler stops when his fortune reaches \$$K$, it is a random walk over $\{0,1,\dots,K\}$ with absorption at both ends: $0$ and $K$. 
+
+**TODO**: Add other examples
+
+- Success runs
+
+### Properties of interest
+
+Depending on the application, we are typically interested in the following properties of a Markov chain:
+
+- If the chain starts in state $i$, what is the probability that after $n$ steps it is in state $j$?
+
+- If the chain starts in state $i$, what is the expected number of visits to state $j$ in $n$ steps?
+
+- What is the expected number of steps that it takes for a chain starting in state $i$ to visit state $j$ for the first time?
+
+- What is the average number of times that the chain is in state $i$? How does this depend on the initial state?
+
+In the rest of this section, we will present results in Markov chain theory that answer the above questions. 
+
+## State occupancy probabilities
 
 Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. This is also called the **state occupancy probababilites**. We will think of of $μ^{(n)}$ as a row vector. Then, by the law of total probability, we have
 $$
@@ -112,7 +191,7 @@ $$ μ^{(n)} = μ^{(0)} P^n. $$
 We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$. 
 
 :::{#exm-random-walk-occupancy}
-We now compute the state occupancy probabilities for the different examples of random walk presented in @exm-random-walk when $p = q = \tfrac 12$ for $n \in \{1, \dots, 8\}$. In all cases, the initial probability 
+Numerically compute the state occupancy probabilities for the different examples of random walk presented in @exm-random-walk when $p = q = \tfrac 12$ for $n \in \{1, \dots, 8\}$. In all cases, the initial probability 
 $$
   μ^{(0)} = \MATRIX{0 & 0 & 1 & 0 & 0 }.
 $$
@@ -200,34 +279,310 @@ end
     ```
 :::
 
-### Properties of interest
+:::{#exm-on-off-occupancy}
+Analytically compute the state occupancy probabilites for the on-off Markov chain of @exm-on-off when it starts from the initial probability distribution $μ^{(0)}$. 
+:::
+:::{.callout-note collapse="true"}
+#### Solution
 
-Depending on the application, we are typically interested in the following properties of a Markov chain:
+Since $μ^{(n+1)} = μ^{(n)} P$, we have
+\begin{align*}
+  μ^{(n+1)}_0 &= μ^{(n)}_0 (1-a) + μ^{(n)}_1 b
+  \\
+  &= μ^{(n)}_0 (1-a) + (1 - μ^{(n)}_0) b
+  \\
+  &= μ^{(n)}_0 (1-a-b) + b.
+\end{align*}
+If $a = b = 0$, then $μ^{(n+1)}_0 = μ^{(n)_0 = \cdots = μ^{(0)}_0$. 
+If not, we exploit the fact that 
+$$
+  b = \frac{b}{a+b} - \frac{b}{a+b}(1-a-b)  
+$$
+to recursively write
+\begin{align*}
+  μ^{(1)}_0 &= μ^{(0)}_0 (1-a-b) + b \\
+  &= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b) + \frac{b}{a+b}
+\end{align*}
+and
+\begin{align*}
+  μ^{(2)}_0 &= μ^{(1)}_0 (1-a-b) + b \\
+  &= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b)^2 + \frac{b}{a+b}(1-a-b) + b \\
+  &= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b)^2 + \frac{b}{a+b}
+\end{align*}
+and, so on, to get
+\begin{align*}
+  μ^{(n)}_0 &= μ^{(n-1)}_0 (1-a-b) + b \\
+  &= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b)^n + \frac{b}{a+b}(1-a-b) + b \\
+  &= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b)^n + \frac{b}{a+b}.
+\end{align*}
+Therefore,
+$$
+  μ^{(n)}_1 = 1 - μ^{(n)}_0
+  = \left(μ^{(1)}_0 - \frac{a}{a+b}\right)(1-a-b)^n + \frac{a}{a+b}.
+$$
+:::
 
-- If the chain starts in state $i$, what is the probability that after $n$ steps it is in state $j$?
+:::{.callout-warning collapse="true"}
+#### How did we figure out the above calculation?
 
-- If the chain starts in state $i$, what is the expected number of visits to state $j$ in $n$ steps?
+The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing $μ^{(0)} P^n$. What is an efficient way to compute $P^n$? **Eigen decomposition!**. Since $P$ is a row stochastic matrix, we have $P \mathbf{1} = 1.$ Thus, $λ_1 = 1$ is always an eigenvector of _any_ transition matrix with eigenvector $\mathbf{1}$. 
 
-- What is the expected number of steps that it takes for a chain starting in state $i$ to visit state $j$ for the first time?
+For @exm-on-off, we can explicitly compute all eigenvalues by finding the roots of the characteristic equation
+\begin{align*}
+\det(λI - P) &= \DET{λ - 1 + a & - a \\ -b & λ - 1 + b} \\
+&= (λ-1 +a)(λ-1+b) - ab \\
+&= (λ-1)^2 + (a+b)(λ-1) = (λ-1)(λ-1 + a + b).
+\end{align*}
+Thus, the eigenvalues are $λ_1 = 1$ and $λ_2 = 1 - a - b$. 
 
-- What is the average number of times that the chain is in state $i$? How does this depend on the initial state?
+[For the special case of $2 × 2$ transition matrices, we can find the second eigenvalue by observing that $λ_1 = 1$ is always an eigenvalue and $\TR(P) = λ_1 + λ_2 = 1 + λ_2$ or $\det(P) = λ_1 λ_2 = λ_2$.]{.text-secondary}
 
-In the rest of this section, we will present results in Markov chain theory that answer the above questions. 
+To find the eigenvector, we find a vector $v$ such that $(λI - P)v = 0$. 
 
-## Hitting times and expected number of visits
+- For $λ_1 = 1$, we already know that $v_1 = [1; 1]$ is an eigenvector. 
+- For $λ_2 = (1-a-b)$, we have 
+  $$ λ_2I - P = \MATRIX{-b & -a \\ -b & -a}. $$
+  Therefore, one possible eigenvector is $[a; -b]$. 
+
+Then, from spectral decomposition, we know that
+$$
+  P = V Λ V^{-1}
+$$
+where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
+\begin{align*}
+  μ^{(n)} &= μ^{(0)} P^n = μ^{(0)} V Λ^n V^{-1} \\
+  &= \MATRIX{ μ^{(0)}_0 & 1 - μ^{(0)}_0 }
+     \MATRIX{1 & a \\ 1 & -b }
+     \MATRIX{1 & 0 \\ 0 & 1 - a -b}
+     \frac{1}{a+b} 
+     \MATRIX{b & a \\ 1 & -1 }
+  \\[5pt]
+  &= \MATRIX{\dfrac{1}{a+b} & μ^{(0)}_0 - \dfrac{b}{a+b} }
+     \MATRIX{1 & 0 \\ 0 & 1 - a -b}
+     \MATRIX{b & a \\ 1 & -1 }
+  \\[5pt]
+  &=\MATRIX{\dfrac{1}{a+b} & 0 \\ 0 & \left(μ^{(0)}_0 - \dfrac{b}{a+b}\right)(1-a-b)^n }
+   \MATRIX{b & a \\ 1 & -1 }
+  \\[5pt]
+  &= \frac{b}{a+b} + \left(μ^{(0)}_0 - \dfrac{b}{a+b}\right)(1-a-b)^n 
+\end{align*}
+:::
+
+
+**TODO:** Add more examples!
+
+## Class structure
+
+
+
+1.  We say that a state $j$ is **accessible from** state $i$ (abbreviated as $i \rightsquigarrow j$) if there is exists an $m \in \integers_{\ge 0}$ (which may depend on $i$ and $j$) such that $[P^m]_{ij} > 0$. The fact that $P^{(m)}_{ij} > 0$ implies that there exists an ordered sequence of states $(i_0, \dots, i_m)$ such that $i_0 = i$ and $i_m = j$ such that $P_{i_k i_{k+1}} > 0$; thus, there is a path of positive probability from state $i$ to state $j$.
+
+    Accessibility is an transitive relationship, i.e., if $i \rightsquigarrow j$ and $j \rightsquigarrow k$ implies that $i \rightsquigarrow k$.
+
+    :::{#exm-accessible}
+    Consider the Markov chain shown below. 
+
+    ![](figures/svg/markov-examples3.svg)
+
+    a. Identify all states that are accessible from state $1$.
+    b. Identify all states from which state $1$ is accessible.
+    :::
+    :::{.callout-note collapse="true"}
+    #### Solution
+    a. States accessible from state $1$ are $\{1,2,3\}$.
+    a. States from which state $1$ is accessible are $\{1,2,3,4,5,6\}$.
+
+    :::
+
+2.  Two distinct states $i$ and $j$ are said to **communicate**
+    (abbreviated to $i \leftrightsquigarrow j$) if $i$ is accessible
+    from $j$ (i.e., $j \rightsquigarrow i$) and $j$ is accessible from
+    $i$ ($i \rightsquigarrow j$). Alternatively, we say that $i$ and $j$
+    communicate if there exist $m, m' \in \integers_{\ge 0}$ such that
+    $P^{(m)}_{ij} > 0$ and $P^{(m')}_{ji} > 0$.
+
+    For instance, in @exm-accessible, state $1$ communicates with state $2$ but does not communicate with state $5$. 
+
+    Communication is an equivalence relationship, i.e., it is reflexive
+    ($i \leftrightsquigarrow i$), symmetric ($i \leftrightsquigarrow j$
+    if and only if $j \leftrightsquigarrow i$), and transitive
+    ($i \leftrightsquigarrow j$ and $j \leftrightsquigarrow k$ implies
+    $i \leftrightsquigarrow k$).
+
+3.  The states in a finite-state Markov chain can be partitioned into
+    two sets: **recurrent states** and **transient states**. A state is
+    recurrent if it is accessible from all states that are accessible from it (i.e., $i$ is recurrent if $i \rightsquigarrow j$ implies that $j \rightsquigarrow i$). States that are not recurrent are
+    **transient**.
+
+    It can be shown that a state $i$ is recurrent if and only if
+    $$\sum_{m=1}^{\infty} P^{(m)}_{ii} = \infty.$$
+
+
+4.  States $i$ and $j$ are said to belong to the same **communicating
+    class** if $i$ and $j$ communicate. Communicating classes form a
+    partition the state space. Within a communicating class, all states
+    are of the same type, i.e., either all states are recurrent (in
+    which case the class is called a recurrent class) or all states are
+    transient (in which case the class is called a transient class).
+
+    For example, in @exm-accessible, there are two communication classes: $\{1,2,3\}$ and $\{4,5,6\}$. The communication class $\{4,5,6\}$ is transient while the communication class $\{1,2,3\}$ is recurrent.
+
+
+5.  A communicating class $C$ is said to be **closed** if 
+    $$
+        i \in C \text{ and } i \rightsquigarrow j \implies j \in C.
+    $$
+    Thus, there is no escape from a closed class. For finite state spaces, a recurrent class is always closed and a transient class is never closed. But this is not the case for countable state Markov chains. 
+
+6.  A state $i$ is called **absorbing** if $\{i\}$ is a closed class, i.e., if $P_{ii} = 1$. 
+
+7.  A Markov chain with a single communicating class (thus, all states
+    communicate with each other and are, therefore, recurrent) is called
+    **irreducible**.
+
+8.  The **period** of a state $i$, denoted by $d(i)$, is defined as
+    $$d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} > 0 \}.$$ If
+    the period is $1$, the state is **aperiodic**, and if the period is
+    $2$ or more, the state is **periodic**. It can be shown that all
+    states in the same class have the same period.
+
+9.  A Markov chain is aperiodic, if all states are aperiodic. A simple
+    sufficient (but not necessary) condition for an irreducible Markov
+    chain to be aperiodic is that there exists a state $i$ such that
+    $P_{ii} > 0$. In general, for a finite and aperiodic Markov chain,
+    there exists a positive integer $M$ such that 
+    $$ P^{(m)}_{ii} > 0, 
+            \quad \forall m \ge M, i \in \ALPHABET X.$$
+
+
+## Hitting times
 
 1. We use the following notation:
 
-    - $P_i(A)$ denotes $\PR(A \mid X_0 = i)$ and $
-    - $\EXP_i[Y]$ denotes $\EXP[Y \mid X_0 = i]$.
+    - For any event $E$, $P_i(E)$ denotes $\PR(E \mid X_0 = i)$ 
+    - For any random variable $Y$, $\EXP_i[Y]$ denotes $\EXP[Y \mid X_0 = i]$.
 
-2. Let $A$ be a subset of $\ALPHABET X$. The **hitting time** $T_A$ of $A$ is defined by
+2. Let $A$ be a subset of $\ALPHABET X$. The **hitting time** $H^A$ of $A$ is a random variable $H^A \colon \ALPHABET X \to \{0, 1, \dots \} \cup \{∞\}$ given by
    $$
-     T_A = \min\{n > 0 : X_n \in A\}.
+     H^A(ω) = \min\{n \ge 0 : X_n(ω) \in A\}.
    $$
-   The standard convention is that $T_A$ is taken to be $∞$ if $X_n \neq A$ for any $n > 0$. For a state $j \in \ALPHABET X$, we use the short-hand $T_j$ to denote $T_{\{j\}}$. 
+   The standard convention is that $H^A$ is taken to be $∞$ if $X_n \neq A$ for any $n > 0$. For a state $j \in \ALPHABET X$, we use the short-hand $H^j$ to denote $H^{\{j\}}$. 
 
-3. Define 
+3. The probability that starting from state $i$ the Markov chain ever hits $A$ is then given by
+   $$
+      h^A_i = P_i(H^A < ∞).
+   $$
+   This is called **hitting probability**. When $A$ is a closed class, $h^A_i$ is called the **absorption probability**. 
+
+4. The mean-time taken for the Markov chain to reach $A$ is given by 
+   $$
+     m^A_i = \EXP_i[H^A] = \sum_{n=0}^{∞} n \PR_i(H^A = n).
+   $$
+   This is called the **mean hitting time**.
+
+
+A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix $P$. 
+
+:::{#thm-hitting-probabilities}
+#### Hitting probabilities
+The hitting probabilities $\{h^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
+$$
+  h^A_i = \begin{cases}
+    1, & i \in A \\
+    \sum_{j \in \ALPHABET X} P_{ij} h^A_j, & i \not\in A
+  \end{cases}
+$$
+When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the hitting probabilities correspond to the *minimal* non-negative solution.
+:::
+
+:::{.callout-note collapse="true"}
+#### Proof
+When $X_0 = i \in A$, the hitting time $H^A = 0$, so $h^A_i = 1$. This proves the first part of the formula.
+
+For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
+$$
+\PR_i(H^A < ∞ \mid X_1 = j) = \PR_j(H^A < ∞) = h^A_j.
+$$
+Moreover, by the law of total probability, we have
+\begin{align*}
+h^A_i &= \PR_i(H^A < ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A < ∞, X_1 = j) \\
+&= \sum_{j \in \ALPHABET X} \PR_i(H^A < ∞ \mid X_1 = j) \PR_i(X_1 = j) \\
+&= \sum_{j \in \ALPHABET X} P_{ij} h^A_j.
+\end{align*}
+:::
+
+:::{#exm-gambler-ruin-instance}
+Consider a gambler's ruin problem, where the gambler starts with \$$1$ and stops either when he is ruined or when his fortune reaches \$$K$. 
+
+Find the probability of ruin (i.e., the fortune gets absorbed in state $0$ rather than state $K$). 
+:::
+
+:::{.callout-note collapse="true"}
+### Solution
+For the ease of notation, we use $h_i$ as a short-form for $h^{\{0\}}_i$. The hitting probabilities satisy the linear system of equations:
+
+\begin{align*}
+  h_0 &= 1 \\
+  h_i &= ph_{i+1} + q h_{i-1}, \quad i \in \{1,\dots,K-1\} \\
+  h_K &= 0,
+\end{align*}
+where $q = 1-p$. 
+
+The characteristic equation associated with the linear recurrence relationship is
+$$
+  λ = p λ^2 + q
+$$
+which has two distinct roots, $λ_1 = 1$ and $λ_2 = q/p$ if $p \neq q$ and a double root at $λ_1 = 1$ if $p = q = \frac 12$. Therefore, the general solution is of the form
+$$
+  h_i = a λ_1^i + b λ_2^i = a + b\Bigl(\tfrac {q}{p} \Bigr)^i
+$$
+where we determine the coefficients $a$ and $b$ from the boundary conditions $h_0 = 1$ and $h_K = 0$. Solving for $a$ and $b$, we get that for $p \neq q$, we have
+$$
+  h_i = \frac{1 - \Bigl(\frac qp\Bigr)^i}{1 - \Bigl(\frac qp\Bigr)^K}
+$$
+and for $p = q = \frac 12$, we have
+$$
+  h_i = \frac{i}{K}.
+$$
+:::
+
+:::{#thm-mean-hitting-times}
+#### Mean hitting times
+The mean hitting times $\{m^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
+$$
+  m^A_i = \begin{cases}
+    0, & i \in A \\
+    1 + \sum_{j \not\in A} P_{ij} m^A_j, & i \not\in A
+  \end{cases}
+$$
+When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the mean hitting times correspond to the *minimal* non-negative solution.
+:::
+
+:::{.callout-note collapse="true"}
+#### Proof
+
+The proof is similar to the proof of @thm-hitting-probabilities. When $X_0 = i \in A$, the hitting time $H^A = 0$, so $m^A_i = 0$. This proves the first part of the formula.
+
+For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
+$$
+  \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
+$$
+Moreover, by the law of total probability, we have
+\begin{align*}
+  m^A_i &= \EXP_i[ H^A ] 
+  = \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
+  &= \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
+  &= \sum_{j \in \ALPHABET X} P_{ij} \bigl[ 1 + m^A_j \bigr]
+  \\
+  &= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
+\end{align*}
+
+:::
+
+
+## First passage time and strong Markov property
+
+3. Define the **first passage time**
    $$
      f^{(n)}_{ij} \coloneqq P_i(T_j = n) = P_i(X_1 \neq j, \dots, X_{n-1} \neq j, X_n = j).
    $$
@@ -300,42 +655,6 @@ In the rest of this section, we will present results in Markov chain theory that
 17. If $C$ is a finite irreducible closed set of states. Then every state in $C$ is recurrent.
 
 18. Let $\ALPHABET X_T$ and $\ALPHABET X_R$ denote the set of transient and recurrent states. The set $\ALPHABET X_R$ can be paritioned into a finite or countable number of irreducible closed sets $C_1$, $C_2$, $\dots$. 
-
-## Absorption probabilities
-
-1. Let $C$ be one of the irreducible closed sets of recurrent states. Define $f_{iC} = P_i(T_C < ∞)$ to be the probability that a chain starting at $i$ eventually hits $C$ (and is _absorbed_ in $C$). 
-
-2. Clearly, $f_{iC} = 1$ for $i \in C$ and $f_{iC} = 0$ if $i$ is a recurrent state not in $C$. 
-
-3. Suppose $i \in \ALPHABET X_T$. Then, $f_{iC}$ satisfies the following:
-   $$
-      f_{iC} = \sum_{j \in C} P_{ij} 
-      + \sum_{j \in \ALPHABET X_T} P_{ij} f_{jC}.
-   $$
-
-    When $\ALPHABET X_T$ is finite, the above system has a unique solution.
-
-:::{#exm-gambler-ruin}
-Consider a gambler's ruin problem, where we start at state $1$ and stop if we hit state $0$ or $3$.
-
-![A gambler's ruin problem](figures/svg/markov-chains3.svg)
-
-Find the probability of getting absorbed in state $0$ before state $3$. 
-
-:::
-
-:::{.callout-warning collapse="true"}
-### Solution
-Let $f_{i0}$ denote the probability of getting absorbed in state $0$ before $3$.
-Then, we can write the following system of equations to describe the
-absorption probabilities:
-\begin{align*}
-  f_{10} &= q + p f_{20} \\
-  f_{20} &= q f_{10}. 
-\end{align*}
-We can solve this system of equations to find $f_{10}$ and $f_{20}$.
-:::
-
 
 ## Expected duration of play
 
@@ -424,4 +743,25 @@ distribution $π_0$.
 A Markov chain has a steady state distribution if it is ergodic. We can find
 the steady state distribution by solving the _balance equation_: $π = π P$. 
 
+## Exercises{-}
+:::{#exr-time-reversal}
+#### Time reversal of Markov chains
 
+Let $\{X_n\}_{n \ge 1}$ is a Markov chain. Show that for any $N > n$,
+$$
+  \PR(X_n = x_n \mid X_{n+1:N} = x_{n+1:N})
+  = \PR(X_n = x_n \mid X_{n+1} = x_{n+1}).
+$$
+Thus, a time reversed Markov chain is also Markov.
+:::
+
+:::{#exr-k-step-Markov}
+Suppose $\{X_n\}_{n \ge 0}$ is a Markov chain with transition matrix $P$. For a fixed positive integer $k$, define $Y_n = X_{kn}$. Show that $\{Y_n\}_{n \ge 0}$ is a Markov chain with transition matrix $P^k$.
+:::
+
+:::{#exr-biased-die}
+Suppose a (6-sided) die is 'fixed' so that two consecutive rolls cannot have the same outcome. In particular, if the outcome of a roll is $i$, then the next roll cannot be $i$; all $5$ other outcomes are equally likely. 
+
+a. Model the above as a Markov chain.
+b. If the outcome of the first roll is $1$, what is the probability that the outcome of the $n$th roll is also $1$?
+:::
