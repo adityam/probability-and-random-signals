@@ -45,6 +45,10 @@ where $\{Z_n\}_{n \ge 0}$ is an i.i.d.\ sequence which takes values $+1$ with pr
 The gambler stops when his fortune is ruined, i.e., $X_n = 0$. In some variations, the gambler may also stop when his fortune reaches a pre-specified amount of \$$K$.
 :::
 
+See the following video from [Veritasium](https://www.youtube.com/@veritasium) for an excellent history of Markov chains and its applications
+
+{{< video https://www.youtube.com/watch?v=KZeIEiBrT_w >}}
+
 <!--
 **TODO:** Add examples and non-examples of Markov processes. Not necessarily the mathematical description, but simply models that are Markov
 
