@@ -25,6 +25,7 @@ book:
       - index.qmd
       - probability-spaces.qmd
       - random-variables.qmd
+      - random-vectors.qmd
       - conditional-expectation.qmd
       - moment-generating-functions.qmd
       - inequalities.qmd
