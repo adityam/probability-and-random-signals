@@ -98,7 +98,7 @@ Exercise books
 
 ## Evaluation
 
-- **Assignments (25%)** Weekly homework assignments. Typically, each assignment will consist of four questions, out of which one or two randomly selected questions will be grader. The lowest two homework assignments will be dropped.
+- **Assignments (25%)** Weekly homework assignments. Typically, each assignment will consist of four or five questions, out of which [one or two randomly selected questions will be graded]{.text-danger}. 
 
 - **Mid Term (25%)** Closed book in-class exam.
   [**{{< meta course.mid-term >}}**]{.text-danger} (during class time)
@@ -120,10 +120,6 @@ Exercise books
   - Students who miss the mid-term exam for any other reason (e.g., no medical note, going to the exam at the wrong time, or on the wrong day, etc.) will get zero marks on the exam.
 
 - Any request for reevaluation of a mid-term or an assignment must be made **in writing within a week of its return**. Note that requesting a re-grade will mean that you **WHOLE** assignment or exam will be re-graded.
-
-- [Due to paucity of grading hours, only one or two randomly selected questions will be graded in each assignment.]{.text-danger}
-
-- The lowest two assignments and labs will be dropped. There will be no make-up for missed assignments, _even if it is for a valid reason._ The whole point of dropping the lowest two assignments is to reduce the administrative overhead of keeping track of such missed assignments.
 
 
 Right to submit in English or French written work that is to be graded.
