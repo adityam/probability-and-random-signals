@@ -2,14 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-11-11">
+<meta name="dcterms.date" content="2025-08-26">
+<meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>Markov chains – Probability and Random Signals II</title>
+<title>7&nbsp; Markov chains – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,17 +33,21 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<link href="./convergence-of-random-variables.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-9f47135319f23fa7c348006d1a455402.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-7003f8558f8d0cdb3f9596880144b86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-9f47135319f23fa7c348006d1a455402.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -96,6 +101,7 @@ window.MathJax = {
     macros: {
       PR: "\\mathbb{P}",
       EXP: "\\mathbb{E}",
+      LEXP: "\\mathbb{L}",
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
       IND: "\\mathbb{1}",
@@ -169,25 +175,187 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./../probability-and-random-signals"> 
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Probability and Random Signals II</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/adityam/probabiity-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -197,30 +365,103 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./markov-chains.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Markov chains</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Outline</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables and random vectors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./markov-chains.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#hitting-times-and-expected-number-of-visits" id="toc-hitting-times-and-expected-number-of-visits" class="nav-link active" data-scroll-target="#hitting-times-and-expected-number-of-visits"><span class="header-section-number">1</span> Hitting times and expected number of visits</a></li>
-  <li><a href="#absorption-probabilities" id="toc-absorption-probabilities" class="nav-link" data-scroll-target="#absorption-probabilities"><span class="header-section-number">2</span> Absorption probabilities</a></li>
-  <li><a href="#expected-duration-of-play" id="toc-expected-duration-of-play" class="nav-link" data-scroll-target="#expected-duration-of-play"><span class="header-section-number">3</span> Expected duration of play</a></li>
-  <li><a href="#classification-of-states" id="toc-classification-of-states" class="nav-link" data-scroll-target="#classification-of-states"><span class="header-section-number">4</span> Classification of states</a></li>
-  <li><a href="#steady-state-distribution" id="toc-steady-state-distribution" class="nav-link" data-scroll-target="#steady-state-distribution"><span class="header-section-number">5</span> Steady-state distribution</a></li>
+  <li><a href="#time-homogeneous-markov-chains" id="toc-time-homogeneous-markov-chains" class="nav-link active" data-scroll-target="#time-homogeneous-markov-chains"><span class="header-section-number">7.1</span> Time-homogeneous Markov chains</a>
+  <ul class="collapse">
+  <li><a href="#properties-of-interest" id="toc-properties-of-interest" class="nav-link" data-scroll-target="#properties-of-interest"><span class="header-section-number">7.1.1</span> Properties of interest</a></li>
+  </ul></li>
+  <li><a href="#state-occupancy-probabilities" id="toc-state-occupancy-probabilities" class="nav-link" data-scroll-target="#state-occupancy-probabilities"><span class="header-section-number">7.2</span> State occupancy probabilities</a></li>
+  <li><a href="#class-structure" id="toc-class-structure" class="nav-link" data-scroll-target="#class-structure"><span class="header-section-number">7.3</span> Class structure</a></li>
+  <li><a href="#hitting-times" id="toc-hitting-times" class="nav-link" data-scroll-target="#hitting-times"><span class="header-section-number">7.4</span> Hitting times</a></li>
+  <li><a href="#first-passage-time-and-strong-markov-property" id="toc-first-passage-time-and-strong-markov-property" class="nav-link" data-scroll-target="#first-passage-time-and-strong-markov-property"><span class="header-section-number">7.5</span> First passage time and strong Markov property</a></li>
+  <li><a href="#expected-duration-of-play" id="toc-expected-duration-of-play" class="nav-link" data-scroll-target="#expected-duration-of-play"><span class="header-section-number">7.6</span> Expected duration of play</a></li>
+  <li><a href="#stationary-distribution" id="toc-stationary-distribution" class="nav-link" data-scroll-target="#stationary-distribution"><span class="header-section-number">7.7</span> Stationary distribution</a></li>
+  <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">7.8</span> Limiting distribution</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Markov chains</h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Markov chains</span></h1>
 </div>
 
 
@@ -246,7 +487,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 11, 2024</p>
+      <p class="date">August 26, 2025</p>
     </div>
   </div>
   
@@ -262,22 +503,629 @@ window.Quarto = {
   \PR(X_{n+1} = x_{n+1} \mid X_{1:n} = x_{1:n})
   = \PR(X_{n+1} = x_{n+1} \mid X_n = x_n).
 \end{equation}\]</span></p>
-<p>The variable <span class="math inline">\(X_n\)</span> is called the <strong>state</strong> of the Markov chain at time <span class="math inline">\(n\)</span>; the set <span class="math inline">\(\ALPHABET X\)</span> is called <strong>state space</strong>. The <span class="math inline">\(\eqref{eq:Markov}\)</span> implies that the current state captures all the information from the past that is relevant for the future.</p>
-<p>The Markov chain is called <strong>time-homogeneous</strong> if the right hand side does not depend on <span class="math inline">\(n\)</span>. In this case, we describe the Markov chain by a <strong>state transition matrix</strong> <span class="math inline">\(P\)</span>, where <span class="math inline">\(P_{ij} = \PR(X_{n+1} = j | X_n = i)\)</span>.</p>
-<p>Let <span class="math inline">\(μ^{(n)}\)</span> denote the PMF of the state of the Markov chain at time <span class="math inline">\(n\)</span>. Then, we have that <span class="math display">\[ μ^{(n)} = μ^{(n-1)} P \]</span> and, by recusively expanding the right hand side, we have <span class="math display">\[ μ^{(n)} = μ^{(0)} P^n. \]</span></p>
+<p>The variable <span class="math inline">\(X_n\)</span> is called the <strong>state</strong> of the Markov chain at time <span class="math inline">\(n\)</span>; the set <span class="math inline">\(\ALPHABET X\)</span> is called <strong>state space</strong>. The <span class="math inline">\(\eqref{eq:Markov}\)</span> implies that the current state captures all the information from the past that is relevant for the future. Stated differently, <strong>conditioned on the present, the past is independent of the future</strong>.</p>
+<p>Independence is a symmetric relationship. Thus, we expect the Markov property to also hold if time is reversed! <a href="#exr-time-reversal" class="quarto-xref">Exercise&nbsp;<span>7.1</span></a> asks you to formally prove that.</p>
+<p>We now present some examples of Markov chains arising in different applications.</p>
+<div id="exm-Gilbert-Elliot-channel" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.1 (Gilbert Elliot channel model for burst erasures)</strong></span> &nbsp;</p>
+</div>
+<div id="exm-Ehrenfest-diffusion" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.2 (Ehrenfest model of diffusion)</strong></span> The following simplified model of diffusion through a porous membrane was proposed by <span class="citation" data-cites="Ehrenfest1907">@Ehrenfest1907</span> to describe the exchange of heat between two systems at different temperature.</p>
+<p>There are <span class="math inline">\(K\)</span> particles that can either be in compartment <span class="math inline">\(A\)</span> or compartment <span class="math inline">\(B\)</span>. At each time, a particle is picked at random and moved from its compartment to the other. Thus, if there are <span class="math inline">\(X_n = i\)</span> particles in compartment <span class="math inline">\(A\)</span> at time <span class="math inline">\(n\)</span>, then the next state <span class="math inline">\(X_{n+1}\)</span> is either <span class="math inline">\(i-1\)</span> (a particle was displaced from compartment <span class="math inline">\(A\)</span> to <span class="math inline">\(B\)</span>) with probability <span class="math inline">\(i/K\)</span>, or <span class="math inline">\(i+1\)</span> (a particle was displaced from compartment <span class="math inline">\(B\)</span> to <span class="math inline">\(A\)</span>) with probability <span class="math inline">\((K-i)/K\)</span>.</p>
+</div>
+<div id="exm-gamblers-ruin" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.3 (Gambler’s ruin)</strong></span> Consider a gambler who is playing in a casino. The gambler starts with an initial fortune of $<span class="math inline">\(x_0\)</span>. At each time, the gambler places a bet where he wins $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> and loses $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(1-p\)</span>. Thus, his fortune evolves as <span class="math display">\[
+  X_{n+1} = X_n + Z_n
+\]</span> where <span class="math inline">\(\{Z_n\}_{n \ge 0}\)</span> is an i.i.d.&nbsp;sequence which takes values <span class="math inline">\(+1\)</span> with probability <span class="math inline">\(p\)</span> and <span class="math inline">\(-1\)</span> with probability <span class="math inline">\(1-p\)</span>.</p>
+<p>The gambler stops when his fortune is ruined, i.e., <span class="math inline">\(X_n = 0\)</span>. In some variations, the gambler may also stop when his fortune reaches a pre-specified amount of $<span class="math inline">\(K\)</span>.</p>
+</div>
+<p>See the following video from <a href="https://www.youtube.com/@veritasium">Veritasium</a> for an excellent history of Markov chains and its applications</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/KZeIEiBrT_w" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<!--
+**TODO:** Add examples and non-examples of Markov processes. Not necessarily the mathematical description, but simply models that are Markov
+
+- iid coin tosses
+- Success runs
+- On off Markov chain (Gilbert Elliot)
+- Gambler's ruin
+
+-->
+<section id="time-homogeneous-markov-chains" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="time-homogeneous-markov-chains"><span class="header-section-number">7.1</span> Time-homogeneous Markov chains</h2>
+<p>In this course, we will focus on time-homogeneous Markov chain. The Markov chain is called <strong>time-homogeneous</strong> if the right hand side of <span class="math inline">\(\eqref{eq:Markov}\)</span> does not depend on <span class="math inline">\(n\)</span>. In this case, we describe the Markov chain by a <strong>state transition matrix</strong> <span class="math inline">\(P\)</span>, where <span class="math inline">\(P_{ij} = \PR(X_{n+1} = j | X_n = i)\)</span>. Such Markov chains can also be visualized using <strong>state transition diagrams</strong> as we illustrate in the examples below.</p>
+<div id="exm-on-off" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.4 (On-Off Markov chain)</strong></span> The On-Off Markov chain discussed earlier can be modelled with <span class="math inline">\(\ALPHABET X = \{0, 1\}\)</span> and general transition probability matrix of the form. <span class="math display">\[
+  P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
+\]</span> The transition matrix can be visualized as follows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/markov-examples1.svg" class="img-fluid figure-img"></p>
+<figcaption>On-Off Markov chain</figcaption>
+</figure>
+</div>
+</div>
+<p>In spite of its simplicity, such simple on-off Markov chains are used in various applications including telecommunication systems, network traffic modeling, machine failure-repair models, gene activation, and others. Some properties of the on-off Markov chain are as follows:</p>
+<ul>
+<li><p>If <span class="math inline">\(a + b = 1\)</span>, then both rows of the transition matrix are identical. Therefore, the Markov chain <em>has no memory</em> and is equivalent to a Bernoulli process with success probability <span class="math inline">\(a = 1-b\)</span>.</p></li>
+<li><p>When <span class="math inline">\(a\)</span> or <span class="math inline">\(b\)</span> are small, the corresponding state is “sticky”, i.e., when the Markov chain enters a sticky state, it stays there for a long time.</p></li>
+</ul>
+<div id="exm-Ehrenfest-diffusion-model" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.5</strong></span> The Ehrenfest model of diffusion presented in <a href="#exm-Ehrenfest-diffusion" class="quarto-xref">Example&nbsp;<span>7.2</span></a> can be modelled as a Markov chain with state space <span class="math inline">\(\{0, 1, \dots, K\}\)</span> and transition probability <span class="math display">\[
+  P_{ij} = \begin{cases}
+    i/K     &amp; j = i-1 \\
+    (K-i)/K &amp; j = i + 1 \\
+    0 &amp; \text{otherwise}.
+  \end{cases}
+\]</span> The transition matrix can be visualized as follows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/markov-examples2.svg" class="img-fluid figure-img"></p>
+<figcaption>Ehrenfest model of diffusion</figcaption>
+</figure>
+</div>
+</div>
+<div id="exm-random-walk" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.6 (Random walk in one dimension)</strong></span> Imagine a particle which moves in a straight line in unit steps. Each step is one unit to the right with probability <span class="math inline">\(p\)</span> or one unit to the left with probabity <span class="math inline">\(q = 1-p\)</span>. It moves until it reaches one of two extreme points, which are called <strong>boundary points</strong>. The behavior of the particle at the boundary determines several different possibilities.</p>
+<p>We will consider the case where the state space is <span class="math inline">\(\ALPHABET X = \{-2, -1, 0, 1, 2\}\)</span> and the process starts in state <span class="math inline">\(0\)</span>.</p>
+<ol type="1">
+<li><p><strong>Absorbing random walk:</strong> Assume that when the particle reaches a boundary state, it stays there from that time on. We may visualize the Markov chain as follows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/random-walk1.svg" class="img-fluid figure-img"></p>
+<figcaption>Absorbing random walk</figcaption>
+</figure>
+</div>
+<p>In this case, the transition matrix is given by <span class="math display">\[
+   P = \MATRIX{ 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+                q &amp; 0 &amp; p &amp; 0 &amp; 0 \\
+                0 &amp; q &amp; 0 &amp; p &amp; 0 \\
+                0 &amp; 0 &amp; q &amp; 0 &amp; p \\
+                0 &amp; 0 &amp; 0 &amp; 0 &amp; 1}.
+\]</span></p></li>
+<li><p><strong>Reflected random walk:</strong> Assume that when the particle reaches a boundary states, it is <em>reflected</em> and returns to the point it came from. We may visualize the Markov chain as follows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/random-walk2.svg" class="img-fluid figure-img"></p>
+<figcaption>Reflected random walk</figcaption>
+</figure>
+</div>
+<p>In this case, the transition matrix is given by <span class="math display">\[
+   P = \MATRIX{ 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+                q &amp; 0 &amp; p &amp; 0 &amp; 0 \\
+                0 &amp; q &amp; 0 &amp; p &amp; 0 \\
+                0 &amp; 0 &amp; q &amp; 0 &amp; p \\
+                0 &amp; 0 &amp; 0 &amp; 1 &amp; 0}.
+\]</span></p></li>
+<li><p><strong>Random walk with restart:</strong> Assume that when the particle reaches a boundary state, it restarts in the initial state. We may visualize the Markov chain as follows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/random-walk3.svg" class="img-fluid figure-img"></p>
+<figcaption>Random walk with restart</figcaption>
+</figure>
+</div>
+<p>In this case, the transition matrix is given by <span class="math display">\[
+   P = \MATRIX{ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+                q &amp; 0 &amp; p &amp; 0 &amp; 0 \\
+                0 &amp; q &amp; 0 &amp; p &amp; 0 \\
+                0 &amp; 0 &amp; q &amp; 0 &amp; p \\
+                0 &amp; 0 &amp; 1 &amp; 0 &amp; 0}.
+\]</span></p></li>
+<li><p><strong>Random walk with periodic boundary:</strong> Assume that when the particle reaches a boundary state, it moves to the other boundary. We may visualize the Markov chain as follows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/random-walk4.svg" class="img-fluid figure-img"></p>
+<figcaption>Random walk with periodic boundary</figcaption>
+</figure>
+</div>
+<p>In this case, the transition matrix is given by <span class="math display">\[
+   P = \MATRIX{ 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+                q &amp; 0 &amp; p &amp; 0 &amp; 0 \\
+                0 &amp; q &amp; 0 &amp; p &amp; 0 \\
+                0 &amp; 0 &amp; q &amp; 0 &amp; p \\
+                1 &amp; 0 &amp; 0 &amp; 0 &amp; 0}.
+\]</span></p></li>
+</ol>
+</div>
+<p>Note that the gambler’s fortune in <a href="#exm-gamblers-ruin" class="quarto-xref">Example&nbsp;<span>7.3</span></a> is a random walk on non-negative integers <span class="math inline">\(\{0,1,2, \dots\}\)</span> with absorption at <span class="math inline">\(0\)</span>. In the variation where the gambler stops when his fortune reaches $<span class="math inline">\(K\)</span>, it is a random walk over <span class="math inline">\(\{0,1,\dots,K\}\)</span> with absorption at both ends: <span class="math inline">\(0\)</span> and <span class="math inline">\(K\)</span>.</p>
+<p><strong>TODO</strong>: Add other examples</p>
+<ul>
+<li>Success runs</li>
+</ul>
+<section id="properties-of-interest" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="properties-of-interest"><span class="header-section-number">7.1.1</span> Properties of interest</h3>
+<p>Depending on the application, we are typically interested in the following properties of a Markov chain:</p>
+<ul>
+<li><p>If the chain starts in state <span class="math inline">\(i\)</span>, what is the probability that after <span class="math inline">\(n\)</span> steps it is in state <span class="math inline">\(j\)</span>?</p></li>
+<li><p>If the chain starts in state <span class="math inline">\(i\)</span>, what is the expected number of visits to state <span class="math inline">\(j\)</span> in <span class="math inline">\(n\)</span> steps?</p></li>
+<li><p>What is the expected number of steps that it takes for a chain starting in state <span class="math inline">\(i\)</span> to visit state <span class="math inline">\(j\)</span> for the first time?</p></li>
+<li><p>What is the average number of times that the chain is in state <span class="math inline">\(i\)</span>? How does this depend on the initial state?</p></li>
+</ul>
+<p>In the rest of this section, we will present results in Markov chain theory that answer the above questions.</p>
+</section>
+</section>
+<section id="state-occupancy-probabilities" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="state-occupancy-probabilities"><span class="header-section-number">7.2</span> State occupancy probabilities</h2>
+<p>Let <span class="math inline">\(μ^{(n)}\)</span> denote the PMF of the state of the Markov chain at time <span class="math inline">\(n\)</span>. This is also called the <strong>state occupancy probababilites</strong>. We will think of of <span class="math inline">\(μ^{(n)}\)</span> as a row vector. Then, by the law of total probability, we have <span class="math display">\[
+  \PR(X_n = j) = \sum_{i \in \ALPHABET X} \PR(X_{n-1} = i) \PR(X_n = j | X_{n-1} = i)
+\]</span> or, equivalently, <span class="math display">\[
+  μ^{(n)}_j = \sum_{i \in \ALPHABET X} μ^{(n-1)}_i P_{ij}
+\]</span> which can be written in matrix form as <span class="math display">\[ μ^{(n)} = μ^{(n-1)} P \]</span> and, by recusively expanding the right hand side, we have <span class="math display">\[ μ^{(n)} = μ^{(0)} P^n. \]</span></p>
 <p>We will abbreviate <span class="math inline">\([P^n]_{ij}\)</span> as <span class="math inline">\(P^{(n)}_{ij}\)</span>.</p>
-<section id="hitting-times-and-expected-number-of-visits" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="hitting-times-and-expected-number-of-visits"><span class="header-section-number">1</span> Hitting times and expected number of visits</h2>
+<div id="exm-random-walk-occupancy" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.7</strong></span> Numerically compute the state occupancy probabilities for the different examples of random walk presented in <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>7.6</span></a> when <span class="math inline">\(p = q = \tfrac 12\)</span> for <span class="math inline">\(n \in \{1, \dots, 8\}\)</span>. In all cases, the initial probability <span class="math display">\[
+  μ^{(0)} = \MATRIX{0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 }.
+\]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p><strong>Absorbing random walk:</strong> In this case, we have</p>
+<ul>
+<li><span class="math inline">\(μ^{(0)} = \left[
+\begin{array}{ccccc}
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(1)} = \left[
+\begin{array}{ccccc}
+0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(2)} = \left[
+\begin{array}{ccccc}
+\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(3)} = \left[
+\begin{array}{ccccc}
+\frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; \frac{1}{4} &amp; \frac{1}{4} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(4)} = \left[
+\begin{array}{ccccc}
+\frac{3}{8} &amp; 0 &amp; \frac{1}{4} &amp; 0 &amp; \frac{3}{8} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(5)} = \left[
+\begin{array}{ccccc}
+\frac{3}{8} &amp; \frac{1}{8} &amp; 0 &amp; \frac{1}{8} &amp; \frac{3}{8} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(6)} = \left[
+\begin{array}{ccccc}
+\frac{7}{16} &amp; 0 &amp; \frac{1}{8} &amp; 0 &amp; \frac{7}{16} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(7)} = \left[
+\begin{array}{ccccc}
+\frac{7}{16} &amp; \frac{1}{16} &amp; 0 &amp; \frac{1}{16} &amp; \frac{7}{16} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(8)} = \left[
+\begin{array}{ccccc}
+\frac{15}{32} &amp; 0 &amp; \frac{1}{16} &amp; 0 &amp; \frac{15}{32} \\
+\end{array}
+\right]\)</span></li>
+</ul></li>
+<li><p><strong>Reflected random walk:</strong> In this case, we have</p>
+<ul>
+<li><span class="math inline">\(μ^{(0)} = \left[
+\begin{array}{ccccc}
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(1)} = \left[
+\begin{array}{ccccc}
+0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(2)} = \left[
+\begin{array}{ccccc}
+\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(3)} = \left[
+\begin{array}{ccccc}
+0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(4)} = \left[
+\begin{array}{ccccc}
+\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(5)} = \left[
+\begin{array}{ccccc}
+0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(6)} = \left[
+\begin{array}{ccccc}
+\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(7)} = \left[
+\begin{array}{ccccc}
+0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(8)} = \left[
+\begin{array}{ccccc}
+\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} \\
+\end{array}
+\right]\)</span></li>
+</ul></li>
+<li><p><strong>Random walk with restart:</strong> In this case, we have</p>
+<ul>
+<li><span class="math inline">\(μ^{(0)} = \left[
+\begin{array}{ccccc}
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(1)} = \left[
+\begin{array}{ccccc}
+0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(2)} = \left[
+\begin{array}{ccccc}
+\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(3)} = \left[
+\begin{array}{ccccc}
+0 &amp; \frac{1}{4} &amp; \frac{1}{2} &amp; \frac{1}{4} &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(4)} = \left[
+\begin{array}{ccccc}
+\frac{1}{8} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{8} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(5)} = \left[
+\begin{array}{ccccc}
+\frac{1}{8} &amp; \frac{1}{8} &amp; \frac{1}{2} &amp; \frac{1}{8} &amp; \frac{1}{8} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(6)} = \left[
+\begin{array}{ccccc}
+\frac{1}{16} &amp; \frac{1}{4} &amp; \frac{3}{8} &amp; \frac{1}{4} &amp; \frac{1}{16} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(7)} = \left[
+\begin{array}{ccccc}
+\frac{1}{8} &amp; \frac{3}{16} &amp; \frac{3}{8} &amp; \frac{3}{16} &amp; \frac{1}{8} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(8)} = \left[
+\begin{array}{ccccc}
+\frac{3}{32} &amp; \frac{3}{16} &amp; \frac{7}{16} &amp; \frac{3}{16} &amp; \frac{3}{32} \\
+\end{array}
+\right]\)</span></li>
+</ul></li>
+<li><p><strong>Random walk with periodic boundary:</strong> In this case, we have</p>
+<ul>
+<li><span class="math inline">\(μ^{(0)} = \left[
+\begin{array}{ccccc}
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(1)} = \left[
+\begin{array}{ccccc}
+0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(2)} = \left[
+\begin{array}{ccccc}
+\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(3)} = \left[
+\begin{array}{ccccc}
+\frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; \frac{1}{4} &amp; \frac{1}{4} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(4)} = \left[
+\begin{array}{ccccc}
+\frac{3}{8} &amp; 0 &amp; \frac{1}{4} &amp; 0 &amp; \frac{3}{8} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(5)} = \left[
+\begin{array}{ccccc}
+\frac{3}{8} &amp; \frac{1}{8} &amp; 0 &amp; \frac{1}{8} &amp; \frac{3}{8} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(6)} = \left[
+\begin{array}{ccccc}
+\frac{7}{16} &amp; 0 &amp; \frac{1}{8} &amp; 0 &amp; \frac{7}{16} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(7)} = \left[
+\begin{array}{ccccc}
+\frac{7}{16} &amp; \frac{1}{16} &amp; 0 &amp; \frac{1}{16} &amp; \frac{7}{16} \\
+\end{array}
+\right]\)</span></li>
+<li><span class="math inline">\(μ^{(8)} = \left[
+\begin{array}{ccccc}
+\frac{15}{32} &amp; 0 &amp; \frac{1}{16} &amp; 0 &amp; \frac{15}{32} \\
+\end{array}
+\right]\)</span></li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exm-on-off-occupancy" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.8</strong></span> Analytically compute the state occupancy probabilites for the on-off Markov chain of <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>7.4</span></a> when it starts from the initial probability distribution <span class="math inline">\(μ^{(0)}\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Since <span class="math inline">\(μ^{(n+1)} = μ^{(n)} P\)</span>, we have <span class="math display">\[\begin{align*}
+  μ^{(n+1)}_0 &amp;= μ^{(n)}_0 (1-a) + μ^{(n)}_1 b
+  \\
+  &amp;= μ^{(n)}_0 (1-a) + (1 - μ^{(n)}_0) b
+  \\
+  &amp;= μ^{(n)}_0 (1-a-b) + b.
+\end{align*}\]</span> If <span class="math inline">\(a = b = 0\)</span>, then <span class="math inline">\(μ^{(n+1)}_0 = μ^{(n)_0 = \cdots = μ^{(0)}_0\)</span>. If not, we exploit the fact that <span class="math display">\[
+  b = \frac{b}{a+b} - \frac{b}{a+b}(1-a-b)  
+\]</span> to recursively write <span class="math display">\[\begin{align*}
+  μ^{(1)}_0 &amp;= μ^{(0)}_0 (1-a-b) + b \\
+  &amp;= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b) + \frac{b}{a+b}
+\end{align*}\]</span> and <span class="math display">\[\begin{align*}
+  μ^{(2)}_0 &amp;= μ^{(1)}_0 (1-a-b) + b \\
+  &amp;= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b)^2 + \frac{b}{a+b}(1-a-b) + b \\
+  &amp;= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b)^2 + \frac{b}{a+b}
+\end{align*}\]</span> and, so on, to get <span class="math display">\[\begin{align*}
+  μ^{(n)}_0 &amp;= μ^{(n-1)}_0 (1-a-b) + b \\
+  &amp;= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b)^n + \frac{b}{a+b}(1-a-b) + b \\
+  &amp;= \left(μ^{(0)}_0 - \frac{b}{a+b}\right)(1-a-b)^n + \frac{b}{a+b}.
+\end{align*}\]</span> Therefore, <span class="math display">\[
+  μ^{(n)}_1 = 1 - μ^{(n)}_0
+  = \left(μ^{(1)}_0 - \frac{a}{a+b}\right)(1-a-b)^n + \frac{a}{a+b}.
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How did we figure out the above calculation?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing <span class="math inline">\(μ^{(0)} P^n\)</span>. What is an efficient way to compute <span class="math inline">\(P^n\)</span>? <strong>Eigen decomposition!</strong>. Since <span class="math inline">\(P\)</span> is a row stochastic matrix, we have <span class="math inline">\(P \mathbf{1} = 1.\)</span> Thus, <span class="math inline">\(λ_1 = 1\)</span> is always an eigenvector of <em>any</em> transition matrix with eigenvector <span class="math inline">\(\mathbf{1}\)</span>.</p>
+<p>For <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>7.4</span></a>, we can explicitly compute all eigenvalues by finding the roots of the characteristic equation <span class="math display">\[\begin{align*}
+\det(λI - P) &amp;= \DET{λ - 1 + a &amp; - a \\ -b &amp; λ - 1 + b} \\
+&amp;= (λ-1 +a)(λ-1+b) - ab \\
+&amp;= (λ-1)^2 + (a+b)(λ-1) = (λ-1)(λ-1 + a + b).
+\end{align*}\]</span> Thus, the eigenvalues are <span class="math inline">\(λ_1 = 1\)</span> and <span class="math inline">\(λ_2 = 1 - a - b\)</span>.</p>
+<p><span class="text-secondary">For the special case of <span class="math inline">\(2 × 2\)</span> transition matrices, we can find the second eigenvalue by observing that <span class="math inline">\(λ_1 = 1\)</span> is always an eigenvalue and <span class="math inline">\(\TR(P) = λ_1 + λ_2 = 1 + λ_2\)</span> or <span class="math inline">\(\det(P) = λ_1 λ_2 = λ_2\)</span>.</span></p>
+<p>To find the eigenvector, we find a vector <span class="math inline">\(v\)</span> such that <span class="math inline">\((λI - P)v = 0\)</span>.</p>
+<ul>
+<li>For <span class="math inline">\(λ_1 = 1\)</span>, we already know that <span class="math inline">\(v_1 = [1; 1]\)</span> is an eigenvector.</li>
+<li>For <span class="math inline">\(λ_2 = (1-a-b)\)</span>, we have <span class="math display">\[ λ_2I - P = \MATRIX{-b &amp; -a \\ -b &amp; -a}. \]</span> Therefore, one possible eigenvector is <span class="math inline">\([a; -b]\)</span>.</li>
+</ul>
+<p>Then, from spectral decomposition, we know that <span class="math display">\[
+  P = V Λ V^{-1}
+\]</span> where <span class="math inline">\(V = [v_1 v_2] = [1, a; 1, -b]\)</span> and <span class="math inline">\(Λ = \diag(1, 1-a-b)\)</span>. Therefore, <span class="math display">\[\begin{align*}
+  μ^{(n)} &amp;= μ^{(0)} P^n = μ^{(0)} V Λ^n V^{-1} \\
+  &amp;= \MATRIX{ μ^{(0)}_0 &amp; 1 - μ^{(0)}_0 }
+     \MATRIX{1 &amp; a \\ 1 &amp; -b }
+     \MATRIX{1 &amp; 0 \\ 0 &amp; 1 - a -b}
+     \frac{1}{a+b}
+     \MATRIX{b &amp; a \\ 1 &amp; -1 }
+  \\[5pt]
+  &amp;= \MATRIX{\dfrac{1}{a+b} &amp; μ^{(0)}_0 - \dfrac{b}{a+b} }
+     \MATRIX{1 &amp; 0 \\ 0 &amp; 1 - a -b}
+     \MATRIX{b &amp; a \\ 1 &amp; -1 }
+  \\[5pt]
+  &amp;=\MATRIX{\dfrac{1}{a+b} &amp; 0 \\ 0 &amp; \left(μ^{(0)}_0 - \dfrac{b}{a+b}\right)(1-a-b)^n }
+   \MATRIX{b &amp; a \\ 1 &amp; -1 }
+  \\[5pt]
+  &amp;= \frac{b}{a+b} + \left(μ^{(0)}_0 - \dfrac{b}{a+b}\right)(1-a-b)^n
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<p><strong>TODO:</strong> Add more examples!</p>
+</section>
+<section id="class-structure" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="class-structure"><span class="header-section-number">7.3</span> Class structure</h2>
+<ol type="1">
+<li><p>We say that a state <span class="math inline">\(j\)</span> is <strong>accessible from</strong> state <span class="math inline">\(i\)</span> (abbreviated as <span class="math inline">\(i \rightsquigarrow j\)</span>) if there is exists an <span class="math inline">\(m \in \integers_{\ge 0}\)</span> (which may depend on <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>) such that <span class="math inline">\([P^m]_{ij} &gt; 0\)</span>. The fact that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span> implies that there exists an ordered sequence of states <span class="math inline">\((i_0, \dots, i_m)\)</span> such that <span class="math inline">\(i_0 = i\)</span> and <span class="math inline">\(i_m = j\)</span> such that <span class="math inline">\(P_{i_k i_{k+1}} &gt; 0\)</span>; thus, there is a path of positive probability from state&nbsp;<span class="math inline">\(i\)</span> to state&nbsp;<span class="math inline">\(j\)</span>.</p>
+<p>Accessibility is an transitive relationship, i.e., if <span class="math inline">\(i \rightsquigarrow j\)</span> and <span class="math inline">\(j \rightsquigarrow k\)</span> implies that <span class="math inline">\(i \rightsquigarrow k\)</span>.</p>
+<div id="exm-accessible" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.9</strong></span> Consider the Markov chain shown below.</p>
+<p><img src="figures/svg/markov-examples3.svg" class="img-fluid"></p>
+<ol type="a">
+<li>Identify all states that are accessible from state <span class="math inline">\(1\)</span>.</li>
+<li>Identify all states from which state <span class="math inline">\(1\)</span> is accessible.</li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li>States accessible from state <span class="math inline">\(1\)</span> are <span class="math inline">\(\{1,2,3\}\)</span>.</li>
+<li>States from which state <span class="math inline">\(1\)</span> is accessible are <span class="math inline">\(\{1,2,3,4,5,6\}\)</span>.</li>
+</ol>
+</div>
+</div>
+</div></li>
+<li><p>Two distinct states <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to <strong>communicate</strong> (abbreviated to <span class="math inline">\(i \leftrightsquigarrow j\)</span>) if <span class="math inline">\(i\)</span> is accessible from <span class="math inline">\(j\)</span> (i.e., <span class="math inline">\(j \rightsquigarrow i\)</span>) and <span class="math inline">\(j\)</span> is accessible from <span class="math inline">\(i\)</span> (<span class="math inline">\(i \rightsquigarrow j\)</span>). Alternatively, we say that <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> communicate if there exist <span class="math inline">\(m, m' \in \integers_{\ge 0}\)</span> such that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span> and <span class="math inline">\(P^{(m')}_{ji} &gt; 0\)</span>.</p>
+<p>For instance, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>7.9</span></a>, state <span class="math inline">\(1\)</span> communicates with state <span class="math inline">\(2\)</span> but does not communicate with state <span class="math inline">\(5\)</span>.</p>
+<p>Communication is an equivalence relationship, i.e., it is reflexive (<span class="math inline">\(i \leftrightsquigarrow i\)</span>), symmetric (<span class="math inline">\(i \leftrightsquigarrow j\)</span> if and only if <span class="math inline">\(j \leftrightsquigarrow i\)</span>), and transitive (<span class="math inline">\(i \leftrightsquigarrow j\)</span> and <span class="math inline">\(j \leftrightsquigarrow k\)</span> implies <span class="math inline">\(i \leftrightsquigarrow k\)</span>).</p></li>
+<li><p>The states in a finite-state Markov chain can be partitioned into two sets: <strong>recurrent states</strong> and <strong>transient states</strong>. A state is recurrent if it is accessible from all states that are accessible from it (i.e., <span class="math inline">\(i\)</span> is recurrent if <span class="math inline">\(i \rightsquigarrow j\)</span> implies that <span class="math inline">\(j \rightsquigarrow i\)</span>). States that are not recurrent are <strong>transient</strong>.</p>
+<p>It can be shown that a state <span class="math inline">\(i\)</span> is recurrent if and only if <span class="math display">\[\sum_{m=1}^{\infty} P^{(m)}_{ii} = \infty.\]</span></p></li>
+<li><p>States <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to belong to the same <strong>communicating class</strong> if <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> communicate. Communicating classes form a partition the state space. Within a communicating class, all states are of the same type, i.e., either all states are recurrent (in which case the class is called a recurrent class) or all states are transient (in which case the class is called a transient class).</p>
+<p>For example, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>7.9</span></a>, there are two communication classes: <span class="math inline">\(\{1,2,3\}\)</span> and <span class="math inline">\(\{4,5,6\}\)</span>. The communication class <span class="math inline">\(\{4,5,6\}\)</span> is transient while the communication class <span class="math inline">\(\{1,2,3\}\)</span> is recurrent.</p></li>
+<li><p>A communicating class <span class="math inline">\(C\)</span> is said to be <strong>closed</strong> if <span class="math display">\[
+    i \in C \text{ and } i \rightsquigarrow j \implies j \in C.
+\]</span> Thus, there is no escape from a closed class. For finite state spaces, a recurrent class is always closed and a transient class is never closed. But this is not the case for countable state Markov chains.</p></li>
+<li><p>A state <span class="math inline">\(i\)</span> is called <strong>absorbing</strong> if <span class="math inline">\(\{i\}\)</span> is a closed class, i.e., if <span class="math inline">\(P_{ii} = 1\)</span>.</p></li>
+<li><p>A Markov chain with a single communicating class (thus, all states communicate with each other and are, therefore, recurrent) is called <strong>irreducible</strong>.</p></li>
+<li><p>The <strong>period</strong> of a state <span class="math inline">\(i\)</span>, denoted by <span class="math inline">\(d(i)\)</span>, is defined as <span class="math display">\[d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} &gt; 0 \}.\]</span> If the period is <span class="math inline">\(1\)</span>, the state is <strong>aperiodic</strong>, and if the period is <span class="math inline">\(2\)</span> or more, the state is <strong>periodic</strong>. It can be shown that all states in the same class have the same period.</p></li>
+<li><p>A Markov chain is aperiodic, if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state <span class="math inline">\(i\)</span> such that <span class="math inline">\(P_{ii} &gt; 0\)</span>. In general, for a finite and aperiodic Markov chain, there exists a positive integer <span class="math inline">\(M\)</span> such that <span class="math display">\[ P^{(m)}_{ii} &gt; 0,
+        \quad \forall m \ge M, i \in \ALPHABET X.\]</span></p></li>
+</ol>
+</section>
+<section id="hitting-times" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="hitting-times"><span class="header-section-number">7.4</span> Hitting times</h2>
 <ol type="1">
 <li><p>We use the following notation:</p>
 <ul>
-<li><span class="math inline">\(P_i(A)\)</span> denotes <span class="math inline">\(\PR(A \mid X_0 = i)\)</span> and $</li>
-<li><span class="math inline">\(\EXP_i[Y]\)</span> denotes <span class="math inline">\(\EXP[Y \mid X_0 = i]\)</span>.</li>
+<li>For any event <span class="math inline">\(E\)</span>, <span class="math inline">\(P_i(E)\)</span> denotes <span class="math inline">\(\PR(E \mid X_0 = i)\)</span></li>
+<li>For any random variable <span class="math inline">\(Y\)</span>, <span class="math inline">\(\EXP_i[Y]\)</span> denotes <span class="math inline">\(\EXP[Y \mid X_0 = i]\)</span>.</li>
 </ul></li>
-<li><p>Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\ALPHABET X\)</span>. The <strong>hitting time</strong> <span class="math inline">\(T_A\)</span> of <span class="math inline">\(A\)</span> is defined by <span class="math display">\[
-  T_A = \min\{n &gt; 0 : X_n \in A\}.
-\]</span> The standard convention is that <span class="math inline">\(T_A\)</span> is taken to be <span class="math inline">\(∞\)</span> if <span class="math inline">\(X_n \neq A\)</span> for any <span class="math inline">\(n &gt; 0\)</span>. For a state <span class="math inline">\(j \in \ALPHABET X\)</span>, we use the short-hand <span class="math inline">\(T_j\)</span> to denote <span class="math inline">\(T_{\{j\}}\)</span>.</p></li>
-<li><p>Define <span class="math display">\[
+<li><p>Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\ALPHABET X\)</span>. The <strong>hitting time</strong> <span class="math inline">\(H^A\)</span> of <span class="math inline">\(A\)</span> is a random variable <span class="math inline">\(H^A \colon \ALPHABET X \to \{0, 1, \dots \} \cup \{∞\}\)</span> given by <span class="math display">\[
+  H^A(ω) = \min\{n \ge 0 : X_n(ω) \in A\}.
+\]</span> The standard convention is that <span class="math inline">\(H^A\)</span> is taken to be <span class="math inline">\(∞\)</span> if <span class="math inline">\(X_n \neq A\)</span> for any <span class="math inline">\(n &gt; 0\)</span>. For a state <span class="math inline">\(j \in \ALPHABET X\)</span>, we use the short-hand <span class="math inline">\(H^j\)</span> to denote <span class="math inline">\(H^{\{j\}}\)</span>.</p></li>
+<li><p>The probability that starting from state <span class="math inline">\(i\)</span> the Markov chain ever hits <span class="math inline">\(A\)</span> is then given by <span class="math display">\[
+   h^A_i = P_i(H^A &lt; ∞).
+\]</span> This is called <strong>hitting probability</strong>. When <span class="math inline">\(A\)</span> is a closed class, <span class="math inline">\(h^A_i\)</span> is called the <strong>absorption probability</strong>.</p></li>
+<li><p>The mean-time taken for the Markov chain to reach <span class="math inline">\(A\)</span> is given by <span class="math display">\[
+  m^A_i = \EXP_i[H^A] = \sum_{n=0}^{∞} n \PR_i(H^A = n).
+\]</span> This is called the <strong>mean hitting time</strong>.</p></li>
+</ol>
+<p>A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix <span class="math inline">\(P\)</span>.</p>
+<div id="thm-hitting-probabilities" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 7.1 (Hitting probabilities)</strong></span> The hitting probabilities <span class="math inline">\(\{h^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
+  h^A_i = \begin{cases}
+    1, &amp; i \in A \\
+    \sum_{j \in \ALPHABET X} P_{ij} h^A_j, &amp; i \not\in A
+  \end{cases}
+\]</span> When <span class="math inline">\(\ALPHABET X\)</span> is finite, the above system has a unique solution; when <span class="math inline">\(\ALPHABET X\)</span> is countable, the above system may have multiple solutions and the hitting probabilities correspond to the <em>minimal</em> non-negative solution.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>When <span class="math inline">\(X_0 = i \in A\)</span>, the hitting time <span class="math inline">\(H^A = 0\)</span>, so <span class="math inline">\(h^A_i = 1\)</span>. This proves the first part of the formula.</p>
+<p>For the second part, consider <span class="math inline">\(X_0 = i \not\in A\)</span>. Then <span class="math inline">\(H^A_i \ge 1\)</span>. By the Markov property, we have <span class="math display">\[
+\PR_i(H^A &lt; ∞ \mid X_1 = j) = \PR_j(H^A &lt; ∞) = h^A_j.
+\]</span> Moreover, by the law of total probability, we have <span class="math display">\[\begin{align*}
+h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, X_1 = j) \\
+&amp;= \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞ \mid X_1 = j) \PR_i(X_1 = j) \\
+&amp;= \sum_{j \in \ALPHABET X} P_{ij} h^A_j.
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div id="exm-gambler-ruin-instance" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.10</strong></span> Consider a gambler’s ruin problem, where the gambler starts with $<span class="math inline">\(1\)</span> and stops either when he is ruined or when his fortune reaches $<span class="math inline">\(K\)</span>.</p>
+<p>Find the probability of ruin (i.e., the fortune gets absorbed in state <span class="math inline">\(0\)</span> rather than state <span class="math inline">\(K\)</span>).</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For the ease of notation, we use <span class="math inline">\(h_i\)</span> as a short-form for <span class="math inline">\(h^{\{0\}}_i\)</span>. The hitting probabilities satisy the linear system of equations:</p>
+<p><span class="math display">\[\begin{align*}
+  h_0 &amp;= 1 \\
+  h_i &amp;= ph_{i+1} + q h_{i-1}, \quad i \in \{1,\dots,K-1\} \\
+  h_K &amp;= 0,
+\end{align*}\]</span> where <span class="math inline">\(q = 1-p\)</span>.</p>
+<p>The characteristic equation associated with the linear recurrence relationship is <span class="math display">\[
+  λ = p λ^2 + q
+\]</span> which has two distinct roots, <span class="math inline">\(λ_1 = 1\)</span> and <span class="math inline">\(λ_2 = q/p\)</span> if <span class="math inline">\(p \neq q\)</span> and a double root at <span class="math inline">\(λ_1 = 1\)</span> if <span class="math inline">\(p = q = \frac 12\)</span>. Therefore, the general solution is of the form <span class="math display">\[
+  h_i = a λ_1^i + b λ_2^i = a + b\Bigl(\tfrac {q}{p} \Bigr)^i
+\]</span> where we determine the coefficients <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> from the boundary conditions <span class="math inline">\(h_0 = 1\)</span> and <span class="math inline">\(h_K = 0\)</span>. Solving for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, we get that for <span class="math inline">\(p \neq q\)</span>, we have <span class="math display">\[
+  h_i = \frac{1 - \Bigl(\frac qp\Bigr)^i}{1 - \Bigl(\frac qp\Bigr)^K}
+\]</span> and for <span class="math inline">\(p = q = \frac 12\)</span>, we have <span class="math display">\[
+  h_i = \frac{i}{K}.
+\]</span></p>
+</div>
+</div>
+</div>
+<div id="thm-mean-hitting-times" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 7.2 (Mean hitting times)</strong></span> The mean hitting times <span class="math inline">\(\{m^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
+  m^A_i = \begin{cases}
+    0, &amp; i \in A \\
+    1 + \sum_{j \not\in A} P_{ij} m^A_j, &amp; i \not\in A
+  \end{cases}
+\]</span> When <span class="math inline">\(\ALPHABET X\)</span> is finite, the above system has a unique solution; when <span class="math inline">\(\ALPHABET X\)</span> is countable, the above system may have multiple solutions and the mean hitting times correspond to the <em>minimal</em> non-negative solution.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The proof is similar to the proof of <a href="#thm-hitting-probabilities" class="quarto-xref">Theorem&nbsp;<span>7.1</span></a>. When <span class="math inline">\(X_0 = i \in A\)</span>, the hitting time <span class="math inline">\(H^A = 0\)</span>, so <span class="math inline">\(m^A_i = 0\)</span>. This proves the first part of the formula.</p>
+<p>For the second part, consider <span class="math inline">\(X_0 = i \not\in A\)</span>. Then <span class="math inline">\(H^A_i \ge 1\)</span>. By the Markov property, we have <span class="math display">\[
+  \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
+\]</span> Moreover, by the law of total probability, we have <span class="math display">\[\begin{align*}
+  m^A_i &amp;= \EXP_i[ H^A ]
+  = \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
+  &amp;= \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
+  &amp;= \sum_{j \in \ALPHABET X} P_{ij} \bigl[ 1 + m^A_j \bigr]
+  \\
+  &amp;= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="first-passage-time-and-strong-markov-property" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="first-passage-time-and-strong-markov-property"><span class="header-section-number">7.5</span> First passage time and strong Markov property</h2>
+<ol start="3" type="1">
+<li><p>Define the <strong>first passage time</strong> <span class="math display">\[
   f^{(n)}_{ij} \coloneqq P_i(T_j = n) = P_i(X_1 \neq j, \dots, X_{n-1} \neq j, X_n = j).
 \]</span></p></li>
 <li><p><span class="math inline">\(f^{(n)}_{ij}\)</span> satisfies the following recursion.</p>
@@ -299,6 +1147,7 @@ window.Quarto = {
    = \sum_{m=1}^{∞} P^{(m)}_{ij}
 \]</span> to denote the expected number of visits to state <span class="math inline">\(j\)</span> for a chain starting in <span class="math inline">\(i\)</span>.</p></li>
 <li><p>A state <span class="math inline">\(j\)</span> is <strong>recurrent</strong> if <span class="math inline">\(f_{jj} = 1\)</span> and <strong>transient</strong> if <span class="math inline">\(f_{jj} &lt; 1\)</span>.</p></li>
+<li><p>A state is called periodic if <span class="math inline">\(f_{ii}^(n)\)</span> is non-zero only for multiples of some smallest integer <span class="math inline">\(d\)</span>, <span class="math inline">\(d &gt; 1\)</span>.</p></li>
 <li><p>For every transient state <span class="math inline">\(j\)</span>, we have for every <span class="math inline">\(i\)</span>, <span class="math inline">\(P_i(N_j &lt; ∞) = 1\)</span> and <span class="math display">\[ G_{ij} = \dfrac{f_{ij}}{1 - f_{jj}}.\]</span> On the other hand, if <span class="math inline">\(j\)</span> is recurrent, then <span class="math inline">\(P_j(N_j = ∞) = 1\)</span> and <span class="math inline">\(G_{jj} = ∞\)</span>. Moreover, <span class="math display">\[ P_i(N_j = ∞) = P_i(T_j &lt; ∞) = f_{ij}. \]</span> So, if <span class="math inline">\(f_{ij} = 0\)</span>, then <span class="math inline">\(G_{ij} = 0\)</span> while if <span class="math inline">\(f_{ij} = ∞\)</span> then <span class="math inline">\(G_{ij} = ∞\)</span>.</p></li>
 <li><p>Thus, a state <span class="math inline">\(i\)</span> is recurrent if and only if <span class="math display">\[G_{ii} = \sum_{n=1}^∞ P^{(n)}_{ii} = ∞. \]</span></p></li>
 <li><p>A state <span class="math inline">\(j\)</span> is said to be <strong>accessible from</strong> <span class="math inline">\(i\)</span> (abbreviated as <span class="math inline">\(i \rightsquigarrow j\)</span>) if there is an ordered string of notes <span class="math inline">\((i_0, \dots, i_m)\)</span> such that <span class="math inline">\(i_0 = i\)</span> and <span class="math inline">\(i_m = j\)</span> and <span class="math inline">\(P_{i_k i_{k+1}} &gt; 0\)</span>. Equivalently, <span class="math inline">\(i \rightsquigarrow j\)</span> if there exists a <span class="math inline">\(m\)</span> such that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span>.</p></li>
@@ -319,49 +1168,8 @@ window.Quarto = {
 <li><p>Let <span class="math inline">\(\ALPHABET X_T\)</span> and <span class="math inline">\(\ALPHABET X_R\)</span> denote the set of transient and recurrent states. The set <span class="math inline">\(\ALPHABET X_R\)</span> can be paritioned into a finite or countable number of irreducible closed sets <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span>, <span class="math inline">\(\dots\)</span>.</p></li>
 </ol>
 </section>
-<section id="absorption-probabilities" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="absorption-probabilities"><span class="header-section-number">2</span> Absorption probabilities</h2>
-<ol type="1">
-<li><p>Let <span class="math inline">\(C\)</span> be one of the irreducible closed sets of recurrent states. Define <span class="math inline">\(f_{iC} = P_i(T_C &lt; ∞)\)</span> to be the probability that a chain starting at <span class="math inline">\(i\)</span> eventually hits <span class="math inline">\(C\)</span> (and is <em>absorbed</em> in <span class="math inline">\(C\)</span>).</p></li>
-<li><p>Clearly, <span class="math inline">\(f_{iC} = 1\)</span> for <span class="math inline">\(i \in C\)</span> and <span class="math inline">\(f_{iC} = 0\)</span> if <span class="math inline">\(i\)</span> is a recurrent state not in <span class="math inline">\(C\)</span>.</p></li>
-<li><p>Suppose <span class="math inline">\(i \in \ALPHABET X_T\)</span>. Then, <span class="math inline">\(f_{iC}\)</span> satisfies the following: <span class="math display">\[
-   f_{iC} = \sum_{j \in C} P_{ij}
-   + \sum_{j \in \ALPHABET X_T} P_{ij} f_{jC}.
-\]</span></p>
-<p>When <span class="math inline">\(\ALPHABET X_T\)</span> is finite, the above system has a unique solution.</p></li>
-</ol>
-<div id="exm-gambler-ruin" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1</strong></span> Consider a gambler’s ruin problem, where we start at state <span class="math inline">\(1\)</span> and stop if we hit state <span class="math inline">\(0\)</span> or <span class="math inline">\(3\)</span>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/svg/markov-chains3.svg" class="img-fluid figure-img"></p>
-<figcaption>A gambler’s ruin problem</figcaption>
-</figure>
-</div>
-<p>Find the probability of getting absorbed in state <span class="math inline">\(0\)</span> before state <span class="math inline">\(3\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(f_{i0}\)</span> denote the probability of getting absorbed in state <span class="math inline">\(0\)</span> before <span class="math inline">\(3\)</span>. Then, we can write the following system of equations to describe the absorption probabilities: <span class="math display">\[\begin{align*}
-  f_{10} &amp;= q + p f_{20} \\
-  f_{20} &amp;= q f_{10}.
-\end{align*}\]</span> We can solve this system of equations to find <span class="math inline">\(f_{10}\)</span> and <span class="math inline">\(f_{20}\)</span>.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="expected-duration-of-play" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="expected-duration-of-play"><span class="header-section-number">3</span> Expected duration of play</h2>
+<section id="expected-duration-of-play" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="expected-duration-of-play"><span class="header-section-number">7.6</span> Expected duration of play</h2>
 <p>Let’s start with a simple example. Suppose we toss a coin multiple times and stop at a heads. What are the expected number of tosses until stopping?</p>
 <p>From elementary probability we know that the number of tosses until stopping is a geometric random variable. However, we will model this using a Markov chain where the state denotes the number of consecutive heads so far. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. Then, the Markov chain model is as follows.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -389,405 +1197,312 @@ Solution
 \end{align*}\]</span> Solving this system of equations, we get <span class="math inline">\(v_0 = 1/(1-p)\)</span>.</p>
 <p>We can generalize these ideas to find time of hitting a state.</p>
 </section>
-<section id="classification-of-states" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="classification-of-states"><span class="header-section-number">4</span> Classification of states</h2>
-<p>The states in a finite-state Markov chain can be partitioned into two sets: <em>recurrent states</em> and <em>transient states</em>. A state is recurrent if it is accessible from all states that is accessible from it (i.e., <span class="math inline">\(i\)</span> is recurrent if <span class="math inline">\(i \rightsquigarrow j\)</span> implies that <span class="math inline">\(j \rightsquigarrow i\)</span>). States that are not recurrent are <em>transient</em>.</p>
-<p>Two distinct states <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to <em>communicate</em> (abbreviated to <span class="math inline">\(i
-\leftrightsquigarrow j\)</span> if <span class="math inline">\(i\)</span> is accessible from <span class="math inline">\(j\)</span> (i.e., <span class="math inline">\(j
-\rightsquigarrow i\)</span>) and <span class="math inline">\(j\)</span> is accessible from <span class="math inline">\(i\)</span> (<span class="math inline">\(i \rightsquigarrow j\)</span>). An important fact about communicating states is that if <span class="math inline">\(i \leftrightsquigarrow j\)</span> and <span class="math inline">\(j \leftrightsquigarrow k\)</span>, then <span class="math inline">\(i \leftrightsquigarrow k\)</span>.</p>
-<p>A <em>class</em> <span class="math inline">\(C\)</span> of states is a non-empty set of states such that for each <span class="math inline">\(i \in C\)</span> satisfies that for each <span class="math inline">\(j \in C\)</span>, <span class="math inline">\(i
-\leftrightsquigarrow j\)</span> and for each <span class="math inline">\(j \not\in C\)</span>, <span class="math inline">\(i
-\not\leftrightsquigarrow j\)</span>. In a finite-state Markov chain, all states in a state are either recurrent or transient.</p>
-<p>The <em>period of a state</em> <span class="math inline">\(i\)</span>, denoted by <span class="math inline">\(d(i)\)</span>, is the greatest common divisor of those values of <span class="math inline">\(n\)</span> for which <span class="math inline">\(P^n_{ii} &gt; 0\)</span> for all <span class="math inline">\(i\)</span>. If the period is <span class="math inline">\(1\)</span>, the state is <em>aperiodic</em>, and if the period is <span class="math inline">\(2\)</span> or more, the state is periodic. It can be shown that all states in the same class have the same period.</p>
-<p>A Markov chain is said to be <em>ergodic</em> if it has only one recurrent class that is also aperiodic.</p>
+<section id="stationary-distribution" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="stationary-distribution"><span class="header-section-number">7.7</span> Stationary distribution</h2>
+<ol type="1">
+<li><p>A distribution <span class="math inline">\(π\)</span> is said the be a <strong>stationary distribution</strong> if <span class="math display">\[
+   π = π P.
+\]</span></p></li>
+<li><p>Stationary distributions can be computed by solving <strong>balance equations.</strong></p></li>
+<li><p>Let <span class="math inline">\(C\)</span> be an irreducible class of a Markov chain. Then, there is a unique stationary distribution <span class="math inline">\(π\)</span> that assigns positive probability only to states in <span class="math inline">\(C\)</span>.</p></li>
+<li><p>If <span class="math inline">\(π_1\)</span> and <span class="math inline">\(π_2\)</span> are stationary distributions of a Markov chain and <span class="math inline">\(α \in (0,1)\)</span>, then <span class="math inline">\(α π_1 + (1-α) π_2\)</span> is also a stationary distribution.</p></li>
+<li><p>Thus, if a Markov chain has a single irreducible class, then it has a unique stationary distribution; if it has multiple irreducible classes, then it has uncountable number of stationary distributions.</p></li>
+</ol>
 </section>
-<section id="steady-state-distribution" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="steady-state-distribution"><span class="header-section-number">5</span> Steady-state distribution</h2>
+<section id="limiting-distribution" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="limiting-distribution"><span class="header-section-number">7.8</span> Limiting distribution</h2>
+<ol type="1">
+<li><p>Suppose <span class="math inline">\(j\)</span> is a transient state. Then, we know that <span class="math inline">\(N_j &lt; ∞\)</span> and <span class="math inline">\(G_{ij} &lt; ∞\)</span>. Therefore, <span class="math display">\[
+   \lim_{n \to ∞}
+   \frac{N^{(n)}_{j}}{n} = 0, a.s.,
+   \quad\text{and}\quad
+   \lim_{n \to ∞}
+   \frac{G^{(n)}_{ij}}{n} = 0, \forall i \in \ALPHABET X.
+\]</span></p></li>
+<li><p>Suppose <span class="math inline">\(j\)</span> is a recurrent state. Then, <span class="math display">\[
+   \lim_{n \to ∞}
+   \frac{N^{(n)}_{j}}{n} = μ_j, a.s.,
+   \quad\text{and}\quad
+   \lim_{n \to ∞}
+   \frac{G^{(n)}_{ij}}{n} = μ_j, \forall i \in \ALPHABET X
+\]</span> where <span class="math inline">\(μ_j = \EXP_{j}[T_j]\)</span> is the mean return time to state <span class="math inline">\(j\)</span>.</p></li>
+</ol>
 <p>A Markov chain is said to have a <em>steady state distribution</em> if <span class="math inline">\(π_n\)</span> converges to a limit as <span class="math inline">\(n \to ∞\)</span> and the limit does not depend on the initial distribution <span class="math inline">\(π_0\)</span>.</p>
 <p>A Markov chain has a steady state distribution if it is ergodic. We can find the steady state distribution by solving the <em>balance equation</em>: <span class="math inline">\(π = π P\)</span>.</p>
+</section>
+<section id="exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
+<div id="exr-time-reversal" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.1 (Time reversal of Markov chains)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> is a Markov chain. Show that for any <span class="math inline">\(N &gt; n\)</span>, <span class="math display">\[
+  \PR(X_n = x_n \mid X_{n+1:N} = x_{n+1:N})
+  = \PR(X_n = x_n \mid X_{n+1} = x_{n+1}).
+\]</span> Thus, a time reversed Markov chain is also Markov.</p>
+</div>
+<div id="exr-k-step-Markov" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.2</strong></span> Suppose <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P\)</span>. For a fixed positive integer <span class="math inline">\(k\)</span>, define <span class="math inline">\(Y_n = X_{kn}\)</span>. Show that <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P^k\)</span>.</p>
+</div>
+<div id="exr-biased-die" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 7.3</strong></span> Suppose a (6-sided) die is ‘fixed’ so that two consecutive rolls cannot have the same outcome. In particular, if the outcome of a roll is <span class="math inline">\(i\)</span>, then the next roll cannot be <span class="math inline">\(i\)</span>; all <span class="math inline">\(5\)</span> other outcomes are equally likely.</p>
+<ol type="a">
+<li>Model the above as a Markov chain.</li>
+<li>If the outcome of the first roll is <span class="math inline">\(1\)</span>, what is the probability that the outcome of the <span class="math inline">\(n\)</span>th roll is also <span class="math inline">\(1\)</span>?</li>
+</ol>
+</div>
 
 
 </section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/adityam\.github\.io\/probability-and-random-signals\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
       });
     }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/adityam\.github\.io\/probability-and-random-signals\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        return container.innerHTML
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -795,185 +1510,170 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./convergence-of-random-variables.html" class="pagination-link" aria-label="Convergence of random variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

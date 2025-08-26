@@ -2,14 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-11-11">
+<meta name="dcterms.date" content="2025-08-26">
+<meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>Random variables and random vectors – Probability and Random Signals II</title>
+<title>2&nbsp; Random variables and random vectors – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,17 +33,22 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<link href="./conditional-expectation.html" rel="next">
+<link href="./probability-spaces.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-9f47135319f23fa7c348006d1a455402.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-7003f8558f8d0cdb3f9596880144b86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-9f47135319f23fa7c348006d1a455402.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -96,6 +102,7 @@ window.MathJax = {
     macros: {
       PR: "\\mathbb{P}",
       EXP: "\\mathbb{E}",
+      LEXP: "\\mathbb{L}",
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
       IND: "\\mathbb{1}",
@@ -169,25 +176,187 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./../probability-and-random-signals"> 
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Probability and Random Signals II</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/adityam/probabiity-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -197,37 +366,102 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./random-variables.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables and random vectors</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Outline</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random-variables.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables and random vectors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./markov-chains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#classification-of-random-variables" id="toc-classification-of-random-variables" class="nav-link active" data-scroll-target="#classification-of-random-variables"><span class="header-section-number">1</span> Classification of random variables</a>
+  <li><a href="#classification-of-random-variables" id="toc-classification-of-random-variables" class="nav-link active" data-scroll-target="#classification-of-random-variables"><span class="header-section-number">2.1</span> Classification of random variables</a>
   <ul class="collapse">
-  <li><a href="#some-examples-of-discrete-random-variables" id="toc-some-examples-of-discrete-random-variables" class="nav-link" data-scroll-target="#some-examples-of-discrete-random-variables"><span class="header-section-number">1.1</span> Some examples of discrete random variables</a></li>
-  <li><a href="#some-examples-of-continuous-random-variables" id="toc-some-examples-of-continuous-random-variables" class="nav-link" data-scroll-target="#some-examples-of-continuous-random-variables"><span class="header-section-number">1.2</span> Some examples of continuous random variables</a></li>
+  <li><a href="#some-examples-of-discrete-random-variables" id="toc-some-examples-of-discrete-random-variables" class="nav-link" data-scroll-target="#some-examples-of-discrete-random-variables"><span class="header-section-number">2.1.1</span> Some examples of discrete random variables</a></li>
+  <li><a href="#some-examples-of-continuous-random-variables" id="toc-some-examples-of-continuous-random-variables" class="nav-link" data-scroll-target="#some-examples-of-continuous-random-variables"><span class="header-section-number">2.1.2</span> Some examples of continuous random variables</a></li>
   </ul></li>
-  <li><a href="#expectation-of-random-variables" id="toc-expectation-of-random-variables" class="nav-link" data-scroll-target="#expectation-of-random-variables"><span class="header-section-number">2</span> Expectation of random variables</a>
+  <li><a href="#expectation-of-random-variables" id="toc-expectation-of-random-variables" class="nav-link" data-scroll-target="#expectation-of-random-variables"><span class="header-section-number">2.2</span> Expectation of random variables</a>
   <ul class="collapse">
-  <li><a href="#higher-moments" id="toc-higher-moments" class="nav-link" data-scroll-target="#higher-moments"><span class="header-section-number">2.1</span> Higher moments</a></li>
+  <li><a href="#higher-moments" id="toc-higher-moments" class="nav-link" data-scroll-target="#higher-moments"><span class="header-section-number">2.2.1</span> Higher moments</a></li>
   </ul></li>
-  <li><a href="#random-vectors-and-joint-distributions." id="toc-random-vectors-and-joint-distributions." class="nav-link" data-scroll-target="#random-vectors-and-joint-distributions."><span class="header-section-number">3</span> Random vectors and joint distributions.</a>
+  <li><a href="#random-vectors-and-joint-distributions." id="toc-random-vectors-and-joint-distributions." class="nav-link" data-scroll-target="#random-vectors-and-joint-distributions."><span class="header-section-number">2.3</span> Random vectors and joint distributions.</a>
   <ul class="collapse">
-  <li><a href="#classification-of-random-vectors" id="toc-classification-of-random-vectors" class="nav-link" data-scroll-target="#classification-of-random-vectors"><span class="header-section-number">3.1</span> Classification of random vectors</a></li>
+  <li><a href="#classification-of-random-vectors" id="toc-classification-of-random-vectors" class="nav-link" data-scroll-target="#classification-of-random-vectors"><span class="header-section-number">2.3.1</span> Classification of random vectors</a></li>
   </ul></li>
-  <li><a href="#independence-of-random-vectors" id="toc-independence-of-random-vectors" class="nav-link" data-scroll-target="#independence-of-random-vectors"><span class="header-section-number">4</span> Independence of random vectors</a></li>
-  <li><a href="#correlation-and-covariance" id="toc-correlation-and-covariance" class="nav-link" data-scroll-target="#correlation-and-covariance"><span class="header-section-number">5</span> Correlation and covariance</a>
+  <li><a href="#independence-of-random-vectors" id="toc-independence-of-random-vectors" class="nav-link" data-scroll-target="#independence-of-random-vectors"><span class="header-section-number">2.4</span> Independence of random vectors</a></li>
+  <li><a href="#correlation-and-covariance" id="toc-correlation-and-covariance" class="nav-link" data-scroll-target="#correlation-and-covariance"><span class="header-section-number">2.5</span> Correlation and covariance</a>
   <ul class="collapse">
-  <li><a href="#correlation-and-covariance-for-random-vectors" id="toc-correlation-and-covariance-for-random-vectors" class="nav-link" data-scroll-target="#correlation-and-covariance-for-random-vectors"><span class="header-section-number">5.1</span> Correlation and covariance for random vectors</a></li>
+  <li><a href="#correlation-and-covariance-for-random-vectors" id="toc-correlation-and-covariance-for-random-vectors" class="nav-link" data-scroll-target="#correlation-and-covariance-for-random-vectors"><span class="header-section-number">2.5.1</span> Correlation and covariance for random vectors</a></li>
   </ul></li>
-  <li><a href="#functions-of-random-variables" id="toc-functions-of-random-variables" class="nav-link" data-scroll-target="#functions-of-random-variables"><span class="header-section-number">6</span> Functions of random variables</a>
+  <li><a href="#functions-of-random-variables" id="toc-functions-of-random-variables" class="nav-link" data-scroll-target="#functions-of-random-variables"><span class="header-section-number">2.6</span> Functions of random variables</a>
   <ul class="collapse">
-  <li><a href="#change-of-variables-formulas" id="toc-change-of-variables-formulas" class="nav-link" data-scroll-target="#change-of-variables-formulas"><span class="header-section-number">6.1</span> Change of variables formulas</a></li>
+  <li><a href="#change-of-variables-formulas" id="toc-change-of-variables-formulas" class="nav-link" data-scroll-target="#change-of-variables-formulas"><span class="header-section-number">2.6.1</span> Change of variables formulas</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -235,9 +469,10 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Random variables and random vectors</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables and random vectors</span></h1>
 </div>
 
 
@@ -263,7 +498,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 11, 2024</p>
+      <p class="date">August 26, 2025</p>
     </div>
   </div>
   
@@ -277,13 +512,13 @@ window.Quarto = {
 
 <p>In many situations, we are not directly interested in the outcome of a random experiment, but a consequence of the outcome. Such consequences may be thought of as a function of the outcome. When they are real-valued, such functions of the outcome are called <strong>random variables</strong>.</p>
 <div id="exm-coin-toss" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1</strong></span> Suppose a fair coin is tossed twice. Thus, <span class="math inline">\(Ω = \{ HH, HT, TH, TT \}\)</span>, <span class="math inline">\(\ALPHABET F = 2^Ω\)</span>, and <span class="math inline">\(\PR\)</span> is such that all outcomes are equally likely. For an <span class="math inline">\(ω \in Ω\)</span>, let <span class="math inline">\(X(ω)\)</span> denote the number of heads. Thus, <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.1</strong></span> Suppose a fair coin is tossed twice. Thus, <span class="math inline">\(Ω = \{ HH, HT, TH, TT \}\)</span>, <span class="math inline">\(\ALPHABET F = 2^Ω\)</span>, and <span class="math inline">\(\PR\)</span> is such that all outcomes are equally likely. For an <span class="math inline">\(ω \in Ω\)</span>, let <span class="math inline">\(X(ω)\)</span> denote the number of heads. Thus, <span class="math display">\[
 X(HH) = 2, \quad X(HT) = 1, \quad X(TH) = 1, \quad X(TT) = 0.
 \]</span></p>
 </div>
 <p>The random variable <span class="math inline">\(X \colon Ω \to \reals\)</span> induces a probability measure on <span class="math inline">\(\reals\)</span>. Formally, to define such a probability measure, we need an associated <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\(\reals\)</span>. As discussed in <a href="./probability-spaces.html#Borel-algebra">last lecture</a>, the commonly used <span class="math inline">\(σ\)</span>-algebra on reals is the Borel <span class="math inline">\(σ\)</span>-algebra, <span class="math inline">\(\mathscr{B}(\reals)\)</span>. For everything to be consistent, we require the function <span class="math inline">\(X\)</span> to satisfy a property known as <strong>measurability</strong>.</p>
 <div id="def-measurability" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1</strong></span> A <strong>random variable</strong> is a function <span class="math inline">\(X \colon Ω \to \reals\)</span> with the property that for every <span class="math inline">\(x \in \reals\)</span> the event <span class="math inline">\(A(x) \coloneqq \{ω \in Ω : X(ω) \le x \} \in \ALPHABET F\)</span>. Such functions are said to be <strong><span class="math inline">\(\ALPHABET F/\mathscr{B}(\reals)\)</span>-measurable</strong>.</p>
+<p><span class="theorem-title"><strong>Definition 2.1</strong></span> A <strong>random variable</strong> is a function <span class="math inline">\(X \colon Ω \to \reals\)</span> with the property that for every <span class="math inline">\(x \in \reals\)</span> the event <span class="math inline">\(A(x) \coloneqq \{ω \in Ω : X(ω) \le x \} \in \ALPHABET F\)</span>. Such functions are said to be <strong><span class="math inline">\(\ALPHABET F/\mathscr{B}(\reals)\)</span>-measurable</strong>.</p>
 <p>The <strong>cumulative distribution function (CDF)</strong> of a random variable <span class="math inline">\(X\)</span> is the function <span class="math inline">\(F \colon \reals \to [0,1]\)</span> given by <span class="math display">\[
 F(x) \coloneqq \PR(A(x)) = \PR(\{ ω \in Ω : X(ω) \le x \}).
 \]</span></p>
@@ -311,7 +546,7 @@ Some comments on notation
 </ol>
 </div>
 </div>
-<p>For instance, for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;1</a>, the CDF is given by <span class="math display">\[
+<p>For instance, for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>, the CDF is given by <span class="math display">\[
 F_X(x) = \begin{cases}
 0, &amp; \hbox{if } x &lt; 0,  \\
 \frac 14, &amp; \hbox{if } 0 \le x &lt; 1, \\
@@ -319,7 +554,7 @@ F_X(x) = \begin{cases}
 1, &amp;\hbox{if } 2 \le x.
 \end{cases}\]</span></p>
 <div id="exm-constant" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2 (Constant random variables)</strong></span> The simplest random variable takes a constant value on the whole domain <span class="math inline">\(Ω\)</span>, i.e., <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.2 (Constant random variables)</strong></span> The simplest random variable takes a constant value on the whole domain <span class="math inline">\(Ω\)</span>, i.e., <span class="math display">\[
 X(ω) = c, \quad \forall ω \in Ω
 \]</span> where <span class="math inline">\(c\)</span> is a constant. The CDF <span class="math inline">\(F(x) = \PR(X \le x)\)</span> is the step function <span class="math display">\[
 F(x) = \begin{cases}
@@ -330,7 +565,7 @@ F(x) = \begin{cases}
 <p>Slightly more generally, we say that <span class="math inline">\(X\)</span> is <em>almost surely</em> a constant if there exists a <span class="math inline">\(c \in \reals\)</span> such that <span class="math inline">\(\PR(X=c) = 1\)</span>.</p>
 </div>
 <div id="exm-bernoulli" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3 (Bernoulli random variable)</strong></span> A Bernoulli random variable takes two possible values: value <span class="math inline">\(0\)</span> with probability <span class="math inline">\(1-p\)</span> and value <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span>. It’s CDF is given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.3 (Bernoulli random variable)</strong></span> A Bernoulli random variable takes two possible values: value <span class="math inline">\(0\)</span> with probability <span class="math inline">\(1-p\)</span> and value <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span>. It’s CDF is given by <span class="math display">\[
 F(x) = \begin{cases}
 0, &amp; x &lt; 0 \\
 1 - p, &amp; 0 \le x &lt; 1 \\
@@ -339,13 +574,13 @@ F(x) = \begin{cases}
 \]</span></p>
 </div>
 <div id="exm-indicator-functions" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4 (Indicator functions)</strong></span> Let <span class="math inline">\(A\)</span> be an event. Define the <em>indicator of event <span class="math inline">\(A\)</span></em>, denoted by <span class="math inline">\(\IND_{A} \colon Ω \to \reals\)</span>, as <span class="math display">\[ \IND_{A}(ω) = \begin{cases}
+<p><span class="theorem-title"><strong>Example 2.4 (Indicator functions)</strong></span> Let <span class="math inline">\(A\)</span> be an event. Define the <em>indicator of event <span class="math inline">\(A\)</span></em>, denoted by <span class="math inline">\(\IND_{A} \colon Ω \to \reals\)</span>, as <span class="math display">\[ \IND_{A}(ω) = \begin{cases}
     1, &amp; \hbox{if } ω \in A \\
     0, &amp; \hbox{otherwise }
 \end{cases}.\]</span> Observe that <span class="math inline">\(\IND_A\)</span> is a Bernoulli random variable which takes values <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span> with probabilities <span class="math inline">\(\PR(A)\)</span> and <span class="math inline">\(1 - \PR(A)\)</span>.</p>
 </div>
 <div id="lem-properties-of-CDFs" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 1 (Properties of CDFs)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Lemma 2.1 (Properties of CDFs)</strong></span> &nbsp;</p>
 <ol type="1">
 <li><p><span class="math inline">\(\PR(X &gt; x) = 1 - F(x)\)</span>.</p></li>
 <li><p><span class="math inline">\(\PR(x &lt; X \le y) = F(y) - F(x)\)</span>.</p></li>
@@ -407,14 +642,14 @@ Proof
 </div>
 </div>
 <div id="exr-CDF-expressions" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1</strong></span> For <span class="math inline">\(x &lt; y\)</span>, express the following in terms of the CDF:</p>
+<p><span class="theorem-title"><strong>Exercise 2.1</strong></span> For <span class="math inline">\(x &lt; y\)</span>, express the following in terms of the CDF:</p>
 <ol type="1">
 <li><span class="math inline">\(\PR(x \le X \le y)\)</span>.</li>
 <li><span class="math inline">\(\PR(x \le X &lt; y)\)</span>.</li>
 </ol>
 </div>
-<section id="classification-of-random-variables" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="classification-of-random-variables"><span class="header-section-number">1</span> Classification of random variables</h2>
+<section id="classification-of-random-variables" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="classification-of-random-variables"><span class="header-section-number">2.1</span> Classification of random variables</h2>
 <p>There are three types of random variables</p>
 <ol type="1">
 <li><p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>discrete</strong> if it takes values in a finite or countable subset <span class="math inline">\(\text{range}(X) \coloneqq \{x_1, x_2, \dots\}\)</span> of <span class="math inline">\(\reals\)</span>. A discrete random variable has a <strong>probability mass function (PMF)</strong> <span class="math inline">\(p \colon \reals \to [0,1]\)</span> which satisfies the following properties:</p>
@@ -471,21 +706,21 @@ Proof that it is a partition
 </div>
 </div>
 </div>
-<p>The power-set of <span class="math inline">\(\{A_1, A_2, \dots\}\)</span> is called the <strong><span class="math inline">\(σ\)</span>-algebra generated by <span class="math inline">\(X\)</span></strong> and denoted by <span class="math inline">\(σ(X)\)</span>. This <span class="math inline">\(σ\)</span>-algebra captures the crux of measurability. As an illustration, let’s reconsider <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;1</a>. In this case, the range of <span class="math inline">\(X\)</span> is <span class="math inline">\(\{0, 1, 2\}\)</span>. The partition corresponding to <span class="math inline">\(σ(X)\)</span> is shown in <a href="#fig-sigma-X" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<p>The power-set of <span class="math inline">\(\{A_1, A_2, \dots\}\)</span> is called the <strong><span class="math inline">\(σ\)</span>-algebra generated by <span class="math inline">\(X\)</span></strong> and denoted by <span class="math inline">\(σ(X)\)</span>. This <span class="math inline">\(σ\)</span>-algebra captures the crux of measurability. As an illustration, let’s reconsider <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>. In this case, the range of <span class="math inline">\(X\)</span> is <span class="math inline">\(\{0, 1, 2\}\)</span>. The partition corresponding to <span class="math inline">\(σ(X)\)</span> is shown in <a href="#fig-sigma-X" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>.</p>
 <div id="fig-sigma-X" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sigma-X-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="TODO.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sigma-X-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Illustration of <span class="math inline">\(σ(X)\)</span> for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;1</a>
+Figure&nbsp;2.1: Illustration of <span class="math inline">\(σ(X)\)</span> for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div id="lem-properties-of-PMFs-PDFs" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 2 (Properties of PMFs and PDFs)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Lemma 2.2 (Properties of PMFs and PDFs)</strong></span> &nbsp;</p>
 <ul>
 <li><p><strong>Properties of PMFs</strong></p>
 <ol type="1">
@@ -502,49 +737,49 @@ f_X(x) = \frac{d}{dx} F_X(x).
 </ol></li>
 </ul>
 </div>
-<section id="some-examples-of-discrete-random-variables" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="some-examples-of-discrete-random-variables"><span class="header-section-number">1.1</span> Some examples of discrete random variables</h3>
+<section id="some-examples-of-discrete-random-variables" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="some-examples-of-discrete-random-variables"><span class="header-section-number">2.1.1</span> Some examples of discrete random variables</h3>
 <p>We now consider some other examples of discrete random variables</p>
 <div id="exm-Binomial" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5 (Binomial random variable)</strong></span> A Binomial random variable is the sum of intendant and identically Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binomial}(n,p)\)</span>. For such a random variable, <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.5 (Binomial random variable)</strong></span> A Binomial random variable is the sum of intendant and identically Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binomial}(n,p)\)</span>. For such a random variable, <span class="math display">\[
 p_X(k) = \binom n k p^k (1-p)^{n-k}, \quad 0 \le k \le n.
 \]</span></p>
 </div>
 <div id="exm-Geometric" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6 (Geometric random variable)</strong></span> A geometric random variable is the number of trails in i.i.d.&nbsp;Bernoulli random variables. For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed repeated, the number of tosses needed for the first head is a geometric random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>_, which is denoted by <span class="math inline">\(\text{Geo}(p)\)</span>. For such a random variable, <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.6 (Geometric random variable)</strong></span> A geometric random variable is the number of trails in i.i.d.&nbsp;Bernoulli random variables. For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed repeated, the number of tosses needed for the first head is a geometric random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>_, which is denoted by <span class="math inline">\(\text{Geo}(p)\)</span>. For such a random variable, <span class="math display">\[
 p_X(k) = (1-p)^{k-1} p, \quad k \in \integers_{&gt; 0}.
 \]</span></p>
 </div>
 <div id="exm-Poisson" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7 (Poisson random variable)</strong></span> Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to <em>Poisson random variable with parameter <span class="math inline">\(λ &gt; 0\)</span></em>, which is denoted by <span class="math inline">\(\text{Poisson}(λ)\)</span>, if <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.7 (Poisson random variable)</strong></span> Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to <em>Poisson random variable with parameter <span class="math inline">\(λ &gt; 0\)</span></em>, which is denoted by <span class="math inline">\(\text{Poisson}(λ)\)</span>, if <span class="math display">\[
 p_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 \]</span></p>
 </div>
 <div id="exm-Uniform-discrete" class="theorem example">
-<p><span class="theorem-title"><strong>Example 8 (Uniform random variable)</strong></span> A random variable is said to have a (discrete) uniform distribution over a discrete set <span class="math inline">\(\ALPHABET S\)</span> if <span class="math display">\[p_X(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.\]</span></p>
+<p><span class="theorem-title"><strong>Example 2.8 (Uniform random variable)</strong></span> A random variable is said to have a (discrete) uniform distribution over a discrete set <span class="math inline">\(\ALPHABET S\)</span> if <span class="math display">\[p_X(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.\]</span></p>
 </div>
 </section>
-<section id="some-examples-of-continuous-random-variables" class="level3" data-number="1.2">
-<h3 data-number="1.2" class="anchored" data-anchor-id="some-examples-of-continuous-random-variables"><span class="header-section-number">1.2</span> Some examples of continuous random variables</h3>
+<section id="some-examples-of-continuous-random-variables" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="some-examples-of-continuous-random-variables"><span class="header-section-number">2.1.2</span> Some examples of continuous random variables</h3>
 <div id="exm-Uniform-continuous" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9 (Uniform random variable)</strong></span> A random variable is said to have a (continuous) uniform distribution over an interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(a &lt; b\)</span> if <span class="math display">\[f(x) = \frac 1{b - a}, \quad x \in [a,b].\]</span></p>
+<p><span class="theorem-title"><strong>Example 2.9 (Uniform random variable)</strong></span> A random variable is said to have a (continuous) uniform distribution over an interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(a &lt; b\)</span> if <span class="math display">\[f(x) = \frac 1{b - a}, \quad x \in [a,b].\]</span></p>
 </div>
 <div id="exm-exponential" class="theorem example">
-<p><span class="theorem-title"><strong>Example 10 (Exponential random variable)</strong></span> A random variable is said to have an exponential distribution with parameter <span class="math inline">\(λ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\text{exp}(λ)\)</span> if <span class="math display">\[f(x) = λ e^{-λ x}, \quad x \ge 0.\]</span></p>
+<p><span class="theorem-title"><strong>Example 2.10 (Exponential random variable)</strong></span> A random variable is said to have an exponential distribution with parameter <span class="math inline">\(λ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\text{exp}(λ)\)</span> if <span class="math display">\[f(x) = λ e^{-λ x}, \quad x \ge 0.\]</span></p>
 </div>
 <div id="exm-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11 (Gaussian random variable)</strong></span> A random variable is said to have a Gaussian distribution with mean <span class="math inline">\(μ\)</span> and standard deviation <span class="math inline">\(σ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\mathcal N(μ, σ^2)\)</span> if <span class="math display">\[f(x) = \frac 1{\sqrt{2 π}\, σ}
+<p><span class="theorem-title"><strong>Example 2.11 (Gaussian random variable)</strong></span> A random variable is said to have a Gaussian distribution with mean <span class="math inline">\(μ\)</span> and standard deviation <span class="math inline">\(σ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\mathcal N(μ, σ^2)\)</span> if <span class="math display">\[f(x) = \frac 1{\sqrt{2 π}\, σ}
 \exp\left( -\frac {(x-μ)^2}{2 σ^2} \right),
 \quad x \in \reals.\]</span></p>
 </div>
 </section>
 </section>
-<section id="expectation-of-random-variables" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="expectation-of-random-variables"><span class="header-section-number">2</span> Expectation of random variables</h2>
+<section id="expectation-of-random-variables" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="expectation-of-random-variables"><span class="header-section-number">2.2</span> Expectation of random variables</h2>
 <p>Suppose we generate <span class="math inline">\(N\)</span> i.i.d. (independent and identically distributed) samples <span class="math inline">\(\{s_1, s_2, \dots, s_N\}\)</span> of a random variable <span class="math inline">\(X\)</span> and compute the average: <span class="math display">\[ m = \frac 1N \sum_{n=1}^N s_n. \]</span> When <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n\}\)</span>, we expect that the number of times we obtain a value <span class="math inline">\(x_i\)</span> is approximately <span class="math inline">\(Np(x_i)\)</span> when <span class="math inline">\(N\)</span> is large. Thus, <span class="math display">\[ m \approx \frac 1N \sum_{i=1}^n x_i \, N p(x_i)  = \sum_{i=1}^n x_i p(x_i). \]</span></p>
 <p>This quantity is called the <strong>expectation</strong> or the <strong>expected value</strong> or the <strong>mean value</strong> of the random variable <span class="math inline">\(X\)</span> and denoted by <span class="math inline">\(\EXP[X]\)</span>.</p>
 <div id="def-expectation" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2</strong></span> The <strong>expectation</strong> of a random variable <span class="math inline">\(X\)</span> is defined as follows:</p>
+<p><span class="theorem-title"><strong>Definition 2.2</strong></span> The <strong>expectation</strong> of a random variable <span class="math inline">\(X\)</span> is defined as follows:</p>
 <ul>
 <li><p>when <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n \}\)</span>, then <span class="math display">\[\EXP[X] = \sum_{i=1}^n x_i p(x_i).\]</span></p></li>
 <li><p>when <span class="math inline">\(X\)</span> is continuous, then <span class="math display">\[\EXP[X] = \int_{-∞}^{∞} x f(x)\, dx. \]</span></p>
@@ -579,8 +814,29 @@ p(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 \]</span> where <span class="math inline">\(C\)</span> is as defined above. This is called the <strong>Zipf</strong> distribution. By following an argument same as above, we see that <span class="math display">\[\EXP[Y] = ∞.\]</span></p>
 </div>
 </div>
+<div id="exm-coin-toss-mean" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.12</strong></span> Find the mean of <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+\EXP[X] = \frac 14 \cdot 0 + \frac 12 \cdot 1 + \frac 14 \cdot 2 = 1.
+\]</span></p>
+</div>
+</div>
+</div>
 <div id="exr-mean-common" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2</strong></span> Find the expected value of the random variables with the following distributions:</p>
+<p><span class="theorem-title"><strong>Exercise 2.2</strong></span> Find the expected value of the random variables with the following distributions:</p>
 <ul>
 <li><span class="math inline">\(\text{Bernoulli}(p)\)</span>.</li>
 <li><span class="math inline">\(\text{Binomial}(n,p)\)</span>.</li>
@@ -591,7 +847,7 @@ p(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 </ul>
 </div>
 <div id="lem-expectation" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 3</strong></span> For any (measurable) function <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have</p>
+<p><span class="theorem-title"><strong>Lemma 2.3</strong></span> For any (measurable) function <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have</p>
 <ul>
 <li><p>when <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n \}\)</span>, then <span class="math display">\[\EXP[g(X)] = \sum_{i=1}^n g(x_i) p(x_i).\]</span></p></li>
 <li><p>when <span class="math inline">\(X\)</span> is continuous, then <span class="math display">\[\EXP[g(X)] = \int_{-∞}^{∞} g(x) f(x)\, dx. \]</span></p></li>
@@ -599,7 +855,7 @@ p(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 <p>Both expressions are defined only when the sum/integral is absolutely convergent.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -608,18 +864,18 @@ How to avoid a proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>This result is sometimes called *<strong>the law of the unconscious statistician (LOTUS).</strong> One typically shows this result by defining a new random variable <span class="math inline">\(Y = g(X)\)</span>, computing its PMF/PDF <span class="math inline">\(f_Y\)</span> and then using the definition in <a href="#def-expectation" class="quarto-xref">Definition&nbsp;2</a>.</p>
-<p>A simpler proof is to define expectation by <a href="#lem-expectation" class="quarto-xref">Lemma&nbsp;3</a> for any (measurable) function <span class="math inline">\(g\)</span>. Then the definition of <a href="#def-expectation" class="quarto-xref">Definition&nbsp;2</a> falls off as a special case for <span class="math inline">\(g(x) = x\)</span>. No proofs needed!</p>
+<p>This result is sometimes called *<strong>the law of the unconscious statistician (LOTUS).</strong> One typically shows this result by defining a new random variable <span class="math inline">\(Y = g(X)\)</span>, computing its PMF/PDF <span class="math inline">\(f_Y\)</span> and then using the definition in <a href="#def-expectation" class="quarto-xref">Definition&nbsp;<span>2.2</span></a>.</p>
+<p>A simpler proof is to define expectation by <a href="#lem-expectation" class="quarto-xref">Lemma&nbsp;<span>2.3</span></a> for any (measurable) function <span class="math inline">\(g\)</span>. Then the definition of <a href="#def-expectation" class="quarto-xref">Definition&nbsp;<span>2.2</span></a> falls off as a special case for <span class="math inline">\(g(x) = x\)</span>. No proofs needed!</p>
 </div>
 </div>
 </div>
 <div id="exr-expectation" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}[-1,1]\)</span>. Compute <span class="math inline">\(\EXP[X^2]\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 2.3</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}[-1,1]\)</span>. Compute <span class="math inline">\(\EXP[X^2]\)</span>.</p>
 </div>
 <div id="lem-expectation-properties" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 4 (Properties of expectation)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Lemma 2.4 (Properties of expectation)</strong></span> &nbsp;</p>
 <ol type="1">
 <li><p><strong>Linearity.</strong> For any (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span> <span class="math display">\[\EXP[g(X) + h(X)] = \EXP[ g(X)] + \EXP[ h(X) ]. \]</span> As a special case, for a constant <span class="math inline">\(c\)</span>, <span class="math display">\[\EXP[X + c] = \EXP[X] + c.\]</span></p></li>
 <li><p><strong>Scaling.</strong> For any constant <span class="math inline">\(c\)</span>, <span class="math display">\[\EXP[cX] = c\EXP[X].\]</span></p></li>
@@ -631,26 +887,49 @@ How to avoid a proof
 <li><p>A continuous random variable is said to be symmetric if <span class="math inline">\(f_X(-x) = f_X(x)\)</span> for all <span class="math inline">\(x \in \reals\)</span>. A symmetric random variable has mean <span class="math inline">\(0\)</span>.</p></li>
 <li><p>A continuous random variable is said to be symmetric around <span class="math inline">\(m\)</span> if <span class="math inline">\(f(m - x) = f(m + x)\)</span>, for all <span class="math inline">\(x \in \reals\)</span>. The mean of such a random variable is <span class="math inline">\(m\)</span>.</p></li>
 </ol>
-<section id="higher-moments" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="higher-moments"><span class="header-section-number">2.1</span> Higher moments</h3>
+<section id="higher-moments" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="higher-moments"><span class="header-section-number">2.2.1</span> Higher moments</h3>
 <ol type="1">
 <li><p>The <span class="math inline">\(m\)</span>-th <strong>moment</strong>, <span class="math inline">\(m \ge 1\)</span> of a random variable <span class="math inline">\(X\)</span> is defined as <span class="math inline">\(\EXP[X^m]\)</span>.</p></li>
 <li><p>The <span class="math inline">\(m\)</span>-th <strong>central moment</strong> is defined as <span class="math inline">\(\EXP[(X - μ)^m]\)</span>, where <span class="math inline">\(μ = \EXP[X]\)</span>.</p></li>
 <li><p>For second central moment (i.e., <span class="math inline">\(m=2\)</span>) is called <strong>variance</strong>. The variance satisfies the following: <span class="math display">\[\VAR(X) = \EXP[X^2] - (\EXP[X])^2.\]</span></p></li>
 <li><p>The positive square root of variance is called the <strong>standard deviation.</strong> Variance is often denoted by <span class="math inline">\(σ^2\)</span> and the standard deviation by <span class="math inline">\(σ\)</span>.</p></li>
 </ol>
+<div id="exm-coin-toss-variance" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.13</strong></span> Find the variance of <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We first compute <span class="math display">\[
+\EXP[X^2] = \frac 14 \cdot 0^2 + \frac 12 \cdot 1^2 + \frac 14 \cdot 2^2 = \frac 32.
+\]</span> Therefore, <span class="math display">\[
+\VAR(X) = \EXP[X^2] - \EXP[X]^2 = \frac 32 - 1 = \frac 12.
+\]</span></p>
+</div>
+</div>
+</div>
 <div id="lem-variance-properties" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 5 (Properties of variance)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Lemma 2.5 (Properties of variance)</strong></span> &nbsp;</p>
 <ol type="1">
 <li><p><strong>Scaling.</strong> For any constant <span class="math inline">\(c\)</span>, <span class="math display">\[\VAR(cX) = c^2 \VAR(X).\]</span></p></li>
 <li><p><strong>Shift invariance.</strong> For any constant <span class="math inline">\(c\)</span>, <span class="math display">\[\VAR(X + c) = \VAR(X).\]</span></p></li>
 </ol>
 </div>
-<p>The mean and variance of common random variables is show in <a href="#tbl-mean-variance" class="quarto-xref">Table&nbsp;1</a></p>
+<p>The mean and variance of common random variables is show in <a href="#tbl-mean-variance" class="quarto-xref">Table&nbsp;<span>2.1</span></a></p>
 <div id="tbl-mean-variance" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mean-variance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Mean and variance of common random variables
+Table&nbsp;2.1: Mean and variance of common random variables
 </figcaption>
 <div aria-describedby="tbl-mean-variance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -718,13 +997,13 @@ Table&nbsp;1: Mean and variance of common random variables
 </div>
 </section>
 </section>
-<section id="random-vectors-and-joint-distributions." class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="random-vectors-and-joint-distributions."><span class="header-section-number">3</span> Random vectors and joint distributions.</h2>
+<section id="random-vectors-and-joint-distributions." class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="random-vectors-and-joint-distributions."><span class="header-section-number">2.3</span> Random vectors and joint distributions.</h2>
 <p>Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are two random variables defined on the same probability space. The CDFs <span class="math inline">\(F_X\)</span> and <span class="math inline">\(F_Y\)</span> provide information about their individual probabilities. To understand how they behave together, we need to think of the random <em>vector</em> <span class="math inline">\((X,Y)\)</span> taking values in <span class="math inline">\(\reals^2\)</span>. The natural way to do so is to think of the <strong>joint CDF</strong> <span class="math display">\[
 F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 \]</span> where we may write the right hand side as <span class="math inline">\(\PR(X \le x, Y \le y)\)</span> for short.</p>
 <div id="lem-properties-of-joint-CDFs" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 6 (Properties of CDFs)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Lemma 2.6 (Properties of CDFs)</strong></span> &nbsp;</p>
 <ul>
 <li><p><strong>Regularity properties</strong></p>
 <ol type="1">
@@ -741,12 +1020,12 @@ F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 </ul>
 </div>
 <div id="exr-joint-distribution" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 4</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint CDF <span class="math inline">\(F\)</span>. Show that <span class="math display">\[
+<p><span class="theorem-title"><strong>Exercise 2.4</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint CDF <span class="math inline">\(F\)</span>. Show that <span class="math display">\[
 \PR(a &lt; X \le b, c &lt; Y \le d) = F(b,d) - F(a,d) - F(b,c) + F(a,c).
 \]</span></p>
 </div>
-<section id="classification-of-random-vectors" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="classification-of-random-vectors"><span class="header-section-number">3.1</span> Classification of random vectors</h3>
+<section id="classification-of-random-vectors" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="classification-of-random-vectors"><span class="header-section-number">2.3.1</span> Classification of random vectors</h3>
 <p>As was the case for random variables, we can also classify random vectors as discrete, continuous, and mixed.</p>
 <ol type="1">
 <li><p>A random vector <span class="math inline">\((X,Y)\)</span> is called <strong>jointly discrete</strong> if it takes values in a countable subset of <span class="math inline">\(\reals^2\)</span> (we denote this subset by <span class="math inline">\(\text{range}(X,Y)\)</span>). The jointly discrete random variables have a joint PMF <span class="math inline">\(f \colon \reals \to [0,1]\)</span> given by <span class="math display">\[ \PR(X = x, Y = y) = p(x,y). \]</span></p></li>
@@ -755,7 +1034,7 @@ x,y \in \reals \]</span> for some integrable function <span class="math inline">
 <li><p>A random vector <span class="math inline">\((X,Y)\)</span> is called <strong>jointly mixed</strong> if it is neither jointly discrete nor jointly continuous.</p></li>
 </ol>
 <div id="lem-properties-of-PMFs-PDFs" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 7 (Properties of PMFs and PDFs)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Lemma 2.7 (Properties of PMFs and PDFs)</strong></span> &nbsp;</p>
 <ul>
 <li><p><strong>Properties of PMFs</strong></p>
 <ol type="1">
@@ -782,10 +1061,10 @@ x,y \in \reals \]</span> for some integrable function <span class="math inline">
 <p>The above discussion generalizes in the obvious manner to more than two random variables as well. Thus, we can talk about random vectors <span class="math inline">\(X = (X_1, \dots, X_n) \in \reals^n\)</span>. In practice, we often do not make a distinction between random <em>variables</em> and random <em>vectors</em> and refer both of them simply as <em>random variables</em>.</p>
 </section>
 </section>
-<section id="independence-of-random-vectors" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="independence-of-random-vectors"><span class="header-section-number">4</span> Independence of random vectors</h2>
+<section id="independence-of-random-vectors" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="independence-of-random-vectors"><span class="header-section-number">2.4</span> Independence of random vectors</h2>
 <div id="def-independence-RVs" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3</strong></span> Two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> are said to be independent if the sigma algebras <span class="math inline">\(σ(X)\)</span> and <span class="math inline">\(σ(Y)\)</span> are independent.</p>
+<p><span class="theorem-title"><strong>Definition 2.3</strong></span> Two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> are said to be independent if the sigma algebras <span class="math inline">\(σ(X)\)</span> and <span class="math inline">\(σ(Y)\)</span> are independent.</p>
 </div>
 <p>The above definition means that if we take any (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span>, then the events <span class="math inline">\(\{X \in B_1\}\)</span> and <span class="math inline">\(\{X \in B_2\}\)</span> are independent, i.e., <span class="math display">\[
 \PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2).
@@ -804,10 +1083,10 @@ x,y \in \reals \]</span> for some integrable function <span class="math inline">
 </ol>
 <p>An immediate implication of the above definition is the following.</p>
 <div id="prp-functions-of-RVs" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 1</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Consider <span class="math inline">\(U = g(X)\)</span> and <span class="math inline">\(V = h(Y)\)</span> for some (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>. Then, <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent.</p>
+<p><span class="theorem-title"><strong>Proposition 2.1</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Consider <span class="math inline">\(U = g(X)\)</span> and <span class="math inline">\(V = h(Y)\)</span> for some (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>. Then, <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -816,7 +1095,7 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Consider any (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span> and consider the events <span class="math inline">\(\{ U \in B_1 \}\)</span> and <span class="math inline">\(\{ V \in B_2 \}\)</span>. Note that</p>
 <ul>
@@ -828,12 +1107,12 @@ Proof
 </div>
 </div>
 <div id="prp-independence-as-expectation" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[\begin{equation}\label{eq:expectation-product}
+<p><span class="theorem-title"><strong>Proposition 2.2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[\begin{equation}\label{eq:expectation-product}
   \EXP[ g(X) h(Y) ] = \EXP[ g(X) ] \EXP[ h(Y) ]
 \end{equation}\]</span> for all (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -842,7 +1121,7 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There are two claims here.</p>
 <ol type="1">
@@ -869,9 +1148,16 @@ Proof
 </div>
 </div>
 </div>
+<div id="exr-mean-var-indendent" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2.5</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Show that</p>
+<ol type="a">
+<li><span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</li>
+<li><span class="math inline">\(\VAR(XY) = \VAR(X) \VAR(Y)\)</span>.</li>
+</ol>
+</div>
 </section>
-<section id="correlation-and-covariance" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="correlation-and-covariance"><span class="header-section-number">5</span> Correlation and covariance</h2>
+<section id="correlation-and-covariance" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="correlation-and-covariance"><span class="header-section-number">2.5</span> Correlation and covariance</h2>
 <p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on the same probability space.</p>
 <ul>
 <li><p><strong>Correlation</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\EXP[XY]\)</span>.</p></li>
@@ -889,10 +1175,10 @@ Proof
 <li><p>Indepdent random variables are uncorrelated but the reverse in not true.</p></li>
 </ul>
 <div id="exm-uncorrelated" class="theorem example">
-<p><span class="theorem-title"><strong>Example 12</strong></span> Consider the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0, 2 π)\)</span>, <span class="math inline">\(\ALPHABET F\)</span> is the Borel <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\([0, 2 π)\)</span> and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math inline">\(X(ω) = \cos ω\)</span> and <span class="math inline">\(Y(ω) = \sin ω\)</span>. Show that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are uncorrelated but not independent.</p>
+<p><span class="theorem-title"><strong>Example 2.14</strong></span> Consider the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0, 2 π)\)</span>, <span class="math inline">\(\ALPHABET F\)</span> is the Borel <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\([0, 2 π)\)</span> and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math inline">\(X(ω) = \cos ω\)</span> and <span class="math inline">\(Y(ω) = \sin ω\)</span>. Show that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are uncorrelated but not independent.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -901,7 +1187,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>The event <span class="math inline">\(\{X = 1\}\)</span> corresponds to <span class="math inline">\(ω = 0\)</span> and therefore <span class="math inline">\(\{Y = 0\}\)</span>. Thus, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are not independent.</p>
 <p>Observe that</p>
@@ -915,8 +1201,8 @@ Solution
 </div>
 </div>
 </div>
-<section id="correlation-and-covariance-for-random-vectors" class="level3" data-number="5.1">
-<h3 data-number="5.1" class="anchored" data-anchor-id="correlation-and-covariance-for-random-vectors"><span class="header-section-number">5.1</span> Correlation and covariance for random vectors</h3>
+<section id="correlation-and-covariance-for-random-vectors" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="correlation-and-covariance-for-random-vectors"><span class="header-section-number">2.5.1</span> Correlation and covariance for random vectors</h3>
 <p>Some of these concepts also generalize to random vectors. First, we define expected value for random vectors and random matrices.</p>
 <ul>
 <li><p>If <span class="math inline">\(X = [X_1, \dots, X_n] \in \reals^n\)</span>, then <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_1] &amp; \cdots &amp; \EXP[X_n] }. \]</span></p></li>
@@ -945,8 +1231,8 @@ X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span> is a ranom
 </ul>
 </section>
 </section>
-<section id="functions-of-random-variables" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="functions-of-random-variables"><span class="header-section-number">6</span> Functions of random variables</h2>
+<section id="functions-of-random-variables" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="functions-of-random-variables"><span class="header-section-number">2.6</span> Functions of random variables</h2>
 <p>In an interconnected systems, the output of one system is used as input to another system. To analyze such systems, it is important to understand how to analyze functions of random variables.</p>
 <p>In particular, let <span class="math inline">\(X\)</span> be a random variable defined on <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. Suppose <span class="math inline">\(g \colon \reals \to \reals\)</span> is a (measurable) function. Define <span class="math inline">\(Y = g(X)\)</span>.</p>
 <ul>
@@ -954,7 +1240,7 @@ X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span> is a ranom
 <li><p>Since <span class="math inline">\(Y\)</span> is a random variable, it is possible to compute its CDF and PMF/PDF as appropriate. We illustrate this concept via some examples.</p></li>
 </ul>
 <div id="exm-function-uniform-1" class="theorem example">
-<p><span class="theorem-title"><strong>Example 13</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,2]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.15</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,2]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
 g(x) = \begin{cases}
   x &amp; x \in (0,1] \\
   1- x &amp; x \in (1,2] \\
@@ -963,7 +1249,7 @@ g(x) = \begin{cases}
 \]</span> Define <span class="math inline">\(Y = g(X)\)</span>. Find <span class="math inline">\(F_Y(y)\)</span> and <span class="math inline">\(f_Y(y)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -972,7 +1258,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>From the definition of <span class="math inline">\(g\)</span>, we know that the rannge of <span class="math inline">\(g\)</span> is <span class="math inline">\([0,1]\)</span>. Thus, we know that the support of <span class="math inline">\(Y\)</span> is <span class="math inline">\([0,1]\)</span>.</p>
 <ol type="1">
@@ -990,7 +1276,7 @@ F_Y(y) = F_X(y) + F_X(2-y) = \frac {y}{2} + 1 - \frac{2-y}{2} = y.
 </div>
 </div>
 <div id="exm-function-uniform-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 14</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,4]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.16</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,4]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
 g(x) = \begin{cases}
   x &amp; x \in (0,1] \\
   1 &amp; x \in (1, 3) \\
@@ -1001,10 +1287,10 @@ g(x) = \begin{cases}
 </div>
 <p>The same idea can be used for functions of multiple random variables as we illustrate via the following examples.</p>
 <div id="exm-transformation-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 15</strong></span> Suppose <span class="math inline">\(X \sim \mathcal{N}(μ,σ^2)\)</span>. Show that <span class="math inline">\(Z = (X - μ)/σ\)</span> is a standard normal random variable, i.e., <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 2.17</strong></span> Suppose <span class="math inline">\(X \sim \mathcal{N}(μ,σ^2)\)</span>. Show that <span class="math inline">\(Z = (X - μ)/σ\)</span> is a standard normal random variable, i.e., <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1013,7 +1299,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We can write the CDF <span class="math inline">\(F_Z(z)\)</span> as <span class="math display">\[\begin{align*}
 F_Z(z) &amp;= \PR(Z \le z) = \PR\left( \frac{X - μ}{σ} \le z \right)
@@ -1030,7 +1316,7 @@ F_Z(z) &amp;= \PR(Z \le z) = \PR\left( \frac{X - μ}{σ} \le z \right)
 </div>
 </div>
 <div id="exm-generating-random-numbers" class="theorem example">
-<p><span class="theorem-title"><strong>Example 16</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>, and <span class="math inline">\(F \colon \reals \to [0,1]\)</span> is a function that satisfies the following properties: there exist a pair <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a &lt; b\)</span> (we allow <span class="math inline">\(a\)</span> to be <span class="math inline">\(-∞\)</span> and <span class="math inline">\(b\)</span> to be <span class="math inline">\(∞\)</span>) such that</p>
+<p><span class="theorem-title"><strong>Example 2.18</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>, and <span class="math inline">\(F \colon \reals \to [0,1]\)</span> is a function that satisfies the following properties: there exist a pair <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a &lt; b\)</span> (we allow <span class="math inline">\(a\)</span> to be <span class="math inline">\(-∞\)</span> and <span class="math inline">\(b\)</span> to be <span class="math inline">\(∞\)</span>) such that</p>
 <ul>
 <li><span class="math inline">\(F(y) = 0\)</span> for <span class="math inline">\(y \le a\)</span></li>
 <li><span class="math inline">\(F(y) = 1\)</span> for <span class="math inline">\(y \ge b\)</span></li>
@@ -1038,56 +1324,6 @@ F_Z(z) &amp;= \PR(Z \le z) = \PR\left( \frac{X - μ}{σ} \le z \right)
 </ul>
 <p>Thus, <span class="math inline">\(F\)</span> satisifies the properties of the CDF of a continuous random variable and <span class="math inline">\(F\)</span> is invertible in the interval <span class="math inline">\((a,b)\)</span>.</p>
 <p>Define <span class="math inline">\(Y = F^{-1}(X)\)</span>. Show that <span class="math inline">\(F_Y(y) = F(y)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as <span class="math display">\[
-F_Y(y) = \PR(Y \le y) = \PR(F^{-1}(X) \le y)
-\]</span></p>
-<p>Since <span class="math inline">\(F\)</span> is strictly increasing, <span class="math inline">\(F^{-1}(X) \le y\)</span> is equivalent to <span class="math inline">\(X \le F(y)\)</span>. Thus, <span class="math display">\[
-F_Y(y) = \PR(X \le F(y)) = F_X(F(y)) = F(y)
-\]</span> where the last step uses the fact tht <span class="math inline">\(X\)</span> is uniform over <span class="math inline">\([0,1]\)</span>.</p>
-</div>
-</div>
-</div>
-<div id="exm-function-sum" class="theorem example">
-<p><span class="theorem-title"><strong>Example 17</strong></span> Suppose <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are continuous random variables and <span class="math inline">\(Y = X_1 + X_2\)</span>. Find the PDF <span class="math inline">\(f_Y(y)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as follows: <span class="math display">\[
-F_Y(y)
-= \int_{-∞}^∞ \int_{-∞}^{y - x_1} f_{X_1,X_2}(x_1, x_2)\, d x_2 d x_1 \\
-\]</span> Therefore, <span class="math display">\[\begin{align*}
-f_Y(y) &amp;= \frac{d F_Y(y)}{dy} \\
-&amp;= \int_{-∞}^∞ \frac{d}{dy} \int_{-∞}^{y-x_1} f_{X_1, X_2}(x_1, x_2) \, dx_2\, dx_1 \\
-&amp;= \int_{-∞}^∞ f_{X_1, X_2}(x_1, y - x_1)\, dx_1.
-\end{align*}\]</span></p>
-</div>
-</div>
-</div>
-<div id="exm-function-sum-independent" class="theorem example">
-<p><span class="theorem-title"><strong>Example 18</strong></span> Repeat <a href="#exm-function-sum" class="quarto-xref">Example&nbsp;17</a> when <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
@@ -1101,12 +1337,17 @@ Solution
 </div>
 <div id="callout-14" class="callout-14-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>In this case, <span class="math inline">\(f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)\)</span>. Therefore, we get <span class="math display">\[f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y)\]</span> where <span class="math inline">\(*\)</span> denotes convolution.</p>
+<p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as <span class="math display">\[
+F_Y(y) = \PR(Y \le y) = \PR(F^{-1}(X) \le y)
+\]</span></p>
+<p>Since <span class="math inline">\(F\)</span> is strictly increasing, <span class="math inline">\(F^{-1}(X) \le y\)</span> is equivalent to <span class="math inline">\(X \le F(y)\)</span>. Thus, <span class="math display">\[
+F_Y(y) = \PR(X \le F(y)) = F_X(F(y)) = F(y)
+\]</span> where the last step uses the fact tht <span class="math inline">\(X\)</span> is uniform over <span class="math inline">\([0,1]\)</span>.</p>
 </div>
 </div>
 </div>
-<div id="exm-function-sum-Poisson" class="theorem example">
-<p><span class="theorem-title"><strong>Example 19</strong></span> Repeat <a href="#exm-function-sum-independent" class="quarto-xref">Example&nbsp;18</a> when <span class="math inline">\(X_1 \sim \text{Poisson}(λ_1)\)</span> and <span class="math inline">\(X_2 \sim \text{Poisson}(λ_2)\)</span>.</p>
+<div id="exm-function-sum" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.19</strong></span> Suppose <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are continuous random variables and <span class="math inline">\(Y = X_1 + X_2\)</span>. Find the PDF <span class="math inline">\(f_Y(y)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="true" aria-label="Toggle callout">
@@ -1119,6 +1360,51 @@ Solution
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-15" class="callout-15-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as follows: <span class="math display">\[
+F_Y(y)
+= \int_{-∞}^∞ \int_{-∞}^{y - x_1} f_{X_1,X_2}(x_1, x_2)\, d x_2 d x_1 \\
+\]</span> Therefore, <span class="math display">\[\begin{align*}
+f_Y(y) &amp;= \frac{d F_Y(y)}{dy} \\
+&amp;= \int_{-∞}^∞ \frac{d}{dy} \int_{-∞}^{y-x_1} f_{X_1, X_2}(x_1, x_2) \, dx_2\, dx_1 \\
+&amp;= \int_{-∞}^∞ f_{X_1, X_2}(x_1, y - x_1)\, dx_1.
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+<div id="exm-function-sum-independent" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.20</strong></span> Repeat <a href="#exm-function-sum" class="quarto-xref">Example&nbsp;<span>2.19</span></a> when <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>In this case, <span class="math inline">\(f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)\)</span>. Therefore, we get <span class="math display">\[f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y)\]</span> where <span class="math inline">\(*\)</span> denotes convolution.</p>
+</div>
+</div>
+</div>
+<div id="exm-function-sum-Poisson" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.21</strong></span> Repeat <a href="#exm-function-sum-independent" class="quarto-xref">Example&nbsp;<span>2.20</span></a> when <span class="math inline">\(X_1 \sim \text{Poisson}(λ_1)\)</span> and <span class="math inline">\(X_2 \sim \text{Poisson}(λ_2)\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Recall that for a Poisson random variable <span class="math inline">\(X\)</span> with parameter <span class="math inline">\(λ\)</span> <span class="math display">\[
 p_X(k) = e^{-λ} \frac{λ^k}{k!}, \quad k \ge 0
@@ -1141,14 +1427,14 @@ p_Y(n) &amp;= (p_{X_1} * P_{X_2})(n)
 </div>
 </div>
 <div id="exm-function-max-min" class="theorem example">
-<p><span class="theorem-title"><strong>Example 20</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.22</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
 U = \max(X,Y)
 \quad
 V = \min(X,Y).
 \]</span> Find <span class="math inline">\(F_U\)</span> and <span class="math inline">\(F_V\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1157,7 +1443,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse show">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><p>We first look at <span class="math inline">\(F_U\)</span>. By definition <span class="math display">\[ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).\]</span></p></li>
@@ -1166,8 +1452,8 @@ Solution
 </div>
 </div>
 </div>
-<section id="change-of-variables-formulas" class="level3" data-number="6.1">
-<h3 data-number="6.1" class="anchored" data-anchor-id="change-of-variables-formulas"><span class="header-section-number">6.1</span> Change of variables formulas</h3>
+<section id="change-of-variables-formulas" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="change-of-variables-formulas"><span class="header-section-number">2.6.1</span> Change of variables formulas</h3>
 <p>For continuous random variables, it is possible to obtain a general <strong>change of variable</strong> formula to obtain the PDF of functions of random variable in terms of their joint PDF. My personal view is that it is simpler to reason about such change of variables from first principles, but nonetheless it is good to know the results.</p>
 <ol type="1">
 <li><p>Suppose <span class="math inline">\(X\)</span> is a continuous random variable with PDF <span class="math inline">\(f_X\)</span> and <span class="math inline">\(Y = g(X)\)</span>, where <span class="math inline">\(g\)</span> is a continuous and one-to-one function (from <span class="math inline">\(\text{Range}(X)\)</span> to <span class="math inline">\(\text{Range}{Y}\)</span>). Thus, <span class="math inline">\(g\)</span> must be either strictly increasing or strictly decreasing, and in both cases the inverse <span class="math inline">\(g^{-}\)</span> is well defined.</p>
@@ -1177,9 +1463,9 @@ Solution
 <li><p>The above two formulas can be combined as <span class="math display">\[ \bbox[5pt,border: 1px solid]{f_Y(y) = f_X(g^{-1}(y)) \left| \frac{d g^{-1}(y)}{dy} \right|} \]</span></p></li>
 </ul></li>
 <li><p>From calculus, we know that if <span class="math inline">\(h(y) = g^{-1}(y)\)</span>, then <span class="math inline">\(h'(y) = 1/g'(h(y))\)</span>. Thus, the above expression can be simplified as <span class="math display">\[ \bbox[5pt, border: 1px solid]{f_Y(y) = \frac{f_X(x)}{\ABS{g'(x)}}, \quad \text{where } x = g^{-1}(y).} \]</span></p>
-<p>Resolve <a href="#exm-transformation-Gaussian" class="quarto-xref">Example&nbsp;15</a> using the above formula.</p></li>
-<li><p>If the transform <span class="math inline">\(g(x)\)</span> is not one-to-one (as in <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;13</a>), we can obtain <span class="math inline">\(f_Y(y)\)</span> as follows. Suppose <span class="math inline">\(y = g(x)\)</span> has finite roots, denoted by <span class="math inline">\(\{x^{(k)}\}_{k=1}^m\)</span>. Then, <span class="math display">\[ f_Y(y) = \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{g'(x^{(k)})}}. \]</span></p>
-<p>Resolve <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;13</a> using the above formula.</p></li>
+<p>Resolve <a href="#exm-transformation-Gaussian" class="quarto-xref">Example&nbsp;<span>2.17</span></a> using the above formula.</p></li>
+<li><p>If the transform <span class="math inline">\(g(x)\)</span> is not one-to-one (as in <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>2.15</span></a>), we can obtain <span class="math inline">\(f_Y(y)\)</span> as follows. Suppose <span class="math inline">\(y = g(x)\)</span> has finite roots, denoted by <span class="math inline">\(\{x^{(k)}\}_{k=1}^m\)</span>. Then, <span class="math display">\[ f_Y(y) = \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{g'(x^{(k)})}}. \]</span></p>
+<p>Resolve <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>2.15</span></a> using the above formula.</p></li>
 <li><p>Now suppose <span class="math inline">\(\{X_1, \dots, X_n\}\)</span> are jointly continuous random variables with joint PDF <span class="math inline">\(f\)</span>. Consider <span class="math inline">\(n\)</span> random variables: <span class="math display">\[\begin{align*}
    Y_1 &amp;= g_1(X_1, \dots, X_n) \\
    Y_2 &amp;= g_2(X_1, \dots, X_n) \\
@@ -1201,10 +1487,10 @@ J(x_1, \dots, x_n) =
 </ul></li>
 </ol>
 <div id="exm-function-max-min-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 21</strong></span> Resolve <a href="#exm-function-max-min" class="quarto-xref">Example&nbsp;20</a> using the change of variables formula.</p>
+<p><span class="theorem-title"><strong>Example 2.23</strong></span> Resolve <a href="#exm-function-max-min" class="quarto-xref">Example&nbsp;<span>2.22</span></a> using the change of variables formula.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1213,7 +1499,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse show">
+<div id="callout-19" class="callout-19-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">\(g_1(x,y) = \max\{x, y\}\)</span> and <span class="math inline">\(g_2(x,y) = \min\{x,y\}\)</span>. Define <span class="math display">\[ U = g_1(X,Y) \quad\text{and}\quad V = g_2(X,Y).\]</span></p>
 <p>Define <span class="math inline">\(g(x,y) = \VEC(g_1(x,y), g_2(x,y))\)</span>. Note that <span class="math inline">\(g\)</span> is not differentiable at <span class="math inline">\(x=y\)</span>.</p>
@@ -1260,12 +1546,12 @@ F_U(u)
 </div>
 </div>
 <div id="exm-function-multiple" class="theorem example">
-<p><span class="theorem-title"><strong>Example 22</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.24</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
   U = X^2 \quad\text{and}\quad V = X + Y.
 \]</span> Find <span class="math inline">\(F_{U,V}\)</span>?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1274,7 +1560,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse show">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Let’s consider the system of equations <span class="math display">\[
   u = x^2 \quad\text{and}\quad v = x + y
@@ -1311,383 +1597,255 @@ Solution
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/adityam\.github\.io\/probability-and-random-signals\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
       });
     }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/adityam\.github\.io\/probability-and-random-signals\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        return container.innerHTML
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1695,185 +1853,173 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./probability-spaces.html" class="pagination-link" aria-label="Introduction to Probability">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Probability</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./conditional-expectation.html" class="pagination-link" aria-label="Conditional probability and conditional expectation">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

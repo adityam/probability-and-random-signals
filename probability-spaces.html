@@ -2,14 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2024-11-11">
+<meta name="dcterms.date" content="2025-08-26">
+<meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>Introduction to Probability – Probability and Random Signals II</title>
+<title>1&nbsp; Introduction to Probability – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,17 +33,22 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<link href="./random-variables.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-9f47135319f23fa7c348006d1a455402.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-7003f8558f8d0cdb3f9596880144b86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-9f47135319f23fa7c348006d1a455402.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -96,6 +102,7 @@ window.MathJax = {
     macros: {
       PR: "\\mathbb{P}",
       EXP: "\\mathbb{E}",
+      LEXP: "\\mathbb{L}",
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
       IND: "\\mathbb{1}",
@@ -169,25 +176,187 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./../probability-and-random-signals"> 
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Probability and Random Signals II</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/adityam/probabiity-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -197,36 +366,103 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./probability-spaces.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Probability</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Outline</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-spaces.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Probability</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables and random vectors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./markov-chains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background"><span class="header-section-number">1</span> Background</a></li>
-  <li><a href="#review-of-set-theory" id="toc-review-of-set-theory" class="nav-link" data-scroll-target="#review-of-set-theory"><span class="header-section-number">2</span> Review of Set Theory</a>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background"><span class="header-section-number">1.1</span> Background</a></li>
+  <li><a href="#review-of-set-theory" id="toc-review-of-set-theory" class="nav-link" data-scroll-target="#review-of-set-theory"><span class="header-section-number">1.2</span> Review of Set Theory</a>
   <ul class="collapse">
-  <li><a href="#basic-set-operations" id="toc-basic-set-operations" class="nav-link" data-scroll-target="#basic-set-operations"><span class="header-section-number">2.1</span> Basic set operations</a></li>
-  <li><a href="#properties-of-set-operations" id="toc-properties-of-set-operations" class="nav-link" data-scroll-target="#properties-of-set-operations"><span class="header-section-number">2.2</span> Properties of set operations</a></li>
-  <li><a href="#an-algebra-or-field-on-sets" id="toc-an-algebra-or-field-on-sets" class="nav-link" data-scroll-target="#an-algebra-or-field-on-sets"><span class="header-section-number">2.3</span> An algebra (or field) on sets</a></li>
+  <li><a href="#basic-set-operations" id="toc-basic-set-operations" class="nav-link" data-scroll-target="#basic-set-operations"><span class="header-section-number">1.2.1</span> Basic set operations</a></li>
+  <li><a href="#properties-of-set-operations" id="toc-properties-of-set-operations" class="nav-link" data-scroll-target="#properties-of-set-operations"><span class="header-section-number">1.2.2</span> Properties of set operations</a></li>
+  <li><a href="#an-algebra-or-field-on-sets" id="toc-an-algebra-or-field-on-sets" class="nav-link" data-scroll-target="#an-algebra-or-field-on-sets"><span class="header-section-number">1.2.3</span> An algebra (or field) on sets</a></li>
   </ul></li>
-  <li><a href="#probability-space" id="toc-probability-space" class="nav-link" data-scroll-target="#probability-space"><span class="header-section-number">3</span> Probability Space</a></li>
-  <li><a href="#conditional-probability" id="toc-conditional-probability" class="nav-link" data-scroll-target="#conditional-probability"><span class="header-section-number">4</span> Conditional Probability</a></li>
-  <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence"><span class="header-section-number">5</span> Independence</a></li>
-  <li><a href="#product-spaces" id="toc-product-spaces" class="nav-link" data-scroll-target="#product-spaces"><span class="header-section-number">6</span> Product spaces</a></li>
+  <li><a href="#function" id="toc-function" class="nav-link" data-scroll-target="#function"><span class="header-section-number">1.3</span> Function</a></li>
+  <li><a href="#probability-space" id="toc-probability-space" class="nav-link" data-scroll-target="#probability-space"><span class="header-section-number">1.4</span> Probability Space</a></li>
+  <li><a href="#conditional-probability" id="toc-conditional-probability" class="nav-link" data-scroll-target="#conditional-probability"><span class="header-section-number">1.5</span> Conditional Probability</a></li>
+  <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence"><span class="header-section-number">1.6</span> Independence</a></li>
+  <li><a href="#product-spaces" id="toc-product-spaces" class="nav-link" data-scroll-target="#product-spaces"><span class="header-section-number">1.7</span> Product spaces</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/probability-spaces.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
+
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction to Probability</h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Probability</span></h1>
 </div>
 
 
@@ -252,7 +488,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 11, 2024</p>
+      <p class="date">August 26, 2025</p>
     </div>
   </div>
   
@@ -264,9 +500,9 @@ window.Quarto = {
 </header>
 
 
-<section id="background" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="background"><span class="header-section-number">1</span> Background</h2>
-<p>This is a graduate course on probability and random signals. I assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:</p>
+<section id="background" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="background"><span class="header-section-number">1.1</span> Background</h2>
+<p>This is a graduate course on probability and random signals. I am going to assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:</p>
 <ul>
 <li>A fair 6-sided die is rolled twice. What is the probability that the sum of the rolls equals 7?</li>
 <li>A biased coin with <span class="math inline">\(\PR({\rm heads}) = 3/4\)</span> is tossed 10 times. What is the probability of obtaining 3 consecutive heads?</li>
@@ -283,20 +519,20 @@ window.Quarto = {
 </ul>
 <p>In this course, we will revisit these topics with a more formal approach. We start with a review of the basic concepts.</p>
 </section>
-<section id="review-of-set-theory" class="level2 page-columns page-full" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="review-of-set-theory"><span class="header-section-number">2</span> Review of Set Theory</h2>
-<section id="basic-set-operations" class="level3 page-columns page-full" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="basic-set-operations"><span class="header-section-number">2.1</span> Basic set operations</h3>
+<section id="review-of-set-theory" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="review-of-set-theory"><span class="header-section-number">1.2</span> Review of Set Theory</h2>
+<section id="basic-set-operations" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="basic-set-operations"><span class="header-section-number">1.2.1</span> Basic set operations</h3>
 <p>A <strong>set</strong> is a collection of objects. We say that a set <span class="math inline">\(B\)</span> is a <strong>subset</strong> of set <span class="math inline">\(A\)</span> (written as <span class="math inline">\(B \subseteq A\)</span>) if all elements of <span class="math inline">\(B\)</span> are also elements of <span class="math inline">\(A\)</span>. We say that <span class="math inline">\(B\)</span> is a <strong>proper subset</strong> (written <span class="math inline">\(B \subsetneq A\)</span>) if <span class="math inline">\(B \subseteq A\)</span> and <span class="math inline">\(B \neq A\)</span>.</p>
 <div id="exr-sets" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1</strong></span> Let <span class="math inline">\(A = \{1, 2, 3\}\)</span>. Find all subsets of <span class="math inline">\(A\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 1.1</strong></span> Let <span class="math inline">\(A = \{1, 2, 3\}\)</span>. Find all subsets of <span class="math inline">\(A\)</span>.</p>
 </div>
-<p>The set of all subsets of <span class="math inline">\(A\)</span> is also called the <strong>power set</strong> of <span class="math inline">\(A\)</span> (denoted by <span class="math inline">\(2^A\)</span>). The notation <span class="math inline">\(2^A\)</span> represents that the power set of <span class="math inline">\(A\)</span> contains <span class="math inline">\(2^{|A|}\)</span> elements. For example, your answer to <a href="#exr-sets" class="quarto-xref">Exercise&nbsp;1</a> must have <span class="math inline">\(2^3 = 8\)</span> elements.</p>
+<p>The set of all subsets of <span class="math inline">\(A\)</span> is also called the <strong>power set</strong> of <span class="math inline">\(A\)</span> (denoted by <span class="math inline">\(2^A\)</span>). The notation <span class="math inline">\(2^A\)</span> represents that the power set of <span class="math inline">\(A\)</span> contains <span class="math inline">\(2^{|A|}\)</span> elements. For example, your answer to <a href="#exr-sets" class="quarto-xref">Exercise&nbsp;<span>1.1</span></a> must have <span class="math inline">\(2^3 = 8\)</span> elements.</p>
 <p>Given two sets <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, we define the <strong>set difference</strong> <span class="math inline">\(A\setminus B\)</span> to be all elements of <span class="math inline">\(A\)</span> not in <span class="math inline">\(B\)</span>. Note that mathematically <span class="math inline">\(A \setminus B\)</span> is well defined even if <span class="math inline">\(B \not\subseteq A\)</span>. In particular <span class="math display">\[
 A \setminus B = A \setminus (A \cap B).
 \]</span></p>
 <div id="exr-set-difference" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2</strong></span> Compute <span class="math inline">\(A \setminus B\)</span> for the following:</p>
+<p><span class="theorem-title"><strong>Exercise 1.2</strong></span> Compute <span class="math inline">\(A \setminus B\)</span> for the following:</p>
 <ul>
 <li><span class="math inline">\(A = \{1,2,3,4\}\)</span> and <span class="math inline">\(B = \{1, 2\}\)</span>.</li>
 <li><span class="math inline">\(A = \{1,2,3,4\}\)</span> and <span class="math inline">\(B = \{1, 2, 5\}\)</span>.</li>
@@ -312,21 +548,19 @@ A \setminus B = A \setminus (A \cap B).
 \]</span> This means that an element belongs to <span class="math inline">\(A_1 \cap A_2  \cap \cdots \cap A_n\)</span> if it belongs to all of <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_2\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(A_n\)</span>.</p></li>
 </ul>
 <p>A collection <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is <strong>disjoint</strong> if for every <span class="math inline">\(i \neq j\)</span>, <span class="math inline">\(A_i \cap A_j = \emptyset\)</span>, where <span class="math inline">\(\emptyset\)</span> denotes the empty set.</p>
-<p>Given a <strong>universal set</strong> <span class="math inline">\(Ω\)</span> and a collection <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> of subsets of <span class="math inline">\(Ω\)</span>, we say that <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> is a <strong>partition</strong> of <span class="math inline">\(Ω\)</span> if <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> are disjoint and their union equals <span class="math inline">\(Ω\)</span>.</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
+<p>Given a <strong>universal set</strong> <span class="math inline">\(Ω\)</span> and a collection <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> of subsets of <span class="math inline">\(Ω\)</span>, we say that <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> is a <strong>partition</strong> of <span class="math inline">\(Ω\)</span> if <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> are pairwise disjoint and their union equals the universal set <span class="math inline">\(Ω\)</span>.</p>
 <div id="fig-partition" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-partition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/svg/partitions1.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-partition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Example of a partition
+Figure&nbsp;1.1: Example of a partition
 </figcaption>
 </figure>
 </div>
-</div></div><div id="exm-partion" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1</strong></span> Let <span class="math inline">\(Ω = \{1,2,3,4\}\)</span>. The following are partitions of <span class="math inline">\(Ω\)</span>:</p>
+<div id="exm-partion" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1.1</strong></span> Let <span class="math inline">\(Ω = \{1,2,3,4\}\)</span>. The following are partitions of <span class="math inline">\(Ω\)</span>:</p>
 <ul>
 <li><span class="math inline">\(\{ \{1\}, \{2\}, \{3\}, \{4\} \}\)</span>.</li>
 <li><span class="math inline">\(\{ \{1, 2\}, \{3, 4\} \}\)</span>.</li>
@@ -354,8 +588,8 @@ A = (A \cap B_1) \cup (A \cap B_2) \cup \cdots \cup (A \cap B_m)
 </div>
 </div>
 </section>
-<section id="properties-of-set-operations" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="properties-of-set-operations"><span class="header-section-number">2.2</span> Properties of set operations</h3>
+<section id="properties-of-set-operations" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="properties-of-set-operations"><span class="header-section-number">1.2.2</span> Properties of set operations</h3>
 <ul>
 <li><p><strong>Commutative</strong> <span class="math display">\[A \cup B = B \cup A
 \quad\text{and}\quad
@@ -371,15 +605,15 @@ A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\]</span></p></li>
 (A \cap B)^c = A^c \cup B^c\]</span></p></li>
 </ul>
 <div id="exr-set-properties" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3</strong></span> Use distributive property to simplify:</p>
+<p><span class="theorem-title"><strong>Exercise 1.3</strong></span> Use distributive property to simplify:</p>
 <ul>
 <li><span class="math inline">\([1,4] \cap ([0,2] \cup [3,5])\)</span>.</li>
 <li><span class="math inline">\([2,4] \cup ([3,5] \cap [1,4])\)</span>.</li>
 </ul>
 </div>
 </section>
-<section id="an-algebra-or-field-on-sets" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="an-algebra-or-field-on-sets"><span class="header-section-number">2.3</span> An algebra (or field) on sets</h3>
+<section id="an-algebra-or-field-on-sets" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="an-algebra-or-field-on-sets"><span class="header-section-number">1.2.3</span> An algebra (or field) on sets</h3>
 <p>Given a universal set <span class="math inline">\(Ω\)</span>, a collection <span class="math inline">\(\ALPHABET F = \{F_1, F_2, \dots, F_m\}\)</span> of subsets of <span class="math inline">\(Ω\)</span> is called an <strong>algebra</strong> if it satisfies the following properties:</p>
 <ul>
 <li><span class="math inline">\(\emptyset \in \ALPHABET F\)</span> and <span class="math inline">\(Ω \in \ALPHABET F\)</span>.</li>
@@ -394,7 +628,7 @@ A_1 \cap A_2 \cap \cdots \cap A_n \in \ALPHABET F
 <ul>
 <li>The smallest algebra associated with <span class="math inline">\(Ω\)</span> is <span class="math inline">\(\{\emptyset, Ω\}\)</span>.</li>
 <li>If <span class="math inline">\(A\)</span> is any subset of <span class="math inline">\(Ω\)</span>, then <span class="math inline">\(\{\emptyset, A, A^c, Ω\}\)</span> is an algebra.</li>
-<li>For any set <span class="math inline">\(Ω\)</span>, the power-set <span class="math inline">\(2^Ω\)</span> is an algebra on <span class="math inline">\(Ω\)</span>. As an illustration, check that the power set defined in <a href="#exr-sets" class="quarto-xref">Exercise&nbsp;1</a> is an algebra.</li>
+<li>For any set <span class="math inline">\(Ω\)</span>, the power-set <span class="math inline">\(2^Ω\)</span> is an algebra on <span class="math inline">\(Ω\)</span>. As an illustration, check that the power set defined in <a href="#exr-sets" class="quarto-xref">Exercise&nbsp;<span>1.1</span></a> is an algebra.</li>
 </ul>
 <p>These are all examples of a general principle: <strong>The power-set of any partition of a set is an algebra.</strong></p>
 <ul>
@@ -404,14 +638,33 @@ A_1 \cap A_2 \cap \cdots \cap A_n \in \ALPHABET F
 </ul>
 </section>
 </section>
-<section id="probability-space" class="level2 page-columns page-full" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="probability-space"><span class="header-section-number">3</span> Probability Space</h2>
-<p>Probability is a measure of uncertainty or our belief that a particular statement is true. In this course, we will not concern ourselves with how such a measure of uncertainty is constructed; rather focus on the mathematical properties that it should satisfy and the implications of these properties.</p>
-<p>Many everyday statements take the form: “The chance (or probability) of <span class="math inline">\(A\)</span> is <span class="math inline">\(p\)</span>”, where <span class="math inline">\(A\)</span> is some event (such as “sun shining tomorrow”, “Team A winning a hockey game”, etc.) and <span class="math inline">\(p\)</span> is a number (e.g., <span class="math inline">\(1/8\)</span>) or an adjective describing quantity (e.g., “low”).</p>
-<p>To mathematically model such statements, we need to model the sequence of events that may lead to the occurrence of <span class="math inline">\(A\)</span>: this is called a <strong>random experiment</strong>; the result of an experiment is called an <strong>outcome</strong>.</p>
-<p>In general, the outcome of an experiment is not certain. We can only talk about the collection of possible outcomes. The collection of possible outcomes of an experiment is called the <strong>sample space</strong> and denoted by <span class="math inline">\(Ω\)</span>.</p>
-<div id="exr-sample-space-coin-toss" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 4</strong></span> What is the sample space for the toss of a coin?</p>
+<section id="function" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="function"><span class="header-section-number">1.3</span> Function</h2>
+<p>A function <span class="math inline">\(f\)</span> is a rule that assign each input from a set <span class="math inline">\(\ALPHABET X\)</span> (called the <strong>domain</strong>) to exactly one output in another set <span class="math inline">\(\ALPHABET Y\)</span> (called the <strong>co-domain</strong>). Symbolically, this is written as <span class="math display">\[
+  f \colon \ALPHABET X \to \ALPHABET Y
+\]</span> and we say “<span class="math inline">\(f\)</span> maps <span class="math inline">\(\ALPHABET X\)</span> to <span class="math inline">\(\ALPHABET Y\)</span>”.</p>
+<p>The set of values <span class="math inline">\(\{ f(x) : x \in \ALPHABET X\}\)</span> is called the <strong>range</strong>. By definition, the range is a subset of the co-domain <span class="math inline">\(Y\)</span>, but the range may or may not be equal to <span class="math inline">\(Y\)</span>. For example, consider the function <span class="math inline">\(f \colon \reals \to \reals\)</span> defined by <span class="math inline">\(f(x) = x^2\)</span>. The range of the function is <span class="math inline">\(\reals_{\ge 0}\)</span> which is a strict subset of the co-domain <span class="math inline">\(\reals\)</span>.</p>
+<ul>
+<li><p>A function is called <strong>onto</strong> or <strong>surjective</strong> if its range is equal to its co-domain.</p></li>
+<li><p>A function is called <strong>one-to-one</strong> or <strong>injective</strong> if different inputs maps to different outputs.</p></li>
+<li><p>A function which is both onto and one-to-one is called <strong>bijective</strong>. A bijective function is <strong>invertible</strong> because for every <span class="math inline">\(y \in \ALPHABET Y\)</span>, there is a unique <span class="math inline">\(x\)</span> such that <span class="math inline">\(f(x) = y\)</span>.</p></li>
+<li><p>For a set <span class="math inline">\(\ALPHABET B \subset \ALPHABET Y\)</span>, the <strong>preimage</strong> or <strong>inverse image</strong> of <span class="math inline">\(\ALPHABET B\)</span> under <span class="math inline">\(f\)</span> is defined as <span class="math display">\[
+  f^{-1}(\ALPHABET B) = \{ x \in \ALPHABET X :: f(x) \in \ALPHABET B \},
+\]</span> which is a subset of <span class="math inline">\(\ALPHABET X\)</span>.</p></li>
+</ul>
+<div id="exm-function" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1.2</strong></span> Consider the following functions:</p>
+<ul>
+<li><span class="math inline">\(f_1 \colon \reals \to \reals\)</span></li>
+<li><span class="math inline">\(f_2 \colon \reals \to \reals_{\ge 0}\)</span></li>
+<li><span class="math inline">\(f_3 \colon \reals_{\ge 0} \to \reals\)</span></li>
+<li><span class="math inline">\(f_4 \colon \reals_{\ge 0} \to \reals_{\ge 0}\)</span></li>
+</ul>
+<p>all given by <span class="math inline">\(f_i(x) = x^2\)</span>, <span class="math inline">\(i \in \{1, \dots, 4\}\)</span>.</p>
+<p>Explain if each of the function is onto, into, or bijective.</p>
+</div>
+<div id="exm-inverse-image" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1.3</strong></span> Let <span class="math inline">\(f \colon \reals \to \reals\)</span> be given by <span class="math inline">\(f(x) = 2x + 1\)</span>. Find <span class="math inline">\(f^{-1}([3,7])\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -425,12 +678,24 @@ Solution
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><span class="math inline">\(Ω = \{ H, T \}\)</span>.</p>
+<p>We need to solve for <span class="math inline">\(2x + 1 \in [3,7]\)</span>, which is equivalent to <span class="math display">\[
+  3 \le 2x + 1 \le 7
+\]</span> which is equivalent to <span class="math display">\[
+  1 \le x \le 3.
+\]</span></p>
+<p>Thus, <span class="math inline">\(f^{-1}([3,7]) = [1,3]\)</span>.</p>
 </div>
 </div>
 </div>
-<div id="exr-sample-space-die-roll" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5</strong></span> What is the sample space for the roll of a (6-sided) die?</p>
+</section>
+<section id="probability-space" class="level2 page-columns page-full" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="probability-space"><span class="header-section-number">1.4</span> Probability Space</h2>
+<p>Probability is a measure of uncertainty or our belief that a particular statement is true. In this course, we will not concern ourselves with how such a measure of uncertainty is constructed; rather focus on the mathematical properties that it should satisfy and the implications of these properties.</p>
+<p>Many everyday statements take the form: “The chance (or probability) of <span class="math inline">\(A\)</span> is <span class="math inline">\(p\)</span>”, where <span class="math inline">\(A\)</span> is some event (such as “sun shining tomorrow”, “Team A winning a hockey game”, etc.) and <span class="math inline">\(p\)</span> is a number (e.g., <span class="math inline">\(1/8\)</span>) or an adjective describing quantity (e.g., “low”).</p>
+<p>To mathematically model such statements, we need to model the sequence of events that may lead to the occurrence of <span class="math inline">\(A\)</span>: this is called a <strong>random experiment</strong>; the result of an experiment is called an <strong>outcome</strong>.</p>
+<p>In general, the outcome of an experiment is not certain. We can only talk about the collection of possible outcomes. The collection of possible outcomes of an experiment is called the <strong>sample space</strong> and denoted by <span class="math inline">\(Ω\)</span>.</p>
+<div id="exr-sample-space-coin-toss" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 1.4</strong></span> What is the sample space for the toss of a coin?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
@@ -444,15 +709,34 @@ Solution
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p><span class="math inline">\(Ω = \{ H, T \}\)</span>.</p>
+</div>
+</div>
+</div>
+<div id="exr-sample-space-die-roll" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 1.5</strong></span> What is the sample space for the roll of a (6-sided) die?</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p><span class="math inline">\(Ω = \{ 1,2,3,4,5,6 \}\)</span>.</p>
 </div>
 </div>
 </div>
 <p>An <strong>event</strong> is any subset of the sample space. If the outcome of the random experiment belongs to the event <span class="math inline">\(A\)</span>, we say that “the event <span class="math inline">\(A\)</span> has occurred”. Some examples of events are:</p>
 <ul>
-<li>Head occurs in <a href="#exr-sample-space-coin-toss" class="quarto-xref">Exercise&nbsp;4</a> (<span class="math inline">\(A = \{H\}\)</span>)</li>
-<li>Both head and tail occur in <a href="#exr-sample-space-coin-toss" class="quarto-xref">Exercise&nbsp;4</a> (<span class="math inline">\(A = \emptyset\)</span>; this is an event that cannot happen, sometimes called the <strong>impossible event</strong>)</li>
-<li>An even number is thrown in <a href="#exr-sample-space-die-roll" class="quarto-xref">Exercise&nbsp;5</a> (<span class="math inline">\(A = \{2,4,6\}\)</span>).</li>
+<li>Head occurs in <a href="#exr-sample-space-coin-toss" class="quarto-xref">Exercise&nbsp;<span>1.4</span></a> (<span class="math inline">\(A = \{H\}\)</span>)</li>
+<li>Both head and tail occur in <a href="#exr-sample-space-coin-toss" class="quarto-xref">Exercise&nbsp;<span>1.4</span></a> (<span class="math inline">\(A = \emptyset\)</span>; this is an event that cannot happen, sometimes called the <strong>impossible event</strong>)</li>
+<li>An even number is thrown in <a href="#exr-sample-space-die-roll" class="quarto-xref">Exercise&nbsp;<span>1.5</span></a> (<span class="math inline">\(A = \{2,4,6\}\)</span>).</li>
 </ul>
 <p>Note that events are subset of the sample space but not all subsets of a sample space may be events. The reasons are too complicated to explain, but the high-level explanation is that everything is okay for discrete sample spaces, but weird things can happen in continuous sample spaces.</p>
 <p><strong>Probability</strong> (denoted by <span class="math inline">\(\PR\)</span>) is a function which assigns a number between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span> to every event. This number indicates what is the <em>chance</em> that the event occurs. Such a function should satisfy some axioms, which we will explain below.</p>
@@ -464,8 +748,15 @@ Solution
 <li><p>If we can talk about probability of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, then we should be able to talk about probability that either <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> occurs and both <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> occur. Thus, if <span class="math inline">\(A, B \in \ALPHABET F\)</span>, then <span class="math inline">\(A \cup B \in \ALPHABET F\)</span> and <span class="math inline">\(A \cap B \in \ALPHABET F\)</span>.</p></li>
 </ul>
 <p>Thus, the domain of <span class="math inline">\(\PR\)</span> <strong>must be an algebra</strong>! However, when we go beyond finite sample spaces, being an algebra is not sufficient. But we first provide some examples of probability for finite sample spaces.</p>
+<div id="exm-probability-uniform" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1.4 (Uniform probability)</strong></span> Consider a finite set <span class="math inline">\(Ω\)</span> with <span class="math inline">\(\ALPHABET F = 2^Ω\)</span>. The uniform probability <span class="math inline">\(\PR\)</span> on <span class="math inline">\(Ω\)</span> is given by <span class="math display">\[
+\PR(A) = \frac{\ABS{A}}{\ABS{Ω}},
+\quad \forall A \in \ALPHABET F
+\]</span></p>
+</div>
+<p>An illustration of uniform probability distirbution on the outcomes of a fair coin or a fair dice. Next we give an example of a probability measure that is not uniform.</p>
 <div id="exm-probability-domain" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2</strong></span> Consider a six-sided die where <span class="math inline">\(Ω = \{1, 2, \dots, 6 \}\)</span>, <span class="math inline">\(\ALPHABET F = 2^Ω\)</span> and <span class="math inline">\(\PR\)</span> is given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 1.5</strong></span> Consider a six-sided die where <span class="math inline">\(Ω = \{1, 2, \dots, 6 \}\)</span>, <span class="math inline">\(\ALPHABET F = 2^Ω\)</span> and <span class="math inline">\(\PR\)</span> is given by <span class="math display">\[
 \PR(A) = \sum_{ω \in A} q(ω),
 \quad \forall A \in \ALPHABET F
 \]</span> where <span class="math display">\[
@@ -482,7 +773,7 @@ q(6) = \frac{1}{3}.
 </div>
 <p>We now come back to the fact that restricting the domain of <span class="math inline">\(\PR\)</span> to be an algebra is not sufficient as is illustrated by the following example.</p>
 <div id="exm-infinite-coin-tosses" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3</strong></span> A coin is tossed repeatedly until a head turns up. The sample space is <span class="math inline">\(Ω = \{ω_1, ω_2, \dots\}\)</span> where <span class="math inline">\(ω_n\)</span> denotes the event that the first <span class="math inline">\(n-1\)</span> tosses are tails followed by a head.</p>
+<p><span class="theorem-title"><strong>Example 1.6</strong></span> A coin is tossed repeatedly until a head turns up. The sample space is <span class="math inline">\(Ω = \{ω_1, ω_2, \dots\}\)</span> where <span class="math inline">\(ω_n\)</span> denotes the event that the first <span class="math inline">\(n-1\)</span> tosses are tails followed by a head.</p>
 </div>
 <p>Suppose we are interested in finding the probability of the event that the coin is tossed an even number of times, i.e., <span class="math inline">\(A = \{ω_2, ω_4, \dots\}\)</span>. Note that <span class="math inline">\(ω_2, ω_4, \dots \in \ALPHABET F\)</span>. However, <span class="math inline">\(A\)</span> is a set. If we want to assign probability to <span class="math inline">\(A\)</span> in terms of probability of <span class="math inline">\(ω_n\)</span>, we require <span class="math inline">\(\ALPHABET F\)</span> to be closed under <strong>countable unions</strong>. This motivates the following definition.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -514,7 +805,7 @@ q(6) = \frac{1}{3}.
 <p>The distinction between algebras and <span class="math inline">\(σ\)</span>-algebras is technical. The reason that we need to consider <span class="math inline">\(σ\)</span>-algebras is to do with the definition of probability on continuous sample spaces. Take <span class="math inline">\(Ω = [0,1]\)</span> and consider a random experiment where “any outcome is equally likely”. Intuitively we capture this feature by assuming that for any interval <span class="math inline">\([a,b]\)</span> with <span class="math inline">\(0 \le a \le b \le 1\)</span>, we have <span class="math display">\[\begin{equation}\label{eq:uniform}
 \PR([a,b]) = b - a.
 \end{equation}\]</span></p>
-<p>We have seen that if we want <span class="math inline">\(\PR\)</span> to be a meaningful measure, the domain <span class="math inline">\(\ALPHABET F\)</span> must at least be an algebra. We have also seen that the power-set <span class="math inline">\(2^Ω\)</span> is always an algebra. So, it is tempting to take <span class="math inline">\(\ALPHABET F = 2^{[0,1]}\)</span>. However, it turns out that <span class="math inline">\(2^{[0,1]}\)</span> has includes some weird sets (technically, non-measurable sets) due to which we cannot define a function <span class="math inline">\(\PR\)</span> on <span class="math inline">\(2^{[0,1]}\)</span> that satisfies <span class="math inline">\(\eqref{eq:uniform}\)</span>.</p>
+<p>We have seen that if we want <span class="math inline">\(\PR\)</span> to be a meaningful measure, the domain <span class="math inline">\(\ALPHABET F\)</span> must at least be an algebra. We have also seen that the power-set <span class="math inline">\(2^Ω\)</span> is always an algebra. So, it is tempting to take <span class="math inline">\(\ALPHABET F = 2^{[0,1]}\)</span>. However, it turns out that <span class="math inline">\(2^{[0,1]}\)</span> includes some weird sets (technically, non-measurable sets) due to which we cannot define a function <span class="math inline">\(\PR\)</span> on <span class="math inline">\(2^{[0,1]}\)</span> that satisfies <span class="math inline">\(\eqref{eq:uniform}\)</span>.</p>
 <p>To workaround this technical limitation, we revisit the minimum requirements that we need from the domain of <span class="math inline">\(\PR\)</span>. Since we are interested in <span class="math inline">\(\PR([a,b])\)</span>, <span class="math inline">\(\ALPHABET F\)</span> must contain intervals (and therefore all finite unions and intersections of intervals). Since we are working with continuous sample spaces, we also want <span class="math inline">\(\PR\)</span> to be continuous, i.e., for any sequence of sets <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span>, we want <span class="math inline">\(\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)\)</span>. It turns out that the additional requirement of continuity implies that <span class="math inline">\(\ALPHABET F\)</span> must be closed under countable unions as well. Thus, the domain <span class="math inline">\(\ALPHABET F\)</span> must at least be a <span class="math inline">\(σ\)</span>-algebra.</p>
 <p>So, we restrict to the simplest choice of the domain <span class="math inline">\(\ALPHABET F\)</span> needed for <span class="math inline">\(\eqref{eq:uniform}\)</span> and continuity to hold. <span class="text-secondary">For technical reasons, we need another property known as <strong>completeness</strong>. See Sec.&nbsp;1.6 of the textbook.</span></p>
 </div>
@@ -540,7 +831,7 @@ q(6) = \frac{1}{3}.
 </div>
 </div>
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Borel <span class="math inline">\(σ\)</span>-algebra is usually defined for any topological space. We restrict our definition to subsets of reals.</p></div></div><div id="def-probability" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Probability space)</strong></span> A probability space is a tuple <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> comprising of a set <span class="math inline">\(Ω\)</span>, a <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET F\)</span> on <span class="math inline">\(Ω\)</span>, and a function <span class="math inline">\(\PR \colon \ALPHABET F \to [0,1]\)</span> that satisfies the following <strong>axioms of proability</strong></p>
+<p><span class="theorem-title"><strong>Definition 1.1 (Probability space)</strong></span> A probability space is a tuple <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> comprising of a set <span class="math inline">\(Ω\)</span>, a <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET F\)</span> on <span class="math inline">\(Ω\)</span>, and a function <span class="math inline">\(\PR \colon \ALPHABET F \to [0,1]\)</span> that satisfies the following <strong>axioms of proability</strong></p>
 <ol type="a">
 <li><strong>Non-negativity.</strong> <span class="math inline">\(\PR(A) \ge 0\)</span>.</li>
 <li><strong>Normalization.</strong> <span class="math inline">\(\PR(Ω) = 1\)</span>.</li>
@@ -552,7 +843,7 @@ q(6) = \frac{1}{3}.
 </div>
 <p>Some immediate implications of the axioms of probability are the following.</p>
 <div id="lem-probability-properties" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 1 (Properties of probability measures)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Lemma 1.1 (Properties of probability measures)</strong></span> &nbsp;</p>
 <ol type="a">
 <li><p><strong>Probability of complement.</strong> <span class="math inline">\(\PR(A^c) = 1 - \PR(A)\)</span>.</p></li>
 <li><p><strong>Monotonicity.</strong> If <span class="math inline">\(A \subset B\)</span>, then <span class="math inline">\(\PR(B) = \PR(A) + \PR(B \setminus A) \ge \PR(A)\)</span>.</p></li>
@@ -576,7 +867,7 @@ q(6) = \frac{1}{3}.
 </ol>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -585,14 +876,14 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The proof of parts (a)–(c) is elementary and left as an exercise. Part (d) is more technical and is essentially equivalent to <em>countable</em> additivity. See the textbook for a proof. Union bound is an immediate consequence of inclusion-exclusion and continuity.</p>
 </div>
 </div>
 </div>
 <div id="exm-probability-continuity" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4</strong></span> Let <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B[0,1]\)</span>, and <span class="math inline">\(\PR\)</span> be any probability measure on <span class="math inline">\((Ω, \ALPHABET F)\)</span>. Take any <span class="math inline">\(a \in (0,1)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 1.7</strong></span> Let <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B[0,1]\)</span>, and <span class="math inline">\(\PR\)</span> be any probability measure on <span class="math inline">\((Ω, \ALPHABET F)\)</span>. Take any <span class="math inline">\(a \in (0,1)\)</span>.</p>
 <ul>
 <li>Consider <span class="math inline">\(A_n = \bigl[0, a - \frac 1n \bigr)\)</span>. Then <span class="math inline">\(A = \lim_{n \to ∞} A_n =  [0, a)\)</span>.</li>
 <li>Consider <span class="math inline">\(A_n = \bigl[0, a - \frac 1n \bigr]\)</span>. Then <span class="math inline">\(A = \lim_{n \to ∞} A_n =  [0, a)\)</span>.</li>
@@ -618,47 +909,21 @@ Some terminology
 </div>
 </div>
 <div id="exm-rational" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5</strong></span> Consider <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> to be the uniform probability distribution on <span class="math inline">\(Ω\)</span>. Consider the event <span class="math inline">\(A\)</span> that the outcome is a rational number. <span class="math inline">\(A\)</span> is a countable set (because the set of rational numbers is countable). For any <span class="math inline">\(x \in A\)</span>, <span class="math inline">\(\{x\} \in \ALPHABET F\)</span>, and <span class="math inline">\(\PR(\{x\}) = 0\)</span> (we can infer this from <a href="#exm-probability-continuity" class="quarto-xref">Example&nbsp;4</a> by thinking of <span class="math inline">\(\{x\}\)</span> as the limit of intervals <span class="math inline">\(\bigl[x, x+ \frac 1n\bigr]\)</span>). Thus, by countable additivity, <span class="math inline">\(\PR(A) = 0\)</span>. Hence, <span class="math inline">\(A\)</span> is null.</p>
+<p><span class="theorem-title"><strong>Example 1.8</strong></span> Consider <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> to be the uniform probability distribution on <span class="math inline">\(Ω\)</span>. Consider the event <span class="math inline">\(A\)</span> that the outcome is a rational number. <span class="math inline">\(A\)</span> is a countable set (because the set of rational numbers is countable). For any <span class="math inline">\(x \in A\)</span>, <span class="math inline">\(\{x\} \in \ALPHABET F\)</span>, and <span class="math inline">\(\PR(\{x\}) = 0\)</span> (we can infer this from <a href="#exm-probability-continuity" class="quarto-xref">Example&nbsp;<span>1.7</span></a> by thinking of <span class="math inline">\(\{x\}\)</span> as the limit of intervals <span class="math inline">\(\bigl[x, x+ \frac 1n\bigr]\)</span>). Thus, by countable additivity, <span class="math inline">\(\PR(A) = 0\)</span>. Hence, <span class="math inline">\(A\)</span> is null.</p>
 <p>The above analysis implies that <span class="math inline">\(\PR(A^c) = 1\)</span>, thus the event that the outcome is irrational occurs almost surely.</p>
 </div>
 </section>
-<section id="conditional-probability" class="level2 page-columns page-full" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="conditional-probability"><span class="header-section-number">4</span> Conditional Probability</h2>
+<section id="conditional-probability" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="conditional-probability"><span class="header-section-number">1.5</span> Conditional Probability</h2>
 <p>Conditional probabilities quantify the uncertainty of an event when it is known that another event has occurred</p>
 <div id="def-conidtional-probability" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2</strong></span> Let <span class="math inline">\((Ω,\ALPHABET F, \PR)\)</span> be a probability space and <span class="math inline">\(A, B \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(B) &gt; 0\)</span>. Then, the <strong>conditional probability</strong> that <span class="math inline">\(A\)</span> occurs given that <span class="math inline">\(B\)</span> occurs is defined as <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 1.2</strong></span> Let <span class="math inline">\((Ω,\ALPHABET F, \PR)\)</span> be a probability space and <span class="math inline">\(A, B \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(B) &gt; 0\)</span>. Then, the <strong>conditional probability</strong> that <span class="math inline">\(A\)</span> occurs given that <span class="math inline">\(B\)</span> occurs is defined as <span class="math display">\[
 \PR(A | B) = \dfrac{ \PR(A \cap B) }{ \PR(B) }.
 \]</span></p>
 </div>
 <p>The notation <span class="math inline">\(\PR(A | B)\)</span> is read as “probability of <span class="math inline">\(A\)</span> given <span class="math inline">\(B\)</span>” or “probability of <span class="math inline">\(A\)</span> conditioned on <span class="math inline">\(B\)</span>”.</p>
 <div id="exr-conditional-die" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6</strong></span> Suppose we roll a fair six-sided die (a fair die means that all outcomes are equally likely). Consider the events <span class="math inline">\(A\)</span> that the outcomes is prime and <span class="math inline">\(B\)</span> that the outcome is a multiple of <span class="math inline">\(3\)</span>. Compute <span class="math inline">\(\PR(A | B)\)</span> and <span class="math inline">\(\PR(B | A)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>We have <span class="math inline">\(Ω = \{1, 2, 3, 4, 5, 6\}\)</span>, <span class="math inline">\(A = \{2, 3, 5\}\)</span>, and <span class="math inline">\(B = \{3, 6\}\)</span>. Note that <span class="math inline">\(\PR(A) = \frac 12\)</span> and <span class="math inline">\(\PR(B) = \frac 13\)</span>.</p>
-<p>Thus, <span class="math display">\[ \PR(A | B) = \frac{ \PR(A \cap B) }{ \PR(B) }
-= \frac{ \PR(\{3\}) }{ \PR(\{3,6\}) }
-= \frac{ \ABS{\{3\}} }{ \ABS{\{3,6\}} } = \frac {1}{2}.
-\]</span> Similarly, <span class="math display">\[ \PR(B | A) = \frac{ \PR(B \cap A) }{ \PR(A) }
-= \frac{ \PR(\{3\}) }{ \PR(\{2,3,5\}) }
-= \frac{ \ABS{\{3\}} }{ \ABS{\{2,3,5\}} } = \frac {1}{3}.
-\]</span></p>
-</div>
-</div>
-</div>
-<div id="exr-conditional-two-dice" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 7</strong></span> Suppose we roll two fair six-sided dice. Consider the event <span class="math inline">\(A\)</span> that the maximum of the two rolls is less than or equal to <span class="math inline">\(8\)</span> and the event <span class="math inline">\(B\)</span> that the minimum of the two rolls is greater than or equal to <span class="math inline">\(6\)</span>. Compute <span class="math inline">\(\PR(A|B)\)</span> and <span class="math inline">\(\PR(B|A)\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 1.6</strong></span> Suppose we roll a fair six-sided die (a fair die means that all outcomes are equally likely). Consider the events <span class="math inline">\(A\)</span> that the outcomes is prime and <span class="math inline">\(B\)</span> that the outcome is a multiple of <span class="math inline">\(3\)</span>. Compute <span class="math inline">\(\PR(A | B)\)</span> and <span class="math inline">\(\PR(B | A)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
@@ -672,14 +937,40 @@ Solution
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Note that <span class="math inline">\(Ω = \{ 1, 2,3, 4, 5, 6\}^2\)</span> and <span class="math inline">\(\PR\)</span> is uniform probability on all outcomes. The sets <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(A \cap B\)</span> are shown in <a href="#fig-conditional-two-roll" class="quarto-xref">Figure&nbsp;2</a>. Note that <span class="math inline">\(\PR(A) = \PR(B) = \frac{26}{36} = \frac{13}{18}\)</span>.</p>
+<p>We have <span class="math inline">\(Ω = \{1, 2, 3, 4, 5, 6\}\)</span>, <span class="math inline">\(A = \{2, 3, 5\}\)</span>, and <span class="math inline">\(B = \{3, 6\}\)</span>. Note that <span class="math inline">\(\PR(A) = \frac 12\)</span> and <span class="math inline">\(\PR(B) = \frac 13\)</span>.</p>
+<p>Thus, <span class="math display">\[ \PR(A | B) = \frac{ \PR(A \cap B) }{ \PR(B) }
+= \frac{ \PR(\{3\}) }{ \PR(\{3,6\}) }
+= \frac{ \ABS{\{3\}} }{ \ABS{\{3,6\}} } = \frac {1}{2}.
+\]</span> Similarly, <span class="math display">\[ \PR(B | A) = \frac{ \PR(B \cap A) }{ \PR(A) }
+= \frac{ \PR(\{3\}) }{ \PR(\{2,3,5\}) }
+= \frac{ \ABS{\{3\}} }{ \ABS{\{2,3,5\}} } = \frac {1}{3}.
+\]</span></p>
+</div>
+</div>
+</div>
+<div id="exr-conditional-two-dice" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 1.7</strong></span> Suppose we roll two fair six-sided dice. Consider the event <span class="math inline">\(A\)</span> that the maximum of the two rolls is less than or equal to <span class="math inline">\(8\)</span> and the event <span class="math inline">\(B\)</span> that the minimum of the two rolls is greater than or equal to <span class="math inline">\(6\)</span>. Compute <span class="math inline">\(\PR(A|B)\)</span> and <span class="math inline">\(\PR(B|A)\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Note that <span class="math inline">\(Ω = \{ 1, 2,3, 4, 5, 6\}^2\)</span> and <span class="math inline">\(\PR\)</span> is uniform probability on all outcomes. The sets <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(A \cap B\)</span> are shown in <a href="#fig-conditional-two-roll" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>. Note that <span class="math inline">\(\PR(A) = \PR(B) = \frac{26}{36} = \frac{13}{18}\)</span>.</p>
 <div id="fig-conditional-two-roll" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-conditional-two-roll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/svg/dice-rolls1.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conditional-two-roll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: The different events in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;7</a>
+Figure&nbsp;1.2: The different events in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;<span>1.7</span></a>
 </figcaption>
 </figure>
 </div>
@@ -718,7 +1009,7 @@ Conditional probabilities are probabilities
 </div>
 </div>
 <div id="exr-conditional-prob" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 8</strong></span> Given an event <span class="math inline">\(B\)</span> with <span class="math inline">\(\PR(B) &gt; 0\)</span>, show that</p>
+<p><span class="theorem-title"><strong>Exercise 1.8</strong></span> Given an event <span class="math inline">\(B\)</span> with <span class="math inline">\(\PR(B) &gt; 0\)</span>, show that</p>
 <ul>
 <li><span class="math inline">\(\PR(A^c | B) = 1 - P(A|B)\)</span>.</li>
 <li><span class="math inline">\(\PR(A_1 \cup A_2 | B) = \PR(A_1 | B) + \PR(A_2 | B) - \PR(A_1 \cap A_2 | B)\)</span>.</li>
@@ -727,7 +1018,7 @@ Conditional probabilities are probabilities
 </div>
 <p>The definition of conditional probability gives rise to the chain rule.</p>
 <div id="lem-chain-rule" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 2 (Chain rule of probability)</strong></span> Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events in a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>.</p>
+<p><span class="theorem-title"><strong>Lemma 1.2 (Chain rule of probability)</strong></span> Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be events in a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>.</p>
 <ul>
 <li>If <span class="math inline">\(\PR(B) &gt; 0\)</span>, then <span class="math inline">\(\PR(A \cap B) = \PR(A | B) \PR(B)\)</span>.</li>
 <li>If <span class="math inline">\(\PR(A) &gt; 0\)</span>, then <span class="math inline">\(\PR(A \cap B) = \PR(B | A) \PR(A)\)</span>.</li>
@@ -735,25 +1026,23 @@ Conditional probabilities are probabilities
 </div>
 <p>Combining the chain rule with the basic properties of partitions, we get the law of total probability.</p>
 <div id="lem-total-probability" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 3 (Law of total probability)</strong></span> Let <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> be a partition of <span class="math inline">\(Ω\)</span> such that <span class="math inline">\(\PR(B_i) &gt; 0\)</span> for all <span class="math inline">\(i\)</span>. Then, <span class="math display">\[
+<p><span class="theorem-title"><strong>Lemma 1.3 (Law of total probability)</strong></span> Let <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> be a partition of <span class="math inline">\(Ω\)</span> such that <span class="math inline">\(\PR(B_i) &gt; 0\)</span> for all <span class="math inline">\(i\)</span>. Then, <span class="math display">\[
 \PR(A) = \sum_{i=1}^m \PR(A \cap B_i)
 = \sum_{i=1}^m \PR(A | B_i) \PR(B_i).
 \]</span></p>
-</div>
-
-<div class="no-row-height column-margin column-container"><div class="">
 <div id="fig-total-probability" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-total-probability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/svg/partitions2.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-total-probability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Illustration of Law of total probability
+Figure&nbsp;1.3: Illustration of Law of total probability
 </figcaption>
 </figure>
 </div>
-</div></div><div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -762,7 +1051,7 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Consider <span class="math inline">\(m=2\)</span>, in which case the result can be simplified as <span class="math display">\[\PR(A) = \PR(A|B)\PR(B) + \PR(A|B^c) \PR(B^c).\]</span></p>
 <p>To prove this observe that <span class="math display">\[\begin{equation}\label{eq:two-step}
@@ -775,7 +1064,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 </div>
 </div>
 <div id="exr-total-probability" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9</strong></span> There are two routes for a packet to be transmitted from a source to the destination.</p>
+<p><span class="theorem-title"><strong>Exercise 1.9</strong></span> There are two routes for a packet to be transmitted from a source to the destination.</p>
 <ul>
 <li>The packet takes route <span class="math inline">\(R_1\)</span> with probability <span class="math inline">\(\frac 34\)</span> and takes route <span class="math inline">\(R_2\)</span> with probability <span class="math inline">\(\frac 14\)</span>.</li>
 <li>On route <span class="math inline">\(R_1\)</span>, the packet is dropped with probability <span class="math inline">\(\frac 13\)</span>.</li>
@@ -784,7 +1073,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 <p>Find the probability that the packet reaches the destination.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -793,7 +1082,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We start by defining some events: Let <span class="math inline">\(R_1\)</span> denote the event that the packet took route <span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span> denote the event that the packet took route <span class="math inline">\(R_2\)</span>. Let <span class="math inline">\(D\)</span> denote the event that the packet was dropped.</p>
 <p>Then, the information given in the question can be written as:</p>
@@ -811,20 +1100,20 @@ Solution
 </div>
 </div>
 <div id="lem-Bayes-rule" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 4 (Bayes rule)</strong></span> For any events <span class="math inline">\(A, B \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(A), \PR(B) &gt; 0\)</span>, we have <span class="math display">\[
+<p><span class="theorem-title"><strong>Lemma 1.4 (Bayes rule)</strong></span> For any events <span class="math inline">\(A, B \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(A), \PR(B) &gt; 0\)</span>, we have <span class="math display">\[
 \PR(B|A) = \dfrac{\PR(A|B)\PR(B)}{\PR(A)}.
 \]</span></p>
 <p>In general, if <span class="math inline">\(\{B_1, B_2, \dots, B_m\}\)</span> is a partition of <span class="math inline">\(Ω\)</span> such that <span class="math inline">\(\PR(B_i) &gt; 0\)</span> for all <span class="math inline">\(i\)</span>. Then, <span class="math display">\[
 \PR(B_i|A) =
 \dfrac{ \PR(A|B_i) \PR(B_i) }
 {\displaystyle \sum_{j=1}^m \PR(A|B_j) \PR(B_j)}
-\]</span> where we have used the law of total probability (<a href="#lem-total-probability" class="quarto-xref">Lemma&nbsp;3</a>) in the denominator.</p>
+\]</span> where we have used the law of total probability (<a href="#lem-total-probability" class="quarto-xref">Lemma&nbsp;<span>1.3</span></a>) in the denominator.</p>
 </div>
 <div id="exr-routing" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 10</strong></span> Consider the model of <a href="#exr-total-probability" class="quarto-xref">Exercise&nbsp;9</a>. Suppose we know that the packet was dropped. What is the probability that it was transmitted via route <span class="math inline">\(R_1\)</span>?</p>
+<p><span class="theorem-title"><strong>Exercise 1.10</strong></span> Consider the model of <a href="#exr-total-probability" class="quarto-xref">Exercise&nbsp;<span>1.9</span></a>. Suppose we know that the packet was dropped. What is the probability that it was transmitted via route <span class="math inline">\(R_1\)</span>?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -833,9 +1122,9 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Recall the events <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span>, and <span class="math inline">\(D\)</span> defined in the solution of <a href="#exr-total-probability" class="quarto-xref">Exercise&nbsp;9</a>. We were given that <span class="math display">\[\PR(R_1) = \frac 34, \quad \PR(R_2) = \frac 14, \quad
+<p>Recall the events <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span>, and <span class="math inline">\(D\)</span> defined in the solution of <a href="#exr-total-probability" class="quarto-xref">Exercise&nbsp;<span>1.9</span></a>. We were given that <span class="math display">\[\PR(R_1) = \frac 34, \quad \PR(R_2) = \frac 14, \quad
 \PR(D|R_1) = \frac 13, \quad \PR(D|R_2) = \frac 14.\]</span> We had compute that <span class="math display">\[
 \PR(D) = 1 - \PR(D^c) = \frac 5{16}.
 \]</span></p>
@@ -847,11 +1136,11 @@ Solution
 </div>
 </div>
 </section>
-<section id="independence" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="independence"><span class="header-section-number">5</span> Independence</h2>
+<section id="independence" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="independence"><span class="header-section-number">1.6</span> Independence</h2>
 <p>In general, the knowledge that an event <span class="math inline">\(B\)</span> has occurred changes the probability of event <span class="math inline">\(A\)</span>, since <span class="math inline">\(\PR(A)\)</span> is replaced by <span class="math inline">\(\PR(A|B)\)</span>. If the knowledge that <span class="math inline">\(B\)</span> has occurred does not does not change our belief about <span class="math inline">\(A\)</span>, i.e., when <span class="math inline">\(\PR(A|B) = \PR(A)\)</span>, we say “<span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are <strong>independent</strong>”. This leads to the following definition.</p>
 <div id="def-independent" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3</strong></span> The events <span class="math inline">\(A, B \in \ALPHABET F\)</span> are called <strong>independent</strong> if <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 1.3</strong></span> The events <span class="math inline">\(A, B \in \ALPHABET F\)</span> are called <strong>independent</strong> if <span class="math display">\[
 \PR(A|B) = \PR(A)
 \quad\text{or}\quad
 \PR(B|A) = \PR(B).
@@ -871,13 +1160,13 @@ Solution
 </div>
 </div>
 <div id="exm-independence-die" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-die" class="quarto-xref">Exercise&nbsp;6</a> are independent.</p>
+<p><span class="theorem-title"><strong>Example 1.9</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-die" class="quarto-xref">Exercise&nbsp;<span>1.6</span></a> are independent.</p>
 </div>
 <div id="exm-independence-two-dice" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;7</a> are <strong>not</strong> independent.</p>
+<p><span class="theorem-title"><strong>Example 1.10</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;<span>1.7</span></a> are <strong>not</strong> independent.</p>
 </div>
 <div id="exr-indendence-sigma-algebra" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 11</strong></span> <span class="math inline">\(A \independent B\)</span> implies the following:</p>
+<p><span class="theorem-title"><strong>Exercise 1.11</strong></span> <span class="math inline">\(A \independent B\)</span> implies the following:</p>
 <ul>
 <li><span class="math inline">\(A \independent B^c\)</span>.</li>
 <li><span class="math inline">\(A^c \independent B\)</span>.</li>
@@ -898,21 +1187,21 @@ Independence of <span class="math inline">\(σ\)</span>-algebras
 <ol type="1">
 <li><p>Two sub-<span class="math inline">\(σ\)</span>-algebras <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> of <span class="math inline">\(\ALPHABET F\)</span> are said to be independent if every event <span class="math inline">\(A_1 \in \ALPHABET F_1\)</span> is independent of every event <span class="math inline">\(A_2 \in \ALPHABET F_2\)</span>.</p></li>
 <li><p>For any event <span class="math inline">\(A\)</span>, let <span class="math inline">\(σ(A)\)</span> denote the smallest <span class="math inline">\(σ\)</span>-algebra containing <span class="math inline">\(A\)</span>, i.e., <span class="math inline">\(σ(A) = \{\emptyset, A, A^c, Ω\}\)</span>.</p></li>
-<li><p><a href="#exr-indendence-sigma-algebra" class="quarto-xref">Exercise&nbsp;11</a> implies that independence of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> implies the independence of <span class="math inline">\(σ(A)\)</span> and <span class="math inline">\(σ(B)\)</span>. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest <span class="math inline">\(σ\)</span>-algebra containing those events.</p></li>
+<li><p><a href="#exr-indendence-sigma-algebra" class="quarto-xref">Exercise&nbsp;<span>1.11</span></a> implies that independence of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> implies the independence of <span class="math inline">\(σ(A)\)</span> and <span class="math inline">\(σ(B)\)</span>. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest <span class="math inline">\(σ\)</span>-algebra containing those events.</p></li>
 </ol>
 </div>
 </div>
 <div id="def-collective-independence" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4</strong></span> A family of events <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is called <strong>independent</strong> (sometimes <strong>mutually independent</strong> if for all non-empty subset of indices <span class="math inline">\(\{k_1, \dots, k_m\} \subset \{1,\dots,n\}\)</span>, we have <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 1.4</strong></span> A family of events <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is called <strong>independent</strong> (sometimes <strong>mutually independent</strong> if for all non-empty subset of indices <span class="math inline">\(\{k_1, \dots, k_m\} \subset \{1,\dots,n\}\)</span>, we have <span class="math display">\[
 \PR\bigl( A_{k_1} \cap A_{k_2} \cap \cdots \cap A_{k_m} \bigr)
 = \PR(A_{k_1}) \PR(A_{k_2}) \cdots \PR(A_{k_m}).
 \]</span></p>
 </div>
 <div id="exr-bits" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 12</strong></span> Three bits are transmitted over a noisy channel. For each bit, the probability of correct reception is <span class="math inline">\(λ\)</span>. The error events for the three transmissions are mutually independent. Find the probability that two bits are received correctly.</p>
+<p><span class="theorem-title"><strong>Exercise 1.12</strong></span> Three bits are transmitted over a noisy channel. For each bit, the probability of correct reception is <span class="math inline">\(λ\)</span>. The error events for the three transmissions are mutually independent. Find the probability that two bits are received correctly.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -921,7 +1210,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>For <span class="math inline">\(i \in \{1, 2, 3\}\)</span>, let</p>
 <ul>
@@ -984,8 +1273,8 @@ Pairwise independence vs independence
 </div>
 </div>
 </section>
-<section id="product-spaces" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="product-spaces"><span class="header-section-number">6</span> Product spaces</h2>
+<section id="product-spaces" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="product-spaces"><span class="header-section-number">1.7</span> Product spaces</h2>
 <p>So far, we have restricted attention to the outcome of one experiment. It is also possible to construct probability models which combine the outcome of two <em>independent</em> experiments, e.g., suppose we toss a coin and also roll a die. Let <span class="math inline">\((Ω_1, \ALPHABET F_1, \PR_1)\)</span> and <span class="math inline">\((Ω_2, \ALPHABET F_2, \PR_2)\)</span> be the probability spaces associated with the two experiments? What is the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> of the joint experiments?</p>
 <p>The sample space should obviously be <span class="math inline">\(Ω = Ω_1 \times Ω_2\)</span>. When <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> are finite, then we can simply define <span class="math inline">\(\ALPHABET F = \ALPHABET F_1 \times \ALPHABET F_2\)</span> and for any <span class="math inline">\(A = (A_1, A_2) \in \ALPHABET F\)</span>, <span class="math inline">\(\PR(A)\)</span> to be <span class="math inline">\(\PR(A_1) \PR(A_2)\)</span>. You would have implicitly consutrcted such product spaces when dealing with joint experiments (like the coin toss and die roll example above) in your undergrad courses.</p>
 <p>However, things are a bit more complicated when <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> are not finite. The difficulty is that <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> is not a <span class="math inline">\(σ\)</span>-algebra. So, take <span class="math inline">\(\ALPHABET F\)</span> to be <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (which is the smallest <span class="math inline">\(σ\)</span>-algebra comtaining <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span>) and define <span class="math inline">\(\PR\)</span> to be the extension of <span class="math inline">\(\PR_1 \times \PR_2\)</span> from <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> to <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (one can show that such an extension exists). Such product space is often written as <span class="math display">\[
@@ -998,383 +1287,255 @@ Pairwise independence vs independence
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/adityam\.github\.io\/probability-and-random-signals\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
       });
     }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/adityam\.github\.io\/probability-and-random-signals\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        return container.innerHTML
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1382,185 +1543,173 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Course Outline">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Course Outline</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./random-variables.html" class="pagination-link" aria-label="Random variables and random vectors">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables and random vectors</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
