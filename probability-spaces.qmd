@@ -16,10 +16,42 @@ You should also be familiar with the following concepts:
 
 Some of you might have also seen the following concepts
 
-- Law of large numbers
-- Central limit theorem
+- The law of large numbers
+- The central limit theorem
 
-In this course, we will revisit these topics with a more formal approach. We start with a review of the basic concepts.
+In this course, we will revisit these topics with a more formal approach. 
+
+## Why do we care about probability theory
+
+Probability theory is used to model, analyze, and design various engineering systems. Broadly speaking, there are three forms of random phenomenon that arise in systems: noise, uncertainty, and randomness.
+
+- **Noise.** Noise refers to effects beyond our control. For example, in a digital communication system, when a waveform indicating a binary $0$ is transmitted, background radiation may distort the signal, causing the receiver to incorrectly decode it as $1$. This interference can be modeled as _noise_ in the channel. Similar examples arise in computer networks, photonics, and other areas.
+
+- **Uncertainty.** Uncertainty refers to effects that arise due to lack of information. For example, to bid in an electricity market, a wind farm may need to know how much energy it can generate in the next hour, but this depends on the speed of wind which depends on a lot of factors and is difficult to predict precise. This lack of knowledge can be modelled as uncertainty and the system modeler may have a quantified belief on that uncertainty based on historical data. Similar examples arise in circuits (where quality of a chip may depend on the vagaries in the manufacturing process). 
+
+- **Randomness.** Sometimes introducing randomness can improve system performance. For example, **power of two choices** algorithm in multi-server load balancing randomly selects two servers and assigns the task to the one with lighter load. This simple strategy effectively reduces the peak load in the servers without needing to query all servers. Similar algorithms are used in bandwidth allocation in ad-hoc networks and randomized routing in networks on chips.
+
+In this course, we will not focus on how such probabilistic models are constructed. Instead we will study the mathematical properties these models should satisfy and explore the implications of those properties. For the modeling and application-specific details, consider the following courses:
+
+- ECSE 506: Stochastic Control and Decision Theory
+- ECSE 508: Multi-agent systems
+- ECSE 510: Filtering and Prediction for Stochastic Systems
+- ECSE 511: Introduction to Digital Communication
+- ECSE 515: Optical Fibre Communications
+- ECSE 518: Telecommunication Network Analysis
+- ECSE 521: Digital Communication 1
+- ECSE 541: Design of Multiprocessor Systems-on-Chip
+- ECSE 551: Machine Learning for Engineers
+- ECSE 554: Applied Robotics
+- ECSE 608: Machine Learning
+- ECSE 610: Wireless Communication
+- ECSE 620: Information Theory
+- ECSE 621: Statistical Detection and Estimation
+- ECSE 623: Digital Communications 2
+- ECSE 626: Statistical Computer Vision
+
+As you can see, probability theory in truly a foundational tool for Electrical Engineering.
+
 
 ## Review of Set Theory
 
@@ -153,9 +185,9 @@ A function $f$ is a rule that assign each input from a set $\ALPHABET X$ (called
 $$
   f \colon \ALPHABET X \to \ALPHABET Y
 $$
-and we say "$f$ maps $\ALPHABET X$ to $\ALPHABET Y$". 
+and we say $f$ **maps** $\ALPHABET X$ to $\ALPHABET Y$.
 
-The set of values $\{ f(x) : x \in \ALPHABET X\}$ is called the **range**. By definition, the range is a subset of the co-domain $Y$, but the range may or may not be equal to $Y$. For example, consider the function $f \colon \reals \to \reals$ defined by $f(x) = x^2$. The range of the function is $\reals_{\ge 0}$ which is a strict subset of the co-domain $\reals$. 
+The set of values $\{ f(x) : x \in \ALPHABET X\}$ is called the **range**. By definition, the range is a subset of the co-domain $Y$, but the range may or may not be equal to $\ALPHABET Y$. For example, consider the function $f \colon \reals \to \reals$ defined by $f(x) = x^2$. The range of the function is $\reals_{\ge 0}$ which is a strict subset of the co-domain $\reals$. 
 
 - A function is called **onto** or **surjective** if its range is equal to its co-domain.
 
@@ -203,13 +235,9 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
 :::
 
 
-## Probability Space
+## Mathematical model of probability
 
-Probability is a measure of uncertainty or our belief that a particular statement is true. In this course, we will not concern ourselves with how such a measure of uncertainty is constructed; rather focus on the mathematical properties that it should satisfy and the implications of these properties. 
-
-Many everyday statements take the form: "The chance (or probability) of $A$ is $p$", where $A$ is some event (such as "sun shining tomorrow", "Team A winning a hockey game", etc.) and $p$ is a number (e.g., $1/8$) or an adjective describing quantity (e.g., "low"). 
-
-To mathematically model such statements, we need to model the sequence of events that may lead to the occurrence of $A$: this is called a **random experiment**; the result of an experiment is called an **outcome**.  
+To mathematically model probability statements, we need to model the sequence of events that may lead to the occurrence of $A$: this is called a **random experiment**; the result of an experiment is called an **outcome**.  
 
 In general, the outcome of an experiment is not certain. We can only talk about the collection of possible outcomes. The collection of possible outcomes of an experiment is called the **sample space** and denoted by $Ω$. 
 
@@ -243,7 +271,7 @@ Note that events are subset of the sample space but not all subsets of a sample 
 
 **Probability** (denoted by $\PR$) is a function which assigns a number between $0$ and $1$ to every event. This number indicates what is the _chance_ that the event occurs. Such a function should satisfy some axioms, which we will explain below. 
 
-First, to define a function, we need to define it's domain and range. Let's denote the domain (i.e., the set of all events to which we can assign a probability) by $\ALPHABET F$. We expect probability to satisfy certain properties, which imposes constraints on the domain:
+First, to define a function, we need to define it's domain and co-domain Let's denote the domain (i.e., the set of all events to which we can assign a probability) by $\ALPHABET F$. We expect probability to satisfy certain properties, which imposes constraints on the domain:
 
 - Probability of an impossible event (e.g., getting both heads and tails when we toss a coin) should be zero. Thus, $\emptyset \in \ALPHABET F$.
 
@@ -421,6 +449,24 @@ Consider $Ω = [0,1]$, $\ALPHABET F = \mathscr B([0,1])$, and $\PR$ to be the un
 
 The above analysis implies that $\PR(A^c) = 1$, thus the event that the outcome is irrational occurs almost surely.
 :::
+
+:::{#exr-prob-set-difference}
+Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPHABET F$. Using axioms of probability, show that:
+
+- If $B \subseteq A$, then $\PR(A \setminus B) = \PR(A) - \PR(B)$. Hence, argue that $\PR(A) \ge \PR(B)$.
+
+- $\PR(A \cup B) = \PR(A) + \PR(B) - \PR(A \cap B)$.
+
+- $\PR(A) = \PR(A \cap B) + \PR(A \cap B^c)$.
+:::
+
+:::{#exr-de-morgan}
+  Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B, C \in \ALPHABET F$. Prove that
+  $$
+    \PR(A \cup B \cup C) = 1 - \PR(A^c \mid B^c \cap C^c) \PR(B^c \mid C^c) \PR(C^c).
+  $$
+:::
+
 
 ## Conditional Probability
 
@@ -763,4 +809,6 @@ $$
 
 We will not worry too much about the technical details of such product spaces, but will use the above notation at times in the course. 
 
+## Notes {-}
 
+The material for this section is fairly standard and adapted from various sources. Both Grimmit and Stirzaker and Gubner have an excellent coverage of this material. The idea of categorizing random phenomenon as noise, uncertainty, or randomness is borrowed from [Maxim Raginsky's course notes](https://maxim.ece.illinois.edu/teaching/spring16/notes/lec01.pdf). See the book [Against the Gods](https://a.co/d/gVfRocK), which provides a fascinating historical account of the development of probability theory and, why a conceptual leap was needed to recognize that uncertainty could be modeled and measured. 
