@@ -61,7 +61,7 @@ This means that an element belongs to $A_1 \cap A_2  \cap \cdots \cap A_n$ if it
 
 A collection $\{A_1, A_2, \dots, A_n\}$ is **disjoint** if for every $i \neq j$, $A_i \cap A_j = \emptyset$, where $\emptyset$ denotes the empty set.
 
-Given a **universal set** $Ω$ and a collection $\{B_1, B_2, \dots, B_m\}$ of subsets of $Ω$, we say that $\{B_1, B_2, \dots, B_m\}$ is a **partition** of $Ω$ if $\{B_1, B_2, \dots, B_m\}$ are disjoint and their union equals $Ω$.
+Given a **universal set** $Ω$ and a collection $\{B_1, B_2, \dots, B_m\}$ of subsets of $Ω$, we say that $\{B_1, B_2, \dots, B_m\}$ is a **partition** of $Ω$ if $\{B_1, B_2, \dots, B_m\}$ are pairwise disjoint and their union equals the universal set $Ω$.
 
 ![Example of a partition](figures/svg/partitions1.svg){#fig-partition}
 
@@ -146,6 +146,62 @@ These are all examples of a general principle: **The power-set of any partition 
 - If the partition is $\{Ω\}$, then the power-set $\{ \emptyset, Ω \}$ is an algebra.
 - If the partition is $\{A, A^c\}$, then the power-set $\{ \emptyset, A, A^c, Ω\}$ is an algebra.
 - If the partition is the collection of all singleton elements of a set, then the power-set $2^Ω$ is an algebra.
+
+## Function
+
+A function $f$ is a rule that assign each input from a set $\ALPHABET X$ (called the **domain**) to exactly one output in another set $\ALPHABET Y$ (called the **co-domain**). Symbolically, this is written as
+$$
+  f \colon \ALPHABET X \to \ALPHABET Y
+$$
+and we say "$f$ maps $\ALPHABET X$ to $\ALPHABET Y$". 
+
+The set of values $\{ f(x) : x \in \ALPHABET X\}$ is called the **range**. By definition, the range is a subset of the co-domain $Y$, but the range may or may not be equal to $Y$. For example, consider the function $f \colon \reals \to \reals$ defined by $f(x) = x^2$. The range of the function is $\reals_{\ge 0}$ which is a strict subset of the co-domain $\reals$. 
+
+- A function is called **onto** or **surjective** if its range is equal to its co-domain.
+
+- A function is called **one-to-one** or **injective** if different inputs maps to different outputs. 
+
+- A function which is both onto and one-to-one is called **bijective**. A bijective function is **invertible** because for every $y \in \ALPHABET Y$, there is a unique $x$ such that $f(x) = y$.
+
+- For a set $\ALPHABET B \subset \ALPHABET Y$, the **preimage** or **inverse image** of $\ALPHABET B$ under $f$ is defined as
+  $$
+    f^{-1}(\ALPHABET B) = \{ x \in \ALPHABET X :: f(x) \in \ALPHABET B \},
+  $$
+  which is a subset of $\ALPHABET X$.
+
+:::{#exm-function}
+Consider the following functions:
+
+- $f_1 \colon \reals \to \reals$
+- $f_2 \colon \reals \to \reals_{\ge 0}$
+- $f_3 \colon \reals_{\ge 0} \to \reals$
+- $f_4 \colon \reals_{\ge 0} \to \reals_{\ge 0}$
+
+all given by $f_i(x) = x^2$, $i \in \{1, \dots, 4\}$. 
+
+Explain if each of the function is onto, into, or bijective.
+:::
+
+
+:::{#exm-inverse-image}
+Let $f \colon \reals \to \reals$ be given by $f(x) = 2x + 1$. Find $f^{-1}([3,7])$. 
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+We need to solve for $2x + 1 \in [3,7]$, which is equivalent to
+$$
+  3 \le 2x + 1 \le 7
+$$
+which is equivalent to
+$$
+  1 \le x \le 3.
+$$
+
+Thus, $f^{-1}([3,7]) = [1,3]$. 
+:::
+
 
 ## Probability Space
 
