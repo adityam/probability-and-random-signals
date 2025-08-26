@@ -259,7 +259,7 @@ The distinction between algebras and $σ$-algebras is technical. The reason that
 \PR([a,b]) = b - a.
 \end{equation}
 
-We have seen that if we want $\PR$ to be a meaningful measure, the domain $\ALPHABET F$ must at least be an algebra. We have also seen that the power-set $2^Ω$ is always an algebra. So, it is tempting to take $\ALPHABET F = 2^{[0,1]}$. However, it turns out that $2^{[0,1]}$ has includes some weird sets (technically, non-measurable sets) due to which we cannot define a function $\PR$ on $2^{[0,1]}$ that satisfies \eqref{eq:uniform}. 
+We have seen that if we want $\PR$ to be a meaningful measure, the domain $\ALPHABET F$ must at least be an algebra. We have also seen that the power-set $2^Ω$ is always an algebra. So, it is tempting to take $\ALPHABET F = 2^{[0,1]}$. However, it turns out that $2^{[0,1]}$ includes some weird sets (technically, non-measurable sets) due to which we cannot define a function $\PR$ on $2^{[0,1]}$ that satisfies \eqref{eq:uniform}. 
 
 To workaround this technical limitation, we revisit the minimum requirements that we need from the domain of $\PR$. Since we are interested in $\PR([a,b])$, $\ALPHABET F$ must contain intervals (and therefore all finite unions and intersections of intervals). Since we are working with continuous sample spaces, we also want $\PR$ to be continuous, i.e., for any sequence of sets $\{A_n\}_{n \ge 1}$, we want $\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)$. It turns out that the additional requirement of continuity implies that $\ALPHABET F$ must be closed under countable unions as well. Thus, the domain $\ALPHABET F$ must at least be a $σ$-algebra. 
 

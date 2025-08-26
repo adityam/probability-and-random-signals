@@ -1,8 +1,8 @@
 ---
 course:
   term: "Fall 2025"
-  office-hours: "TBD"
-  teaching-assistants: ""
+  office-hours: "Tuesday 10:00am–11:00am"
+  teaching-assistants: "Ziqi Huang"
   mid-term: "Oct 8"
   lectures:
     - "8:35am–9:55am Monday, Wednesday (ENGTR 2100)"
