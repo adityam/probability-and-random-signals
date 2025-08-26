@@ -30,7 +30,6 @@ book:
       - inequalities.qmd
       - convergence-of-random-variables.qmd
       - markov-chains.qmd
-      - poisson-processes.qmd
 
 format:
   html:
