@@ -1,5 +1,5 @@
 ---
-title: Introduction to Probability
+title: Probability Spaces
 ---
 
 ## Background
@@ -50,7 +50,7 @@ In this course, we will not focus on how such probabilistic models are construct
 - ECSE 623: Digital Communications 2
 - ECSE 626: Statistical Computer Vision
 
-As you can see, probability theory in truly a foundational tool for Electrical Engineering.
+As you can see, probability theory is a foundational tool for Electrical Engineering.
 
 
 ## Review of Set Theory
@@ -186,7 +186,7 @@ As you can see, probability theory in truly a foundational tool for Electrical E
    $$
    and we say $f$ **maps** $\ALPHABET X$ to $\ALPHABET Y$.
 
-2. The set of values $\{ f(x) : x \in \ALPHABET X\}$ is called the **range**. By definition, the range is a subset of the co-domain $Y$, but the range may or may not be equal to $\ALPHABET Y$. For example, consider the function $f \colon \reals \to \reals$ defined by $f(x) = x^2$. The range of the function is $\reals_{\ge 0}$ which is a strict subset of the co-domain $\reals$. 
+2. The set of values $\{ f(x) : x \in \ALPHABET X\}$ is called the **range**. By definition, the range is a subset of the co-domain $\ALPHABET Y$, but the range may or may not be equal to $\ALPHABET Y$. For example, consider the function $f \colon \reals \to \reals$ defined by $f(x) = x^2$. The range of the function is $\reals_{\ge 0}$ which is a strict subset of the co-domain $\reals$. 
 
 3. A function is called **onto** or **surjective** if its range is equal to its co-domain.
 
@@ -196,7 +196,7 @@ As you can see, probability theory in truly a foundational tool for Electrical E
 
 6. For a set $B \subset \ALPHABET Y$, the **preimage** or **inverse image** of $B$ under $f$ is defined as
    $$
-     f^{-1}(B) = \{ x \in \ALPHABET X :: f(x) \in  B \},
+     f^{-1}(B) = \{ x \in \ALPHABET X : f(x) \in  B \},
    $$
    which is a subset of $\ALPHABET X$.
 
@@ -451,7 +451,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
     - We say that $A$ occurs **almost surely** (abbreviated to a.s.) if $\PR(A) = 1$. 
     :::
 
-17. Consider $Ω = [0,1]$, $\ALPHABET F = \mathscr B([0,1])$, and $\PR$ to be the uniform probability distribution on $Ω$. Consider the event $A$ that the outcome is a rational number. $A$ is a countable set (because the set of rational numbers is countable). For any $x \in A$, $\{x\} \in \ALPHABET F$, and $\PR(\{x\}) = 0$ (we can infer this from @exm-probability-continuity by thinking of $\{x\}$ as the limit of intervals $\bigl[x, x+ \frac 1n\bigr]$). Thus, by countable additivity, $\PR(A) = 0$. Hence, $A$ is null.
+17. Consider $Ω = [0,1]$, $\ALPHABET F = \mathscr B([0,1])$, and $\PR$ to be the uniform probability distribution on $Ω$. Consider the event $A$ that the outcome is a rational number. $A$ is a countable set (because the set of rational numbers is countable). For any $x \in A$, $\{x\} \in \ALPHABET F$, and $\PR(\{x\}) = 0$ (we can infer this from the previous exercise by thinking of $\{x\}$ as the limit of intervals $\bigl[x, x+ \frac 1n\bigr]$). Thus, by countable additivity, $\PR(A) = 0$. Hence, $A$ is null.
 
     The above analysis implies that $\PR(A^c) = 1$, thus the event that the outcome is irrational occurs almost surely.
 
@@ -711,13 +711,14 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
      - $A^c \independent B^c$.
    :::
  
+2. Independence is what separates probability theory from the more general measure theory. 
  
-2. 
+3. 
    :::{.callout-warning appearance="simple"}
    It is common for students to make the mistake and think that independence means $A \cap B = \emptyset$. This is not true!
    :::
 
-3. 
+4. 
    :::{.callout-tip}
    ### Independence of $σ$-algebras
    
@@ -730,7 +731,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    3. @exr-indendence-sigma-algebra implies that independence of $A$ and $B$ implies the independence of $σ(A)$ and $σ(B)$. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest $σ$-algebra containing those events.
    :::
 
-4. 
+5. 
    :::{#def-collective-independence}
  
    A family of events $\{A_1, A_2, \dots, A_n\}$ is called **independent** (sometimes **mutually independent** if for all non-empty subset of indices $\{k_1, \dots, k_m\} \subset \{1,\dots,n\}$, we have
@@ -769,7 +770,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    \end{align*}
    :::
  
- 5. 
+6. 
     :::{.callout-warning}
     ### Pairwise independence vs independence
   
