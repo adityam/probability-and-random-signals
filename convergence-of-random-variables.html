@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-08-26">
+<meta name="dcterms.date" content="2025-08-27">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>6&nbsp; Convergence of random variables – Probability and Random Signals II</title>
+<title>7&nbsp; Convergence of random variables – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -371,7 +371,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./convergence-of-random-variables.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./convergence-of-random-variables.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -398,37 +398,43 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./random-variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables and random vectors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random vectors</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./markov-chains.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
   </div>
 </li>
     </ul>
@@ -441,13 +447,13 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#different-notions-of-convergence" id="toc-different-notions-of-convergence" class="nav-link active" data-scroll-target="#different-notions-of-convergence"><span class="header-section-number">6.1</span> Different notions of convergence</a></li>
-  <li><a href="#examples-of-convergence-in-probability" id="toc-examples-of-convergence-in-probability" class="nav-link" data-scroll-target="#examples-of-convergence-in-probability"><span class="header-section-number">6.2</span> Examples of convergence in probability</a></li>
-  <li><a href="#examples-of-almost-sure-convergence" id="toc-examples-of-almost-sure-convergence" class="nav-link" data-scroll-target="#examples-of-almost-sure-convergence"><span class="header-section-number">6.3</span> Examples of almost sure convergence</a></li>
-  <li><a href="#almost-sure-convergence-from-convergence-in-probability." id="toc-almost-sure-convergence-from-convergence-in-probability." class="nav-link" data-scroll-target="#almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">6.4</span> Almost sure convergence from convergence in probability.</a></li>
-  <li><a href="#some-properties-of-convergence-of-sequence-of-random-variables" id="toc-some-properties-of-convergence-of-sequence-of-random-variables" class="nav-link" data-scroll-target="#some-properties-of-convergence-of-sequence-of-random-variables"><span class="header-section-number">6.5</span> Some properties of convergence of sequence of random variables</a></li>
-  <li><a href="#strong-law-of-large-numbers" id="toc-strong-law-of-large-numbers" class="nav-link" data-scroll-target="#strong-law-of-large-numbers"><span class="header-section-number">6.6</span> Strong law of large numbers</a></li>
-  <li><a href="#theres-more" id="toc-theres-more" class="nav-link" data-scroll-target="#theres-more"><span class="header-section-number">6.7</span> There’s more</a></li>
+  <li><a href="#different-notions-of-convergence" id="toc-different-notions-of-convergence" class="nav-link active" data-scroll-target="#different-notions-of-convergence"><span class="header-section-number">7.1</span> Different notions of convergence</a></li>
+  <li><a href="#examples-of-convergence-in-probability" id="toc-examples-of-convergence-in-probability" class="nav-link" data-scroll-target="#examples-of-convergence-in-probability"><span class="header-section-number">7.2</span> Examples of convergence in probability</a></li>
+  <li><a href="#examples-of-almost-sure-convergence" id="toc-examples-of-almost-sure-convergence" class="nav-link" data-scroll-target="#examples-of-almost-sure-convergence"><span class="header-section-number">7.3</span> Examples of almost sure convergence</a></li>
+  <li><a href="#almost-sure-convergence-from-convergence-in-probability." id="toc-almost-sure-convergence-from-convergence-in-probability." class="nav-link" data-scroll-target="#almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">7.4</span> Almost sure convergence from convergence in probability.</a></li>
+  <li><a href="#some-properties-of-convergence-of-sequence-of-random-variables" id="toc-some-properties-of-convergence-of-sequence-of-random-variables" class="nav-link" data-scroll-target="#some-properties-of-convergence-of-sequence-of-random-variables"><span class="header-section-number">7.5</span> Some properties of convergence of sequence of random variables</a></li>
+  <li><a href="#strong-law-of-large-numbers" id="toc-strong-law-of-large-numbers" class="nav-link" data-scroll-target="#strong-law-of-large-numbers"><span class="header-section-number">7.6</span> Strong law of large numbers</a></li>
+  <li><a href="#theres-more" id="toc-theres-more" class="nav-link" data-scroll-target="#theres-more"><span class="header-section-number">7.7</span> There’s more</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/convergence-of-random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -457,7 +463,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></h1>
 </div>
 
 
@@ -483,7 +489,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 26, 2025</p>
+      <p class="date">August 27, 2025</p>
     </div>
   </div>
   
@@ -496,8 +502,8 @@ window.Quarto = {
 
 
 <p>Suppose we have an infinite <strong>sequence of random variables</strong> <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. A sequence of random variables, also called a <strong>stochastic process</strong>, can be thought of a generalization of random vectors. When does this sequence converge?</p>
-<section id="different-notions-of-convergence" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="different-notions-of-convergence"><span class="header-section-number">6.1</span> Different notions of convergence</h2>
+<section id="different-notions-of-convergence" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="different-notions-of-convergence"><span class="header-section-number">7.1</span> Different notions of convergence</h2>
 <p>Recall that a sequence <span class="math inline">\(\{x_n\}_{n \ge 1}\)</span> of real numbers converges to a limit <span class="math inline">\(x^*\)</span> if for every <span class="math inline">\(ε &gt; 0\)</span>, there exists a <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n \ge N\)</span>, we have that <span class="math display">\[ \ABS{ x_n - x^* } &lt; ε. \]</span></p>
 <p>Convergence of a sequence of random variables is much different. We have already seen one form of convergence: <a href="./moment-generating-functions.html#conv-distribution">convergence in distribution</a></p>
 <p>There are two ways in which this notion can be extended to sequence of random variables:</p>
@@ -579,10 +585,10 @@ D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
 </div>
 </div>
 </section>
-<section id="examples-of-convergence-in-probability" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="examples-of-convergence-in-probability"><span class="header-section-number">6.2</span> Examples of convergence in probability</h2>
+<section id="examples-of-convergence-in-probability" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="examples-of-convergence-in-probability"><span class="header-section-number">7.2</span> Examples of convergence in probability</h2>
 <div id="exm-convergence-1" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.1</strong></span> Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr{B}(0,1)\)</span>, and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 7.1</strong></span> Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr{B}(0,1)\)</span>, and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math display">\[
 X_n(ω) = \begin{cases}
   1, &amp; ω \in [0, \frac{1}{n^2}) \\
   0, &amp; ω \in [\frac{1}{n^2}, 1]
@@ -613,7 +619,7 @@ Solution
 </div>
 </div>
 <div id="exm-convergence-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.2</strong></span> Consider the same setup as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>6.1</span></a>, but the random variable <span class="math inline">\(X_n\)</span> defined as <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 7.2</strong></span> Consider the same setup as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>, but the random variable <span class="math inline">\(X_n\)</span> defined as <span class="math display">\[
 X_n(ω) = \begin{cases}
   1, &amp; ω \in [0, \frac{1}{n}) \\
   0, &amp; ω \in [\frac{1}{n}, 1]
@@ -632,12 +638,12 @@ Solution
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>This can be solved in exactly the same manner as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>6.1</span></a>.</p>
+<p>This can be solved in exactly the same manner as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>.</p>
 </div>
 </div>
 </div>
 <div id="exm-convergence-3" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.3</strong></span> Consider the same setup as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>6.1</span></a>, but the random variable <span class="math inline">\(X_n\)</span> defined as <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 7.3</strong></span> Consider the same setup as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>, but the random variable <span class="math inline">\(X_n\)</span> defined as <span class="math display">\[
 X_n(ω) = \begin{cases}
   n, &amp; ω \in [0, \frac{1}{n}) \\
   0, &amp; ω \in [\frac{1}{n}, 1]
@@ -656,12 +662,12 @@ Solution
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>This can be solved in exactly the same manner as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>6.1</span></a>.</p>
+<p>This can be solved in exactly the same manner as <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>.</p>
 </div>
 </div>
 </div>
 <div id="exm-convergence-4" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.4</strong></span> Consider an i.i.d. sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>, where <span class="math inline">\(X_n \sim \text{Uniform}(0,1)\)</span>. Define <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 7.4</strong></span> Consider an i.i.d. sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>, where <span class="math inline">\(X_n \sim \text{Uniform}(0,1)\)</span>. Define <span class="math display">\[
   Y_n = \min\{X_1, \dots, X_n\}.
 \]</span> Show that <span class="math inline">\(Y_n \xrightarrow{p} 0\)</span>.</p>
 </div>
@@ -677,7 +683,7 @@ Solution
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Pick any <span class="math inline">\(ε &gt; 0\)</span>. As in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>6.1</span></a>, if <span class="math inline">\(ε &gt; 1\)</span>, then <span class="math inline">\(\PR(Y_n &gt; ε) = 0\)</span>. So, we assume that <span class="math inline">\(ε \in (0,1)\)</span>. Then, <span class="math display">\[\begin{align*}
+<p>Pick any <span class="math inline">\(ε &gt; 0\)</span>. As in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>, if <span class="math inline">\(ε &gt; 1\)</span>, then <span class="math inline">\(\PR(Y_n &gt; ε) = 0\)</span>. So, we assume that <span class="math inline">\(ε \in (0,1)\)</span>. Then, <span class="math display">\[\begin{align*}
 \PR(Y_n &gt; ε) &amp;= \PR\bigl( \min\{ X_1, \dots, X_n \} \ge ε ) \\
 &amp;= \PR( X_1 \ge ε, X_2 \ge ε, \dots, X_n \ge ε ) \\
 &amp;= (1-ε)^n
@@ -686,22 +692,22 @@ Solution
 </div>
 </div>
 </section>
-<section id="examples-of-almost-sure-convergence" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="examples-of-almost-sure-convergence"><span class="header-section-number">6.3</span> Examples of almost sure convergence</h2>
+<section id="examples-of-almost-sure-convergence" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="examples-of-almost-sure-convergence"><span class="header-section-number">7.3</span> Examples of almost sure convergence</h2>
 <p>We revisit the examples of previous section.</p>
 <ul>
-<li><p>In <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>6.1</span></a>, for any <span class="math inline">\(ω \neq 0\)</span>, the sequence <span class="math inline">\(\{X_n(ω)\}_{n \ge 1}\)</span> is a finite sequence of <span class="math inline">\(1\)</span>’s followed by infinite sequence of <span class="math inline">\(0\)</span>’s. Thus, <span class="math inline">\(\lim_{n\to ∞} X_n(ω) = 0\)</span>. Thus, <span class="math display">\[
+<li><p>In <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>, for any <span class="math inline">\(ω \neq 0\)</span>, the sequence <span class="math inline">\(\{X_n(ω)\}_{n \ge 1}\)</span> is a finite sequence of <span class="math inline">\(1\)</span>’s followed by infinite sequence of <span class="math inline">\(0\)</span>’s. Thus, <span class="math inline">\(\lim_{n\to ∞} X_n(ω) = 0\)</span>. Thus, <span class="math display">\[
   \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞} X_n(ω) = 0 \Bigr\} \Bigr)
   = \PR( ω \in (0,1]) = 1.
 \]</span> Hence, <span class="math inline">\(X_n \xrightarrow{a.s} 0\)</span>.</p></li>
-<li><p>In <a href="#exm-convergence-2" class="quarto-xref">Example&nbsp;<span>6.2</span></a>, the same argument as above works.</p></li>
-<li><p>In <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>6.3</span></a>, a slight variation of the above argument works.</p></li>
-<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>6.4</span></a>, we proceed as follows. Fix <span class="math inline">\(ω\)</span> and consider the sequence <span class="math inline">\(\{Y_n(ω)\}_{n \ge 1}\)</span>. Since this is a decreasing sequence, it must have a limit. Denote that limit by <span class="math inline">\(Y(ω)\)</span>, i.e., <span class="math display">\[
+<li><p>In <a href="#exm-convergence-2" class="quarto-xref">Example&nbsp;<span>7.2</span></a>, the same argument as above works.</p></li>
+<li><p>In <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, a slight variation of the above argument works.</p></li>
+<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>7.4</span></a>, we proceed as follows. Fix <span class="math inline">\(ω\)</span> and consider the sequence <span class="math inline">\(\{Y_n(ω)\}_{n \ge 1}\)</span>. Since this is a decreasing sequence, it must have a limit. Denote that limit by <span class="math inline">\(Y(ω)\)</span>, i.e., <span class="math display">\[
   Y(ω) = \lim_{n \to ∞} Y_n(ω).
 \]</span></p>
 <p>Since <span class="math inline">\(\{Y_n\}_{n \ge 1}\)</span> is a decreasing sequence, we have that <span class="math inline">\(Y(ω) \le Y_n(ω)\)</span>. Hence, for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math display">\[
       \PR(Y &gt; ε) \le \PR(Y_n &gt; ε) = (1 - ε)^n
-   \]</span> (where the last inequality follows from the calculation in the solution of <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>6.4</span></a>).</p>
+   \]</span> (where the last inequality follows from the calculation in the solution of <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>7.4</span></a>).</p>
 <p>The above inequality holds for every <span class="math inline">\(n\)</span>, so we have <span class="math display">\[
       \PR(Y &gt; ε) \le \lim_{n \to ∞} (1-ε)^n = 0.
    \]</span> Recall that <span class="math inline">\(ε &gt; 0\)</span> was arbitrary. Therefore, we have shown that <span class="math display">\[
@@ -711,11 +717,11 @@ Solution
    \]</span> Hence <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
 </ul>
 </section>
-<section id="almost-sure-convergence-from-convergence-in-probability." class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">6.4</span> Almost sure convergence from convergence in probability.</h2>
+<section id="almost-sure-convergence-from-convergence-in-probability." class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">7.4</span> Almost sure convergence from convergence in probability.</h2>
 <p>It is possible to infer almost sure convergence from convergence in probability. For that we need to state a result. The proof is not difficult, but is omitted due to time.</p>
 <div id="lem-Borel-Cantelli" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 6.1 (Borel Cantelli Lemma)</strong></span> Let <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> be a sequence of events defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. If the sum of the probability of the events is finite, i.e., <span class="math display">\[
+<p><span class="theorem-title"><strong>Lemma 7.1 (Borel Cantelli Lemma)</strong></span> Let <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> be a sequence of events defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. If the sum of the probability of the events is finite, i.e., <span class="math display">\[
 \sum_{n=1}^∞ \PR(A_n) &lt; ∞,
 \]</span> then the probability that infinitely many of them occur is zero, i.e., <span class="math display">\[
   \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 0.
@@ -723,7 +729,7 @@ Solution
 </div>
 <p>There is a partial converse of Borel-Cantelli lemma.</p>
 <div id="lem-Borel-Cantelli-2" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 6.2 (Second Borel Cantelli Lemma)</strong></span> Let <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> be a sequence of <strong>independent</strong> events defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. If the sum of the probability of the events is infinite, i.e., <span class="math display">\[
+<p><span class="theorem-title"><strong>Lemma 7.2 (Second Borel Cantelli Lemma)</strong></span> Let <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> be a sequence of <strong>independent</strong> events defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. If the sum of the probability of the events is infinite, i.e., <span class="math display">\[
 \sum_{n=1}^∞ \PR(A_n) = ∞,
 \]</span> then the probability that infinitely many of them occur is one, i.e., <span class="math display">\[
   \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 1.
@@ -731,30 +737,30 @@ Solution
 </div>
 <p>An immediate implication of Borel-Cantelli lemma is the following:</p>
 <div id="lem-as" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 6.3</strong></span> Suppose <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and for any <span class="math inline">\(ε &gt; 0\)</span>, we have <span class="math display">\[
+<p><span class="theorem-title"><strong>Lemma 7.3</strong></span> Suppose <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and for any <span class="math inline">\(ε &gt; 0\)</span>, we have <span class="math display">\[
 \sum_{n=1}^{∞} \PR(\ABS{X_n - X} &gt; ε) &lt; ∞
 \]</span> then <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span>.</p>
 </div>
 <p>In light of the above result, we revisit some variations of the examples of the previous section.</p>
 <ul>
-<li><p>Consider a variation <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>6.1</span></a> where we no longer specify <span class="math inline">\(X_n\)</span> as a function of <span class="math inline">\(ω\)</span> but simply assume that <span class="math display">\[
+<li><p>Consider a variation <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a> where we no longer specify <span class="math inline">\(X_n\)</span> as a function of <span class="math inline">\(ω\)</span> but simply assume that <span class="math display">\[
    X_n = \begin{cases}
      1 &amp; \text{with probability } \frac 1{n^2} \\
      0 &amp; \text{with probability } 1 - \frac 1{n^2}
    \end{cases}
-\]</span> Then for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math inline">\(\PR(\ABS{X_n} &gt; ε) = \PR(X_n &gt; ε) = 1/n^2\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(\ABS{X_n} &gt; ε) &lt; ∞\)</span>; hence by <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>6.3</span></a>, <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p></li>
-<li><p>Consider a variation <a href="#exm-convergence-2" class="quarto-xref">Example&nbsp;<span>6.2</span></a> where we no longer specify <span class="math inline">\(X_n\)</span> as a function of <span class="math inline">\(ω\)</span> but simply assume that <span class="math display">\[
+\]</span> Then for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math inline">\(\PR(\ABS{X_n} &gt; ε) = \PR(X_n &gt; ε) = 1/n^2\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(\ABS{X_n} &gt; ε) &lt; ∞\)</span>; hence by <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a>, <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p></li>
+<li><p>Consider a variation <a href="#exm-convergence-2" class="quarto-xref">Example&nbsp;<span>7.2</span></a> where we no longer specify <span class="math inline">\(X_n\)</span> as a function of <span class="math inline">\(ω\)</span> but simply assume that <span class="math display">\[
    X_n = \begin{cases}
      1 &amp; \text{with probability } \frac 1{n} \\
      0 &amp; \text{with probability } 1 - \frac 1{n}
    \end{cases}
 \]</span> <strong>and <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> are independent.</strong></p>
 <p>Then for any <span class="math inline">\(ε &gt; 0\)</span>, <span class="math inline">\(\PR(\ABS{X_n} &gt; ε) = \PR(X_n &gt; ε) = 1/n\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(\ABS{X_n} &gt; ε) = ∞\)</span>; hence by the Second Borel-Cantelli lemma, <span class="math display">\[ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} &gt; ε \}) = 1. \]</span> So, <span class="math inline">\(X_n\)</span> does not converge almost surely!</p></li>
-<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>6.4</span></a>, we can directly apply <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>6.3</span></a> to argue that <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
+<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>7.4</span></a>, we can directly apply <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a> to argue that <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
 </ul>
-<p>A variation of <a href="#lem-as-exp" class="quarto-xref">Lemma&nbsp;<span>6.4</span></a> is the following:</p>
+<p>A variation of <a href="#lem-as-exp" class="quarto-xref">Lemma&nbsp;<span>7.4</span></a> is the following:</p>
 <div id="lem-as-exp" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 6.4</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be a sequence of random variables with finite expectations and let <span class="math inline">\(X\)</span> be another random variable. If <span class="math display">\[
+<p><span class="theorem-title"><strong>Lemma 7.4</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be a sequence of random variables with finite expectations and let <span class="math inline">\(X\)</span> be another random variable. If <span class="math display">\[
 \sum_{n=1}^{∞} \EXP[ \ABS{X_n - X} ]  &lt; ∞
 \]</span> then <span class="math display">\[
 X_n \xrightarrow{a.s.} X.
@@ -788,8 +794,8 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 </div>
 </div>
 </section>
-<section id="some-properties-of-convergence-of-sequence-of-random-variables" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="some-properties-of-convergence-of-sequence-of-random-variables"><span class="header-section-number">6.5</span> Some properties of convergence of sequence of random variables</h2>
+<section id="some-properties-of-convergence-of-sequence-of-random-variables" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="some-properties-of-convergence-of-sequence-of-random-variables"><span class="header-section-number">7.5</span> Some properties of convergence of sequence of random variables</h2>
 <p>We now state some properties without proof.</p>
 <ol type="1">
 <li>The three notions of convergence that we have defined are related as follows: <span class="math display">\[
@@ -887,10 +893,10 @@ F(x + ε) \downarrow F(x)
 </ol>
 <p>If <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{p} Y\)</span>, then <span class="math inline">\(X_n + Y_n \to X + Y\)</span> and <span class="math inline">\(X_n Y_n \xrightarrow X Y\)</span>.</p>
 </section>
-<section id="strong-law-of-large-numbers" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="strong-law-of-large-numbers"><span class="header-section-number">6.6</span> Strong law of large numbers</h2>
+<section id="strong-law-of-large-numbers" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="strong-law-of-large-numbers"><span class="header-section-number">7.6</span> Strong law of large numbers</h2>
 <div id="thm-SLLN" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 6.1</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be an i.i.d. sequence of random variables with mean <span class="math inline">\(μ\)</span> and variance <span class="math inline">\(σ^2\)</span>. Let <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 7.1</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be an i.i.d. sequence of random variables with mean <span class="math inline">\(μ\)</span> and variance <span class="math inline">\(σ^2\)</span>. Let <span class="math display">\[
   \bar X_n = \frac 1n \sum_{i=1}^n X_i
 \]</span> be the sameple average. Then, <span class="math inline">\(\bar X_n \xrightarrow{a.s} μ\)</span>, i.e., <span class="math display">\[
 \PR\Bigl( ω : \lim_{n \to ∞} X_n(ω) = μ \Bigr) = 1.
@@ -925,13 +931,13 @@ Proof
 \le \frac{M_4}{n_3} + \frac{3 σ^4}{n^2}
 \]</span> where <span class="math inline">\(M_4\)</span> is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have <span class="math display">\[ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n_3} + \frac{3 σ^4}{n^2} }{ε^2}. \]</span> This implies that <span class="math display">\[
 \sum_{n=1}^{∞} \PR(\ABS{X_n} \ge ε) &lt; ∞.
-\]</span> Thus, from <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>6.3</span></a>, we have that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p>
+\]</span> Thus, from <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a>, we have that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="theres-more" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="theres-more"><span class="header-section-number">6.7</span> There’s more</h2>
+<section id="theres-more" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="theres-more"><span class="header-section-number">7.7</span> There’s more</h2>
 <p>There’s another type of convergence commonly used in engineering: convergence in mean-squared sense. In the interest of time, we will not study this notion in class.</p>
 
 
@@ -1353,12 +1359,12 @@ Proof
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./inequalities.html" class="pagination-link" aria-label="Probability inequalities">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./markov-chains.html" class="pagination-link" aria-label="Markov chains">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Markov chains</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Markov chains</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

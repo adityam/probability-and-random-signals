@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-08-26">
+<meta name="dcterms.date" content="2025-08-27">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>3&nbsp; Conditional probability and conditional expectation – Probability and Random Signals II</title>
+<title>4&nbsp; Conditional probability and conditional expectation – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -34,7 +34,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./moment-generating-functions.html" rel="next">
-<link href="./random-variables.html" rel="prev">
+<link href="./random-vectors.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -371,7 +371,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./conditional-expectation.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./conditional-expectation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -398,37 +398,43 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./random-variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables and random vectors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random vectors</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./markov-chains.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
   </div>
 </li>
     </ul>
@@ -441,13 +447,13 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#conditioning-on-events" id="toc-conditioning-on-events" class="nav-link active" data-scroll-target="#conditioning-on-events"><span class="header-section-number">3.1</span> Conditioning on events</a></li>
-  <li><a href="#conditioning-on-random-variables" id="toc-conditioning-on-random-variables" class="nav-link" data-scroll-target="#conditioning-on-random-variables"><span class="header-section-number">3.2</span> Conditioning on random variables</a></li>
-  <li><a href="#conditional-expectation" id="toc-conditional-expectation" class="nav-link" data-scroll-target="#conditional-expectation"><span class="header-section-number">3.3</span> Conditional expectation</a>
+  <li><a href="#conditioning-on-events" id="toc-conditioning-on-events" class="nav-link active" data-scroll-target="#conditioning-on-events"><span class="header-section-number">4.1</span> Conditioning on events</a></li>
+  <li><a href="#conditioning-on-random-variables" id="toc-conditioning-on-random-variables" class="nav-link" data-scroll-target="#conditioning-on-random-variables"><span class="header-section-number">4.2</span> Conditioning on random variables</a></li>
+  <li><a href="#conditional-expectation" id="toc-conditional-expectation" class="nav-link" data-scroll-target="#conditional-expectation"><span class="header-section-number">4.3</span> Conditional expectation</a>
   <ul class="collapse">
-  <li><a href="#conditioning-on-a-σ-algebra" id="toc-conditioning-on-a-σ-algebra" class="nav-link" data-scroll-target="#conditioning-on-a-σ-algebra"><span class="header-section-number">3.3.1</span> Conditioning on a <span class="math inline">\(σ\)</span>-algebra</a></li>
-  <li><a href="#smoothing-property-of-conditional-expectation" id="toc-smoothing-property-of-conditional-expectation" class="nav-link" data-scroll-target="#smoothing-property-of-conditional-expectation"><span class="header-section-number">3.3.2</span> Smoothing property of conditional expectation</a></li>
-  <li><a href="#conditioning-on-random-variable" id="toc-conditioning-on-random-variable" class="nav-link" data-scroll-target="#conditioning-on-random-variable"><span class="header-section-number">3.3.3</span> Conditioning on random variable</a></li>
+  <li><a href="#conditioning-on-a-σ-algebra" id="toc-conditioning-on-a-σ-algebra" class="nav-link" data-scroll-target="#conditioning-on-a-σ-algebra"><span class="header-section-number">4.3.1</span> Conditioning on a <span class="math inline">\(σ\)</span>-algebra</a></li>
+  <li><a href="#smoothing-property-of-conditional-expectation" id="toc-smoothing-property-of-conditional-expectation" class="nav-link" data-scroll-target="#smoothing-property-of-conditional-expectation"><span class="header-section-number">4.3.2</span> Smoothing property of conditional expectation</a></li>
+  <li><a href="#conditioning-on-random-variable" id="toc-conditioning-on-random-variable" class="nav-link" data-scroll-target="#conditioning-on-random-variable"><span class="header-section-number">4.3.3</span> Conditioning on random variable</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/conditional-expectation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -458,7 +464,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></h1>
 </div>
 
 
@@ -484,7 +490,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 26, 2025</p>
+      <p class="date">August 27, 2025</p>
     </div>
   </div>
   
@@ -497,8 +503,8 @@ window.Quarto = {
 
 
 <p>Conditional probability is perhaps the most important aspect of probability theory as it explains how to incorporate new information in a probability model. However, formally defining conditional probability is a bit intricate. In the notes, I will first provide an intuitive high-level explanation of conditional probabability. We will then do a deeper dive, trying to develop a bit more intuition about what is actually going on.</p>
-<section id="conditioning-on-events" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="conditioning-on-events"><span class="header-section-number">3.1</span> Conditioning on events</h2>
+<section id="conditioning-on-events" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="conditioning-on-events"><span class="header-section-number">4.1</span> Conditioning on events</h2>
 <ol type="1">
 <li><p>Recall that <a href="./probability-spaces.html#conditional-probability">conditional probability for events</a> is defined as follows: given a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> and events <span class="math inline">\(A, B \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(B) &gt; 0\)</span>, we have <span class="math display">\[
 \PR(A \mid B) = \frac{\PR(A \cap B)}{\PR(B)}.
@@ -535,10 +541,10 @@ p_X(x) = \sum_{i=1}^n p_{X|C_i}(x \mid C_i) \PR(C_i)
 \]</span></p></li>
 </ol>
 <div id="exr-mixed-random-variable" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.1</strong></span> Consider the following experiment. A fair coin is tossed. If the outcome is heads, <span class="math inline">\(X\)</span> is a uniform <span class="math inline">\([0,1]\)</span> random variable. If the outcome is tails, <span class="math inline">\(X\)</span> is <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variable. Find <span class="math inline">\(F_X(x)\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 4.1</strong></span> Consider the following experiment. A fair coin is tossed. If the outcome is heads, <span class="math inline">\(X\)</span> is a uniform <span class="math inline">\([0,1]\)</span> random variable. If the outcome is tails, <span class="math inline">\(X\)</span> is <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variable. Find <span class="math inline">\(F_X(x)\)</span>.</p>
 </div>
 <div id="exm-geometric-memoryless" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1 (Memoryless property of geometric random variable)</strong></span> Let <span class="math inline">\(X \sim \text{geometric}(p)\)</span> and <span class="math inline">\(m,n\)</span> be positive integers. Compute <span class="math display">\[ \PR(X &gt; n + m \mid X &gt; m). \]</span></p>
+<p><span class="theorem-title"><strong>Example 4.1 (Memoryless property of geometric random variable)</strong></span> Let <span class="math inline">\(X \sim \text{geometric}(p)\)</span> and <span class="math inline">\(m,n\)</span> be positive integers. Compute <span class="math display">\[ \PR(X &gt; n + m \mid X &gt; m). \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -571,7 +577,7 @@ P_X(k) = p (1-p)^{k-1}, \quad k \in \naturalnumbers.
 </div>
 </div>
 <div id="exm-exponential-memoryless" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.2 (Memoryless property of exponential random variable)</strong></span> Let <span class="math inline">\(X \sim \text{Exponential}(λ)\)</span> and <span class="math inline">\(t,s\)</span> be positive reals. Compute <span class="math display">\[ \PR(X &gt; t + s \mid X &gt; t). \]</span></p>
+<p><span class="theorem-title"><strong>Example 4.2 (Memoryless property of exponential random variable)</strong></span> Let <span class="math inline">\(X \sim \text{Exponential}(λ)\)</span> and <span class="math inline">\(t,s\)</span> be positive reals. Compute <span class="math display">\[ \PR(X &gt; t + s \mid X &gt; t). \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
@@ -603,8 +609,8 @@ f_X(x) = λ e^{-λ x}, \quad x \ge 0.
 </div>
 </div>
 </section>
-<section id="conditioning-on-random-variables" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="conditioning-on-random-variables"><span class="header-section-number">3.2</span> Conditioning on random variables</h2>
+<section id="conditioning-on-random-variables" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="conditioning-on-random-variables"><span class="header-section-number">4.2</span> Conditioning on random variables</h2>
 <p>We first start with the case where we are conditioning on discrete random variables.</p>
 <ol type="1">
 <li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are random variables defined on a common probability space and <span class="math inline">\(Y\)</span> is discrete, then <span class="math display">\[F_{X|Y}(x \mid y) = \PR(X \le x \mid Y = y)\]</span> for any <span class="math inline">\(y\)</span> such that <span class="math inline">\(\PR(Y = y) &gt; 0\)</span>.</p></li>
@@ -654,7 +660,7 @@ f_{X|Y}(x\mid y) = f_X(x), \quad \forall x, y \in \reals.
 <li><p>We can show that conditional PMF and conditional PDF satisfy all the properties of PMFs and PDFs. Therefore, we can define conditional expectation <span class="math inline">\(\EXP[ g(X) \mid Y = y ]\)</span> in terms of <span class="math inline">\(p_{X|Y}\)</span> or <span class="math inline">\(f_{X|Y}\)</span>. We can similarly define conditional variance</p></li>
 </ol>
 <div id="exm-conditional-density" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.3</strong></span> Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous random variables with the joint PDF <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 4.3</strong></span> Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous random variables with the joint PDF <span class="math display">\[
 f_{X,Y}(x,y) = \frac{e^{-x/y} e^{-y}}{y}, \quad 0 &lt; x &lt; ∞, 0 &lt; y &lt; ∞.
 \]</span> Find <span class="math inline">\(f_{X|Y}\)</span>?</p>
 </div>
@@ -683,7 +689,7 @@ f_Y(y) &amp;= \int_{-∞}^{∞} f_{X,Y}(x,y) \, dx \\
 </div>
 </div>
 <div id="exm-conditional-uniform" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.4</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span> and given <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y\)</span> is uniformly distributed on <span class="math inline">\((0,x)\)</span>. Find the PDF of <span class="math inline">\(Y\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 4.4</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span> and given <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y\)</span> is uniformly distributed on <span class="math inline">\((0,x)\)</span>. Find the PDF of <span class="math inline">\(Y\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -730,15 +736,15 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 </div>
 </div>
 </section>
-<section id="conditional-expectation" class="level2 page-columns page-full" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="conditional-expectation"><span class="header-section-number">3.3</span> Conditional expectation</h2>
+<section id="conditional-expectation" class="level2 page-columns page-full" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="conditional-expectation"><span class="header-section-number">4.3</span> Conditional expectation</h2>
 <p>Define <span class="math inline">\(ψ(y) = \EXP[ X \mid Y = y]\)</span>. In particular, if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are discrete, then <span class="math display">\[
 ψ(y) = \sum_{x \in \text{range}(X)} x p_{X|Y}(x|y)
 \]</span> and, if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are continuous, then <span class="math display">\[
 ψ(y) = \int_{-∞}^{∞} x f_{X|Y}(x|y)\, dx
 \]</span> Let <span class="math inline">\(Z = ψ(Y)\)</span>. Then <span class="math inline">\(Z\)</span> is a random variable! This is a subtle point, and we will spend some time to develop an intuition of what this means.</p>
-<section id="conditioning-on-a-σ-algebra" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="conditioning-on-a-σ-algebra"><span class="header-section-number">3.3.1</span> Conditioning on a <span class="math inline">\(σ\)</span>-algebra</h3>
+<section id="conditioning-on-a-σ-algebra" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="conditioning-on-a-σ-algebra"><span class="header-section-number">4.3.1</span> Conditioning on a <span class="math inline">\(σ\)</span>-algebra</h3>
 <p>The key idea is conditioning on a <span class="math inline">\(σ\)</span>-algebra. To avoid technical subtleties, we restrict to the discrete case.</p>
 <ol type="1">
 <li>Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(\ALPHABET F\)</span> is a finite <span class="math inline">\(σ\)</span>-algebra. Let <span class="math inline">\(\ALPHABET G\)</span> be a sub-<span class="math inline">\(σ\)</span>-algebra of <span class="math inline">\(\ALPHABET F\)</span>. In particular, we assume that there is a partition <span class="math inline">\(\{D_1, D_2, \dots, D_m\}\)</span> of <span class="math inline">\(Ω\)</span> such that <span class="math inline">\(\ALPHABET G = 2^{\{D_1, \dots, D_m\}}\)</span>. The elements <span class="math inline">\(D_1, \dots, D_m\)</span> are called the <strong>atoms</strong> of the <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET G\)</span>.</li>
@@ -763,8 +769,8 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 <p>[The result can be proved pictorially.]</p></li>
 </ol>
 </section>
-<section id="smoothing-property-of-conditional-expectation" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="smoothing-property-of-conditional-expectation"><span class="header-section-number">3.3.2</span> Smoothing property of conditional expectation</h3>
+<section id="smoothing-property-of-conditional-expectation" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="smoothing-property-of-conditional-expectation"><span class="header-section-number">4.3.2</span> Smoothing property of conditional expectation</h3>
 <p>Let <span class="math inline">\(\ALPHABET H ⊂ \ALPHABET G ⊂ \ALPHABET F\)</span>, where <span class="math inline">\(⊂\)</span> means sub-<span class="math inline">\(σ\)</span>-algebra. Let <span class="math inline">\(\{E_1, \dots, E_k\}\)</span> denote the partition corresponding to <span class="math inline">\(\ALPHABET H\)</span> and <span class="math inline">\(\{D_1, \dots, D_m\}\)</span> denote the partition corresponding to <span class="math inline">\(\ALPHABET G\)</span>. The fact that <span class="math inline">\(\ALPHABET H\)</span> is a sub-<span class="math inline">\(σ\)</span>-algebra of <span class="math inline">\(\ALPHABET G\)</span> means that each atom <span class="math inline">\(E_i\)</span> of <span class="math inline">\(\ALPHABET H\)</span> is a union of atoms of <span class="math inline">\(\ALPHABET G\)</span> (i.e., <span class="math inline">\(\{D_1, \dots, D_m\}\)</span> is a <em>refinement</em> of the partition <span class="math inline">\(\{E_1, \dots, E_k\}\)</span>). Therefore, <span class="math display">\[\begin{equation}\tag{smoothing-property}
 \bbox[5pt,border: 1px solid]
 {\EXP[ \EXP[ X \mid \ALPHABET G ] \mid \ALPHABET H ] =
@@ -775,8 +781,8 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 \EXP[ X ].
 \]</span> where we have taken <span class="math inline">\(\ALPHABET H = \{\emptyset, Ω\}\)</span> as the trivial <span class="math inline">\(σ\)</span>-algebra. Observe that the above definition is equivalent to the law of total probability!</p>
 </section>
-<section id="conditioning-on-random-variable" class="level3 page-columns page-full" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="conditioning-on-random-variable"><span class="header-section-number">3.3.3</span> Conditioning on random variable</h3>
+<section id="conditioning-on-random-variable" class="level3 page-columns page-full" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="conditioning-on-random-variable"><span class="header-section-number">4.3.3</span> Conditioning on random variable</h3>
 <ol type="1">
 <li><p>Now suppose <span class="math inline">\(Y\)</span> is a discrete random variable, then <span class="math inline">\(\PR(A \mid Y)\)</span> and <span class="math inline">\(\EXP[X \mid Y]\)</span> may be viewed as a short-hand notation for <span class="math inline">\(\PR(A \mid σ(Y))\)</span> and <span class="math inline">\(\EXP[X \mid σ(Y)]\)</span>. Similar interpretations hold for conditioning on multiple random variables (or, equivalently, conditioning on random vectors).</p></li>
 <li><p>The smoothing property of conditional expectation can then be stated as <span class="math display">\[
@@ -814,7 +820,7 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
   \end{align*}\]</span></p></li>
 </ol>
 <div id="exr-conditional-probability" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent and identically distributed <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variables.</p>
+<p><span class="theorem-title"><strong>Exercise 4.2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent and identically distributed <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variables.</p>
 <ol type="a">
 <li><p>Consider the events <span class="math inline">\(A_k = \{ ω : X(ω) + Y(ω) = k\}\)</span>, <span class="math inline">\(k \in \{0,1,2\}\)</span>. Find <span class="math inline">\(\PR(A_k \mid X)\)</span>.</p></li>
 <li><p>Compute <span class="math inline">\(\EXP[X + Y \mid X]\)</span>.</p></li>
@@ -1241,13 +1247,13 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./random-variables.html" class="pagination-link" aria-label="Random variables and random vectors">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables and random vectors</span></span>
+      <a href="./random-vectors.html" class="pagination-link" aria-label="Random vectors">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random vectors</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./moment-generating-functions.html" class="pagination-link" aria-label="Moment Generating Functions">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
