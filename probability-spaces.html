@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2025-08-27">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>1&nbsp; Introduction to Probability – Probability and Random Signals II</title>
+<title>1&nbsp; Probability Spaces – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -371,7 +371,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./probability-spaces.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Probability</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./probability-spaces.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Probability Spaces</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -392,7 +392,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./probability-spaces.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Probability</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Probability Spaces</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -465,7 +465,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Probability</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Probability Spaces</span></h1>
 </div>
 
 
@@ -549,7 +549,7 @@ window.Quarto = {
 <li>ECSE 623: Digital Communications 2</li>
 <li>ECSE 626: Statistical Computer Vision</li>
 </ul>
-<p>As you can see, probability theory in truly a foundational tool for Electrical Engineering.</p>
+<p>As you can see, probability theory is a foundational tool for Electrical Engineering.</p>
 </section>
 <section id="review-of-set-theory" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="review-of-set-theory"><span class="header-section-number">1.3</span> Review of Set Theory</h2>
@@ -671,12 +671,12 @@ A_1 \cap A_2 \cap \cdots \cap A_n \in \ALPHABET F
 <li><p>A function <span class="math inline">\(f\)</span> is a rule that assign each input from a set <span class="math inline">\(\ALPHABET X\)</span> (called the <strong>domain</strong>) to exactly one output in another set <span class="math inline">\(\ALPHABET Y\)</span> (called the <strong>co-domain</strong>). Symbolically, this is written as <span class="math display">\[
   f \colon \ALPHABET X \to \ALPHABET Y
 \]</span> and we say <span class="math inline">\(f\)</span> <strong>maps</strong> <span class="math inline">\(\ALPHABET X\)</span> to <span class="math inline">\(\ALPHABET Y\)</span>.</p></li>
-<li><p>The set of values <span class="math inline">\(\{ f(x) : x \in \ALPHABET X\}\)</span> is called the <strong>range</strong>. By definition, the range is a subset of the co-domain <span class="math inline">\(Y\)</span>, but the range may or may not be equal to <span class="math inline">\(\ALPHABET Y\)</span>. For example, consider the function <span class="math inline">\(f \colon \reals \to \reals\)</span> defined by <span class="math inline">\(f(x) = x^2\)</span>. The range of the function is <span class="math inline">\(\reals_{\ge 0}\)</span> which is a strict subset of the co-domain <span class="math inline">\(\reals\)</span>.</p></li>
+<li><p>The set of values <span class="math inline">\(\{ f(x) : x \in \ALPHABET X\}\)</span> is called the <strong>range</strong>. By definition, the range is a subset of the co-domain <span class="math inline">\(\ALPHABET Y\)</span>, but the range may or may not be equal to <span class="math inline">\(\ALPHABET Y\)</span>. For example, consider the function <span class="math inline">\(f \colon \reals \to \reals\)</span> defined by <span class="math inline">\(f(x) = x^2\)</span>. The range of the function is <span class="math inline">\(\reals_{\ge 0}\)</span> which is a strict subset of the co-domain <span class="math inline">\(\reals\)</span>.</p></li>
 <li><p>A function is called <strong>onto</strong> or <strong>surjective</strong> if its range is equal to its co-domain.</p></li>
 <li><p>A function is called <strong>one-to-one</strong> or <strong>injective</strong> if different inputs maps to different outputs.</p></li>
 <li><p>A function which is both onto and one-to-one is called <strong>bijective</strong>. A bijective function is <strong>invertible</strong> because for every <span class="math inline">\(y \in \ALPHABET Y\)</span>, there is a unique <span class="math inline">\(x\)</span> such that <span class="math inline">\(f(x) = y\)</span>.</p></li>
 <li><p>For a set <span class="math inline">\(B \subset \ALPHABET Y\)</span>, the <strong>preimage</strong> or <strong>inverse image</strong> of <span class="math inline">\(B\)</span> under <span class="math inline">\(f\)</span> is defined as <span class="math display">\[
-  f^{-1}(B) = \{ x \in \ALPHABET X :: f(x) \in  B \},
+  f^{-1}(B) = \{ x \in \ALPHABET X : f(x) \in  B \},
 \]</span> which is a subset of <span class="math inline">\(\ALPHABET X\)</span>.</p></li>
 </ol>
 <div id="exm-function" class="theorem example">
@@ -929,7 +929,7 @@ Some terminology
 </ul>
 </div>
 </div></li>
-<li><p>Consider <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> to be the uniform probability distribution on <span class="math inline">\(Ω\)</span>. Consider the event <span class="math inline">\(A\)</span> that the outcome is a rational number. <span class="math inline">\(A\)</span> is a countable set (because the set of rational numbers is countable). For any <span class="math inline">\(x \in A\)</span>, <span class="math inline">\(\{x\} \in \ALPHABET F\)</span>, and <span class="math inline">\(\PR(\{x\}) = 0\)</span> (we can infer this from <span class="quarto-unresolved-ref">?exm-probability-continuity</span> by thinking of <span class="math inline">\(\{x\}\)</span> as the limit of intervals <span class="math inline">\(\bigl[x, x+ \frac 1n\bigr]\)</span>). Thus, by countable additivity, <span class="math inline">\(\PR(A) = 0\)</span>. Hence, <span class="math inline">\(A\)</span> is null.</p>
+<li><p>Consider <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> to be the uniform probability distribution on <span class="math inline">\(Ω\)</span>. Consider the event <span class="math inline">\(A\)</span> that the outcome is a rational number. <span class="math inline">\(A\)</span> is a countable set (because the set of rational numbers is countable). For any <span class="math inline">\(x \in A\)</span>, <span class="math inline">\(\{x\} \in \ALPHABET F\)</span>, and <span class="math inline">\(\PR(\{x\}) = 0\)</span> (we can infer this from the previous exercise by thinking of <span class="math inline">\(\{x\}\)</span> as the limit of intervals <span class="math inline">\(\bigl[x, x+ \frac 1n\bigr]\)</span>). Thus, by countable additivity, <span class="math inline">\(\PR(A) = 0\)</span>. Hence, <span class="math inline">\(A\)</span> is null.</p>
 <p>The above analysis implies that <span class="math inline">\(\PR(A^c) = 1\)</span>, thus the event that the outcome is irrational occurs almost surely.</p></li>
 </ol>
 <div id="exr-prob-set-difference" class="theorem exercise">
@@ -1199,6 +1199,7 @@ Solution
 <li><span class="math inline">\(A^c \independent B^c\)</span>.</li>
 </ul>
 </div></li>
+<li><p>Independence is what separates probability theory from the more general measure theory.</p></li>
 <li><div class="callout callout-style-simple callout-warning">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -1268,16 +1269,7 @@ S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3)
 </div>
 </div>
 </div></li>
-<li><div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Pairwise independence vs independence
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<li><p>:::{.callout-warning} ### Pairwise independence vs independence</p>
 <p>A family of events <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is <strong>pairwise independent</strong> if for every <span class="math inline">\(i,j \in \{1, \dots, n\}\)</span>, <span class="math inline">\(i \neq j\)</span>, we have <span class="math display">\[ \PR(A_i \cap A_j) = \PR(A_i) \PR(A_j). \]</span></p>
 <p>Pairwise independence is weaker than Independence. For instance, three events <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> are pairwise independent if <span class="math display">\[
 \PR(A \cap B) = \PR(A) \PR(B),
@@ -1305,9 +1297,7 @@ Pairwise independence vs independence
 <li><span class="math inline">\(\PR(A \cap B) = \PR(B \cap C) = \PR(C \cap A) = \frac 14\)</span>.</li>
 <li><span class="math inline">\(\PR(A \cap B \cap C) = \emptyset\)</span>.</li>
 </ul>
-<p>Thus, <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> are pairwise independent but not independent.</p>
-</div>
-</div></li>
+<p>Thus, <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> are pairwise independent but not independent. :::</p></li>
 </ol>
 </section>
 <section id="product-spaces" class="level2" data-number="1.8">
