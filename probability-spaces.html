@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-08-27">
+<meta name="dcterms.date" content="2025-08-28">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>1&nbsp; Probability Spaces – Probability and Random Signals II</title>
@@ -46,9 +46,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9f47135319f23fa7c348006d1a455402.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-7003f8558f8d0cdb3f9596880144b86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-9f47135319f23fa7c348006d1a455402.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-16ca7681bb507ad4bf8990317f882f75.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-3bb7701f481e77e3cf6a89fa833c31a2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-16ca7681bb507ad4bf8990317f882f75.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -491,7 +491,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 27, 2025</p>
+      <p class="date">August 28, 2025</p>
     </div>
   </div>
   
@@ -801,11 +801,33 @@ p(6) = \frac{1}{3}.
 <p>Verify that</p>
 <ul>
 <li><span class="math inline">\(\PR(Ω) = 1\)</span></li>
-<li><span class="math inline">\(\PR(\{3,4,5\}) = \frac{6}{15}\)</span>.</li>
+<li><span class="math inline">\(\PR(\{2,3,5\}) = \frac{6}{15}\)</span>.</li>
 <li><span class="math inline">\(\PR(\{1,3,4,5\}) = \frac{8}{15}\)</span>.</li>
 </ul>
 </div></li>
-<li><p>We now come back to the fact that restricting the domain of <span class="math inline">\(\PR\)</span> to be an algebra is not sufficient as is illustrated by the following example.</p>
+<li><p><a href="#exm-probability-domain" class="quarto-xref">Example&nbsp;<span>1.5</span></a> can be visualized as follows. First we visualize the probability space as in <a href="#fig-probability-space-example" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>.</p>
+<div id="fig-probability-space-example" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-probability-space-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/probability1.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-probability-space-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.2: Probability space of <a href="#exm-probability-domain" class="quarto-xref">Example&nbsp;<span>1.5</span></a>
+</figcaption>
+</figure>
+</div>
+<p>To compute <span class="math inline">\(\PR(\{2, 3, 5\})\)</span>, we look at the event <span class="math inline">\(A = \{2, 3, 5\}\)</span> and count the probability of all the cells inside <span class="math inline">\(A\)</span>, as shown in <a href="#fig-probability-space-example-calcs" class="quarto-xref">Figure&nbsp;<span>1.3</span></a>.</p>
+<div id="fig-probability-space-example-calcs" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-probability-space-example-calcs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/probability2.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-probability-space-example-calcs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
+</figcaption>
+</figure>
+</div></li>
+<li><p>We now present an example to illustrate that restricting the domain of <span class="math inline">\(\PR\)</span> to be an algebra is not sufficient.</p>
 <div id="exm-infinite-coin-tosses" class="theorem example">
 <p><span class="theorem-title"><strong>Example 1.6</strong></span> A coin is tossed repeatedly until a head turns up. The sample space is <span class="math inline">\(Ω = \{ω_1, ω_2, \dots\}\)</span> where <span class="math inline">\(ω_n\)</span> denotes the event that the first <span class="math inline">\(n-1\)</span> tosses are tails followed by a head.</p>
 </div>
@@ -997,14 +1019,14 @@ Solution
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Note that <span class="math inline">\(Ω = \{ 1, 2,3, 4, 5, 6\}^2\)</span> and <span class="math inline">\(\PR\)</span> is uniform probability on all outcomes. The sets <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(A \cap B\)</span> are shown in <a href="#fig-conditional-two-roll" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>. Note that <span class="math inline">\(\PR(A) = \PR(B) = \frac{26}{36} = \frac{13}{18}\)</span>.</p>
+<p>Note that <span class="math inline">\(Ω = \{ 1, 2,3, 4, 5, 6\}^2\)</span> and <span class="math inline">\(\PR\)</span> is uniform probability on all outcomes. The sets <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(A \cap B\)</span> are shown in <a href="#fig-conditional-two-roll" class="quarto-xref">Figure&nbsp;<span>1.4</span></a>. Note that <span class="math inline">\(\PR(A) = \PR(B) = \frac{26}{36} = \frac{13}{18}\)</span>.</p>
 <div id="fig-conditional-two-roll" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-conditional-two-roll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/svg/dice-rolls1.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conditional-two-roll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.2: The different events in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;<span>1.9</span></a>
+Figure&nbsp;1.4: The different events in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;<span>1.9</span></a>
 </figcaption>
 </figure>
 </div>
@@ -1070,7 +1092,7 @@ Conditional probabilities are probabilities
 <img src="figures/svg/partitions2.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-total-probability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.3: Illustration of Law of total probability
+Figure&nbsp;1.5: Illustration of Law of total probability
 </figcaption>
 </figure>
 </div>
@@ -1269,7 +1291,16 @@ S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3)
 </div>
 </div>
 </div></li>
-<li><p>:::{.callout-warning} ### Pairwise independence vs independence</p>
+<li><div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pairwise independence vs independence
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>A family of events <span class="math inline">\(\{A_1, A_2, \dots, A_n\}\)</span> is <strong>pairwise independent</strong> if for every <span class="math inline">\(i,j \in \{1, \dots, n\}\)</span>, <span class="math inline">\(i \neq j\)</span>, we have <span class="math display">\[ \PR(A_i \cap A_j) = \PR(A_i) \PR(A_j). \]</span></p>
 <p>Pairwise independence is weaker than Independence. For instance, three events <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> are pairwise independent if <span class="math display">\[
 \PR(A \cap B) = \PR(A) \PR(B),
@@ -1297,7 +1328,9 @@ S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3)
 <li><span class="math inline">\(\PR(A \cap B) = \PR(B \cap C) = \PR(C \cap A) = \frac 14\)</span>.</li>
 <li><span class="math inline">\(\PR(A \cap B \cap C) = \emptyset\)</span>.</li>
 </ul>
-<p>Thus, <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> are pairwise independent but not independent. :::</p></li>
+<p>Thus, <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span> are pairwise independent but not independent.</p>
+</div>
+</div></li>
 </ol>
 </section>
 <section id="product-spaces" class="level2" data-number="1.8">
