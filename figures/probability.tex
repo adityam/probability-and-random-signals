@@ -1,0 +1,93 @@
+\usepath[/home/adityam/projects/presentations]
+
+\enablemode[lucida]
+\environment env-fonts.tex
+\setupbodyfont[slidefont,16pt]
+
+\usemodule[asciimath]
+
+
+\startMPdefinitions
+   def ProbabilitySpace = applyparameters "ProbabilitySpace" "do_ProbabilitySpace" enddef ;
+
+    presetparameters "ProbabilitySpace" [
+      nx   = 4,     ny   = 1,
+      sx   = 1.5cm,   sy   = 1.5cm,
+      
+      probability = { },
+      events = { },
+
+      eventfillcolor = "lightgray",
+      eventcolor = "lightgray",
+
+      format = "\switchtobodyfont[8pt]$ω_{@d}$",
+    ];
+
+    vardef do_ProbabilitySpace = 
+      image(
+        pushparameters "ProbabilitySpace"; 
+        textextoffset := 3pt;
+
+        newnumeric sx, sy;
+        sx := getparameter "sx";
+        sy := getparameter "sy";
+
+        newnumeric nx, ny;
+        nx := getparameter "nx";
+        ny := getparameter "ny";
+
+        for j = 1 upto ny:
+          for i = 1 upto nx:
+             idx := (j-1)*nx + i ;
+             draw unitsquare xyscaled (sx, sy) shifted (i*sx, j*sy);
+
+             draw thefmttext.lrt(getparameter "format", idx, (i*sx, (j+1)*sy));
+
+             draw thefmttext("\asciimath{@s}", getparameter "probability" idx,
+                             ((i+0.5)*sx, (j+0.5)*sy) );
+          endfor
+        endfor
+
+        newnumeric n;
+        n := getparametercount "events";
+
+        newpath event;
+
+        for k = 1 upto n :
+           event := getparameter "events" k;
+           event := event xyscaled (sx,sy)
+                          cornered (0.2*min(sx,sy))
+                          blownup (-0.1sx,-0.1sy)
+                          ;
+           event := event randomized (0.03sx, 0.03sy);
+           fill event withcolor getparameter "eventfillcolor" withstacking -1;
+           draw event;
+        endfor
+      )
+    enddef;
+\stopMPdefinitions
+
+
+\starttext
+
+\startMPpage[offset=1dk]
+  draw ProbabilitySpace[nx=3, ny=2, 
+          probability={"2/15", "2/15", "2/15", "2/15", "2/15", "1/3"}];
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\startMPpage[offset=1dk]
+  newpath A;
+  A := (2, 1) -- (4, 1) -- (4, 2) -- (3, 2) -- (3, 3) -- (2,3) -- cycle;  
+
+  draw ProbabilitySpace[nx=3, ny=2, 
+          probability={"2/15", "2/15", "2/15", "2/15", "2/15", "1/3"},
+          events = {A},
+          ];
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\stoptext
+
