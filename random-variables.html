@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.7.34">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-08-28">
+<meta name="dcterms.date" content="2025-09-01">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>2&nbsp; Random variables – Probability and Random Signals II</title>
@@ -41,9 +41,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-befe23ebd2f54d8af2c8a89d1a1611f1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-16ca7681bb507ad4bf8990317f882f75.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -447,14 +447,15 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#classification-of-random-variables" id="toc-classification-of-random-variables" class="nav-link active" data-scroll-target="#classification-of-random-variables"><span class="header-section-number">2.1</span> Classification of random variables</a>
+  <li><a href="#real-valued-random-variables" id="toc-real-valued-random-variables" class="nav-link active" data-scroll-target="#real-valued-random-variables"><span class="header-section-number">2.1</span> Real-valued random variables</a></li>
+  <li><a href="#classification-of-random-variables" id="toc-classification-of-random-variables" class="nav-link" data-scroll-target="#classification-of-random-variables"><span class="header-section-number">2.2</span> Classification of random variables</a>
   <ul class="collapse">
-  <li><a href="#some-examples-of-discrete-random-variables" id="toc-some-examples-of-discrete-random-variables" class="nav-link" data-scroll-target="#some-examples-of-discrete-random-variables"><span class="header-section-number">2.1.1</span> Some examples of discrete random variables</a></li>
-  <li><a href="#some-examples-of-continuous-random-variables" id="toc-some-examples-of-continuous-random-variables" class="nav-link" data-scroll-target="#some-examples-of-continuous-random-variables"><span class="header-section-number">2.1.2</span> Some examples of continuous random variables</a></li>
+  <li><a href="#some-examples-of-discrete-random-variables" id="toc-some-examples-of-discrete-random-variables" class="nav-link" data-scroll-target="#some-examples-of-discrete-random-variables"><span class="header-section-number">2.2.1</span> Some examples of discrete random variables</a></li>
+  <li><a href="#some-examples-of-continuous-random-variables" id="toc-some-examples-of-continuous-random-variables" class="nav-link" data-scroll-target="#some-examples-of-continuous-random-variables"><span class="header-section-number">2.2.2</span> Some examples of continuous random variables</a></li>
   </ul></li>
-  <li><a href="#expectation-of-random-variables" id="toc-expectation-of-random-variables" class="nav-link" data-scroll-target="#expectation-of-random-variables"><span class="header-section-number">2.2</span> Expectation of random variables</a>
+  <li><a href="#expectation-of-random-variables" id="toc-expectation-of-random-variables" class="nav-link" data-scroll-target="#expectation-of-random-variables"><span class="header-section-number">2.3</span> Expectation of random variables</a>
   <ul class="collapse">
-  <li><a href="#higher-moments" id="toc-higher-moments" class="nav-link" data-scroll-target="#higher-moments"><span class="header-section-number">2.2.1</span> Higher moments</a></li>
+  <li><a href="#higher-moments" id="toc-higher-moments" class="nav-link" data-scroll-target="#higher-moments"><span class="header-section-number">2.3.1</span> Higher moments</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -491,7 +492,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 28, 2025</p>
+      <p class="date">September 1, 2025</p>
     </div>
   </div>
   
@@ -503,49 +504,82 @@ window.Quarto = {
 </header>
 
 
-<p>In many situations, we are not directly interested in the outcome of a random experiment, but a consequence of the outcome. Such consequences may be thought of as a function of the outcome. When they are real-valued, such functions of the outcome are called <strong>random variables</strong>.</p>
-<div id="exm-coin-toss" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.1</strong></span> Suppose a fair coin is tossed twice. Thus, <span class="math inline">\(Ω = \{ HH, HT, TH, TT \}\)</span>, <span class="math inline">\(\ALPHABET F = 2^Ω\)</span>, and <span class="math inline">\(\PR\)</span> is such that all outcomes are equally likely. For an <span class="math inline">\(ω \in Ω\)</span>, let <span class="math inline">\(X(ω)\)</span> denote the number of heads. Thus, <span class="math display">\[
+<ol type="1">
+<li><p>In many situations, we are not directly interested in the outcome of a random experiment, but a consequence or measurement of the outcome. Such consequences may be thought of as a function of the outcome and are called <strong>random variables</strong>.</p></li>
+<li><div id="exm-coin-toss" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.1</strong></span> Suppose a fair coin is tossed twice and we measure the number of heads. For any <span class="math inline">\(ω \in Ω\)</span>, let <span class="math inline">\(X(ω)\)</span> denote the number of heads when <span class="math inline">\(ω\)</span> occurs. Thus, <span class="math display">\[
 X(HH) = 2, \quad X(HT) = 1, \quad X(TH) = 1, \quad X(TT) = 0.
 \]</span></p>
+</div></li>
+<li><p>There are two ways to model this situation:</p>
+<ul>
+<li><p>Model the underlying probability space (the coin tosses): <span class="math display">\[
+  (Ω, \ALPHABET F, \PR),
+  \quad \text{ where } Ω = \{ HH, HT, TH, TT \}, \ALPHABET F = 2^Ω, \text{ and $\PR$ is uniform on $Ω$}.
+\]</span> This probability space is shown in <a href="#fig-coin-toss-1" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>.</p>
+<div id="fig-coin-toss-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-coin-toss-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/probability3.svg" class="img-fluid figure-img">
 </div>
-<p>The random variable <span class="math inline">\(X \colon Ω \to \reals\)</span> induces a probability measure on <span class="math inline">\(\reals\)</span>. Formally, to define such a probability measure, we need an associated <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\(\reals\)</span>. As discussed in <a href="./probability-spaces.html#Borel-algebra">last lecture</a>, the commonly used <span class="math inline">\(σ\)</span>-algebra on reals is the Borel <span class="math inline">\(σ\)</span>-algebra, <span class="math inline">\(\mathscr{B}(\reals)\)</span>. For everything to be consistent, we require the function <span class="math inline">\(X\)</span> to satisfy a property known as <strong>measurability</strong>.</p>
-<div id="def-measurability" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2.1</strong></span> A <strong>random variable</strong> is a function <span class="math inline">\(X \colon Ω \to \reals\)</span> with the property that for every <span class="math inline">\(x \in \reals\)</span> the event <span class="math inline">\(A(x) \coloneqq \{ω \in Ω : X(ω) \le x \} \in \ALPHABET F\)</span>. Such functions are said to be <strong><span class="math inline">\(\ALPHABET F/\mathscr{B}(\reals)\)</span>-measurable</strong>.</p>
-<p>The <strong>cumulative distribution function (CDF)</strong> of a random variable <span class="math inline">\(X\)</span> is the function <span class="math inline">\(F \colon \reals \to [0,1]\)</span> given by <span class="math display">\[
-F(x) \coloneqq \PR(A(x)) = \PR(\{ ω \in Ω : X(ω) \le x \}).
-\]</span></p>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coin-toss-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: Probability space for two independent coin tosses
+</figcaption>
+</figure>
+</div></li>
+<li><p>Model the measurement (the number of heads): <span class="math display">\[
+  (\ALPHABET X, \ALPHABET G, \PR_X),
+  \quad \text{ where } \ALPHABET X = \{0,1,2\}, \ALPHABET G = 2^{\ALPHABET X}, \text{ and $\PR_X$ derived from $\PR$}.
+\]</span> This probability space is shown in <a href="#fig-coin-toss-2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>.</p>
+<div id="fig-coin-toss-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-coin-toss-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/probability4.svg" class="img-fluid figure-img">
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Some comments on notation
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coin-toss-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: Probability space for number of heads in two independent coin tosses
+</figcaption>
+</figure>
+</div></li>
+</ul></li>
+<li><p>We don’t need to specify <span class="math inline">\(\PR_X\)</span> directly, since it is computed from <span class="math inline">\(\PR\)</span>. Therefore, it is parsimonious to model <span class="math inline">\(X\)</span> as a map: <span class="math display">\[
+    X \colon (Ω, \ALPHABET F) \to (\ALPHABET X, \ALPHABET G)
+\]</span> with <span class="math display">\[
+    \PR_X(B) = \PR(X^{-1}(B)), \quad \forall B \in \ALPHABET G.
+\]</span></p></li>
+<li><p>For the above probability calculations to make sense, we require that <span class="math inline">\(X^{-1}(B) \in \ALPHABET G\)</span> whenever <span class="math inline">\(B \in \ALPHABET G\)</span>. This property is called <strong>measurability</strong> and a function with this property is called <strong><span class="math inline">\(\ALPHABET F/\ALPHABET G\)</span>-measurable</strong>.</p></li>
+<li><div id="def-random-variable" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2.1</strong></span> A <strong>random variable</strong> <span class="math inline">\(X\)</span> is a measurable function from a measurable space <span class="math inline">\((Ω, \ALPHABET F)\)</span> to another measurable space <span class="math inline">\((\ALPHABET X, \ALPHABET G)\)</span>, which means that for any <span class="math inline">\(B \in \ALPHABET G\)</span>, <span class="math inline">\(X^{-1}(B) \in \ALPHABET F\)</span>.</p>
+<p>If <span class="math inline">\(P\)</span> is a probability measure on <span class="math inline">\((Ω, \ALPHABET F)\)</span> (i.e., <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> is a probability space), then <span class="math display">\[
+    \PR_X(B) = \PR(X^{-1}(B)), \quad \forall B \in \ALPHABET G.
+\]</span> is a probability measure on <span class="math inline">\((\ALPHABET X, \ALPHABET G)\)</span>.</p>
+</div></li>
+<li><p>In this lecture, we focus on <strong>real-valued random variables</strong>, i.e., <span class="math inline">\((\ALPHABET X, \ALPHABET G) = (\reals, \mathscr{B}(\reals))\)</span>, where <span class="math inline">\(\mathscr{B}(\reals)\)</span> denotes the Borel <span class="math inline">\(σ\)</span>-algebra (see the <a href="./probability-spaces.html#Borel-algebra">last lecture</a>).</p></li>
+<li><p>In fact, introductory probability textbooks often define random variable as a measurable map from <span class="math inline">\((Ω, \ALPHABET F)\)</span> to <span class="math inline">\((\reals, \mathscr{B}(\reals))\)</span>. The more general definition that we have used (a measurable mapping from a measurable space to <em>any other</em> measurable space) is often reserved for a follow up course on measure theory. I think that it is conceptually simpler to start with the measure-theoretic definition.</p></li>
+</ol>
+<section id="real-valued-random-variables" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="real-valued-random-variables"><span class="header-section-number">2.1</span> Real-valued random variables</h2>
 <ol type="1">
 <li><p>The standard notation in probability theory is to use uppercase letters such as <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, <span class="math inline">\(Z\)</span>, etc. to denote random variables and the corresponding lowercase letters <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span>, <span class="math inline">\(z\)</span>, etc. to denote the possible numerical values of these variables.</p></li>
-<li><p>Events such as <span class="math inline">\(\{ω \in Ω : X(ω) \le x \}\)</span> are commonly abbreviated as <span class="math inline">\(\{ω : X(ω) \le x \}\)</span> or <span class="math inline">\(\{X \le x\}\)</span>. Thus, we have</p>
+<li><p>If <span class="math inline">\(X\)</span> is a (real-valued) random variable on <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>, then measurability implies that for every <span class="math inline">\(B \in \mathscr{B}(\reals)\)</span>, <span class="math inline">\(X^{-1}(B) \in \ALPHABET F\)</span>. Rather than explicitly defining the measure <span class="math inline">\(\PR_X\)</span>, we simply use the notation <span class="math display">\[\PR(X \in B) \coloneqq \PR(\{ω \in Ω : X(ω) \in B \}).\]</span></p></li>
+<li><p>If we take <span class="math inline">\(B\)</span> to be the interval <span class="math inline">\((-∞, x]\)</span>, then the event <span class="math inline">\(X^{-1}(B) = \{ ω \in Ω : X(ω) \le x \}\)</span>. Such events are abbreviated as <span class="math inline">\(\{ω : X(ω) \le x \}\)</span> or <span class="math inline">\(\{X \le x\}\)</span>. Thus, we have</p>
 <ul>
 <li><span class="math inline">\(\PR(X \le x) = \PR(\{ω \in Ω : X(ω) \le x \})\)</span>.</li>
 <li><span class="math inline">\(\PR(X = x) = \PR(\{ω \in Ω : X(ω) = x \})\)</span>.</li>
 <li><span class="math inline">\(\PR(x &lt; X \le y) = \PR(\{ω \in Ω : x &lt; X(ω) \le y \})\)</span>.</li>
-<li>For any (Borel) subset <span class="math inline">\(B\)</span> of <span class="math inline">\(\reals\)</span>, <span class="math inline">\(\PR(X \in B) = \PR(\{ω \in Ω : X(ω) \in B \})\)</span>.</li>
 </ul></li>
-<li><p>When we need to emphasize the dependence of the CDF on the random variable, we use the notation <span class="math inline">\(F_X\)</span>, etc.</p></li>
-</ol>
-</div>
-</div>
-<p>For instance, for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>, the CDF is given by <span class="math display">\[
-F_X(x) = \begin{cases}
+<li><p>The <strong>cumulative distribution function (CDF)</strong> of a (real-valued) random variable <span class="math inline">\(X\)</span> is the function <span class="math inline">\(F \colon \reals \to [0,1]\)</span> given by <span class="math display">\[
+F(x) \coloneqq \PR(X \le x) = \PR(\{ ω \in Ω : X(ω) \le x \}).
+\]</span></p>
+<p>For instance, in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>, the CDF is given by <span class="math display">\[
+F(x) = \begin{cases}
 0, &amp; \hbox{if } x &lt; 0,  \\
 \frac 14, &amp; \hbox{if } 0 \le x &lt; 1, \\
 \tfrac 34, &amp; \hbox{if } 1 \le x &lt; 2,\\
 1, &amp;\hbox{if } 2 \le x.
-\end{cases}\]</span></p>
+\end{cases}\]</span></p></li>
+<li><p>When we need to emphasize the dependence of the CDF on the random variable, we use the notation <span class="math inline">\(F_X\)</span>, etc.</p></li>
+<li><p><strong>Some examples of CDF of random variables</strong></p>
 <div id="exm-constant" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2.2 (Constant random variables)</strong></span> The simplest random variable takes a constant value on the whole domain <span class="math inline">\(Ω\)</span>, i.e., <span class="math display">\[
 X(ω) = c, \quad \forall ω \in Ω
@@ -571,8 +605,8 @@ F(x) = \begin{cases}
     1, &amp; \hbox{if } ω \in A \\
     0, &amp; \hbox{otherwise }
 \end{cases}.\]</span> Observe that <span class="math inline">\(\IND_A\)</span> is a Bernoulli random variable which takes values <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span> with probabilities <span class="math inline">\(\PR(A)\)</span> and <span class="math inline">\(1 - \PR(A)\)</span>.</p>
-</div>
-<div id="lem-properties-of-CDFs" class="theorem lemma">
+</div></li>
+<li><div id="lem-properties-of-CDFs" class="theorem lemma">
 <p><span class="theorem-title"><strong>Lemma 2.1 (Properties of CDFs)</strong></span> &nbsp;</p>
 <ol type="1">
 <li><p><span class="math inline">\(\PR(X &gt; x) = 1 - F(x)\)</span>.</p></li>
@@ -584,7 +618,7 @@ F(x) = \begin{cases}
 </ol>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -593,7 +627,7 @@ Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><p>By definition, <span class="math inline">\(\{X &gt; x\}^c = Ω\setminus \{X \le x\}\)</span>. Thus, <span class="math display">\[\PR(X &gt; x) = 1 - \PR(X \le x) = 1 - F(x).\]</span></p></li>
@@ -633,7 +667,8 @@ Proof
 </ol>
 </div>
 </div>
-</div>
+</div></li>
+</ol>
 <div id="exr-CDF-expressions" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 2.1</strong></span> For <span class="math inline">\(x &lt; y\)</span>, express the following in terms of the CDF:</p>
 <ol type="1">
@@ -641,8 +676,9 @@ Proof
 <li><span class="math inline">\(\PR(x \le X &lt; y)\)</span>.</li>
 </ol>
 </div>
-<section id="classification-of-random-variables" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="classification-of-random-variables"><span class="header-section-number">2.1</span> Classification of random variables</h2>
+</section>
+<section id="classification-of-random-variables" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="classification-of-random-variables"><span class="header-section-number">2.2</span> Classification of random variables</h2>
 <p>There are three types of random variables</p>
 <ol type="1">
 <li><p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>discrete</strong> if it takes values in a finite or countable subset <span class="math inline">\(\text{range}(X) \coloneqq \{x_1, x_2, \dots\}\)</span> of <span class="math inline">\(\reals\)</span>. A discrete random variable has a <strong>probability mass function (PMF)</strong> <span class="math inline">\(p \colon \reals \to [0,1]\)</span> which satisfies the following properties:</p>
@@ -679,7 +715,7 @@ F(x) = \int_{-∞}^x f(x) dx.
 <div class="callout-body-container callout-body">
 <p>A discrete random variable creates a partition of the sample space. In particular, suppose <span class="math inline">\(X\)</span> is a random variable and <span class="math inline">\(\{x_1, x_2, \dots\}\)</span> is the range of <span class="math inline">\(X\)</span>. Define <span class="math display">\[A_n = \{ω \in Ω : X(ω) = x_n \} = X^{-1}(x_n)\]</span> Then, <span class="math inline">\(\{A_1, A_2, \dots \}\)</span> is a partition of <span class="math inline">\(Ω\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -688,7 +724,7 @@ Proof that it is a partition
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>To show that <span class="math inline">\(\{A_1, A_2, \dots \}\)</span> forms a partition, we need to establish two properties:</p>
 <ol type="1">
@@ -699,14 +735,14 @@ Proof that it is a partition
 </div>
 </div>
 </div>
-<p>The power-set of <span class="math inline">\(\{A_1, A_2, \dots\}\)</span> is called the <strong><span class="math inline">\(σ\)</span>-algebra generated by <span class="math inline">\(X\)</span></strong> and denoted by <span class="math inline">\(σ(X)\)</span>. This <span class="math inline">\(σ\)</span>-algebra captures the crux of measurability. As an illustration, let’s reconsider <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>. In this case, the range of <span class="math inline">\(X\)</span> is <span class="math inline">\(\{0, 1, 2\}\)</span>. The partition corresponding to <span class="math inline">\(σ(X)\)</span> is shown in <a href="#fig-sigma-X" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>.</p>
+<p>The power-set of <span class="math inline">\(\{A_1, A_2, \dots\}\)</span> is called the <strong><span class="math inline">\(σ\)</span>-algebra generated by <span class="math inline">\(X\)</span></strong> and denoted by <span class="math inline">\(σ(X)\)</span>. This <span class="math inline">\(σ\)</span>-algebra captures the crux of measurability. As an illustration, let’s reconsider <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>. In this case, the range of <span class="math inline">\(X\)</span> is <span class="math inline">\(\{0, 1, 2\}\)</span>. The partition corresponding to <span class="math inline">\(σ(X)\)</span> is shown in <a href="#fig-sigma-X" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>.</p>
 <div id="fig-sigma-X" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sigma-X-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="TODO.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sigma-X-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.1: Illustration of <span class="math inline">\(σ(X)\)</span> for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>
+Figure&nbsp;2.3: Illustration of <span class="math inline">\(σ(X)\)</span> for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>
 </figcaption>
 </figure>
 </div>
@@ -730,8 +766,8 @@ f_X(x) = \frac{d}{dx} F_X(x).
 </ol></li>
 </ul>
 </div>
-<section id="some-examples-of-discrete-random-variables" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="some-examples-of-discrete-random-variables"><span class="header-section-number">2.1.1</span> Some examples of discrete random variables</h3>
+<section id="some-examples-of-discrete-random-variables" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="some-examples-of-discrete-random-variables"><span class="header-section-number">2.2.1</span> Some examples of discrete random variables</h3>
 <p>We now consider some other examples of discrete random variables</p>
 <div id="exm-Binomial" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2.5 (Binomial random variable)</strong></span> A Binomial random variable is the sum of intendant and identically Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binomial}(n,p)\)</span>. For such a random variable, <span class="math display">\[
@@ -752,8 +788,8 @@ p_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 <p><span class="theorem-title"><strong>Example 2.8 (Uniform random variable)</strong></span> A random variable is said to have a (discrete) uniform distribution over a discrete set <span class="math inline">\(\ALPHABET S\)</span> if <span class="math display">\[p_X(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.\]</span></p>
 </div>
 </section>
-<section id="some-examples-of-continuous-random-variables" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="some-examples-of-continuous-random-variables"><span class="header-section-number">2.1.2</span> Some examples of continuous random variables</h3>
+<section id="some-examples-of-continuous-random-variables" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="some-examples-of-continuous-random-variables"><span class="header-section-number">2.2.2</span> Some examples of continuous random variables</h3>
 <div id="exm-Uniform-continuous" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2.9 (Uniform random variable)</strong></span> A random variable is said to have a (continuous) uniform distribution over an interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(a &lt; b\)</span> if <span class="math display">\[f(x) = \frac 1{b - a}, \quad x \in [a,b].\]</span></p>
 </div>
@@ -767,8 +803,8 @@ p_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 </div>
 </section>
 </section>
-<section id="expectation-of-random-variables" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="expectation-of-random-variables"><span class="header-section-number">2.2</span> Expectation of random variables</h2>
+<section id="expectation-of-random-variables" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="expectation-of-random-variables"><span class="header-section-number">2.3</span> Expectation of random variables</h2>
 <p>Suppose we generate <span class="math inline">\(N\)</span> i.i.d. (independent and identically distributed) samples <span class="math inline">\(\{s_1, s_2, \dots, s_N\}\)</span> of a random variable <span class="math inline">\(X\)</span> and compute the average: <span class="math display">\[ m = \frac 1N \sum_{n=1}^N s_n. \]</span> When <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n\}\)</span>, we expect that the number of times we obtain a value <span class="math inline">\(x_i\)</span> is approximately <span class="math inline">\(Np(x_i)\)</span> when <span class="math inline">\(N\)</span> is large. Thus, <span class="math display">\[ m \approx \frac 1N \sum_{i=1}^n x_i \, N p(x_i)  = \sum_{i=1}^n x_i p(x_i). \]</span></p>
 <p>This quantity is called the <strong>expectation</strong> or the <strong>expected value</strong> or the <strong>mean value</strong> of the random variable <span class="math inline">\(X\)</span> and denoted by <span class="math inline">\(\EXP[X]\)</span>.</p>
 <div id="def-expectation" class="theorem definition">
@@ -811,7 +847,7 @@ p(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 <p><span class="theorem-title"><strong>Example 2.12</strong></span> Find the mean of <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -820,7 +856,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><span class="math display">\[
 \EXP[X] = \frac 14 \cdot 0 + \frac 12 \cdot 1 + \frac 14 \cdot 2 = 1.
@@ -848,7 +884,7 @@ Solution
 <p>Both expressions are defined only when the sum/integral is absolutely convergent.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -857,7 +893,7 @@ How to avoid a proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This result is sometimes called *<strong>the law of the unconscious statistician (LOTUS).</strong> One typically shows this result by defining a new random variable <span class="math inline">\(Y = g(X)\)</span>, computing its PMF/PDF <span class="math inline">\(f_Y\)</span> and then using the definition in <a href="#def-expectation" class="quarto-xref">Definition&nbsp;<span>2.2</span></a>.</p>
 <p>A simpler proof is to define expectation by <a href="#lem-expectation" class="quarto-xref">Lemma&nbsp;<span>2.3</span></a> for any (measurable) function <span class="math inline">\(g\)</span>. Then the definition of <a href="#def-expectation" class="quarto-xref">Definition&nbsp;<span>2.2</span></a> falls off as a special case for <span class="math inline">\(g(x) = x\)</span>. No proofs needed!</p>
@@ -880,8 +916,8 @@ How to avoid a proof
 <li><p>A continuous random variable is said to be symmetric if <span class="math inline">\(f_X(-x) = f_X(x)\)</span> for all <span class="math inline">\(x \in \reals\)</span>. A symmetric random variable has mean <span class="math inline">\(0\)</span>.</p></li>
 <li><p>A continuous random variable is said to be symmetric around <span class="math inline">\(m\)</span> if <span class="math inline">\(f(m - x) = f(m + x)\)</span>, for all <span class="math inline">\(x \in \reals\)</span>. The mean of such a random variable is <span class="math inline">\(m\)</span>.</p></li>
 </ol>
-<section id="higher-moments" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="higher-moments"><span class="header-section-number">2.2.1</span> Higher moments</h3>
+<section id="higher-moments" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="higher-moments"><span class="header-section-number">2.3.1</span> Higher moments</h3>
 <ol type="1">
 <li><p>The <span class="math inline">\(m\)</span>-th <strong>moment</strong>, <span class="math inline">\(m \ge 1\)</span> of a random variable <span class="math inline">\(X\)</span> is defined as <span class="math inline">\(\EXP[X^m]\)</span>.</p></li>
 <li><p>The <span class="math inline">\(m\)</span>-th <strong>central moment</strong> is defined as <span class="math inline">\(\EXP[(X - μ)^m]\)</span>, where <span class="math inline">\(μ = \EXP[X]\)</span>.</p></li>
@@ -892,7 +928,7 @@ How to avoid a proof
 <p><span class="theorem-title"><strong>Example 2.13</strong></span> Find the variance of <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -901,7 +937,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We first compute <span class="math display">\[
 \EXP[X^2] = \frac 14 \cdot 0^2 + \frac 12 \cdot 1^2 + \frac 14 \cdot 2^2 = \frac 32.
