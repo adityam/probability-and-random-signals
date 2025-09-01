@@ -2,168 +2,214 @@
 title: Random variables 
 ---
 
-In many situations, we are not directly interested in the outcome of a random experiment, but a consequence of the outcome. Such consequences may be thought of as a function of the outcome. When they are real-valued, such functions of the outcome are called **random variables**.
+1. In many situations, we are not directly interested in the outcome of a random experiment, but a consequence or measurement of the outcome. Such consequences may be thought of as a function of the outcome and are called **random variables**. 
 
-:::{#exm-coin-toss}
-Suppose a fair coin is tossed twice. Thus, $Ω = \{ HH, HT, TH, TT \}$, $\ALPHABET F = 2^Ω$, and $\PR$ is such that all outcomes are equally likely. For an $ω \in Ω$, let $X(ω)$ denote the number of heads. Thus,
-$$
-X(HH) = 2, \quad X(HT) = 1, \quad X(TH) = 1, \quad X(TT) = 0.
-$$
-:::
 
-The random variable $X \colon Ω \to \reals$ induces a probability measure on $\reals$. Formally, to define such a probability measure, we need an associated $σ$-algebra on $\reals$. As discussed in [last lecture](probability-spaces.qmd#Borel-algebra), the commonly used $σ$-algebra on reals is the Borel $σ$-algebra, $\mathscr{B}(\reals)$. For everything to be consistent, we require the function $X$ to satisfy a property known as **measurability**.
+2. 
+   :::{#exm-coin-toss}
+   Suppose a fair coin is tossed twice and we measure the number of heads.
+   For any $ω \in Ω$, let $X(ω)$ denote the number of heads when $ω$ occurs. Thus,
+   $$
+   X(HH) = 2, \quad X(HT) = 1, \quad X(TH) = 1, \quad X(TT) = 0.
+   $$
+   :::
 
-:::{#def-measurability}
-A **random variable** is a function $X \colon Ω \to \reals$ with the property that for every $x \in \reals$ the event $A(x) \coloneqq \{ω \in Ω : X(ω) \le x \} \in \ALPHABET F$. Such functions are said to be **$\ALPHABET F/\mathscr{B}(\reals)$-measurable**.
+3. There are two ways to model this situation:
 
-The **cumulative distribution function (CDF)** of a random variable $X$ is the function $F \colon \reals \to [0,1]$ given by
-$$
-F(x) \coloneqq \PR(A(x)) = \PR(\{ ω \in Ω : X(ω) \le x \}).
-$$
-:::
+    - Model the underlying probability space (the coin tosses):
+      $$
+        (Ω, \ALPHABET F, \PR),
+        \quad \text{ where } Ω = \{ HH, HT, TH, TT \}, \ALPHABET F = 2^Ω, \text{ and $\PR$ is uniform on $Ω$}.
+      $$
+      This probability space is shown in @fig-coin-toss-1.
 
-:::{.callout-note}
-### Some comments on notation
+      ![Probability space for two independent coin tosses](figures/svg/probability3.svg){#fig-coin-toss-1}
+
+    - Model the measurement (the number of heads):
+      $$
+        (\ALPHABET X, \ALPHABET G, \PR_X),
+        \quad \text{ where } \ALPHABET X = \{0,1,2\}, \ALPHABET G = 2^{\ALPHABET X}, \text{ and $\PR_X$ derived from $\PR$}.
+      $$
+      This probability space is shown in @fig-coin-toss-2.
+
+      ![Probability space for number of heads in two independent coin tosses](figures/svg/probability4.svg){#fig-coin-toss-2}
+
+4. We don't need to specify $\PR_X$ directly, since it is computed from $\PR$. Therefore, it is parsimonious to model $X$ as a map:
+   $$
+       X \colon (Ω, \ALPHABET F) \to (\ALPHABET X, \ALPHABET G)
+   $$
+   with
+   $$
+       \PR_X(B) = \PR(X^{-1}(B)), \quad \forall B \in \ALPHABET G.
+   $$
+
+5. For the above probability calculations to make sense, we require that $X^{-1}(B) \in \ALPHABET G$ whenever $B \in \ALPHABET G$. This property is called **measurability** and a function with this property is called **$\ALPHABET F/\ALPHABET G$-measurable**. 
+
+
+6. 
+   :::{#def-random-variable}
+   A **random variable** $X$ is a measurable function from a measurable space $(Ω, \ALPHABET F)$ to another measurable space $(\ALPHABET X, \ALPHABET G)$, which means that for any $B \in \ALPHABET G$, $X^{-1}(B) \in \ALPHABET F$. 
+
+   If $P$ is a probability measure on $(Ω, \ALPHABET F)$ (i.e., $(Ω, \ALPHABET F, \PR)$ is a probability space), then 
+   $$
+       \PR_X(B) = \PR(X^{-1}(B)), \quad \forall B \in \ALPHABET G.
+   $$
+   is a probability measure on $(\ALPHABET X, \ALPHABET G)$. 
+
+7. In this lecture, we focus on **real-valued random variables**, i.e.,  $(\ALPHABET X, \ALPHABET G) = (\reals, \mathscr{B}(\reals))$, where $\mathscr{B}(\reals)$ denotes the Borel $σ$-algebra (see the [last lecture](probability-spaces.qmd#Borel-algebra)). 
+
+8. In fact, introductory probability textbooks often define random variable as a measurable map from $(Ω, \ALPHABET F)$ to $(\reals, \mathscr{B}(\reals))$. The more general definition that we have used (a measurable mapping from a measurable space to _any other_ measurable space) is often reserved for a follow up course on measure theory. I think that it is conceptually simpler to start with the measure-theoretic definition.
+
+## Real-valued random variables
 
 1. The standard notation in probability theory is to use uppercase letters such as $X$, $Y$, $Z$, etc. to denote random variables and the corresponding lowercase letters $x$, $y$, $z$, etc. to denote the possible numerical values of these variables. 
 
-2. Events such as $\{ω \in Ω : X(ω) \le x \}$ are commonly abbreviated as $\{ω : X(ω) \le x \}$ or $\{X \le x\}$. Thus, we have
-   
+2. If $X$ is a (real-valued) random variable on $(Ω, \ALPHABET F, \PR)$, then measurability implies that for every $B \in \mathscr{B}(\reals)$, $X^{-1}(B) \in \ALPHABET F$. Rather than explicitly defining the measure $\PR_X$, we simply use the notation
+   $$\PR(X \in B) \coloneqq \PR(\{ω \in Ω : X(ω) \in B \}).$$
+
+3. If we take $B$ to be the interval $(-∞, x]$, then the event $X^{-1}(B) = \{ ω \in Ω : X(ω) \le x \}$. Such events are abbreviated as $\{ω : X(ω) \le x \}$ or $\{X \le x\}$. Thus, we have
+  
    - $\PR(X \le x) = \PR(\{ω \in Ω : X(ω) \le x \})$.
    - $\PR(X = x) = \PR(\{ω \in Ω : X(ω) = x \})$.
    - $\PR(x < X \le y) = \PR(\{ω \in Ω : x < X(ω) \le y \})$.
-   - For any (Borel) subset $B$ of $\reals$, 
-     $\PR(X \in B) = \PR(\{ω \in Ω : X(ω) \in B \})$.
 
-3. When we need to emphasize the dependence of the CDF on the random variable, we use the notation $F_X$, etc. 
-:::
+4. The **cumulative distribution function (CDF)** of a (real-valued) random variable $X$ is the function $F \colon \reals \to [0,1]$ given by
+   $$
+   F(x) \coloneqq \PR(X \le x) = \PR(\{ ω \in Ω : X(ω) \le x \}).
+   $$
 
-For instance, for @exm-coin-toss, the CDF is given by 
-$$
-F_X(x) = \begin{cases}
-0, & \hbox{if } x < 0,  \\
-\frac 14, & \hbox{if } 0 \le x < 1, \\
-\tfrac 34, & \hbox{if } 1 \le x < 2,\\
-1, &\hbox{if } 2 \le x. 
-\end{cases}$$
-
-:::{#exm-constant}
-### Constant random variables
-
-The simplest random variable takes a constant value on the whole domain $Ω$, i.e., 
-$$
-X(ω) = c, \quad \forall ω \in Ω
-$$
-where $c$ is a constant. The CDF $F(x) = \PR(X \le x)$ is the step function
-$$
-F(x) = \begin{cases}
-0, & x < c \\
-1, & x \ge c.
-\end{cases}
-$$
-
-Slightly more generally, we say that $X$ is _almost surely_ a constant if there exists a $c \in \reals$ such that $\PR(X=c) = 1$.
-:::
-
-:::{#exm-bernoulli}
-### Bernoulli random variable
-A Bernoulli random variable takes two possible values: value $0$ with probability $1-p$ and value $1$ with probability $p$. It's CDF is given by
-$$
-F(x) = \begin{cases}
-0, & x < 0 \\
-1 - p, & 0 \le x < 1 \\
-1, & x \ge 1.
-\end{cases}
-$$
-:::
-
-:::{#exm-indicator-functions}
-### Indicator functions
-Let $A$ be an event. Define the _indicator of event $A$_, denoted by $\IND_{A} \colon Ω \to \reals$, as 
-$$ \IND_{A}(ω) = \begin{cases}
-    1, & \hbox{if } ω \in A \\
-    0, & \hbox{otherwise }
-\end{cases}.$$
-Observe that $\IND_A$ is a Bernoulli random variable which takes values $1$ and $0$ with probabilities $\PR(A)$ and $1 - \PR(A)$. 
-:::
-
-:::{#lem-properties-of-CDFs}
-### Properties of CDFs
-
-1. $\PR(X > x) = 1 - F(x)$. 
-
-2. $\PR(x < X \le y) = F(y) - F(x)$.
-
-3. $\lim_{x \to -∞} F(x) = 0$ and $\lim_{x \to +∞} F(x) = 1$.
-
-4. CDFs are non-decreasing, i.e., if $x < y$, then $F(x) \le F(y)$.
-
-5. CDFs are right continuous, i.e., $\lim_{h \downarrow 0}F(x+h) = F(x)$.
-
-6. $\PR(X = x) = F(x) - F(x^{-})$, where $F(x^{-})$ is defined as $\lim_{h \downarrow 0} F(x - h)$
-:::
+   For instance, in @exm-coin-toss, the CDF is given by 
+   $$
+   F(x) = \begin{cases}
+   0, & \hbox{if } x < 0,  \\
+   \frac 14, & \hbox{if } 0 \le x < 1, \\
+   \tfrac 34, & \hbox{if } 1 \le x < 2,\\
+   1, &\hbox{if } 2 \le x. 
+   \end{cases}$$
 
 
-:::{.callout-note collapse="true"}
-#### Proof
+5. When we need to emphasize the dependence of the CDF on the random variable, we use the notation $F_X$, etc. 
 
-1. By definition, $\{X > x\}^c = Ω\setminus \{X \le x\}$. Thus,
-   $$\PR(X > x) = 1 - \PR(X \le x) = 1 - F(x).$$
+6. **Some examples of CDF of random variables**
 
-2. $$\PR(x < X \le y) = \PR(X \le y) - \PR(X \le x) = F(y) - F(x).$$
-   [See assignment 1 for the first equality.]
+   :::{#exm-constant}
+   ### Constant random variables
 
-3. Define the increasing sequence of events $A_n = \{ X \le n\}$, $n \in \naturalnumbers$. By continuity of probability, we have
-   \begin{align*}
-     &\quad & \PR\biggl( \bigcup_{n=1}^{∞} A_n \biggr) 
-     & = \lim_{n \to ∞} \PR(A_n) \\
-     \implies && \PR(\{X < ∞\}) &= \lim_{n \to ∞} \PR(X \le n) \\
-     \implies && \PR(Ω) &= \lim_{n \to ∞} F(n) \\
-     \implies && 1 &= \lim_{n \to ∞} F(n).
-   \end{align*}
+   The simplest random variable takes a constant value on the whole domain $Ω$, i.e., 
+   $$
+   X(ω) = c, \quad \forall ω \in Ω
+   $$
+   where $c$ is a constant. The CDF $F(x) = \PR(X \le x)$ is the step function
+   $$
+   F(x) = \begin{cases}
+   0, & x < c \\
+   1, & x \ge c.
+   \end{cases}
+   $$
 
-      The reverse argument is similar where we consider the decreasing sequence of events $B_n = \{ X_n \le -n \}$, $n \in \naturalnumbers$. Then, by continuity of probability, we have
+   Slightly more generally, we say that $X$ is _almost surely_ a constant if there exists a $c \in \reals$ such that $\PR(X=c) = 1$.
+   :::
+
+   :::{#exm-bernoulli}
+   ### Bernoulli random variable
+   A Bernoulli random variable takes two possible values: value $0$ with probability $1-p$ and value $1$ with probability $p$. It's CDF is given by
+   $$
+   F(x) = \begin{cases}
+   0, & x < 0 \\
+   1 - p, & 0 \le x < 1 \\
+   1, & x \ge 1.
+   \end{cases}
+   $$
+   :::
+ 
+   :::{#exm-indicator-functions}
+   ### Indicator functions
+   Let $A$ be an event. Define the _indicator of event $A$_, denoted by $\IND_{A} \colon Ω \to \reals$, as 
+   $$ \IND_{A}(ω) = \begin{cases}
+       1, & \hbox{if } ω \in A \\
+       0, & \hbox{otherwise }
+   \end{cases}.$$
+   Observe that $\IND_A$ is a Bernoulli random variable which takes values $1$ and $0$ with probabilities $\PR(A)$ and $1 - \PR(A)$. 
+   :::
+
+7. 
+   :::{#lem-properties-of-CDFs}
+   ### Properties of CDFs
+ 
+   1. $\PR(X > x) = 1 - F(x)$. 
+ 
+   2. $\PR(x < X \le y) = F(y) - F(x)$.
+ 
+   3. $\lim_{x \to -∞} F(x) = 0$ and $\lim_{x \to +∞} F(x) = 1$.
+ 
+   4. CDFs are non-decreasing, i.e., if $x < y$, then $F(x) \le F(y)$.
+ 
+   5. CDFs are right continuous, i.e., $\lim_{h \downarrow 0}F(x+h) = F(x)$.
+ 
+   6. $\PR(X = x) = F(x) - F(x^{-})$, where $F(x^{-})$ is defined as $\lim_{h \downarrow 0} F(x - h)$
+   :::
+ 
+ 
+   :::{.callout-note collapse="true"}
+   #### Proof
+ 
+   1. By definition, $\{X > x\}^c = Ω\setminus \{X \le x\}$. Thus,
+      $$\PR(X > x) = 1 - \PR(X \le x) = 1 - F(x).$$
+ 
+   2. $$\PR(x < X \le y) = \PR(X \le y) - \PR(X \le x) = F(y) - F(x).$$
+      [See assignment 1 for the first equality.]
+ 
+   3. Define the increasing sequence of events $A_n = \{ X \le n\}$, $n \in \naturalnumbers$. By continuity of probability, we have
       \begin{align*}
-        &\quad & \PR\biggl( \bigcap_{n=1}^{∞} B_n \biggr) 
-        & = \lim_{n \to ∞} \PR(B_n) \\
-        \implies && \PR(\{X < -∞\}) &= \lim_{n \to ∞} \PR(X \le -n) \\
-        \implies && \PR(\emptyset) &= \lim_{n \to ∞} F(-n) \\
-        \implies && 0 &= \lim_{n \to ∞} F(-n).
+        &\quad & \PR\biggl( \bigcup_{n=1}^{∞} A_n \biggr) 
+        & = \lim_{n \to ∞} \PR(A_n) \\
+        \implies && \PR(\{X < ∞\}) &= \lim_{n \to ∞} \PR(X \le n) \\
+        \implies && \PR(Ω) &= \lim_{n \to ∞} F(n) \\
+        \implies && 1 &= \lim_{n \to ∞} F(n).
       \end{align*}
-
-4. Recall that 
-   \begin{align*}
-      F(x) &= \PR(X \le x) \\
-      F(y) &= \PR(X \le y) 
-   \end{align*}
-   Observe that since $x < y$, we have $\{X \le x\} \subseteq \{X \le y\}$. Hence, by monotonicity of probability, we have
-   $$\PR(X \le x) \le \PR(X \le y),$$
-   which proves the result.
-
-5.  Consider the decreasing sequence of sets:
-    $$ A_n = \{ X \le x + \tfrac 1n \}, \quad n \in \naturalnumbers. $$
-    Then, by continuity of probability, we have
-    \begin{align*}
-      &\quad & \PR\biggl( \bigcap_{i=1}^{∞} A_n \biggr) 
-      & = \lim_{n \to ∞} \PR(A_n) \\
-      \implies && \PR(X \le x) &= \lim_{n \to ∞} \PR(X \le x + \tfrac 1n ) \\
-      \implies && F(x) &= \lim_{n \to ∞} F(x + \tfrac 1n).
-    \end{align*}
-      
-6. Define the decreasing sequence of sets
-   $$ A_n = \biggl\{ x - \frac 1n < X \le x \biggr\}, 
-   \quad n \in \naturalnumbers.$$
-   Observe that by the previous property
-   $$\PR(A_n) = F(x) - F(x - \tfrac 1n).$$
-   Since $A_n$ is a decreasing sequence of sets, we have
-   \begin{align*}
-   & \quad & 
-   \PR\biggl( \bigcap_{n=1}^∞ A_n \biggr) 
-   &= \lim_{n \to ∞} \PR(A_n) \\
-   \implies && \PR(X = x) &= F(x) - \lim_{n \to ∞} F(x - \tfrac 1n) \\
-   &&& = F(x) - F(x^{-}). 
-   \end{align*}
-:::
+ 
+         The reverse argument is similar where we consider the decreasing sequence of events $B_n = \{ X_n \le -n \}$, $n \in \naturalnumbers$. Then, by continuity of probability, we have
+         \begin{align*}
+           &\quad & \PR\biggl( \bigcap_{n=1}^{∞} B_n \biggr) 
+           & = \lim_{n \to ∞} \PR(B_n) \\
+           \implies && \PR(\{X < -∞\}) &= \lim_{n \to ∞} \PR(X \le -n) \\
+           \implies && \PR(\emptyset) &= \lim_{n \to ∞} F(-n) \\
+           \implies && 0 &= \lim_{n \to ∞} F(-n).
+         \end{align*}
+ 
+   4. Recall that 
+      \begin{align*}
+         F(x) &= \PR(X \le x) \\
+         F(y) &= \PR(X \le y) 
+      \end{align*}
+      Observe that since $x < y$, we have $\{X \le x\} \subseteq \{X \le y\}$. Hence, by monotonicity of probability, we have
+      $$\PR(X \le x) \le \PR(X \le y),$$
+      which proves the result.
+ 
+   5.  Consider the decreasing sequence of sets:
+       $$ A_n = \{ X \le x + \tfrac 1n \}, \quad n \in \naturalnumbers. $$
+       Then, by continuity of probability, we have
+       \begin{align*}
+         &\quad & \PR\biggl( \bigcap_{i=1}^{∞} A_n \biggr) 
+         & = \lim_{n \to ∞} \PR(A_n) \\
+         \implies && \PR(X \le x) &= \lim_{n \to ∞} \PR(X \le x + \tfrac 1n ) \\
+         \implies && F(x) &= \lim_{n \to ∞} F(x + \tfrac 1n).
+       \end{align*}
+         
+   6. Define the decreasing sequence of sets
+      $$ A_n = \biggl\{ x - \frac 1n < X \le x \biggr\}, 
+      \quad n \in \naturalnumbers.$$
+      Observe that by the previous property
+      $$\PR(A_n) = F(x) - F(x - \tfrac 1n).$$
+      Since $A_n$ is a decreasing sequence of sets, we have
+      \begin{align*}
+      & \quad & 
+      \PR\biggl( \bigcap_{n=1}^∞ A_n \biggr) 
+      &= \lim_{n \to ∞} \PR(A_n) \\
+      \implies && \PR(X = x) &= F(x) - \lim_{n \to ∞} F(x - \tfrac 1n) \\
+      &&& = F(x) - F(x^{-}). 
+      \end{align*}
+   :::
 
 :::{#exr-CDF-expressions}
 For $x < y$, express the following in terms of the CDF:

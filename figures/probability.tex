@@ -8,6 +8,10 @@
 
 
 \startMPdefinitions
+   vardef label_omega(expr n) =
+      "$ω_{" & decimal n & "}$"
+   enddef;
+      
    def ProbabilitySpace = applyparameters "ProbabilitySpace" "do_ProbabilitySpace" enddef ;
 
     presetparameters "ProbabilitySpace" [
@@ -20,7 +24,11 @@
       eventfillcolor = "lightgray",
       eventcolor = "lightgray",
 
-      format = "\switchtobodyfont[8pt]$ω_{@d}$",
+
+      labelstyle = "\switchtobodyfont[8pt]",
+
+      labels = { },
+      label_macro = "label_omega", 
     ];
 
     vardef do_ProbabilitySpace = 
@@ -36,30 +44,34 @@
         nx := getparameter "nx";
         ny := getparameter "ny";
 
+        newstring lbl; 
+        newnumeric n;
+
         for j = 1 upto ny:
           for i = 1 upto nx:
              idx := (j-1)*nx + i ;
              draw unitsquare xyscaled (sx, sy) shifted (i*sx, j*sy);
 
-             draw thefmttext.lrt(getparameter "format", idx, (i*sx, (j+1)*sy));
+             n := getparametercount "labels";
+             lbl := if n > 0  :
+                       getparameter "labels" idx
+                    else : 
+                        scantokens(getparameter "label_macro")(idx)
+                    fi;
+
+             label.lrt((getparameter "labelstyle") & lbl, (i*sx, (j+1)*sy));
 
              draw thefmttext("\asciimath{@s}", getparameter "probability" idx,
                              ((i+0.5)*sx, (j+0.5)*sy) );
           endfor
         endfor
 
-        newnumeric n;
         n := getparametercount "events";
 
         newpath event;
 
         for k = 1 upto n :
-           event := getparameter "events" k;
-           event := event xyscaled (sx,sy)
-                          cornered (0.2*min(sx,sy))
-                          blownup (-0.1sx,-0.1sy)
-                          ;
-           event := event randomized (0.03sx, 0.03sy);
+           event := (getparameter "events" k) xyscaled (sx,sy) ;
            fill event withcolor getparameter "eventfillcolor" withstacking -1;
            draw event;
         endfor
@@ -80,11 +92,26 @@
 \startMPpage[offset=1dk]
   newpath A;
   A := (2, 1) -- (4, 1) -- (4, 1.9) -- (2.9, 1.9) -- (2.9, 3) -- (2,3) -- cycle;  
+  A := A cornered (0.2) blownup (-0.1,-0.1) randomized 0.03;
 
   draw ProbabilitySpace[nx=3, ny=2, 
           probability={"2/15", "2/15", "2/15", "2/15", "2/15", "1/3"},
           events = {A},
           ];
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\startMPpage[offset=1dk]
+  draw ProbabilitySpace[nx=2, ny=2, labels = { "HH", "HT", "TH", "TT"},
+          probability={"1/4", "1/4", "1/4", "1/4"}];
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\startMPpage[offset=1dk]
+  draw ProbabilitySpace[nx=3, ny=1, labels = { "$0$", "$1$", "$2$" },
+          probability={"1/4", "1/2", "1/4"}];
 
   currentpicture := currentpicture scaled 1.5;
 \stopMPpage
