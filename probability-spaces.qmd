@@ -1,5 +1,5 @@
 ---
-title: Probability Spaces
+title: Probability spaces
 ---
 
 ## Background
