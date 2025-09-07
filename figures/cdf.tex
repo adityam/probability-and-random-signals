@@ -1,0 +1,273 @@
+\usepath[/home/adityam/projects/presentations]
+
+\enablemode[lucida]
+\environment env-fonts.tex
+\setupbodyfont[slidefont,16pt]
+
+\startMPdefinitions
+  primarydef a -+ b =
+    a -- (xpart b, ypart a) -- b
+  enddef ;
+
+  primarydef a +- b =
+    a -- (xpart a, ypart b) -- b
+  enddef ;
+
+  def DiscreteCDF = applyparameters "DiscreteCDF" "doDiscreteCDF" enddef;  
+
+  presetparameters "DiscreteCDF" [
+    sx = 1.5cm,  sy = 1.5cm,
+    xmin = -2, xmax = 2,
+    ymin = 0, ymax = 1.2, 
+
+    xaxis = true, yaxis = true,
+    yticks = {1},
+    ytickxlabels = {},
+
+    xticks = {},
+    xtickxlabels = {},
+
+    probability = { },
+    
+    color = "darkblue",
+    thickness = 1bp,
+
+    labelstyle = "\switchtobodyfont[8pt]",
+    xlabels = {},
+    ylabels = {},
+    
+  ]  
+
+  vardef doDiscreteCDF = 
+    image(
+      pushparameters "DiscreteCDF";
+
+      newnumeric xmin, xmax, ymin, ymax;
+      xmin := getparameter "xmin";
+      xmax := getparameter "xmax";
+      ymin := getparameter "ymin";
+      ymax := getparameter "ymax";
+
+      newnumeric sx, sy;
+      sx := getparameter "sx";
+      sy := getparameter "sy";
+
+      if (getparameter "xaxis"):
+          drawarrow (xmin*sx, 0) -- (xmax*sx, 0);
+      fi
+  
+      if (getparameter "yaxis"):
+          drawarrow (0, ymin*sy) -- (0, ymax*sy);
+      fi
+      
+      newnumeric n;
+      n := getparametercount "probability";
+
+      save prob; numeric prob[];
+      save CDF;  numeric CDF[];
+      save xs;   numeric xs[];
+
+      xs[0]  := xmin;
+      CDF[0] := 0;
+
+      for idx = 1 upto n:
+        xs[idx]   := xpart (getparameter "probability" idx);
+        prob[idx] := ypart (getparameter "probability" idx);
+        CDF[idx] = CDF[idx-1] + prob[idx];
+      endfor
+
+      xs[n+1]  := xmax;
+      CDF[n+1] := CDF[n];
+
+      for idx = 1 upto n+1:
+        draw ( (xs[idx-1], CDF[idx-1]) -- (xs[idx], CDF[idx-1]) )
+              xyscaled (sx,sy)
+              withpen pencircle scaled (getparameter "thickness")
+              withcolor (getparameter "color")
+              ;
+        if idx > 1 :
+           fill fullcircle scaled 3bp shifted (xs[idx-1]*sx, CDF[idx-1]*sy)
+                withcolor (getparameter "color");
+        fi
+
+        if idx < n+1:
+           fill fullcircle scaled 3bp shifted (xs[idx]*sx, CDF[idx-1]*sy)
+                withcolor white;
+           draw fullcircle scaled 3bp shifted (xs[idx]*sx, CDF[idx-1]*sy)
+                withcolor (getparameter "color");
+        fi
+      endfor;
+
+      n := getparametercount "xlabels";
+      for idx = 1 upto n:
+         label.bot((getparameter "labelstyle") & (getparameter "xlabels" idx), 
+                   (xs[idx]*sx,0) );
+      endfor
+    )
+  enddef;
+
+  def ContinuousCDF = applyparameters "ContinuousCDF" "doContinuousCDF" enddef;  
+
+  presetparameters "ContinuousCDF" [
+    sx = 1.5cm,  sy = 1.5cm,
+    xmin = -2, xmax = 2,
+    ymin = 0, ymax = 1.2, 
+
+    xaxis = true, yaxis = true,
+    yticks = {1},
+    ytickxlabels = {},
+
+    xticks = {},
+    xtickxlabels = {},
+
+    CDF = (0,0) -- (1,1),
+    
+    color = "darkblue",
+    thickness = 1bp,
+
+    labelstyle = "\switchtobodyfont[8pt]",
+    xlabels = {},
+    
+  ]  
+
+  vardef doContinuousCDF = 
+    image(
+      pushparameters "ContinuousCDF";
+
+      newnumeric xmin, xmax, ymin, ymax;
+      xmin := getparameter "xmin";
+      xmax := getparameter "xmax";
+      ymin := getparameter "ymin";
+      ymax := getparameter "ymax";
+
+      newnumeric sx, sy;
+      sx := getparameter "sx";
+      sy := getparameter "sy";
+
+      if (getparameter "xaxis"):
+          drawarrow (xmin*sx, 0) -- (xmax*sx, 0);
+      fi
+  
+      if (getparameter "yaxis"):
+          drawarrow (0, ymin*sy) -- (0, ymax*sy);
+      fi
+      
+      n := getparametercount "CDF" ;
+      save CDF; path CDF[];
+
+      for idx = 1 upto n : 
+         CDF[idx] := getparameter "CDF" idx;
+      endfor 
+
+      newpair start_point, stop_point;
+
+      if n = 1 : 
+        draw ( (xmin,0) --- CDF[1] --- (xmax, ypart point length CDF[1] of CDF[1]) )
+             xyscaled (sx, sy)
+             withpen pencircle scaled (getparameter "thickness")
+             withcolor (getparameter "color")
+             ;
+      else :
+        for idx = 1 upto n :
+            draw (if idx = 1 : (xmin, 0) -- fi CDF[idx] if idx = n : -- (xmax, 1) fi)
+                 xyscaled (sx, sy)
+                 withpen pencircle scaled (getparameter "thickness")
+                 withcolor (getparameter "color")
+                 ;
+
+            start_point := point 0 of CDF[idx] ;
+            stop_point  := point length CDF[idx] of CDF[idx]; 
+
+            if idx > 1 : 
+                fill fullcircle scaled 3bp shifted ( start_point xyscaled (sx, sy) )
+                     withcolor (getparameter "color");
+            fi
+
+            if idx < n : 
+                fill fullcircle scaled 3bp shifted ( stop_point xyscaled (sx, sy) )
+                     withcolor white;
+                draw fullcircle scaled 3bp shifted ( stop_point xyscaled (sx, sy) )
+                     withcolor (getparameter "color");
+            fi
+        endfor
+
+      fi
+
+      n := getparametercount "xlabels";
+      for idx = 1 upto n:
+         label.bot((getparameter "labelstyle") & (getparameter "xlabels" idx), 
+                   ((getparameter "xticks" idx)*sx,0) );
+      endfor
+
+      n := getparametercount "ylabels";
+      newpath ytick;
+      ytick := (-3bp,0) -- (3bp,0);
+
+      for idx = 1 upto n:
+          draw ytick shifted (0, (getparameter "yticks" idx)*sy);
+         label.lft((getparameter "labelstyle") & (getparameter "ylabels" idx), 
+                   (-bp, (getparameter "yticks" idx)*sy) );
+      endfor
+    )
+  enddef;
+\stopMPdefinitions
+
+\starttext
+\startMPpage[offset=1dk]
+  draw DiscreteCDF
+       [
+          xmax=3, 
+          probability={(0, 0.25), (1, 0.5), (2, 0.25)}, 
+          xlabels = { "0", "1", "2" },
+       ] ;
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\startMPpage[offset=1dk]
+  draw DiscreteCDF
+       [
+          probability={(0.8, 1)}, 
+          xlabels = {"c"},
+       ] ;
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\startMPpage[offset=1dk]
+  draw DiscreteCDF
+       [
+          probability={(0, 0.25), (1, 0.75)}, 
+          xlabels = {"0", "1"},
+       ] ;
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\startMPpage[offset=1dk]
+  draw ContinuousCDF 
+       [
+          CDF = { ((-1,0) -- (1,1)) } ,
+          xticks  = { -1, 1 },
+          xlabels = {"-1", "1"},
+          yticks  = {1},
+          ylabels = {"1"},
+       ] ;
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\startMPpage[offset=1dk]
+  draw ContinuousCDF 
+       [
+          CDF = { ((-1,0) -- (0,0)), ((0, 1/4) -- (1, 1)) }
+          xticks  = { 0, 1 },
+          xlabels = {"0", "1"},
+          yticks  = {0.25, 1},
+          ylabels = {"$\tfrac 14$", "$1$"},
+       ] ;
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\stoptext
