@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-09-03">
+<meta name="dcterms.date" content="2025-09-07">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>2&nbsp; Random variables – Probability and Random Signals II</title>
@@ -492,7 +492,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 3, 2025</p>
+      <p class="date">September 7, 2025</p>
     </div>
   </div>
   
@@ -577,7 +577,17 @@ F(x) = \begin{cases}
 \frac 14, &amp; \hbox{if } 0 \le x &lt; 1, \\
 \tfrac 34, &amp; \hbox{if } 1 \le x &lt; 2,\\
 1, &amp;\hbox{if } 2 \le x.
-\end{cases}\]</span></p></li>
+\end{cases}\]</span></p>
+<div id="fig-coin-toss-cdf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-coin-toss-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/cdf1.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coin-toss-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: CDF of number of heads
+</figcaption>
+</figure>
+</div></li>
 <li><p>When we need to emphasize the dependence of the CDF on the random variable, we use the notation <span class="math inline">\(F_X\)</span>, etc.</p></li>
 <li><p><strong>Some examples of CDF of random variables</strong></p>
 <div id="exm-constant" class="theorem example">
@@ -590,21 +600,41 @@ F(x) = \begin{cases}
 \end{cases}
 \]</span></p>
 <p>Slightly more generally, we say that <span class="math inline">\(X\)</span> is <em>almost surely</em> a constant if there exists a <span class="math inline">\(c \in \reals\)</span> such that <span class="math inline">\(\PR(X=c) = 1\)</span>.</p>
+<div id="fig-const-cdf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-const-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/cdf2.svg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-const-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.4: CDF of a constant random variable
+</figcaption>
+</figure>
+</div>
+</div>
+<div id="exm-indicator-functions" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.3 (Indicator functions)</strong></span> Let <span class="math inline">\(A\)</span> be an event. Define the <em>indicator of event <span class="math inline">\(A\)</span></em>, denoted by <span class="math inline">\(\IND_{A} \colon Ω \to \reals\)</span>, as <span class="math display">\[ \IND_{A}(ω) = \begin{cases}
+    1, &amp; \hbox{if } ω \in A \\
+    0, &amp; \hbox{otherwise }
+\end{cases}.\]</span></p>
 </div>
 <div id="exm-bernoulli" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.3 (Bernoulli random variable)</strong></span> A Bernoulli random variable takes two possible values: value <span class="math inline">\(0\)</span> with probability <span class="math inline">\(1-p\)</span> and value <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span>. It’s CDF is given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.4 (Bernoulli random variable)</strong></span> A Bernoulli random variable takes two possible values: value <span class="math inline">\(0\)</span> with probability <span class="math inline">\(1-p\)</span> and value <span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span>. It’s CDF is given by <span class="math display">\[
 F(x) = \begin{cases}
 0, &amp; x &lt; 0 \\
 1 - p, &amp; 0 \le x &lt; 1 \\
 1, &amp; x \ge 1.
 \end{cases}
-\]</span></p>
+\]</span> Observe that <span class="math inline">\(\IND_A\)</span> is a Bernoulli random variable which takes values <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span> with probabilities <span class="math inline">\(\PR(A)\)</span> and <span class="math inline">\(1 - \PR(A)\)</span>.</p>
+<div id="fig-bernoulli-cdf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bernoulli-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/cdf3.svg" class="img-fluid figure-img">
 </div>
-<div id="exm-indicator-functions" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.4 (Indicator functions)</strong></span> Let <span class="math inline">\(A\)</span> be an event. Define the <em>indicator of event <span class="math inline">\(A\)</span></em>, denoted by <span class="math inline">\(\IND_{A} \colon Ω \to \reals\)</span>, as <span class="math display">\[ \IND_{A}(ω) = \begin{cases}
-    1, &amp; \hbox{if } ω \in A \\
-    0, &amp; \hbox{otherwise }
-\end{cases}.\]</span> Observe that <span class="math inline">\(\IND_A\)</span> is a Bernoulli random variable which takes values <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span> with probabilities <span class="math inline">\(\PR(A)\)</span> and <span class="math inline">\(1 - \PR(A)\)</span>.</p>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bernoulli-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.5: CDF of a Bernoulli random variable
+</figcaption>
+</figure>
+</div>
 </div></li>
 <li><div id="lem-properties-of-CDFs" class="theorem lemma">
 <p><span class="theorem-title"><strong>Lemma 2.1 (Properties of CDFs)</strong></span> &nbsp;</p>
@@ -687,13 +717,24 @@ Proof
 <li><span class="math inline">\(F(x) = \sum_{x_n : x_n \le x} p(x_n).\)</span></li>
 </ul>
 <p><span class="text-primary">Thus, for a discrete random variable, the CDF is a piecewise constant function</span></p>
-<p><!-- TODO: Add figure --></p></li>
+<p><a href="#fig-coin-toss-cdf" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>, <a href="#fig-const-cdf" class="quarto-xref">Figure&nbsp;<span>2.4</span></a>, <a href="#fig-bernoulli-cdf" class="quarto-xref">Figure&nbsp;<span>2.5</span></a> are all examples of discrete random variables.</p></li>
 <li><p>A random variable <span class="math inline">\(X\)</span> is called <strong>continuous</strong> if there exists an integrable function <span class="math inline">\(f \colon \reals \to [0, ∞)\)</span> called the <strong>probability denisity function</strong> such that the CDF can be written as <span class="math display">\[
 F(x) = \int_{-∞}^x f(x) dx.
 \]</span></p>
 <p><span class="text-primary">Thus, for a continuous random variable, the CDF is a continuous function</span></p>
-<p><!-- TODO: Add figure --></p></li>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/cdf4.svg" class="img-fluid figure-img"></p>
+<figcaption>CDF of a continuous random variable</figcaption>
+</figure>
+</div></li>
 <li><p>A random variable is called <strong>mixed</strong> if it is neither discrete nor continuous. <span class="text-primary">For a mixed random variable, the CDF has has jumps at a finite or countable infinite number of points and it is continuous over one or many intervals.</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/cdf5.svg" class="img-fluid figure-img"></p>
+<figcaption>CDF of a mixed random variable</figcaption>
+</figure>
+</div>
 <p>As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then <span class="math inline">\(X \sim \text{Bernoulli}(0.5)\)</span>; if the outcome is tails; then <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>. Thus (from the law of total probability), the CDF of <span class="math inline">\(X\)</span> is <span class="math display">\[
    F_X(x) = \begin{cases}
    0, &amp; \hbox{if } x &lt; 0 \\
@@ -735,14 +776,14 @@ Proof that it is a partition
 </div>
 </div>
 </div>
-<p>The power-set of <span class="math inline">\(\{A_1, A_2, \dots\}\)</span> is called the <strong><span class="math inline">\(σ\)</span>-algebra generated by <span class="math inline">\(X\)</span></strong> and denoted by <span class="math inline">\(σ(X)\)</span>. This <span class="math inline">\(σ\)</span>-algebra captures the crux of measurability. As an illustration, let’s reconsider <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>. In this case, the range of <span class="math inline">\(X\)</span> is <span class="math inline">\(\{0, 1, 2\}\)</span>. The partition corresponding to <span class="math inline">\(σ(X)\)</span> is shown in <a href="#fig-sigma-X" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>.</p>
+<p>The power-set of <span class="math inline">\(\{A_1, A_2, \dots\}\)</span> is called the <strong><span class="math inline">\(σ\)</span>-algebra generated by <span class="math inline">\(X\)</span></strong> and denoted by <span class="math inline">\(σ(X)\)</span>. This <span class="math inline">\(σ\)</span>-algebra captures the crux of measurability. As an illustration, let’s reconsider <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>. In this case, the range of <span class="math inline">\(X\)</span> is <span class="math inline">\(\{0, 1, 2\}\)</span>. The partition corresponding to <span class="math inline">\(σ(X)\)</span> is shown in <a href="#fig-sigma-X" class="quarto-xref">Figure&nbsp;<span>2.6</span></a>.</p>
 <div id="fig-sigma-X" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sigma-X-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="TODO.png" class="img-fluid figure-img">
+<img src="figures/svg/probability5.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sigma-X-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.3: Illustration of <span class="math inline">\(σ(X)\)</span> for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>
+Figure&nbsp;2.6: Illustration of <span class="math inline">\(σ(X)\)</span> for <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>
 </figcaption>
 </figure>
 </div>
