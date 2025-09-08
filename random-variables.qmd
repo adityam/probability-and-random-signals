@@ -75,12 +75,12 @@ title: Random variables
 
 4. The **cumulative distribution function (CDF)** of a (real-valued) random variable $X$ is the function $F \colon \reals \to [0,1]$ given by
    $$
-   F(x) \coloneqq \PR(X \le x) = \PR(\{ ω \in Ω : X(ω) \le x \}).
+   F_X(x) \coloneqq \PR(X \le x) = \PR(\{ ω \in Ω : X(ω) \le x \}).
    $$
 
    For instance, in @exm-coin-toss, the CDF is given by 
    $$
-   F(x) = \begin{cases}
+   F_X(x) = \begin{cases}
    0, & \hbox{if } x < 0,  \\
    \frac 14, & \hbox{if } 0 \le x < 1, \\
    \tfrac 34, & \hbox{if } 1 \le x < 2,\\
@@ -90,9 +90,7 @@ title: Random variables
    ![CDF of number of heads](figures/svg/cdf1.svg){#fig-coin-toss-cdf}
 
 
-5. When we need to emphasize the dependence of the CDF on the random variable, we use the notation $F_X$, etc. 
-
-6. **Some examples of CDF of random variables**
+5. **Some examples of CDF of random variables**
 
    :::{#exm-constant}
    ### Constant random variables
@@ -101,9 +99,9 @@ title: Random variables
    $$
    X(ω) = c, \quad \forall ω \in Ω
    $$
-   where $c$ is a constant. The CDF $F(x) = \PR(X \le x)$ is the step function
+   where $c$ is a constant. The CDF $F_X(x) = \PR(X \le x)$ is the step function
    $$
-   F(x) = \begin{cases}
+   F_X(x) = \begin{cases}
    0, & x < c \\
    1, & x \ge c.
    \end{cases}
@@ -127,7 +125,7 @@ title: Random variables
    ### Bernoulli random variable
    A Bernoulli random variable takes two possible values: value $0$ with probability $1-p$ and value $1$ with probability $p$. It's CDF is given by
    $$
-   F(x) = \begin{cases}
+   F_X(x) = \begin{cases}
    0, & x < 0 \\
    1 - p, & 0 \le x < 1 \\
    1, & x \ge 1.
@@ -138,21 +136,21 @@ title: Random variables
    ![CDF of a Bernoulli random variable](figures/svg/cdf3.svg){#fig-bernoulli-cdf}
    :::
 
-7. 
+6. 
    :::{#lem-properties-of-CDFs}
    ### Properties of CDFs
  
-   1. $\PR(X > x) = 1 - F(x)$. 
+   1. $\PR(X > x) = 1 - F_X(x)$. 
  
-   2. $\PR(x < X \le y) = F(y) - F(x)$.
+   2. $\PR(x < X \le y) = F_X(y) - F_X(x)$.
  
-   3. $\lim_{x \to -∞} F(x) = 0$ and $\lim_{x \to +∞} F(x) = 1$.
+   3. $\lim_{x \to -∞} F_X(x) = 0$ and $\lim_{x \to +∞} F_X(x) = 1$.
  
-   4. CDFs are non-decreasing, i.e., if $x < y$, then $F(x) \le F(y)$.
+   4. CDFs are non-decreasing, i.e., if $x < y$, then $F_X(x) \le F_X(y)$.
  
-   5. CDFs are right continuous, i.e., $\lim_{h \downarrow 0}F(x+h) = F(x)$.
+   5. CDFs are right continuous, i.e., $\lim_{h \downarrow 0}F_X(x+h) = F_X(x)$.
  
-   6. $\PR(X = x) = F(x) - F(x^{-})$, where $F(x^{-})$ is defined as $\lim_{h \downarrow 0} F(x - h)$
+   6. $\PR(X = x) = F_X(x) - F_X(x^{-})$, where $F_X(x^{-})$ is defined as $\lim_{h \downarrow 0} F_X(x - h)$
    :::
  
  
@@ -160,9 +158,9 @@ title: Random variables
    #### Proof
  
    1. By definition, $\{X > x\}^c = Ω\setminus \{X \le x\}$. Thus,
-      $$\PR(X > x) = 1 - \PR(X \le x) = 1 - F(x).$$
+      $$\PR(X > x) = 1 - \PR(X \le x) = 1 - F_X(x).$$
  
-   2. $$\PR(x < X \le y) = \PR(X \le y) - \PR(X \le x) = F(y) - F(x).$$
+   2. $$\PR(x < X \le y) = \PR(X \le y) - \PR(X \le x) = F_X(y) - F_X(x).$$
       [See assignment 1 for the first equality.]
  
    3. Define the increasing sequence of events $A_n = \{ X \le n\}$, $n \in \naturalnumbers$. By continuity of probability, we have
@@ -170,8 +168,8 @@ title: Random variables
         &\quad & \PR\biggl( \bigcup_{n=1}^{∞} A_n \biggr) 
         & = \lim_{n \to ∞} \PR(A_n) \\
         \implies && \PR(\{X < ∞\}) &= \lim_{n \to ∞} \PR(X \le n) \\
-        \implies && \PR(Ω) &= \lim_{n \to ∞} F(n) \\
-        \implies && 1 &= \lim_{n \to ∞} F(n).
+        \implies && \PR(Ω) &= \lim_{n \to ∞} F_X(n) \\
+        \implies && 1 &= \lim_{n \to ∞} F_X(n).
       \end{align*}
  
          The reverse argument is similar where we consider the decreasing sequence of events $B_n = \{ X_n \le -n \}$, $n \in \naturalnumbers$. Then, by continuity of probability, we have
@@ -179,14 +177,14 @@ title: Random variables
            &\quad & \PR\biggl( \bigcap_{n=1}^{∞} B_n \biggr) 
            & = \lim_{n \to ∞} \PR(B_n) \\
            \implies && \PR(\{X < -∞\}) &= \lim_{n \to ∞} \PR(X \le -n) \\
-           \implies && \PR(\emptyset) &= \lim_{n \to ∞} F(-n) \\
-           \implies && 0 &= \lim_{n \to ∞} F(-n).
+           \implies && \PR(\emptyset) &= \lim_{n \to ∞} F_X(-n) \\
+           \implies && 0 &= \lim_{n \to ∞} F_X(-n).
          \end{align*}
  
    4. Recall that 
       \begin{align*}
-         F(x) &= \PR(X \le x) \\
-         F(y) &= \PR(X \le y) 
+         F_X(x) &= \PR(X \le x) \\
+         F_X(y) &= \PR(X \le y) 
       \end{align*}
       Observe that since $x < y$, we have $\{X \le x\} \subseteq \{X \le y\}$. Hence, by monotonicity of probability, we have
       $$\PR(X \le x) \le \PR(X \le y),$$
@@ -199,21 +197,21 @@ title: Random variables
          &\quad & \PR\biggl( \bigcap_{i=1}^{∞} A_n \biggr) 
          & = \lim_{n \to ∞} \PR(A_n) \\
          \implies && \PR(X \le x) &= \lim_{n \to ∞} \PR(X \le x + \tfrac 1n ) \\
-         \implies && F(x) &= \lim_{n \to ∞} F(x + \tfrac 1n).
+         \implies && F_X(x) &= \lim_{n \to ∞} F_X(x + \tfrac 1n).
        \end{align*}
          
    6. Define the decreasing sequence of sets
       $$ A_n = \biggl\{ x - \frac 1n < X \le x \biggr\}, 
       \quad n \in \naturalnumbers.$$
       Observe that by the previous property
-      $$\PR(A_n) = F(x) - F(x - \tfrac 1n).$$
+      $$\PR(A_n) = F_X(x) - F_X(x - \tfrac 1n).$$
       Since $A_n$ is a decreasing sequence of sets, we have
       \begin{align*}
       & \quad & 
       \PR\biggl( \bigcap_{n=1}^∞ A_n \biggr) 
       &= \lim_{n \to ∞} \PR(A_n) \\
-      \implies && \PR(X = x) &= F(x) - \lim_{n \to ∞} F(x - \tfrac 1n) \\
-      &&& = F(x) - F(x^{-}). 
+      \implies && \PR(X = x) &= F_X(x) - \lim_{n \to ∞} F_X(x - \tfrac 1n) \\
+      &&& = F_X(x) - F_X(x^{-}). 
       \end{align*}
    :::
 
@@ -230,10 +228,10 @@ For $x < y$, express the following in terms of the CDF:
 
 There are three types of random variables
 
-1. A random variable $X$ is said to be **discrete** if it takes values in a finite or countable subset $\text{range}(X) \coloneqq \{x_1, x_2, \dots\}$ of $\reals$. A discrete random variable has a **probability mass function (PMF)** $p \colon \reals \to [0,1]$ which satisfies the following properties:
+1. A random variable $X$ is said to be **discrete** if it takes values in a finite or countable subset $\ALPHABET X \coloneqq \{x_1, x_2, \dots\}$ of $\reals$. A discrete random variable has a **probability mass function (PMF)** $p \colon \reals \to [0,1]$ which satisfies the following properties:
 
-    - $p(x) = \PR(X = x) = F(x) - F(x^{-})$.
-    - $F(x) = \sum_{x_n : x_n \le x} p(x_n).$
+    - $p(x) = \PR(X = x) = F_X(x) - F_X(x^{-})$.
+    - $F_X(x) = \sum_{x_n : x_n \le x} p(x_n).$
 
    [Thus, for a discrete random variable, the CDF is a piecewise constant function]{.text-primary}
 
@@ -241,7 +239,7 @@ There are three types of random variables
 
 2. A random variable $X$ is called **continuous** if there exists an integrable function $f \colon \reals \to [0, ∞)$ called the **probability denisity function** such that the CDF can be written as
     $$
-    F(x) = \int_{-∞}^x f(x) dx.
+    F_X(x) = \int_{-∞}^x f_X(x) dx.
     $$
 
    [Thus, for a continuous random variable, the CDF is a continuous function]{.text-primary}
@@ -292,7 +290,7 @@ The power-set of $\{A_1, A_2, \dots\}$ is called the **$σ$-algebra generated by
 - **Properties of discrete random variables**
 
   For a discrete random variable $X$, define the **probability mass function (PMF)** $P_X \colon \reals \to \reals$ as
-  $$ P_X(x) = F(x) - F(x^{-}).$$
+  $$ P_X(x) = F_X(x) - F_X(x^{-}).$$
   By construction, $P_X(x) \ge 0$ and $\sum_{x \in \ALPHABET X} P_X(x) = 1$. 
 
   Then, for any event $A \in \mathscr{B}(\reals)$, 
@@ -304,10 +302,10 @@ The power-set of $\{A_1, A_2, \dots\}$ is called the **$σ$-algebra generated by
   $$
      f_X(x) = \frac{d}{dx} F_X(x).
   $$
-  By construction, $f(x) \ge 0$ and $\int_{-∞}^{∞} f(x)\, dx = 1$.
+  By construction, $f_X(x) \ge 0$ and $\int_{-∞}^{∞} f_X(x)\, dx = 1$.
 
   Then, for any event $A \in \mathscr{B}(\reals)$, 
-  $$\PR(X \in A) = \int_{x \in A} f(x)\,dx.$$ 
+  $$\PR(X \in A) = \int_{x \in A} f_X(x)\,dx.$$ 
 :::
 
 ### Some examples of discrete random variables
@@ -356,21 +354,21 @@ $$P_X(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.$$
 #### Uniform random variable
 
 A random variable is said to have a (continuous) uniform distribution over an interval $[a, b]$, where $a < b$ if
-$$f(x) = \frac 1{b - a}, \quad x \in [a,b].$$
+$$f_X(x) = \frac 1{b - a}, \quad x \in [a,b].$$
 :::
 
 :::{#exm-exponential}
 #### Exponential random variable
 
 A random variable is said to have an exponential distribution with parameter $λ > 0$, which is denoted by $\text{exp}(λ)$ if 
-$$f(x) = λ e^{-λ x}, \quad x \ge 0.$$
+$$f_X(x) = λ e^{-λ x}, \quad x \ge 0.$$
 :::
 
 :::{#exm-Gaussian}
 #### Gaussian random variable
 
 A random variable is said to have a Gaussian distribution with mean $μ$ and standard deviation $σ > 0$, which is denoted by $\mathcal N(μ, σ^2)$ if 
-$$f(x) = \frac 1{\sqrt{2 π}\, σ}
+$$f_X(x) = \frac 1{\sqrt{2 π}\, σ}
 \exp\left( -\frac {(x-μ)^2}{2 σ^2} \right),
 \quad x \in \reals.$$
 :::
@@ -391,7 +389,7 @@ The **expectation** of a random variable $X$ is defined as follows:
   $$\EXP[X] = \sum_{i=1}^n x_i P_X(x_i).$$
 
 - when $X$ is continuous, then
-  $$\EXP[X] = \int_{-∞}^{∞} x f(x)\, dx. $$
+  $$\EXP[X] = \int_{-∞}^{∞} x f_X(x)\, dx. $$
 
   [Thus, we can think of the expected value as the center of mass of the PDF.]{.text-primary}
 :::
@@ -458,7 +456,7 @@ For any (measurable) function $g \colon \reals \to \reals$, we have
   $$\EXP[g(X)] = \sum_{i=1}^n g(x_i) P_X(x_i).$$
 
 - when $X$ is continuous, then
-  $$\EXP[g(X)] = \int_{-∞}^{∞} g(x) f(x)\, dx. $$
+  $$\EXP[g(X)] = \int_{-∞}^{∞} g(x) f_X(x)\, dx. $$
 
 Both expressions are defined only when the sum/integral is absolutely convergent. 
 :::
