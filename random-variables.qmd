@@ -73,7 +73,7 @@ title: Random variables
    - $\PR(X = x) = \PR(\{ω \in Ω : X(ω) = x \})$.
    - $\PR(x < X \le y) = \PR(\{ω \in Ω : x < X(ω) \le y \})$.
 
-4. The **cumulative distribution function (CDF)** of a (real-valued) random variable $X$ is the function $F \colon \reals \to [0,1]$ given by
+4. The **cumulative distribution function (CDF)** of a (real-valued) random variable $X$ is the function $F_X \colon \reals \to [0,1]$ given by
    $$
    F_X(x) \coloneqq \PR(X \le x) = \PR(\{ ω \in Ω : X(ω) \le x \}).
    $$

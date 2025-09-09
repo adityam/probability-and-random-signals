@@ -35,6 +35,8 @@
     labelstyle = "\switchtobodyfont[8pt]",
     xticks = {}, xlabels = {},
     yticks = {}, ylabels = {},
+
+    randomize = true,
     
   ]  
 
@@ -52,12 +54,17 @@
       sx := getparameter "sx";
       sy := getparameter "sy";
 
+      newboolean randomize;
+      randomize := getparameter "randomize";
+
       if (getparameter "xaxis"):
-          drawarrow (xmin*sx, 0) -- (xmax*sx, 0);
+          drawarrow (xmin*sx, 0) -- (xmax*sx, 0)
+          if randomize: randomized (0.05sx,0.05sy) fi ;
       fi
   
       if (getparameter "yaxis"):
-          drawarrow (0, ymin*sy) -- (0, ymax*sy);
+          drawarrow (0, ymin*sy) -- (0, ymax*sy)
+          if randomize: randomized (0.05sx,0.05sy) fi ;
       fi
       
       newnumeric n;
@@ -82,6 +89,7 @@
       for idx = 1 upto n+1:
         draw ( (xs[idx-1], CDF[idx-1]) -- (xs[idx], CDF[idx-1]) )
               xyscaled (sx,sy)
+              if randomize: randomized (0.025sx,0.025sy) fi 
               withpen pencircle scaled (getparameter "thickness")
               withcolor (getparameter "color")
               ;
@@ -138,6 +146,8 @@
     labelstyle = "\switchtobodyfont[8pt]",
     xticks = {}, xlabels = {},
     yticks = {}, ylabels = {},
+
+    randomize = true,
   ]  
 
   vardef doContinuousCDF = 
@@ -154,12 +164,17 @@
       sx := getparameter "sx";
       sy := getparameter "sy";
 
+      newboolean randomize;
+      randomize := getparameter "randomize";
+
       if (getparameter "xaxis"):
-          drawarrow (xmin*sx, 0) -- (xmax*sx, 0);
+          drawarrow (xmin*sx, 0) -- (xmax*sx, 0)
+          if randomize: randomized (0.05sx,0.05sy) fi ;
       fi
   
       if (getparameter "yaxis"):
-          drawarrow (0, ymin*sy) -- (0, ymax*sy);
+          drawarrow (0, ymin*sy) -- (0, ymax*sy)
+          if randomize: randomized (0.05sx,0.05sy) fi ;
       fi
       
       n := getparametercount "CDF" ;
@@ -174,6 +189,7 @@
       if n = 1 : 
         draw ( (xmin,0) --- CDF[1] --- (xmax, ypart point length CDF[1] of CDF[1]) )
              xyscaled (sx, sy)
+             if randomize: randomized (0.025sx,0.025sy) fi 
              withpen pencircle scaled (getparameter "thickness")
              withcolor (getparameter "color")
              ;
@@ -181,6 +197,7 @@
         for idx = 1 upto n :
             draw (if idx = 1 : (xmin, 0) -- fi CDF[idx] if idx = n : -- (xmax, 1) fi)
                  xyscaled (sx, sy)
+                 if randomize: randomized (0.025sx,0.025sy) fi 
                  withpen pencircle scaled (getparameter "thickness")
                  withcolor (getparameter "color")
                  ;
