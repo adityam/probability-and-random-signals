@@ -33,8 +33,8 @@
     thickness = 1bp,
 
     labelstyle = "\switchtobodyfont[8pt]",
-    xlabels = {},
-    ylabels = {},
+    xticks = {}, xlabels = {},
+    yticks = {}, ylabels = {},
     
   ]  
 
@@ -103,6 +103,16 @@
          label.bot((getparameter "labelstyle") & (getparameter "xlabels" idx), 
                    (xs[idx]*sx,0) );
       endfor
+
+      n := getparametercount "ylabels";
+      newpath ytick;
+      ytick := (-3bp,0) -- (3bp,0);
+
+      for idx = 1 upto n:
+          draw ytick shifted (0, (getparameter "yticks" idx)*sy);
+         label.lft((getparameter "labelstyle") & (getparameter "ylabels" idx), 
+                   (-bp, (getparameter "yticks" idx)*sy) );
+      endfor
     )
   enddef;
 
@@ -126,8 +136,8 @@
     thickness = 1bp,
 
     labelstyle = "\switchtobodyfont[8pt]",
-    xlabels = {},
-    
+    xticks = {}, xlabels = {},
+    yticks = {}, ylabels = {},
   ]  
 
   vardef doContinuousCDF = 
@@ -219,6 +229,8 @@
           xmax=3, 
           probability={(0, 0.25), (1, 0.5), (2, 0.25)}, 
           xlabels = { "0", "1", "2" },
+          yticks = {0.25, 0.75, 1},
+          ylabels = {"$\tfrac 14$", "$\tfrac 34$", "$1$"},
        ] ;
 
   currentpicture := currentpicture scaled 1.5;
@@ -229,6 +241,8 @@
        [
           probability={(0.8, 1)}, 
           xlabels = {"c"},
+          yticks = {1},
+          ylabels = {"$1$"},
        ] ;
 
   currentpicture := currentpicture scaled 1.5;
@@ -239,6 +253,8 @@
        [
           probability={(0, 0.25), (1, 0.75)}, 
           xlabels = {"0", "1"},
+          yticks = {0.25, 1},
+          ylabels = {"p", "$1$"},
        ] ;
 
   currentpicture := currentpicture scaled 1.5;
@@ -260,11 +276,11 @@
 \startMPpage[offset=1dk]
   draw ContinuousCDF 
        [
-          CDF = { ((-1,0) -- (0,0)), ((0, 1/4) -- (1, 1)) }
+          CDF = { ((-1,0) -- (0,0)), ((0, 1/4) -- (1, 3/4)), ((1,1)--(2,1))  }
           xticks  = { 0, 1 },
           xlabels = {"0", "1"},
-          yticks  = {0.25, 1},
-          ylabels = {"$\tfrac 14$", "$1$"},
+          yticks  = {0.25, 0.75, 1},
+          ylabels = {"$\tfrac 14$", "$\tfrac 34$", "$1$"},
        ] ;
 
   currentpicture := currentpicture scaled 1.5;

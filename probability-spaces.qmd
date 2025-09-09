@@ -829,7 +829,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
   
    Therefore,
 
-   - $\PR(A) = \PR(B) = \PR(C) = \frac 14$.
+   - $\PR(A) = \PR(B) = \PR(C) = \frac 12$.
    - $\PR(A \cap B) = \PR(B \cap C) = \PR(C \cap A) = \frac 14$.
    - $\PR(A \cap B \cap C) = \emptyset$.
 
