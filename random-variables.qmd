@@ -413,7 +413,7 @@ The partition corresponding to $Y = g(X)$ is shown in @fig-sigma-Y. Observe that
 
 The PMFs of $X$ and $Y$ can be obtained by summing up the masses in each element of their respective partitions. 
 
-## Functions of continuous random variables
+### Functions of continuous random variables
 
 For continuous random variables, computing the PDF of a function of a random variable is more involved. We first illustrate the main idea via some examples. 
 
