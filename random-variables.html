@@ -456,14 +456,12 @@ window.Quarto = {
   <li><a href="#functions-of-random-variables" id="toc-functions-of-random-variables" class="nav-link" data-scroll-target="#functions-of-random-variables"><span class="header-section-number">2.3</span> Functions of random variables</a>
   <ul class="collapse">
   <li><a href="#functions-of-discrete-random-variables" id="toc-functions-of-discrete-random-variables" class="nav-link" data-scroll-target="#functions-of-discrete-random-variables"><span class="header-section-number">2.3.1</span> Functions of discrete random variables</a></li>
+  <li><a href="#functions-of-continuous-random-variables" id="toc-functions-of-continuous-random-variables" class="nav-link" data-scroll-target="#functions-of-continuous-random-variables"><span class="header-section-number">2.3.2</span> Functions of continuous random variables</a></li>
+  <li><a href="#change-of-variables-formula" id="toc-change-of-variables-formula" class="nav-link" data-scroll-target="#change-of-variables-formula"><span class="header-section-number">2.3.3</span> Change of variables formula</a></li>
   </ul></li>
-  <li><a href="#functions-of-continuous-random-variables" id="toc-functions-of-continuous-random-variables" class="nav-link" data-scroll-target="#functions-of-continuous-random-variables"><span class="header-section-number">2.4</span> Functions of continuous random variables</a>
+  <li><a href="#expectation-of-random-variables" id="toc-expectation-of-random-variables" class="nav-link" data-scroll-target="#expectation-of-random-variables"><span class="header-section-number">2.4</span> Expectation of random variables</a>
   <ul class="collapse">
-  <li><a href="#change-of-variables-formula" id="toc-change-of-variables-formula" class="nav-link" data-scroll-target="#change-of-variables-formula"><span class="header-section-number">2.4.1</span> Change of variables formula</a></li>
-  </ul></li>
-  <li><a href="#expectation-of-random-variables" id="toc-expectation-of-random-variables" class="nav-link" data-scroll-target="#expectation-of-random-variables"><span class="header-section-number">2.5</span> Expectation of random variables</a>
-  <ul class="collapse">
-  <li><a href="#higher-moments" id="toc-higher-moments" class="nav-link" data-scroll-target="#higher-moments"><span class="header-section-number">2.5.1</span> Higher moments</a></li>
+  <li><a href="#higher-moments" id="toc-higher-moments" class="nav-link" data-scroll-target="#higher-moments"><span class="header-section-number">2.4.1</span> Higher moments</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -864,9 +862,8 @@ Figure&nbsp;2.9: Illustration of the partition created by $ = g(X)$ for <a href=
 </div>
 <p>The PMFs of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> can be obtained by summing up the masses in each element of their respective partitions.</p>
 </section>
-</section>
-<section id="functions-of-continuous-random-variables" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="functions-of-continuous-random-variables"><span class="header-section-number">2.4</span> Functions of continuous random variables</h2>
+<section id="functions-of-continuous-random-variables" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="functions-of-continuous-random-variables"><span class="header-section-number">2.3.2</span> Functions of continuous random variables</h3>
 <p>For continuous random variables, computing the PDF of a function of a random variable is more involved. We first illustrate the main idea via some examples.</p>
 <div id="exm-function-uniform-1" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2.12</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,2]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
@@ -974,8 +971,9 @@ F_Y(y) = \PR(X \le F(y)) = F_X(F(y)) = F(y)
 </div>
 </div>
 </div>
-<section id="change-of-variables-formula" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="change-of-variables-formula"><span class="header-section-number">2.4.1</span> Change of variables formula</h3>
+</section>
+<section id="change-of-variables-formula" class="level3" data-number="2.3.3">
+<h3 data-number="2.3.3" class="anchored" data-anchor-id="change-of-variables-formula"><span class="header-section-number">2.3.3</span> Change of variables formula</h3>
 <p>It is possible to obtain a general change of variables formula to obtain <span class="math inline">\(f_Y\)</span>.</p>
 <ol type="1">
 <li><p>Suppose <span class="math inline">\(g\)</span> is a continuous and one-to-one function (from <span class="math inline">\(\text{Range}(X)\)</span> to <span class="math inline">\(\text{Range}{Y}\)</span>). Thus, <span class="math inline">\(g\)</span> must be either strictly increasing or strictly decreasing, and in both cases the inverse <span class="math inline">\(g^{-}\)</span> is well defined.</p>
@@ -995,8 +993,8 @@ F_Y(y) = \PR(X \le F(y)) = F_X(F(y)) = F(y)
 </ol>
 </section>
 </section>
-<section id="expectation-of-random-variables" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="expectation-of-random-variables"><span class="header-section-number">2.5</span> Expectation of random variables</h2>
+<section id="expectation-of-random-variables" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="expectation-of-random-variables"><span class="header-section-number">2.4</span> Expectation of random variables</h2>
 <p>Suppose we generate <span class="math inline">\(N\)</span> i.i.d. (independent and identically distributed) samples <span class="math inline">\(\{s_1, s_2, \dots, s_N\}\)</span> of a random variable <span class="math inline">\(X\)</span> and compute the average: <span class="math display">\[ m = \frac 1N \sum_{n=1}^N s_n. \]</span> When <span class="math inline">\(X\)</span> is discrete and takes values <span class="math inline">\(\{x_1, x_2, \dots, x_n\}\)</span>, we expect that the number of times we obtain a value <span class="math inline">\(x_i\)</span> is approximately <span class="math inline">\(NP_X(x_i)\)</span> when <span class="math inline">\(N\)</span> is large. Thus, <span class="math display">\[ m \approx \frac 1N \sum_{i=1}^n x_i \, N P_X(x_i)  = \sum_{i=1}^n x_i P_X(x_i). \]</span></p>
 <p>This quantity is called the <strong>expectation</strong> or the <strong>expected value</strong> or the <strong>mean value</strong> of the random variable <span class="math inline">\(X\)</span> and denoted by <span class="math inline">\(\EXP[X]\)</span>.</p>
 <div id="def-expectation" class="theorem definition">
@@ -1108,8 +1106,8 @@ How to avoid a proof
 <li><p>A continuous random variable is said to be symmetric if <span class="math inline">\(f_X(-x) = f_X(x)\)</span> for all <span class="math inline">\(x \in \reals\)</span>. A symmetric random variable has mean <span class="math inline">\(0\)</span>.</p></li>
 <li><p>A continuous random variable is said to be symmetric around <span class="math inline">\(m\)</span> if <span class="math inline">\(f(m - x) = f(m + x)\)</span>, for all <span class="math inline">\(x \in \reals\)</span>. The mean of such a random variable is <span class="math inline">\(m\)</span>.</p></li>
 </ol>
-<section id="higher-moments" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="higher-moments"><span class="header-section-number">2.5.1</span> Higher moments</h3>
+<section id="higher-moments" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="higher-moments"><span class="header-section-number">2.4.1</span> Higher moments</h3>
 <ol type="1">
 <li><p>The <span class="math inline">\(m\)</span>-th <strong>moment</strong>, <span class="math inline">\(m \ge 1\)</span> of a random variable <span class="math inline">\(X\)</span> is defined as <span class="math inline">\(\EXP[X^m]\)</span>.</p></li>
 <li><p>The <span class="math inline">\(m\)</span>-th <strong>central moment</strong> is defined as <span class="math inline">\(\EXP[(X - μ)^m]\)</span>, where <span class="math inline">\(μ = \EXP[X]\)</span>.</p></li>
