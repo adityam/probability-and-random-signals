@@ -379,13 +379,13 @@ Since $Y$ is a random variable, it is possible to compute its CDF and PMF/PDF as
 
 In the discrete time, it is trivial to find the PMF of $Y$ in terms of PMF of $X$. For example, consider the random variable $X$ defined in @exm-coin-toss. Let $g \colon \{0, 1, 2\} \to \{0, 1\}$ be given by 
 $$
-  g(0) = 0, \quad g(1) = 1, \quad g(2) = 1.
+  g(0) = 0, \quad g(1) = 0, \quad g(2) = 1.
 $$
 Then, 
 $$
-  P_Y(0) = P_X(0) 
+  P_Y(0) = P_X(0) + P_X(1)
   \quad\text{and}\quad
-  P_Y(1) = P_X(1) + P_X(2).
+  P_Y(1) = P_X(2).
 $$
 
 However, it will be useful to visualize this slightly differently. We start with revisiting measurability for discrete random variables. The main point is that 
@@ -422,7 +422,7 @@ Suppose $X \sim \text{Uniform}[0,2]$. Consider a function $g$ given by
 $$
 g(x) = \begin{cases}
   x & x \in (0,1] \\
-  1- x & x \in (1,2] \\
+  2 - x & x \in (1,2] \\
   0 & \hbox{otherwise}
 \end{cases}
 $$
@@ -492,7 +492,7 @@ Thus, $Z \sim \mathcal{N}(0,1)$.
 :::
 
 :::{#exm-generating-random-numbers}
-Suppose $X \sim \text{Uniform}[0,1]$, and $F \colon \reals \to [0,1]$ is a function that satisfies the following properties:
+Suppose $F \colon \reals \to [0,1]$ is a function that satisfies the following properties:
 there exist a pair $(a,b)$ with $a < b$ (we allow $a$ to be $-∞$ and $b$ to be $∞$) such that 
 
 - $F(y) = 0$ for $y \le a$
@@ -501,7 +501,7 @@ there exist a pair $(a,b)$ with $a < b$ (we allow $a$ to be $-∞$ and $b$ to be
 
 Thus, $F$ satisifies the properties of the CDF of a continuous random variable and $F$ is invertible in the interval $(a,b)$. 
 
-Define $Y = F^{-1}(X)$. Show that $F_Y(y) = F(y)$. 
+Suppose $X \sim \text{Uniform}[0,1]$ and $Y = F^{-1}(X)$. Show that $F_Y(y) = F(y)$. 
 :::
 
 :::{.callout-note collapse="false"}
