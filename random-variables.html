@@ -823,11 +823,11 @@ P_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 <section id="functions-of-discrete-random-variables" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="functions-of-discrete-random-variables"><span class="header-section-number">2.3.1</span> Functions of discrete random variables</h3>
 <p>In the discrete time, it is trivial to find the PMF of <span class="math inline">\(Y\)</span> in terms of PMF of <span class="math inline">\(X\)</span>. For example, consider the random variable <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>. Let <span class="math inline">\(g \colon \{0, 1, 2\} \to \{0, 1\}\)</span> be given by <span class="math display">\[
-  g(0) = 0, \quad g(1) = 1, \quad g(2) = 1.
+  g(0) = 0, \quad g(1) = 0, \quad g(2) = 1.
 \]</span> Then, <span class="math display">\[
-  P_Y(0) = P_X(0)
+  P_Y(0) = P_X(0) + P_X(1)
   \quad\text{and}\quad
-  P_Y(1) = P_X(1) + P_X(2).
+  P_Y(1) = P_X(2).
 \]</span></p>
 <p>However, it will be useful to visualize this slightly differently. We start with revisiting measurability for discrete random variables. The main point is that</p>
 <ul>
@@ -869,7 +869,7 @@ Figure&nbsp;2.9: Illustration of the partition created by $ = g(X)$ for <a href=
 <p><span class="theorem-title"><strong>Example 2.12</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,2]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
 g(x) = \begin{cases}
   x &amp; x \in (0,1] \\
-  1- x &amp; x \in (1,2] \\
+  2 - x &amp; x \in (1,2] \\
   0 &amp; \hbox{otherwise}
 \end{cases}
 \]</span> Define <span class="math inline">\(Y = g(X)\)</span>. Find <span class="math inline">\(F_Y(y)\)</span> and <span class="math inline">\(f_Y(y)\)</span>.</p>
@@ -941,14 +941,14 @@ F_Z(z) &amp;= \PR(Z \le z) = \PR\left( \frac{X - μ}{σ} \le z \right)
 </div>
 </div>
 <div id="exm-generating-random-numbers" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.15</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>, and <span class="math inline">\(F \colon \reals \to [0,1]\)</span> is a function that satisfies the following properties: there exist a pair <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a &lt; b\)</span> (we allow <span class="math inline">\(a\)</span> to be <span class="math inline">\(-∞\)</span> and <span class="math inline">\(b\)</span> to be <span class="math inline">\(∞\)</span>) such that</p>
+<p><span class="theorem-title"><strong>Example 2.15</strong></span> Suppose <span class="math inline">\(F \colon \reals \to [0,1]\)</span> is a function that satisfies the following properties: there exist a pair <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a &lt; b\)</span> (we allow <span class="math inline">\(a\)</span> to be <span class="math inline">\(-∞\)</span> and <span class="math inline">\(b\)</span> to be <span class="math inline">\(∞\)</span>) such that</p>
 <ul>
 <li><span class="math inline">\(F(y) = 0\)</span> for <span class="math inline">\(y \le a\)</span></li>
 <li><span class="math inline">\(F(y) = 1\)</span> for <span class="math inline">\(y \ge b\)</span></li>
 <li><span class="math inline">\(F(y)\)</span> is strctly increasing in <span class="math inline">\((a,b)\)</span>.</li>
 </ul>
 <p>Thus, <span class="math inline">\(F\)</span> satisifies the properties of the CDF of a continuous random variable and <span class="math inline">\(F\)</span> is invertible in the interval <span class="math inline">\((a,b)\)</span>.</p>
-<p>Define <span class="math inline">\(Y = F^{-1}(X)\)</span>. Show that <span class="math inline">\(F_Y(y) = F(y)\)</span>.</p>
+<p>Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span> and <span class="math inline">\(Y = F^{-1}(X)\)</span>. Show that <span class="math inline">\(F_Y(y) = F(y)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
