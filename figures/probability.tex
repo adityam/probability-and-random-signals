@@ -140,5 +140,28 @@
   currentpicture := currentpicture scaled 1.5;
 \stopMPpage
 
+\startMPpage[offset=1dk]
+  save A; path A[];
+
+  A[1] := (1,1)--(2,1)--(2,1.5)--(1.5,2)--(1,2) -- cycle;
+  A[3] := (3,3)--(2,3)--(2,2.5)--(2.5,2)--(3,2) -- cycle;
+
+  for i = 1 :
+    A[i] := A[i] cornered (0.2) blownup (-0.1,-0.1) randomized 0.03;
+  endfor
+
+  A[2] :=  (2.5, 1.1) .. (2.9, 1.1) -- (2.9, 2.9) -- (1.1, 2.9) ..
+           (1.1, 2.5) .. cycle;
+
+  A[2] := A[2] cornered (0.2) randomized 0.03;
+
+  draw ProbabilitySpace[nx=2, ny=2, labels = { "HH", "HT", "TH", "TT"},
+          probability={"1/4", "1/4", "1/4", "1/4"},
+          events = {A[1], A[2]},
+          ];
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
 \stoptext
 
