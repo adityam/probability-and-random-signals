@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-09-09">
+<meta name="dcterms.date" content="2025-09-10">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>3&nbsp; Random vectors – Probability and Random Signals II</title>
@@ -492,7 +492,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 9, 2025</p>
+      <p class="date">September 10, 2025</p>
     </div>
   </div>
   
@@ -738,19 +738,9 @@ X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span> is a ranom
 <section id="functions-of-random-variables" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="functions-of-random-variables"><span class="header-section-number">3.4</span> Functions of random variables</h2>
 <p>In an interconnected systems, the output of one system is used as input to another system. To analyze such systems, it is important to understand how to analyze functions of random variables.</p>
-<p>In particular, let <span class="math inline">\(X\)</span> be a random variable defined on <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. Suppose <span class="math inline">\(g \colon \reals \to \reals\)</span> is a (measurable) function. Define <span class="math inline">\(Y = g(X)\)</span>.</p>
-<ul>
-<li><p>Since <span class="math inline">\(g\)</span> is measurable, for any (Borel) subset of <span class="math inline">\(\reals\)</span>, we have that <span class="math inline">\(C = g^{-1}(B) \in \mathscr B(\reals)\)</span>. Therefore, <span class="math inline">\(X^{-1}(C) \in \ALPHABET F\)</span>. Thus, we can think of <span class="math inline">\(Y\)</span> as a random variable.</p></li>
-<li><p>Since <span class="math inline">\(Y\)</span> is a random variable, it is possible to compute its CDF and PMF/PDF as appropriate. We illustrate this concept via some examples.</p></li>
-</ul>
-<div id="exm-function-uniform-1" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.2</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,2]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
-g(x) = \begin{cases}
-  x &amp; x \in (0,1] \\
-  1- x &amp; x \in (1,2] \\
-  0 &amp; \hbox{otherwise}
-\end{cases}
-\]</span> Define <span class="math inline">\(Y = g(X)\)</span>. Find <span class="math inline">\(F_Y(y)\)</span> and <span class="math inline">\(f_Y(y)\)</span>.</p>
+<p>The same idea can be used for functions of multiple random variables as we illustrate via the following examples.</p>
+<div id="exm-function-sum" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.2</strong></span> Suppose <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are continuous random variables and <span class="math inline">\(Y = X_1 + X_2\)</span>. Find the PDF <span class="math inline">\(f_Y(y)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
@@ -764,34 +754,19 @@ Solution
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>From the definition of <span class="math inline">\(g\)</span>, we know that the rannge of <span class="math inline">\(g\)</span> is <span class="math inline">\([0,1]\)</span>. Thus, we know that the support of <span class="math inline">\(Y\)</span> is <span class="math inline">\([0,1]\)</span>.</p>
-<ol type="1">
-<li><p>For any <span class="math inline">\(y &lt; 0\)</span>, the event <span class="math inline">\(\{Y \le y\} = \emptyset\)</span>. Therefore, <span class="math inline">\(F_Y(y) = 0\)</span>.</p></li>
-<li><p>For any <span class="math inline">\(y &gt; 1\)</span>, the event <span class="math inline">\(\{Y \le y\} = Ω\)</span>. Therefore, <span class="math inline">\(F_Y(y) = 1\)</span>.</p></li>
-<li><p>Now consider a <span class="math inline">\(y \in (0,1)\)</span>. We have <span class="math display">\[
-\{Y \le y \} = \{ X \le y \} \cup \{X \ge 2 - y \}.
-\]</span> Thus, <span class="math display">\[
-F_Y(y) = F_X(y) + F_X(2-y) = \frac {y}{2} + 1 - \frac{2-y}{2} = y.
-\]</span> Thus, <span class="math display">\[
-   f_Y(y) = \dfrac{d}{dy} F_Y(y) = 1, \quad y \in [0,1].
-\]</span> Thus, <span class="math inline">\(Y\)</span> is <span class="math inline">\(\text{Uniform}[0,1]\)</span>.</p></li>
-</ol>
+<p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as follows: <span class="math display">\[
+F_Y(y)
+= \int_{-∞}^∞ \int_{-∞}^{y - x_1} f_{X_1,X_2}(x_1, x_2)\, d x_2 d x_1 \\
+\]</span> Therefore, <span class="math display">\[\begin{align*}
+f_Y(y) &amp;= \frac{d F_Y(y)}{dy} \\
+&amp;= \int_{-∞}^∞ \frac{d}{dy} \int_{-∞}^{y-x_1} f_{X_1, X_2}(x_1, x_2) \, dx_2\, dx_1 \\
+&amp;= \int_{-∞}^∞ f_{X_1, X_2}(x_1, y - x_1)\, dx_1.
+\end{align*}\]</span></p>
 </div>
 </div>
 </div>
-<div id="exm-function-uniform-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.3</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,4]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
-g(x) = \begin{cases}
-  x &amp; x \in (0,1] \\
-  1 &amp; x \in (1, 3) \\
-  4- x &amp; x \in (3,4] \\
-  0 &amp; \hbox{otherwise}
-\end{cases}
-\]</span> Define <span class="math inline">\(Y = g(X)\)</span>. Find <span class="math inline">\(F_Y(y)\)</span> and <span class="math inline">\(f_Y(y)\)</span>.</p>
-</div>
-<p>The same idea can be used for functions of multiple random variables as we illustrate via the following examples.</p>
-<div id="exm-transformation-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.4</strong></span> Suppose <span class="math inline">\(X \sim \mathcal{N}(μ,σ^2)\)</span>. Show that <span class="math inline">\(Z = (X - μ)/σ\)</span> is a standard normal random variable, i.e., <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
+<div id="exm-function-sum-independent" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.3</strong></span> Repeat <a href="#exm-function-sum" class="quarto-xref">Example&nbsp;<span>3.2</span></a> when <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
@@ -805,29 +780,12 @@ Solution
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>We can write the CDF <span class="math inline">\(F_Z(z)\)</span> as <span class="math display">\[\begin{align*}
-F_Z(z) &amp;= \PR(Z \le z) = \PR\left( \frac{X - μ}{σ} \le z \right)
-= \PR(X \le σ z + μ)
-\\
-&amp;= \int_{-∞}^{σ z + μ} \frac{1}{\sqrt{2 π}\, σ} \exp\left(
-- \frac{(x-μ)^2}{2 σ^2}\, dx \right)
-\\
-&amp;= \int_{-∞}^{z} \frac{1}{\sqrt{2 π}} \exp\left(
-- \frac{y^2}{2}\, dy \right)
-\end{align*}\]</span> where the last step uses the change of variables <span class="math inline">\(y = (x-μ)/σ\)</span>.</p>
-<p>Thus, <span class="math display">\[f_Z(z) = \frac{d F_Z(z)}{dz} = \frac{1}{\sqrt{2 π}} e^{-z^2/2}.\]</span> Thus, <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
+<p>In this case, <span class="math inline">\(f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)\)</span>. Therefore, we get <span class="math display">\[f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y)\]</span> where <span class="math inline">\(*\)</span> denotes convolution.</p>
 </div>
 </div>
 </div>
-<div id="exm-generating-random-numbers" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.5</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>, and <span class="math inline">\(F \colon \reals \to [0,1]\)</span> is a function that satisfies the following properties: there exist a pair <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a &lt; b\)</span> (we allow <span class="math inline">\(a\)</span> to be <span class="math inline">\(-∞\)</span> and <span class="math inline">\(b\)</span> to be <span class="math inline">\(∞\)</span>) such that</p>
-<ul>
-<li><span class="math inline">\(F(y) = 0\)</span> for <span class="math inline">\(y \le a\)</span></li>
-<li><span class="math inline">\(F(y) = 1\)</span> for <span class="math inline">\(y \ge b\)</span></li>
-<li><span class="math inline">\(F(y)\)</span> is strctly increasing in <span class="math inline">\((a,b)\)</span>.</li>
-</ul>
-<p>Thus, <span class="math inline">\(F\)</span> satisifies the properties of the CDF of a continuous random variable and <span class="math inline">\(F\)</span> is invertible in the interval <span class="math inline">\((a,b)\)</span>.</p>
-<p>Define <span class="math inline">\(Y = F^{-1}(X)\)</span>. Show that <span class="math inline">\(F_Y(y) = F(y)\)</span>.</p>
+<div id="exm-function-sum-Poisson" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.4</strong></span> Repeat <a href="#exm-function-sum-independent" class="quarto-xref">Example&nbsp;<span>3.3</span></a> when <span class="math inline">\(X_1 \sim \text{Poisson}(λ_1)\)</span> and <span class="math inline">\(X_2 \sim \text{Poisson}(λ_2)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
@@ -840,75 +798,6 @@ Solution
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as <span class="math display">\[
-F_Y(y) = \PR(Y \le y) = \PR(F^{-1}(X) \le y)
-\]</span></p>
-<p>Since <span class="math inline">\(F\)</span> is strictly increasing, <span class="math inline">\(F^{-1}(X) \le y\)</span> is equivalent to <span class="math inline">\(X \le F(y)\)</span>. Thus, <span class="math display">\[
-F_Y(y) = \PR(X \le F(y)) = F_X(F(y)) = F(y)
-\]</span> where the last step uses the fact tht <span class="math inline">\(X\)</span> is uniform over <span class="math inline">\([0,1]\)</span>.</p>
-</div>
-</div>
-</div>
-<div id="exm-function-sum" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.6</strong></span> Suppose <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are continuous random variables and <span class="math inline">\(Y = X_1 + X_2\)</span>. Find the PDF <span class="math inline">\(f_Y(y)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as follows: <span class="math display">\[
-F_Y(y)
-= \int_{-∞}^∞ \int_{-∞}^{y - x_1} f_{X_1,X_2}(x_1, x_2)\, d x_2 d x_1 \\
-\]</span> Therefore, <span class="math display">\[\begin{align*}
-f_Y(y) &amp;= \frac{d F_Y(y)}{dy} \\
-&amp;= \int_{-∞}^∞ \frac{d}{dy} \int_{-∞}^{y-x_1} f_{X_1, X_2}(x_1, x_2) \, dx_2\, dx_1 \\
-&amp;= \int_{-∞}^∞ f_{X_1, X_2}(x_1, y - x_1)\, dx_1.
-\end{align*}\]</span></p>
-</div>
-</div>
-</div>
-<div id="exm-function-sum-independent" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.7</strong></span> Repeat <a href="#exm-function-sum" class="quarto-xref">Example&nbsp;<span>3.6</span></a> when <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>In this case, <span class="math inline">\(f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)\)</span>. Therefore, we get <span class="math display">\[f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y)\]</span> where <span class="math inline">\(*\)</span> denotes convolution.</p>
-</div>
-</div>
-</div>
-<div id="exm-function-sum-Poisson" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.8</strong></span> Repeat <a href="#exm-function-sum-independent" class="quarto-xref">Example&nbsp;<span>3.7</span></a> when <span class="math inline">\(X_1 \sim \text{Poisson}(λ_1)\)</span> and <span class="math inline">\(X_2 \sim \text{Poisson}(λ_2)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Recall that for a Poisson random variable <span class="math inline">\(X\)</span> with parameter <span class="math inline">\(λ\)</span> <span class="math display">\[
 p_X(k) = e^{-λ} \frac{λ^k}{k!}, \quad k \ge 0
@@ -931,14 +820,14 @@ p_Y(n) &amp;= (p_{X_1} * P_{X_2})(n)
 </div>
 </div>
 <div id="exm-function-max-min" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.9</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 3.5</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
 U = \max(X,Y)
 \quad
 V = \min(X,Y).
 \]</span> Find <span class="math inline">\(F_U\)</span> and <span class="math inline">\(F_V\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -947,7 +836,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><p>We first look at <span class="math inline">\(F_U\)</span>. By definition <span class="math display">\[ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).\]</span></p></li>
@@ -959,17 +848,7 @@ Solution
 <section id="change-of-variables-formulas" class="level3" data-number="3.4.1">
 <h3 data-number="3.4.1" class="anchored" data-anchor-id="change-of-variables-formulas"><span class="header-section-number">3.4.1</span> Change of variables formulas</h3>
 <p>For continuous random variables, it is possible to obtain a general <strong>change of variable</strong> formula to obtain the PDF of functions of random variable in terms of their joint PDF. My personal view is that it is simpler to reason about such change of variables from first principles, but nonetheless it is good to know the results.</p>
-<ol type="1">
-<li><p>Suppose <span class="math inline">\(X\)</span> is a continuous random variable with PDF <span class="math inline">\(f_X\)</span> and <span class="math inline">\(Y = g(X)\)</span>, where <span class="math inline">\(g\)</span> is a continuous and one-to-one function (from <span class="math inline">\(\text{Range}(X)\)</span> to <span class="math inline">\(\text{Range}{Y}\)</span>). Thus, <span class="math inline">\(g\)</span> must be either strictly increasing or strictly decreasing, and in both cases the inverse <span class="math inline">\(g^{-}\)</span> is well defined.</p>
-<ul>
-<li><p>If <span class="math inline">\(g^{-1}\)</span> is strictly increasing, we have <span class="math display">\[ F_Y(y) = \PR(Y \le y) = \PR(X \le g^{-1}(y) = F_X(g^{-1}(y))\]</span> Therefore, <span class="math display">\[ f_Y(y) = \frac{d F_X(g^{-1}(y))}{dy} = f_X(g^{-1}(y)) \frac{d g^{-1}(y)}{dy}. \]</span></p></li>
-<li><p>If <span class="math inline">\(g^{-1}\)</span> is strictly decreasing, we have <span class="math display">\[ F_Y(y) = \PR(Y \le y) = \PR(X \ge g^{-1}(y)) = 1 - F_X(g^{-1}(y)).\]</span> Therefore, <span class="math display">\[ f_Y(y) = - \frac{d F_X(g^{-1}(y))}{dy} = - f_X(g^{-1}(y)) \frac{d g^{-1}(y)}{dy}. \]</span></p></li>
-<li><p>The above two formulas can be combined as <span class="math display">\[ \bbox[5pt,border: 1px solid]{f_Y(y) = f_X(g^{-1}(y)) \left| \frac{d g^{-1}(y)}{dy} \right|} \]</span></p></li>
-</ul></li>
-<li><p>From calculus, we know that if <span class="math inline">\(h(y) = g^{-1}(y)\)</span>, then <span class="math inline">\(h'(y) = 1/g'(h(y))\)</span>. Thus, the above expression can be simplified as <span class="math display">\[ \bbox[5pt, border: 1px solid]{f_Y(y) = \frac{f_X(x)}{\ABS{g'(x)}}, \quad \text{where } x = g^{-1}(y).} \]</span></p>
-<p>Resolve <a href="#exm-transformation-Gaussian" class="quarto-xref">Example&nbsp;<span>3.4</span></a> using the above formula.</p></li>
-<li><p>If the transform <span class="math inline">\(g(x)\)</span> is not one-to-one (as in <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>3.2</span></a>), we can obtain <span class="math inline">\(f_Y(y)\)</span> as follows. Suppose <span class="math inline">\(y = g(x)\)</span> has finite roots, denoted by <span class="math inline">\(\{x^{(k)}\}_{k=1}^m\)</span>. Then, <span class="math display">\[ f_Y(y) = \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{g'(x^{(k)})}}. \]</span></p>
-<p>Resolve <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>3.2</span></a> using the above formula.</p></li>
+<ol start="3" type="1">
 <li><p>Now suppose <span class="math inline">\(\{X_1, \dots, X_n\}\)</span> are jointly continuous random variables with joint PDF <span class="math inline">\(f\)</span>. Consider <span class="math inline">\(n\)</span> random variables: <span class="math display">\[\begin{align*}
    Y_1 &amp;= g_1(X_1, \dots, X_n) \\
    Y_2 &amp;= g_2(X_1, \dots, X_n) \\
@@ -991,10 +870,10 @@ J(x_1, \dots, x_n) =
 </ul></li>
 </ol>
 <div id="exm-function-max-min-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.10</strong></span> Resolve <a href="#exm-function-max-min" class="quarto-xref">Example&nbsp;<span>3.9</span></a> using the change of variables formula.</p>
+<p><span class="theorem-title"><strong>Example 3.6</strong></span> Resolve <a href="#exm-function-max-min" class="quarto-xref">Example&nbsp;<span>3.5</span></a> using the change of variables formula.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1003,7 +882,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">\(g_1(x,y) = \max\{x, y\}\)</span> and <span class="math inline">\(g_2(x,y) = \min\{x,y\}\)</span>. Define <span class="math display">\[ U = g_1(X,Y) \quad\text{and}\quad V = g_2(X,Y).\]</span></p>
 <p>Define <span class="math inline">\(g(x,y) = \VEC(g_1(x,y), g_2(x,y))\)</span>. Note that <span class="math inline">\(g\)</span> is not differentiable at <span class="math inline">\(x=y\)</span>.</p>
@@ -1050,12 +929,12 @@ F_U(u)
 </div>
 </div>
 <div id="exm-function-multiple" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.11</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 3.7</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
   U = X^2 \quad\text{and}\quad V = X + Y.
 \]</span> Find <span class="math inline">\(F_{U,V}\)</span>?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1064,7 +943,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Let’s consider the system of equations <span class="math display">\[
   u = x^2 \quad\text{and}\quad v = x + y
