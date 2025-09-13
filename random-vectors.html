@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-09-11">
+<meta name="dcterms.date" content="2025-09-13">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>3&nbsp; Random vectors – Probability and Random Signals II</title>
@@ -37,18 +37,19 @@ ul.task-list li input[type="checkbox"] {
 <link href="./random-variables.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-befe23ebd2f54d8af2c8a89d1a1611f1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-16ca7681bb507ad4bf8990317f882f75.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-3bb7701f481e77e3cf6a89fa833c31a2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-16ca7681bb507ad4bf8990317f882f75.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0942a568e525198246bda79550dc985c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-f6b890ae1efd6d05126f65e4f07a6f1e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-0942a568e525198246bda79550dc985c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -158,7 +159,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -344,6 +345,10 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -381,6 +386,10 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -449,13 +458,13 @@ window.Quarto = {
   <ul>
   <li><a href="#classification-of-random-vectors" id="toc-classification-of-random-vectors" class="nav-link active" data-scroll-target="#classification-of-random-vectors"><span class="header-section-number">3.1</span> Classification of random vectors</a></li>
   <li><a href="#independence-of-random-vectors" id="toc-independence-of-random-vectors" class="nav-link" data-scroll-target="#independence-of-random-vectors"><span class="header-section-number">3.2</span> Independence of random vectors</a></li>
-  <li><a href="#correlation-and-covariance" id="toc-correlation-and-covariance" class="nav-link" data-scroll-target="#correlation-and-covariance"><span class="header-section-number">3.3</span> Correlation and covariance</a>
+  <li><a href="#functions-of-random-variables" id="toc-functions-of-random-variables" class="nav-link" data-scroll-target="#functions-of-random-variables"><span class="header-section-number">3.3</span> Functions of random variables</a>
   <ul class="collapse">
-  <li><a href="#correlation-and-covariance-for-random-vectors" id="toc-correlation-and-covariance-for-random-vectors" class="nav-link" data-scroll-target="#correlation-and-covariance-for-random-vectors"><span class="header-section-number">3.3.1</span> Correlation and covariance for random vectors</a></li>
+  <li><a href="#change-of-variables-formulas" id="toc-change-of-variables-formulas" class="nav-link" data-scroll-target="#change-of-variables-formulas"><span class="header-section-number">3.3.1</span> Change of variables formulas</a></li>
   </ul></li>
-  <li><a href="#functions-of-random-variables" id="toc-functions-of-random-variables" class="nav-link" data-scroll-target="#functions-of-random-variables"><span class="header-section-number">3.4</span> Functions of random variables</a>
+  <li><a href="#correlation-and-covariance" id="toc-correlation-and-covariance" class="nav-link" data-scroll-target="#correlation-and-covariance"><span class="header-section-number">3.4</span> Correlation and covariance</a>
   <ul class="collapse">
-  <li><a href="#change-of-variables-formulas" id="toc-change-of-variables-formulas" class="nav-link" data-scroll-target="#change-of-variables-formulas"><span class="header-section-number">3.4.1</span> Change of variables formulas</a></li>
+  <li><a href="#correlation-and-covariance-for-random-vectors" id="toc-correlation-and-covariance-for-random-vectors" class="nav-link" data-scroll-target="#correlation-and-covariance-for-random-vectors"><span class="header-section-number">3.4.1</span> Correlation and covariance for random vectors</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-vectors.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -492,7 +501,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 11, 2025</p>
+      <p class="date">September 13, 2025</p>
     </div>
   </div>
   
@@ -504,7 +513,9 @@ window.Quarto = {
 </header>
 
 
-<p>Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are two random variables defined on the same probability space. The CDFs <span class="math inline">\(F_X\)</span> and <span class="math inline">\(F_Y\)</span> provide information about their individual probabilities. To understand how they behave together, we need to think of the random <em>vector</em> <span class="math inline">\((X,Y)\)</span> taking values in <span class="math inline">\(\reals^2\)</span>. The natural way to do so is to think of the <strong>joint CDF</strong> <span class="math display">\[
+<p>Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are two random variables defined on the same probability space. The CDFs <span class="math inline">\(F_X\)</span> and <span class="math inline">\(F_Y\)</span> provide information about their individual probabilities. However, we are often interested in functions of the two random variables, e.g., <span class="math display">\[
+  X + Y, \quad XY, \quad \max(X,Y), \quad \min(X,Y), \quad \text{etc.}
+\]</span> To understand how they behave together, we need to think of the random <em>vector</em> <span class="math inline">\((X,Y)\)</span> taking values in <span class="math inline">\(\reals^2\)</span>. The natural way to do so is to think of the <strong>joint CDF</strong> <span class="math display">\[
 F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 \]</span> where we may write the right hand side as <span class="math inline">\(\PR(X \le x, Y \le y)\)</span> for short.</p>
 <div id="lem-properties-of-joint-CDFs" class="theorem lemma">
@@ -512,7 +523,7 @@ F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 <ul>
 <li><p><strong>Regularity properties</strong></p>
 <ol type="1">
-<li><p><span class="math inline">\(\lim_{x \to -∞} F_{X,Y}(x,y) = 0\)</span>, <span class="math inline">\(\lim_{y \to -∞} F_{X,Y}(x,y)\)</span> and <span class="math inline">\(\lim_{x,y \to +∞} F(x,y) = 1\)</span>.</p></li>
+<li><p><span class="math inline">\(\lim_{x \to -∞} F_{X,Y}(x,y) = 0\)</span>, <span class="math inline">\(\lim_{y \to -∞} F_{X,Y}(x,y) = 0\)</span> and <span class="math inline">\(\lim_{x,y \to +∞} F(x,y) = 1\)</span>.</p></li>
 <li><p>Joint CDFs are non-decreasing, i.e., if <span class="math inline">\((x_1,y_1) &lt; (x_2, y_2)\)</span>, then <span class="math inline">\(F_{X,Y}(x_1,y_1) \le F_{X,Y}(x_2,y_2)\)</span>.</p></li>
 <li><p>Joint CDFs are continuous from above, i.e., <span class="math display">\[\lim_{u,v \downarrow 0}F_{X,Y}(x+u,y+v) = F_{X,Y}(x,y).\]</span></p></li>
 <li><p><span class="math inline">\(\PR(X = x, Y = y) = F(x,y) - F(x^{-},y^{-})\)</span>.</p></li>
@@ -524,31 +535,97 @@ F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 </ol></li>
 </ul>
 </div>
-<div id="exr-joint-distribution" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.1</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint CDF <span class="math inline">\(F\)</span>. Show that <span class="math display">\[
-\PR(a &lt; X \le b, c &lt; Y \le d) = F(b,d) - F(a,d) - F(b,c) + F(a,c).
+<div id="exm-joint-distribution" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.1</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint CDF <span class="math inline">\(F_{X,Y}\)</span>. Show that <span class="math display">\[
+\PR(a &lt; X \le b, c &lt; Y \le d) = F_{X,Y}(b,d) - F_{X,Y}(a,d) - F_{X,Y}(b,c) + F_{X,Y}(a,c).
+\]</span> <em>Hint</em>: Draw each region.</p>
+</div>
+<div id="exm-marginal-CDF" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.2</strong></span> Suppose <span class="math display">\[
+  F_{X,Y}(x,y) = \begin{cases}
+    \dfrac{y + e^{-x(y+1)}}{y+1} - e^{-x}, &amp; x,y &gt; 0
+    \\
+    0, &amp; \text{otherwise}
+  \end{cases}
+\]</span> Find <span class="math inline">\(F_X(x)\)</span> and <span class="math inline">\(F_Y(y)\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We have <span class="math display">\[
+  F_X(x) = \lim_{y \to ∞} F_{X,Y}(x,y)
+  = \begin{cases}
+    1 - e^{-x}, &amp; x &gt; 0 \\
+    0 , &amp; \text{otherwise}
+  \end{cases}
+\]</span> <span class="math display">\[
+  F_Y(y) = \lim_{x \to ∞} F_{X,Y}(x,y)
+  = \begin{cases}
+    \dfrac{y}{y+1}, &amp; y &gt; 0 \\
+    0 , &amp; \text{otherwise}
+  \end{cases}
 \]</span></p>
+</div>
+</div>
 </div>
 <section id="classification-of-random-vectors" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="classification-of-random-vectors"><span class="header-section-number">3.1</span> Classification of random vectors</h2>
 <p>As was the case for random variables, we can also classify random vectors as discrete, continuous, and mixed.</p>
 <ol type="1">
-<li><p>A random vector <span class="math inline">\((X,Y)\)</span> is called <strong>jointly discrete</strong> if it takes values in a countable subset of <span class="math inline">\(\reals^2\)</span> (we denote this subset by <span class="math inline">\(\text{range}(X,Y)\)</span>). The jointly discrete random variables have a joint PMF <span class="math inline">\(f \colon \reals \to [0,1]\)</span> given by <span class="math display">\[ \PR(X = x, Y = y) = p(x,y). \]</span></p></li>
-<li><p>A random vector <span class="math inline">\((X, Y)\)</span> is called <strong>jointly continuous</strong> if its CDF can be expressed as <span class="math display">\[ F(x,y) = \int_{-∞}^x \int_{-∞}^{y} f(u,v)\, du dv, \quad
-x,y \in \reals \]</span> for some integrable function <span class="math inline">\(f \colon \reals^2 \to [0, ∞)\)</span> which is called the <strong>joint PDF</strong>.</p></li>
+<li><p>A random vector <span class="math inline">\((X,Y)\)</span> is called <strong>jointly discrete</strong> if it takes values in a countable subset of <span class="math inline">\(\reals^2\)</span> (we denote this subset by <span class="math inline">\(\ALPHABET X \times \ALPHABET Y\)</span>). The jointly discrete random variables have a joint PMF <span class="math inline">\(P_{X,Y} \colon \reals^2 \to [0,1]\)</span> given by <span class="math display">\[ \PR(X = x, Y = y) = P_{X,Y}(x,y). \]</span></p></li>
+<li><p>A random vector <span class="math inline">\((X, Y)\)</span> is called <strong>jointly continuous</strong> (or <strong>absolutely continuous</strong>) if there exists an integrable function <span class="math inline">\(f_{X,Y} \colon \reals^2 \to [0, ∞)\)</span> such that <span class="math display">\[ F_{X,Y}(x,y) = \int_{-∞}^x \int_{-∞}^{y} f_{X,Y}(u,v)\, du dv, \quad
+x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called the <strong>joint PDF</strong> and can be computed as <span class="math display">\[
+   f_{X,Y}(x,y) = \frac{∂^2}{∂x ∂y}F_{X,Y}(x,y).
+\]</span></p></li>
 <li><p>A random vector <span class="math inline">\((X,Y)\)</span> is called <strong>jointly mixed</strong> if it is neither jointly discrete nor jointly continuous.</p></li>
 </ol>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Can we always define a density if CDF is continuous?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Continuity of the CDF is not sufficient for a joint density to exist. Consider the joint CDF <span class="math display">\[
+  F_{X,Y}(x,y) = \begin{cases}
+    0, &amp; \min(x,y) &lt; 0 \\
+    \min(x,y), &amp; 0 \le \min(x,y) \le 1 \\
+    1, &amp; \min(x,y) &gt; 1
+  \end{cases}
+\]</span> This is a valid CDF. It corresponds to <span class="math display">\[
+  (X,Y) = (U,U), \quad \text{where } U \sim \text{Unif}[0,1],
+\]</span> i.e., the distribution is uniform along the diagonal of the unit square.</p>
+<p>The diagonal is <strong>a set a Lebesgue measure zero</strong>. That means for any ordinary function <span class="math inline">\(f_{X,Y}\)</span> <span class="math display">\[
+  \iint_{A} f_{X,Y}(x,y)\, dx\,dy = 0
+\]</span> for all subsets <span class="math inline">\(A\)</span> of the diagonal. Outside the diagonal, the density must be zero. Hence, the density cannot integrate to one over the entire plane. Therefore, mathematically, a density does not exist. Such random variables are said to be <strong>singular</strong>.</p>
+<p>Sometimes in the engineering literature, we sometimes set the PDF to be <span class="math display">\[
+    f_{X,Y}(x,y) = δ(x-y), \quad 0 \le x,y \le 1
+\]</span> which produces the correct <span class="math inline">\(F_{X,Y}\)</span> but delta functions are generalized functions. Thus, although the CDF is continuous, it does not have a joint density.</p>
+</div>
+</div>
 <div id="lem-properties-of-PMFs-PDFs" class="theorem lemma">
 <p><span class="theorem-title"><strong>Lemma 3.2 (Properties of PMFs and PDFs)</strong></span> &nbsp;</p>
 <ul>
 <li><p><strong>Properties of PMFs</strong></p>
 <ol type="1">
-<li><p><strong>Normalization.</strong> For a jointly discrete random vector <span class="math inline">\((X,Y)\)</span>, <span class="math display">\[\sum_{x,y \in \text{range}(X,Y)}p_{X,Y}(x,y) = 1.\]</span></p></li>
-<li><p>For any event <span class="math inline">\(A \in \ALPHABET F\)</span>, <span class="math display">\[\PR((X,Y) \in A) = \sum_{(x,y) \in \text{range}(X,Y) \cap A} p_{X,Y}(x,y).\]</span></p></li>
+<li><p><strong>Normalization.</strong> For a jointly discrete random vector <span class="math inline">\((X,Y)\)</span>, <span class="math display">\[\sum_{x,y \in \ALPHABET X × \ALPHABET Y}P_{X,Y}(x,y) = 1.\]</span></p></li>
+<li><p>For any event <span class="math inline">\(A \in \ALPHABET F\)</span>, <span class="math display">\[\PR((X,Y) \in A) = \sum_{(x,y) \in (\ALPHABET X \times \ALPHABET Y) \cap A} P_{X,Y}(x,y).\]</span></p></li>
 <li><p><strong>Marginalization.</strong></p>
 <ul>
-<li><span class="math inline">\(\displaystyle \sum_{x \in \text{range(X)}} p_{X,Y}(x,y) = p_Y(y)\)</span>.</li>
-<li><span class="math inline">\(\displaystyle \sum_{y \in \text{range(Y)}} p_{X,Y}(x,y) = p_X(x)\)</span>.</li>
+<li><span class="math inline">\(\displaystyle \sum_{x \in \ALPHABET X} P_{X,Y}(x,y) = P_Y(y)\)</span>.</li>
+<li><span class="math inline">\(\displaystyle \sum_{y \in \ALPHABET Y} P_{X,Y}(x,y) = P_X(x)\)</span>.</li>
 </ul></li>
 </ol></li>
 <li><p><strong>Properties of PDFs</strong></p>
@@ -563,7 +640,90 @@ x,y \in \reals \]</span> for some integrable function <span class="math inline">
 </ol></li>
 </ul>
 </div>
-<p>The above discussion generalizes in the obvious manner to more than two random variables as well. Thus, we can talk about random vectors <span class="math inline">\(X = (X_1, \dots, X_n) \in \reals^n\)</span>. In practice, we often do not make a distinction between random <em>variables</em> and random <em>vectors</em> and refer both of them simply as <em>random variables</em>.</p>
+<p>The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors <span class="math inline">\(X = (X_1, \dots, X_n) \in \reals^n\)</span>. In practice, we often do not make a distinction between random <em>variables</em> and random <em>vectors</em> and refer both of them simply as <em>random variables</em>.</p>
+<div id="exm-joint-discrete" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.3</strong></span> Consider jointly discrete random variables <span class="math inline">\(X \in \{1,2,3\}\)</span> and <span class="math inline">\(Y \in \{1, 2, 3\}\)</span> with joint PMF <span class="math display">\[
+  P_{X,Y} = \MATRIX{
+    0.1 &amp; 0.1 &amp; 0.2 \\
+    0.2 &amp; 0.1 &amp; 0   \\
+    0.3 &amp; 0   &amp; 0   
+  }
+\]</span></p>
+<ul>
+<li>Find the marginals <span class="math inline">\(P_X\)</span> and <span class="math inline">\(P_Y\)</span>.</li>
+<li>Find the probability of the event <span class="math inline">\(A = \{ X + Y = 3 \}\)</span>.</li>
+</ul>
+</div>
+<div id="exm-marginal-CDF-1" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.4</strong></span> Consider <span class="math inline">\(F_{X,Y}\)</span> given in <a href="#exm-marginal-CDF" class="quarto-xref">Example&nbsp;<span>3.2</span></a>.</p>
+<ul>
+<li>Find the joint density <span class="math inline">\(f_{X,Y}\)</span></li>
+<li>Find the marginal densities <span class="math inline">\(f_X\)</span> and <span class="math inline">\(f_Y\)</span>.</li>
+<li>Find the probability of the event <span class="math inline">\(A = \{ X + Y \le 1 \}\)</span>.</li>
+</ul>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For <span class="math inline">\(x,y &gt; 0\)</span>, we have <span class="math display">\[
+  f_{X,Y}(x,y) = \frac{∂^2}{∂x ∂y}F_{X,Y}(x,y) = x e^{-x(y+1)}.
+\]</span> Thus, <span class="math display">\[
+  f_{X,Y}(x,y) = \begin{cases}
+    x e^{-x(y+1)}, &amp; x,y &gt; 0 \\
+    0, &amp; \text{otherwise}
+  \end{cases}
+\]</span></p>
+<p>Thus, <span class="math display">\[
+  f_X(x) = \int_{-∞}^{∞} f_{X,Y}(x,y)\,dy =
+  \begin{cases}
+    e^{-x}, &amp; x &gt; 0 \\
+    0, &amp; x \le 0
+  \end{cases}
+\]</span> and <span class="math display">\[
+  f_Y(y) = \int_{-∞}^{∞} f_{X,Y}(x,y)\,dx =
+  \begin{cases}
+    \dfrac{1}{(1+y)^2}, &amp; y &gt; 0 \\
+    0, &amp; y \le 0
+  \end{cases}
+\]</span></p>
+</div>
+</div>
+</div>
+<div id="exm-normalization" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.5</strong></span> Consider a joint PDF <span class="math display">\[
+  f_{X,Y}(x,y) = c e^{-x} e^{-y}, \quad 0 \le y \le x &lt; ∞.
+\]</span> Find the constant <span class="math inline">\(c\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We know that the joint PDF must integrate to <span class="math inline">\(1\)</span>. Thus, <span class="math display">\[\begin{align*}
+  1 &amp;= \int_{-∞}^{∞} f_{X,Y}(x,y)\, dx\, dy \\
+  &amp;= \int_{0}^{∞} \int_{0}^x c e^{-x} e^{-y}\, dy\, dx  \\
+  &amp;= \int_{0}^{∞} c e^{-x}(1 - e^{-x}) dx \\
+  &amp;= \frac{c}{2}.
+\end{align*}\]</span> Therefore, <span class="math inline">\(c=2\)</span>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="independence-of-random-vectors" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="independence-of-random-vectors"><span class="header-section-number">3.2</span> Independence of random vectors</h2>
@@ -582,24 +742,96 @@ x,y \in \reals \]</span> for some integrable function <span class="math inline">
    f_{X,Y}(x,y) = f_X(x) f_Y(y), \quad \forall x, y \in \reals.
 \]</span></p></li>
 <li><p>Two jointly discrete random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[
-   p_{X,Y}(x,y) = p_X(x) p_Y(y), \quad \forall x, y \in \reals.
+   P_{X,Y}(x,y) = P_X(x) P_Y(y), \quad \forall x, y \in \reals.
 \]</span></p></li>
 </ol>
-<p>An immediate implication of the above definition is the following.</p>
-<div id="prp-functions-of-RVs" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 3.1</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Consider <span class="math inline">\(U = g(X)\)</span> and <span class="math inline">\(V = h(Y)\)</span> for some (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>. Then, <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent.</p>
+<div id="exm-discrete-independence" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.6</strong></span> Consider the random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with the joint PMF <span class="math inline">\(P_{X,Y}\)</span> given in <a href="#exm-joint-discrete" class="quarto-xref">Example&nbsp;<span>3.3</span></a>. Are these random variables independent?</p>
+</div>
+<div id="exm-marginal-CDF-independence" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.7</strong></span> Consider the random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with the joint CDF <span class="math inline">\(F_{X,Y}\)</span> given in <a href="#exm-marginal-CDF" class="quarto-xref">Example&nbsp;<span>3.2</span></a>. Are these random variables independent?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Proof
+<span class="screen-reader-only">Note</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Observe that <span class="math inline">\(F_{X,Y}(x,y) \neq F_X(x) F_Y(y)\)</span>. Hence, the two random variables are not independent.</p>
+<p>We can also see that because <span class="math inline">\(f_{X,Y}(x,y) \neq f_X(x) f_Y(y)\)</span>.</p>
+</div>
+</div>
+</div>
+<div id="exm-uniform-unit-square" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.8</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint PDF <span class="math inline">\(f_{X,Y}\)</span> which is a uniform distribution on the unit square. Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p>
+</div>
+<div id="exm-uniform-unit-triangle" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.9</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint PDF <span class="math inline">\(f_{X,Y}\)</span> which is a uniform distribution on the unit triangle Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p>
+</div>
+<p>These definitions extend naturally to any number of random variables:</p>
+<ol type="1">
+<li><p>A sequence of random variables <span class="math inline">\(X_1, \dots, X_n\)</span> are independent if and only if <span class="math display">\[
+  F_{X_1, \dots, X_n}(x_1, \dots, x_n) = \prod_{i=1}^n F_{X_i}(x_i).
+\]</span></p></li>
+<li><p>A sequence of jointly continuous random variables <span class="math inline">\(X_1, \dots, X_n\)</span> are independent if and only if <span class="math display">\[
+  f_{X_1, \dots, X_n}(x_1, \dots, x_n) = \prod_{i=1}^n f_{X_i}(x_i).
+\]</span></p></li>
+<li><p>A sequence of jointly discrete random variables <span class="math inline">\(X_1, \dots, X_n\)</span> are independent if and only if <span class="math display">\[
+  P_{X_1, \dots, X_n}(x_1, \dots, x_n) = \prod_{i=1}^n P_{X_i}(x_i).
+\]</span></p></li>
+</ol>
+<p>Unlike independence of events, we do not need to separately check for independence of subsets of random variables because that is automatically implied due to the marginalization property.</p>
+<div id="exm-independence-multiple-RVs" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.10</strong></span> Suppose (X, Y, Z) are independent with joint PDF: <span class="math display">\[
+  f_{X,Y,Z}(x,y,z) = f_X(x)\, f_Y(y)\, f_Z(z).
+\]</span></p>
+<p>Show that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To find the joint PDF of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, marginalize over <span class="math inline">\(Z\)</span>: <span class="math display">\[
+f_{X,Y}(x,y) = \int_{-\infty}^{\infty} f_{X,Y,Z}(x,y,z)\, dz
+= \int_{-\infty}^{\infty} f_X(x)\, f_Y(y)\, f_Z(z)\, dz.
+\]</span></p>
+<p>Since <span class="math inline">\(f_X(x)\)</span> and <span class="math inline">\(f_Y(y)\)</span> do not depend on <span class="math inline">\(z\)</span>: <span class="math display">\[
+f_{X,Y}(x,y) = f_X(x)\, f_Y(y) \int_{-\infty}^{\infty} f_Z(z)\, dz
+= f_X(x)\, f_Y(y) \cdot 1.
+\]</span></p>
+<p>Thus, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> remain independent after marginalization.</p>
+</div>
+</div>
+</div>
+<p>An immediate implication of the definition of independence is the following.</p>
+<div id="prp-functions-of-RVs" class="theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 3.1</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Consider <span class="math inline">\(U = g(X)\)</span> and <span class="math inline">\(V = h(Y)\)</span> for some (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>. Then, <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Consider any (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span> and consider the events <span class="math inline">\(\{ U \in B_1 \}\)</span> and <span class="math inline">\(\{ V \in B_2 \}\)</span>. Note that</p>
 <ul>
@@ -616,16 +848,16 @@ Proof
 \end{equation}\]</span> for all (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Proof
+<span class="screen-reader-only">Note</span>Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>There are two claims here.</p>
 <ol type="1">
@@ -652,107 +884,63 @@ Proof
 </div>
 </div>
 </div>
-<div id="exr-mean-var-indendent" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Show that</p>
+<div id="exm-mean-var-indendent" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.11</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Show that</p>
 <ol type="a">
 <li><span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</li>
 <li><span class="math inline">\(\VAR(XY) = \VAR(X) \VAR(Y)\)</span>.</li>
 </ol>
 </div>
+<div id="def-iid" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3.2</strong></span> A collection of random variables <span class="math inline">\(X_1, \dots, X_n\)</span> is called <strong>independent and identically distributed (i.i.d.)</strong> if all random variables are independent and have the same distribution, i.e., <span class="math display">\[
+  F_{X_1}(x_1) = F_{X_2}(x_2) = \cdots = F_{X_n}(x_n).
+\]</span></p>
+</div>
 </section>
-<section id="correlation-and-covariance" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="correlation-and-covariance"><span class="header-section-number">3.3</span> Correlation and covariance</h2>
-<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on the same probability space.</p>
-<ul>
-<li><p><strong>Correlation</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\EXP[XY]\)</span>.</p></li>
-<li><p><strong>Covariance</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]\)</span>. The covariance satisfies the following: <span class="math display">\[
-\COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
-\]</span></p></li>
-<li><p><strong>Correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
-<li><p>The correlation coefficeint satisfies <span class="math inline">\(\ABS{ρ_{XY}} \le 1\)</span> with equality if and only if <span class="math inline">\(\PR(aX + bY = c) = 1\)</span> for some <span class="math inline">\(a,b,c \in \reals\)</span>. [The proof follows from Cauchy-Schwartz inequality, which we will study later]</p></li>
-<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be uncorrelated if <span class="math inline">\(ρ_{XY} = 0\)</span>, which is equivalent to <span class="math inline">\(\COV(X,Y) = 0\)</span> or <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</p></li>
-<li><p>Note that <span class="math display">\[\begin{align*}
-  \VAR(X + Y) &amp;= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ]
-  \\
-  &amp;= \VAR(X) + \VAR(Y) + 2\COV(X,Y).
-\end{align*}\]</span> Thus, when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are uncorrelated, we have <span class="math display">\[ \VAR(X + Y) = \VAR(X) + \VAR(Y). \]</span></p></li>
-<li><p>Indepdent random variables are uncorrelated but the reverse in not true.</p></li>
-</ul>
-<div id="exm-uncorrelated" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1</strong></span> Consider the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0, 2 π)\)</span>, <span class="math inline">\(\ALPHABET F\)</span> is the Borel <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\([0, 2 π)\)</span> and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math inline">\(X(ω) = \cos ω\)</span> and <span class="math inline">\(Y(ω) = \sin ω\)</span>. Show that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are uncorrelated but not independent.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>The event <span class="math inline">\(\{X = 1\}\)</span> corresponds to <span class="math inline">\(ω = 0\)</span> and therefore <span class="math inline">\(\{Y = 0\}\)</span>. Thus, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are not independent.</p>
-<p>Observe that</p>
-<ul>
-<li><p><span class="math inline">\(\displaystyle \EXP[X] = \int_{0}^{2 π} \cos ω \frac{1}{2 π}\, d ω = 0\)</span>.</p></li>
-<li><p><span class="math inline">\(\displaystyle \EXP[Y] = \int_{0}^{2 π} \sin ω \frac{1}{2 π}\, d ω = 0\)</span>.</p></li>
-<li><p><span class="math inline">\(\displaystyle \EXP[XY] = \int_{0}^{2 π} \cos ω \sin ω \frac{1}{2 π}\, d ω =
-\frac{1}{4{π}} \int_0^{2 π} \cos 2 ω\, d ω = 0\)</span>.</p></li>
-</ul>
-<p>Thus, <span class="math display">\[\EXP[XY] = \EXP[X]\EXP[Y].\]</span></p>
-</div>
-</div>
-</div>
-<section id="correlation-and-covariance-for-random-vectors" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="correlation-and-covariance-for-random-vectors"><span class="header-section-number">3.3.1</span> Correlation and covariance for random vectors</h3>
-<p>Some of these concepts also generalize to random vectors. First, we define expected value for random vectors and random matrices.</p>
-<ul>
-<li><p>If <span class="math inline">\(X = [X_1, \dots, X_n] \in \reals^n\)</span>, then <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_1] &amp; \cdots &amp; \EXP[X_n] }. \]</span></p></li>
-<li><p>If <span class="math inline">\(X = \MATRIX{ X_{1,1} &amp; \cdots &amp; X_{1,n} \\ X_{2,1} &amp; \cdots &amp; X_{2,n} \\
-\vdots &amp; \vdots &amp; \vdots \\
-X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span> is a ranom matrix, then <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] &amp; \cdots &amp; \EXP[X_{1,n}] \\ \EXP[X_{2,1}] &amp; \cdots &amp; \EXP[X_{2,n}] \\
-\vdots &amp; \vdots &amp; \vdots \\
-\EXP[X_{m,1}] &amp; \cdots &amp; \EXP[X_{m,n}] }.
-\]</span></p></li>
-</ul>
-<p>We the above notation, we can define the following:</p>
-<ul>
-<li><p>The <strong>correlation matrix</strong> of a random vector <span class="math inline">\(X \in \reals^n\)</span> is defined as <span class="math display">\[ R = \EXP[X X^\TRANS],\]</span> where <span class="math inline">\(X^\TRANS\)</span> denotes the transpose of <span class="math inline">\(X\)</span>.</p></li>
-<li><p>The correlation matrix is symmetric, i.e., <span class="math inline">\(R = R^\TRANS\)</span></p></li>
-<li><p>The <strong>covariance matrix</strong> of a random vector <span class="math inline">\(X \in \reals^n\)</span> is defined as <span class="math display">\[\COV(X) = \EXP[ (X - μ_X) (X - μ_X)^\TRANS].\]</span></p></li>
-<li><p>The covariance matrix is symmetric. Moreover, <span class="math inline">\([\COV(X)]_{i,j} = \COV(X_i,X_j)\)</span>.</p></li>
-<li><p>The <strong>cross correlation matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is a <span class="math inline">\(n × p\)</span> matrix given by <span class="math display">\[
-  R_{XY} = \EXP[X Y^\TRANS].
-\]</span></p></li>
-<li><p>The <strong>cross covariance matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is a <span class="math inline">\(n × p\)</span> matrix given by <span class="math display">\[
-  \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
-\]</span></p></li>
-<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math display">\[\EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ] = 0 \]</span></p></li>
-<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>orthogonal</strong> if <span class="math display">\[\EXP[X Y^\TRANS] = 0 \]</span></p></li>
-<li><p>Both the correlation and covariance matrices are positive semidefinite. Thus, their eigenvalues are real and non-negative.</p></li>
-</ul>
-</section>
-</section>
-<section id="functions-of-random-variables" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="functions-of-random-variables"><span class="header-section-number">3.4</span> Functions of random variables</h2>
+<section id="functions-of-random-variables" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="functions-of-random-variables"><span class="header-section-number">3.3</span> Functions of random variables</h2>
 <p>In an interconnected systems, the output of one system is used as input to another system. To analyze such systems, it is important to understand how to analyze functions of random variables.</p>
 <p>The same idea can be used for functions of multiple random variables as we illustrate via the following examples.</p>
-<div id="exm-function-sum" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.2</strong></span> Suppose <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are continuous random variables and <span class="math inline">\(Y = X_1 + X_2\)</span>. Find the PDF <span class="math inline">\(f_Y(y)\)</span>.</p>
+<div id="exm-function-max-min" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.12</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
+U = \max(X,Y)
+\quad
+V = \min(X,Y).
+\]</span> Find <span class="math inline">\(F_U\)</span> and <span class="math inline">\(F_V\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Note</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>We first look at <span class="math inline">\(F_U\)</span>. By definition <span class="math display">\[ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).\]</span></p></li>
+<li><p>Now consider <span class="math inline">\(F_V\)</span>. The event <span class="math inline">\(\{V \le v\}\)</span> can be expressed as <span class="math display">\[ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \} \cap \{X \le v \} \cap \{Y \le v\}.\]</span> Thus, <span class="math display">\[F_V(v) = F_X(v) + F_Y(v) - F_{X,Y}(v,v). \]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exm-function-sum" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.13</strong></span> Suppose <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are continuous random variables and <span class="math inline">\(Y = X_1 + X_2\)</span>. Find the PDF <span class="math inline">\(f_Y(y)\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as follows: <span class="math display">\[
 F_Y(y)
@@ -766,47 +954,47 @@ f_Y(y) &amp;= \frac{d F_Y(y)}{dy} \\
 </div>
 </div>
 <div id="exm-function-sum-independent" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.3</strong></span> Repeat <a href="#exm-function-sum" class="quarto-xref">Example&nbsp;<span>3.2</span></a> when <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent.</p>
+<p><span class="theorem-title"><strong>Example 3.14</strong></span> Repeat <a href="#exm-function-sum" class="quarto-xref">Example&nbsp;<span>3.13</span></a> when <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Note</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>In this case, <span class="math inline">\(f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)\)</span>. Therefore, we get <span class="math display">\[f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y)\]</span> where <span class="math inline">\(*\)</span> denotes convolution.</p>
 </div>
 </div>
 </div>
 <div id="exm-function-sum-Poisson" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.4</strong></span> Repeat <a href="#exm-function-sum-independent" class="quarto-xref">Example&nbsp;<span>3.3</span></a> when <span class="math inline">\(X_1 \sim \text{Poisson}(λ_1)\)</span> and <span class="math inline">\(X_2 \sim \text{Poisson}(λ_2)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 3.15</strong></span> Repeat <a href="#exm-function-sum-independent" class="quarto-xref">Example&nbsp;<span>3.14</span></a> when <span class="math inline">\(X_1 \sim \text{Poisson}(λ_1)\)</span> and <span class="math inline">\(X_2 \sim \text{Poisson}(λ_2)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Note</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Recall that for a Poisson random variable <span class="math inline">\(X\)</span> with parameter <span class="math inline">\(λ\)</span> <span class="math display">\[
-p_X(k) = e^{-λ} \frac{λ^k}{k!}, \quad k \ge 0
+P_X(k) = e^{-λ} \frac{λ^k}{k!}, \quad k \ge 0
 \]</span></p>
 <p>Thus, <span class="math display">\[\begin{align*}
-p_Y(n) &amp;= (p_{X_1} * P_{X_2})(n)
-= \sum_{k=-∞}^{∞} p_{X_1}(k) p_{X_2}(n-k)
+P_Y(n) &amp;= (P_{X_1} * P_{X_2})(n)
+= \sum_{k=-∞}^{∞} P_{X_1}(k) P_{X_2}(n-k)
 \\
-&amp;=\sum_{k=0}^{n} p_{X_1}(k) p_{X_2}(n-k)  
+&amp;=\sum_{k=0}^{n} P_{X_1}(k) P_{X_2}(n-k)  
 \\
 &amp;= \sum_{k=0}^n e^{-λ_1 - λ_2} \frac{ λ_1^k λ_2^{n-k} }{ k! (n-k)! }
 \\
@@ -819,34 +1007,8 @@ p_Y(n) &amp;= (p_{X_1} * P_{X_2})(n)
 </div>
 </div>
 </div>
-<div id="exm-function-max-min" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.5</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
-U = \max(X,Y)
-\quad
-V = \min(X,Y).
-\]</span> Find <span class="math inline">\(F_U\)</span> and <span class="math inline">\(F_V\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li><p>We first look at <span class="math inline">\(F_U\)</span>. By definition <span class="math display">\[ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).\]</span></p></li>
-<li><p>Now consider <span class="math inline">\(F_V\)</span>. The event <span class="math inline">\(\{V \le v\}\)</span> can be expressed as <span class="math display">\[ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \} \cap \{X \le v \} \cap \{Y \le v\}.\]</span> Thus, <span class="math display">\[F_V(v) = F_X(v) + F_Y(v) - F_{X,Y}(v,v). \]</span></p></li>
-</ol>
-</div>
-</div>
-</div>
-<section id="change-of-variables-formulas" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="change-of-variables-formulas"><span class="header-section-number">3.4.1</span> Change of variables formulas</h3>
+<section id="change-of-variables-formulas" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="change-of-variables-formulas"><span class="header-section-number">3.3.1</span> Change of variables formulas</h3>
 <p>For continuous random variables, it is possible to obtain a general <strong>change of variable</strong> formula to obtain the PDF of functions of random variable in terms of their joint PDF. My personal view is that it is simpler to reason about such change of variables from first principles, but nonetheless it is good to know the results.</p>
 <ol start="3" type="1">
 <li><p>Now suppose <span class="math inline">\(\{X_1, \dots, X_n\}\)</span> are jointly continuous random variables with joint PDF <span class="math inline">\(f\)</span>. Consider <span class="math inline">\(n\)</span> random variables: <span class="math display">\[\begin{align*}
@@ -870,19 +1032,19 @@ J(x_1, \dots, x_n) =
 </ul></li>
 </ol>
 <div id="exm-function-max-min-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.6</strong></span> Resolve <a href="#exm-function-max-min" class="quarto-xref">Example&nbsp;<span>3.5</span></a> using the change of variables formula.</p>
+<p><span class="theorem-title"><strong>Example 3.16</strong></span> Resolve <a href="#exm-function-max-min" class="quarto-xref">Example&nbsp;<span>3.12</span></a> using the change of variables formula.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Note</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">\(g_1(x,y) = \max\{x, y\}\)</span> and <span class="math inline">\(g_2(x,y) = \min\{x,y\}\)</span>. Define <span class="math display">\[ U = g_1(X,Y) \quad\text{and}\quad V = g_2(X,Y).\]</span></p>
 <p>Define <span class="math inline">\(g(x,y) = \VEC(g_1(x,y), g_2(x,y))\)</span>. Note that <span class="math inline">\(g\)</span> is not differentiable at <span class="math inline">\(x=y\)</span>.</p>
@@ -929,21 +1091,21 @@ F_U(u)
 </div>
 </div>
 <div id="exm-function-multiple" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.7</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 3.17</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
   U = X^2 \quad\text{and}\quad V = X + Y.
 \]</span> Find <span class="math inline">\(F_{U,V}\)</span>?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Note</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Let’s consider the system of equations <span class="math display">\[
   u = x^2 \quad\text{and}\quad v = x + y
@@ -973,6 +1135,81 @@ Solution
 </div>
 </div>
 </div>
+</section>
+</section>
+<section id="correlation-and-covariance" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="correlation-and-covariance"><span class="header-section-number">3.4</span> Correlation and covariance</h2>
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on the same probability space.</p>
+<ul>
+<li><p><strong>Correlation</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\EXP[XY]\)</span>.</p></li>
+<li><p><strong>Covariance</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]\)</span>. The covariance satisfies the following: <span class="math display">\[
+\COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
+\]</span></p></li>
+<li><p><strong>Correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
+<li><p>The correlation coefficeint satisfies <span class="math inline">\(\ABS{ρ_{XY}} \le 1\)</span> with equality if and only if <span class="math inline">\(\PR(aX + bY = c) = 1\)</span> for some <span class="math inline">\(a,b,c \in \reals\)</span>. [The proof follows from Cauchy-Schwartz inequality, which we will study later]</p></li>
+<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be uncorrelated if <span class="math inline">\(ρ_{XY} = 0\)</span>, which is equivalent to <span class="math inline">\(\COV(X,Y) = 0\)</span> or <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</p></li>
+<li><p>Note that <span class="math display">\[\begin{align*}
+  \VAR(X + Y) &amp;= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ]
+  \\
+  &amp;= \VAR(X) + \VAR(Y) + 2\COV(X,Y).
+\end{align*}\]</span> Thus, when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are uncorrelated, we have <span class="math display">\[ \VAR(X + Y) = \VAR(X) + \VAR(Y). \]</span></p></li>
+<li><p>Indepdent random variables are uncorrelated but the reverse in not true.</p></li>
+</ul>
+<div id="exm-uncorrelated" class="theorem example">
+<p><span class="theorem-title"><strong>Example 3.18</strong></span> Consider the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0, 2 π)\)</span>, <span class="math inline">\(\ALPHABET F\)</span> is the Borel <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\([0, 2 π)\)</span> and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math inline">\(X(ω) = \cos ω\)</span> and <span class="math inline">\(Y(ω) = \sin ω\)</span>. Show that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are uncorrelated but not independent.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>The event <span class="math inline">\(\{X = 1\}\)</span> corresponds to <span class="math inline">\(ω = 0\)</span> and therefore <span class="math inline">\(\{Y = 0\}\)</span>. Thus, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are not independent.</p>
+<p>Observe that</p>
+<ul>
+<li><p><span class="math inline">\(\displaystyle \EXP[X] = \int_{0}^{2 π} \cos ω \frac{1}{2 π}\, d ω = 0\)</span>.</p></li>
+<li><p><span class="math inline">\(\displaystyle \EXP[Y] = \int_{0}^{2 π} \sin ω \frac{1}{2 π}\, d ω = 0\)</span>.</p></li>
+<li><p><span class="math inline">\(\displaystyle \EXP[XY] = \int_{0}^{2 π} \cos ω \sin ω \frac{1}{2 π}\, d ω =
+\frac{1}{4{π}} \int_0^{2 π} \cos 2 ω\, d ω = 0\)</span>.</p></li>
+</ul>
+<p>Thus, <span class="math display">\[\EXP[XY] = \EXP[X]\EXP[Y].\]</span></p>
+</div>
+</div>
+</div>
+<section id="correlation-and-covariance-for-random-vectors" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="correlation-and-covariance-for-random-vectors"><span class="header-section-number">3.4.1</span> Correlation and covariance for random vectors</h3>
+<p>Some of these concepts also generalize to random vectors. First, we define expected value for random vectors and random matrices.</p>
+<ul>
+<li><p>If <span class="math inline">\(X = [X_1, \dots, X_n] \in \reals^n\)</span>, then <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_1] &amp; \cdots &amp; \EXP[X_n] }. \]</span></p></li>
+<li><p>If <span class="math inline">\(X = \MATRIX{ X_{1,1} &amp; \cdots &amp; X_{1,n} \\ X_{2,1} &amp; \cdots &amp; X_{2,n} \\
+\vdots &amp; \vdots &amp; \vdots \\
+X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span> is a ranom matrix, then <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] &amp; \cdots &amp; \EXP[X_{1,n}] \\ \EXP[X_{2,1}] &amp; \cdots &amp; \EXP[X_{2,n}] \\
+\vdots &amp; \vdots &amp; \vdots \\
+\EXP[X_{m,1}] &amp; \cdots &amp; \EXP[X_{m,n}] }.
+\]</span></p></li>
+</ul>
+<p>We the above notation, we can define the following:</p>
+<ul>
+<li><p>The <strong>correlation matrix</strong> of a random vector <span class="math inline">\(X \in \reals^n\)</span> is defined as <span class="math display">\[ R = \EXP[X X^\TRANS],\]</span> where <span class="math inline">\(X^\TRANS\)</span> denotes the transpose of <span class="math inline">\(X\)</span>.</p></li>
+<li><p>The correlation matrix is symmetric, i.e., <span class="math inline">\(R = R^\TRANS\)</span></p></li>
+<li><p>The <strong>covariance matrix</strong> of a random vector <span class="math inline">\(X \in \reals^n\)</span> is defined as <span class="math display">\[\COV(X) = \EXP[ (X - μ_X) (X - μ_X)^\TRANS].\]</span></p></li>
+<li><p>The covariance matrix is symmetric. Moreover, <span class="math inline">\([\COV(X)]_{i,j} = \COV(X_i,X_j)\)</span>.</p></li>
+<li><p>The <strong>cross correlation matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is a <span class="math inline">\(n × p\)</span> matrix given by <span class="math display">\[
+  R_{XY} = \EXP[X Y^\TRANS].
+\]</span></p></li>
+<li><p>The <strong>cross covariance matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is a <span class="math inline">\(n × p\)</span> matrix given by <span class="math display">\[
+  \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
+\]</span></p></li>
+<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math display">\[\EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ] = 0 \]</span></p></li>
+<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>orthogonal</strong> if <span class="math display">\[\EXP[X Y^\TRANS] = 0 \]</span></p></li>
+<li><p>Both the correlation and covariance matrices are positive semidefinite. Thus, their eigenvalues are real and non-negative.</p></li>
+</ul>
 
 
 </section>
@@ -1043,13 +1280,14 @@ Solution
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
