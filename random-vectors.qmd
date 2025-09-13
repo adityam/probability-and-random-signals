@@ -2,7 +2,11 @@
 title: Random vectors
 ---
 
-Suppose $X$ and $Y$ are two random variables defined on the same probability space. The CDFs $F_X$ and $F_Y$ provide information about their individual probabilities. To understand how they behave together, we need to think of the random _vector_ $(X,Y)$ taking values in $\reals^2$. The natural way to do so is to think of the **joint CDF**
+Suppose $X$ and $Y$ are two random variables defined on the same probability space. The CDFs $F_X$ and $F_Y$ provide information about their individual probabilities. However, we are often interested in functions of the two random variables, e.g.,
+$$
+  X + Y, \quad XY, \quad \max(X,Y), \quad \min(X,Y), \quad \text{etc.}
+$$
+To understand how they behave together, we need to think of the random _vector_ $(X,Y)$ taking values in $\reals^2$. The natural way to do so is to think of the **joint CDF**
 $$
 F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 $$
@@ -13,7 +17,7 @@ where we may write the right hand side as $\PR(X \le x, Y \le y)$ for short.
 
 - **Regularity properties**
 
-    1. $\lim_{x \to -∞} F_{X,Y}(x,y) = 0$, $\lim_{y \to -∞} F_{X,Y}(x,y)$ and $\lim_{x,y \to +∞} F(x,y) = 1$.
+    1. $\lim_{x \to -∞} F_{X,Y}(x,y) = 0$, $\lim_{y \to -∞} F_{X,Y}(x,y) = 0$ and $\lim_{x,y \to +∞} F(x,y) = 1$.
 
     2. Joint CDFs are non-decreasing, i.e., if $(x_1,y_1) < (x_2, y_2)$, then $F_{X,Y}(x_1,y_1) \le F_{X,Y}(x_2,y_2)$.
 
@@ -29,10 +33,43 @@ where we may write the right hand side as $\PR(X \le x, Y \le y)$ for short.
 
 :::
 
-:::{#exr-joint-distribution}
-Consider random variables $X$ and $Y$ with joint CDF $F$. Show that
+:::{#exm-joint-distribution}
+Consider random variables $X$ and $Y$ with joint CDF $F_{X,Y}$. Show that
 $$
-\PR(a < X \le b, c < Y \le d) = F(b,d) - F(a,d) - F(b,c) + F(a,c).
+\PR(a < X \le b, c < Y \le d) = F_{X,Y}(b,d) - F_{X,Y}(a,d) - F_{X,Y}(b,c) + F_{X,Y}(a,c).
+$$
+_Hint_: Draw each region.
+:::
+
+:::{#exm-marginal-CDF}
+Suppose
+$$
+  F_{X,Y}(x,y) = \begin{cases}
+    \dfrac{y + e^{-x(y+1)}}{y+1} - e^{-x}, & x,y > 0
+    \\
+    0, & \text{otherwise}
+  \end{cases}
+$$
+Find $F_X(x)$ and $F_Y(y)$.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+We have
+$$
+  F_X(x) = \lim_{y \to ∞} F_{X,Y}(x,y) 
+  = \begin{cases}
+    1 - e^{-x}, & x > 0 \\
+    0 , & \text{otherwise}
+  \end{cases}
+$$
+$$
+  F_Y(y) = \lim_{x \to ∞} F_{X,Y}(x,y) 
+  = \begin{cases}
+    \dfrac{y}{y+1}, & y > 0 \\
+    0 , & \text{otherwise}
+  \end{cases}
 $$
 :::
 
@@ -40,15 +77,48 @@ $$
 
 As was the case for random variables, we can also classify random vectors as discrete, continuous, and mixed.
 
-1. A random vector $(X,Y)$ is called **jointly discrete** if it takes values in a countable subset of $\reals^2$ (we denote this subset by $\text{range}(X,Y)$). The jointly discrete random variables have a joint PMF $f \colon \reals \to [0,1]$ given by
-   $$ \PR(X = x, Y = y) = p(x,y). $$
+1. A random vector $(X,Y)$ is called **jointly discrete** if it takes values in a countable subset of $\reals^2$ (we denote this subset by $\ALPHABET X \times \ALPHABET Y$). The jointly discrete random variables have a joint PMF $P_{X,Y} \colon \reals^2 \to [0,1]$ given by
+   $$ \PR(X = x, Y = y) = P_{X,Y}(x,y). $$
 
-2. A random vector $(X, Y)$ is called **jointly continuous** if its CDF can be expressed as 
-   $$ F(x,y) = \int_{-∞}^x \int_{-∞}^{y} f(u,v)\, du dv, \quad
+2. A random vector $(X, Y)$ is called **jointly continuous** (or **absolutely continuous**) if there exists an integrable function $f_{X,Y} \colon \reals^2 \to [0, ∞)$ such that
+   $$ F_{X,Y}(x,y) = \int_{-∞}^x \int_{-∞}^{y} f_{X,Y}(u,v)\, du dv, \quad
    x,y \in \reals $$
-   for some integrable function $f \colon \reals^2 \to [0, ∞)$ which is called the **joint PDF**.
+   $f_{X,Y}$ is called the **joint PDF** and can be computed as
+   $$
+      f_{X,Y}(x,y) = \frac{∂^2}{∂x ∂y}F_{X,Y}(x,y).
+   $$
 
 3. A random vector $(X,Y)$ is called **jointly mixed** if it is neither jointly discrete nor jointly continuous. 
+
+:::{.callout-tip appearance="simple"}
+#### Can we always define a density if CDF is continuous?
+
+Continuity of the CDF is not sufficient for a joint density to exist. Consider the joint CDF
+$$
+  F_{X,Y}(x,y) = \begin{cases}
+    0, & \min(x,y) < 0 \\
+    \min(x,y), & 0 \le \min(x,y) \le 1 \\
+    1, & \min(x,y) > 1
+  \end{cases}
+$$
+This is a valid CDF. It corresponds to 
+$$
+  (X,Y) = (U,U), \quad \text{where } U \sim \text{Unif}[0,1],
+$$
+i.e., the distribution is uniform along the diagonal of the unit square. 
+
+The diagonal is **a set a Lebesgue measure zero**. That means for any ordinary function $f_{X,Y}$
+$$
+  \iint_{A} f_{X,Y}(x,y)\, dx\,dy = 0
+$$
+for all subsets $A$ of the diagonal. Outside the diagonal, the density must be zero. Hence, the density cannot integrate to one over the entire plane. Therefore, mathematically, a density does not exist. Such random variables are said to be **singular**.
+
+Sometimes in the engineering literature, we sometimes set the PDF to be 
+$$
+    f_{X,Y}(x,y) = δ(x-y), \quad 0 \le x,y \le 1
+$$
+which produces the correct $F_{X,Y}$ but delta functions are generalized functions. Thus, although the CDF is continuous, it does not have a joint density. 
+:::
 
 :::{#lem-properties-of-PMFs-PDFs}
 ### Properties of PMFs and PDFs
@@ -56,14 +126,14 @@ As was the case for random variables, we can also classify random vectors as dis
 - **Properties of PMFs**
 
   1. **Normalization.** For a jointly discrete random vector $(X,Y)$, 
-     $$\sum_{x,y \in \text{range}(X,Y)}p_{X,Y}(x,y) = 1.$$
+     $$\sum_{x,y \in \ALPHABET X × \ALPHABET Y}P_{X,Y}(x,y) = 1.$$
 
   2. For any event $A \in \ALPHABET F$, 
-     $$\PR((X,Y) \in A) = \sum_{(x,y) \in \text{range}(X,Y) \cap A} p_{X,Y}(x,y).$$ 
+     $$\PR((X,Y) \in A) = \sum_{(x,y) \in (\ALPHABET X \times \ALPHABET Y) \cap A} P_{X,Y}(x,y).$$ 
 
   3. **Marginalization.**
-      - $\displaystyle \sum_{x \in \text{range(X)}} p_{X,Y}(x,y) = p_Y(y)$. 
-      - $\displaystyle \sum_{y \in \text{range(Y)}} p_{X,Y}(x,y) = p_X(x)$. 
+      - $\displaystyle \sum_{x \in \ALPHABET X} P_{X,Y}(x,y) = P_Y(y)$. 
+      - $\displaystyle \sum_{y \in \ALPHABET Y} P_{X,Y}(x,y) = P_X(x)$. 
 
 - **Properties of PDFs**
 
@@ -78,7 +148,82 @@ As was the case for random variables, we can also classify random vectors as dis
       - $\displaystyle \int_{-∞}^{∞} f_{X,Y}(x,y) dy = f_X(x)$.
 :::
 
-The above discussion generalizes in the obvious manner to more than two random variables as well. Thus, we can talk about random vectors $X = (X_1, \dots, X_n) \in \reals^n$. In practice, we often do not make a distinction between random _variables_ and random _vectors_ and refer both of them simply as _random variables_. 
+The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors $X = (X_1, \dots, X_n) \in \reals^n$. In practice, we often do not make a distinction between random _variables_ and random _vectors_ and refer both of them simply as _random variables_. 
+
+:::{#exm-joint-discrete}
+Consider jointly discrete random variables $X \in \{1,2,3\}$ and $Y \in \{1, 2, 3\}$ with joint PMF
+$$
+  P_{X,Y} = \MATRIX{ 
+    0.1 & 0.1 & 0.2 \\
+    0.2 & 0.1 & 0   \\ 
+    0.3 & 0   & 0   
+  }
+$$
+
+- Find the marginals $P_X$ and $P_Y$. 
+- Find the probability of the event $A = \{ X + Y = 3 \}$. 
+:::
+
+:::{#exm-marginal-CDF-1}
+Consider $F_{X,Y}$ given in @exm-marginal-CDF. 
+
+- Find the joint density $f_{X,Y}$ 
+- Find the marginal densities $f_X$ and $f_Y$. 
+- Find the probability of the event $A = \{ X + Y \le 1 \}$.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+For $x,y > 0$, we have
+$$
+  f_{X,Y}(x,y) = \frac{∂^2}{∂x ∂y}F_{X,Y}(x,y) = x e^{-x(y+1)}.
+$$
+Thus,
+$$
+  f_{X,Y}(x,y) = \begin{cases}
+    x e^{-x(y+1)}, & x,y > 0 \\
+    0, & \text{otherwise}
+  \end{cases}
+$$
+
+Thus, 
+$$
+  f_X(x) = \int_{-∞}^{∞} f_{X,Y}(x,y)\,dy =
+  \begin{cases}
+    e^{-x}, & x > 0 \\
+    0, & x \le 0
+  \end{cases}
+$$
+and
+$$
+  f_Y(y) = \int_{-∞}^{∞} f_{X,Y}(x,y)\,dx =
+  \begin{cases}
+    \dfrac{1}{(1+y)^2}, & y > 0 \\
+    0, & y \le 0
+  \end{cases}
+$$
+:::
+
+:::{#exm-normalization}
+Consider a joint PDF
+$$
+  f_{X,Y}(x,y) = c e^{-x} e^{-y}, \quad 0 \le y \le x < ∞.
+$$
+Find the constant $c$.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+We know that the joint PDF must integrate to $1$. Thus,
+\begin{align*}
+  1 &= \int_{-∞}^{∞} f_{X,Y}(x,y)\, dx\, dy \\
+  &= \int_{0}^{∞} \int_{0}^x c e^{-x} e^{-y}\, dy\, dx  \\
+  &= \int_{0}^{∞} c e^{-x}(1 - e^{-x}) dx \\
+  &= \frac{c}{2}.
+\end{align*}
+Therefore, $c=2$.
+:::
 
 ## Independence of random vectors
 
@@ -105,10 +250,81 @@ Using this, we can show that following:
 
 3. Two jointly discrete random variables $X$ and $Y$ are independent if and only if
    $$
-      p_{X,Y}(x,y) = p_X(x) p_Y(y), \quad \forall x, y \in \reals.
+      P_{X,Y}(x,y) = P_X(x) P_Y(y), \quad \forall x, y \in \reals.
    $$
 
-An immediate implication of the above definition is the following.
+:::{#exm-discrete-independence}
+ Consider the random variables $X$ and $Y$ with the joint PMF $P_{X,Y}$ given in @exm-joint-discrete. Are these random variables independent?
+:::
+
+:::{#exm-marginal-CDF-independence}
+ Consider the random variables $X$ and $Y$ with the joint CDF $F_{X,Y}$ given in @exm-marginal-CDF. Are these random variables independent?
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+Observe that $F_{X,Y}(x,y) \neq F_X(x) F_Y(y)$. Hence, the two random variables are not independent.
+
+We can also see that because $f_{X,Y}(x,y) \neq f_X(x) f_Y(y)$. 
+:::
+
+:::{#exm-uniform-unit-square}
+Consider random variables $X$ and $Y$ with joint PDF $f_{X,Y}$ which is a uniform distribution on the unit square. Are $X$ and $Y$ independent?
+:::
+
+:::{#exm-uniform-unit-triangle}
+Consider random variables $X$ and $Y$ with joint PDF $f_{X,Y}$ which is a uniform distribution on the unit triangle Are $X$ and $Y$ independent?
+:::
+
+These definitions extend naturally to any number of random variables:
+
+1. A sequence of random variables $X_1, \dots, X_n$ are independent if and only if 
+   $$
+     F_{X_1, \dots, X_n}(x_1, \dots, x_n) = \prod_{i=1}^n F_{X_i}(x_i).
+   $$
+
+2. A sequence of jointly continuous random variables $X_1, \dots, X_n$ are independent if and only if
+   $$
+     f_{X_1, \dots, X_n}(x_1, \dots, x_n) = \prod_{i=1}^n f_{X_i}(x_i).
+   $$
+
+3. A sequence of jointly discrete random variables $X_1, \dots, X_n$ are independent if and only if
+   $$
+     P_{X_1, \dots, X_n}(x_1, \dots, x_n) = \prod_{i=1}^n P_{X_i}(x_i).
+   $$
+
+Unlike independence of events, we do not need to separately check for independence of subsets of random variables because that is automatically implied due to the marginalization property.
+
+:::{#exm-independence-multiple-RVs}
+Suppose \(X, Y, Z\) are independent with joint PDF:
+$$
+  f_{X,Y,Z}(x,y,z) = f_X(x)\, f_Y(y)\, f_Z(z).
+$$
+
+Show that $X$ and $Y$ are independent.
+:::
+
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+To find the joint PDF of $X$ and $Y$, marginalize over $Z$:
+$$
+f_{X,Y}(x,y) = \int_{-\infty}^{\infty} f_{X,Y,Z}(x,y,z)\, dz
+= \int_{-\infty}^{\infty} f_X(x)\, f_Y(y)\, f_Z(z)\, dz.
+$$
+
+Since $f_X(x)$ and $f_Y(y)$ do not depend on $z$:
+$$
+f_{X,Y}(x,y) = f_X(x)\, f_Y(y) \int_{-\infty}^{\infty} f_Z(z)\, dz
+= f_X(x)\, f_Y(y) \cdot 1.
+$$
+
+Thus, $X$ and $Y$ remain independent after marginalization.
+:::
+
+An immediate implication of the definition of independence is the following.
 
 :::{#prp-functions-of-RVs}
 Let $X$ and $Y$ be independent random variables defined on a common probability space. Consider $U = g(X)$ and $V = h(Y)$ for some (measurable) functions $g$ and $h$. Then, $U$ and $V$ are independent. 
@@ -167,113 +383,19 @@ where $(d)$ follows from basic algebra, $(e)$ follows from \eqref{eq:expectation
 The above equation shows that for any arbitrary (Borel) subsets $B_1$ and $B_2$ of $\reals$, $\PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2)$. Hence, $\{X \in B_1\} \independent \{Y \in B_2 \}$. Since $B_1$ and $B_2$ were arbitrary, we have $X \independent Y$. 
 :::
 
-:::{#exr-mean-var-indendent}
+:::{#exm-mean-var-indendent}
 Let $X$ and $Y$ be independent random variables defined on a common probability space. Show that
 
 a. $\EXP[XY] = \EXP[X] \EXP[Y]$.
 b. $\VAR(XY) = \VAR(X) \VAR(Y)$. 
 :::
 
-## Correlation and covariance
-
-Let $X$ and $Y$ be random variables defined on the same probability space.
-
-- **Correlation** between $X$ and $Y$ is defined as $\EXP[XY]$. 
-
-- **Covariance** between $X$ and $Y$ is defined as $\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]$. The covariance satisfies the following:
-  $$
-  \COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
-  $$
-
-- **Correlation coefficient** between $X$ and $Y$ is defined as 
-  $$ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.$$
-
-- The correlation coefficeint satisfies $\ABS{ρ_{XY}} \le 1$ with equality if and only if $\PR(aX + bY = c) = 1$ for some $a,b,c \in \reals$. [The proof follows from Cauchy-Schwartz inequality, which we will study later]
-
-- $X$ and $Y$ are said to be uncorrelated if $ρ_{XY} = 0$, which is equivalent to $\COV(X,Y) = 0$ or $\EXP[XY] = \EXP[X] \EXP[Y]$.
-
-- Note that
-  \begin{align*}
-    \VAR(X + Y) &= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ] 
-    \\
-    &= \VAR(X) + \VAR(Y) + 2\COV(X,Y).
-  \end{align*}
-  Thus, when $X$ and $Y$ are uncorrelated, we have
-  $$ \VAR(X + Y) = \VAR(X) + \VAR(Y). $$
-
-- Indepdent random variables are uncorrelated but the reverse in not true.
-
-:::{#exm-uncorrelated}
-Consider the probability space $(Ω, \ALPHABET F, \PR)$ where $Ω = [0, 2 π)$, $\ALPHABET F$ is the Borel $σ$-algebra on $[0, 2 π)$ and $\PR$ is the uniform distribution on $Ω$. Define $X(ω) = \cos ω$ and $Y(ω) = \sin ω$. 
-Show that $X$ and $Y$ are uncorrelated but not independent.
+:::{#def-iid}
+A collection of random variables $X_1, \dots, X_n$ is called **independent and identically distributed (i.i.d.)** if all random variables are independent and have the same distribution, i.e., 
+$$
+  F_{X_1}(x_1) = F_{X_2}(x_2) = \cdots = F_{X_n}(x_n).
+$$
 :::
-
-:::{.callout-note collapse="false"}
-### Solution
-
-The event $\{X = 1\}$ corresponds to $ω = 0$ and therefore $\{Y = 0\}$. Thus, $X$ and $Y$ are not independent. 
-
-Observe that
-
-- $\displaystyle \EXP[X] = \int_{0}^{2 π} \cos ω \frac{1}{2 π}\, d ω = 0$.
-
-- $\displaystyle \EXP[Y] = \int_{0}^{2 π} \sin ω \frac{1}{2 π}\, d ω = 0$.
-
-- $\displaystyle \EXP[XY] = \int_{0}^{2 π} \cos ω \sin ω \frac{1}{2 π}\, d ω = 
-  \frac{1}{4{π}} \int_0^{2 π} \cos 2 ω\, d ω = 0$.
-
-Thus,
-$$\EXP[XY] = \EXP[X]\EXP[Y].$$
-:::
-
-
-### Correlation and covariance for random vectors
-
-Some of these concepts also generalize to random vectors. First, we define expected value for random vectors and random matrices.
-
-- If $X = [X_1, \dots, X_n] \in \reals^n$, then
-  $$ \EXP[X] = \MATRIX{ \EXP[X_1] & \cdots & \EXP[X_n] }. $$
-
-- If $X = \MATRIX{ X_{1,1} & \cdots & X_{1,n} \\ X_{2,1} & \cdots & X_{2,n} \\
-  \vdots & \vdots & \vdots \\
-  X_{m,1} & \cdots & X_{m,n} } \in \reals^{m \times n}$ is a ranom matrix, then
-  $$ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] & \cdots & \EXP[X_{1,n}] \\ \EXP[X_{2,1}] & \cdots & \EXP[X_{2,n}] \\
-  \vdots & \vdots & \vdots \\
-  \EXP[X_{m,1}] & \cdots & \EXP[X_{m,n}] }.
-  $$
-
-We the above notation, we can define the following:
-
-- The **correlation matrix** of a random vector $X \in \reals^n$ is defined as 
-  $$ R = \EXP[X X^\TRANS],$$
-  where $X^\TRANS$ denotes the transpose of $X$. 
-
-- The correlation matrix is symmetric, i.e., $R = R^\TRANS$
-
-- The **covariance matrix** of a random vector $X \in \reals^n$ is defined as 
-  $$\COV(X) = \EXP[ (X - μ_X) (X - μ_X)^\TRANS].$$
-
-- The covariance matrix is symmetric. Moreover, 
-  $[\COV(X)]_{i,j} = \COV(X_i,X_j)$. 
-
-- The **cross correlation matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
-  $$
-    R_{XY} = \EXP[X Y^\TRANS].
-  $$
-
-- The **cross covariance matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
-  $$
-    \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
-  $$
-
-- Two random vectors $X$ and $Y$ are called **uncorrelated** if 
-  $$\EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ] = 0 $$
-
-- Two random vectors $X$ and $Y$ are called **orthogonal** if 
-  $$\EXP[X Y^\TRANS] = 0 $$
-
-- Both the correlation and covariance matrices are positive semidefinite. Thus, their eigenvalues are real and non-negative. 
-
 
 ## Functions of random variables
 
@@ -281,6 +403,27 @@ In an interconnected systems, the output of one system is used as input to anoth
 
 The same idea can be used for functions of multiple random variables as we illustrate via the following examples.
 
+:::{#exm-function-max-min}
+Let $X$ and $Y$ be random variables defined on a common probability space. Define
+$$
+U = \max(X,Y)
+\quad
+V = \min(X,Y).
+$$
+Find $F_U$ and $F_V$.
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+1. We first look at $F_U$. By definition
+   $$ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).$$
+
+2. Now consider $F_V$. The event $\{V \le v\}$ can be expressed as
+  $$ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \} \cap \{X \le v \} \cap \{Y \le v\}.$$
+  Thus,
+  $$F_V(v) = F_X(v) + F_Y(v) - F_{X,Y}(v,v). $$
+:::
 
 :::{#exm-function-sum}
 Suppose $X_1$ and $X_2$ are continuous random variables and $Y = X_1 + X_2$. Find the PDF $f_Y(y)$. 
@@ -322,15 +465,15 @@ Repeat @exm-function-sum-independent when $X_1 \sim \text{Poisson}(λ_1)$ and $X
 
 Recall that for a Poisson random variable $X$ with parameter $λ$
 $$
-p_X(k) = e^{-λ} \frac{λ^k}{k!}, \quad k \ge 0
+P_X(k) = e^{-λ} \frac{λ^k}{k!}, \quad k \ge 0
 $$
 
 Thus,
 \begin{align*}
-p_Y(n) &= (p_{X_1} * P_{X_2})(n) 
-= \sum_{k=-∞}^{∞} p_{X_1}(k) p_{X_2}(n-k) 
+P_Y(n) &= (P_{X_1} * P_{X_2})(n) 
+= \sum_{k=-∞}^{∞} P_{X_1}(k) P_{X_2}(n-k) 
 \\
-&=\sum_{k=0}^{n} p_{X_1}(k) p_{X_2}(n-k)  
+&=\sum_{k=0}^{n} P_{X_1}(k) P_{X_2}(n-k)  
 \\
 &= \sum_{k=0}^n e^{-λ_1 - λ_2} \frac{ λ_1^k λ_2^{n-k} }{ k! (n-k)! }
 \\
@@ -341,28 +484,6 @@ p_Y(n) &= (p_{X_1} * P_{X_2})(n)
 \end{align*}
 
 Thus, $Y \sim \text{Poisson}(λ_1 + λ_2)$. 
-:::
-
-:::{#exm-function-max-min}
-Let $X$ and $Y$ be random variables defined on a common probability space. Define
-$$
-U = \max(X,Y)
-\quad
-V = \min(X,Y).
-$$
-Find $F_U$ and $F_V$.
-:::
-
-:::{.callout-note collapse="false"}
-### Solution
-
-1. We first look at $F_U$. By definition
-   $$ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).$$
-
-2. Now consider $F_V$. The event $\{V \le v\}$ can be expressed as
-  $$ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \} \cap \{X \le v \} \cap \{Y \le v\}.$$
-  Thus,
-  $$F_V(v) = F_X(v) + F_Y(v) - F_{X,Y}(v,v). $$
 :::
 
 
@@ -523,3 +644,105 @@ $$
       + \frac{f_{X,Y}(-\sqrt{u}, v + \sqrt{u})}{2 \sqrt{u}}.
    $$
 :::
+
+## Correlation and covariance
+
+Let $X$ and $Y$ be random variables defined on the same probability space.
+
+- **Correlation** between $X$ and $Y$ is defined as $\EXP[XY]$. 
+
+- **Covariance** between $X$ and $Y$ is defined as $\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]$. The covariance satisfies the following:
+  $$
+  \COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
+  $$
+
+- **Correlation coefficient** between $X$ and $Y$ is defined as 
+  $$ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.$$
+
+- The correlation coefficeint satisfies $\ABS{ρ_{XY}} \le 1$ with equality if and only if $\PR(aX + bY = c) = 1$ for some $a,b,c \in \reals$. [The proof follows from Cauchy-Schwartz inequality, which we will study later]
+
+- $X$ and $Y$ are said to be uncorrelated if $ρ_{XY} = 0$, which is equivalent to $\COV(X,Y) = 0$ or $\EXP[XY] = \EXP[X] \EXP[Y]$.
+
+- Note that
+  \begin{align*}
+    \VAR(X + Y) &= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ] 
+    \\
+    &= \VAR(X) + \VAR(Y) + 2\COV(X,Y).
+  \end{align*}
+  Thus, when $X$ and $Y$ are uncorrelated, we have
+  $$ \VAR(X + Y) = \VAR(X) + \VAR(Y). $$
+
+- Indepdent random variables are uncorrelated but the reverse in not true.
+
+:::{#exm-uncorrelated}
+Consider the probability space $(Ω, \ALPHABET F, \PR)$ where $Ω = [0, 2 π)$, $\ALPHABET F$ is the Borel $σ$-algebra on $[0, 2 π)$ and $\PR$ is the uniform distribution on $Ω$. Define $X(ω) = \cos ω$ and $Y(ω) = \sin ω$. 
+Show that $X$ and $Y$ are uncorrelated but not independent.
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+The event $\{X = 1\}$ corresponds to $ω = 0$ and therefore $\{Y = 0\}$. Thus, $X$ and $Y$ are not independent. 
+
+Observe that
+
+- $\displaystyle \EXP[X] = \int_{0}^{2 π} \cos ω \frac{1}{2 π}\, d ω = 0$.
+
+- $\displaystyle \EXP[Y] = \int_{0}^{2 π} \sin ω \frac{1}{2 π}\, d ω = 0$.
+
+- $\displaystyle \EXP[XY] = \int_{0}^{2 π} \cos ω \sin ω \frac{1}{2 π}\, d ω = 
+  \frac{1}{4{π}} \int_0^{2 π} \cos 2 ω\, d ω = 0$.
+
+Thus,
+$$\EXP[XY] = \EXP[X]\EXP[Y].$$
+:::
+
+
+### Correlation and covariance for random vectors
+
+Some of these concepts also generalize to random vectors. First, we define expected value for random vectors and random matrices.
+
+- If $X = [X_1, \dots, X_n] \in \reals^n$, then
+  $$ \EXP[X] = \MATRIX{ \EXP[X_1] & \cdots & \EXP[X_n] }. $$
+
+- If $X = \MATRIX{ X_{1,1} & \cdots & X_{1,n} \\ X_{2,1} & \cdots & X_{2,n} \\
+  \vdots & \vdots & \vdots \\
+  X_{m,1} & \cdots & X_{m,n} } \in \reals^{m \times n}$ is a ranom matrix, then
+  $$ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] & \cdots & \EXP[X_{1,n}] \\ \EXP[X_{2,1}] & \cdots & \EXP[X_{2,n}] \\
+  \vdots & \vdots & \vdots \\
+  \EXP[X_{m,1}] & \cdots & \EXP[X_{m,n}] }.
+  $$
+
+We the above notation, we can define the following:
+
+- The **correlation matrix** of a random vector $X \in \reals^n$ is defined as 
+  $$ R = \EXP[X X^\TRANS],$$
+  where $X^\TRANS$ denotes the transpose of $X$. 
+
+- The correlation matrix is symmetric, i.e., $R = R^\TRANS$
+
+- The **covariance matrix** of a random vector $X \in \reals^n$ is defined as 
+  $$\COV(X) = \EXP[ (X - μ_X) (X - μ_X)^\TRANS].$$
+
+- The covariance matrix is symmetric. Moreover, 
+  $[\COV(X)]_{i,j} = \COV(X_i,X_j)$. 
+
+- The **cross correlation matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
+  $$
+    R_{XY} = \EXP[X Y^\TRANS].
+  $$
+
+- The **cross covariance matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
+  $$
+    \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
+  $$
+
+- Two random vectors $X$ and $Y$ are called **uncorrelated** if 
+  $$\EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ] = 0 $$
+
+- Two random vectors $X$ and $Y$ are called **orthogonal** if 
+  $$\EXP[X Y^\TRANS] = 0 $$
+
+- Both the correlation and covariance matrices are positive semidefinite. Thus, their eigenvalues are real and non-negative. 
+
+
