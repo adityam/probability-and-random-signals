@@ -88,8 +88,6 @@ As was the case for random variables, we can also classify random vectors as dis
       f_{X,Y}(x,y) = \frac{∂^2}{∂x ∂y}F_{X,Y}(x,y).
    $$
 
-3. A random vector $(X,Y)$ is called **jointly mixed** if it is neither jointly discrete nor jointly continuous. 
-
 :::{.callout-tip appearance="simple"}
 #### Can we always define a density if CDF is continuous?
 
@@ -208,7 +206,7 @@ $$
 :::{#exm-normalization}
 Consider a joint PDF
 $$
-  f_{X,Y}(x,y) = c e^{-x} e^{-y}, \quad 0 \le y \le x < ∞.
+  f_{X,Y}(x,y) = c x y, \quad 0 \le y \le x \le 1.
 $$
 Find the constant $c$.
 :::
@@ -218,11 +216,11 @@ Find the constant $c$.
 We know that the joint PDF must integrate to $1$. Thus,
 \begin{align*}
   1 &= \int_{-∞}^{∞} f_{X,Y}(x,y)\, dx\, dy \\
-  &= \int_{0}^{∞} \int_{0}^x c e^{-x} e^{-y}\, dy\, dx  \\
-  &= \int_{0}^{∞} c e^{-x}(1 - e^{-x}) dx \\
-  &= \frac{c}{2}.
+  &= \int_{0}^{1} \int_{0}^x c xy\, dy\, dx  \\
+  &= \int_{0}^{1} c x\frac{x^2}{2} dx \\
+  &= c \frac{x^3}{8}\biggr|_{0}^1 = \frac{c}{8}
 \end{align*}
-Therefore, $c=2$.
+Therefore, $c=8$.
 :::
 
 ## Independence of random vectors
@@ -489,38 +487,38 @@ Thus, $Y \sim \text{Poisson}(λ_1 + λ_2)$.
 
 ### Change of variables formulas
 
-For continuous random variables, it is possible to obtain a general **change of variable** formula to obtain the PDF of functions of random variable in terms of their joint PDF. My personal view is that it is simpler to reason about such change of variables from first principles, but nonetheless it is good to know the results.
+For continuous random variables, it is possible to obtain a general **change of variable** formula to obtain the PDF of functions of random variable in terms of their joint PDF. 
 
 
-3. Now suppose $\{X_1, \dots, X_n\}$ are jointly continuous random variables with joint PDF $f$. Consider $n$ random variables:
-   \begin{align*}
-      Y_1 &= g_1(X_1, \dots, X_n) \\
-      Y_2 &= g_2(X_1, \dots, X_n) \\
-      \vdots &= \vdots \\
-      Y_n &= g_n(X_1, \dots, X_n).
-   \end{align*}
-   We can view this as an equation between two $n$-dimensional vectors $Y = \VEC(Y_1, \dots, Y_n)$ and $X = \VEC(X_1, \dots, X_n)$ written as 
-   $$ Y = g(X) $$
+Suppose $\{X_1, \dots, X_n\}$ are jointly continuous random variables with joint PDF $f$. Consider $n$ random variables:
+ \begin{align*}
+    Y_1 &= g_1(X_1, \dots, X_n), \\
+    Y_2 &= g_2(X_1, \dots, X_n), \\
+    \vdots &= \vdots \\
+    Y_n &= g_n(X_1, \dots, X_n).
+ \end{align*}
+ We can view this as an equation between two $n$-dimensional vectors $Y = \VEC(Y_1, \dots, Y_n)$ and $X = \VEC(X_1, \dots, X_n)$ written as 
+ $$ Y = g(X) $$
 
-   As was the case for the scalar system, for a given $y \in \reals^n$, the vector equation $y = g(x)$ may have zero, one, or multiple solutions. 
+ As was the case for the scalar system, for a given $y \in \reals^n$, the vector equation $y = g(x)$ may have zero, one, or multiple solutions. 
 
-   - If $y = g(x)$, $y \in \reals^n$ has no solution, then
-     $$ f_Y(y) = 0. $$
+- If $y = g(x)$, $y \in \reals^n$ has no solution, then
+  $$ f_Y(y) = 0. $$
 
-   - If $y = g(x)$, $y \in \reals^n$ has one solution $x \in \reals^n$, then
-     $$ f_Y(y) = \frac{f_X(x)}{\ABS{J(x)}}, \quad \text{where } y = g(x)$$
-     and $J(x)$ denotes the Jacobian on $g(x)$ evaluated at $x = (x_1, \dots, x_n)$, i.e., 
-     $$
-     \def\1#1#2{\dfrac{∂ g_{#1}}{∂ x_{#2}}}
-     J(x_1, \dots, x_n) = 
-     \DET{ \1 11 & \cdots & \1 1n \\
-           \vdots & \vdots & \vdots \\
-           \1 n1 & \cdots & \1 nn }
-      $$
+- If $y = g(x)$, $y \in \reals^n$ has one solution $x \in \reals^n$, then
+  $$ f_Y(y) = \frac{f_X(x)}{\ABS{J(x)}}, \quad \text{where } y = g(x)$$
+  and $J(x)$ denotes the Jacobian on $g(x)$ evaluated at $x = (x_1, \dots, x_n)$, i.e., 
+  $$
+  \def\1#1#2{\dfrac{∂ g_{#1}}{∂ x_{#2}}}
+  J(x_1, \dots, x_n) = 
+  \DET{ \1 11 & \cdots & \1 1n \\
+        \vdots & \vdots & \vdots \\
+        \1 n1 & \cdots & \1 nn }
+   $$
 
-   - If $y = g(x)$, $y \in \reals^n$ has multiple solutions given by $\{x^{(1)}, \dots, x^{(m)}\}$, then
-     $$ f_Y(y) = 
-     \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{J(x^{(k)})}}.$$
+- If $y = g(x)$, $y \in \reals^n$ has multiple solutions given by $\{x^{(1)}, \dots, x^{(m)}\}$, then
+  $$ f_Y(y) = 
+  \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{J(x^{(k)})}}.$$
 
 :::{#exm-function-max-min-2}
 Resolve @exm-function-max-min using the change of variables formula.

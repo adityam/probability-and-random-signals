@@ -217,7 +217,7 @@ execute:
       \end{align*}
    :::
 
-:::{#exr-CDF-expressions}
+:::{#exm-CDF-expressions}
 For $x < y$, express the following in terms of the CDF:
 
 1. $\PR(x \le X \le y)$.
@@ -680,7 +680,7 @@ $$
 $$
 :::
 
-:::{#exr-mean-common}
+:::{#exm-mean-common}
 Find the expected value of the random variables with the following distributions:
 
 - $\text{Bernoulli}(p)$.
@@ -712,7 +712,7 @@ This result is sometimes called ***the law of the unconscious statistician (LOTU
 A simpler proof is to define expectation by @lem-expectation for any (measurable) function $g$. Then the definition of @def-expectation is a special case for $g(x) = x$. No proofs needed!
 :::
 
-:::{#exr-expectation}
+:::{#exm-expectation}
 Suppose $X \sim \text{Unif}[-1,1]$. Compute $\EXP[X^2]$.
 :::
 
@@ -789,4 +789,33 @@ The mean and variance of common random variables is show in @tbl-mean-variance
 | Gaussian        | $(μ,σ)$      | $μ$  | $σ^2$ |
 
 : Mean and variance of common random variables {#tbl-mean-variance}
+
+:::{#exm-streaming-variance}
+Let $X$ be a real-valued random variable where $μ = \EXP[X]$. Let $t$ be any real number. Then show that
+$$
+  \EXP[(X-t)^2] = \VAR(X) + (t-μ)^2. 
+$$
+Argue that the above equation implies that
+$$
+  \VAR(X) = \min_{t \in \reals} \EXP[(X -t)^2].
+$$
+
+ _Remark:_ The above relationship suggests a **single-pass** algorithm to compute $\VAR(X)$ from a set of samples: choose any $t$ and compute $μ = \EXP[X]$ and $\EXP[(X-t)^2]$ in a single pass. Then, $\VAR(X)$ can be computed bs $\VAR(X) = \EXP[(X-t)^2] + (t-μ)^2$.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+We know that
+\begin{align*}
+  \EXP[(X-t)^2] &= \EXP[\bigl((X-μ) + (μ-t) \bigr)^2]
+   \\
+   &= \EXP[(X-μ)^2 + (μ-t)^2  + 2 (X - μ)(μ-t) ]
+   \\
+   &\stackrel{(a)}= \EXP[(X-μ)^2] + (t-μ)^2 + 2(μ-t)\EXP[(X-μ)]
+   \\
+    &\stackrel{(b)}= \VAR(X) + (t-μ)^2
+\end{align*}
+where $(a)$ uses the linearity property of expectations and $(b)$ uses
+the fact that $\EXP[X-μ] = μ -μ = 0$. 
+:::
 
