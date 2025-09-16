@@ -643,13 +643,17 @@ $$
    $$
 :::
 
-## Correlation and covariance
+## Covariance of random vectors
 
-Let $X$ and $Y$ be random variables defined on the same probability space.
+We start with the definition of covariance of two real-valued random variables. We will then generalize the notion to random vectors.
 
-- **Correlation** between $X$ and $Y$ is defined as $\EXP[XY]$. 
+### Real-valued random variables
 
-- **Covariance** between $X$ and $Y$ is defined as $\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]$. The covariance satisfies the following:
+Let $X$ and $Y$ be real-valued random variables defined on the same probability space.
+
+- **Covariance** measures how two random variables vary together. In particular, let $X$ and $Y$ be jointly distributed random variables and let $μ_X$ and $μ_Y$ denote their means. Then,
+  $$ \COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)].$$
+  Properties of expectation imply that
   $$
   \COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
   $$
@@ -667,7 +671,7 @@ Let $X$ and $Y$ be random variables defined on the same probability space.
     \\
     &= \VAR(X) + \VAR(Y) + 2\COV(X,Y).
   \end{align*}
-  Thus, when $X$ and $Y$ are uncorrelated, we have
+  Thus, when $X$ and $Y$ are **uncorrelated**, we have
   $$ \VAR(X + Y) = \VAR(X) + \VAR(Y). $$
 
 - Indepdent random variables are uncorrelated but the reverse in not true.
@@ -696,51 +700,142 @@ $$\EXP[XY] = \EXP[X]\EXP[Y].$$
 :::
 
 
-### Correlation and covariance for random vectors
+### Random vectors
 
-Some of these concepts also generalize to random vectors. First, we define expected value for random vectors and random matrices.
+The idea of covariance generalizes to random vectors. First we recall the definition of expectation for random vectors and random matrices.
 
-- If $X = [X_1, \dots, X_n] \in \reals^n$, then
+- For a random vector $X = [X_1, \dots, X_n] \in \reals^n$, we have
   $$ \EXP[X] = \MATRIX{ \EXP[X_1] & \cdots & \EXP[X_n] }. $$
 
-- If $X = \MATRIX{ X_{1,1} & \cdots & X_{1,n} \\ X_{2,1} & \cdots & X_{2,n} \\
+- For a random matrix $X = \MATRIX{ X_{1,1} & \cdots & X_{1,n} \\ X_{2,1} & \cdots & X_{2,n} \\
   \vdots & \vdots & \vdots \\
-  X_{m,1} & \cdots & X_{m,n} } \in \reals^{m \times n}$ is a ranom matrix, then
+  X_{m,1} & \cdots & X_{m,n} } \in \reals^{m \times n}$, we have
   $$ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] & \cdots & \EXP[X_{1,n}] \\ \EXP[X_{2,1}] & \cdots & \EXP[X_{2,n}] \\
   \vdots & \vdots & \vdots \\
   \EXP[X_{m,1}] & \cdots & \EXP[X_{m,n}] }.
   $$
 
-We the above notation, we can define the following:
+With the above notation, we have the following.
 
-- The **correlation matrix** of a random vector $X \in \reals^n$ is defined as 
-  $$ R = \EXP[X X^\TRANS],$$
-  where $X^\TRANS$ denotes the transpose of $X$. 
+1. The **covariance matrix** of a random vector $X \in \reals^n$ is defined as 
+   $$Σ_X = \COV(X) = \EXP[ (X - μ_X) (X - μ_X)^\TRANS].$$
 
-- The correlation matrix is symmetric, i.e., $R = R^\TRANS$
+2. When $X = [X_1, \dots, X_n]^\TRANS$, the covariance can be written as
+   $$
+     Σ_X = \MATRIX{ 
+         \VAR(X_1) & \COV(X_1, X_2) & \cdots & \COV(X_1, X_n) \\
+         \COV(X_2, X_1) & \VAR(X_2) & \cdots & \COV(X_1, X_n) \\
+         \vdots & \ddots & \ddots & \vdots \\
+         \COV(X_n, X_1) & \COV(X_n, X_2) & \cdots & \VAR(X_n) }
+   $$
 
-- The **covariance matrix** of a random vector $X \in \reals^n$ is defined as 
-  $$\COV(X) = \EXP[ (X - μ_X) (X - μ_X)^\TRANS].$$
+3. It is easy to see that $Σ_X = Σ_X^\TRANS$. Thus, the covariance matrix is symmetric.
 
-- The covariance matrix is symmetric. Moreover, 
-  $[\COV(X)]_{i,j} = \COV(X_i,X_j)$. 
+4. If the components $X_1, \dots, X_n$ are independent, then $Σ_X$ is a diagonal matrix.
 
-- The **cross correlation matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
+5. $Σ_X$ is positive semidefinite, i.e., its eigenvalues are real and non-negative. To see this, observe that for any (deterministic) vector $v$, we have
+   \begin{align*}
+     v^\TRANS Σ_X v 
+     &= v^\TRANS \EXP[ (X - μ_X) (X - μ_X)^\TRANS ] v \\
+     &= \EXP[ v^\TRANS (X - μ_X) (X - μ_X)^\TRANS v ]  \\
+     &= \EXP[ w^\TRANS w ] = \EXP[ \NORM{w}^2 ] \ge 0. 
+   \end{align*}
+   where $w = (X - μ_X)^\TRANS v$.
+      
+6. The **cross covariance matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
   $$
-    R_{XY} = \EXP[X Y^\TRANS].
+    Σ_{XY} = \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
   $$
 
-- The **cross covariance matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
-  $$
-    \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
-  $$
+7. Two random vectors $X$ and $Y$ are called **uncorrelated** if 
+  $$ Σ_{XY} = 0 \implies 
+    \EXP[XY^\TRANS] = \EXP[X] \EXP[Y]^\TRANS. $$
 
-- Two random vectors $X$ and $Y$ are called **uncorrelated** if 
-  $$\EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ] = 0 $$
-
-- Two random vectors $X$ and $Y$ are called **orthogonal** if 
+8. Two random vectors $X$ and $Y$ are called **orthogonal** if 
   $$\EXP[X Y^\TRANS] = 0 $$
 
-- Both the correlation and covariance matrices are positive semidefinite. Thus, their eigenvalues are real and non-negative. 
+### Linear transformation of mean and covariance
 
+Consider a random vector (not necessarily Gaussian) $X = [X_1, \dots, X_n]^\TRANS$ with mean $μ_X$ and covariance $Σ_X$. 
+
+Let $A \in \reals^{n × n}$ be a deterministic matrix and $b \in \reals^n$ be a deterministic vector. 
+
+Define $Y = A X + b$ and let $μ_Y$ and $Σ_Y$ denote the mean and covariance of $Y$. Then,
+$$
+  μ_Y = A μ_X + b
+  \quad\text{and}\quad
+  Σ_Y = A Σ_X A^\TRANS
+$$
+
+:::{.callout-note collapse="true"}
+#### Proof
+
+The property of the mean follows immediately from properties of expectation. For the covariance, note that
+\begin{align*}
+  Σ_Y &= \EXP[ (Y - μ_Y) (Y - μ_Y)^\TRANS ] \\
+  &= \EXP[ (A X - A μ_X) (AX - A μ_X)^\TRANS ] \\
+  &= \EXP[ A (X - μ_X) (X - μ_X)^\TRANS A^\TRANS ] \\
+  &= A Σ_X A^\TRANS
+\end{align*}
+:::
+
+## Multi-dimensional Gaussian 
+
+A $n$-dimensional Gaussian with mean $μ$ and covariance $Σ$, written as $\mathcal{N}(μ, Σ)$, has the PDF
+$$
+  f_X(x) = \frac{1}{\sqrt{(2 π)^n \det(Σ)}}
+  \exp\left( - \tfrac{1}{2} (x - μ)^\TRANS Σ^{-1} (x-μ) \right),
+  \quad x \in \reals^n.
+$$
+
+We consider a few special cases to understand the definition.
+
+1. Consider the special case when all components are independent, let 
+   $$
+      μ = \MATRIX{μ_1 \\ \vdots μ_n},
+     \quad\text{and}\quad
+     Σ = \MATRIX{σ_1^2 & \cdots & 0 \\ 
+                 \vdots & \ddots & \vdots \\
+                 0 & \cdots & σ_n^2 }
+   $$
+   where $μ_i = \EXP[X_i]$ and $σ_i^2 = \VAR(X_i)$. Observe that
+   $$
+     \det(Σ) = \prod_{i=1}^n σ_i^2
+   $$
+   and 
+   $$
+     (x - μ)^\TRANS Σ^{-1} (x - μ) = \sum_{i=1}^n \frac{(x_i - μ_i)^2}{σ_i^2}.
+   $$
+   Thus, 
+   $$
+     f_X(x) = \prod_{i=1}^n \frac{1}{\sqrt{2 π σ_i^2}}
+     \exp\left(-\frac{(x_i-μ_i)^2}{2 σ_i^2} \right)
+   $$
+   which is the product of the marginal distributions. 
+
+2. Consider the two-dimensional Gaussian vector and let $σ_i^2 = \VAR(X_i)$ and $ρ = \COV(X_1,X_2)/σ_1 σ_2$. Then,
+   $$
+      Σ = \MATRIX{ σ_1^2 & ρ σ_1 σ_2 \\ ρ σ_1 σ_2 & σ_2^2 }.
+   $$
+   When $\ABS{ρ} = 1$, the distribution is singular. When $\ABS{ρ} < 1$, $\det(Σ) = (1 - ρ^2)σ_1^2 σ_2^2$ and
+   $$
+      Σ^{-1} = \frac{1}{(1 - ρ^2)σ_1^2 σ_2^2}
+      \MATRIX{ σ_2^2 & -ρ σ_1^2 σ_2^2 \\ -ρ σ_1^2 σ_2^2 & σ_1^2}.
+   $$
+   Thus,
+   $$
+    (x-μ)^\TRANS Σ^{-1} (x - μ) = 
+    = \frac{1}{1 - ρ^2} \biggl[
+      \frac{(x_1 - μ_1)^2}{2 σ_1^2 } 
+      - 2 ρ \frac{(x_1 - μ_1)(x_2 - μ_2)}{σ_1 σ_2}
+      + \frac{(x_2 - μ_2)^2}{2 σ_2^2 } 
+    \biggr].
+   $$
+   Thus, the level set 
+   $$(x - μ)^\TRANS Σ^{-1} (x - μ) = k^2$$
+   is an ellipse centered at $μ$.
+
+   - When $ρ = 0$, the axes of the ellipse are aligned with the coordinates.
+   - When $ρ > 0$, the ellipse tilts towards the $x_1 = x_2$ diagonal
+   - When $ρ < 0$, the ellipse tilts towards the anti-diagonal. 
 
