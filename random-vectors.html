@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-09-13">
+<meta name="dcterms.date" content="2025-09-16">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>3&nbsp; Random vectors – Probability and Random Signals II</title>
@@ -462,10 +462,13 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#change-of-variables-formulas" id="toc-change-of-variables-formulas" class="nav-link" data-scroll-target="#change-of-variables-formulas"><span class="header-section-number">3.3.1</span> Change of variables formulas</a></li>
   </ul></li>
-  <li><a href="#correlation-and-covariance" id="toc-correlation-and-covariance" class="nav-link" data-scroll-target="#correlation-and-covariance"><span class="header-section-number">3.4</span> Correlation and covariance</a>
+  <li><a href="#covariance-of-random-vectors" id="toc-covariance-of-random-vectors" class="nav-link" data-scroll-target="#covariance-of-random-vectors"><span class="header-section-number">3.4</span> Covariance of random vectors</a>
   <ul class="collapse">
-  <li><a href="#correlation-and-covariance-for-random-vectors" id="toc-correlation-and-covariance-for-random-vectors" class="nav-link" data-scroll-target="#correlation-and-covariance-for-random-vectors"><span class="header-section-number">3.4.1</span> Correlation and covariance for random vectors</a></li>
+  <li><a href="#real-valued-random-variables" id="toc-real-valued-random-variables" class="nav-link" data-scroll-target="#real-valued-random-variables"><span class="header-section-number">3.4.1</span> Real-valued random variables</a></li>
+  <li><a href="#random-vectors" id="toc-random-vectors" class="nav-link" data-scroll-target="#random-vectors"><span class="header-section-number">3.4.2</span> Random vectors</a></li>
+  <li><a href="#linear-transformation-of-mean-and-covariance" id="toc-linear-transformation-of-mean-and-covariance" class="nav-link" data-scroll-target="#linear-transformation-of-mean-and-covariance"><span class="header-section-number">3.4.3</span> Linear transformation of mean and covariance</a></li>
   </ul></li>
+  <li><a href="#multi-dimensional-gaussian" id="toc-multi-dimensional-gaussian" class="nav-link" data-scroll-target="#multi-dimensional-gaussian"><span class="header-section-number">3.5</span> Multi-dimensional Gaussian</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-vectors.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -501,7 +504,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 13, 2025</p>
+      <p class="date">September 16, 2025</p>
     </div>
   </div>
   
@@ -586,7 +589,6 @@ F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called the <strong>joint PDF</strong> and can be computed as <span class="math display">\[
    f_{X,Y}(x,y) = \frac{∂^2}{∂x ∂y}F_{X,Y}(x,y).
 \]</span></p></li>
-<li><p>A random vector <span class="math inline">\((X,Y)\)</span> is called <strong>jointly mixed</strong> if it is neither jointly discrete nor jointly continuous.</p></li>
 </ol>
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -700,7 +702,7 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 </div>
 <div id="exm-normalization" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.5</strong></span> Consider a joint PDF <span class="math display">\[
-  f_{X,Y}(x,y) = c e^{-x} e^{-y}, \quad 0 \le y \le x &lt; ∞.
+  f_{X,Y}(x,y) = c x y, \quad 0 \le y \le x \le 1.
 \]</span> Find the constant <span class="math inline">\(c\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -717,10 +719,10 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 <div class="callout-body-container callout-body">
 <p>We know that the joint PDF must integrate to <span class="math inline">\(1\)</span>. Thus, <span class="math display">\[\begin{align*}
   1 &amp;= \int_{-∞}^{∞} f_{X,Y}(x,y)\, dx\, dy \\
-  &amp;= \int_{0}^{∞} \int_{0}^x c e^{-x} e^{-y}\, dy\, dx  \\
-  &amp;= \int_{0}^{∞} c e^{-x}(1 - e^{-x}) dx \\
-  &amp;= \frac{c}{2}.
-\end{align*}\]</span> Therefore, <span class="math inline">\(c=2\)</span>.</p>
+  &amp;= \int_{0}^{1} \int_{0}^x c xy\, dy\, dx  \\
+  &amp;= \int_{0}^{1} c x\frac{x^2}{2} dx \\
+  &amp;= c \frac{x^3}{8}\biggr|_{0}^1 = \frac{c}{8}
+\end{align*}\]</span> Therefore, <span class="math inline">\(c=8\)</span>.</p>
 </div>
 </div>
 </div>
@@ -1009,13 +1011,12 @@ P_Y(n) &amp;= (P_{X_1} * P_{X_2})(n)
 </div>
 <section id="change-of-variables-formulas" class="level3" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="change-of-variables-formulas"><span class="header-section-number">3.3.1</span> Change of variables formulas</h3>
-<p>For continuous random variables, it is possible to obtain a general <strong>change of variable</strong> formula to obtain the PDF of functions of random variable in terms of their joint PDF. My personal view is that it is simpler to reason about such change of variables from first principles, but nonetheless it is good to know the results.</p>
-<ol start="3" type="1">
-<li><p>Now suppose <span class="math inline">\(\{X_1, \dots, X_n\}\)</span> are jointly continuous random variables with joint PDF <span class="math inline">\(f\)</span>. Consider <span class="math inline">\(n\)</span> random variables: <span class="math display">\[\begin{align*}
-   Y_1 &amp;= g_1(X_1, \dots, X_n) \\
-   Y_2 &amp;= g_2(X_1, \dots, X_n) \\
-   \vdots &amp;= \vdots \\
-   Y_n &amp;= g_n(X_1, \dots, X_n).
+<p>For continuous random variables, it is possible to obtain a general <strong>change of variable</strong> formula to obtain the PDF of functions of random variable in terms of their joint PDF.</p>
+<p>Suppose <span class="math inline">\(\{X_1, \dots, X_n\}\)</span> are jointly continuous random variables with joint PDF <span class="math inline">\(f\)</span>. Consider <span class="math inline">\(n\)</span> random variables: <span class="math display">\[\begin{align*}
+    Y_1 &amp;= g_1(X_1, \dots, X_n), \\
+    Y_2 &amp;= g_2(X_1, \dots, X_n), \\
+    \vdots &amp;= \vdots \\
+    Y_n &amp;= g_n(X_1, \dots, X_n).
 \end{align*}\]</span> We can view this as an equation between two <span class="math inline">\(n\)</span>-dimensional vectors <span class="math inline">\(Y = \VEC(Y_1, \dots, Y_n)\)</span> and <span class="math inline">\(X = \VEC(X_1, \dots, X_n)\)</span> written as <span class="math display">\[ Y = g(X) \]</span></p>
 <p>As was the case for the scalar system, for a given <span class="math inline">\(y \in \reals^n\)</span>, the vector equation <span class="math inline">\(y = g(x)\)</span> may have zero, one, or multiple solutions.</p>
 <ul>
@@ -1029,8 +1030,7 @@ J(x_1, \dots, x_n) =
 \]</span></p></li>
 <li><p>If <span class="math inline">\(y = g(x)\)</span>, <span class="math inline">\(y \in \reals^n\)</span> has multiple solutions given by <span class="math inline">\(\{x^{(1)}, \dots, x^{(m)}\}\)</span>, then <span class="math display">\[ f_Y(y) =
 \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{J(x^{(k)})}}.\]</span></p></li>
-</ul></li>
-</ol>
+</ul>
 <div id="exm-function-max-min-2" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.16</strong></span> Resolve <a href="#exm-function-max-min" class="quarto-xref">Example&nbsp;<span>3.12</span></a> using the change of variables formula.</p>
 </div>
@@ -1137,12 +1137,14 @@ F_U(u)
 </div>
 </section>
 </section>
-<section id="correlation-and-covariance" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="correlation-and-covariance"><span class="header-section-number">3.4</span> Correlation and covariance</h2>
-<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on the same probability space.</p>
+<section id="covariance-of-random-vectors" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="covariance-of-random-vectors"><span class="header-section-number">3.4</span> Covariance of random vectors</h2>
+<p>We start with the definition of covariance of two real-valued random variables. We will then generalize the notion to random vectors.</p>
+<section id="real-valued-random-variables" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="real-valued-random-variables"><span class="header-section-number">3.4.1</span> Real-valued random variables</h3>
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be real-valued random variables defined on the same probability space.</p>
 <ul>
-<li><p><strong>Correlation</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\EXP[XY]\)</span>.</p></li>
-<li><p><strong>Covariance</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math inline">\(\COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)]\)</span>. The covariance satisfies the following: <span class="math display">\[
+<li><p><strong>Covariance</strong> measures how two random variables vary together. In particular, let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be jointly distributed random variables and let <span class="math inline">\(μ_X\)</span> and <span class="math inline">\(μ_Y\)</span> denote their means. Then, <span class="math display">\[ \COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)].\]</span> Properties of expectation imply that <span class="math display">\[
 \COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
 \]</span></p></li>
 <li><p><strong>Correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
@@ -1152,7 +1154,7 @@ F_U(u)
   \VAR(X + Y) &amp;= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ]
   \\
   &amp;= \VAR(X) + \VAR(Y) + 2\COV(X,Y).
-\end{align*}\]</span> Thus, when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are uncorrelated, we have <span class="math display">\[ \VAR(X + Y) = \VAR(X) + \VAR(Y). \]</span></p></li>
+\end{align*}\]</span> Thus, when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are <strong>uncorrelated</strong>, we have <span class="math display">\[ \VAR(X + Y) = \VAR(X) + \VAR(Y). \]</span></p></li>
 <li><p>Indepdent random variables are uncorrelated but the reverse in not true.</p></li>
 </ul>
 <div id="exm-uncorrelated" class="theorem example">
@@ -1182,37 +1184,121 @@ F_U(u)
 </div>
 </div>
 </div>
-<section id="correlation-and-covariance-for-random-vectors" class="level3" data-number="3.4.1">
-<h3 data-number="3.4.1" class="anchored" data-anchor-id="correlation-and-covariance-for-random-vectors"><span class="header-section-number">3.4.1</span> Correlation and covariance for random vectors</h3>
-<p>Some of these concepts also generalize to random vectors. First, we define expected value for random vectors and random matrices.</p>
+</section>
+<section id="random-vectors" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="random-vectors"><span class="header-section-number">3.4.2</span> Random vectors</h3>
+<p>The idea of covariance generalizes to random vectors. First we recall the definition of expectation for random vectors and random matrices.</p>
 <ul>
-<li><p>If <span class="math inline">\(X = [X_1, \dots, X_n] \in \reals^n\)</span>, then <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_1] &amp; \cdots &amp; \EXP[X_n] }. \]</span></p></li>
-<li><p>If <span class="math inline">\(X = \MATRIX{ X_{1,1} &amp; \cdots &amp; X_{1,n} \\ X_{2,1} &amp; \cdots &amp; X_{2,n} \\
+<li><p>For a random vector <span class="math inline">\(X = [X_1, \dots, X_n] \in \reals^n\)</span>, we have <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_1] &amp; \cdots &amp; \EXP[X_n] }. \]</span></p></li>
+<li><p>For a random matrix <span class="math inline">\(X = \MATRIX{ X_{1,1} &amp; \cdots &amp; X_{1,n} \\ X_{2,1} &amp; \cdots &amp; X_{2,n} \\
 \vdots &amp; \vdots &amp; \vdots \\
-X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span> is a ranom matrix, then <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] &amp; \cdots &amp; \EXP[X_{1,n}] \\ \EXP[X_{2,1}] &amp; \cdots &amp; \EXP[X_{2,n}] \\
+X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span>, we have <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] &amp; \cdots &amp; \EXP[X_{1,n}] \\ \EXP[X_{2,1}] &amp; \cdots &amp; \EXP[X_{2,n}] \\
 \vdots &amp; \vdots &amp; \vdots \\
 \EXP[X_{m,1}] &amp; \cdots &amp; \EXP[X_{m,n}] }.
 \]</span></p></li>
 </ul>
-<p>We the above notation, we can define the following:</p>
-<ul>
-<li><p>The <strong>correlation matrix</strong> of a random vector <span class="math inline">\(X \in \reals^n\)</span> is defined as <span class="math display">\[ R = \EXP[X X^\TRANS],\]</span> where <span class="math inline">\(X^\TRANS\)</span> denotes the transpose of <span class="math inline">\(X\)</span>.</p></li>
-<li><p>The correlation matrix is symmetric, i.e., <span class="math inline">\(R = R^\TRANS\)</span></p></li>
-<li><p>The <strong>covariance matrix</strong> of a random vector <span class="math inline">\(X \in \reals^n\)</span> is defined as <span class="math display">\[\COV(X) = \EXP[ (X - μ_X) (X - μ_X)^\TRANS].\]</span></p></li>
-<li><p>The covariance matrix is symmetric. Moreover, <span class="math inline">\([\COV(X)]_{i,j} = \COV(X_i,X_j)\)</span>.</p></li>
-<li><p>The <strong>cross correlation matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is a <span class="math inline">\(n × p\)</span> matrix given by <span class="math display">\[
-  R_{XY} = \EXP[X Y^\TRANS].
+<p>With the above notation, we have the following.</p>
+<ol type="1">
+<li><p>The <strong>covariance matrix</strong> of a random vector <span class="math inline">\(X \in \reals^n\)</span> is defined as <span class="math display">\[Σ_X = \COV(X) = \EXP[ (X - μ_X) (X - μ_X)^\TRANS].\]</span></p></li>
+<li><p>When <span class="math inline">\(X = [X_1, \dots, X_n]^\TRANS\)</span>, the covariance can be written as <span class="math display">\[
+  Σ_X = \MATRIX{
+      \VAR(X_1) &amp; \COV(X_1, X_2) &amp; \cdots &amp; \COV(X_1, X_n) \\
+      \COV(X_2, X_1) &amp; \VAR(X_2) &amp; \cdots &amp; \COV(X_1, X_n) \\
+      \vdots &amp; \ddots &amp; \ddots &amp; \vdots \\
+      \COV(X_n, X_1) &amp; \COV(X_n, X_2) &amp; \cdots &amp; \VAR(X_n) }
 \]</span></p></li>
+<li><p>It is easy to see that <span class="math inline">\(Σ_X = Σ_X^\TRANS\)</span>. Thus, the covariance matrix is symmetric.</p></li>
+<li><p>If the components <span class="math inline">\(X_1, \dots, X_n\)</span> are independent, then <span class="math inline">\(Σ_X\)</span> is a diagonal matrix.</p></li>
+<li><p><span class="math inline">\(Σ_X\)</span> is positive semidefinite, i.e., its eigenvalues are real and non-negative. To see this, observe that for any (deterministic) vector <span class="math inline">\(v\)</span>, we have <span class="math display">\[\begin{align*}
+  v^\TRANS Σ_X v
+  &amp;= v^\TRANS \EXP[ (X - μ_X) (X - μ_X)^\TRANS ] v \\
+  &amp;= \EXP[ v^\TRANS (X - μ_X) (X - μ_X)^\TRANS v ]  \\
+  &amp;= \EXP[ w^\TRANS w ] = \EXP[ \NORM{w}^2 ] \ge 0.
+\end{align*}\]</span> where <span class="math inline">\(w = (X - μ_X)^\TRANS v\)</span>.</p></li>
 <li><p>The <strong>cross covariance matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is a <span class="math inline">\(n × p\)</span> matrix given by <span class="math display">\[
-  \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
-\]</span></p></li>
-<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math display">\[\EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ] = 0 \]</span></p></li>
+Σ_{XY} = \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
+  \]</span></p></li>
+<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math display">\[ Σ_{XY} = 0 \implies
+\EXP[XY^\TRANS] = \EXP[X] \EXP[Y]^\TRANS. \]</span></p></li>
 <li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>orthogonal</strong> if <span class="math display">\[\EXP[X Y^\TRANS] = 0 \]</span></p></li>
-<li><p>Both the correlation and covariance matrices are positive semidefinite. Thus, their eigenvalues are real and non-negative.</p></li>
-</ul>
-
-
+</ol>
 </section>
+<section id="linear-transformation-of-mean-and-covariance" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="linear-transformation-of-mean-and-covariance"><span class="header-section-number">3.4.3</span> Linear transformation of mean and covariance</h3>
+<p>Consider a random vector (not necessarily Gaussian) <span class="math inline">\(X = [X_1, \dots, X_n]^\TRANS\)</span> with mean <span class="math inline">\(μ_X\)</span> and covariance <span class="math inline">\(Σ_X\)</span>.</p>
+<p>Let <span class="math inline">\(A \in \reals^{n × n}\)</span> be a deterministic matrix and <span class="math inline">\(b \in \reals^n\)</span> be a deterministic vector.</p>
+<p>Define <span class="math inline">\(Y = A X + b\)</span> and let <span class="math inline">\(μ_Y\)</span> and <span class="math inline">\(Σ_Y\)</span> denote the mean and covariance of <span class="math inline">\(Y\)</span>. Then, <span class="math display">\[
+  μ_Y = A μ_X + b
+  \quad\text{and}\quad
+  Σ_Y = A Σ_X A^\TRANS
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The property of the mean follows immediately from properties of expectation. For the covariance, note that <span class="math display">\[\begin{align*}
+  Σ_Y &amp;= \EXP[ (Y - μ_Y) (Y - μ_Y)^\TRANS ] \\
+  &amp;= \EXP[ (A X - A μ_X) (AX - A μ_X)^\TRANS ] \\
+  &amp;= \EXP[ A (X - μ_X) (X - μ_X)^\TRANS A^\TRANS ] \\
+  &amp;= A Σ_X A^\TRANS
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="multi-dimensional-gaussian" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="multi-dimensional-gaussian"><span class="header-section-number">3.5</span> Multi-dimensional Gaussian</h2>
+<p>A <span class="math inline">\(n\)</span>-dimensional Gaussian with mean <span class="math inline">\(μ\)</span> and covariance <span class="math inline">\(Σ\)</span>, written as <span class="math inline">\(\mathcal{N}(μ, Σ)\)</span>, has the PDF <span class="math display">\[
+  f_X(x) = \frac{1}{\sqrt{(2 π)^n \det(Σ)}}
+  \exp\left( - \tfrac{1}{2} (x - μ)^\TRANS Σ^{-1} (x-μ) \right),
+  \quad x \in \reals^n.
+\]</span></p>
+<p>We consider a few special cases to understand the definition.</p>
+<ol type="1">
+<li><p>Consider the special case when all components are independent, let <span class="math display">\[
+   μ = \MATRIX{μ_1 \\ \vdots μ_n},
+  \quad\text{and}\quad
+  Σ = \MATRIX{σ_1^2 &amp; \cdots &amp; 0 \\
+              \vdots &amp; \ddots &amp; \vdots \\
+              0 &amp; \cdots &amp; σ_n^2 }
+\]</span> where <span class="math inline">\(μ_i = \EXP[X_i]\)</span> and <span class="math inline">\(σ_i^2 = \VAR(X_i)\)</span>. Observe that <span class="math display">\[
+  \det(Σ) = \prod_{i=1}^n σ_i^2
+\]</span> and <span class="math display">\[
+  (x - μ)^\TRANS Σ^{-1} (x - μ) = \sum_{i=1}^n \frac{(x_i - μ_i)^2}{σ_i^2}.
+\]</span> Thus, <span class="math display">\[
+  f_X(x) = \prod_{i=1}^n \frac{1}{\sqrt{2 π σ_i^2}}
+  \exp\left(-\frac{(x_i-μ_i)^2}{2 σ_i^2} \right)
+\]</span> which is the product of the marginal distributions.</p></li>
+<li><p>Consider the two-dimensional Gaussian vector and let <span class="math inline">\(σ_i^2 = \VAR(X_i)\)</span> and <span class="math inline">\(ρ = \COV(X_1,X_2)/σ_1 σ_2\)</span>. Then, <span class="math display">\[
+   Σ = \MATRIX{ σ_1^2 &amp; ρ σ_1 σ_2 \\ ρ σ_1 σ_2 &amp; σ_2^2 }.
+\]</span> When <span class="math inline">\(\ABS{ρ} = 1\)</span>, the distribution is singular. When <span class="math inline">\(\ABS{ρ} &lt; 1\)</span>, <span class="math inline">\(\det(Σ) = (1 - ρ^2)σ_1^2 σ_2^2\)</span> and <span class="math display">\[
+   Σ^{-1} = \frac{1}{(1 - ρ^2)σ_1^2 σ_2^2}
+   \MATRIX{ σ_2^2 &amp; -ρ σ_1^2 σ_2^2 \\ -ρ σ_1^2 σ_2^2 &amp; σ_1^2}.
+\]</span> Thus, <span class="math display">\[
+(x-μ)^\TRANS Σ^{-1} (x - μ) =
+= \frac{1}{1 - ρ^2} \biggl[
+   \frac{(x_1 - μ_1)^2}{2 σ_1^2 }
+   - 2 ρ \frac{(x_1 - μ_1)(x_2 - μ_2)}{σ_1 σ_2}
+   + \frac{(x_2 - μ_2)^2}{2 σ_2^2 }
+\biggr].
+\]</span> Thus, the level set <span class="math display">\[(x - μ)^\TRANS Σ^{-1} (x - μ) = k^2\]</span> is an ellipse centered at <span class="math inline">\(μ\)</span>.</p>
+<ul>
+<li>When <span class="math inline">\(ρ = 0\)</span>, the axes of the ellipse are aligned with the coordinates.</li>
+<li>When <span class="math inline">\(ρ &gt; 0\)</span>, the ellipse tilts towards the <span class="math inline">\(x_1 = x_2\)</span> diagonal</li>
+<li>When <span class="math inline">\(ρ &lt; 0\)</span>, the ellipse tilts towards the anti-diagonal.</li>
+</ul></li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->

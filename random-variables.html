@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-09-13">
+<meta name="dcterms.date" content="2025-09-16">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>2&nbsp; Random variables – Probability and Random Signals II</title>
@@ -544,7 +544,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 13, 2025</p>
+      <p class="date">September 16, 2025</p>
     </div>
   </div>
   
@@ -750,8 +750,8 @@ Figure&nbsp;2.5: CDF of a Bernoulli random variable
 </div>
 </div></li>
 </ol>
-<div id="exr-CDF-expressions" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.1</strong></span> For <span class="math inline">\(x &lt; y\)</span>, express the following in terms of the CDF:</p>
+<div id="exm-CDF-expressions" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.5</strong></span> For <span class="math inline">\(x &lt; y\)</span>, express the following in terms of the CDF:</p>
 <ol type="1">
 <li><span class="math inline">\(\PR(x \le X \le y)\)</span>.</li>
 <li><span class="math inline">\(\PR(x \le X &lt; y)\)</span>.</li>
@@ -820,37 +820,37 @@ Figure&nbsp;2.7: CDF of a mixed random variable
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="examples-of-discrete-random-variables"><span class="header-section-number">2.2.1</span> Examples of discrete random variables</h3>
 <p>We now consider some other examples of discrete random variables, which are typically described by specifying their PMF.</p>
 <div id="exm-Binomial" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.5 (Binomial random variable)</strong></span> A Binomial random variable is the sum of intendant and identically Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binomial}(n,p)\)</span>. For such a random variable, <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.6 (Binomial random variable)</strong></span> A Binomial random variable is the sum of intendant and identically Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binomial}(n,p)\)</span>. For such a random variable, <span class="math display">\[
 P_X(k) = \binom n k p^k (1-p)^{n-k}, \quad 0 \le k \le n.
 \]</span></p>
 </div>
 <div id="exm-Geometric" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.6 (Geometric random variable)</strong></span> A geometric random variable is the number of trails in i.i.d.&nbsp;Bernoulli random variables. For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed repeated, the number of tosses needed for the first head is a geometric random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>_, which is denoted by <span class="math inline">\(\text{Geo}(p)\)</span>. For such a random variable, <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.7 (Geometric random variable)</strong></span> A geometric random variable is the number of trails in i.i.d.&nbsp;Bernoulli random variables. For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed repeated, the number of tosses needed for the first head is a geometric random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>_, which is denoted by <span class="math inline">\(\text{Geo}(p)\)</span>. For such a random variable, <span class="math display">\[
 P_X(k) = (1-p)^{k-1} p, \quad k \in \integers_{&gt; 0}.
 \]</span></p>
 </div>
 <p>A geometric random variables have the property of being <strong>memoryless</strong>: the distribution of waiting time does not depend on how much time has already elapsed.</p>
 <div id="exm-Poisson" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.7 (Poisson random variable)</strong></span> Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to <em>Poisson random variable with parameter <span class="math inline">\(λ &gt; 0\)</span></em>, which is denoted by <span class="math inline">\(\text{Poisson}(λ)\)</span>, if <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.8 (Poisson random variable)</strong></span> Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to <em>Poisson random variable with parameter <span class="math inline">\(λ &gt; 0\)</span></em>, which is denoted by <span class="math inline">\(\text{Poisson}(λ)\)</span>, if <span class="math display">\[
 P_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 \]</span></p>
 </div>
 <p>Poisson random variables model rare events. It describes the limit of a Binomial random variable with success probability <span class="math inline">\(p = λ/n\)</span> as the number <span class="math inline">\(n\)</span> of trials increases. Poisson random variables have the <strong>stability</strong> property that sum of Poisson random variables is Poisson</p>
 <div id="exm-Uniform-discrete" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.8 (Uniform random variable)</strong></span> A random variable is said to have a (discrete) uniform distribution over a discrete set <span class="math inline">\(\ALPHABET S\)</span> if <span class="math display">\[P_X(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.\]</span></p>
+<p><span class="theorem-title"><strong>Example 2.9 (Uniform random variable)</strong></span> A random variable is said to have a (discrete) uniform distribution over a discrete set <span class="math inline">\(\ALPHABET S\)</span> if <span class="math display">\[P_X(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.\]</span></p>
 </div>
 </section>
 <section id="some-examples-of-continuous-random-variables" class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="some-examples-of-continuous-random-variables"><span class="header-section-number">2.2.2</span> Some examples of continuous random variables</h3>
 <div id="exm-Uniform-continuous" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.9 (Uniform random variable)</strong></span> A random variable is said to have a (continuous) uniform distribution over an interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(a &lt; b\)</span> if <span class="math display">\[f_X(x) = \frac 1{b - a}, \quad x \in [a,b].\]</span></p>
+<p><span class="theorem-title"><strong>Example 2.10 (Uniform random variable)</strong></span> A random variable is said to have a (continuous) uniform distribution over an interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(a &lt; b\)</span> if <span class="math display">\[f_X(x) = \frac 1{b - a}, \quad x \in [a,b].\]</span></p>
 </div>
 <div id="exm-exponential" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.10 (Exponential random variable)</strong></span> A random variable is said to have an exponential distribution with parameter <span class="math inline">\(λ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\text{exp}(λ)\)</span> if <span class="math display">\[f_X(x) = λ e^{-λ x}, \quad x \ge 0.\]</span></p>
+<p><span class="theorem-title"><strong>Example 2.11 (Exponential random variable)</strong></span> A random variable is said to have an exponential distribution with parameter <span class="math inline">\(λ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\text{exp}(λ)\)</span> if <span class="math display">\[f_X(x) = λ e^{-λ x}, \quad x \ge 0.\]</span></p>
 </div>
 <p>Exponential random variables arise in queueing theory, network traffic, and photonics. They have the property of being <strong>memoryless</strong>: the distribution of the waiting time does not depend on how much time has already elapsed.</p>
 <div id="exm-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.11 (Gaussian random variable)</strong></span> A random variable is said to have a Gaussian distribution with mean <span class="math inline">\(μ\)</span> and standard deviation <span class="math inline">\(σ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\mathcal N(μ, σ^2)\)</span> if <span class="math display">\[f_X(x) = \frac 1{\sqrt{2 π}\, σ}
+<p><span class="theorem-title"><strong>Example 2.12 (Gaussian random variable)</strong></span> A random variable is said to have a Gaussian distribution with mean <span class="math inline">\(μ\)</span> and standard deviation <span class="math inline">\(σ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\mathcal N(μ, σ^2)\)</span> if <span class="math display">\[f_X(x) = \frac 1{\sqrt{2 π}\, σ}
 \exp\left( -\frac {(x-μ)^2}{2 σ^2} \right),
 \quad x \in \reals.\]</span></p>
 <p>A Gaussian distribution is also called a <strong>Normal distribution</strong>. When <span class="math inline">\(μ = 0\)</span> and <span class="math inline">\(σ^2 = 1\)</span>, the distribution is called <strong>standard Normal</strong>.</p>
@@ -912,7 +912,7 @@ Figure&nbsp;2.9: Illustration of the partition created by $ = g(X)$ for <a href=
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="functions-of-continuous-random-variables"><span class="header-section-number">2.3.2</span> Functions of continuous random variables</h3>
 <p>For continuous random variables, computing the PDF of a function of a random variable is more involved. We first illustrate the main idea via some examples.</p>
 <div id="exm-function-uniform-1" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.12</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,2]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.13</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,2]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
 g(x) = \begin{cases}
   x &amp; x \in (0,1] \\
   2 - x &amp; x \in (1,2] \\
@@ -954,7 +954,7 @@ g(x) = \begin{cases}
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-function-uniform-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.10: The function <span class="math inline">\(g(x)\)</span> for <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>2.12</span></a>
+Figure&nbsp;2.10: The function <span class="math inline">\(g(x)\)</span> for <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>2.13</span></a>
 </figcaption>
 </figure>
 </div>
@@ -988,7 +988,7 @@ F_Y(y) = F_X(y) + F_X(2-y) = \frac {y}{2} + 1 - \frac{2-y}{2} = y.
 </div>
 </div>
 <div id="exm-function-uniform-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.13</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,4]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.14</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,4]\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
 g(x) = \begin{cases}
   x &amp; x \in (0,1] \\
   1 &amp; x \in (1, 3) \\
@@ -1032,14 +1032,14 @@ g(x) = \begin{cases}
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-function-uniform-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.11: The function <span class="math inline">\(g(x)\)</span> for <a href="#exm-function-uniform-2" class="quarto-xref">Example&nbsp;<span>2.13</span></a>
+Figure&nbsp;2.11: The function <span class="math inline">\(g(x)\)</span> for <a href="#exm-function-uniform-2" class="quarto-xref">Example&nbsp;<span>2.14</span></a>
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div id="exm-transformation-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.14</strong></span> Suppose <span class="math inline">\(X \sim \mathcal{N}(μ,σ^2)\)</span>. Show that <span class="math inline">\(Z = (X - μ)/σ\)</span> is a standard normal random variable, i.e., <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 2.15</strong></span> Suppose <span class="math inline">\(X \sim \mathcal{N}(μ,σ^2)\)</span>. Show that <span class="math inline">\(Z = (X - μ)/σ\)</span> is a standard normal random variable, i.e., <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
@@ -1068,7 +1068,7 @@ F_Z(z) &amp;= \PR(Z \le z) = \PR\left( \frac{X - μ}{σ} \le z \right)
 </div>
 </div>
 <div id="exm-generating-random-numbers" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.15</strong></span> Suppose <span class="math inline">\(F \colon \reals \to [0,1]\)</span> is a function that satisfies the following properties: there exist a pair <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a &lt; b\)</span> (we allow <span class="math inline">\(a\)</span> to be <span class="math inline">\(-∞\)</span> and <span class="math inline">\(b\)</span> to be <span class="math inline">\(∞\)</span>) such that</p>
+<p><span class="theorem-title"><strong>Example 2.16</strong></span> Suppose <span class="math inline">\(F \colon \reals \to [0,1]\)</span> is a function that satisfies the following properties: there exist a pair <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a &lt; b\)</span> (we allow <span class="math inline">\(a\)</span> to be <span class="math inline">\(-∞\)</span> and <span class="math inline">\(b\)</span> to be <span class="math inline">\(∞\)</span>) such that</p>
 <ul>
 <li><span class="math inline">\(F(y) = 0\)</span> for <span class="math inline">\(y \le a\)</span></li>
 <li><span class="math inline">\(F(y) = 1\)</span> for <span class="math inline">\(y \ge b\)</span></li>
@@ -1111,11 +1111,11 @@ F_Y(y) = \PR(X \le F(y)) = F_X(F(y)) = F(y)
 </ul></li>
 <li><p>From calculus, we know that if <span class="math inline">\(h(y) = g^{-1}(y)\)</span>, then <span class="math inline">\(h'(y) = 1/g'(h(y))\)</span>. Thus, the above expression can be simplified as <span class="math display">\[ \bbox[5pt, border: 1px solid]{f_Y(y) = \frac{f_X(x)}{\ABS{g'(x)}}, \quad \text{where } x = g^{-1}(y).} \]</span></p>
 <div id="exm-transformation-Gaussian-formula" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.16</strong></span> Resolve <a href="#exm-transformation-Gaussian" class="quarto-xref">Example&nbsp;<span>2.14</span></a> using the above formula.</p>
+<p><span class="theorem-title"><strong>Example 2.17</strong></span> Resolve <a href="#exm-transformation-Gaussian" class="quarto-xref">Example&nbsp;<span>2.15</span></a> using the above formula.</p>
 </div></li>
-<li><p>If the transform <span class="math inline">\(g(x)\)</span> is not one-to-one (as in <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>2.12</span></a>), we can obtain <span class="math inline">\(f_Y(y)\)</span> as follows. Suppose <span class="math inline">\(y = g(x)\)</span> has finite roots, denoted by <span class="math inline">\(\{x^{(k)}\}_{k=1}^m\)</span>. Then, <span class="math display">\[ f_Y(y) = \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{g'(x^{(k)})}}. \]</span></p>
+<li><p>If the transform <span class="math inline">\(g(x)\)</span> is not one-to-one (as in <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>2.13</span></a>), we can obtain <span class="math inline">\(f_Y(y)\)</span> as follows. Suppose <span class="math inline">\(y = g(x)\)</span> has finite roots, denoted by <span class="math inline">\(\{x^{(k)}\}_{k=1}^m\)</span>. Then, <span class="math display">\[ f_Y(y) = \sum_{k=1}^m \frac{f_X(x^{(k)})}{\ABS{g'(x^{(k)})}}. \]</span></p>
 <div id="exm-function-uniform-formula" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.17</strong></span> Resolve <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>2.12</span></a> using the above formula.</p>
+<p><span class="theorem-title"><strong>Example 2.18</strong></span> Resolve <a href="#exm-function-uniform-1" class="quarto-xref">Example&nbsp;<span>2.13</span></a> using the above formula.</p>
 </div></li>
 </ol>
 </section>
@@ -1161,7 +1161,7 @@ P_X(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 </div>
 </div>
 <div id="exm-coin-toss-mean" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.18</strong></span> Find the mean of <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>.</p>
+<p><span class="theorem-title"><strong>Example 2.19</strong></span> Find the mean of <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
@@ -1181,8 +1181,8 @@ P_X(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 </div>
 </div>
 </div>
-<div id="exr-mean-common" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.2</strong></span> Find the expected value of the random variables with the following distributions:</p>
+<div id="exm-mean-common" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.20</strong></span> Find the expected value of the random variables with the following distributions:</p>
 <ul>
 <li><span class="math inline">\(\text{Bernoulli}(p)\)</span>.</li>
 <li><span class="math inline">\(\text{Binomial}(n,p)\)</span>.</li>
@@ -1217,8 +1217,8 @@ P_X(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 </div>
 </div>
 </div>
-<div id="exr-expectation" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.3</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}[-1,1]\)</span>. Compute <span class="math inline">\(\EXP[X^2]\)</span>.</p>
+<div id="exm-expectation" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.21</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}[-1,1]\)</span>. Compute <span class="math inline">\(\EXP[X^2]\)</span>.</p>
 </div>
 <div id="lem-expectation-properties" class="theorem lemma">
 <p><span class="theorem-title"><strong>Lemma 2.4 (Properties of expectation)</strong></span> &nbsp;</p>
@@ -1242,7 +1242,7 @@ P_X(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 <li><p>The positive square root of variance is called the <strong>standard deviation.</strong> Variance is often denoted by <span class="math inline">\(σ^2\)</span> and the standard deviation by <span class="math inline">\(σ\)</span>.</p></li>
 </ol>
 <div id="exm-coin-toss-variance" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.19</strong></span> Find the variance of <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>.</p>
+<p><span class="theorem-title"><strong>Example 2.22</strong></span> Find the variance of <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
@@ -1340,6 +1340,38 @@ Table&nbsp;2.1: Mean and variance of common random variables
 </table>
 </div>
 </figure>
+</div>
+<div id="exm-streaming-variance" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2.23</strong></span> Let <span class="math inline">\(X\)</span> be a real-valued random variable where <span class="math inline">\(μ = \EXP[X]\)</span>. Let <span class="math inline">\(t\)</span> be any real number. Then show that <span class="math display">\[
+  \EXP[(X-t)^2] = \VAR(X) + (t-μ)^2.
+\]</span> Argue that the above equation implies that <span class="math display">\[
+  \VAR(X) = \min_{t \in \reals} \EXP[(X -t)^2].
+\]</span></p>
+<p><em>Remark:</em> The above relationship suggests a <strong>single-pass</strong> algorithm to compute <span class="math inline">\(\VAR(X)\)</span> from a set of samples: choose any <span class="math inline">\(t\)</span> and compute <span class="math inline">\(μ = \EXP[X]\)</span> and <span class="math inline">\(\EXP[(X-t)^2]\)</span> in a single pass. Then, <span class="math inline">\(\VAR(X)\)</span> can be computed bs <span class="math inline">\(\VAR(X) = \EXP[(X-t)^2] + (t-μ)^2\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We know that <span class="math display">\[\begin{align*}
+  \EXP[(X-t)^2] &amp;= \EXP[\bigl((X-μ) + (μ-t) \bigr)^2]
+   \\
+   &amp;= \EXP[(X-μ)^2 + (μ-t)^2  + 2 (X - μ)(μ-t) ]
+   \\
+   &amp;\stackrel{(a)}= \EXP[(X-μ)^2] + (t-μ)^2 + 2(μ-t)\EXP[(X-μ)]
+   \\
+    &amp;\stackrel{(b)}= \VAR(X) + (t-μ)^2
+\end{align*}\]</span> where <span class="math inline">\((a)\)</span> uses the linearity property of expectations and <span class="math inline">\((b)\)</span> uses the fact that <span class="math inline">\(\EXP[X-μ] = μ -μ = 0\)</span>.</p>
+</div>
+</div>
 </div>
 
 
