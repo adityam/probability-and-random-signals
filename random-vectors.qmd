@@ -839,3 +839,22 @@ We consider a few special cases to understand the definition.
    - When $ρ > 0$, the ellipse tilts towards the $x_1 = x_2$ diagonal
    - When $ρ < 0$, the ellipse tilts towards the anti-diagonal. 
 
+### Linear transformation of Gaussian vectors
+
+1. If real-valued random variables $X$ and $Y$ are jointly Gaussian, then $X + Y$ is Gaussian. We will prove this later using moment generating functions. 
+
+2. If $X$ and $Y$ are jointly Gaussian, then they are independent if and only if they are uncorrelated.
+
+3. Let $X$ let a Gaussian random vector with mean $μ_X$ and covariance $Σ_X$  and $Y = AX + b$ for a constant matrix $A$ and vector $b$. Then $Y$ is also a Gaussian vector with 
+   $$μ_Y = A μ_X  + b 
+    \quad\text{and}\quad 
+     Σ_Y = A Σ_X A^\TRANS.
+   $$
+
+4. Let $X \sim \mathcal{N}(μ, Σ)$ and define $Z = Σ^{-\frac 12}(X - μ)$. Then,
+   $$
+      μ_Z = Σ^{-1}(μ - μ) = 0
+      \quad\text{and}\quad
+      Σ_Z = Σ^{-\frac 12} Σ Σ^{-\frac 12} = I.
+   $$
+   Thus, $Z \sim \mathcal{N}(0, I)$.
