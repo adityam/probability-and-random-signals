@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-09-16">
+<meta name="dcterms.date" content="2025-09-17">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>3&nbsp; Random vectors – Probability and Random Signals II</title>
@@ -468,7 +468,10 @@ window.Quarto = {
   <li><a href="#random-vectors" id="toc-random-vectors" class="nav-link" data-scroll-target="#random-vectors"><span class="header-section-number">3.4.2</span> Random vectors</a></li>
   <li><a href="#linear-transformation-of-mean-and-covariance" id="toc-linear-transformation-of-mean-and-covariance" class="nav-link" data-scroll-target="#linear-transformation-of-mean-and-covariance"><span class="header-section-number">3.4.3</span> Linear transformation of mean and covariance</a></li>
   </ul></li>
-  <li><a href="#multi-dimensional-gaussian" id="toc-multi-dimensional-gaussian" class="nav-link" data-scroll-target="#multi-dimensional-gaussian"><span class="header-section-number">3.5</span> Multi-dimensional Gaussian</a></li>
+  <li><a href="#multi-dimensional-gaussian" id="toc-multi-dimensional-gaussian" class="nav-link" data-scroll-target="#multi-dimensional-gaussian"><span class="header-section-number">3.5</span> Multi-dimensional Gaussian</a>
+  <ul class="collapse">
+  <li><a href="#linear-transformation-of-gaussian-vectors" id="toc-linear-transformation-of-gaussian-vectors" class="nav-link" data-scroll-target="#linear-transformation-of-gaussian-vectors"><span class="header-section-number">3.5.1</span> Linear transformation of Gaussian vectors</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-vectors.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -504,7 +507,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 16, 2025</p>
+      <p class="date">September 17, 2025</p>
     </div>
   </div>
   
@@ -1297,8 +1300,24 @@ X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span>, we have <
 <li>When <span class="math inline">\(ρ &lt; 0\)</span>, the ellipse tilts towards the anti-diagonal.</li>
 </ul></li>
 </ol>
+<section id="linear-transformation-of-gaussian-vectors" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="linear-transformation-of-gaussian-vectors"><span class="header-section-number">3.5.1</span> Linear transformation of Gaussian vectors</h3>
+<ol type="1">
+<li><p>If real-valued random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, then <span class="math inline">\(X + Y\)</span> is Gaussian. We will prove this later using moment generating functions.</p></li>
+<li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, then they are independent if and only if they are uncorrelated.</p></li>
+<li><p>Let <span class="math inline">\(X\)</span> let a Gaussian random vector with mean <span class="math inline">\(μ_X\)</span> and covariance <span class="math inline">\(Σ_X\)</span> and <span class="math inline">\(Y = AX + b\)</span> for a constant matrix <span class="math inline">\(A\)</span> and vector <span class="math inline">\(b\)</span>. Then <span class="math inline">\(Y\)</span> is also a Gaussian vector with <span class="math display">\[μ_Y = A μ_X  + b
+\quad\text{and}\quad
+  Σ_Y = A Σ_X A^\TRANS.
+\]</span></p></li>
+<li><p>Let <span class="math inline">\(X \sim \mathcal{N}(μ, Σ)\)</span> and define <span class="math inline">\(Z = Σ^{-\frac 12}(X - μ)\)</span>. Then, <span class="math display">\[
+   μ_Z = Σ^{-1}(μ - μ) = 0
+   \quad\text{and}\quad
+   Σ_Z = Σ^{-\frac 12} Σ Σ^{-\frac 12} = I.
+\]</span> Thus, <span class="math inline">\(Z \sim \mathcal{N}(0, I)\)</span>.</p></li>
+</ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
