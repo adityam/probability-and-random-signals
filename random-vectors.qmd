@@ -385,7 +385,7 @@ The above equation shows that for any arbitrary (Borel) subsets $B_1$ and $B_2$ 
 Let $X$ and $Y$ be independent random variables defined on a common probability space. Show that
 
 a. $\EXP[XY] = \EXP[X] \EXP[Y]$.
-b. $\VAR(XY) = \VAR(X) \VAR(Y)$. 
+b. $\VAR(X + Y) = \VAR(X) + \VAR(Y)$. 
 :::
 
 :::{#def-iid}
