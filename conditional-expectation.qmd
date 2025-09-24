@@ -2,7 +2,7 @@
 title: Conditional probability and conditional expectation
 ---
 
-Conditional probability is perhaps the most important aspect of probability theory as it explains how to incorporate new information in a probability model. However, formally defining conditional probability is a bit intricate. In the notes, I will first provide an intuitive high-level explanation of conditional probabability. We will then do a deeper dive, trying to develop a bit more intuition about what is actually going on.
+Conditional probability is perhaps the most important aspect of probability theory as it explains how to incorporate new information in a probability model. However, formally defining conditional probability is a bit intricate. In the notes, I will first provide an intuitive high-level explanation of conditional probability. We will then do a deeper dive, trying to develop a bit more intuition about what is actually going on.
 
 ## Conditioning on events
 
@@ -27,9 +27,9 @@ Conditional probability is perhaps the most important aspect of probability theo
 
 4. Since $F_{X|C}$ is CDF, we can classify random variables conditioned on an event as discrete or continuous in the usual way. In particular
 
-    - If $F_{X|C}$ is piecewise constant, then $X$ conditioned on $C$ is a discrete random variable which takes values in a finite or countable subset $\text{range}(X\mid C) = \{x_1, x_2, \dots\}$ of $\reals$. Furthermore, $X$ conditioned on $C$ has a conditional PMF $p_{X|C} \colon \reals \to [0,1]$ defined as
+    - If $F_{X|C}$ is piecewise constant, then $X$ conditioned on $C$ is a discrete random variable which takes values in a finite or countable subset $\text{range}(X\mid C) = \{x_1, x_2, \dots\}$ of $\reals$. Furthermore, $X$ conditioned on $C$ has a conditional PMF $P_{X|C} \colon \reals \to [0,1]$ defined as
       $$
-        p_{X|C}(x\mid C) = F_{X|C}(x\mid C) - F_{X|C}(x^{-} \mid C).
+        P_{X|C}(x\mid C) = F_{X|C}(x\mid C) - F_{X|C}(x^{-} \mid C).
       $$
 
     - If $F_{X|C}$ is continuous, then $X$ conditioned on $C$ is a continuous random variable which has a conditional PDF $f_{X|C}$ given by
@@ -49,7 +49,7 @@ Conditional probability is perhaps the most important aspect of probability theo
     $$
     Furthermore, if $X$ and $X$ conditioned on $C$ are both discrete, we have
     $$
-    p_X(x) = \sum_{i=1}^n p_{X|C_i}(x \mid C_i) \PR(C_i)
+    P_X(x) = \sum_{i=1}^n P_{X|C_i}(x \mid C_i) \PR(C_i)
     $$
     and if $X$ and $X$ conditioned on $C$ are both continuous, we have
     $$
@@ -135,12 +135,12 @@ We first start with the case where we are conditioning on discrete random variab
    $$F_{X|Y}(x \mid y) = \PR(X \le x \mid Y = y)$$
    for any $y$ such that $\PR(Y = y) > 0$.
 
-2. If $X$ is also discrete, the conditional PMF $p_{X| Y}$ is defined as 
-   $$p_{X|Y}(x|y) = \PR(X = x \mid Y = y) = \frac{p_{X,Y}(x,y)}{P_Y(y)}$$
+2. If $X$ is also discrete, the conditional PMF $P_{X| Y}$ is defined as 
+   $$P_{X|Y}(x|y) = \PR(X = x \mid Y = y) = \frac{P_{X,Y}(x,y)}{P_Y(y)}$$
    for any $y$ such that $\PR(Y = y) > 0$.
 
      Moreover, we have that
-     $$ p_{X|Y}(x\mid y) = F_{X|Y}(x\mid y) - F_{X|Y}(x^{-}\mid y). $$
+     $$ P_{X|Y}(x\mid y) = F_{X|Y}(x\mid y) - F_{X|Y}(x^{-}\mid y). $$
 
 3. The above expression can be written differently to give the **chain rule** for random variables:
    $$
@@ -152,7 +152,7 @@ We first start with the case where we are conditioning on discrete random variab
 
 5. If $X$ is independent of $Y$, we have
    $$
-      p_{X|Y}(x\mid y) = p_X(x), \quad \forall x,y \in \reals.
+      P_{X|Y}(x\mid y) = P_X(x), \quad \forall x,y \in \reals.
    $$
 
 We now consider the case when we are conditioning on a continuous random variable. 
@@ -211,7 +211,7 @@ We now consider the case when we are conditioning on a continuous random variabl
     f_{X|Y}(x\mid y) = f_X(x), \quad \forall x, y \in \reals.
    $$
 
-5. We can show that conditional PMF and conditional PDF satisfy all the properties of PMFs and PDFs. Therefore, we can define conditional expectation $\EXP[ g(X) \mid Y = y ]$ in terms of $p_{X|Y}$ or $f_{X|Y}$. We can similarly define conditional variance
+5. We can show that conditional PMF and conditional PDF satisfy all the properties of PMFs and PDFs. Therefore, we can define conditional expectation $\EXP[ g(X) \mid Y = y ]$ in terms of $P_{X|Y}$ or $f_{X|Y}$. We can similarly define conditional variance
 
 :::{#exm-conditional-density}
 Suppose $X$ and $Y$ are jointly continuous random variables with the joint PDF
@@ -295,7 +295,7 @@ $$
 
 Define $ψ(y) = \EXP[ X \mid Y = y]$. In particular, if $X$ and $Y$ are discrete, then
 $$
-ψ(y) = \sum_{x \in \text{range}(X)} x p_{X|Y}(x|y)
+ψ(y) = \sum_{x \in \text{range}(X)} x P_{X|Y}(x|y)
 $$
 and, if $X$ and $Y$ are continuous, then
 $$
