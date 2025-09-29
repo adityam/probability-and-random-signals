@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-09-18">
+<meta name="dcterms.date" content="2025-09-29">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>3&nbsp; Random vectors – Probability and Random Signals II</title>
@@ -47,9 +47,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0942a568e525198246bda79550dc985c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-f6b890ae1efd6d05126f65e4f07a6f1e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-0942a568e525198246bda79550dc985c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-b68a706d8191437c2c46203d0393f4be.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-73f166bbf3be02be0128c0a6a57c36c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-b68a706d8191437c2c46203d0393f4be.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -507,7 +507,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 18, 2025</p>
+      <p class="date">September 29, 2025</p>
     </div>
   </div>
   
@@ -889,7 +889,7 @@ f_{X,Y}(x,y) = f_X(x)\, f_Y(y) \int_{-\infty}^{\infty} f_Z(z)\, dz
 </div>
 </div>
 </div>
-<div id="exm-mean-var-indendent" class="theorem example">
+<div id="exm-mean-var-independent" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.11</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Show that</p>
 <ol type="a">
 <li><span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</li>
@@ -1287,7 +1287,7 @@ X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span>, we have <
    Σ^{-1} = \frac{1}{(1 - ρ^2)σ_1^2 σ_2^2}
    \MATRIX{ σ_2^2 &amp; -ρ σ_1^2 σ_2^2 \\ -ρ σ_1^2 σ_2^2 &amp; σ_1^2}.
 \]</span> Thus, <span class="math display">\[
-(x-μ)^\TRANS Σ^{-1} (x - μ) =
+(x-μ)^\TRANS Σ^{-1} (x - μ)
 = \frac{1}{1 - ρ^2} \biggl[
    \frac{(x_1 - μ_1)^2}{2 σ_1^2 }
    - 2 ρ \frac{(x_1 - μ_1)(x_2 - μ_2)}{σ_1 σ_2}
