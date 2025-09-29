@@ -88,7 +88,7 @@ $$
 \EXP[ g(X) ] \ge g(\EXP[X]).
 $$
 
-Moreover, for any **concave* $g \colon \reals \to \reals$, we have
+Moreover, for any **concave** $g \colon \reals \to \reals$, we have
 $$
 \EXP[ g(X) ] \le g(\EXP[X]).
 $$
@@ -102,6 +102,19 @@ Moreover, since $g(x) = \log(x)$ is concave, we have
 $$
 \EXP[ \log(X)] \le \log(\EXP[X]).
 $$
+
+:::{.callout-note collapse="false"}
+#### Proof
+
+![Tangent at the mean of $X$](figures/svg/inequalities1.svg){#fig-tangent}
+
+Let $μ = \EXP[X]$. Consider the function $L$ defined in @fig-tangent, which is the tangent at $μ$ on $g(x)$. By construction, $g(x) \ge L(x)$. Therefore, 
+$$
+  \EXP[g(X)] \ge \EXP[L(X)]
+  = \EXP[aX + b] = a μ + b = L(μ) = g(μ).
+$$
+
+:::
 
 
 ## Markov inequality

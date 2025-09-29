@@ -1,0 +1,45 @@
+\usepath[/home/adityam/projects/presentations]
+
+\enablemode[lucida]
+\environment env-fonts.tex
+\setupbodyfont[slidefont,10pt]
+
+\starttext
+\startMPpage[offset=1dk]
+
+  newnumeric sx;
+  sx := 1.5cm;
+
+  newpath g;
+
+  g := (0,1sx){down} .. tension 2 .. (0.5sx, 0sx) .. tension 2 .. {dir 60} (1.5sx, 1sx);
+
+  draw g withpen pencircle scaled 0.8bp;
+
+  mean := 0.7sx;
+
+  newpair p, meet;
+
+  meet := g intersectiontimes ((mean,-1sx)--(mean,1sx));
+
+  newnumeric tg; 
+  tg := xpart meet;
+
+  p = point tg of g;
+
+  fill fullcircle scaled 1.5bp shifted p withcolor "darkred";
+  label.bot("$μ$", p);
+
+  path tangent; tangent := (-1sx,0) -- (1sx,0);
+  tangent := tangent rotated (angle direction tg of g) shifted p;
+
+  draw tangent withcolor "darkblue" withstacking -1;
+
+  label.rt("$g(x)$", point 2 of g);
+  label.rt("$L(x) = ax + b$", point 1 of tangent);
+
+
+  currentpicture := currentpicture scaled 1.5;
+\stopMPpage
+
+\stoptext
