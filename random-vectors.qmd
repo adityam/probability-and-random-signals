@@ -381,7 +381,7 @@ where $(d)$ follows from basic algebra, $(e)$ follows from \eqref{eq:expectation
 The above equation shows that for any arbitrary (Borel) subsets $B_1$ and $B_2$ of $\reals$, $\PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2)$. Hence, $\{X \in B_1\} \independent \{Y \in B_2 \}$. Since $B_1$ and $B_2$ were arbitrary, we have $X \independent Y$. 
 :::
 
-:::{#exm-mean-var-indendent}
+:::{#exm-mean-var-independent}
 Let $X$ and $Y$ be independent random variables defined on a common probability space. Show that
 
 a. $\EXP[XY] = \EXP[X] \EXP[Y]$.
@@ -824,7 +824,7 @@ We consider a few special cases to understand the definition.
    $$
    Thus,
    $$
-    (x-μ)^\TRANS Σ^{-1} (x - μ) = 
+    (x-μ)^\TRANS Σ^{-1} (x - μ) 
     = \frac{1}{1 - ρ^2} \biggl[
       \frac{(x_1 - μ_1)^2}{2 σ_1^2 } 
       - 2 ρ \frac{(x_1 - μ_1)(x_2 - μ_2)}{σ_1 σ_2}

@@ -56,7 +56,7 @@ Conditional probability is perhaps the most important aspect of probability theo
      f_X(x) = \sum_{i=1}^n f_{X|C_i}(x \mid C_i) \PR(C_i).
     $$
 
-:::{#exr-mixed-random-variable}
+:::{#exm-mixed-random-variable}
 Consider the following experiment. A fair coin is tossed. If the outcome is heads, $X$ is a uniform $[0,1]$ random variable. If the outcome is tails, $X$ is $\text{Bernoulli}(p)$ random variable. Find $F_X(x)$.
 :::
 
@@ -148,7 +148,7 @@ We first start with the case where we are conditioning on discrete random variab
    $$
 
 4. For any event $B$ in $\mathscr B(\reals)$, **the law of total probability** may be written as
-   $$\PR(X \in B) = \sum_{y \in \text{range}(Y)} \PR(X \in B \mid Y = y) P_Y(y). $$
+   $$\PR(X \in B) = \sum_{y \in \ALPHABET Y} \PR(X \in B \mid Y = y) P_Y(y). $$
 
 5. If $X$ is independent of $Y$, we have
    $$
@@ -166,22 +166,22 @@ We now consider the case when we are conditioning on a continuous random variabl
      Note that the conditional PDF cannot be interpreted in the same manner as the conditional PMF because it gives the impression that we are conditioning on a zero-probability event. However, we can view it as a limit as follows:
 
      \begin{align*}
-      F_{X|Y}(x\mid y) &= \lim_{δ \downarrow 0} \PR(X \le x \mid y \le Y \le y + δ) \\
-      &= \lim_{δ \downarrow 0} \dfrac{\PR(X \le x, y \le Y \le y + δ)}{\PR(y \le Y \le y + δ)} \\
-      &= \lim_{δ \downarrow 0} \dfrac{\int_{-∞}^x \int_{y}^{y + δ} f_{X,Y}(u,v)\, dv\, du }{ \int_{y}^{y+δ} f_Y(v)\, dv } 
+      F_{X|Y}(x\mid y) &= \lim_{Δy \downarrow 0} \PR(X \le x \mid y \le Y \le y + Δy) \\
+      &= \lim_{Δy \downarrow 0} \dfrac{\PR(X \le x, y \le Y \le y + Δy)}{\PR(y \le Y \le y + Δy)} \\
+      &= \lim_{Δy \downarrow 0} \dfrac{\int_{-∞}^x \int_{y}^{y + Δy} f_{X,Y}(u,v)\, dv\, du }{ \int_{y}^{y+Δy} f_Y(v)\, dv } 
     \end{align*}
-    If $δ$ is small, we can approximate
+    If $Δy$ is small, we can approximate
     $$
-    \int_{y}^{y + δ} f_Y(v)\, dv \approx f_Y(y) \cdot δ
+    \int_{y}^{y + Δy} f_Y(v)\, dv \approx f_Y(y) \cdot Δy
     $$
     and 
     $$
-    \int_{y}^{y + δ} f_{X,Y}(u,v) dv \approx f_{X,Y}(u,y) \cdot δ.
+    \int_{y}^{y + Δy} f_{X,Y}(u,v) dv \approx f_{X,Y}(u,y) \cdot Δy.
     $$
     Substituting in the above equation, we get
     \begin{align*}
-      F_{X|Y}(x \mid y) &\approx \lim_{δ \downarrow 0} 
-      \dfrac{ \int_{-∞}^x f_{X,Y}(u,y) δ du }{ f_Y(y) δ }
+      F_{X|Y}(x \mid y) &\approx \lim_{Δy \downarrow 0} 
+      \dfrac{ \int_{-∞}^x f_{X,Y}(u,y) Δy\, du }{ f_Y(y) Δy }
       \\
       &= \int_{-∞}^x \left[ \frac{f_{X,Y}(u,y)}{f_Y(y)} \right] du
     \end{align*}.
@@ -291,17 +291,84 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 < y < 1.
 $$
 :::
 
+:::{#exm-bivariate-Gaussian}
+Let $X = [X_1, X_2]$ be a bivariate Gaussian random variable with 
+$μ_X = 0$ and 
+$$
+Σ_X = \MATRIX{ σ_1^2 & ρ σ_1 σ_2 \\ ρ σ_1 σ_2 & σ_2^2 }
+$$
+where $\ABS{ρ} < 1$. Compute the conditional PDF $f_{X_1 | X_2}$?
+:::
+
+:::{.callout-note collapse="false"}
+#### Solution
+Recall that
+$$
+  f_{X_1,X_2}(x_1, x_2) = 
+  \frac{1}{(2 π) σ_1 σ_2 \sqrt{(1 - ρ^2)}}
+  \exp\left( \frac{1}{1 - ρ^2}
+  \left[
+    \frac{x_1^2}{2 σ_1^2} - 2 ρ \frac{x_1 x_2}{σ_1 σ_2}
+    + \frac{x_2^2}{2 σ_2^2} \right]
+  \right).
+$$
+Moreover, 
+$$
+  f_{X_2}(x_2) = \frac{1}{\sqrt{2 π} σ_2} \exp\left(
+  - \frac{x_2^2}{2 σ_2^2 } \right).
+$$
+Thus,
+\begin{align*}
+  f_{X_1 | X_2}(x_1 | x_2) &= \frac{f_{X_1, X_2}(x_1, x_2)}{f_{X_2}(x_2) }
+  \\
+  &= \frac{1}{\sqrt{2 π σ_2 (1 - ρ^2)}}
+  \exp\left(
+    -\frac{(x_1 - ρ \frac{σ_1}{σ_2} x_2)^2}{ 2 σ_1^2 (1 - ρ^2) }
+  \right).
+\end{align*}
+Thus, $X_1 \mid X_2 = x_2$ is $\mathcal{N}(ρ \frac{σ_1}{σ_2} x_2, σ_1^2(1 - ρ^2))$. 
+:::
+
 ## Conditional expectation
 
-Define $ψ(y) = \EXP[ X \mid Y = y]$. In particular, if $X$ and $Y$ are discrete, then
-$$
-ψ(y) = \sum_{x \in \text{range}(X)} x P_{X|Y}(x|y)
-$$
-and, if $X$ and $Y$ are continuous, then
-$$
-ψ(y) = \int_{-∞}^{∞} x f_{X|Y}(x|y)\, dx
-$$
-Let $Z = ψ(Y)$. Then $Z$ is a random variable! This is a subtle point, and we will spend some time to develop an intuition of what this means.
+1. When $X$ and $Y$ are jointly discrete with joint PMF $P_{X,Y}$, then we can define conditional expectation as
+   $$
+   E[X \mid Y = y] = \sum_{x \in \ALPHABET X} x P_{X|Y}(x|y)
+   $$
+   and, more generally, for any function $g$, 
+   $$
+   E[g(X) \mid Y = y] = \sum_{x \in \ALPHABET X} g(x) P_{X|Y}(x|y).
+   $$
+
+2. Analogously, $X$ and $Y$ are jointly continuous with joint PDF $f_{X,Y}$, we can define conditional expectation as 
+   $$
+   E[X|Y = y] = \int_{-∞}^{∞} x f_{X|Y}(x|y)\, dx
+   $$
+   and, more generally, for any function $g$, 
+   $$
+   E[g(X)|Y = y] = \int_{-∞}^{∞} g(x) f_{X|Y}(x|y)\, dx
+   $$
+
+3. Now consider a function $g(X,Y)$. Then, 
+   $$
+   E[g(X,Y) \mid Y = y] = \int_{-∞}^{∞} g(x,y) f_{X|Y}(x|y)\, dx
+   = E[g(X,y) \mid Y = y].
+   $$
+
+4. Observe that
+   \begin{align*}
+   \int_{-∞}^{∞} E[g(X,Y) \mid Y = y ] f_Y(y) dy
+   &=
+   \int_{-∞}^{∞} \int_{-∞}^{∞} g(x,y) f_{X|Y}(x|y) f_Y(y)\, dx\, dy \\
+   &= 
+   \int_{-∞}^{∞} \int_{-∞}^{∞} g(x,y) f_{X,Y}(x,y)\, dx\, dy \\
+   &= \EXP[g(X,Y)].
+   \end{align*}
+   This is known as the **smoothing property** of conditional expectation. 
+
+5. More precisely, we may think of $\EXP[g(X,Y) | Y = y]$ as a function of $y$, say $h(y)$. Then $h(Y) = \EXP[g(X,Y) | Y]$ is a random variable! The smoothing property of conditional expectation says that
+   $$ \EXP[ \EXP[ g(X,Y) | Y ] ] = \EXP[ g(X,Y) ]. $$
+   This is a subtle point, and we will spend some time to develop an intuition of what this means.
 
 ### Conditioning on a $σ$-algebra
 
@@ -309,7 +376,7 @@ The key idea is conditioning on a $σ$-algebra. To avoid technical subtleties, w
 
 1. Consider a probability space $(Ω, \ALPHABET F, \PR)$ where $\ALPHABET F$ is a finite $σ$-algebra. Let $\ALPHABET G$ be a sub-$σ$-algebra of $\ALPHABET F$. In particular, we assume that there is a partition $\{D_1, D_2, \dots, D_m\}$ of $Ω$ such that $\ALPHABET G = 2^{\{D_1, \dots, D_m\}}$. The elements $D_1, \dots, D_m$ are called the **atoms** of the $σ$-algebra $\ALPHABET G$. 
 
-**TODO**: Add example. 4x4 grid. partition for $\ALPHABET G$. 
+    **TODO**: Add example. 4x4 grid. partition for $\ALPHABET G$. 
 
 2. We define $\PR(A \mid \ALPHABET G)$ (which we will write as $\EXP[\IND_{A} \mid \ALPHABET G]$ as
    $$
@@ -416,10 +483,11 @@ where we have taken $\ALPHABET H = \{\emptyset, Ω\}$ as the trivial $σ$-algebr
       {\displaystyle \int_{-∞}^{∞} f_{Y|X}(y|x) f_X(x) \, dx }. \\
   \end{align*}
 
-:::{#exr-conditional-probability}
+:::{#exm-conditional-probability}
 Let $X$ and $Y$ be independent and identically distributed $\text{Bernoulli}(p)$ random variables. 
 
 a. Consider the events $A_k = \{ ω : X(ω) + Y(ω) = k\}$, $k \in \{0,1,2\}$. Find $\PR(A_k \mid X)$. 
 
 b. Compute $\EXP[X + Y \mid X]$.
 :::
+
