@@ -54,7 +54,7 @@ $$
 $$
 Thus, the limit is the **intersection** of all sets.
 
-**What happens when a sequence $\{A_n\}_{n \ge 1}$ is neither increasing nor decreasing?** We can sandwitch it between an increasing sequence $\{C_n\}_{n \ge 1}$ and a decreasing sequence $\{D_n\}$ as follows:
+**What happens when a sequence $\{A_n\}_{n \ge 1}$ is neither increasing nor decreasing?** We can sandwich it between an increasing sequence $\{C_n\}_{n \ge 1}$ and a decreasing sequence $\{D_n\}$ as follows:
 
 $$
 \begin{array}{lcl}
@@ -110,6 +110,11 @@ $$
   \liminf_{n \to ∞} \IND_{A_n}(ω) = 1
 $$
 which holds if and only if the binary sequence $\{\IND_{A_n}(ω)\}$ eventually becomes $1$ forever, i.e., $ω$ is eventually a member of $A_n$ forever.
+
+For example, suppose we toss a coin infinite number of coins. Let $(Ω, \ALPHABET F, \PR)$ denote the corresponding probability space, and let $A_n$ denote the event that the $n$-th toss is a heads. Then, 
+
+- $\limsup_{n \to ∞} A_n$ is the event that there are infinitely many heads.
+- $\liminf_{n \to ∞} A_n$ is the event that there are all but a finite number of the coins were head, i.e., there were only finitely many tails.
 :::
 
 ## Examples of convergence in probability
