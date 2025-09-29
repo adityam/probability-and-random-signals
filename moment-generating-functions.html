@@ -519,7 +519,7 @@ window.Quarto = {
 M_X(s) = \EXP[e^{sX}]
 \]</span> provided the expectation exists.</p>
 <ul>
-<li><p>When <span class="math inline">\(X\)</span> is discrete, we have <span class="math display">\[ M_X(s) = \sum_{x \in \text{range}(X)} e^{sx} p_X(x). \]</span></p></li>
+<li><p>When <span class="math inline">\(X\)</span> is discrete, we have <span class="math display">\[ M_X(s) = \sum_{x \in \ALPHABET X} e^{sx} p_X(x). \]</span></p></li>
 <li><p>When <span class="math inline">\(X\)</span> is continuous, we have <span class="math display">\[ M_X(s) = \int_{-∞}^∞ e^{sx} f_X(x) \, dx. \]</span></p></li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -767,7 +767,7 @@ M_Z(s) = \EXP[e^{sX_1} e^{sX_2}]
 <li><p><strong>Sum of independent Poisson random variables is Poisson.</strong></p>
 <p>Let <span class="math inline">\(X_i \sim \text{Pois}(λ_i)\)</span>. Then <span class="math inline">\(M_{X_i}(s) = e^{λ_i(e^s - 1)}\)</span>.</p>
 <p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = e^{λ(e^s - 1)}\)</span>, where <span class="math inline">\(λ = \sum_{i=1}^n λ_i\)</span>.</p></li>
-<li><p><strong>Sum of Gaussian random variables is Gaussian.</strong></p>
+<li><p><strong>Sum of independent Gaussian random variables is Gaussian.</strong></p>
 <p>Let <span class="math inline">\(X_i \sim \mathcal N(μ_i, σ_i)\)</span>. Then, <span class="math inline">\(M_{X_i}(s) = \exp( μ_i s + \frac 12 σ_i^2 s^2)\)</span>.</p>
 <p>Let <span class="math inline">\(Z = \sum_{i=1}^n X_i\)</span>. Then <span class="math inline">\(M_Z(s) = \exp(μ s + \frac 12 σ^2 s^2)\)</span>, where <span class="math display">\[
    μ = \sum_{i=1}^n μ_i
