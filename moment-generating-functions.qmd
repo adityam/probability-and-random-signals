@@ -11,7 +11,7 @@ $$
 provided the expectation exists.
 
 - When $X$ is discrete, we have
-  $$ M_X(s) = \sum_{x \in \text{range}(X)} e^{sx} p_X(x). $$
+  $$ M_X(s) = \sum_{x \in \ALPHABET X} e^{sx} p_X(x). $$
 
 - When $X$ is continuous, we have
   $$ M_X(s) = \int_{-∞}^∞ e^{sx} f_X(x) \, dx. $$
@@ -204,7 +204,7 @@ $$
 
     Let $Z = \sum_{i=1}^n X_i$. Then $M_Z(s) = e^{λ(e^s - 1)}$, where $λ = \sum_{i=1}^n λ_i$. 
 
-4. **Sum of Gaussian random variables is Gaussian.**
+4. **Sum of independent Gaussian random variables is Gaussian.**
 
     Let $X_i \sim \mathcal N(μ_i, σ_i)$. Then, $M_{X_i}(s) = \exp( μ_i s + \frac 12 σ_i^2 s^2)$.
 
