@@ -18,7 +18,7 @@ $$
 
 We already proved this when talking about [probability spaces](probability-spaces.qmd#lem-probability-properties).
 
-:::{#exm-union-bound}
+:::{#exr-union-bound}
 Let $X_1, \dots, X_n$ be i.i.d. random variables with CDF $F_X(x)$. Find an upper bound on the CDF of
 $$
 Z_n = \min(X_1, \dots, X_n).
@@ -113,7 +113,6 @@ $$
   \EXP[g(X)] \ge \EXP[L(X)]
   = \EXP[aX + b] = a μ + b = L(μ) = g(μ).
 $$
-
 :::
 
 
@@ -141,7 +140,7 @@ $$
 $$
 :::
 
-:::{#exm-Markov}
+:::{#exr-Markov}
 Suppose $X \sim \text{Unif}(0,1)$. Verify Markov inequality for $\PR(X \ge 0.2)$, $\PR(X \ge 0.5)$, and $\PR(X \ge 0.8)$. 
 :::
 
@@ -158,7 +157,7 @@ The table below compares the actual tail probability with the bound obtained fro
 
 :::
 
-@exm-Markov shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for $a < μ$. Thus, it only makes sense to apply the Markov inequality of $a \ge μ$.  
+@exr-Markov shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for $a < μ$. Thus, it only makes sense to apply the Markov inequality of $a \ge μ$.  
 
 ### Union bound as a special case of Markov inequality
 
@@ -213,7 +212,7 @@ where $(a)$ follows from Markov inequality.
 
 In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.
 
-:::{#exm-Binomial-comparison}
+:::{#exr-Binomial-comparison}
   Let $X \sim \text{Bin}(n,p)$ and consider any $q \in (p,1)$. Use both Markov and Chebyshev inequalities to bound $\PR(X \ge nq)$. 
 :::
 
@@ -251,7 +250,7 @@ Therefore, $X_n \xrightarrow{p} μ$ (which reads as $X_n$ converges in probabili
 :::
 
 :::{.callout-note collapse="false"}
-### Solution
+### Proof
 
 Observe that
 \begin{align*}
@@ -316,7 +315,7 @@ $$
 $$
 :::
 
-Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let's revisit the bound of @exm-Binomial-comparison. For a Binomial random variable, 
+Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let's revisit the bound of @exr-Binomial-comparison. For a Binomial random variable, 
 $$ 
 M_X(s) = (1 - p + p e^s)^n.
 $$
@@ -324,7 +323,7 @@ Then,
 $$\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
 = \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
 $$
-Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in @exm-Binomial-comparison. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero _exponentially fast_. A bit of algebra shows that the exact bound is
+Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in @exr-Binomial-comparison. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero _exponentially fast_. A bit of algebra shows that the exact bound is
 $$
 \PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
 $$
@@ -335,7 +334,7 @@ $$
 
 We now present another example to show the tightness of the Chernoff bound.
 
-:::{#exm-Chernoff-Gaussian}
+:::{#exr-Chernoff-Gaussian}
 Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any $ε > 0$, bound
 $\PR(X \ge 0)$.
 :::
@@ -365,7 +364,7 @@ $$
        \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
 $$
 
-We can revisit @exm-Binomial-comparison using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have
+We can revisit @exr-Binomial-comparison using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have
 $$
 \PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
 \le e^{-2 (q - p)^2 n}.
