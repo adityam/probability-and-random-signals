@@ -96,7 +96,7 @@ $$
 
 For example, since $g(x) = 1/x$ is convex, we have
 $$
-\EXP\left[\frac 1x\right] \le \frac{1}{\EXP[X]}.
+\EXP\left[\frac 1x\right] \ge \frac{1}{\EXP[X]}.
 $$
 Moreover, since $g(x) = \log(x)$ is concave, we have
 $$
