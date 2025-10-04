@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-09-29">
+<meta name="dcterms.date" content="2025-10-04">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>6&nbsp; Probability inequalities – Probability and Random Signals II</title>
@@ -42,9 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-b68a706d8191437c2c46203d0393f4be.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -501,7 +501,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 29, 2025</p>
+      <p class="date">October 4, 2025</p>
     </div>
   </div>
   
@@ -533,8 +533,8 @@ window.Quarto = {
 </div>
 </div>
 <p>We already proved this when talking about <a href="./probability-spaces.html#lem-probability-properties">probability spaces</a>.</p>
-<div id="exm-union-bound" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.1</strong></span> Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables with CDF <span class="math inline">\(F_X(x)\)</span>. Find an upper bound on the CDF of <span class="math display">\[
+<div id="exr-union-bound" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 6.1</strong></span> Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables with CDF <span class="math inline">\(F_X(x)\)</span>. Find an upper bound on the CDF of <span class="math display">\[
 Z_n = \min(X_1, \dots, X_n).
 \]</span></p>
 </div>
@@ -695,8 +695,8 @@ Figure&nbsp;6.1: Tangent at the mean of <span class="math inline">\(X\)</span>
 </div>
 </div>
 </div>
-<div id="exm-Markov" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.2</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
+<div id="exr-Markov" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 6.2</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
@@ -740,7 +740,7 @@ Figure&nbsp;6.1: Tangent at the mean of <span class="math inline">\(X\)</span>
 </div>
 </div>
 </div>
-<p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;<span>6.2</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality of <span class="math inline">\(a \ge μ\)</span>.</p>
+<p><a href="#exr-Markov" class="quarto-xref">Exercise&nbsp;<span>6.2</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality of <span class="math inline">\(a \ge μ\)</span>.</p>
 <section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="6.4.1">
 <h3 data-number="6.4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">6.4.1</span> Union bound as a special case of Markov inequality</h3>
 <p>Note that it is possible to derive the union bound as a corrollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
@@ -798,8 +798,8 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 </div>
 <p>In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.</p>
-<div id="exm-Binomial-comparison" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.3</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
+<div id="exr-Binomial-comparison" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 6.3</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
@@ -847,7 +847,7 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
+<span class="screen-reader-only">Note</span>Proof
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -916,18 +916,18 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 </div>
 </div>
-<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>6.3</span></a>. For a Binomial random variable, <span class="math display">\[
+<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.3</span></a>. For a Binomial random variable, <span class="math display">\[
 M_X(s) = (1 - p + p e^s)^n.
 \]</span> Then, <span class="math display">\[\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
 = \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
-\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>6.3</span></a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
+\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.3</span></a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
 \PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
 \]</span> where <span class="math display">\[
 D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
 \]</span></p>
 <p>We now present another example to show the tightness of the Chernoff bound.</p>
-<div id="exm-Chernoff-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.4</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
+<div id="exr-Chernoff-Gaussian" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 6.4</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
 </div>
 <!-- TODO: Write solution -->
 </section>
@@ -953,7 +953,7 @@ D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 -
 \left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} },
        \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
 \]</span></p>
-<p>We can revisit <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>6.3</span></a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
+<p>We can revisit <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.3</span></a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
 \PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
 \le e^{-2 (q - p)^2 n}.
 \]</span></p>

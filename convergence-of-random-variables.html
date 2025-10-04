@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-09-29">
+<meta name="dcterms.date" content="2025-10-04">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>7&nbsp; Convergence of random variables – Probability and Random Signals II</title>
@@ -42,9 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-b68a706d8191437c2c46203d0393f4be.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -498,7 +498,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 29, 2025</p>
+      <p class="date">October 4, 2025</p>
     </div>
   </div>
   
@@ -547,7 +547,7 @@ window.Quarto = {
 \]</span> Thus, the limit is the union of all sets. Moreover, if <span class="math inline">\(\{D_n\}_{n \ge 1}\)</span> is <strong>weakly decreasing</strong> sequence of sets, then <span class="math display">\[
 \lim_{n \to ∞} D_n = \bigcap_{n=1}^{∞} D_n.
 \]</span> Thus, the limit is the <strong>intersection</strong> of all sets.</p>
-<p><strong>What happens when a sequence <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> is neither increasing nor decreasing?</strong> We can sandwitch it between an increasing sequence <span class="math inline">\(\{C_n\}_{n \ge 1}\)</span> and a decreasing sequence <span class="math inline">\(\{D_n\}\)</span> as follows:</p>
+<p><strong>What happens when a sequence <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> is neither increasing nor decreasing?</strong> We can sandwich it between an increasing sequence <span class="math inline">\(\{C_n\}_{n \ge 1}\)</span> and a decreasing sequence <span class="math inline">\(\{D_n\}\)</span> as follows:</p>
 <p><span class="math display">\[
 \begin{array}{lcl}
 C_1 = A_1 \cap A_2 \cap A_3 \cap \dotsb
@@ -590,6 +590,11 @@ D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
   ω \in \liminf_{n \to ∞} A_n \iff
   \liminf_{n \to ∞} \IND_{A_n}(ω) = 1
 \]</span> which holds if and only if the binary sequence <span class="math inline">\(\{\IND_{A_n}(ω)\}\)</span> eventually becomes <span class="math inline">\(1\)</span> forever, i.e., <span class="math inline">\(ω\)</span> is eventually a member of <span class="math inline">\(A_n\)</span> forever.</p>
+<p>For example, suppose we toss a coin infinite number of coins. Let <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> denote the corresponding probability space, and let <span class="math inline">\(A_n\)</span> denote the event that the <span class="math inline">\(n\)</span>-th toss is a heads. Then,</p>
+<ul>
+<li><span class="math inline">\(\limsup_{n \to ∞} A_n\)</span> is the event that there are infinitely many heads.</li>
+<li><span class="math inline">\(\liminf_{n \to ∞} A_n\)</span> is the event that there are all but a finite number of the coins were head, i.e., there were only finitely many tails.</li>
+</ul>
 </div>
 </div>
 </div>
