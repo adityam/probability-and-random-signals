@@ -77,7 +77,7 @@ The MGF of common random variables is shown in @tbl-MGF.
 | Bernoulli       | $p$          | $1 - p + p e^s$ | 
 | Binomial        | $(n,p)$      | $(1-p + p e^s)^n$ | 
 | Geometric       | $p$          | $\dfrac{p e^s}{1 - (1-p)e^s}$ |
-| Poisson         | $λ$          | $\exp(λ e^s - 1)$ |
+| Poisson         | $λ$          | $\exp(λ (e^s - 1))$ |
 | Uniform         | $(a,b)$      | $\dfrac{e^{sb} - e^{sa}}{s(b-a)}$ |
 | Exponential     | $λ$          | $\dfrac{λ}{λ-s}$ |
 | Gaussian        | $(μ,σ)$      | $\exp\bigl(μ s + \frac 12 σ^2 s^2 \bigr)$ |
