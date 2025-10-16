@@ -43,7 +43,12 @@ Conditional probability is perhaps the most important aspect of probability theo
 
     Therefore, a random variable conditioned on an event behaves exactly like a regular random variable. We can define conditional expectation $\EXP[X \mid C]$, conditional variance $\VAR(X \mid C)$ in the obvious manner. 
 
-5. An immediate implication of the law of total probability is the following.
+5. If $X$ is a random variable with $\EXP[\ABS{X}] < ∞$ and $C$ is an event with $\PR(C) > 0$, then $\EXP[X | C]$ is defined as the expectation with respect with the conditional CDF $F_{X|C}$. In particular,
+   $$
+      \EXP[ X \mid C] = \frac{\EXP[ X \IND_{C}]}{\PR(C)}.
+   $$
+
+6. An immediate implication of the law of total probability is the following.
 
     If $C_1, C_2, \dots, C_n$ is a partition of $Ω$, then 
     $$
@@ -56,6 +61,15 @@ Conditional probability is perhaps the most important aspect of probability theo
     and if $X$ and $X$ conditioned on $C$ are both continuous, we have
     $$
      f_X(x) = \sum_{i=1}^n f_{X|C_i}(x \mid C_i) \PR(C_i).
+    $$
+
+7.  If $C_1, C_2, \dots, C_n$ is a partition of $Ω$, then we can write
+    $$
+        X = \sum_{i=1}^n X \IND_{C_i}.
+    $$
+    This gives us the **law of total expectation**
+    $$
+        \EXP[X] = \sum_{i=1}^n \EXP[ X \mid C_i ] \PR(C_i).
     $$
 
 :::{#exm-mixed-random-variable}
