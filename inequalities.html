@@ -556,6 +556,13 @@ Z_n = \min(X_1, \dots, X_n).
 </div>
 </div>
 </div>
+<div id="exr-union-bound-infinite-events" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 6.2</strong></span> Let <span class="math inline">\(\{A_i\}_{i = 1}^{∞}\)</span> be a countably infinite sequence of events. Show that</p>
+<ol type="a">
+<li>If <span class="math inline">\(\PR(A_i) = 0\)</span> for all <span class="math inline">\(i \in \naturalnumbers\)</span>, then <span class="math display">\[ \PR\Bigl( \bigcup_{i=1}^{∞} A_i \Bigr) = 0. \]</span></li>
+<li>If <span class="math inline">\(\PR(A_i) = 1\)</span> for all <span class="math inline">\(i \in \naturalnumbers\)</span>, then <span class="math display">\[ \PR\Bigl( \bigcap_{i=1}^{∞} A_i \Bigr) = 1. \]</span></li>
+</ol>
+</div>
 </section>
 <section id="cauchy-schwartz-inequality" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="cauchy-schwartz-inequality"><span class="header-section-number">6.2</span> Cauchy-Schwartz inequality</h2>
@@ -598,6 +605,18 @@ A s^2 + B s + C \ge 0
 \]</span> The result follows by taking <span class="math inline">\(A = \EXP[X^2]\)</span>, <span class="math inline">\(B = 2 \EXP[XY]\)</span>, and <span class="math inline">\(C = \EXP[Y^2]\)</span>.</p>
 </div>
 </div>
+</div>
+<div id="exm-2025-mid-term-4" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.1</strong></span> Let <span class="math inline">\(X \ge 0\)</span> be a random variable with mean <span class="math inline">\(μ\)</span> and finite variance <span class="math inline">\(σ^2\)</span>. Given <span class="math inline">\(λ \in (0,1)\)</span>, define <span class="math display">\[A = \{ ω : X(ω) \ge λ μ \}.\]</span></p>
+<ol type="a">
+<li><p>Show that <span class="math display">\[\EXP[ X \IND_{A} ] \ge (1 -λ) μ. \]</span></p>
+<p><em>Hint:</em> Note that <span class="math inline">\(X = X (\IND_A + \IND_{A^c})\)</span>. What do we know about <span class="math inline">\(X\)</span> when <span class="math inline">\(ω \in A^c\)</span>?</p></li>
+<li><p>Using the result of part&nbsp;(a), show that <span class="math display">\[
+  \PR(X \ge λ μ) \ge (1-λ)^2 \frac{ \EXP[X]^2 }{\EXP[X^2]}
+  = (1-λ)^2 \frac{μ^2}{μ^2 + σ^2}.   
+\]</span></p>
+<p><em>Hint:</em> Use Cauchy Schwartz to bound <span class="math inline">\(\EXP[X \IND_A]\)</span>.</p></li>
+</ol>
 </div>
 </section>
 <section id="jensens-inequality" class="level2" data-number="6.3">
@@ -696,7 +715,7 @@ Figure&nbsp;6.1: Tangent at the mean of <span class="math inline">\(X\)</span>
 </div>
 </div>
 <div id="exr-Markov" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.2</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 6.3</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
@@ -740,7 +759,7 @@ Figure&nbsp;6.1: Tangent at the mean of <span class="math inline">\(X\)</span>
 </div>
 </div>
 </div>
-<p><a href="#exr-Markov" class="quarto-xref">Exercise&nbsp;<span>6.2</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality of <span class="math inline">\(a \ge μ\)</span>.</p>
+<p><a href="#exr-Markov" class="quarto-xref">Exercise&nbsp;<span>6.3</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality of <span class="math inline">\(a \ge μ\)</span>.</p>
 <section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="6.4.1">
 <h3 data-number="6.4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">6.4.1</span> Union bound as a special case of Markov inequality</h3>
 <p>Note that it is possible to derive the union bound as a corrollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
@@ -799,7 +818,7 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 <p>In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.</p>
 <div id="exr-Binomial-comparison" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.3</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 6.4</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
@@ -916,18 +935,18 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 </div>
 </div>
-<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.3</span></a>. For a Binomial random variable, <span class="math display">\[
+<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.4</span></a>. For a Binomial random variable, <span class="math display">\[
 M_X(s) = (1 - p + p e^s)^n.
 \]</span> Then, <span class="math display">\[\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
 = \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
-\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.3</span></a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
+\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.4</span></a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
 \PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
 \]</span> where <span class="math display">\[
 D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
 \]</span></p>
 <p>We now present another example to show the tightness of the Chernoff bound.</p>
 <div id="exr-Chernoff-Gaussian" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.4</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 6.5</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
 </div>
 <!-- TODO: Write solution -->
 </section>
@@ -953,7 +972,7 @@ D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 -
 \left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} },
        \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
 \]</span></p>
-<p>We can revisit <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.3</span></a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
+<p>We can revisit <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.4</span></a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
 \PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
 \le e^{-2 (q - p)^2 n}.
 \]</span></p>
