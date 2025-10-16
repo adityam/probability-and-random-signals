@@ -72,6 +72,24 @@ $$
 The result follows by taking $A = \EXP[X^2]$, $B = 2 \EXP[XY]$, and $C = \EXP[Y^2]$. 
 :::
 
+:::{#exm-2025-mid-term-4}
+Let $X \ge 0$ be a random variable with mean $μ$ and finite variance $σ^2$. Given $λ \in (0,1)$, define
+$$A = \{ ω : X(ω) \ge λ μ \}.$$
+
+a. Show that
+   $$\EXP[ X \IND_{A} ] \ge (1 -λ) μ. $$
+
+    _Hint:_ Note that $X = X (\IND_A + \IND_{A^c})$. What do we know about $X$ when $ω \in A^c$?
+
+b. Using the result of part (a), show that
+   $$
+     \PR(X \ge λ μ) \ge (1-λ)^2 \frac{ \EXP[X]^2 }{\EXP[X^2]}
+     = (1-λ)^2 \frac{μ^2}{μ^2 + σ^2}.   
+   $$
+
+      _Hint:_ Use Cauchy Schwartz to bound $\EXP[X \IND_A]$. 
+:::
+
 ## Jensen's inequality
 
 If we take $Y = 1$ in Cauchy-Schwartz inequality, we get that 
