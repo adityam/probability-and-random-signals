@@ -1,49 +1,269 @@
 ---
 title: Convergence of random variables
+execute:
+  echo: false
 ---
 
-Suppose we have an infinite **sequence of random variables** $\{X_n\}_{n \ge 1}$ defined on a common probability space $(Ω, \ALPHABET F, \PR)$. A sequence of random variables, also called a **stochastic process**, can be thought of a generalization of random vectors. When does this sequence converge?
+Suppose we have an infinite **sequence $\{X_n\}_{n \ge 1}$ of random variables** defined on a common probability space $(Ω, \ALPHABET F, \PR)$. Thus, for every $ω \in Ω$, there is an infinite sequence
+$$
+  X_1(ω), X_2(ω), X_3(ω), \dots
+$$
+A sequence of random variables, also called a **stochastic process**, can be thought of a generalization of random vectors. When does this sequence converge?
 
 ## Different notions of convergence
 
-Recall that a sequence $\{x_n\}_{n \ge 1}$ of real numbers converges to a limit $x^*$ if for every $ε > 0$, there exists a $N$ such that for all $n \ge N$, we have that
-$$ \ABS{ x_n - x^* } < ε. $$
+1. Recall that a sequence $\{x_n\}_{n \ge 1}$ of real numbers converges to a limit $x$ if for every $ε > 0$, there exists a $N$ such that for all $n \ge N$, we have that
+   $$ \ABS{ x_n - x } < ε. $$
 
-Convergence of a sequence of random variables is much different. We have already seen one form of convergence: [convergence in distribution](moment-generating-functions.qmd#conv-distribution)
+2. The simplest way to define convergence of a sequence of random variables as follows: 
+   a sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a limit $X$ **surely** if for every $ω \in Ω$, the sequence $\{X_n(ω)\}_{n \ge 1}$ of real numbers converges to $X(ω)$. 
+
+3. Sure convergence can be too strong, as is illustrated by the following example.
+
+:::{#exm-convergence-1}
+Consider a probability space $(Ω, \ALPHABET F, \PR)$ where $Ω = [0,1]$, $\ALPHABET F = \mathscr{B}(0,1)$, and $\PR$ is the uniform distribution on $Ω$. Define $X_n(ω) = \IND_{A_n}(ω)$ where $A_n = [0, \frac 1n]$, i.e., 
+$$
+X_n(ω) = \begin{cases}
+ 1, & ω \in [0, \frac{1}{n}] \\
+ 0, & ω \in (\frac{1}{n}, 1]
+\end{cases}
+$$
+
+```{ojs}
+viewof ω_convergence_1 = Inputs.range([0.0, 1], {label: "ω", value:0.05, step: 0.01})
+
+points_convergence_1 = {
+    const N = 120
+    var points = new Array(N)
+
+    for(var n=1; n <= N; n++) {
+      var val = (ω_convergence_1*n <= 1) ? 1 : 0 ;
+      points[n-1] = { n: n, X_n: val }
+    }
+    return points
+}
+ ```
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  y : {ticks: 1 },
+  height: 100,
+  marks: [
+    // Axes
+    Plot.ruleX([0]),
+    Plot.ruleY([0]),
+    // Data
+    Plot.ruleX(points_convergence_1, {x: "n", y: "X_n", strokeWidth: 1}),
+    Plot.dot(points_convergence_1, {x: "n", y: "X_n", fill: "currentColor", r: 2}),
+  ]
+})
+```
+Show that $\{X_n\}_{n \ge 1}$ does not converge in the sure sense.
+:::
+
+:::{.callout-note collapse="false"}
+#### Solution
+
+For any $ω \in (0,1]$, $X_n(ω) = 1$ for $n < \lfloor 1/n \rfloor$, and $0$ afterwards. Thus, $X_n(ω) \to 0$. 
+
+However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
+:::
+
+4. From a practical point of view, we do not care about not converging at $ω = 0$, because that is an event of zero probability. Stated differently, the set 
+   $$
+     \{ ω : X_n(ω) \to 0 \}
+   $$
+   has probability 1. 
+
+5. Based on the previous discussion, we can relax the notion of sure convergence to **almost sure convergence**. A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **almost surely** if 
+   $$
+     \PR\left( \left\{ ω : \lim_{n \to ∞} 
+      X_n(ω) = X(ω) \right\} \right) = 1
+   $$
+   Or, equivalently, for any $ε > 0$, 
+   $$
+     \PR\left( \limsup_{n \to ∞} \{ ω : | X_n(ω) - X(ω) | > ε \}  \right) = 0 
+   $$
+   We denote such convergence as $X_n \xrightarrow{a.s.} X$.
+
+5. Another way to generalize the definition of convergence of a sequence of real numbers to that of random variables is called **convergence in probability.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **in probability** if
+   $$
+     \lim_{n \to ∞} \PR( \ABS{ X_n - X } > ε ) = 0.
+   $$
+   Or, equivalently, for any $ε > 0$ and $δ > 0$, there exists a $N$ such that for all $n \ge N$, we have
+   $$ 
+     \PR( \ABS{ X_n - X} > ε ) \le δ.
+   $$
+   We denote such convergence as $X_n \xrightarrow{p} X$.
+
+6. Convergence in probability is a weaker notion than almost sure convergence, as is illustrated by the following example.
+
+:::{#exm-convergence-2}
+Consider a probability space as in @exm-convergence-1. Define $X_n(ω) = \IND_{A_n}(ω)$, where where $A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}$.
+
+```{ojs}
+viewof ω_convergence_2 = Inputs.range([0.0, 1], {label: "ω", value:0.05, step: 0.01})
+
+points_convergence_2 = {
+    const N = 120
+    var points = new Array(N)
+
+    for(var n=1; n <= N; n++) {
+      var val = ((ω_convergence_2*n % 1)*n <= 1) ? 1 : 0 ;
+      points[n-1] = { n: n, X_n: val }
+    }
+    return points
+}
+ ```
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  y : {ticks: 1 },
+  height: 100,
+  marks: [
+    // Axes
+    Plot.ruleX([0]),
+    Plot.ruleY([0]),
+    // Data
+    Plot.ruleX(points_convergence_2, {x: "n", y: "X_n", strokeWidth: 1}),
+    Plot.dot(points_convergence_2, {x: "n", y: "X_n", fill: "currentColor", r: 2}),
+  ]
+})
+```
+Show that $\{X_n\}_{n \ge 1}$ converges in probability but not almost surely.  
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+Note that $X_n(ω) \in \{0, 1\}$. Therefore, the sequence $\{X_n(ω)\}_{n \ge 1}$ of real numbers converges if and only if there exists an $N(ω)$ such that $X_n(ω)$ takes a constant value for all $n \ge N(ω)$. However, as can be seen from the above figure, for any value of $ω \neq 0$, $X_n(ω)$ takes both values $0$ and $1$ infinitely often. Therefore, $X_n(ω)$ does not converge to a limit. 
+
+For $ω = 0$, $X_n(ω) = 1$, and therefore $X_n(ω) \to 1$. However, $\PR(\{ω = 0 \}) = 0$. Hence, the sequence $\{X_n(ω)\}_{n \ge 1}$ does not converge almost surely. 
+
+Now fix an $ε > 0$ and consider the set
+$$
+  E_n = \{ ω : |X_n(ω) - 0| > ε \}. 
+$$
+If $ε > 1$, then $E_n = \emptyset$, and $\PR(E_n) = 0$ for all $n$. So, we assume that $ε < 1$. Then, 
+$$
+  E_n = \{ ω : X_n(ω) = 1 \}.
+$$
+Note that $X_n(ω) = 1$ for roughly $1/n$ fraction of points (One can make this argument formal by showing the sequence $X_n(ω)$ is equidistributed sequence modulo $1$ by using [Weyl's criterion](https://en.wikipedia.org/wiki/Equidistributed_sequence#Weyl's_criterion)). So,
+$$
+  \PR(E_n) = \PR(X_n = 1) = \frac 1n.
+$$
+Thus, 
+$$
+  \lim_{n \to ∞} \PR(E_n) = 0.
+$$
+Hence, $\{X_n\}$ converges in probability.
+:::
+
+## Some examples
+
+:::{#exm-convergence-3}
+Consider the probability space $(Ω, \ALPHABET F, \PR)$ as in @exm-convergence-1, and consider different choices of $X_n$ shown below. For each case, determine whether $X_n$ converges almost surely or in probability. 
+
+a. $X_n(ω) = \IND_{A_n}(ω)$, where $A_n = [0, \frac 1n]$. 
+b. $X_n(ω) = \IND_{A_n}(ω)$, where $A_n = [0, \frac 1{n^2}]$. 
+c. $X_n(ω) = \textcolor{red}{n}\IND_{A_n}(ω)$, where $A_n = [0, \frac 1n]$. 
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+We only prove part (a). The proof of the other two parts is similar.
+
+For $ω \neq 0$, the sequence $\{X_n(ω)\}_{n \ge 1}$ is a finite sequence of ones followed by an infinite sequence of zeros. Then, $\lim_{n \to ∞} X_n(ω) = 0$. Thus, 
+  $$
+    \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞} X_n(ω) = 0 \Bigr\} \Bigr) 
+    = \PR( ω \in (0,1]) = 1.
+  $$
+  Hence, $X_n \xrightarrow{a.s} 0$.
+
+  Fix an $ε > 0$ and consider the set
+  $$
+    E_n = \{ ω : |X_n(ω) - 0| > ε \}. 
+  $$
+  If $ε > 1$, then $E_n = \emptyset$, and $\PR(E_n) = 0$ for all $n$. So, we assume that $ε < 1$. Then, 
+  $$
+    E_n = \{ ω : X_n(ω) = 1 \}.
+  $$
+  Hence,
+  $$
+    \PR(E_n) = \PR(X_n = 1) = \frac 1n
+  $$
+  which converges to $0$ as $n \to ∞$. Therefore, $X_n \xrightarrow{p} 0$. 
+:::
 
 
-There are two ways in which this notion can be extended to sequence of random variables:
+:::{#exm-convergence-4}
+Consider an i.i.d. sequence $\{X_n\}_{n \ge 1}$, where $X_n \sim \text{Uniform}(0,1)$. Define
+$$
+  Y_n = \min\{X_1, \dots, X_n\}.
+$$
+Determine whether $Y_n$ converges almost surely or in probability. 
+:::
 
-- **Convergence in probability.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variale $X$ **in probability** if
-  $$
-    \lim_{n \to ∞} \PR( \ABS{ X_n - X } > ε ) = 0.
-  $$
-  Or, equivalently, for any $ε > 0$ and $δ > 0$, there exists a $N$ such that for all $n \ge N$, we have
-  $$ 
-    \PR( \ABS{ X_n - X} > ε ) \le δ.
-  $$
-  We denote such convergence as $X_n \xrightarrow{p} X$.
+:::{.callout-note collapse="false"}
+### Solution
 
-- **Almost sure convergence.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **almost surely** if 
-  $$
-    \PR\left( \left\{ ω : \lim_{n \to ∞} 
-     X_n(ω) = X(ω) \right\} \right) = 1
-  $$
-  Or, equivalently, for any $ε > 0$, 
-  $$
-    \PR\left( \limsup_{n \to ∞} \{ ω : | X_n(ω) - X(ω) | > ε \}  \right) = 0 
-  $$
-  We denote such convergence as $X_n \xrightarrow{a.s.} X$.
+We first check convergence in probability and then almost surely. 
+
+Fix an $ε > 0$ and consider the set
+$$
+  E_n = \{ ω : |Y_n(ω) - 0| > ε \}. 
+$$
+As in @exm-convergence-3, if $ε > 1$, then $\PR(E_n) = 0$. So, we assume that $ε < 1$. Then,
+\begin{align*}
+\PR(E_n) &= \PR(Y_n > ε) = \PR\bigl( \min\{ X_1, \dots, X_n \} \ge ε ) \\
+&= \PR( X_1 \ge ε, X_2 \ge ε, \dots, X_n \ge ε ) \\
+&= (1-ε)^n
+\end{align*}
+which goes to zero as $n \to ∞$. Thus, $Y_n \xrightarrow{p} 0$. 
 
 
-:::{.callout-warning collapse="true"}
+We now consider almost sure convergence. Note that for a fixed $ω$, the sequence $\{Y_n(ω)\}_{n \ge 1}$ is a decreasing sequence. Hence, it must have a limit. Denote that limit by $Y(ω)$, i.e.,
+$$
+  Y(ω) = \lim_{n \to ∞} Y_n(ω).
+$$
+
+Since $\{Y_n\}_{n \ge 1}$ is a decreasing sequence, we have that
+$Y(ω) \le Y_n(ω)$. Hence, for any $ε > 0$,
+$$
+  \PR(Y > ε) \le \PR(Y_n > ε) = (1 - ε)^n
+$$
+where the last inequality follows from the calculations done above.
+
+The above inequality holds for every $n$, so we have 
+$$
+  \PR(Y > ε) \le \lim_{n \to ∞} (1-ε)^n = 0.
+$$
+Recall that $ε > 0$ was arbitrary. Therefore, we have shown that
+$$
+  \PR\Bigl( \lim_{n\to ∞} Y_n > ε \Bigr) = 0.
+$$
+Thus, the only possibility is that
+$$
+  \PR\Bigl( \lim_{n\to ∞} Y_n = 0 \Bigr) = 1.
+$$
+Hence $Y_n \xrightarrow{a.s.} 0$. 
+:::
+
+## Almost sure convergence from convergence in probability.
+
+@exm-convergence-4 shows that verifying almost sure convergence can be a bit tricky. In this section, we show that sometimes it is possible to infer almost sure convergence from convergence in probability. 
+
+:::{.callout-warning collapse="false"}
 ### Lim inf and lim sup of sets
 
 Explanation adapted from math.stackexchange
 [[1](https://math.stackexchange.com/a/1912079/763)]
 and [[2](https://math.stackexchange.com/a/4080796/763)]
 
-Limits of sets is easy to describe when we have weakly increasing or weakly decreasing sequence of sets. In particular, if $\{I_n\}_{n \ge 1}$ is a **weakly increasing** sequence of sets, then 
+Limits of sets is easy to describe when we have weakly increasing or weakly decreasing sequence of sets. In particular, if $\{C_n\}_{n \ge 1}$ is a **weakly increasing** sequence of sets, then 
 $$
 \lim_{n \to ∞} C_n = \bigcup_{n=1}^{∞} C_n.
 $$
@@ -117,137 +337,7 @@ For example, suppose we toss a coin infinite number of coins. Let $(Ω, \ALPHABE
 - $\liminf_{n \to ∞} A_n$ is the event that there are all but a finite number of the coins were head, i.e., there were only finitely many tails.
 :::
 
-## Examples of convergence in probability
-
-:::{#exm-convergence-1}
-Consider a probability space $(Ω, \ALPHABET F, \PR)$ where $Ω = [0,1]$, $\ALPHABET F = \mathscr{B}(0,1)$, and $\PR$ is the uniform distribution on $Ω$. Define
-$$
-X_n(ω) = \begin{cases}
-  1, & ω \in [0, \frac{1}{n^2}) \\
-  0, & ω \in [\frac{1}{n^2}, 1]
-\end{cases}
-$$
-Show that $X_n \xrightarrow{p} 0$. 
-
-:::
-
-:::{.callout-note collapse="false"}
-### Solution
-Note that
-   $$
-      X_n = \begin{cases}
-        1 & \text{with probability } \frac 1{n^2} \\
-        0 & \text{with probability } 1 - \frac 1{n^2} 
-      \end{cases}
-   $$
-Pick any $ε > 0$. If $ε > 1$, then $\PR(X_n > ε) = 0$. So, we assume that $ε \in (0,1)$. Then,
-$$
-  \PR(X_n > ε) = \PR(X_n = 1) = \frac 1{n^2}
-$$
-which converges to $0$ as $n \to ∞$. Therefore, $X_n \xrightarrow{p} 0$.
-:::
-
-
-:::{#exm-convergence-2}
-Consider the same setup as @exm-convergence-1, but the random variable $X_n$ defined as
-$$
-X_n(ω) = \begin{cases}
-  1, & ω \in [0, \frac{1}{n}) \\
-  0, & ω \in [\frac{1}{n}, 1]
-\end{cases}
-$$
-Show that $X_n \xrightarrow{p} 0$. 
-:::
-
-:::{.callout-note collapse="false"}
-### Solution
-
-This can be solved in exactly the same manner as @exm-convergence-1.
-:::
-
-:::{#exm-convergence-3}
-Consider the same setup as @exm-convergence-1, but the random variable $X_n$ defined as
-$$
-X_n(ω) = \begin{cases}
-  n, & ω \in [0, \frac{1}{n}) \\
-  0, & ω \in [\frac{1}{n}, 1]
-\end{cases}
-$$
-Show that $X_n \xrightarrow{p} 0$.
-:::
-
-:::{.callout-note collapse="false"}
-### Solution
-
-This can be solved in exactly the same manner as @exm-convergence-1.
-:::
-
-:::{#exm-convergence-4}
-Consider an i.i.d. sequence $\{X_n\}_{n \ge 1}$, where $X_n \sim \text{Uniform}(0,1)$. Define
-$$
-  Y_n = \min\{X_1, \dots, X_n\}.
-$$
-Show that $Y_n \xrightarrow{p} 0$.
-:::
-
-:::{.callout-note collapse="false"}
-### Solution
-
-Pick any $ε > 0$. As in @exm-convergence-1, if $ε > 1$, then $\PR(Y_n > ε) = 0$. So, we assume that $ε \in (0,1)$. Then,
-\begin{align*}
-\PR(Y_n > ε) &= \PR\bigl( \min\{ X_1, \dots, X_n \} \ge ε ) \\
-&= \PR( X_1 \ge ε, X_2 \ge ε, \dots, X_n \ge ε ) \\
-&= (1-ε)^n
-\end{align*}
-which goes to zero as $n \to ∞$. Thus, $Y_n \xrightarrow{p} 0$. 
-:::
-
-
-## Examples of almost sure convergence
-
-We revisit the examples of previous section. 
-
-- In @exm-convergence-1, for any $ω \neq 0$, the sequence $\{X_n(ω)\}_{n \ge 1}$ is a finite sequence of $1$'s followed by infinite sequence of $0$'s. Thus, $\lim_{n\to ∞} X_n(ω) = 0$. Thus,
-  $$
-    \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞} X_n(ω) = 0 \Bigr\} \Bigr) 
-    = \PR( ω \in (0,1]) = 1.
-  $$
-  Hence, $X_n \xrightarrow{a.s} 0$.
-
-- In @exm-convergence-2, the same argument as above works.
-
-- In @exm-convergence-3, a slight variation of the above argument works.
-
-- In @exm-convergence-4, we proceed as follows. Fix $ω$ and consider the sequence $\{Y_n(ω)\}_{n \ge 1}$. Since this is a decreasing sequence, it must have a limit. Denote that limit by $Y(ω)$, i.e.,
-  $$
-    Y(ω) = \lim_{n \to ∞} Y_n(ω).
-   $$
-
-     Since $\{Y_n\}_{n \ge 1}$ is a decreasing sequence, we have that
-     $Y(ω) \le Y_n(ω)$. Hence, for any $ε > 0$,
-     $$
-        \PR(Y > ε) \le \PR(Y_n > ε) = (1 - ε)^n
-     $$
-     (where the last inequality follows from the calculation in the solution of @exm-convergence-4). 
-
-     The above inequality holds for every $n$, so we have 
-     $$
-        \PR(Y > ε) \le \lim_{n \to ∞} (1-ε)^n = 0.
-     $$
-     Recall that $ε > 0$ was arbitrary. Therefore, we have shown that
-     $$
-        \PR\Bigl( \lim_{n\to ∞} Y_n > ε \Bigr) = 0.
-     $$
-     Thus, the only possibility is that
-     $$
-        \PR\Bigl( \lim_{n\to ∞} Y_n = 0 \Bigr) = 1.
-     $$
-     Hence $Y_n \xrightarrow{a.s.} 0$. 
-      
-
-## Almost sure convergence from convergence in probability.
-
-It is possible to infer almost sure convergence from convergence in probability. For that we need to state a result. The proof is not difficult, but is omitted due to time.
+We now state two fundamental results. The proofs are not difficult but are omitted due to time.
 
 :::{#lem-Borel-Cantelli}
 ### Borel Cantelli Lemma
@@ -287,18 +377,16 @@ $$
 then $X_n \xrightarrow{a.s.} X$.
 :::
 
+
 In light of the above result, we revisit some variations of the examples of the previous section. 
 
-- Consider a variation  @exm-convergence-1 where we no longer specify $X_n$ as a function of $ω$ but simply assume that
+- Consider @exm-convergence-3, part a, we have 
   $$
-     X_n = \begin{cases}
-       1 & \text{with probability } \frac 1{n^2} \\
-       0 & \text{with probability } 1 - \frac 1{n^2} 
-     \end{cases}
+      \PR(E_n) = \frac 1n.
   $$
-  Then for any $ε > 0$, $\PR(\ABS{X_n} > ε) = \PR(X_n > ε) = 1/n^2$. Therefore, $\sum_{n \ge 1} \PR(\ABS{X_n} > ε) < ∞$; hence by @lem-as, $X_n \xrightarrow{a.s.} 0$.
+  Since $\sum_{n \ge 1} \PR(E_n) = ∞$, we cannot use the above theorem to infer that $X_n \xrightarrow{a.s.} 0$. This is not a contraction because @lem-as is a sufficient condition, not a necessary condition.  
 
-- Consider a variation  @exm-convergence-2 where we no longer specify $X_n$ as a function of $ω$ but simply assume that
+- Consider a variation of the above problem, where we no longer specify $X_n$ as a function of $ω$ but simply assume that
   $$
      X_n = \begin{cases}
        1 & \text{with probability } \frac 1{n} \\
@@ -307,11 +395,26 @@ In light of the above result, we revisit some variations of the examples of the 
   $$
   **and $\{X_n\}_{n \ge 1}$ are independent.**
 
-  Then for any $ε > 0$, $\PR(\ABS{X_n} > ε) = \PR(X_n > ε) = 1/n$. Therefore, $\sum_{n \ge 1} \PR(\ABS{X_n} > ε) = ∞$; hence by the Second Borel-Cantelli lemma, 
+  Then for any $ε \in (0,1)$, $\PR(\ABS{X_n} > ε) = \PR(X_n > ε) = 1/n$. Therefore, $\sum_{n \ge 1} \PR(\ABS{X_n} > ε) = ∞$; hence by the Second Borel-Cantelli lemma, 
   $$ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} > ε \}) = 1. $$
   So, $X_n$ does not converge almost surely!
 
-- In @exm-convergence-4, we can directly apply @lem-as to argue that $Y_n \xrightarrow{a.s.} 0$.
+- Consider @exm-convergence-3, part b, we have 
+  $$
+      \PR(E_n) = \frac 1{n^2}.
+  $$
+  Since $\sum_{n \ge 1} \PR(E_n) < ∞$, we can use @lem-as to infer that $X_n \xrightarrow{a.s.} 0$. 
+
+- Consider a variation of the above problem, where we no longer specify $X_n$ as a function of $ω$ but simply assume that
+  $$
+     X_n = \begin{cases}
+       1 & \text{with probability } \frac 1{n^2} \\
+       0 & \text{with probability } 1 - \frac 1{n^2} 
+     \end{cases}
+  $$
+  Then for any $ε \in (0,1)$, $\PR(\ABS{X_n} > ε) = \PR(X_n > ε) = 1/n^2$. Therefore, $\sum_{n \ge 1} \PR(\ABS{X_n} > ε) < ∞$; hence by @lem-as, $X_n \xrightarrow{a.s.} 0$.
+
+- In @exm-convergence-4, we have argued that $\PR(Y_n > ε) = (1-ε)^n$. Therefore, $\sum_{n \ge 1} \PR(Y_n > ε) = \frac{1}{ε} < ∞$. Hence, by @lem-as, $Y_n \xrightarrow{a.s.} 0$.
 
 A variation of @lem-as-exp is the following:
 
