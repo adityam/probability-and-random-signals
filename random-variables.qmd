@@ -6,9 +6,7 @@ execute:
 
 1. In many situations, we are not directly interested in the outcome of a random experiment, but a consequence or measurement of the outcome. Such consequences may be thought of as a function of the outcome and are called **random variables**. 
 
-
-2. 
-   :::{#exm-coin-toss}
+2. :::{#exm-coin-toss}
    Suppose a fair coin is tossed twice and we measure the number of heads.
    For any $ω \in Ω$, let $X(ω)$ denote the number of heads when $ω$ occurs. Thus,
    $$
@@ -252,7 +250,7 @@ There are three types of random variables
 
    ![CDF of a mixed random variable](figures/svg/cdf5.svg){#fig-cdf-mixed}
 
-      As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then $X \sim \text{Bernoulli}(0.5)$; if the outcome is tails; then $X \sim \text{Uniform}[0,1]$. Thus (from the law of total probability), the CDF of $X$ is given by
+      As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then $X \sim \text{Bernoulli}(0.5)$; if the outcome is tails; then $X \sim \text{Uniform}(0,1)$. Thus (from the law of total probability), the CDF of $X$ is given by
       $$
       F_X(x) = \begin{cases}
       0, & \hbox{if } x < 0 \\
@@ -420,7 +418,7 @@ The PMFs of $X$ and $Y$ can be obtained by summing up the masses in each element
 For continuous random variables, computing the PDF of a function of a random variable is more involved. We first illustrate the main idea via some examples. 
 
 :::{#exm-function-uniform-1}
-Suppose $X \sim \text{Uniform}[0,2]$. Consider a function $g$ given by 
+Suppose $X \sim \text{Uniform}(0,2)$. Consider a function $g$ given by 
 $$
 g(x) = \begin{cases}
   x & x \in (0,1] \\
@@ -482,11 +480,11 @@ From the definition of $g$, we know that the rannge of $g$ is $[0,1]$. Thus, we 
    $$
       f_Y(y) = \dfrac{d}{dy} F_Y(y) = 1, \quad y \in [0,1].
    $$
-   Thus, $Y$ is $\text{Uniform}[0,1]$.
+   Thus, $Y$ is $\text{Uniform}(0,1)$.
 :::
 
 :::{#exm-function-uniform-2}
-Suppose $X \sim \text{Uniform}[0,4]$. Consider a function $g$ given by 
+Suppose $X \sim \text{Uniform}(0,4)$. Consider a function $g$ given by 
 $$
 g(x) = \begin{cases}
   x & x \in (0,1] \\
@@ -554,32 +552,34 @@ $$f_Z(z) = \frac{d F_Z(z)}{dz} = \frac{1}{\sqrt{2 π}} e^{-z^2/2}.$$
 Thus, $Z \sim \mathcal{N}(0,1)$.
 :::
 
-:::{#exm-generating-random-numbers}
+:::{#exm-generating-random-variables}
+#### Generating non-uniform random variables by inverting the CDF
+
 Suppose $F \colon \reals \to [0,1]$ is a function that satisfies the following properties:
 there exist a pair $(a,b)$ with $a < b$ (we allow $a$ to be $-∞$ and $b$ to be $∞$) such that 
 
-- $F(y) = 0$ for $y \le a$
-- $F(y) = 1$ for $y \ge b$
-- $F(y)$ is strctly increasing in $(a,b)$. 
+- $F(x) = 0$ for $x \le a$
+- $F(x) = 1$ for $x \ge b$
+- $F(x)$ is strictly increasing in $(a,b)$. 
 
-Thus, $F$ satisifies the properties of the CDF of a continuous random variable and $F$ is invertible in the interval $(a,b)$. 
+Thus, $F$ satisfies the properties of the CDF of a continuous random variable and $F$ is invertible in the interval $(a,b)$. 
 
-Suppose $X \sim \text{Uniform}[0,1]$ and $Y = F^{-1}(X)$. Show that $F_Y(y) = F(y)$. 
+Suppose $U \sim \text{Uniform}(0,1)$ and $X = F^{-1}(U)$. Show that $F_X(x) = F(x)$. 
 :::
 
 :::{.callout-note collapse="false"}
 ### Solution
 
-We can write the CDF $F_Y(y)$ as
+We can write the CDF $F_X(x)$ as
 $$
-F_Y(y) = \PR(Y \le y) = \PR(F^{-1}(X) \le y)
+F_X(x) = \PR(X \le x) = \PR(F^{-1}(U) \le x)
 $$
 
-Since $F$ is strictly increasing, $F^{-1}(X) \le y$ is equivalent to $X \le F(y)$. Thus,
+Since $F$ is strictly increasing, $F^{-1}(U) \le x$ is equivalent to $U \le F(x)$. Thus,
 $$
-F_Y(y) = \PR(X \le F(y)) = F_X(F(y)) = F(y)
+F_X(x) = \PR(U \le F(x)) = F_U(F(x)) = F(x)
 $$
-where the last step uses the fact tht $X$ is uniform over $[0,1]$.
+where the last step uses the fact that $U$ is uniform over $(0,1)$.
 :::
 
 ### Change of variables formula
@@ -615,6 +615,15 @@ $$ \bbox[5pt, border: 1px solid]{f_Y(y) = \frac{f_X(x)}{\ABS{g'(x)}}, \quad \tex
    Resolve @exm-function-uniform-1 using the above formula.
    ::: 
 
+4. The change of variables formula can be used to verify some common ways of generating non-uniform random variables from uniform random variables. For example: 
+
+    - Suppose $U \sim \text{Uniform}(0,1)$ and $λ > 0$. Then, $X = - \ln(1 - U)/λ$ has $\text{exp}(λ)$ distribution.
+
+   Note that the change of variable formula only works for continuous function. For non-continuous functions, we need to use first principles (or the idea in @exm-generating-random-variables). For example:
+
+    - Suppose $U \sim \text{Uniform}(0,1)$ and $p \in (0,1)$. Then $X = \IND_{\{U \le p\}}$ has $\text{Bernoulli}(p)$ distribution.
+
+    See [Devroye (1986)](https://doi.org/10.1007/978-1-4613-8643-8) for a general discussion on generating non-uniform random variables,
 
 ## Expectation of random variables
 
@@ -687,7 +696,7 @@ Find the expected value of the random variables with the following distributions
 - $\text{Binomial}(n,p)$.
 - $\text{Geo}(p)$.
 - $\text{Poisson}(λ)$.
-- $\text{Uniform}[a,b]$.
+- $\text{Uniform}(a,b)$.
 - $\text{Exp}(λ)$.
 
 :::
