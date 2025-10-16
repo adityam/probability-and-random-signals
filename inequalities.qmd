@@ -37,6 +37,16 @@ $$\PR(Z_n \le z) = \PR\biggl( \bigcup_{i=1}^n \{X_i \le z \} \biggr)
 $$
 :::
 
+:::{#exr-union-bound-infinite-events}
+Let $\{A_i\}_{i = 1}^{∞}$ be a countably infinite sequence of events. Show that
+
+a. If $\PR(A_i) = 0$ for all $i \in \naturalnumbers$, then
+   $$ \PR\Bigl( \bigcup_{i=1}^{∞} A_i \Bigr) = 0. $$
+a. If $\PR(A_i) = 1$ for all $i \in \naturalnumbers$, then
+   $$ \PR\Bigl( \bigcap_{i=1}^{∞} A_i \Bigr) = 1. $$
+
+:::
+
 ## Cauchy-Schwartz inequality
 
 This is a generalization of [:Cauchy-Schwartz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality) on inner products to random variables. 
