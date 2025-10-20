@@ -10,7 +10,7 @@ $$
 $$
 A sequence of random variables, also called a **stochastic process**, can be thought of a generalization of random vectors. When does this sequence converge?
 
-## Different notions of convergence
+## Different modes of convergence
 
 1. Recall that a sequence $\{x_n\}_{n \ge 1}$ of real numbers converges to a limit $x$ if for every $ε > 0$, there exists a $N$ such that for all $n \ge N$, we have that
    $$ \ABS{ x_n - x } < ε. $$
@@ -97,7 +97,31 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
    $$
    We denote such convergence as $X_n \xrightarrow{p} X$.
 
-6. Convergence in probability is a weaker notion than almost sure convergence, as is illustrated by the following example.
+6. Almost sure convergence implies convergence in probability, i.e.,
+   $$
+     [X_n \xrightarrow{a.s.} X] 
+     \implies
+     [X_n \xrightarrow{p} X] 
+   $$
+
+   :::{.callout-note collapse="false"}
+   ### Proof 
+
+   Fix $ε > 0$. Define
+   $$
+   A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
+   $$
+   Then, $\{A_n\}_{n \ge 1}$ is a decreasing sequence of events. If $ω \in \bigcap_{n \ge 1} A_n$, then $X_n(ω) \not\xrightarrow{a.s} X(ω)$. This implies
+   $$\PR\Bigl( \bigcap_{n \ge 1} A_n \Bigr) \le 
+     \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞}X_n(ω) \neq X(ω) \Bigr\}\Bigr)
+   = 0. $$
+   By continuity of probability, 
+   $$
+   \lim_{n \to ∞} \PR(A_n) = \PR\Bigl( \lim_{n \to ∞} A_n \Bigr) = 0.
+   $$
+   :::
+
+8. However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example.
 
 :::{#exm-convergence-2}
 Consider a probability space as in @exm-convergence-1. Define $X_n(ω) = \IND_{A_n}(ω)$, where where $A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}$.
@@ -161,10 +185,153 @@ $$
 Hence, $\{X_n\}$ converges in probability.
 :::
 
+9. There is however a partial converse.
+   If $\{X_n\}_{n \ge 1}$ is a strictly decreasing sequence and $c$ is a constant then
+   $$
+     [X_n \xrightarrow{p} c] 
+     \implies
+     [X_n \xrightarrow{a.s.} c].
+  $$
+
+10. If $X_n \xrightarrow{p} X$, then there exists a subsequence $\{n_k : k \in \naturalnumbers \}$ such that $\{X_{n_k}\}_{k \ge 1}$ converges almost surely to $X$.
+
+11. $X_n \xrightarrow{p} X$ if and only if every subsequence $\{n_k : k \in \naturalnumbers \}$ has a sub-subsequence $\{n_{k_m} : m \in \naturalnumbers \}$ such that $\{X_{n_{k_m}} \}_{m \ge 1}$ that converges to $X$ almost surely.
+
+12. We have already seen the notion of **convergence in distribution** (also called **weak-convergence**). A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **in distribution** if
+    $$
+       \lim_{n \to ∞} \PR(X_n \le x) = \PR(X \le x)
+    $$
+    for every $x$ where $F(x) = \PR(X \le x)$ is continuous. 
+
+13. Note that the limiting object $\lim_{n \to ∞} \PR(X_n \le x)$ need not be a valid CDF. For example, consider the deterministic sequence, $X_n = n$. The corresponding CDF is
+    $$
+       F_{X_n}(x) = \begin{cases}
+         0 & x < n \\
+         1 & x \ge n
+       \end{cases}
+    $$
+    Thus, for any $x$, we have $\lim_{n \to ∞} F_{X_n}(x) = 0$ which is not a valid CDF. 
+
+14. Convergence in probability implies convergence in distribution.
+    $$
+      [X_n \xrightarrow{p} X] 
+      \implies
+      [X_n \xrightarrow{D} X] 
+    $$
+
+    :::{.callout-note collapse="false"}
+    ### Proof 
+
+    Let $F_n$ and $F$ denote the CDFs of $X_n$ and $X$, respectively. Fix $ε > 0$, pick $x$ such that $F$ is continuous at $x$, and consider
+    \begin{align*}
+      F_n(x) &= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X > x + ε)
+    \\
+    &\le \PR(X \le x + ε) + \PR(X - X_n > ε) 
+    \\
+    &\le F(x + ε) + \PR(\ABS{X_n - X} > ε).
+    \end{align*}
+    Similarly, 
+    \begin{align*}
+      F(x-ε) &= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n > x )
+    \\
+    &\le \PR(X_n \le x) + \PR(X_n - X > ε) 
+    \\
+    &\le F_n(x) + \PR(\ABS{X_n - X} > ε).
+    \end{align*}
+
+    Thus, 
+    $$
+    F(x-ε) - \PR(\ABS{X_n - X} > ε) \le F_n(x) \le F(x+ε) + \PR(\ABS{X_n - X} > ε).
+    $$
+    Taking $n \to ∞$, we have
+    $$
+    F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + ε).
+    $$
+    The result is true for all $ε > 0$. Since $F$ is continuous at $x$, when we take $ε \downarrow 0$, we have 
+    $$ 
+    F(x - ε) \uparrow F(x) 
+    \quad\text{and}\quad
+    F(x + ε) \downarrow F(x)
+    $$
+    which implies that $F_n(x) \to F(x)$. 
+    :::
+
+15. The converse is not true. For example, let $X_n$ be a sequence of i.i.d. $\text{Uniform}(0,1)$ random variables. Clearly, $X_n \xrightarrow{D} X$, where $X$ is also $\text{Uniform}(0,1)$. However, for any $ε \in (0,1)$, 
+    $$
+      \PR( \ABS{X_n - X} > ε ) = (1-ε)^2
+    $$
+
+    [Think of the area of the unit square corresponding to the event $|X_n - X| > ε$]. Thus, 
+    $$
+      \lim_{n \to ∞} \PR(\ABS{X_n - X} > ε) \neq 0.
+    $$
+    So, $X_n$ does not converge in probability to $X$.
+
+16. There is a partial converse. If $c$ is a constant then
+    $$
+      [X_n \xrightarrow{D} c] 
+      \implies
+      [X_n \xrightarrow{p} c].
+    $$
+
+
+17. Convergence in distribution does not imply convergence of moments! For example, consider the sequence of random variables where
+    $$
+        X_n = \begin{cases}
+          0 & \text{w.p. } 1 - \frac 1n \\
+          n & \text{w.p. } \frac 1n
+        \end{cases}
+    $$
+    Then,
+    $$
+      F_{X_n}(x) = \begin{cases}
+        0, & x < 0
+        1 - \frac 1n, & 0 \le x < n \\
+        1 & x \ge n 
+      \end{cases}
+    $$
+    Thus, we have
+    $$
+      \lim_{n \to ∞} F_{X_n}(x) = 
+      \begin{cases}
+        0 & x < 0 \\
+        1 & x \ge 0 
+      \end{cases}
+    $$
+    which corresponds to a random variable $X = 0$. 
+
+      However, for any $k \ge 1$, we have $\EXP[X_n^k] = n^{k-1}$ but $\EXP[X^k] = 1$. Thus, the moments do not converge!
+
+18. **Skorokhod’s representation theorem.** If $X_n \xrightarrow{D} X$, then there exists a sequence $\{Y_n\}_{n \ge 1}$ that is identically distributed to $\{X_n\}_{n \ge 1}$ such that $Y_n \xrightarrow{a.s.} Y$, where $Y$ is identically distributed to $X$.
+
+19. **Continuity preserves convergence** almost surely, in probability, and in distribution. Thus, if $X_n$ converges to $X$ in any of these modes and $g$ is a continuous function, then $g(X_n)$ converges in the same mode to $g(X)$. 
+
+20. **Convergence of sums and products** 
+  
+    - If $X_n \xrightarrow{a.s.} X$ and $Y_n \xrightarrow{a.s.} Y$, then $X_n + Y_n \xrightarrow{a.s.} X + Y$ and $X_n Y_n \xrightarrow{a.s.} XY$. 
+    - If $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$, then $X_n + Y_n \xrightarrow{p} X + Y$ and $X_n Y_n \xrightarrow{p} X Y$. 
+    - It is not true in general that $X_n + Y_n \xrightarrow{D} X + Y$ whenever
+      $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$. However, the result is true when $X$ or $Y$ is a constant. 
+
+21. There is another form of convergence: **convergence in the $r$-th mean.** We say that a sequence $\{X_n\}_{n \ge 1}$ of random variables converges to $X$ in $r$-th mean, $r \ge 1$, if $\EXP[\ABS{X_n}^r] < ∞$ for all $n$, $\EXP[\ABS{X}^r] < ∞$, and
+    $$
+      \lim_{n \to ∞} \EXP{ \ABS{X_n - X}^r } = 0.
+    $$
+
+22. When $r = 1$, we say that $\{X_n\}_{n \ge 1}$ **converges in the mean.** When $r=2$, we say that $\{X_n\}_{n \ge 1}$ **converges in the mean-square**. We will mainly focus on mean-square convergence and denote it by $X_n \xrightarrow{m.s.} X$. 
+
+23. If $\{X_n\}_{n \ge 1}$ converges to $X$ in the $r$-th mean, then it also converges in the $s$-th mean, for all $s < r$. 
+
+24. Convergence in $r$-th mean implies convergence in probability. 
+
+25. However, the converse is not true as is illustrated by @exm-convergence-3, part (c). 
+
+26. Convergence in mean-square and almost surely are not comparable. @exm-convergence-3, part (c) gives an example that converges almost surely not not in mean square. @exm-convergence-5, part (d) gives an example that converges in mean square but not almost surely.
+
 ## Some examples
 
 :::{#exm-convergence-3}
-Consider the probability space $(Ω, \ALPHABET F, \PR)$ as in @exm-convergence-1, and consider different choices of $X_n$ shown below. For each case, determine whether $X_n$ converges almost surely or in probability. 
+Consider the probability space $(Ω, \ALPHABET F, \PR)$ as in @exm-convergence-1, and consider different choices of $X_n$ shown below. For each case, determine whether $X_n$ converges almost surely, in probability, or in mean-square. 
 
 a. $X_n(ω) = \IND_{A_n}(ω)$, where $A_n = [0, \frac 1n]$. 
 b. $X_n(ω) = \IND_{A_n}(ω)$, where $A_n = [0, \frac 1{n^2}]$. 
@@ -177,25 +344,37 @@ c. $X_n(ω) = \textcolor{red}{n}\IND_{A_n}(ω)$, where $A_n = [0, \frac 1n]$.
 We only prove part (a). The proof of the other two parts is similar.
 
 For $ω \neq 0$, the sequence $\{X_n(ω)\}_{n \ge 1}$ is a finite sequence of ones followed by an infinite sequence of zeros. Then, $\lim_{n \to ∞} X_n(ω) = 0$. Thus, 
-  $$
-    \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞} X_n(ω) = 0 \Bigr\} \Bigr) 
-    = \PR( ω \in (0,1]) = 1.
-  $$
-  Hence, $X_n \xrightarrow{a.s} 0$.
+$$
+  \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞} X_n(ω) = 0 \Bigr\} \Bigr) 
+  = \PR( ω \in (0,1]) = 1.
+$$
+Hence, $X_n \xrightarrow{a.s} 0$.
 
-  Fix an $ε > 0$ and consider the set
-  $$
-    E_n = \{ ω : |X_n(ω) - 0| > ε \}. 
-  $$
-  If $ε > 1$, then $E_n = \emptyset$, and $\PR(E_n) = 0$ for all $n$. So, we assume that $ε < 1$. Then, 
-  $$
-    E_n = \{ ω : X_n(ω) = 1 \}.
-  $$
-  Hence,
-  $$
-    \PR(E_n) = \PR(X_n = 1) = \frac 1n
-  $$
-  which converges to $0$ as $n \to ∞$. Therefore, $X_n \xrightarrow{p} 0$. 
+Fix an $ε > 0$ and consider the set
+$$
+  E_n = \{ ω : |X_n(ω) - 0| > ε \}. 
+$$
+If $ε > 1$, then $E_n = \emptyset$, and $\PR(E_n) = 0$ for all $n$. So, we assume that $ε < 1$. Then, 
+$$
+  E_n = \{ ω : X_n(ω) = 1 \}.
+$$
+Hence,
+$$
+  \PR(E_n) = \PR(X_n = 1) = \frac 1n
+$$
+which converges to $0$ as $n \to ∞$. Therefore, $X_n \xrightarrow{p} 0$. 
+
+Consider 
+$$
+  \EXP[\ABS{X_n}^2] = \int_{A_n} 1\, d ω = \frac{1}{n}
+$$
+which converges to $0$ as $n \to ∞$. Thus, $X_n \xrightarrow{m.s.} X$. 
+
+However, observe that for part (c)
+$$
+  \EXP[\ABS{X_n}^2] = \int_{A_n} n^2\, d ω = n
+$$
+which goes to $∞$ as $n \to ∞$. Thus, $\{X_n\}_{n \ge 1}$ does not converge in mean square.
 :::
 
 
@@ -386,35 +565,49 @@ In light of the above result, we revisit some variations of the examples of the 
   $$
   Since $\sum_{n \ge 1} \PR(E_n) = ∞$, we cannot use the above theorem to infer that $X_n \xrightarrow{a.s.} 0$. This is not a contraction because @lem-as is a sufficient condition, not a necessary condition.  
 
-- Consider a variation of the above problem, where we no longer specify $X_n$ as a function of $ω$ but simply assume that
-  $$
-     X_n = \begin{cases}
-       1 & \text{with probability } \frac 1{n} \\
-       0 & \text{with probability } 1 - \frac 1{n} 
-     \end{cases}
-  $$
-  **and $\{X_n\}_{n \ge 1}$ are independent.**
-
-  Then for any $ε \in (0,1)$, $\PR(\ABS{X_n} > ε) = \PR(X_n > ε) = 1/n$. Therefore, $\sum_{n \ge 1} \PR(\ABS{X_n} > ε) = ∞$; hence by the Second Borel-Cantelli lemma, 
-  $$ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} > ε \}) = 1. $$
-  So, $X_n$ does not converge almost surely!
-
 - Consider @exm-convergence-3, part b, we have 
   $$
       \PR(E_n) = \frac 1{n^2}.
   $$
   Since $\sum_{n \ge 1} \PR(E_n) < ∞$, we can use @lem-as to infer that $X_n \xrightarrow{a.s.} 0$. 
 
-- Consider a variation of the above problem, where we no longer specify $X_n$ as a function of $ω$ but simply assume that
-  $$
-     X_n = \begin{cases}
-       1 & \text{with probability } \frac 1{n^2} \\
-       0 & \text{with probability } 1 - \frac 1{n^2} 
-     \end{cases}
-  $$
-  Then for any $ε \in (0,1)$, $\PR(\ABS{X_n} > ε) = \PR(X_n > ε) = 1/n^2$. Therefore, $\sum_{n \ge 1} \PR(\ABS{X_n} > ε) < ∞$; hence by @lem-as, $X_n \xrightarrow{a.s.} 0$.
-
 - In @exm-convergence-4, we have argued that $\PR(Y_n > ε) = (1-ε)^n$. Therefore, $\sum_{n \ge 1} \PR(Y_n > ε) = \frac{1}{ε} < ∞$. Hence, by @lem-as, $Y_n \xrightarrow{a.s.} 0$.
+
+We can also consider a variation of the above. 
+
+:::{#exm-convergence-5}
+Consider a variation of @exm-convergence-3, where we no longer specify $X_n$ as a function of $ω$ but simply assume that
+$$
+   X_n = \begin{cases}
+     0 & \text{with probability } 1 - p_n \\
+     1 & \text{with probability } p_n
+   \end{cases}
+$$
+**and $\{X_n\}_{n \ge 1}$ are independent.**  
+Determine whether $\{X_n\}_{n \ge 1}$ converges almost surely, in probability, or in mean square
+
+a. $p_n = \frac 1n$
+b. $p_n = \frac 1{n^2}$.
+:::
+
+:::{.callout-note collapse="false"}
+#### Solution
+
+- **Convergence in probability:**
+  Fix $ε \in (0,1)$. As before define $E_n = \{ ω : \ABS{X_n(ω)} > ε \} = \{ ω : X_n(ω) = 1 \}$. Thus, $\PR(E_n) = p_n$ and for both cases, $p_n \to 0$ as $n \to ∞$. Therefore, $X_n \xrightarrow{p} 0$. 
+
+- **Almost sure convergence:**
+  For part (a), \sum_{n \ge 1} p_n = ∞$; hence by the Second Borel-Cantelli lemma, 
+  $$ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} > ε \}) = 1. $$
+  So, $X_n$ does not converge almost surely!
+
+    For part (b), $\sum_{n \ge 1} p_n < ∞$; hence by @lem-as, $X_n \xrightarrow{a.s.} 0$.
+
+- **Mean square convergence:**
+  We have $\EXP[\ABS{X_n}^2] = p_n$. For both cases $p_n \to 0$. Hence, $X_n \xrightarrow{m.s.} 0$.
+
+Note that part (b) converges in mean square but not almost surely.
+:::
 
 A variation of @lem-as-exp is the following:
 
@@ -453,109 +646,6 @@ $$
 \PR\Bigl( \limsup_{n \to ∞} A_n \Bigr) = 0.
 $$
 :::
-
-## Some properties of convergence of sequence of random variables
-
-We now state some properties without proof.
-
-1. The three notions of convergence that we have defined are related as follows:
-   $$
-     [X_n \xrightarrow{a.s.} X] 
-     \implies
-     [X_n \xrightarrow{p} X] 
-     \implies
-     [X_n \xrightarrow{D} X] 
-   $$
-
-:::{.callout-note collapse="false"}
-### Proof that almost sure convergence implies convergence in probability
-
-Fix $ε > 0$. Define
-$$
-A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
-$$
-Then, $\{A_n\}_{n \ge 1}$ is a decreasing sequence of events. If $ω \in \bigcap_{n \ge 1} A_n$, then $X_n(ω) \not\xrightarrow{a.s} X(ω)$. This implies
-$$\PR\Bigl( \bigcap_{n \ge 1} A_n \Bigr) \le 
-  \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞}X_n(ω) \neq X(ω) \Bigr\}\Bigr)
-= 0. $$
-By continuity of probability, 
-$$
-\lim_{n \to ∞} \PR(A_n) = \PR\Bigl( \lim_{n \to ∞} A_n \Bigr) = 0.
-$$
-:::
-
-:::{.callout-note collapse="false"}
-### Proof that convergence in probability implies convergence in distribution
-
-Let $F_n$ and $F$ denote the CDFs of $X_n$ and $X$, respectively. Fix $ε > 0$, pick $x$ such that $F$ is continuous at $x$, and consider
-\begin{align*}
-  F_n(x) &= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X > x + ε)
-\\
-&\le \PR(X \le x + ε) + \PR(X - X_n > ε) 
-\\
-&\le F(x + ε) + \PR(\ABS{X_n - X} > ε).
-\end{align*}
-Similarly, 
-\begin{align*}
-  F(x-ε) &= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n > x )
-\\
-&\le \PR(X_n \le x) + \PR(X_n - X > ε) 
-\\
-&\le F_n(x) + \PR(\ABS{X_n - X} > ε).
-\end{align*}
-
-Thus, 
-$$
-F(x-ε) - \PR(\ABS{X_n - X} > ε) \le F_n(x) \le F(x+ε) + \PR(\ABS{X_n - X} > ε).
-$$
-Taking $n \to ∞$, we have
-$$
-F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + ε).
-$$
-The result is true for all $ε > 0$. Since $F$ is continuous at $x$, when we take $ε \downarrow 0$, we have 
-$$ 
-F(x - ε) \uparrow F(x) 
-\quad\text{and}\quad
-F(x + ε) \downarrow F(x)
-$$
-which implies that $F_n(x) \to F(x)$. 
-
-:::
-
-2. There are partial converss. For any constant $c$
-   $$
-     [X_n \xrightarrow{D} c] 
-     \implies
-     [X_n \xrightarrow{p} c].
-   $$
-   If $\{X_n\}_{n \ge 1}$ is a strictly decreasing sequence then
-   $$
-     [X_n \xrightarrow{p} c] 
-     \implies
-     [X_n \xrightarrow{a.s.} c].
-  $$
-
-3. If $X_n \xrightarrow{p} X$, then there exists a subsequence $\{n_k : k \in \naturalnumbers \}$ such that $\{X_{n_k}\}_{k \ge 1}$ converges almost surely to $X$.
-
-4. $X_n \xrightarrow{p} X$ if and only if every subsequence $\{n_k : k \in \naturalnumbers \}$ has a sub-subsequence $\{n_{k_m} : m \in \naturalnumbers \}$ such that $\{X_{n_{k_m}} \}_{m \ge 1}$ that converges to $X$ almost surely.
-
-5. **Skorokhod’s representation theorem.** If $X_n \xrightarrow{D} X$, then there exists a sequence $\{Y_n\}_{n \ge 1}$ that is identically distributed to $\{X_n\}_{n \ge 1}$ such that $Y_n \xrightarrow Y$, where $Y$ is identically distributed to $X$.
-
-  
-6. **Continuous mapping theorems.** Let $g \colon \reals \to \reals$ be a continuous function. Then,
-   
-    - $X_n \xrightarrow{a.s.} X$ implies $g(X_n) \xrightarrow{a.s.} g(X)$.
-    - $X_n \xrightarrow{p} X$ implies $g(X_n) \xrightarrow{p} g(X)$.
-    - $X_n \xrightarrow{D} X$ implies $g(X_n) \xrightarrow{D} g(X)$.
-
-7. **Convergence of sums.** 
-  
-    - If $X_n \xrightarrow{a.s.} X$ and $Y_n \xrightarrow{a.s.} Y$, then $X_n + Y_n \xrightarrow{a.s.} X + Y$. 
-    - If $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$, then $X_n + Y_n \xrightarrow{p} X + Y$. 
-    - It is not true in general that $X_n + Y_n \xrightarrow{D} X + Y$ whenever
-      $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$. The result is true when $X$ or $Y$ is a constant. 
-
-If $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$, then $X_n + Y_n \to X + Y$ and  $X_n Y_n \xrightarrow X Y$.
 
 
 ## Strong law of large numbers
@@ -606,7 +696,3 @@ $$
 $$
 Thus, from @lem-as, we have that $X_n \xrightarrow{a.s.} 0$. 
 :::
-
-## There's more
-
-There's another type of convergence commonly used in engineering: convergence in mean-squared sense. In the interest of time, we will not study this notion in class. 
