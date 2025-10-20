@@ -670,7 +670,7 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 </div>
 </div>
 </div></li>
-<li><p>However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example.</p></li>
+<li><p>However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example. An easier to understand example is presented in <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>7.5</span></a>, part&nbsp;(b).</p></li>
 </ol>
 <div id="exm-convergence-2" class="theorem example">
 <p><span class="theorem-title"><strong>Example 7.2</strong></span> Consider a probability space as in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>. Define <span class="math inline">\(X_n(ω) = \IND_{A_n}(ω)\)</span>, where where <span class="math inline">\(A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}\)</span>.</p>
@@ -852,7 +852,26 @@ F(x + ε) \downarrow F(x)
 \]</span></p></li>
 <li><p>When <span class="math inline">\(r = 1\)</span>, we say that <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> <strong>converges in the mean.</strong> When <span class="math inline">\(r=2\)</span>, we say that <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> <strong>converges in the mean-square</strong>. We will mainly focus on mean-square convergence and denote it by <span class="math inline">\(X_n \xrightarrow{m.s.} X\)</span>.</p></li>
 <li><p>If <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> converges to <span class="math inline">\(X\)</span> in the <span class="math inline">\(r\)</span>-th mean, then it also converges in the <span class="math inline">\(s\)</span>-th mean, for all <span class="math inline">\(s &lt; r\)</span>.</p></li>
-<li><p>Convergence in <span class="math inline">\(r\)</span>-th mean implies convergence in probability.</p></li>
+<li><p>Convergence in <span class="math inline">\(r\)</span>-th mean implies convergence in probability.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>By Markov inequality, we have (for any <span class="math inline">\(r \ge 1\)</span>) <span class="math display">\[
+  \PR(\ABS{X_n - X} &gt; ε) = \PR(\ABS{X_n - X}^r &gt; ε^r)
+  \le \frac{ \EXP[ \ABS{X_n - X}^r ] }{ε^r}.
+\]</span> So, if the RHS goes to zero as <span class="math inline">\(n \to ∞\)</span>, then so does the LHS.</p>
+</div>
+</div>
+</div></li>
 <li><p>However, the converse is not true as is illustrated by <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, part&nbsp;(c).</p></li>
 <li><p>Convergence in mean-square and almost surely are not comparable. <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, part&nbsp;(c) gives an example that converges almost surely not not in mean square. <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>7.5</span></a>, part&nbsp;(d) gives an example that converges in mean square but not almost surely.</p></li>
 </ol>
@@ -868,7 +887,7 @@ F(x + ε) \downarrow F(x)
 </ol>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -877,7 +896,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We only prove part (a). The proof of the other two parts is similar.</p>
 <p>For <span class="math inline">\(ω \neq 0\)</span>, the sequence <span class="math inline">\(\{X_n(ω)\}_{n \ge 1}\)</span> is a finite sequence of ones followed by an infinite sequence of zeros. Then, <span class="math inline">\(\lim_{n \to ∞} X_n(ω) = 0\)</span>. Thus, <span class="math display">\[
@@ -906,7 +925,7 @@ F(x + ε) \downarrow F(x)
 \]</span> Determine whether <span class="math inline">\(Y_n\)</span> converges almost surely or in probability.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -915,7 +934,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We first check convergence in probability and then almost surely.</p>
 <p>Fix an <span class="math inline">\(ε &gt; 0\)</span> and consider the set <span class="math display">\[
@@ -946,7 +965,7 @@ F(x + ε) \downarrow F(x)
 <h2 data-number="7.3" class="anchored" data-anchor-id="almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">7.3</span> Almost sure convergence from convergence in probability.</h2>
 <p><a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>7.4</span></a> shows that verifying almost sure convergence can be a bit tricky. In this section, we show that sometimes it is possible to infer almost sure convergence from convergence in probability.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -955,7 +974,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Explanation adapted from math.stackexchange [<a href="https://math.stackexchange.com/a/1912079/763">1</a>] and [<a href="https://math.stackexchange.com/a/4080796/763">2</a>]</p>
 <p>Limits of sets is easy to describe when we have weakly increasing or weakly decreasing sequence of sets. In particular, if <span class="math inline">\(\{C_n\}_{n \ge 1}\)</span> is a <strong>weakly increasing</strong> sequence of sets, then <span class="math display">\[
@@ -1061,7 +1080,7 @@ Determine whether <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> converg
 </ol>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1070,15 +1089,15 @@ Determine whether <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> converg
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li><p><strong>Convergence in probability:</strong> Fix <span class="math inline">\(ε \in (0,1)\)</span>. As before define <span class="math inline">\(E_n = \{ ω : \ABS{X_n(ω)} &gt; ε \} = \{ ω : X_n(ω) = 1 \}\)</span>. Thus, <span class="math inline">\(\PR(E_n) = p_n\)</span> and for both cases, <span class="math inline">\(p_n \to 0\)</span> as <span class="math inline">\(n \to ∞\)</span>. Therefore, <span class="math inline">\(X_n \xrightarrow{p} 0\)</span>.</p></li>
-<li><p><strong>Almost sure convergence:</strong> For part (a), <em>{n } p_n = ∞<span class="math inline">\(; hence by the Second Borel-Cantelli lemma,\)</span>$ (</em>{n ∞} { &gt; ε }) = 1. $$ So, <span class="math inline">\(X_n\)</span> does not converge almost surely!</p>
+<li><p><strong>Almost sure convergence:</strong> For part (a), <span class="math inline">\(\sum_{n \ge 1} p_n = ∞\)</span>; hence by the Second Borel-Cantelli lemma, <span class="math display">\[ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} &gt; ε \}) = 1. \]</span> So, <span class="math inline">\(X_n\)</span> does not converge almost surely!</p>
 <p>For part (b), <span class="math inline">\(\sum_{n \ge 1} p_n &lt; ∞\)</span>; hence by <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a>, <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p></li>
 <li><p><strong>Mean square convergence:</strong> We have <span class="math inline">\(\EXP[\ABS{X_n}^2] = p_n\)</span>. For both cases <span class="math inline">\(p_n \to 0\)</span>. Hence, <span class="math inline">\(X_n \xrightarrow{m.s.} 0\)</span>.</p></li>
 </ul>
-<p>Note that part (b) converges in mean square but not almost surely.</p>
+<p>Note that part (a) converges in probability and mean square but not almost surely.</p>
 </div>
 </div>
 </div>
@@ -1091,7 +1110,7 @@ X_n \xrightarrow{a.s.} X.
 \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1100,7 +1119,7 @@ X_n \xrightarrow{a.s.} X.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>To simplify the notation, we assume that <span class="math inline">\(X = 0\)</span>.</p>
 <p>Pick any <span class="math inline">\(ε &gt; 0\)</span> and define the sequence of events <span class="math display">\[
@@ -1129,7 +1148,7 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 </div>
 <p>We provide a proof under the assumption that the fouth moment’s exist.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1138,7 +1157,7 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We assume that <span class="math inline">\(μ = 0\)</span> (this is just for notational simplicity) and <span class="math inline">\(\EXP[X^4] = γ &lt; ∞\)</span> (this is a strong assumption).</p>
 <p>Since we know that the forth moment exist, we can use a forth moment version of Chebyshev inequality: <span class="math display">\[ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \EXP[ \bar X_n^4]}{ε^2}. \]</span></p>
