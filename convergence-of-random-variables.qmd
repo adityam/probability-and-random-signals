@@ -121,7 +121,7 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
    $$
    :::
 
-8. However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example.
+8. However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example. An easier to understand example is presented in @exm-convergence-5, part (b).
 
 :::{#exm-convergence-2}
 Consider a probability space as in @exm-convergence-1. Define $X_n(ω) = \IND_{A_n}(ω)$, where where $A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}$.
@@ -323,6 +323,16 @@ Hence, $\{X_n\}$ converges in probability.
 23. If $\{X_n\}_{n \ge 1}$ converges to $X$ in the $r$-th mean, then it also converges in the $s$-th mean, for all $s < r$. 
 
 24. Convergence in $r$-th mean implies convergence in probability. 
+
+    :::{.callout-note collapse="false"}
+    #### Proof
+    By Markov inequality, we have (for any $r \ge 1$)
+    $$
+      \PR(\ABS{X_n - X} > ε) = \PR(\ABS{X_n - X}^r > ε^r)
+      \le \frac{ \EXP[ \ABS{X_n - X}^r ] }{ε^r}.
+    $$
+    So, if the RHS goes to zero as $n \to ∞$, then so does the LHS. 
+    :::
 
 25. However, the converse is not true as is illustrated by @exm-convergence-3, part (c). 
 
@@ -597,7 +607,7 @@ b. $p_n = \frac 1{n^2}$.
   Fix $ε \in (0,1)$. As before define $E_n = \{ ω : \ABS{X_n(ω)} > ε \} = \{ ω : X_n(ω) = 1 \}$. Thus, $\PR(E_n) = p_n$ and for both cases, $p_n \to 0$ as $n \to ∞$. Therefore, $X_n \xrightarrow{p} 0$. 
 
 - **Almost sure convergence:**
-  For part (a), \sum_{n \ge 1} p_n = ∞$; hence by the Second Borel-Cantelli lemma, 
+  For part (a), $\sum_{n \ge 1} p_n = ∞$; hence by the Second Borel-Cantelli lemma, 
   $$ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} > ε \}) = 1. $$
   So, $X_n$ does not converge almost surely!
 
@@ -606,7 +616,7 @@ b. $p_n = \frac 1{n^2}$.
 - **Mean square convergence:**
   We have $\EXP[\ABS{X_n}^2] = p_n$. For both cases $p_n \to 0$. Hence, $X_n \xrightarrow{m.s.} 0$.
 
-Note that part (b) converges in mean square but not almost surely.
+Note that part (a) converges in probability and mean square but not almost surely.
 :::
 
 A variation of @lem-as-exp is the following:
