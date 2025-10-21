@@ -706,3 +706,8 @@ $$
 $$
 Thus, from @lem-as, we have that $X_n \xrightarrow{a.s.} 0$. 
 :::
+
+## Further Reading 
+
+- **Gubner:** Sec. 13.1, 14.1, 14,2, 14,3 (and corresponding problems at the end of the chapters)
+- **Grimmett and Stirzaker:** Sec. 7.1, 7.2, 7.3, 7.4, 7.5 (and corresponding problems at the end of the sections and the end of the chapters)
