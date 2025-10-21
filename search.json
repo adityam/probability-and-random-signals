@@ -550,6 +550,17 @@
     ]
   },
   {
+    "objectID": "convergence-of-random-variables.html#further-reading",
+    "href": "convergence-of-random-variables.html#further-reading",
+    "title": "7  Convergence of random variables",
+    "section": "7.5 Further Reading",
+    "text": "7.5 Further Reading\n\nGubner: Sec. 13.1, 14.1, 14,2, 14,3 (and corresponding problems at the end of the chapters)\nGrimmett and Stirzaker: Sec. 7.1, 7.2, 7.3, 7.4, 7.5 (and corresponding problems at the end of the sections and the end of the chapters)",
+    "crumbs": [
+      "Probability and Random Signals II",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Convergence of random variables</span>"
+    ]
+  },
+  {
     "objectID": "markov-chains.html",
     "href": "markov-chains.html",
     "title": "8  Markov chains",
