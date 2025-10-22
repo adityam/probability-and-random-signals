@@ -10,7 +10,7 @@ $$
 $$
 A sequence of random variables, also called a **stochastic process**, can be thought of a generalization of random vectors. When does this sequence converge?
 
-## Different modes of convergence
+## Almost sure convergence
 
 1. Recall that a sequence $\{x_n\}_{n \ge 1}$ of real numbers converges to a limit $x$ if for every $ε > 0$, there exists a $N$ such that for all $n \ge N$, we have that
    $$ \ABS{ x_n - x } < ε. $$
@@ -87,7 +87,7 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
    $$
    We denote such convergence as $X_n \xrightarrow{a.s.} X$.
 
-5. Another way to generalize the definition of convergence of a sequence of real numbers to that of random variables is called **convergence in probability.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **in probability** if
+6. Another way to generalize the definition of convergence of a sequence of real numbers to that of random variables is called **convergence in probability.** A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **in probability** if
    $$
      \lim_{n \to ∞} \PR( \ABS{ X_n - X } > ε ) = 0.
    $$
@@ -97,7 +97,9 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
    $$
    We denote such convergence as $X_n \xrightarrow{p} X$.
 
-6. Almost sure convergence implies convergence in probability, i.e.,
+## Convergence in probability
+
+1. Almost sure convergence implies convergence in probability, i.e.,
    $$
      [X_n \xrightarrow{a.s.} X] 
      \implies
@@ -121,7 +123,7 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
    $$
    :::
 
-8. However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example. An easier to understand example is presented in @exm-convergence-5, part (b).
+2. However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example. An easier to understand example is presented in @exm-convergence-5, part (b).
 
 :::{#exm-convergence-2}
 Consider a probability space as in @exm-convergence-1. Define $X_n(ω) = \IND_{A_n}(ω)$, where where $A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}$.
@@ -185,7 +187,7 @@ $$
 Hence, $\{X_n\}$ converges in probability.
 :::
 
-9. There is however a partial converse.
+3. There is however a partial converse.
    If $\{X_n\}_{n \ge 1}$ is a strictly decreasing sequence and $c$ is a constant then
    $$
      [X_n \xrightarrow{p} c] 
@@ -193,17 +195,19 @@ Hence, $\{X_n\}$ converges in probability.
      [X_n \xrightarrow{a.s.} c].
   $$
 
-10. If $X_n \xrightarrow{p} X$, then there exists a subsequence $\{n_k : k \in \naturalnumbers \}$ such that $\{X_{n_k}\}_{k \ge 1}$ converges almost surely to $X$.
+4. If $X_n \xrightarrow{p} X$, then there exists a subsequence $\{n_k : k \in \naturalnumbers \}$ such that $\{X_{n_k}\}_{k \ge 1}$ converges almost surely to $X$.
 
-11. $X_n \xrightarrow{p} X$ if and only if every subsequence $\{n_k : k \in \naturalnumbers \}$ has a sub-subsequence $\{n_{k_m} : m \in \naturalnumbers \}$ such that $\{X_{n_{k_m}} \}_{m \ge 1}$ that converges to $X$ almost surely.
+5. $X_n \xrightarrow{p} X$ if and only if every subsequence $\{n_k : k \in \naturalnumbers \}$ has a sub-subsequence $\{n_{k_m} : m \in \naturalnumbers \}$ such that $\{X_{n_{k_m}} \}_{m \ge 1}$ that converges to $X$ almost surely.
 
-12. We have already seen the notion of **convergence in distribution** (also called **weak-convergence**). A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **in distribution** if
+## Convergence in Distribution
+
+1. We have already seen the notion of **convergence in distribution** (also called **weak-convergence**). A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **in distribution** if
     $$
        \lim_{n \to ∞} \PR(X_n \le x) = \PR(X \le x)
     $$
     for every $x$ where $F(x) = \PR(X \le x)$ is continuous. 
 
-13. Note that the limiting object $\lim_{n \to ∞} \PR(X_n \le x)$ need not be a valid CDF. For example, consider the deterministic sequence, $X_n = n$. The corresponding CDF is
+2. Note that the limiting object $\lim_{n \to ∞} \PR(X_n \le x)$ need not be a valid CDF. For example, consider the deterministic sequence, $X_n = n$. The corresponding CDF is
     $$
        F_{X_n}(x) = \begin{cases}
          0 & x < n \\
@@ -212,7 +216,7 @@ Hence, $\{X_n\}$ converges in probability.
     $$
     Thus, for any $x$, we have $\lim_{n \to ∞} F_{X_n}(x) = 0$ which is not a valid CDF. 
 
-14. Convergence in probability implies convergence in distribution.
+3. Convergence in probability implies convergence in distribution.
     $$
       [X_n \xrightarrow{p} X] 
       \implies
@@ -256,7 +260,7 @@ Hence, $\{X_n\}$ converges in probability.
     which implies that $F_n(x) \to F(x)$. 
     :::
 
-15. The converse is not true. For example, let $X_n$ be a sequence of i.i.d. $\text{Uniform}(0,1)$ random variables. Clearly, $X_n \xrightarrow{D} X$, where $X$ is also $\text{Uniform}(0,1)$. However, for any $ε \in (0,1)$, 
+4. The converse is not true. For example, let $X_n$ be a sequence of i.i.d. $\text{Uniform}(0,1)$ random variables. Clearly, $X_n \xrightarrow{D} X$, where $X$ is also $\text{Uniform}(0,1)$. However, for any $ε \in (0,1)$, 
     $$
       \PR( \ABS{X_n - X} > ε ) = (1-ε)^2
     $$
@@ -267,7 +271,7 @@ Hence, $\{X_n\}$ converges in probability.
     $$
     So, $X_n$ does not converge in probability to $X$.
 
-16. There is a partial converse. If $c$ is a constant then
+5. There is a partial converse. If $c$ is a constant then
     $$
       [X_n \xrightarrow{D} c] 
       \implies
@@ -275,7 +279,7 @@ Hence, $\{X_n\}$ converges in probability.
     $$
 
 
-17. Convergence in distribution does not imply convergence of moments! For example, consider the sequence of random variables where
+6. Convergence in distribution does not imply convergence of moments! For example, consider the sequence of random variables where
     $$
         X_n = \begin{cases}
           0 & \text{w.p. } 1 - \frac 1n \\
@@ -302,41 +306,66 @@ Hence, $\{X_n\}$ converges in probability.
 
       However, for any $k \ge 1$, we have $\EXP[X_n^k] = n^{k-1}$ but $\EXP[X^k] = 1$. Thus, the moments do not converge!
 
-18. **Skorokhod’s representation theorem.** If $X_n \xrightarrow{D} X$, then there exists a sequence $\{Y_n\}_{n \ge 1}$ that is identically distributed to $\{X_n\}_{n \ge 1}$ such that $Y_n \xrightarrow{a.s.} Y$, where $Y$ is identically distributed to $X$.
+7. **Skorokhod’s representation theorem.** If $X_n \xrightarrow{D} X$, then there exists a sequence $\{Y_n\}_{n \ge 1}$ that is identically distributed to $\{X_n\}_{n \ge 1}$ such that $Y_n \xrightarrow{a.s.} Y$, where $Y$ is identically distributed to $X$.
 
-19. **Continuity preserves convergence** almost surely, in probability, and in distribution. Thus, if $X_n$ converges to $X$ in any of these modes and $g$ is a continuous function, then $g(X_n)$ converges in the same mode to $g(X)$. 
+## Convergence in $r$-th mean
 
-20. **Convergence of sums and products** 
-  
-    - If $X_n \xrightarrow{a.s.} X$ and $Y_n \xrightarrow{a.s.} Y$, then $X_n + Y_n \xrightarrow{a.s.} X + Y$ and $X_n Y_n \xrightarrow{a.s.} XY$. 
-    - If $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$, then $X_n + Y_n \xrightarrow{p} X + Y$ and $X_n Y_n \xrightarrow{p} X Y$. 
-    - It is not true in general that $X_n + Y_n \xrightarrow{D} X + Y$ whenever
-      $X_n \xrightarrow{p} X$ and $Y_n \xrightarrow{p} Y$. However, the result is true when $X$ or $Y$ is a constant. 
-
-21. There is another form of convergence: **convergence in the $r$-th mean.** We say that a sequence $\{X_n\}_{n \ge 1}$ of random variables converges to $X$ in $r$-th mean, $r \ge 1$, if $\EXP[\ABS{X_n}^r] < ∞$ for all $n$, $\EXP[\ABS{X}^r] < ∞$, and
+1. There is another form of convergence: **convergence in the $r$-th mean.** We say that a sequence $\{X_n\}_{n \ge 1}$ of random variables converges to $X$ in $r$-th mean, $r \ge 1$, if $\EXP[\ABS{X_n}^r] < ∞$ for all $n$, $\EXP[\ABS{X}^r] < ∞$, and
     $$
-      \lim_{n \to ∞} \EXP{ \ABS{X_n - X}^r } = 0.
+      \lim_{n \to ∞} \EXP[ \ABS{X_n - X}^r ] = 0.
     $$
 
-22. When $r = 1$, we say that $\{X_n\}_{n \ge 1}$ **converges in the mean.** When $r=2$, we say that $\{X_n\}_{n \ge 1}$ **converges in the mean-square**. We will mainly focus on mean-square convergence and denote it by $X_n \xrightarrow{m.s.} X$. 
+2. When $r = 1$, we say that $\{X_n\}_{n \ge 1}$ **converges in the mean.** When $r=2$, we say that $\{X_n\}_{n \ge 1}$ **converges in the mean-square**. We will mainly focus on mean-square convergence and denote it by $X_n \xrightarrow{m.s.} X$. 
 
-23. If $\{X_n\}_{n \ge 1}$ converges to $X$ in the $r$-th mean, then it also converges in the $s$-th mean, for all $s < r$. 
+3. If $\{X_n\}_{n \ge 1}$ converges to $X$ in the $r$-th mean, then it also converges in the $s$-th mean, for all $s < r$. 
 
-24. Convergence in $r$-th mean implies convergence in probability. 
+4. Convergence in $r$-th mean implies convergence in probability. 
+
+   :::{.callout-note collapse="false"}
+   #### Proof
+   By Markov inequality, we have (for any $r \ge 1$)
+   $$
+     \PR(\ABS{X_n - X} > ε) = \PR(\ABS{X_n - X}^r > ε^r)
+     \le \frac{ \EXP[ \ABS{X_n - X}^r ] }{ε^r}.
+   $$
+   So, if the RHS goes to zero as $n \to ∞$, then so does the LHS. 
+   :::
+
+5. However, the converse is not true as is illustrated by @exm-convergence-3, part (c). 
+
+6. Convergence in mean-square and almost surely are not comparable. @exm-convergence-3, part (c) gives an example that converges almost surely not not in mean square. @exm-convergence-5, part (d) gives an example that converges in mean square but not almost surely.
+
+## Continuity properties of convergence
+
+1. **Continuity preserves convergence** almost surely, in probability, and in distribution. Thus, if $X_n$ converges to $X$ in any of these modes and $g$ is a continuous function, then $g(X_n)$ converges in the same mode to $g(X)$. 
+
+2. This is not the case for mean square convergence. For example, $X_n = 0$ with probability $1 - \frac 1{n^3}$ and $X_n = 1$ with probability $\frac 1{n^3}$. Then, 
+   $$ \EXP[|X_n - 0|^2] = n^2 \frac{1}{n^3} \to 0. $$
+   Thus, $X_n \xrightarrow{m.s.} 0$. Now consider the function $g(x) = x^2$. 
+   $$ \EXP[ | g(X_n) - g(0)|^2 ] = n^4 \frac{1}{n^3} = n \to ∞. $$
+   Thus, $g(X_n)$ does not converge in mean square to $g(0)$. 
+
+3.  If $X_n \xrightarrow{a.s.} X$ and $Y_n \xrightarrow{a.s.} Y$, then $(X_n, Y_n) \xrightarrow{a.s.} (X,Y)$. Therefore, for any continuous function $g$, we have $g(X_n, Y_n) \xrightarrow{a.s} g(X,Y)$. 
 
     :::{.callout-note collapse="false"}
     #### Proof
-    By Markov inequality, we have (for any $r \ge 1$)
-    $$
-      \PR(\ABS{X_n - X} > ε) = \PR(\ABS{X_n - X}^r > ε^r)
-      \le \frac{ \EXP[ \ABS{X_n - X}^r ] }{ε^r}.
-    $$
-    So, if the RHS goes to zero as $n \to ∞$, then so does the LHS. 
+      Define
+      \begin{align*}
+        Ω_X &= \{ ω : \lim_{n \to ∞} X_n(ω) = X(ω) \} \\
+        Ω_Y &= \{ ω : \lim_{n \to ∞} Y_n(ω) = Y(ω) \}
+      \end{align*}
+      We know that $\PR(Ω_X) = 1$ and $\PR(Ω_Y) = 1$. From @exm-union-bound-infinite-events, we have that $\PR(Ω_X \cap Ω_Y) = 1$. Thus, $(X_n, Y_n) \xrightarrow{a.s} (X,Y)$.
+ 
+      The second part follows from continuity property of convergence.
     :::
+ 
+4. The above property is also true for convergence in probability. The proof is left as a homework exercise. 
 
-25. However, the converse is not true as is illustrated by @exm-convergence-3, part (c). 
+5. However, this property is not true for convergence in distribution as is illustrated by the following example. Suppose $X_n \sim \text{Unif}(-1,1)$ and $X \sim \text{Unif}(-1,1)$ be independent random variables. Define $Y_n = X_n$ and $Y = - X$. Then, $X_n \xrightarrow{D} X$, $Y_n \xrightarrow{D} Y$, but $X_n + Y_n = 2X_n$ does not converge in distribution to $X + Y = 0$. 
 
-26. Convergence in mean-square and almost surely are not comparable. @exm-convergence-3, part (c) gives an example that converges almost surely not not in mean square. @exm-convergence-5, part (d) gives an example that converges in mean square but not almost surely.
+6. **Slutsky's theorem:** Suppose $X_n \xrightarrow{D} X$ and $Y_n \xrightarrow{D} c$, where $c$ is a constant. Then, $(X_n, Y_n) \xrightarrow{D} (X_n, c)$. Therefore, for any continuous function $g(X_n, Y_n) \xrightarrow{D} g(X, c)$. In particular, $X_n + Y_n \xrightarrow{D} X + c$ and $X_n Y_n \xrightarrow{D} cX$. 
+
+7. Note that we have already argued that $Y_n \xrightarrow{D} c$ is equivalent to $Y_n \xrightarrow{p} c$. So, one can replace $Y_n \xrightarrow{D} c$ in Slutsky's theorem by $Y_n \xrightarrow{p} c$. 
 
 ## Some examples
 
@@ -683,7 +712,7 @@ Since we know that the forth moment exist, we can use a forth moment version of 
 $$ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \EXP[ \bar X_n^4]}{ε^2}. $$
 
 Then, by the multinomial theorem, we have 
-$$ \EXP{\bar X_n^4} = \frac{1}{4} \EXP\biggl[
+$$ \EXP[\bar X_n^4] = \frac{1}{n^4} \EXP\biggl[
 \sum_{i} X_i^4 + \binom{4}{1,3} \sum_{i \neq j} X_i X_j^3 + \binom{4}{2,2} \sum_{i \neq j} X_i^2 X_j^2 
 + \binom{4}{1,1,2} \sum_{i \neq j \neq k} X_i X_j X_k^2 + \sum_{i \neq j \neq k \neq \ell} X_i X_j X_k X_{\ell} \biggr].
 $$
@@ -691,11 +720,12 @@ $$
 Since the $\{X_i\}_{i \ge 1}$ are independent and zero mean, we have
 
 - $\EXP[X_i X_j^3] = \EXP[X_i] \EXP[X_j^3] = 0$.
-- \EXP[X_i X_j X_k X_{\ell}] = \EXP[X_i] \EXP[X_j] \EXP[X_k] \EXP[X_{\ell}] = 0$.
+- $\EXP[X_i X_j X_k^2] = \EXP[X_i] \EXP[X_j] \EXP[X_k^2] = 0$.
+- $\EXP[X_i X_j X_k X_{\ell}] = \EXP[X_i] \EXP[X_j] \EXP[X_k] \EXP[X_{\ell}] = 0$.
 
 Therefore,
 $$
-\EXP[\bar X_n^4= \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
+\EXP[\bar X_n^4] = \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
 \le \frac{M_4}{n_3} + \frac{3 σ^4}{n^2}
 $$
 where $M_4$ is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have
