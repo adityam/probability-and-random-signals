@@ -217,48 +217,48 @@ Hence, $\{X_n\}$ converges in probability.
     Thus, for any $x$, we have $\lim_{n \to ∞} F_{X_n}(x) = 0$ which is not a valid CDF. 
 
 3. Convergence in probability implies convergence in distribution.
-    $$
-      [X_n \xrightarrow{p} X] 
-      \implies
-      [X_n \xrightarrow{D} X] 
-    $$
+   $$
+     [X_n \xrightarrow{p} X] 
+     \implies
+     [X_n \xrightarrow{D} X] 
+   $$
 
-    :::{.callout-note collapse="false"}
-    ### Proof 
+   :::{.callout-note collapse="false"}
+   ### Proof 
 
-    Let $F_n$ and $F$ denote the CDFs of $X_n$ and $X$, respectively. Fix $ε > 0$, pick $x$ such that $F$ is continuous at $x$, and consider
-    \begin{align*}
-      F_n(x) &= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X > x + ε)
-    \\
-    &\le \PR(X \le x + ε) + \PR(X - X_n > ε) 
-    \\
-    &\le F(x + ε) + \PR(\ABS{X_n - X} > ε).
-    \end{align*}
-    Similarly, 
-    \begin{align*}
-      F(x-ε) &= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n > x )
-    \\
-    &\le \PR(X_n \le x) + \PR(X_n - X > ε) 
-    \\
-    &\le F_n(x) + \PR(\ABS{X_n - X} > ε).
-    \end{align*}
+   Let $F_n$ and $F$ denote the CDFs of $X_n$ and $X$, respectively. Fix $ε > 0$, pick $x$ such that $F$ is continuous at $x$, and consider
+   \begin{align*}
+     F_n(x) &= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X > x + ε)
+   \\
+   &\le \PR(X \le x + ε) + \PR(X - X_n > ε) 
+   \\
+   &\le F(x + ε) + \PR(\ABS{X_n - X} > ε).
+   \end{align*}
+   Similarly, 
+   \begin{align*}
+     F(x-ε) &= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n > x )
+   \\
+   &\le \PR(X_n \le x) + \PR(X_n - X > ε) 
+   \\
+   &\le F_n(x) + \PR(\ABS{X_n - X} > ε).
+   \end{align*}
 
-    Thus, 
-    $$
-    F(x-ε) - \PR(\ABS{X_n - X} > ε) \le F_n(x) \le F(x+ε) + \PR(\ABS{X_n - X} > ε).
-    $$
-    Taking $n \to ∞$, we have
-    $$
-    F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + ε).
-    $$
-    The result is true for all $ε > 0$. Since $F$ is continuous at $x$, when we take $ε \downarrow 0$, we have 
-    $$ 
-    F(x - ε) \uparrow F(x) 
-    \quad\text{and}\quad
-    F(x + ε) \downarrow F(x)
-    $$
-    which implies that $F_n(x) \to F(x)$. 
-    :::
+   Thus, 
+   $$
+   F(x-ε) - \PR(\ABS{X_n - X} > ε) \le F_n(x) \le F(x+ε) + \PR(\ABS{X_n - X} > ε).
+   $$
+   Taking $n \to ∞$, we have
+   $$
+   F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + ε).
+   $$
+   The result is true for all $ε > 0$. Since $F$ is continuous at $x$, when we take $ε \downarrow 0$, we have 
+   $$ 
+   F(x - ε) \uparrow F(x) 
+   \quad\text{and}\quad
+   F(x + ε) \downarrow F(x)
+   $$
+   which implies that $F_n(x) \to F(x)$. 
+   :::
 
 4. The converse is not true. For example, let $X_n$ be a sequence of i.i.d. $\text{Uniform}(0,1)$ random variables. Clearly, $X_n \xrightarrow{D} X$, where $X$ is also $\text{Uniform}(0,1)$. However, for any $ε \in (0,1)$, 
     $$
