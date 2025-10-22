@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2025-10-22">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>6&nbsp; Probability inequalities – Probability and Random Signals II</title>
+<title>8&nbsp; Stochastic processes – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -33,8 +68,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./convergence-of-random-variables.html" rel="next">
-<link href="./moment-generating-functions.html" rel="prev">
+<link href="./markov-chains.html" rel="next">
+<link href="./convergence-of-random-variables.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -144,6 +179,8 @@ window.MathJax = {
 };
 </script>
 <script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -376,7 +413,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./inequalities.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Probability inequalities</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stochastic-processes.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stochastic processes</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -430,7 +467,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inequalities.html" class="sidebar-item-text sidebar-link active">
+  <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
   </div>
 </li>
@@ -442,7 +479,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stochastic-processes.html" class="sidebar-item-text sidebar-link">
+  <a href="./stochastic-processes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
   </div>
 </li>
@@ -457,23 +494,8 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#union-bound" id="toc-union-bound" class="nav-link active" data-scroll-target="#union-bound"><span class="header-section-number">6.1</span> Union Bound</a></li>
-  <li><a href="#cauchy-schwartz-inequality" id="toc-cauchy-schwartz-inequality" class="nav-link" data-scroll-target="#cauchy-schwartz-inequality"><span class="header-section-number">6.2</span> Cauchy-Schwartz inequality</a></li>
-  <li><a href="#jensens-inequality" id="toc-jensens-inequality" class="nav-link" data-scroll-target="#jensens-inequality"><span class="header-section-number">6.3</span> Jensen’s inequality</a></li>
-  <li><a href="#markov-inequality" id="toc-markov-inequality" class="nav-link" data-scroll-target="#markov-inequality"><span class="header-section-number">6.4</span> Markov inequality</a>
-  <ul class="collapse">
-  <li><a href="#union-bound-as-a-special-case-of-markov-inequality" id="toc-union-bound-as-a-special-case-of-markov-inequality" class="nav-link" data-scroll-target="#union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">6.4.1</span> Union bound as a special case of Markov inequality</a></li>
-  </ul></li>
-  <li><a href="#chebyshev-inequality" id="toc-chebyshev-inequality" class="nav-link" data-scroll-target="#chebyshev-inequality"><span class="header-section-number">6.5</span> Chebyshev inequality</a></li>
-  <li><a href="#chernoff-bound" id="toc-chernoff-bound" class="nav-link" data-scroll-target="#chernoff-bound"><span class="header-section-number">6.6</span> Chernoff bound</a></li>
-  <li><a href="#azuma-hoeffding-inequality" id="toc-azuma-hoeffding-inequality" class="nav-link" data-scroll-target="#azuma-hoeffding-inequality"><span class="header-section-number">6.7</span> Azuma-Hoeffding inequality</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -481,7 +503,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Probability inequalities</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stochastic processes</span></h1>
 </div>
 
 
@@ -519,475 +541,161 @@ window.Quarto = {
 </header>
 
 
-<section id="union-bound" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="union-bound"><span class="header-section-number">6.1</span> Union Bound</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Union bound
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(A_1, \dots, A_n\)</span> be a collection of events. Then, <span class="math display">\[
-\PR\biggl( \bigcup_{i=1}^n A_i \biggr)
-\le
-\sum_{i=1}^n \PR(A_n).
-\]</span></p>
-</div>
-</div>
-<p>We already proved this when talking about <a href="./probability-spaces.html#lem-probability-properties">probability spaces</a>.</p>
-<div id="exr-union-bound" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.1</strong></span> Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables with CDF <span class="math inline">\(F_X(x)\)</span>. Find an upper bound on the CDF of <span class="math display">\[
-Z_n = \min(X_1, \dots, X_n).
-\]</span></p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>We know that <span class="math display">\[Z_n = \min(X_1, \dots, X_n) \le z\]</span> if and only if <span class="math display">\[ X_i \le Z \quad \forall i \in \{1, \dots, n\}.\]</span> Therefore, <span class="math display">\[\PR(Z_n \le z) = \PR\biggl( \bigcup_{i=1}^n \{X_i \le z \} \biggr)
-\le \sum_{i=1}^n \PR(X_i \le z) = n F_X(z).
-\]</span></p>
-</div>
-</div>
-</div>
-<div id="exr-union-bound-infinite-events" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.2</strong></span> Let <span class="math inline">\(\{A_i\}_{i = 1}^{∞}\)</span> be a countably infinite sequence of events. Show that</p>
-<ol type="a">
-<li>If <span class="math inline">\(\PR(A_i) = 0\)</span> for all <span class="math inline">\(i \in \naturalnumbers\)</span>, then <span class="math display">\[ \PR\Bigl( \bigcup_{i=1}^{∞} A_i \Bigr) = 0. \]</span></li>
-<li>If <span class="math inline">\(\PR(A_i) = 1\)</span> for all <span class="math inline">\(i \in \naturalnumbers\)</span>, then <span class="math display">\[ \PR\Bigl( \bigcap_{i=1}^{∞} A_i \Bigr) = 1. \]</span></li>
+<ol type="1">
+<li><p>A stochastic process is a family of random variables, indexed by time. You may think of it as a random signal.</p></li>
+<li><p>A stochastic process may be described in discrete-time, where we have a family of random variables <span class="math inline">\(\{X_n : n \in N\}\)</span> where index set <span class="math inline">\(N\)</span> is either <span class="math inline">\(\{0, 1, \dots, \}\)</span> or <span class="math inline">\(\{1, 2, \dots\}\)</span> or in some cases <span class="math inline">\(\integers\)</span>.</p></li>
+<li><p>Note that all random variables must be defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. For a fixed <span class="math inline">\(ω \in Ω\)</span>, we get a sequence of real numbers <span class="math inline">\(\{X_n(ω)\}_{n \ge 0}\)</span>. Such a sequence is called a <strong>realization</strong> or <strong>sample path</strong>.</p></li>
+<li><p>As an example, consider an infinite sequence of bits, where each bit is i.i.d. <span class="math inline">\(\text{Bernoulli}(p)\)</span>. A sample path is shown below.</p></li>
 </ol>
-</div>
-</section>
-<section id="cauchy-schwartz-inequality" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="cauchy-schwartz-inequality"><span class="header-section-number">6.2</span> Cauchy-Schwartz inequality</h2>
-<p>This is a generalization of <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">:Cauchy-Schwartz inequality</a> on inner products to random variables.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Cauchy-Schwartz inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be real-valued random variables. Then, <span class="math display">\[
-\EXP[XY]^2 \le \EXP[X^2] \EXP[Y^2].
-\]</span> or equivalently, <span class="math display">\[
-\COV(X,Y)^2 \le \VAR(X) \VAR(Y).
-\]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(f(s) = \EXP[ (sX + Y)^2\)</span> for any <span class="math inline">\(s \in \reals\)</span>. Then, by linearity of expectation, we have <span class="math display">\[
-f(s) = \EXP[ (sX + Y)^2 ] = s^2 \EXP[X^2] + 2s \EXP[XY] + \EXP[Y^2].
-\]</span> We know that <span class="math inline">\(f(s) \ge 0\)</span>. Recall that a quadratic form <span class="math display">\[
-A s^2 + B s + C \ge 0
-\]</span> for all values of <span class="math inline">\(s\)</span> if and only it has repeated or complex roots. Thus, the determinant must be non-positive, that is <span class="math display">\[
-Δ = B^2 - 4AC \le 0.
-\]</span> The result follows by taking <span class="math inline">\(A = \EXP[X^2]\)</span>, <span class="math inline">\(B = 2 \EXP[XY]\)</span>, and <span class="math inline">\(C = \EXP[Y^2]\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="16" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 15;"><span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>viewof rerun_bits<span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>points_bits <span class="op">=</span> {</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    rerun_bits</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> p <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">&lt;=</span> p) <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> <span class="dv">1</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      points[n<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> val }</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
 </div>
 </div>
 </div>
-<div id="exm-2025-mid-term-4" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.1</strong></span> Let <span class="math inline">\(X \ge 0\)</span> be a random variable with mean <span class="math inline">\(μ\)</span> and finite variance <span class="math inline">\(σ^2\)</span>. Given <span class="math inline">\(λ \in (0,1)\)</span>, define <span class="math display">\[A = \{ ω : X(ω) \ge λ μ \}.\]</span></p>
-<ol type="a">
-<li><p>Show that <span class="math display">\[\EXP[ X \IND_{A} ] \ge (1 -λ) μ. \]</span></p>
-<p><em>Hint:</em> Note that <span class="math inline">\(X = X (\IND_A + \IND_{A^c})\)</span>. What do we know about <span class="math inline">\(X\)</span> when <span class="math inline">\(ω \in A^c\)</span>?</p></li>
-<li><p>Using the result of part&nbsp;(a), show that <span class="math display">\[
-  \PR(X \ge λ μ) \ge (1-λ)^2 \frac{ \EXP[X]^2 }{\EXP[X^2]}
-  = (1-λ)^2 \frac{μ^2}{μ^2 + σ^2}.   
-\]</span></p>
-<p><em>Hint:</em> Use Cauchy Schwartz to bound <span class="math inline">\(\EXP[X \IND_A]\)</span>.</p></li>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="34" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 33;"><span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span> <span class="op">:</span> {<span class="dt">ticks</span><span class="op">:</span> <span class="dv">1</span> }<span class="op">,</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(points_bits<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">,</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_bits<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<ol start="5" type="1">
+<li>As an other example, consider a stochastic process <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> defined as <span class="math display">\[ Y_n = x_n + W_n \]</span> where <span class="math inline">\(\{x_n\}_{n \ge 0}\)</span> is a deterministic discrete-time signal given by <span class="math inline">\(x_n = \sin(2πn/25)\)</span> and <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is a Gaussian noise process, where <span class="math inline">\(W_n \sim \mathcal{N}(0,0.2)\)</span>. A sample path of <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is shown below.</li>
 </ol>
-</div>
-</section>
-<section id="jensens-inequality" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="jensens-inequality"><span class="header-section-number">6.3</span> Jensen’s inequality</h2>
-<p>If we take <span class="math inline">\(Y = 1\)</span> in Cauchy-Schwartz inequality, we get that <span class="math display">\[
-\EXP[X^2] \ge \EXP[X]^2.
-\]</span> This also follows from the fact that <span class="math inline">\(\VAR(X) \ge 0\)</span>. Jensen’s inequality may be thought as a generalization of this to convex functions.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Jensen’s inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Suppose <span class="math inline">\(X\)</span> is a real-valued random variable. Then for any <strong>convex</strong> <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
-\EXP[ g(X) ] \ge g(\EXP[X]).
-\]</span></p>
-<p>Moreover, for any <strong>concave</strong> <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
-\EXP[ g(X) ] \le g(\EXP[X]).
-\]</span></p>
-</div>
-</div>
-<p>For example, since <span class="math inline">\(g(x) = 1/x\)</span> is convex, we have <span class="math display">\[
-\EXP\left[\frac 1x\right] \ge \frac{1}{\EXP[X]}.
-\]</span> Moreover, since <span class="math inline">\(g(x) = \log(x)\)</span> is concave, we have <span class="math display">\[
-\EXP[ \log(X)] \le \log(\EXP[X]).
-\]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<div id="fig-tangent" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-tangent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/svg/inequalities1.svg" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tangent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6.1: Tangent at the mean of <span class="math inline">\(X\)</span>
-</figcaption>
-</figure>
-</div>
-<p>Let <span class="math inline">\(μ = \EXP[X]\)</span>. Consider the function <span class="math inline">\(L\)</span> defined in <a href="#fig-tangent" class="quarto-xref">Figure&nbsp;<span>6.1</span></a>, which is the tangent at <span class="math inline">\(μ\)</span> on <span class="math inline">\(g(x)\)</span>. By construction, <span class="math inline">\(g(x) \ge L(x)\)</span>. Therefore, <span class="math display">\[
-  \EXP[g(X)] \ge \EXP[L(X)]
-  = \EXP[aX + b] = a μ + b = L(μ) = g(μ).
-\]</span></p>
-</div>
-</div>
-</div>
-</section>
-<section id="markov-inequality" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="markov-inequality"><span class="header-section-number">6.4</span> Markov inequality</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Markov inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>For any non-negative random variable <span class="math inline">\(X\)</span> and a number <span class="math inline">\(a &gt; 0\)</span>, <span class="math display">\[
-\PR(X \ge a) \le \frac{\EXP[X]}{a}.
-\]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(Z = \IND\{X \ge a\} a\)</span>, which moves all the “mass” of <span class="math inline">\(X\)</span> to the left.</p>
-<!-- TODO: Add figure -->
-<p>Thus, <span class="math display">\[
-\EXP[X] \ge \EXP[Z] = a \PR(X \ge a).
-\]</span></p>
-</div>
-</div>
-</div>
-<div id="exr-Markov" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.3</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>The table below compares the actual tail probability with the bound obtained from Markov inequality.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><span class="math inline">\(a\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\PR(X \ge a)\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\EXP[X]/a\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.2 = 2.5\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.5 = 1\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.8 = .625\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<p><a href="#exr-Markov" class="quarto-xref">Exercise&nbsp;<span>6.3</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality of <span class="math inline">\(a \ge μ\)</span>.</p>
-<section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="6.4.1">
-<h3 data-number="6.4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">6.4.1</span> Union bound as a special case of Markov inequality</h3>
-<p>Note that it is possible to derive the union bound as a corrollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
-X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
-1, &amp; ω \in A_i \\
-0, &amp; ω \not\in A_i
-\end{cases}.
-\]</span> Let <span class="math display">\[ X = X_1 + \dots + X_n. \]</span> <span class="math inline">\(X_i\)</span> takes the value <span class="math inline">\(1\)</span> when event <span class="math inline">\(A_i\)</span> occurs. Therefore, the event <span class="math inline">\(\bigcup_{i=1}^n A_i\)</span> is equal to the event <span class="math inline">\(X \ge 1\)</span>, i.e., <span class="math display">\[
-\PR\left(\bigcup_{i=1}^n A_i \right)
-= \PR(X \ge 1).
-\]</span> Now, by Markov inequality, we have <span class="math display">\[
-\PR(X \ge 1) \le \EXP[X] = \PR(A_1) + \cdots + \PR(A_n).
-\]</span> The union bound follows by combining the above equations.</p>
-</section>
-</section>
-<section id="chebyshev-inequality" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="chebyshev-inequality"><span class="header-section-number">6.5</span> Chebyshev inequality</h2>
-<!-- TODO: AN Lec 15 -->
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Chebyshev inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable with mean <span class="math inline">\(μ\)</span>. Then for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
-\PR( \ABS{X - μ} \ge a) \le \frac{ \VAR(X) }{a^2}.
-\]</span></p>
-<p>An alternative form of is as follows. Let <span class="math inline">\(a = k σ\)</span>. Then, <span class="math display">\[
-\PR(\ABS{X - μ} \ge k σ) \le \frac{1}{k^2}.
-\]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Observe that <span class="math display">\[\begin{align*}
-\PR( \ABS{X - μ} \ge a) &amp;= \PR((X - μ)^2 \ge a^2)
-\\
-&amp;\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
-\end{align*}\]</span> where <span class="math inline">\((a)\)</span> follows from Markov inequality.</p>
-</div>
-</div>
-</div>
-<p>In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.</p>
-<div id="exr-Binomial-comparison" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.4</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Recall that <span class="math inline">\(\EXP[X] = np\)</span> and <span class="math inline">\(\VAR(X) = n p(1-p)\)</span>. Therefore, from Markov inequality we have <span class="math display">\[
-\PR(X \ge nq) \le \frac{np}{nq} = \frac{p}{q}.
-\]</span> Therefore, Markov inequality does not suggest any form of concentration with <span class="math inline">\(n\)</span>.</p>
-<p>We now consider Chebyshev inequality. To do so, we first massage the expression a bit <span class="math display">\[\begin{align*}
-\PR(X \ge nq) &amp;= \PR( X - np \ge n(q-p) ) \\
-&amp;\le \PR( \ABS{X - np} \ge n(q-p) )
-\le \frac{np(1-p)}{n^2(q-p)^2} = \frac{1}{n} \cdot \frac{p(1-p)}{(q-p)^2}
-\end{align*}\]</span> which shows that <span class="math inline">\(\PR(X \ge nq)\)</span> gets smaller as <span class="math inline">\(n\)</span> increases.</p>
-</div>
-</div>
-</div>
-<p>We can use Chebyshev inequality to prove the <strong>weak law of large numbers</strong>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Weak law of large numbers
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, X_2, \dots\)</span> be independent random variables with <span class="math inline">\(\EXP[X_n] = μ\)</span> and <span class="math inline">\(\VAR(X_n) = σ^2\)</span>. Let <span class="math display">\[
-\bar X_n = \frac 1n \sum_{i=1}^n X_i
-\]</span> be the sample mean. Then, <span class="math display">\[\PR(\ABS{X_n - μ} &gt; ε) \le \frac{σ^2}{n ε^2}. \]</span></p>
-<p>Therefore, <span class="math inline">\(X_n \xrightarrow{p} μ\)</span> (which reads as <span class="math inline">\(X_n\)</span> converges in probability to <span class="math inline">\(μ\)</span>; we will study convergence in probability in next lecture).</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Observe that <span class="math display">\[\begin{align*}
-\EXP[\bar X_n] &amp;= \frac{1}{n} \sum_{i=1}^n \EXP[X_i] = μ \\
-\VAR(\bar X_n) &amp;= \frac{1}{n^2} \sum_{i=1}^n \VAR(X_i) = \frac{σ^2}{n}.
-\end{align*}\]</span></p>
-<p>Then, by Chebyshev inequality, we have <span class="math display">\[
-\PR(\ABS{X_n - μ} &gt; ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
-\]</span></p>
-</div>
-</div>
-</div>
-<p>If we do not know <span class="math inline">\(\VAR(X)\)</span>, we can still use Chebyshev inequality with an upper bound on <span class="math inline">\(\VAR(X)\)</span>. For example, if <span class="math inline">\(X \in [a,b]\)</span>, then we can show that <span class="math display">\[
-\VAR(X) \le \frac{(b-a)^2}{4}.
-\]</span> So, for any random variable <span class="math inline">\(X \in [a,b]\)</span>, we have that <span class="math display">\[
-\PR(\ABS{X - μ} &gt; ε) \le \frac{(b-a)^2}{4 ε^2}.
-\]</span></p>
-</section>
-<section id="chernoff-bound" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="chernoff-bound"><span class="header-section-number">6.6</span> Chernoff bound</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Chernoff Bound
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable. Then, for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
-\PR(X \ge a) \le e^{-φ(a)}
-\]</span> where <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ s a - \log M_X(s) \}
-\]</span> is the <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Lengendre-Fenchel transform</a> of <span class="math inline">\(\log M_X(s)\)</span>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>The proof relies on two observations. First, for any <span class="math inline">\(s &gt; 0\)</span>, <span class="math inline">\(e^s x\)</span> is an increasing function of <span class="math inline">\(x\)</span>. Therefore, <span class="math display">\[
-\{ ω : X(ω) &gt; a \} = \{ ω : e^{sX(ω)} &gt; e^{sa} \}.
-\]</span> Hence, <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \frac{\EXP[e^{sX}}{e^{sa}}
-= e^{-( sa - \log M_X(s) ) }
-\]</span> where the inequality follows from Markov inequality</p>
-<p>Second, observe that the above inequality holds for every <span class="math inline">\(s &gt; 0\)</span>. So, to get the tightest bound, we minimize the RHS over all <span class="math inline">\(s &gt; 0\)</span>, i.e., <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \min_{s &gt; 0} e^{-( sa - \log M_X(s) ) }
-\]</span> Since <span class="math inline">\(e^x\)</span> is increasing in <span class="math inline">\(x\)</span>, the minimizer above is the same as the maximizer for <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ sa - \log M_X(s) \}.
-\]</span></p>
-</div>
-</div>
-</div>
-<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.4</span></a>. For a Binomial random variable, <span class="math display">\[
-M_X(s) = (1 - p + p e^s)^n.
-\]</span> Then, <span class="math display">\[\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
-= \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
-\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.4</span></a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
-\PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
-\]</span> where <span class="math display">\[
-D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
-\]</span></p>
-<p>We now present another example to show the tightness of the Chernoff bound.</p>
-<div id="exr-Chernoff-Gaussian" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.5</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
-</div>
-<!-- TODO: Write solution -->
-</section>
-<section id="azuma-hoeffding-inequality" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="azuma-hoeffding-inequality"><span class="header-section-number">6.7</span> Azuma-Hoeffding inequality</h2>
-<p>Although Chernoff bound is fairly tight, one of the drawbacks is that it requires the knowledge of the MGF of <span class="math inline">\(X\)</span>. This is in contrast to Markov and Chebyshev inequalities which only require knowledge of the mean and variance. For sums of i.i.d. random variables, it is possible to get a tight bound that only depends on the mean (and a proxy for variance).</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Azuma-Hoeffding inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables such that <span class="math inline">\(X_i \in [a,b]\)</span> and <span class="math inline">\(\EXP[X_i] = μ\)</span>. Define <span class="math display">\[
-\bar X_n = \frac 1n \sum_{i=1}^n X_i.
-\]</span> Then, <span class="math display">\[ \PR( \bar X_n - μ  &gt; ε ) \le e ^ {- 2 ε^2 n } \]</span> and <span class="math display">\[ \PR( \ABS{\bar X_n - μ}  &gt; ε ) \le 2 e ^ {- 2 ε^2 n } \]</span></p>
-</div>
-</div>
-<p>We will not provide a proof of this inequality. The Azuma-Hoeffding inequality can also be interpreted as follows. For any <span class="math inline">\(δ &gt; 0\)</span>, we have that the true mean lies in the interval <span class="math display">\[
-\left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} },
-       \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
-\]</span></p>
-<p>We can revisit <a href="#exr-Binomial-comparison" class="quarto-xref">Exercise&nbsp;<span>6.4</span></a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
-\PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
-\le e^{-2 (q - p)^2 n}.
-\]</span></p>
-<p>The bound is weaker than what we obtained via Chernoff bound, but it only requires the first moment and the fact that the random variables are bounded.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="57" data-source-offset="-107"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 56;"><span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean<span class="op">=</span><span class="dv">0</span><span class="op">,</span> stdev<span class="op">=</span><span class="dv">1</span>) {</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span> <span class="co">// Converting [0,1) to (0,1]</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>( <span class="op">-</span><span class="fl">2.0</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>( u ) ) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>( <span class="fl">2.0</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v )<span class="op">;</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Transform to the desired mean and standard deviation:</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z <span class="op">*</span> stdev <span class="op">+</span> mean<span class="op">;</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>viewof rerun_noise <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>points_noise <span class="op">=</span> {</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>    rerun_noise</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span><span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span><span class="op">*</span><span class="fl">0.04</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N)</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> signal <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(omega<span class="op">*</span>n)</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> noise <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>      points[n<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> signal<span class="op">,</span>  <span class="dt">W_n</span><span class="op">:</span> noise<span class="op">,</span> <span class="dt">Y_n</span><span class="op">:</span> signal <span class="op">+</span> noise }</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="86" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 85;"><span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span> <span class="op">:</span> {<span class="dt">ticks</span><span class="op">:</span> <span class="dv">1</span> }<span class="op">,</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(points_noise<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Y_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">,</span></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_noise<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Y_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<ol start="6" type="1">
+<li><p>It is also possible for a stochastic process to be continuous time, where we have an uncountable collection of random variables <span class="math inline">\(\{X_t : t \in T \}\)</span>, where the index set <span class="math inline">\(T\)</span> is either <span class="math inline">\((-∞, ∞)\)</span> or <span class="math inline">\([0, ∞)\)</span>. Continuous-time stochastic processes tend to be a bit more technical than discrete-time stochastic processes.</p></li>
+<li><p>As the above examples illustrate, the random variables <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> need not be independent. So, we need a way to specify the joint distribution of a countable collection of random variables. This means that for any collection of time indices <span class="math inline">\(\{n_1, \dots, n_k\}\)</span>, we must be able to specify the joint CDF of the random variables <span class="math inline">\((X_{n_1}, X_{n_2}, \dots, X_{n_k})\)</span>.</p></li>
+<li><p>A discrete time stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is called <strong>strong-sense stationary</strong> if for any <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> and <span class="math inline">\(m &gt; 0\)</span>, the random vectors <span class="math display">\[
+  (X_{n_1}, X_{n_2}, \dots, X_{n_k})
+  \quad \text{and}\quad
+  (X_{n_1 + m}, X_{n_2 + m}, \dots, X_{n_k + m})
+\]</span> have the same joint distributions.</p></li>
+</ol>
 
 
-</section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9iaXRzPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2JpdHMgPSB7XG5cbiAgICByZXJ1bl9iaXRzXG5cbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3QgcCA9IDAuNVxuICAgIHZhciBwb2ludHMgPSBuZXcgQXJyYXkoTilcblxuICAgIGZvcih2YXIgbj0wOyBuIDwgTjsgbisrKSB7XG4gICAgICB2YXIgdmFsID0gKE1hdGgucmFuZG9tKCkgPD0gcCkgPyAwIDogMVxuICAgICAgcG9pbnRzW24tMV0gPSB7IG46IG4sIFhfbjogdmFsIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgeSA6IHt0aWNrczogMSB9LFxuICBoZWlnaHQ6IDEwMCxcbiAgbWFya3M6IFtcbiAgICAvLyBBeGVzXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICAvLyBEYXRhXG4gICAgUGxvdC5ydWxlWChwb2ludHNfYml0cywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19iaXRzLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEZyb20gaHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9hLzM2NDgxMDU5LzE5MzE0OVxuLy8gU3RhbmRhcmQgTm9ybWFsIHZhcmlhdGUgdXNpbmcgQm94LU11bGxlciB0cmFuc2Zvcm0uXG5mdW5jdGlvbiBnYXVzc2lhblJhbmRvbShtZWFuPTAsIHN0ZGV2PTEpIHtcbiAgICBjb25zdCB1ID0gMSAtIE1hdGgucmFuZG9tKCk7IC8vIENvbnZlcnRpbmcgWzAsMSkgdG8gKDAsMV1cbiAgICBjb25zdCB2ID0gTWF0aC5yYW5kb20oKTtcbiAgICBjb25zdCB6ID0gTWF0aC5zcXJ0KCAtMi4wICogTWF0aC5sb2coIHUgKSApICogTWF0aC5jb3MoIDIuMCAqIE1hdGguUEkgKiB2ICk7XG4gICAgLy8gVHJhbnNmb3JtIHRvIHRoZSBkZXNpcmVkIG1lYW4gYW5kIHN0YW5kYXJkIGRldmlhdGlvbjpcbiAgICByZXR1cm4geiAqIHN0ZGV2ICsgbWVhbjtcbn1cblxudmlld29mIHJlcnVuX25vaXNlID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIHNhbXBsZSBwYXRoXCIpXG5cbnBvaW50c19ub2lzZSA9IHtcblxuICAgIHJlcnVuX25vaXNlXG5cbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAwLjJcbiAgICBjb25zdCBvbWVnYSA9IDIqTWF0aC5QSSowLjA0XG4gICAgdmFyIHBvaW50cyA9IG5ldyBBcnJheShOKVxuXG4gICAgZm9yKHZhciBuPTA7IG4gPCBOOyBuKyspIHtcbiAgICAgIHZhciBzaWduYWwgPSBNYXRoLnNpbihvbWVnYSpuKVxuICAgICAgdmFyIG5vaXNlID0gZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG5cbiAgICAgIHBvaW50c1tuLTFdID0geyBuOiBuLCBYX246IHNpZ25hbCwgIFdfbjogbm9pc2UsIFlfbjogc2lnbmFsICsgbm9pc2UgfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICB5IDoge3RpY2tzOiAxIH0sXG4gIGhlaWdodDogMTAwLFxuICBtYXJrczogW1xuICAgIC8vIEF4ZXNcbiAgICBQbG90LnJ1bGVYKFswXSksXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIC8vIERhdGFcbiAgICBQbG90LnJ1bGVYKHBvaW50c19ub2lzZSwge3g6IFwiblwiLCB5OiBcIllfblwiLCBzdHJva2VXaWR0aDogMX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19ub2lzZSwge3g6IFwiblwiLCB5OiBcIllfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSksXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3JlcnVuX2JpdHMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fbm9pc2UnKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1403,13 +1111,13 @@ D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 -
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./moment-generating-functions.html" class="pagination-link" aria-label="Moment Generating Functions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span>
+      <a href="./convergence-of-random-variables.html" class="pagination-link" aria-label="Convergence of random variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./convergence-of-random-variables.html" class="pagination-link" aria-label="Convergence of random variables">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./markov-chains.html" class="pagination-link" aria-label="Markov chains">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Markov chains</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1418,5 +1126,5 @@ D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 -
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/stochastic-processes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
