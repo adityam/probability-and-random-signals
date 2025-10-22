@@ -789,19 +789,30 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
     \end{cases}
 \]</span> Thus, for any <span class="math inline">\(x\)</span>, we have <span class="math inline">\(\lim_{n \to ∞} F_{X_n}(x) = 0\)</span> which is not a valid CDF.</p></li>
 <li><p>Convergence in probability implies convergence in distribution. <span class="math display">\[
-   [X_n \xrightarrow{p} X]
-   \implies
-   [X_n \xrightarrow{D} X]
+  [X_n \xrightarrow{p} X]
+  \implies
+  [X_n \xrightarrow{D} X]
 \]</span></p>
-<p>:::{.callout-note collapse=“false”} ### Proof</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <p>Let <span class="math inline">\(F_n\)</span> and <span class="math inline">\(F\)</span> denote the CDFs of <span class="math inline">\(X_n\)</span> and <span class="math inline">\(X\)</span>, respectively. Fix <span class="math inline">\(ε &gt; 0\)</span>, pick <span class="math inline">\(x\)</span> such that <span class="math inline">\(F\)</span> is continuous at <span class="math inline">\(x\)</span>, and consider <span class="math display">\[\begin{align*}
-   F_n(x) &amp;= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X &gt; x + ε)
+  F_n(x) &amp;= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X &gt; x + ε)
 \\
 &amp;\le \PR(X \le x + ε) + \PR(X - X_n &gt; ε)
 \\
 &amp;\le F(x + ε) + \PR(\ABS{X_n - X} &gt; ε).
 \end{align*}\]</span> Similarly, <span class="math display">\[\begin{align*}
-   F(x-ε) &amp;= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n &gt; x )
+  F(x-ε) &amp;= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n &gt; x )
 \\
 &amp;\le \PR(X_n \le x) + \PR(X_n - X &gt; ε)
 \\
@@ -815,7 +826,10 @@ F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + 
 F(x - ε) \uparrow F(x)
 \quad\text{and}\quad
 F(x + ε) \downarrow F(x)
-\]</span> which implies that <span class="math inline">\(F_n(x) \to F(x)\)</span>. :::</p></li>
+\]</span> which implies that <span class="math inline">\(F_n(x) \to F(x)\)</span>.</p>
+</div>
+</div>
+</div></li>
 <li><p>The converse is not true. For example, let <span class="math inline">\(X_n\)</span> be a sequence of i.i.d. <span class="math inline">\(\text{Uniform}(0,1)\)</span> random variables. Clearly, <span class="math inline">\(X_n \xrightarrow{D} X\)</span>, where <span class="math inline">\(X\)</span> is also <span class="math inline">\(\text{Uniform}(0,1)\)</span>. However, for any <span class="math inline">\(ε \in (0,1)\)</span>, <span class="math display">\[
    \PR( \ABS{X_n - X} &gt; ε ) = (1-ε)^2
 \]</span></p>
@@ -859,7 +873,7 @@ F(x + ε) \downarrow F(x)
 <li><p>If <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> converges to <span class="math inline">\(X\)</span> in the <span class="math inline">\(r\)</span>-th mean, then it also converges in the <span class="math inline">\(s\)</span>-th mean, for all <span class="math inline">\(s &lt; r\)</span>.</p></li>
 <li><p>Convergence in <span class="math inline">\(r\)</span>-th mean implies convergence in probability.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -868,7 +882,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>By Markov inequality, we have (for any <span class="math inline">\(r \ge 1\)</span>) <span class="math display">\[
   \PR(\ABS{X_n - X} &gt; ε) = \PR(\ABS{X_n - X}^r &gt; ε^r)
@@ -888,7 +902,7 @@ F(x + ε) \downarrow F(x)
 <li><p>This is not the case for mean square convergence. For example, <span class="math inline">\(X_n = 0\)</span> with probability <span class="math inline">\(1 - \frac 1{n^3}\)</span> and <span class="math inline">\(X_n = 1\)</span> with probability <span class="math inline">\(\frac 1{n^3}\)</span>. Then, <span class="math display">\[ \EXP[|X_n - 0|^2] = n^2 \frac{1}{n^3} \to 0. \]</span> Thus, <span class="math inline">\(X_n \xrightarrow{m.s.} 0\)</span>. Now consider the function <span class="math inline">\(g(x) = x^2\)</span>. <span class="math display">\[ \EXP[ | g(X_n) - g(0)|^2 ] = n^4 \frac{1}{n^3} = n \to ∞. \]</span> Thus, <span class="math inline">\(g(X_n)\)</span> does not converge in mean square to <span class="math inline">\(g(0)\)</span>.</p></li>
 <li><p>If <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{a.s.} Y\)</span>, then <span class="math inline">\((X_n, Y_n) \xrightarrow{a.s.} (X,Y)\)</span>. Therefore, for any continuous function <span class="math inline">\(g\)</span>, we have <span class="math inline">\(g(X_n, Y_n) \xrightarrow{a.s} g(X,Y)\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -897,7 +911,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Define <span class="math display">\[\begin{align*}
     Ω_X &amp;= \{ ω : \lim_{n \to ∞} X_n(ω) = X(ω) \} \\
@@ -924,7 +938,7 @@ F(x + ε) \downarrow F(x)
 </ol>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -933,7 +947,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We only prove part (a). The proof of the other two parts is similar.</p>
 <p>For <span class="math inline">\(ω \neq 0\)</span>, the sequence <span class="math inline">\(\{X_n(ω)\}_{n \ge 1}\)</span> is a finite sequence of ones followed by an infinite sequence of zeros. Then, <span class="math inline">\(\lim_{n \to ∞} X_n(ω) = 0\)</span>. Thus, <span class="math display">\[
@@ -962,7 +976,7 @@ F(x + ε) \downarrow F(x)
 \]</span> Determine whether <span class="math inline">\(Y_n\)</span> converges almost surely or in probability.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -971,7 +985,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We first check convergence in probability and then almost surely.</p>
 <p>Fix an <span class="math inline">\(ε &gt; 0\)</span> and consider the set <span class="math display">\[
@@ -1002,7 +1016,7 @@ F(x + ε) \downarrow F(x)
 <h2 data-number="7.7" class="anchored" data-anchor-id="almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">7.7</span> Almost sure convergence from convergence in probability.</h2>
 <p><a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>7.4</span></a> shows that verifying almost sure convergence can be a bit tricky. In this section, we show that sometimes it is possible to infer almost sure convergence from convergence in probability.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1011,7 +1025,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Explanation adapted from math.stackexchange [<a href="https://math.stackexchange.com/a/1912079/763">1</a>] and [<a href="https://math.stackexchange.com/a/4080796/763">2</a>]</p>
 <p>Limits of sets is easy to describe when we have weakly increasing or weakly decreasing sequence of sets. In particular, if <span class="math inline">\(\{C_n\}_{n \ge 1}\)</span> is a <strong>weakly increasing</strong> sequence of sets, then <span class="math display">\[
@@ -1117,7 +1131,7 @@ Determine whether <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> converg
 </ol>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1126,7 +1140,7 @@ Determine whether <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> converg
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li><p><strong>Convergence in probability:</strong> Fix <span class="math inline">\(ε \in (0,1)\)</span>. As before define <span class="math inline">\(E_n = \{ ω : \ABS{X_n(ω)} &gt; ε \} = \{ ω : X_n(ω) = 1 \}\)</span>. Thus, <span class="math inline">\(\PR(E_n) = p_n\)</span> and for both cases, <span class="math inline">\(p_n \to 0\)</span> as <span class="math inline">\(n \to ∞\)</span>. Therefore, <span class="math inline">\(X_n \xrightarrow{p} 0\)</span>.</p></li>
@@ -1147,7 +1161,7 @@ X_n \xrightarrow{a.s.} X.
 \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1156,7 +1170,7 @@ X_n \xrightarrow{a.s.} X.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>To simplify the notation, we assume that <span class="math inline">\(X = 0\)</span>.</p>
 <p>Pick any <span class="math inline">\(ε &gt; 0\)</span> and define the sequence of events <span class="math display">\[
@@ -1185,7 +1199,7 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 </div>
 <p>We provide a proof under the assumption that the fouth moment’s exist.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1194,7 +1208,7 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We assume that <span class="math inline">\(μ = 0\)</span> (this is just for notational simplicity) and <span class="math inline">\(\EXP[X^4] = γ &lt; ∞\)</span> (this is a strong assumption).</p>
 <p>Since we know that the forth moment exist, we can use a forth moment version of Chebyshev inequality: <span class="math display">\[ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \EXP[ \bar X_n^4]}{ε^2}. \]</span></p>
