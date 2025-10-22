@@ -499,11 +499,15 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#different-modes-of-convergence" id="toc-different-modes-of-convergence" class="nav-link active" data-scroll-target="#different-modes-of-convergence"><span class="header-section-number">7.1</span> Different modes of convergence</a></li>
-  <li><a href="#some-examples" id="toc-some-examples" class="nav-link" data-scroll-target="#some-examples"><span class="header-section-number">7.2</span> Some examples</a></li>
-  <li><a href="#almost-sure-convergence-from-convergence-in-probability." id="toc-almost-sure-convergence-from-convergence-in-probability." class="nav-link" data-scroll-target="#almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">7.3</span> Almost sure convergence from convergence in probability.</a></li>
-  <li><a href="#strong-law-of-large-numbers" id="toc-strong-law-of-large-numbers" class="nav-link" data-scroll-target="#strong-law-of-large-numbers"><span class="header-section-number">7.4</span> Strong law of large numbers</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">7.5</span> Further Reading</a></li>
+  <li><a href="#almost-sure-convergence" id="toc-almost-sure-convergence" class="nav-link active" data-scroll-target="#almost-sure-convergence"><span class="header-section-number">7.1</span> Almost sure convergence</a></li>
+  <li><a href="#convergence-in-probability" id="toc-convergence-in-probability" class="nav-link" data-scroll-target="#convergence-in-probability"><span class="header-section-number">7.2</span> Convergence in probability</a></li>
+  <li><a href="#convergence-in-distribution" id="toc-convergence-in-distribution" class="nav-link" data-scroll-target="#convergence-in-distribution"><span class="header-section-number">7.3</span> Convergence in Distribution</a></li>
+  <li><a href="#convergence-in-r-th-mean" id="toc-convergence-in-r-th-mean" class="nav-link" data-scroll-target="#convergence-in-r-th-mean"><span class="header-section-number">7.4</span> Convergence in <span class="math inline">\(r\)</span>-th mean</a></li>
+  <li><a href="#continuity-properties-of-convergence" id="toc-continuity-properties-of-convergence" class="nav-link" data-scroll-target="#continuity-properties-of-convergence"><span class="header-section-number">7.5</span> Continuity properties of convergence</a></li>
+  <li><a href="#some-examples" id="toc-some-examples" class="nav-link" data-scroll-target="#some-examples"><span class="header-section-number">7.6</span> Some examples</a></li>
+  <li><a href="#almost-sure-convergence-from-convergence-in-probability." id="toc-almost-sure-convergence-from-convergence-in-probability." class="nav-link" data-scroll-target="#almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">7.7</span> Almost sure convergence from convergence in probability.</a></li>
+  <li><a href="#strong-law-of-large-numbers" id="toc-strong-law-of-large-numbers" class="nav-link" data-scroll-target="#strong-law-of-large-numbers"><span class="header-section-number">7.8</span> Strong law of large numbers</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">7.9</span> Further Reading</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/convergence-of-random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -554,8 +558,8 @@ window.Quarto = {
 <p>Suppose we have an infinite <strong>sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables</strong> defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span>. Thus, for every <span class="math inline">\(ω \in Ω\)</span>, there is an infinite sequence <span class="math display">\[
   X_1(ω), X_2(ω), X_3(ω), \dots
 \]</span> A sequence of random variables, also called a <strong>stochastic process</strong>, can be thought of a generalization of random vectors. When does this sequence converge?</p>
-<section id="different-modes-of-convergence" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="different-modes-of-convergence"><span class="header-section-number">7.1</span> Different modes of convergence</h2>
+<section id="almost-sure-convergence" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="almost-sure-convergence"><span class="header-section-number">7.1</span> Almost sure convergence</h2>
 <ol type="1">
 <li><p>Recall that a sequence <span class="math inline">\(\{x_n\}_{n \ge 1}\)</span> of real numbers converges to a limit <span class="math inline">\(x\)</span> if for every <span class="math inline">\(ε &gt; 0\)</span>, there exists a <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n \ge N\)</span>, we have that <span class="math display">\[ \ABS{ x_n - x } &lt; ε. \]</span></p></li>
 <li><p>The simplest way to define convergence of a sequence of random variables as follows: a sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to a limit <span class="math inline">\(X\)</span> <strong>surely</strong> if for every <span class="math inline">\(ω \in Ω\)</span>, the sequence <span class="math inline">\(\{X_n(ω)\}_{n \ge 1}\)</span> of real numbers converges to <span class="math inline">\(X(ω)\)</span>.</p></li>
@@ -650,6 +654,11 @@ X_n(ω) = \begin{cases}
 \]</span> Or, equivalently, for any <span class="math inline">\(ε &gt; 0\)</span> and <span class="math inline">\(δ &gt; 0\)</span>, there exists a <span class="math inline">\(N\)</span> such that for all <span class="math inline">\(n \ge N\)</span>, we have <span class="math display">\[
   \PR( \ABS{ X_n - X} &gt; ε ) \le δ.
 \]</span> We denote such convergence as <span class="math inline">\(X_n \xrightarrow{p} X\)</span>.</p></li>
+</ol>
+</section>
+<section id="convergence-in-probability" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="convergence-in-probability"><span class="header-section-number">7.2</span> Convergence in probability</h2>
+<ol type="1">
 <li><p>Almost sure convergence implies convergence in probability, i.e., <span class="math display">\[
   [X_n \xrightarrow{a.s.} X]
   \implies
@@ -682,18 +691,18 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 <div id="exm-convergence-2" class="theorem example">
 <p><span class="theorem-title"><strong>Example 7.2</strong></span> Consider a probability space as in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>. Define <span class="math inline">\(X_n(ω) = \IND_{A_n}(ω)\)</span>, where where <span class="math inline">\(A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}\)</span>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="130" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 129;"><span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>viewof ω_convergence_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"ω"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span><span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span>})</span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>points_convergence_2 <span class="op">=</span> {</span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N)</span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> ((ω_convergence_2<span class="op">*</span>n <span class="op">%</span> <span class="dv">1</span>)<span class="op">*</span>n <span class="op">&lt;=</span> <span class="dv">1</span>) <span class="op">?</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span> <span class="op">;</span></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>      points[n<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> val }</span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="132" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 131;"><span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>viewof ω_convergence_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"ω"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span><span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span>})</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>points_convergence_2 <span class="op">=</span> {</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N)</span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> ((ω_convergence_2<span class="op">*</span>n <span class="op">%</span> <span class="dv">1</span>)<span class="op">*</span>n <span class="op">&lt;=</span> <span class="dv">1</span>) <span class="op">?</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span> <span class="op">;</span></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>      points[n<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> val }</span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-1" data-nodetype="declaration">
@@ -710,19 +719,19 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="144" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 143;"><span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span> <span class="op">:</span> {<span class="dt">ticks</span><span class="op">:</span> <span class="dv">1</span> }<span class="op">,</span></span>
-<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span></span>
-<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
-<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
-<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(points_convergence_2<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">,</span></span>
-<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_convergence_2<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
-<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="146" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 145;"><span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span> <span class="op">:</span> {<span class="dt">ticks</span><span class="op">:</span> <span class="dv">1</span> }<span class="op">,</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>(points_convergence_2<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">,</span></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_convergence_2<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-4" data-nodetype="expression">
 
@@ -757,7 +766,7 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 </div>
 </div>
 </div>
-<ol start="9" type="1">
+<ol start="3" type="1">
 <li><p>There is however a partial converse. If <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> is a strictly decreasing sequence and <span class="math inline">\(c\)</span> is a constant then <span class="math display">\[
   [X_n \xrightarrow{p} c]
   \implies
@@ -765,40 +774,34 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
   \]</span></p></li>
 <li><p>If <span class="math inline">\(X_n \xrightarrow{p} X\)</span>, then there exists a subsequence <span class="math inline">\(\{n_k : k \in \naturalnumbers \}\)</span> such that <span class="math inline">\(\{X_{n_k}\}_{k \ge 1}\)</span> converges almost surely to <span class="math inline">\(X\)</span>.</p></li>
 <li><p><span class="math inline">\(X_n \xrightarrow{p} X\)</span> if and only if every subsequence <span class="math inline">\(\{n_k : k \in \naturalnumbers \}\)</span> has a sub-subsequence <span class="math inline">\(\{n_{k_m} : m \in \naturalnumbers \}\)</span> such that <span class="math inline">\(\{X_{n_{k_m}} \}_{m \ge 1}\)</span> that converges to <span class="math inline">\(X\)</span> almost surely.</p></li>
+</ol>
+</section>
+<section id="convergence-in-distribution" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="convergence-in-distribution"><span class="header-section-number">7.3</span> Convergence in Distribution</h2>
+<ol type="1">
 <li><p>We have already seen the notion of <strong>convergence in distribution</strong> (also called <strong>weak-convergence</strong>). A sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to a random variable <span class="math inline">\(X\)</span> <strong>in distribution</strong> if <span class="math display">\[
-   \lim_{n \to ∞} \PR(X_n \le x) = \PR(X \le x)
+    \lim_{n \to ∞} \PR(X_n \le x) = \PR(X \le x)
 \]</span> for every <span class="math inline">\(x\)</span> where <span class="math inline">\(F(x) = \PR(X \le x)\)</span> is continuous.</p></li>
 <li><p>Note that the limiting object <span class="math inline">\(\lim_{n \to ∞} \PR(X_n \le x)\)</span> need not be a valid CDF. For example, consider the deterministic sequence, <span class="math inline">\(X_n = n\)</span>. The corresponding CDF is <span class="math display">\[
-   F_{X_n}(x) = \begin{cases}
-     0 &amp; x &lt; n \\
-     1 &amp; x \ge n
-   \end{cases}
+    F_{X_n}(x) = \begin{cases}
+      0 &amp; x &lt; n \\
+      1 &amp; x \ge n
+    \end{cases}
 \]</span> Thus, for any <span class="math inline">\(x\)</span>, we have <span class="math inline">\(\lim_{n \to ∞} F_{X_n}(x) = 0\)</span> which is not a valid CDF.</p></li>
 <li><p>Convergence in probability implies convergence in distribution. <span class="math display">\[
-  [X_n \xrightarrow{p} X]
-  \implies
-  [X_n \xrightarrow{D} X]
+   [X_n \xrightarrow{p} X]
+   \implies
+   [X_n \xrightarrow{D} X]
 \]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
+<p>:::{.callout-note collapse=“false”} ### Proof</p>
 <p>Let <span class="math inline">\(F_n\)</span> and <span class="math inline">\(F\)</span> denote the CDFs of <span class="math inline">\(X_n\)</span> and <span class="math inline">\(X\)</span>, respectively. Fix <span class="math inline">\(ε &gt; 0\)</span>, pick <span class="math inline">\(x\)</span> such that <span class="math inline">\(F\)</span> is continuous at <span class="math inline">\(x\)</span>, and consider <span class="math display">\[\begin{align*}
-  F_n(x) &amp;= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X &gt; x + ε)
+   F_n(x) &amp;= \PR(X_n \le x) = \PR(X_n \le x, X \le x + ε) + \PR(X_n \le x, X &gt; x + ε)
 \\
 &amp;\le \PR(X \le x + ε) + \PR(X - X_n &gt; ε)
 \\
 &amp;\le F(x + ε) + \PR(\ABS{X_n - X} &gt; ε).
 \end{align*}\]</span> Similarly, <span class="math display">\[\begin{align*}
-  F(x-ε) &amp;= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n &gt; x )
+   F(x-ε) &amp;= \PR(X \le x-ε) = \PR(X \le x-ε, X_n \le x ) + \PR(X \le x - ε, X_n &gt; x )
 \\
 &amp;\le \PR(X_n \le x) + \PR(X_n - X &gt; ε)
 \\
@@ -812,56 +815,51 @@ F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + 
 F(x - ε) \uparrow F(x)
 \quad\text{and}\quad
 F(x + ε) \downarrow F(x)
-\]</span> which implies that <span class="math inline">\(F_n(x) \to F(x)\)</span>.</p>
-</div>
-</div>
-</div></li>
+\]</span> which implies that <span class="math inline">\(F_n(x) \to F(x)\)</span>. :::</p></li>
 <li><p>The converse is not true. For example, let <span class="math inline">\(X_n\)</span> be a sequence of i.i.d. <span class="math inline">\(\text{Uniform}(0,1)\)</span> random variables. Clearly, <span class="math inline">\(X_n \xrightarrow{D} X\)</span>, where <span class="math inline">\(X\)</span> is also <span class="math inline">\(\text{Uniform}(0,1)\)</span>. However, for any <span class="math inline">\(ε \in (0,1)\)</span>, <span class="math display">\[
-  \PR( \ABS{X_n - X} &gt; ε ) = (1-ε)^2
+   \PR( \ABS{X_n - X} &gt; ε ) = (1-ε)^2
 \]</span></p>
 <p>[Think of the area of the unit square corresponding to the event <span class="math inline">\(|X_n - X| &gt; ε\)</span>]. Thus, <span class="math display">\[
-  \lim_{n \to ∞} \PR(\ABS{X_n - X} &gt; ε) \neq 0.
+   \lim_{n \to ∞} \PR(\ABS{X_n - X} &gt; ε) \neq 0.
 \]</span> So, <span class="math inline">\(X_n\)</span> does not converge in probability to <span class="math inline">\(X\)</span>.</p></li>
 <li><p>There is a partial converse. If <span class="math inline">\(c\)</span> is a constant then <span class="math display">\[
-  [X_n \xrightarrow{D} c]
-  \implies
-  [X_n \xrightarrow{p} c].
+   [X_n \xrightarrow{D} c]
+   \implies
+   [X_n \xrightarrow{p} c].
 \]</span></p></li>
 <li><p>Convergence in distribution does not imply convergence of moments! For example, consider the sequence of random variables where <span class="math display">\[
-    X_n = \begin{cases}
-      0 &amp; \text{w.p. } 1 - \frac 1n \\
-      n &amp; \text{w.p. } \frac 1n
-    \end{cases}
+     X_n = \begin{cases}
+       0 &amp; \text{w.p. } 1 - \frac 1n \\
+       n &amp; \text{w.p. } \frac 1n
+     \end{cases}
 \]</span> Then, <span class="math display">\[
-  F_{X_n}(x) = \begin{cases}
-    0, &amp; x &lt; 0
-    1 - \frac 1n, &amp; 0 \le x &lt; n \\
-    1 &amp; x \ge n
-  \end{cases}
+   F_{X_n}(x) = \begin{cases}
+     0, &amp; x &lt; 0
+     1 - \frac 1n, &amp; 0 \le x &lt; n \\
+     1 &amp; x \ge n
+   \end{cases}
 \]</span> Thus, we have <span class="math display">\[
-  \lim_{n \to ∞} F_{X_n}(x) =
-  \begin{cases}
-    0 &amp; x &lt; 0 \\
-    1 &amp; x \ge 0
-  \end{cases}
+   \lim_{n \to ∞} F_{X_n}(x) =
+   \begin{cases}
+     0 &amp; x &lt; 0 \\
+     1 &amp; x \ge 0
+   \end{cases}
 \]</span> which corresponds to a random variable <span class="math inline">\(X = 0\)</span>.</p>
 <p>However, for any <span class="math inline">\(k \ge 1\)</span>, we have <span class="math inline">\(\EXP[X_n^k] = n^{k-1}\)</span> but <span class="math inline">\(\EXP[X^k] = 1\)</span>. Thus, the moments do not converge!</p></li>
 <li><p><strong>Skorokhod’s representation theorem.</strong> If <span class="math inline">\(X_n \xrightarrow{D} X\)</span>, then there exists a sequence <span class="math inline">\(\{Y_n\}_{n \ge 1}\)</span> that is identically distributed to <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> such that <span class="math inline">\(Y_n \xrightarrow{a.s.} Y\)</span>, where <span class="math inline">\(Y\)</span> is identically distributed to <span class="math inline">\(X\)</span>.</p></li>
-<li><p><strong>Continuity preserves convergence</strong> almost surely, in probability, and in distribution. Thus, if <span class="math inline">\(X_n\)</span> converges to <span class="math inline">\(X\)</span> in any of these modes and <span class="math inline">\(g\)</span> is a continuous function, then <span class="math inline">\(g(X_n)\)</span> converges in the same mode to <span class="math inline">\(g(X)\)</span>.</p></li>
-<li><p><strong>Convergence of sums and products</strong></p>
-<ul>
-<li>If <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{a.s.} Y\)</span>, then <span class="math inline">\(X_n + Y_n \xrightarrow{a.s.} X + Y\)</span> and <span class="math inline">\(X_n Y_n \xrightarrow{a.s.} XY\)</span>.</li>
-<li>If <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{p} Y\)</span>, then <span class="math inline">\(X_n + Y_n \xrightarrow{p} X + Y\)</span> and <span class="math inline">\(X_n Y_n \xrightarrow{p} X Y\)</span>.</li>
-<li>It is not true in general that <span class="math inline">\(X_n + Y_n \xrightarrow{D} X + Y\)</span> whenever <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{p} Y\)</span>. However, the result is true when <span class="math inline">\(X\)</span> or <span class="math inline">\(Y\)</span> is a constant.</li>
-</ul></li>
+</ol>
+</section>
+<section id="convergence-in-r-th-mean" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="convergence-in-r-th-mean"><span class="header-section-number">7.4</span> Convergence in <span class="math inline">\(r\)</span>-th mean</h2>
+<ol type="1">
 <li><p>There is another form of convergence: <strong>convergence in the <span class="math inline">\(r\)</span>-th mean.</strong> We say that a sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to <span class="math inline">\(X\)</span> in <span class="math inline">\(r\)</span>-th mean, <span class="math inline">\(r \ge 1\)</span>, if <span class="math inline">\(\EXP[\ABS{X_n}^r] &lt; ∞\)</span> for all <span class="math inline">\(n\)</span>, <span class="math inline">\(\EXP[\ABS{X}^r] &lt; ∞\)</span>, and <span class="math display">\[
-  \lim_{n \to ∞} \EXP{ \ABS{X_n - X}^r } = 0.
+   \lim_{n \to ∞} \EXP[ \ABS{X_n - X}^r ] = 0.
 \]</span></p></li>
 <li><p>When <span class="math inline">\(r = 1\)</span>, we say that <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> <strong>converges in the mean.</strong> When <span class="math inline">\(r=2\)</span>, we say that <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> <strong>converges in the mean-square</strong>. We will mainly focus on mean-square convergence and denote it by <span class="math inline">\(X_n \xrightarrow{m.s.} X\)</span>.</p></li>
 <li><p>If <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> converges to <span class="math inline">\(X\)</span> in the <span class="math inline">\(r\)</span>-th mean, then it also converges in the <span class="math inline">\(s\)</span>-th mean, for all <span class="math inline">\(s &lt; r\)</span>.</p></li>
 <li><p>Convergence in <span class="math inline">\(r\)</span>-th mean implies convergence in probability.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -870,7 +868,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>By Markov inequality, we have (for any <span class="math inline">\(r \ge 1\)</span>) <span class="math display">\[
   \PR(\ABS{X_n - X} &gt; ε) = \PR(\ABS{X_n - X}^r &gt; ε^r)
@@ -883,8 +881,40 @@ F(x + ε) \downarrow F(x)
 <li><p>Convergence in mean-square and almost surely are not comparable. <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, part&nbsp;(c) gives an example that converges almost surely not not in mean square. <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>7.5</span></a>, part&nbsp;(d) gives an example that converges in mean square but not almost surely.</p></li>
 </ol>
 </section>
-<section id="some-examples" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="some-examples"><span class="header-section-number">7.2</span> Some examples</h2>
+<section id="continuity-properties-of-convergence" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="continuity-properties-of-convergence"><span class="header-section-number">7.5</span> Continuity properties of convergence</h2>
+<ol type="1">
+<li><p><strong>Continuity preserves convergence</strong> almost surely, in probability, and in distribution. Thus, if <span class="math inline">\(X_n\)</span> converges to <span class="math inline">\(X\)</span> in any of these modes and <span class="math inline">\(g\)</span> is a continuous function, then <span class="math inline">\(g(X_n)\)</span> converges in the same mode to <span class="math inline">\(g(X)\)</span>.</p></li>
+<li><p>This is not the case for mean square convergence. For example, <span class="math inline">\(X_n = 0\)</span> with probability <span class="math inline">\(1 - \frac 1{n^3}\)</span> and <span class="math inline">\(X_n = 1\)</span> with probability <span class="math inline">\(\frac 1{n^3}\)</span>. Then, <span class="math display">\[ \EXP[|X_n - 0|^2] = n^2 \frac{1}{n^3} \to 0. \]</span> Thus, <span class="math inline">\(X_n \xrightarrow{m.s.} 0\)</span>. Now consider the function <span class="math inline">\(g(x) = x^2\)</span>. <span class="math display">\[ \EXP[ | g(X_n) - g(0)|^2 ] = n^4 \frac{1}{n^3} = n \to ∞. \]</span> Thus, <span class="math inline">\(g(X_n)\)</span> does not converge in mean square to <span class="math inline">\(g(0)\)</span>.</p></li>
+<li><p>If <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{a.s.} Y\)</span>, then <span class="math inline">\((X_n, Y_n) \xrightarrow{a.s.} (X,Y)\)</span>. Therefore, for any continuous function <span class="math inline">\(g\)</span>, we have <span class="math inline">\(g(X_n, Y_n) \xrightarrow{a.s} g(X,Y)\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Define <span class="math display">\[\begin{align*}
+    Ω_X &amp;= \{ ω : \lim_{n \to ∞} X_n(ω) = X(ω) \} \\
+    Ω_Y &amp;= \{ ω : \lim_{n \to ∞} Y_n(ω) = Y(ω) \}
+  \end{align*}\]</span> We know that <span class="math inline">\(\PR(Ω_X) = 1\)</span> and <span class="math inline">\(\PR(Ω_Y) = 1\)</span>. From <a href="inequalities.html#exm-union-bound-infinite-events" class="quarto-xref">Example&nbsp;<span>6.2</span></a>, we have that <span class="math inline">\(\PR(Ω_X \cap Ω_Y) = 1\)</span>. Thus, <span class="math inline">\((X_n, Y_n) \xrightarrow{a.s} (X,Y)\)</span>.</p>
+<p>The second part follows from continuity property of convergence.</p>
+</div>
+</div>
+</div></li>
+<li><p>The above property is also true for convergence in probability. The proof is left as a homework exercise.</p></li>
+<li><p>However, this property is not true for convergence in distribution as is illustrated by the following example. Suppose <span class="math inline">\(X_n \sim \text{Unif}(-1,1)\)</span> and <span class="math inline">\(X \sim \text{Unif}(-1,1)\)</span> be independent random variables. Define <span class="math inline">\(Y_n = X_n\)</span> and <span class="math inline">\(Y = - X\)</span>. Then, <span class="math inline">\(X_n \xrightarrow{D} X\)</span>, <span class="math inline">\(Y_n \xrightarrow{D} Y\)</span>, but <span class="math inline">\(X_n + Y_n = 2X_n\)</span> does not converge in distribution to <span class="math inline">\(X + Y = 0\)</span>.</p></li>
+<li><p><strong>Slutsky’s theorem:</strong> Suppose <span class="math inline">\(X_n \xrightarrow{D} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{D} c\)</span>, where <span class="math inline">\(c\)</span> is a constant. Then, <span class="math inline">\((X_n, Y_n) \xrightarrow{D} (X_n, c)\)</span>. Therefore, for any continuous function <span class="math inline">\(g(X_n, Y_n) \xrightarrow{D} g(X, c)\)</span>. In particular, <span class="math inline">\(X_n + Y_n \xrightarrow{D} X + c\)</span> and <span class="math inline">\(X_n Y_n \xrightarrow{D} cX\)</span>.</p></li>
+<li><p>Note that we have already argued that <span class="math inline">\(Y_n \xrightarrow{D} c\)</span> is equivalent to <span class="math inline">\(Y_n \xrightarrow{p} c\)</span>. So, one can replace <span class="math inline">\(Y_n \xrightarrow{D} c\)</span> in Slutsky’s theorem by <span class="math inline">\(Y_n \xrightarrow{p} c\)</span>.</p></li>
+</ol>
+</section>
+<section id="some-examples" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="some-examples"><span class="header-section-number">7.6</span> Some examples</h2>
 <div id="exm-convergence-3" class="theorem example">
 <p><span class="theorem-title"><strong>Example 7.3</strong></span> Consider the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> as in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>, and consider different choices of <span class="math inline">\(X_n\)</span> shown below. For each case, determine whether <span class="math inline">\(X_n\)</span> converges almost surely, in probability, or in mean-square.</p>
 <ol type="a">
@@ -968,8 +998,8 @@ F(x + ε) \downarrow F(x)
 </div>
 </div>
 </section>
-<section id="almost-sure-convergence-from-convergence-in-probability." class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">7.3</span> Almost sure convergence from convergence in probability.</h2>
+<section id="almost-sure-convergence-from-convergence-in-probability." class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="almost-sure-convergence-from-convergence-in-probability."><span class="header-section-number">7.7</span> Almost sure convergence from convergence in probability.</h2>
 <p><a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>7.4</span></a> shows that verifying almost sure convergence can be a bit tricky. In this section, we show that sometimes it is possible to infer almost sure convergence from convergence in probability.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
@@ -1144,8 +1174,8 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 </div>
 </div>
 </section>
-<section id="strong-law-of-large-numbers" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="strong-law-of-large-numbers"><span class="header-section-number">7.4</span> Strong law of large numbers</h2>
+<section id="strong-law-of-large-numbers" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="strong-law-of-large-numbers"><span class="header-section-number">7.8</span> Strong law of large numbers</h2>
 <div id="thm-SLLN" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 7.1</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be an i.i.d. sequence of random variables with mean <span class="math inline">\(μ\)</span> and variance <span class="math inline">\(σ^2\)</span>. Let <span class="math display">\[
   \bar X_n = \frac 1n \sum_{i=1}^n X_i
@@ -1168,17 +1198,18 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 <div class="callout-body-container callout-body">
 <p>We assume that <span class="math inline">\(μ = 0\)</span> (this is just for notational simplicity) and <span class="math inline">\(\EXP[X^4] = γ &lt; ∞\)</span> (this is a strong assumption).</p>
 <p>Since we know that the forth moment exist, we can use a forth moment version of Chebyshev inequality: <span class="math display">\[ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \EXP[ \bar X_n^4]}{ε^2}. \]</span></p>
-<p>Then, by the multinomial theorem, we have <span class="math display">\[ \EXP{\bar X_n^4} = \frac{1}{4} \EXP\biggl[
+<p>Then, by the multinomial theorem, we have <span class="math display">\[ \EXP[\bar X_n^4] = \frac{1}{n^4} \EXP\biggl[
 \sum_{i} X_i^4 + \binom{4}{1,3} \sum_{i \neq j} X_i X_j^3 + \binom{4}{2,2} \sum_{i \neq j} X_i^2 X_j^2
 + \binom{4}{1,1,2} \sum_{i \neq j \neq k} X_i X_j X_k^2 + \sum_{i \neq j \neq k \neq \ell} X_i X_j X_k X_{\ell} \biggr].
 \]</span></p>
 <p>Since the <span class="math inline">\(\{X_i\}_{i \ge 1}\)</span> are independent and zero mean, we have</p>
 <ul>
 <li><span class="math inline">\(\EXP[X_i X_j^3] = \EXP[X_i] \EXP[X_j^3] = 0\)</span>.</li>
-<li>= = 0$.</li>
+<li><span class="math inline">\(\EXP[X_i X_j X_k^2] = \EXP[X_i] \EXP[X_j] \EXP[X_k^2] = 0\)</span>.</li>
+<li><span class="math inline">\(\EXP[X_i X_j X_k X_{\ell}] = \EXP[X_i] \EXP[X_j] \EXP[X_k] \EXP[X_{\ell}] = 0\)</span>.</li>
 </ul>
 <p>Therefore, <span class="math display">\[
-\EXP[\bar X_n^4= \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
+\EXP[\bar X_n^4] = \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
 \le \frac{M_4}{n_3} + \frac{3 σ^4}{n^2}
 \]</span> where <span class="math inline">\(M_4\)</span> is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have <span class="math display">\[ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n_3} + \frac{3 σ^4}{n^2} }{ε^2}. \]</span> This implies that <span class="math display">\[
 \sum_{n=1}^{∞} \PR(\ABS{X_n} \ge ε) &lt; ∞.
@@ -1187,8 +1218,8 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 </div>
 </div>
 </section>
-<section id="further-reading" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">7.5</span> Further Reading</h2>
+<section id="further-reading" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">7.9</span> Further Reading</h2>
 <ul>
 <li><strong>Gubner:</strong> Sec.&nbsp;13.1, 14.1, 14,2, 14,3 (and corresponding problems at the end of the chapters)</li>
 <li><strong>Grimmett and Stirzaker:</strong> Sec.&nbsp;7.1, 7.2, 7.3, 7.4, 7.5 (and corresponding problems at the end of the sections and the end of the chapters)</li>
