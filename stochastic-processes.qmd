@@ -1,0 +1,112 @@
+---
+title: Stochastic processes
+execute:
+  echo: false
+---
+
+1. A stochastic process is a family of random variables, indexed by time. You may think of it as a random signal. 
+
+2. A stochastic process may be described in discrete-time, where we have a family of random variables $\{X_n : n \in N\}$ where index set $N$ is either $\{0, 1, \dots, \}$ or $\{1, 2, \dots\}$ or in some cases $\integers$.
+
+3. Note that all random variables must be defined on a common probability space $(Ω, \ALPHABET F, \PR)$. For a fixed $ω \in Ω$, we get a sequence of real numbers $\{X_n(ω)\}_{n \ge 0}$. Such a sequence is called a **realization** or **sample path**.
+
+4. As an example, consider an infinite sequence of bits, where each bit is i.i.d. $\text{Bernoulli}(p)$. A sample path is shown below. 
+
+```{ojs}
+viewof rerun_bits= Inputs.button("Generate sample path")
+
+points_bits = {
+
+    rerun_bits
+
+    const N = 120
+    const p = 0.5
+    var points = new Array(N)
+
+    for(var n=0; n < N; n++) {
+      var val = (Math.random() <= p) ? 0 : 1
+      points[n-1] = { n: n, X_n: val }
+    }
+    return points
+}
+ ```
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  y : {ticks: 1 },
+  height: 100,
+  marks: [
+    // Axes
+    Plot.ruleX([0]),
+    Plot.ruleY([0]),
+    // Data
+    Plot.ruleX(points_bits, {x: "n", y: "X_n", strokeWidth: 1}),
+    Plot.dot(points_bits, {x: "n", y: "X_n", fill: "currentColor", r: 2}),
+  ]
+})
+```
+
+5. As an other example, consider a stochastic process $\{Y_n\}_{n \ge 0}$ defined as
+   $$ Y_n = x_n + W_n $$
+   where $\{x_n\}_{n \ge 0}$ is a deterministic discrete-time signal given by $x_n = \sin(2πn/25)$ and $\{W_n\}_{n \ge 0}$ is a Gaussian noise process, where $W_n \sim \mathcal{N}(0,0.2)$. A sample path of $\{Y_n\}_{n \ge 0}$ is shown below.
+
+```{ojs}
+// From https://stackoverflow.com/a/36481059/193149
+// Standard Normal variate using Box-Muller transform.
+function gaussianRandom(mean=0, stdev=1) {
+    const u = 1 - Math.random(); // Converting [0,1) to (0,1]
+    const v = Math.random();
+    const z = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+    // Transform to the desired mean and standard deviation:
+    return z * stdev + mean;
+}
+
+viewof rerun_noise = Inputs.button("Generate sample path")
+
+points_noise = {
+
+    rerun_noise
+
+    const N = 120
+    const sigma = 0.2
+    const omega = 2*Math.PI*0.04
+    var points = new Array(N)
+
+    for(var n=0; n < N; n++) {
+      var signal = Math.sin(omega*n)
+      var noise = gaussianRandom(0, sigma)
+
+      points[n-1] = { n: n, X_n: signal,  W_n: noise, Y_n: signal + noise }
+    }
+    return points
+}
+ ```
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  y : {ticks: 1 },
+  height: 100,
+  marks: [
+    // Axes
+    Plot.ruleX([0]),
+    Plot.ruleY([0]),
+    // Data
+    Plot.ruleX(points_noise, {x: "n", y: "Y_n", strokeWidth: 1}),
+    Plot.dot(points_noise, {x: "n", y: "Y_n", fill: "currentColor", r: 2}),
+  ]
+})
+```
+
+6. It is also possible for a stochastic process to be continuous time, where we have an uncountable collection of random variables $\{X_t : t \in T \}$, where the index set $T$ is either $(-∞, ∞)$ or $[0, ∞)$. Continuous-time stochastic processes tend to be a bit more technical than discrete-time stochastic processes. 
+
+7. As the above examples illustrate, the random variables $\{X_n\}_{n \ge 0}$ need not be independent. So, we need a way to specify the joint distribution of a countable collection of random variables. This means that for any collection of time indices $\{n_1, \dots, n_k\}$, we must be able to specify the joint CDF of the random variables $(X_{n_1}, X_{n_2}, \dots, X_{n_k})$.
+
+8. A discrete time stochastic process $\{X_n\}_{n \ge 0}$ is called **strong-sense stationary** if for any $\{n_1, \dots, n_k\}$ and $m > 0$, the random vectors
+   $$
+     (X_{n_1}, X_{n_2}, \dots, X_{n_k})
+     \quad \text{and}\quad
+     (X_{n_1 + m}, X_{n_2 + m}, \dots, X_{n_k + m})
+   $$
+   have the same joint distributions.

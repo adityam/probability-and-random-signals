@@ -30,6 +30,7 @@ book:
       - moment-generating-functions.qmd
       - inequalities.qmd
       - convergence-of-random-variables.qmd
+      - stochastic-processes.qmd
       - markov-chains.qmd
 
 format:
