@@ -422,13 +422,13 @@ Consider an i.i.d. sequence $\{X_n\}_{n \ge 1}$, where $X_n \sim \text{Uniform}(
 $$
   Y_n = \min\{X_1, \dots, X_n\}.
 $$
-Determine whether $Y_n$ converges almost surely or in probability. 
+Determine whether $Y_n$ converges almost surely, in probability, or in mean-square. 
 :::
 
 :::{.callout-note collapse="false"}
 ### Solution
 
-We first check convergence in probability and then almost surely. 
+#### Convergence in probability {-}
 
 Fix an $ε > 0$ and consider the set
 $$
@@ -442,6 +442,7 @@ As in @exm-convergence-3, if $ε > 1$, then $\PR(E_n) = 0$. So, we assume that $
 \end{align*}
 which goes to zero as $n \to ∞$. Thus, $Y_n \xrightarrow{p} 0$. 
 
+#### Almost sure convergence {-}
 
 We now consider almost sure convergence. Note that for a fixed $ω$, the sequence $\{Y_n(ω)\}_{n \ge 1}$ is a decreasing sequence. Hence, it must have a limit. Denote that limit by $Y(ω)$, i.e.,
 $$
@@ -468,6 +469,42 @@ $$
   \PR\Bigl( \lim_{n\to ∞} Y_n = 0 \Bigr) = 1.
 $$
 Hence $Y_n \xrightarrow{a.s.} 0$. 
+
+#### Mean square convergence {-}
+
+Let $F_n$ denote the CDF of $Y_n$ and $f_n$ denote the PDF. As computed above, 
+$$
+  F_n(y) = 1 - (1-y)^n, \quad y \in (0,1).
+$$
+Therefore, 
+$$
+  f_n(y) = \frac{d F_n(y)}{dy} = n(1-y)^{n-1}, \quad y \in (0,1).
+$$
+Since $Y_n \in [0, 1]$, we have
+$$
+  \EXP[ \ABS{Y_n - 0}^2 ] = \EXP[ Y_n^2 ] \le \EXP[ Y_n]
+$$
+where the last inequality uses the fact that $y^2 \le y$ for $y \in [0,1]$. We now compute $\EXP[Y_n]$.
+\begin{align*}
+  \EXP[Y_n] &= \int_{0}^{1} y f_n(y)\, dy \\
+  &= \int_{0}^1 y n (1-y)^{n-1}\, dy \\
+  &= n \int_{0}^1 y (1-y)^{n-1}\, dy.
+\end{align*}
+We could compute the integral using integration by parts, but here we simply use the fact that the above is a [:Beta integral](https://en.wikipedia.org/wiki/Beta_function). Thus,
+$$
+  \EXP[Y_n] = n \int_{0}^1 y (1-y)^{n-1}\, dy = n B(2,n)
+  = n\frac{1!}{(n-1)!}{(n+1)!}
+  = \frac{1}{n+1}.
+$$
+Thus,
+$$
+  \lim_{n \to ∞} \EXP[Y_n^2 ]
+  \le
+  \lim_{n \to ∞} \EXP[Y_n ]
+  = 0.
+$$
+Hence, $X_n \xrightarrow{m.s.} 0$. 
+
 :::
 
 ## Almost sure convergence from convergence in probability.
