@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-10-22">
+<meta name="dcterms.date" content="2025-11-03">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>7&nbsp; Convergence of random variables – Probability and Random Signals II</title>
@@ -543,7 +543,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 22, 2025</p>
+      <p class="date">November 3, 2025</p>
     </div>
   </div>
   
@@ -973,7 +973,7 @@ F(x + ε) \downarrow F(x)
 <div id="exm-convergence-4" class="theorem example">
 <p><span class="theorem-title"><strong>Example 7.4</strong></span> Consider an i.i.d. sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>, where <span class="math inline">\(X_n \sim \text{Uniform}(0,1)\)</span>. Define <span class="math display">\[
   Y_n = \min\{X_1, \dots, X_n\}.
-\]</span> Determine whether <span class="math inline">\(Y_n\)</span> converges almost surely or in probability.</p>
+\]</span> Determine whether <span class="math inline">\(Y_n\)</span> converges almost surely, in probability, or in mean-square.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
@@ -987,7 +987,8 @@ F(x + ε) \downarrow F(x)
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>We first check convergence in probability and then almost surely.</p>
+<section id="convergence-in-probability-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="convergence-in-probability-1">Convergence in probability</h4>
 <p>Fix an <span class="math inline">\(ε &gt; 0\)</span> and consider the set <span class="math display">\[
   E_n = \{ ω : |Y_n(ω) - 0| &gt; ε \}.
 \]</span> As in <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, if <span class="math inline">\(ε &gt; 1\)</span>, then <span class="math inline">\(\PR(E_n) = 0\)</span>. So, we assume that <span class="math inline">\(ε &lt; 1\)</span>. Then, <span class="math display">\[\begin{align*}
@@ -995,6 +996,9 @@ F(x + ε) \downarrow F(x)
 &amp;= \PR( X_1 \ge ε, X_2 \ge ε, \dots, X_n \ge ε ) \\
 &amp;= (1-ε)^n
 \end{align*}\]</span> which goes to zero as <span class="math inline">\(n \to ∞\)</span>. Thus, <span class="math inline">\(Y_n \xrightarrow{p} 0\)</span>.</p>
+</section>
+<section id="almost-sure-convergence-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="almost-sure-convergence-1">Almost sure convergence</h4>
 <p>We now consider almost sure convergence. Note that for a fixed <span class="math inline">\(ω\)</span>, the sequence <span class="math inline">\(\{Y_n(ω)\}_{n \ge 1}\)</span> is a decreasing sequence. Hence, it must have a limit. Denote that limit by <span class="math inline">\(Y(ω)\)</span>, i.e., <span class="math display">\[
   Y(ω) = \lim_{n \to ∞} Y_n(ω).
 \]</span></p>
@@ -1008,6 +1012,30 @@ F(x + ε) \downarrow F(x)
 \]</span> Thus, the only possibility is that <span class="math display">\[
   \PR\Bigl( \lim_{n\to ∞} Y_n = 0 \Bigr) = 1.
 \]</span> Hence <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p>
+</section>
+<section id="mean-square-convergence" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="mean-square-convergence">Mean square convergence</h4>
+<p>Let <span class="math inline">\(F_n\)</span> denote the CDF of <span class="math inline">\(Y_n\)</span> and <span class="math inline">\(f_n\)</span> denote the PDF. As computed above, <span class="math display">\[
+  F_n(y) = 1 - (1-y)^n, \quad y \in (0,1).
+\]</span> Therefore, <span class="math display">\[
+  f_n(y) = \frac{d F_n(y)}{dy} = n(1-y)^{n-1}, \quad y \in (0,1).
+\]</span> Since <span class="math inline">\(Y_n \in [0, 1]\)</span>, we have <span class="math display">\[
+  \EXP[ \ABS{Y_n - 0}^2 ] = \EXP[ Y_n^2 ] \le \EXP[ Y_n]
+\]</span> where the last inequality uses the fact that <span class="math inline">\(y^2 \le y\)</span> for <span class="math inline">\(y \in [0,1]\)</span>. We now compute <span class="math inline">\(\EXP[Y_n]\)</span>. <span class="math display">\[\begin{align*}
+  \EXP[Y_n] &amp;= \int_{0}^{1} y f_n(y)\, dy \\
+  &amp;= \int_{0}^1 y n (1-y)^{n-1}\, dy \\
+  &amp;= n \int_{0}^1 y (1-y)^{n-1}\, dy.
+\end{align*}\]</span> We could compute the integral using integration by parts, but here we simply use the fact that the above is a <a href="https://en.wikipedia.org/wiki/Beta_function">:Beta integral</a>. Thus, <span class="math display">\[
+  \EXP[Y_n] = n \int_{0}^1 y (1-y)^{n-1}\, dy = n B(2,n)
+  = n\frac{1!}{(n-1)!}{(n+1)!}
+  = \frac{1}{n+1}.
+\]</span> Thus, <span class="math display">\[
+  \lim_{n \to ∞} \EXP[Y_n^2 ]
+  \le
+  \lim_{n \to ∞} \EXP[Y_n ]
+  = 0.
+\]</span> Hence, <span class="math inline">\(X_n \xrightarrow{m.s.} 0\)</span>.</p>
+</section>
 </div>
 </div>
 </div>
