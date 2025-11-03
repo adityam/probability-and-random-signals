@@ -179,20 +179,32 @@ In the rest of this section, we will present results in Markov chain theory that
 
 ## State occupancy probabilities
 
-Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. This is also called the **state occupancy probababilites**. We will think of of $μ^{(n)}$ as a row vector. Then, by the law of total probability, we have
-$$
-  \PR(X_n = j) = \sum_{i \in \ALPHABET X} \PR(X_{n-1} = i) \PR(X_n = j | X_{n-1} = i)
-$$
-or, equivalently,
-$$
-  μ^{(n)}_j = \sum_{i \in \ALPHABET X} μ^{(n-1)}_i P_{ij}
-$$
-which can be written in matrix form as
-$$ μ^{(n)} = μ^{(n-1)} P $$
-and, by recusively expanding the right hand side, we have
-$$ μ^{(n)} = μ^{(0)} P^n. $$
+1. Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. This is also called the **state occupancy probababilites**. We will think of of $μ^{(n)}$ as a row vector. 
 
-We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$. 
+2. By the law of total probability, we have
+   $$
+     \PR(X_n = j) = \sum_{i \in \ALPHABET X} \PR(X_{n-1} = i) \PR(X_n = j | X_{n-1} = i)
+   $$
+   or, equivalently,
+   $$
+     μ^{(n)}_j = \sum_{i \in \ALPHABET X} μ^{(n-1)}_i P_{ij}
+   $$
+   which can be written in matrix form as
+   $$ μ^{(n)} = μ^{(n-1)} P $$
+   and, by recusively expanding the right hand side, we have
+   $$ μ^{(n)} = μ^{(0)} P^n. $$
+
+3. We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$. Note that
+   $$
+      P^{(n)}_{ij} = \PR(X_n = j \mid X_0 = i)
+   $$
+   denotes the **$n$-step transition probability.**
+
+4. **Chapman-Kolmogorov equations:** The multi-step transition probabilities satisfy the following: for any positive integers $m$ and $n$ and $i,j \in \ALPHABET X$, we have
+   $$
+      P^{(n+m)}_{ij} = \sum_{k \in \ALPHABET X} P^{(n)}_{ik} P^{(m)}_{kj}.
+   $$
+   Thus, the probability of going from $i$ to $j$ in $n+m$ steps equals the probability of going from $i$ to _somewhere_ in $n$ steps and then from there to $j$ in $m$ steps.
 
 :::{#exm-random-walk-occupancy}
 Numerically compute the state occupancy probabilities for the different examples of random walk presented in @exm-random-walk when $p = q = \tfrac 12$ for $n \in \{1, \dots, 8\}$. In all cases, the initial probability 
@@ -398,63 +410,36 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
     :::
 
-2.  Two distinct states $i$ and $j$ are said to **communicate**
-    (abbreviated to $i \leftrightsquigarrow j$) if $i$ is accessible
-    from $j$ (i.e., $j \rightsquigarrow i$) and $j$ is accessible from
-    $i$ ($i \rightsquigarrow j$). Alternatively, we say that $i$ and $j$
-    communicate if there exist $m, m' \in \integers_{\ge 0}$ such that
-    $P^{(m)}_{ij} > 0$ and $P^{(m')}_{ji} > 0$.
+2.  Two distinct states $i$ and $j$ are said to **communicate** (abbreviated to $i \leftrightsquigarrow j$) if $i$ is accessible from $j$ (i.e., $j \rightsquigarrow i$) and $j$ is accessible from $i$ ($i \rightsquigarrow j$). Alternatively, we say that $i$ and $j$ communicate if there exist $m, m' \in \integers_{\ge 0}$ such that $P^{(m)}_{ij} > 0$ and $P^{(m')}_{ji} > 0$.
 
     For instance, in @exm-accessible, state $1$ communicates with state $2$ but does not communicate with state $5$. 
 
-    Communication is an equivalence relationship, i.e., it is reflexive
-    ($i \leftrightsquigarrow i$), symmetric ($i \leftrightsquigarrow j$
-    if and only if $j \leftrightsquigarrow i$), and transitive
-    ($i \leftrightsquigarrow j$ and $j \leftrightsquigarrow k$ implies
-    $i \leftrightsquigarrow k$).
+    Communication is an equivalence relationship, i.e., it is reflexive ($i \leftrightsquigarrow i$), symmetric ($i \leftrightsquigarrow j$ if and only if $j \leftrightsquigarrow i$), and transitive ($i \leftrightsquigarrow j$ and $j \leftrightsquigarrow k$ implies $i \leftrightsquigarrow k$).
 
-3.  The states in a finite-state Markov chain can be partitioned into
-    two sets: **recurrent states** and **transient states**. A state is
-    recurrent if it is accessible from all states that are accessible from it (i.e., $i$ is recurrent if $i \rightsquigarrow j$ implies that $j \rightsquigarrow i$). States that are not recurrent are
-    **transient**.
+3.  The states in a finite-state Markov chain can be partitioned into two sets: **recurrent states** and **transient states**. A state is recurrent if it is accessible from all states that are accessible from it (i.e., $i$ is recurrent if $i \rightsquigarrow j$ implies that $j \rightsquigarrow i$). States that are not recurrent are **transient**.
 
-    It can be shown that a state $i$ is recurrent if and only if
+4.  It can be shown that a state $i$ is recurrent if and only if
     $$\sum_{m=1}^{\infty} P^{(m)}_{ii} = \infty.$$
+    This is a consequence of the second Borel-Cantelli lemma (@lem-Borel-Cantelli-2}) and **strong Markov property** (to be discussed later). 
 
-
-4.  States $i$ and $j$ are said to belong to the same **communicating
-    class** if $i$ and $j$ communicate. Communicating classes form a
-    partition the state space. Within a communicating class, all states
-    are of the same type, i.e., either all states are recurrent (in
-    which case the class is called a recurrent class) or all states are
-    transient (in which case the class is called a transient class).
+5.  States $i$ and $j$ are said to belong to the same **communicating class** if $i$ and $j$ communicate. Communicating classes form a partition the state space. Within a communicating class, all states are of the same type, i.e., either all states are recurrent (in which case the class is called a recurrent class) or all states are transient (in which case the class is called a transient class).
 
     For example, in @exm-accessible, there are two communication classes: $\{1,2,3\}$ and $\{4,5,6\}$. The communication class $\{4,5,6\}$ is transient while the communication class $\{1,2,3\}$ is recurrent.
 
 
-5.  A communicating class $C$ is said to be **closed** if 
+6.  A communicating class $C$ is said to be **closed** if 
     $$
         i \in C \text{ and } i \rightsquigarrow j \implies j \in C.
     $$
     Thus, there is no escape from a closed class. For finite state spaces, a recurrent class is always closed and a transient class is never closed. But this is not the case for countable state Markov chains. 
 
-6.  A state $i$ is called **absorbing** if $\{i\}$ is a closed class, i.e., if $P_{ii} = 1$. 
+7.  A state $i$ is called **absorbing** if $\{i\}$ is a closed class, i.e., if $P_{ii} = 1$. 
 
-7.  A Markov chain with a single communicating class (thus, all states
-    communicate with each other and are, therefore, recurrent) is called
-    **irreducible**.
+8.  A Markov chain with a single communicating class (thus, all states communicate with each other and are, therefore, recurrent) is called **irreducible**.
 
-8.  The **period** of a state $i$, denoted by $d(i)$, is defined as
-    $$d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} > 0 \}.$$ If
-    the period is $1$, the state is **aperiodic**, and if the period is
-    $2$ or more, the state is **periodic**. It can be shown that all
-    states in the same class have the same period.
+9.  The **period** of a state $i$, denoted by $d(i)$, is defined as $$d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} > 0 \}.$$ If the period is $1$, the state is **aperiodic**, and if the period is $2$ or more, the state is **periodic**. It can be shown that all states in the same class have the same period.
 
-9.  A Markov chain is aperiodic, if all states are aperiodic. A simple
-    sufficient (but not necessary) condition for an irreducible Markov
-    chain to be aperiodic is that there exists a state $i$ such that
-    $P_{ii} > 0$. In general, for a finite and aperiodic Markov chain,
-    there exists a positive integer $M$ such that 
+10.  A Markov chain is aperiodic, if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state $i$ such that $P_{ii} > 0$. In general, for a finite and aperiodic Markov chain, there exists a positive integer $M$ such that 
     $$ P^{(m)}_{ii} > 0, 
             \quad \forall m \ge M, i \in \ALPHABET X.$$
 
@@ -463,7 +448,7 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
 1. We use the following notation:
 
-    - For any event $E$, $P_i(E)$ denotes $\PR(E \mid X_0 = i)$ 
+    - For any event $E$, $\PR_i(E)$ denotes $\PR(E \mid X_0 = i)$ 
     - For any random variable $Y$, $\EXP_i[Y]$ denotes $\EXP[Y \mid X_0 = i]$.
 
 2. Let $A$ be a subset of $\ALPHABET X$. The **hitting time** $H^A$ of $A$ is a random variable $H^A \colon \ALPHABET X \to \{0, 1, \dots \} \cup \{∞\}$ given by
@@ -474,7 +459,7 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
 3. The probability that starting from state $i$ the Markov chain ever hits $A$ is then given by
    $$
-      h^A_i = P_i(H^A < ∞).
+      h^A_i = \PR_i(H^A < ∞).
    $$
    This is called **hitting probability**. When $A$ is a closed class, $h^A_i$ is called the **absorption probability**. 
 
@@ -581,6 +566,14 @@ Moreover, by the law of total probability, we have
   &= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
 \end{align*}
 
+:::
+
+:::{#exm-no-of-tosses-1}
+Suppose we toss a coin multiple times and stop at the first head. What is the expected number of coin tosses until stopping?
+:::
+
+:::{#exm-no-of-tosses-1}
+Suppose we toss a coin multiple times and stop at two consecutive heads. What is the expected number of coin tosses until stopping?
 :::
 
 
