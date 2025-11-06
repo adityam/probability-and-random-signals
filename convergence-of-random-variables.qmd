@@ -65,7 +65,7 @@ Show that $\{X_n\}_{n \ge 1}$ does not converge in the sure sense.
 :::{.callout-note collapse="false"}
 #### Solution
 
-For any $ω \in (0,1]$, $X_n(ω) = 1$ for $n < \lfloor 1/n \rfloor$, and $0$ afterwards. Thus, $X_n(ω) \to 0$. 
+For any $ω \in (0,1]$, $X_n(ω) = 1$ for $n \le \lfloor 1/ω \rfloor$, and $0$ afterwards. Thus, $X_n(ω) \to 0$. 
 
 However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
 :::
@@ -126,7 +126,7 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
 2. However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example. An easier to understand example is presented in @exm-convergence-5, part (b).
 
 :::{#exm-convergence-2}
-Consider a probability space as in @exm-convergence-1. Define $X_n(ω) = \IND_{A_n}(ω)$, where where $A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}$.
+Consider a probability space as in @exm-convergence-1. Define $X_n(ω) = \IND_{A_n}(ω)$, where $A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}$.
 
 ```{ojs}
 viewof ω_convergence_2 = Inputs.range([0.0, 1], {label: "ω", value:0.05, step: 0.01})
@@ -188,7 +188,7 @@ Hence, $\{X_n\}$ converges in probability.
 :::
 
 3. There is however a partial converse.
-   If $\{X_n\}_{n \ge 1}$ is a strictly decreasing sequence and $c$ is a constant then
+   If $\{X_n\}_{n \ge 1}$ is a **monotone sequence** of random variables (i.e., either $X_1 \le X_2 \le \cdots$ almost surely or $X_1 \ge X_2 \ge \cdots$ almost surely) and $c$ is a constant, then
    $$
      [X_n \xrightarrow{p} c] 
      \implies
@@ -249,7 +249,7 @@ Hence, $\{X_n\}$ converges in probability.
    $$
    Taking $n \to ∞$, we have
    $$
-   F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + ε).
+   F(x-ε) \le \liminf_{n \to ∞} F_n(x) \le \limsup_{n \to ∞} F_n(x) \le F(x + ε).
    $$
    The result is true for all $ε > 0$. Since $F$ is continuous at $x$, when we take $ε \downarrow 0$, we have 
    $$ 
@@ -304,7 +304,7 @@ Hence, $\{X_n\}$ converges in probability.
     $$
     which corresponds to a random variable $X = 0$. 
 
-      However, for any $k \ge 1$, we have $\EXP[X_n^k] = n^{k-1}$ but $\EXP[X^k] = 1$. Thus, the moments do not converge!
+      However, for any $k \ge 1$, we have $\EXP[X_n^k] = n^{k-1}$ but $\EXP[X^k] = 0$. Thus, the moments do not converge!
 
 7. **Skorokhod’s representation theorem.** If $X_n \xrightarrow{D} X$, then there exists a sequence $\{Y_n\}_{n \ge 1}$ that is identically distributed to $\{X_n\}_{n \ge 1}$ such that $Y_n \xrightarrow{a.s.} Y$, where $Y$ is identically distributed to $X$.
 
@@ -333,7 +333,7 @@ Hence, $\{X_n\}$ converges in probability.
 
 5. However, the converse is not true as is illustrated by @exm-convergence-3, part (c). 
 
-6. Convergence in mean-square and almost surely are not comparable. @exm-convergence-3, part (c) gives an example that converges almost surely not not in mean square. @exm-convergence-5, part (d) gives an example that converges in mean square but not almost surely.
+6. Convergence in mean-square and almost surely are not comparable. @exm-convergence-3, part (c) gives an example that converges almost surely but not in mean square. @exm-convergence-5, part (a) gives an example that converges in mean square but not almost surely.
 
 ## Continuity properties of convergence
 
@@ -345,7 +345,7 @@ Hence, $\{X_n\}$ converges in probability.
    $$ \EXP[ | g(X_n) - g(0)|^2 ] = n^4 \frac{1}{n^3} = n \to ∞. $$
    Thus, $g(X_n)$ does not converge in mean square to $g(0)$. 
 
-3.  If $X_n \xrightarrow{a.s.} X$ and $Y_n \xrightarrow{a.s.} Y$, then $(X_n, Y_n) \xrightarrow{a.s.} (X,Y)$. Therefore, for any continuous function $g$, we have $g(X_n, Y_n) \xrightarrow{a.s} g(X,Y)$. 
+3.  If $X_n \xrightarrow{a.s.} X$ and $Y_n \xrightarrow{a.s.} Y$, then $(X_n, Y_n) \xrightarrow{a.s.} (X,Y)$. Therefore, for any continuous function $g$, we have $g(X_n, Y_n) \xrightarrow{a.s.} g(X,Y)$. 
 
     :::{.callout-note collapse="false"}
     #### Proof
@@ -363,7 +363,7 @@ Hence, $\{X_n\}$ converges in probability.
 
 5. However, this property is not true for convergence in distribution as is illustrated by the following example. Suppose $X_n \sim \text{Unif}(-1,1)$ and $X \sim \text{Unif}(-1,1)$ be independent random variables. Define $Y_n = X_n$ and $Y = - X$. Then, $X_n \xrightarrow{D} X$, $Y_n \xrightarrow{D} Y$, but $X_n + Y_n = 2X_n$ does not converge in distribution to $X + Y = 0$. 
 
-6. **Slutsky's theorem:** Suppose $X_n \xrightarrow{D} X$ and $Y_n \xrightarrow{D} c$, where $c$ is a constant. Then, $(X_n, Y_n) \xrightarrow{D} (X_n, c)$. Therefore, for any continuous function $g(X_n, Y_n) \xrightarrow{D} g(X, c)$. In particular, $X_n + Y_n \xrightarrow{D} X + c$ and $X_n Y_n \xrightarrow{D} cX$. 
+6. **Slutsky's theorem:** Suppose $X_n \xrightarrow{D} X$ and $Y_n \xrightarrow{D} c$, where $c$ is a constant. Then, $(X_n, Y_n) \xrightarrow{D} (X, c)$. Therefore, for any continuous function $g(X_n, Y_n) \xrightarrow{D} g(X, c)$. In particular, $X_n + Y_n \xrightarrow{D} X + c$ and $X_n Y_n \xrightarrow{D} cX$. 
 
 7. Note that we have already argued that $Y_n \xrightarrow{D} c$ is equivalent to $Y_n \xrightarrow{p} c$. So, one can replace $Y_n \xrightarrow{D} c$ in Slutsky's theorem by $Y_n \xrightarrow{p} c$. 
 
@@ -407,7 +407,7 @@ Consider
 $$
   \EXP[\ABS{X_n}^2] = \int_{A_n} 1\, d ω = \frac{1}{n}
 $$
-which converges to $0$ as $n \to ∞$. Thus, $X_n \xrightarrow{m.s.} X$. 
+which converges to $0$ as $n \to ∞$. Thus, $X_n \xrightarrow{m.s.} 0$. 
 
 However, observe that for part (c)
 $$
@@ -493,7 +493,7 @@ where the last inequality uses the fact that $y^2 \le y$ for $y \in [0,1]$. We n
 We could compute the integral using integration by parts, but here we simply use the fact that the above is a [:Beta integral](https://en.wikipedia.org/wiki/Beta_function). Thus,
 $$
   \EXP[Y_n] = n \int_{0}^1 y (1-y)^{n-1}\, dy = n B(2,n)
-  = n\frac{1!}{(n-1)!}{(n+1)!}
+  = n\frac{1!(n-1)!}{(n+1)!}
   = \frac{1}{n+1}.
 $$
 Thus,
@@ -503,7 +503,7 @@ $$
   \lim_{n \to ∞} \EXP[Y_n ]
   = 0.
 $$
-Hence, $X_n \xrightarrow{m.s.} 0$. 
+Hence, $Y_n \xrightarrow{m.s.} 0$. 
 
 :::
 
@@ -563,7 +563,7 @@ $$
   \liminf_{n \to ∞} A_n = \lim_{n \to ∞} C_n = \bigcup_{n=1}^∞ C_n
   = \bigcup_{n=1}^{∞} \bigcap_{i=n}^{∞} A_i.
 $$
-Similarly, the limit of $\{D_n\}_{n \ge 1}$ is call the **lim sup** of $\{A_n\}_{n \ge 1}$, i.e.,
+Similarly, the limit of $\{D_n\}_{n \ge 1}$ is called the **lim sup** of $\{A_n\}_{n \ge 1}$, i.e.,
 $$
   \limsup_{n \to ∞} A_n = \lim_{n \to ∞} D_n = \bigcap_{n=1}^∞ D_n
   = \bigcap_{n=1}^{∞} \bigcup_{i=n}^{∞} A_i.
@@ -589,7 +589,7 @@ which holds if and only if the binary sequence $\{\IND_{A_n}(ω)\}$ eventually b
 For example, suppose we toss a coin infinite number of coins. Let $(Ω, \ALPHABET F, \PR)$ denote the corresponding probability space, and let $A_n$ denote the event that the $n$-th toss is a heads. Then, 
 
 - $\limsup_{n \to ∞} A_n$ is the event that there are infinitely many heads.
-- $\liminf_{n \to ∞} A_n$ is the event that there are all but a finite number of the coins were head, i.e., there were only finitely many tails.
+- $\liminf_{n \to ∞} A_n$ is the event that all but a finite number of the coins were heads, i.e., there were only finitely many tails.
 :::
 
 We now state two fundamental results. The proofs are not difficult but are omitted due to time.
@@ -639,7 +639,7 @@ In light of the above result, we revisit some variations of the examples of the 
   $$
       \PR(E_n) = \frac 1n.
   $$
-  Since $\sum_{n \ge 1} \PR(E_n) = ∞$, we cannot use the above theorem to infer that $X_n \xrightarrow{a.s.} 0$. This is not a contraction because @lem-as is a sufficient condition, not a necessary condition.  
+  Since $\sum_{n \ge 1} \PR(E_n) = ∞$, we cannot use the above theorem to infer that $X_n \xrightarrow{a.s.} 0$. This is not a contradiction because @lem-as is a sufficient condition, not a necessary condition.  
 
 - Consider @exm-convergence-3, part b, we have 
   $$
@@ -647,7 +647,7 @@ In light of the above result, we revisit some variations of the examples of the 
   $$
   Since $\sum_{n \ge 1} \PR(E_n) < ∞$, we can use @lem-as to infer that $X_n \xrightarrow{a.s.} 0$. 
 
-- In @exm-convergence-4, we have argued that $\PR(Y_n > ε) = (1-ε)^n$. Therefore, $\sum_{n \ge 1} \PR(Y_n > ε) = \frac{1}{ε} < ∞$. Hence, by @lem-as, $Y_n \xrightarrow{a.s.} 0$.
+- In @exm-convergence-4, we have argued that $\PR(Y_n > ε) = (1-ε)^n$. Therefore, $\sum_{n \ge 1} \PR(Y_n > ε) = \sum_{n=1}^∞ (1-ε)^n = \frac{1-ε}{ε} < ∞$ (for $0 < ε < 1$). Hence, by @lem-as, $Y_n \xrightarrow{a.s.} 0$.
 
 We can also consider a variation of the above. 
 
@@ -705,16 +705,16 @@ To simplify the notation, we assume that $X = 0$.
 
 Pick any $ε > 0$ and define the sequence of events 
 $$
-A_n = \bigl\{ ω : \ABS{X_i} > ε \bigr\}, 
+A_n = \bigl\{ ω : \ABS{X_n} > ε \bigr\}, 
 \quad n \in \naturalnumbers.
 $$
 
 From Markov inequality, we have
-$$\PR(A_n) = \PR\bigl( \ABS{X_i} > ε \bigr)
-\le \dfrac{\EXP[\ABS{X_i}]}{ε}. $$
+$$\PR(A_n) = \PR\bigl( \ABS{X_n} > ε \bigr)
+\le \dfrac{\EXP[\ABS{X_n}]}{ε}. $$
 Therefore,
 $$ \sum_{n=1}^{∞} \PR(A_n) 
-\le \frac{1}{ε} \sum_{n=1}^{∞} \EXP[\ABS{X_i}]
+\le \frac{1}{ε} \sum_{n=1}^{∞} \EXP[\ABS{X_n}]
 < ∞
 $$
 by the hypothesis of the result. Therefore, by Borel-Cantelli lemma, we have 
@@ -731,22 +731,22 @@ Let $\{X_n\}_{n \ge 1}$ be an i.i.d. sequence of random variables with mean $μ$
 $$
   \bar X_n = \frac 1n \sum_{i=1}^n X_i
 $$
-be the sameple average. 
-Then, $\bar X_n \xrightarrow{a.s} μ$, i.e.,
+be the sample average. 
+Then, $\bar X_n \xrightarrow{a.s.} μ$, i.e.,
 $$
-\PR\Bigl( ω : \lim_{n \to ∞} X_n(ω) = μ \Bigr) = 1.
+\PR\Bigl( ω : \lim_{n \to ∞} \bar X_n(ω) = μ \Bigr) = 1.
 $$
 :::
 
-We provide a proof under the assumption that the fouth moment's exist.
+We provide a proof under the assumption that the fourth moment exists.
 
 :::{.callout-note collapse="false"}
 #### Proof
 
 We assume that $μ = 0$ (this is just for notational simplicity) and $\EXP[X^4] = γ < ∞$ (this is a strong assumption). 
 
-Since we know that the forth moment exist, we can use a forth moment version of Chebyshev inequality: 
-$$ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \EXP[ \bar X_n^4]}{ε^2}. $$
+Since we know that the fourth moment exists, we can use a fourth moment version of Markov inequality: 
+$$ \PR(\ABS{\bar X_n} \ge ε) = \PR(\ABS{\bar X_n}^4 \ge ε^4) \le \frac{ \EXP[ \bar X_n^4]}{ε^4}. $$
 
 Then, by the multinomial theorem, we have 
 $$ \EXP[\bar X_n^4] = \frac{1}{n^4} \EXP\biggl[
@@ -763,18 +763,18 @@ Since the $\{X_i\}_{i \ge 1}$ are independent and zero mean, we have
 Therefore,
 $$
 \EXP[\bar X_n^4] = \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
-\le \frac{M_4}{n_3} + \frac{3 σ^4}{n^2}
+\le \frac{M_4}{n^3} + \frac{3 σ^4}{n^2}
 $$
-where $M_4$ is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have
-$$ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n_3} + \frac{3 σ^4}{n^2} }{ε^2}. $$
+where $M_4$ is the fourth moment. Now, from the fourth moment version of Markov inequality, we have
+$$ \PR(\ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n^3} + \frac{3 σ^4}{n^2} }{ε^4}. $$
 This implies that
 $$
-\sum_{n=1}^{∞} \PR(\ABS{X_n} \ge ε) < ∞.
+\sum_{n=1}^{∞} \PR(\ABS{\bar X_n} \ge ε) < ∞.
 $$
-Thus, from @lem-as, we have that $X_n \xrightarrow{a.s.} 0$. 
+Thus, from @lem-as, we have that $\bar X_n \xrightarrow{a.s.} 0$. 
 :::
 
 ## Further Reading 
 
-- **Gubner:** Sec. 13.1, 14.1, 14,2, 14,3 (and corresponding problems at the end of the chapters)
-- **Grimmett and Stirzaker:** Sec. 7.1, 7.2, 7.3, 7.4, 7.5 (and corresponding problems at the end of the sections and the end of the chapters)
+- **Gubner:** Sec. 13.1, 14.1, 14.2, 14.3 (and corresponding problems at the end of the chapters)
+- **Grimmett and Stirzaker:** Sec. 7.1, 7.2, 7.3, 7.4, 7.5 (and corresponding problems at the end of the sections and the end of the chapters)

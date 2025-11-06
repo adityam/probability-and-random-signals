@@ -185,11 +185,11 @@ The table below compares the actual tail probability with the bound obtained fro
 
 :::
 
-@exm-Markov shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for $a < μ$. Thus, it only makes sense to apply the Markov inequality of $a \ge μ$.  
+@exm-Markov shows that the Markov inequality is not tight. Moreover, it gives a vacuous bound for $a < μ$. Thus, it only makes sense to apply the Markov inequality when $a \ge μ$.  
 
 ### Union bound as a special case of Markov inequality
 
-Note that it is possible to derive the union bound as a corrollary of Markov inequality. Given events $A_1, \dots, A_n$, define the random variables $X_1, \dots, X_n$ as 
+Note that it is possible to derive the union bound as a corollary of Markov inequality. Given events $A_1, \dots, A_n$, define the random variables $X_1, \dots, X_n$ as 
 $$
 X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 1, & ω \in A_i \\
@@ -314,7 +314,7 @@ where
 $$
 φ(a) = \max_{s > 0} \{ s a - \log M_X(s) \}
 $$ 
-is the [Lengendre-Fenchel transform](https://adityam.github.io/stochastic-control/convexity/duality.html) of $\log M_X(s)$.
+is the [Legendre-Fenchel transform](https://adityam.github.io/stochastic-control/convexity/duality.html) of $\log M_X(s)$.
 :::
 
 :::{.callout-note collapse="false"}

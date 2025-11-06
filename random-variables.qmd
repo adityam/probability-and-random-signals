@@ -237,7 +237,7 @@ There are three types of random variables
 
     @fig-coin-toss-cdf, @fig-const-cdf, @fig-bernoulli-cdf are all examples of discrete random variables. 
 
-2. A random variable $X$ is called **continuous** if there exists an integrable function $f \colon \reals \to [0, ∞)$ called the **probability denisity function** such that the CDF can be written as
+2. A random variable $X$ is called **continuous** if there exists an integrable function $f \colon \reals \to [0, ∞)$ called the **probability density function** such that the CDF can be written as
     $$
     F_X(x) = \int_{-∞}^x f_X(x) dx.
     $$
@@ -246,7 +246,7 @@ There are three types of random variables
 
    ![CDF of a continuous random variable](figures/svg/cdf4.svg){#fig-cdf-cts}
 
-3. A random variable is called **mixed** if it is neither discrete nor continuous. [For a mixed random variable, the CDF has has jumps at a finite or countable infinite number of points and it is continuous over one or many intervals.]{.text-primary}
+3. A random variable is called **mixed** if it is neither discrete nor continuous. [For a mixed random variable, the CDF has jumps at a finite or countable infinite number of points and it is continuous over one or many intervals.]{.text-primary}
 
    ![CDF of a mixed random variable](figures/svg/cdf5.svg){#fig-cdf-mixed}
 
@@ -275,7 +275,7 @@ There are three types of random variables
 
 - **Properties of continuous random variables**
 
-  For a discrete random variable $X$, define the **probability density function (PDF)** $f_X \colon \reals \to \reals$ as
+  For a continuous random variable $X$, define the **probability density function (PDF)** $f_X \colon \reals \to \reals$ as
   $$
      f_X(x) = \frac{d}{dx} F_X(x).
   $$
@@ -292,7 +292,7 @@ We now consider some other examples of discrete random variables, which are typi
 :::{#exm-Binomial}
 #### Binomial random variable
 
-A Binomial random variable is the sum of intendant and identically Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with $\PR(H) = p$) is tossed $n$ times, then the number of heads is a _binomial random variable with parameters $n$ and $p$_, which is denoted by $\text{Binomial}(n,p)$. For such a random variable,
+A Binomial random variable is the sum of independent and identically distributed Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with $\PR(H) = p$) is tossed $n$ times, then the number of heads is a _binomial random variable with parameters $n$ and $p$_, which is denoted by $\text{Binomial}(n,p)$. For such a random variable,
 $$
 P_X(k) = \binom n k p^k (1-p)^{n-k}, \quad 0 \le k \le n.
 $$
@@ -301,7 +301,7 @@ $$
 :::{#exm-Geometric}
 #### Geometric random variable
 
-A geometric random variable is the number of trails in i.i.d.\ Bernoulli random variables. For example, if a biased coin (with $\PR(H) = p$) is tossed repeated, the number of tosses needed for the first head is a geometric random variable with parameter $p \in (0,1)$_, which is denoted by $\text{Geo}(p)$. For such a random variable,
+A geometric random variable is the number of trials in i.i.d.\ Bernoulli random variables. For example, if a biased coin (with $\PR(H) = p$) is tossed repeatedly, the number of tosses needed for the first head is a geometric random variable with parameter $p \in (0,1)$, which is denoted by $\text{Geo}(p)$. For such a random variable,
 $$
 P_X(k) = (1-p)^{k-1} p, \quad k \in \integers_{> 0}.
 $$
@@ -462,7 +462,7 @@ Plot.plot({
 :::{.callout-note collapse="false"}
 ### Solution
 
-From the definition of $g$, we know that the rannge of $g$ is $[0,1]$. Thus, we know that the support of $Y$ is $[0,1]$. 
+From the definition of $g$, we know that the range of $g$ is $[0,1]$. Thus, we know that the support of $Y$ is $[0,1]$. 
 
 1. For any $y < 0$, the event $\{Y \le y\} = \emptyset$. Therefore, $F_Y(y) = 0$.
 

@@ -450,7 +450,7 @@ Repeat @exm-function-sum when $X_1$ and $X_2$ are independent.
 :::{.callout-note collapse="false"}
 ### Solution
 In this case, $f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)$. Therefore, we get
-$$f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y)$$
+$$f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_1) d x_1 = (f_{X_1} * f_{X_2})(y)$$
 where $*$ denotes convolution.
 :::
 
@@ -661,7 +661,7 @@ Let $X$ and $Y$ be real-valued random variables defined on the same probability 
 - **Correlation coefficient** between $X$ and $Y$ is defined as 
   $$ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.$$
 
-- The correlation coefficeint satisfies $\ABS{ρ_{XY}} \le 1$ with equality if and only if $\PR(aX + bY = c) = 1$ for some $a,b,c \in \reals$. [The proof follows from Cauchy-Schwartz inequality, which we will study later]
+- The correlation coefficient satisfies $\ABS{ρ_{XY}} \le 1$ with equality if and only if $\PR(aX + bY = c) = 1$ for some $a,b,c \in \reals$. [The proof follows from Cauchy-Schwartz inequality, which we will study later]
 
 - $X$ and $Y$ are said to be uncorrelated if $ρ_{XY} = 0$, which is equivalent to $\COV(X,Y) = 0$ or $\EXP[XY] = \EXP[X] \EXP[Y]$.
 
@@ -674,7 +674,7 @@ Let $X$ and $Y$ be real-valued random variables defined on the same probability 
   Thus, when $X$ and $Y$ are **uncorrelated**, we have
   $$ \VAR(X + Y) = \VAR(X) + \VAR(Y). $$
 
-- Indepdent random variables are uncorrelated but the reverse in not true.
+- Independent random variables are uncorrelated but the reverse is not true.
 
 :::{#exm-uncorrelated}
 Consider the probability space $(Ω, \ALPHABET F, \PR)$ where $Ω = [0, 2 π)$, $\ALPHABET F$ is the Borel $σ$-algebra on $[0, 2 π)$ and $\PR$ is the uniform distribution on $Ω$. Define $X(ω) = \cos ω$ and $Y(ω) = \sin ω$. 
@@ -724,7 +724,7 @@ With the above notation, we have the following.
    $$
      Σ_X = \MATRIX{ 
          \VAR(X_1) & \COV(X_1, X_2) & \cdots & \COV(X_1, X_n) \\
-         \COV(X_2, X_1) & \VAR(X_2) & \cdots & \COV(X_1, X_n) \\
+         \COV(X_2, X_1) & \VAR(X_2) & \cdots & \COV(X_2, X_n) \\
          \vdots & \ddots & \ddots & \vdots \\
          \COV(X_n, X_1) & \COV(X_n, X_2) & \cdots & \VAR(X_n) }
    $$

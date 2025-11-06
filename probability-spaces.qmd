@@ -95,7 +95,7 @@ As you can see, probability theory is a foundational tool for Electrical Enginee
 
    ![Example of a partition](figures/svg/partitions1.svg){#fig-partition}
 
-   :::{#exm-partion}
+   :::{#exm-partition}
    Let $Ω = \{1,2,3,4\}$. The following are partitions of $Ω$:
  
    - $\{ \{1\}, \{2\}, \{3\}, \{4\} \}$.
@@ -141,7 +141,7 @@ As you can see, probability theory is a foundational tool for Electrical Enginee
      A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$$
  
    - **De Morgan's Law**
-     $$(A \cup B)^c = A^c \cap B^\cap
+     $$(A \cup B)^c = A^c \cap B^c
      \quad\text{and}\quad
      (A \cap B)^c = A^c \cup B^c$$
  
@@ -184,7 +184,7 @@ As you can see, probability theory is a foundational tool for Electrical Enginee
     $$
       \ALPHABET D_1 = \{ \{1,2,3\}, \{4\} \}
       \quad\text{and}\quad
-      \ALPHABET D_1 = \{ \{1,2\}, \{3\}, \{4\} \}
+      \ALPHABET D_2 = \{ \{1,2\}, \{3\}, \{4\} \}
     $$
     then, $\ALPHABET D_1$ is finer than $\ALPHABET D_2$. 
 
@@ -402,7 +402,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
     ### Probability 
 
     Given a measurable space $(Ω, \ALPHABET F)$, probability 
-    $\PR \colon \ALPHABET F \to [0,1]$ is a function that satisfies the following **axioms of proability**
+    $\PR \colon \ALPHABET F \to [0,1]$ is a function that satisfies the following **axioms of probability**
 
     a) **Non-negativity.** $\PR(A) \ge 0$.
     b) **Normalization.** $\PR(Ω) = 1$.
@@ -503,7 +503,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
 
 1. Conditional probabilities quantify the uncertainty of an event when it is known that another event has occurred 
 
-   :::{#def-conidtional-probability}
+   :::{#def-conditional-probability}
    Let $(Ω,\ALPHABET F, \PR)$ be a probability space and $A, B \in \ALPHABET F$ such that $\PR(B) > 0$. 
    Then, the **conditional probability** that $A$ occurs given that $B$ occurs is defined as
    $$
@@ -729,7 +729,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    :::
  
  
-   :::{#exr-indendence-sigma-algebra}
+   :::{#exr-independence-sigma-algebra}
      $A \independent B$ implies the following:
  
      - $A \independent B^c$.
@@ -754,7 +754,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    
    2. For any event $A$, let $σ(A)$ denote the smallest $σ$-algebra containing $A$, i.e., $σ(A) = \{\emptyset, A, A^c, Ω\}$. 
    
-   3. @exr-indendence-sigma-algebra implies that independence of $A$ and $B$ implies the independence of $σ(A)$ and $σ(B)$. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest $σ$-algebra containing those events.
+   3. @exr-independence-sigma-algebra implies that independence of $A$ and $B$ implies the independence of $σ(A)$ and $σ(B)$. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest $σ$-algebra containing those events.
    :::
 
 5. 
@@ -856,7 +856,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    $$
    Thus, events $B_1$ and $B_2$ are independent. 
 
-5. It is a bit more complicated when $\ALPHABET F_1$ and $\ALPHABET F_2$ are not finite. The difficulty is that $\ALPHABET F_1 \times \ALPHABET F_2$ is not a $σ$-algebra. So, take $\ALPHABET F$ to be $σ(\ALPHABET F_1 \times \ALPHABET F_2)$ (which is the smallest $σ$-algebra comtaining $\ALPHABET F_1 \times \ALPHABET F_2$) and define $\PR$ to be the extension of $\PR_1 \times \PR_2$ from $\ALPHABET F_1 \times \ALPHABET F_2$ to $σ(\ALPHABET F_1 \times \ALPHABET F_2)$ (one can show that such an extension exists). Such product space is often written as
+5. It is a bit more complicated when $\ALPHABET F_1$ and $\ALPHABET F_2$ are not finite. The difficulty is that $\ALPHABET F_1 \times \ALPHABET F_2$ is not a $σ$-algebra. So, take $\ALPHABET F$ to be $σ(\ALPHABET F_1 \times \ALPHABET F_2)$ (which is the smallest $σ$-algebra containing $\ALPHABET F_1 \times \ALPHABET F_2$) and define $\PR$ to be the extension of $\PR_1 \times \PR_2$ from $\ALPHABET F_1 \times \ALPHABET F_2$ to $σ(\ALPHABET F_1 \times \ALPHABET F_2)$ (one can show that such an extension exists). Such product space is often written as
 $$
 (Ω, \ALPHABET F, \PR) = (Ω_1 \times Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2, \PR_1 \otimes \PR_2). $$
 
