@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-03">
+<meta name="dcterms.date" content="2025-11-06">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>1&nbsp; Probability spaces – Probability and Random Signals II</title>
@@ -107,7 +107,7 @@ window.MathJax = {
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
       IND: "\\mathbb{1}",
-      ONES: "\\mathbb{1}",
+      ONES: "\\mathbf{1}",
       reals: "\\mathbb{R}",
       naturalnumbers: "\\mathbb{N}",
       integers: "\\mathbb{Z}",
@@ -361,7 +361,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools tools-wide">
-    <a href="https://github.com/adityam/probabiity-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/adityam/probability-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -472,7 +472,7 @@ window.Quarto = {
   <li><a href="#product-spaces" id="toc-product-spaces" class="nav-link" data-scroll-target="#product-spaces"><span class="header-section-number">1.8</span> Product spaces</a></li>
   <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/probability-spaces.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/probability-spaces.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -506,7 +506,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 3, 2025</p>
+      <p class="date">November 6, 2025</p>
     </div>
   </div>
   
@@ -605,7 +605,7 @@ Figure&nbsp;1.1: Example of a partition
 </figcaption>
 </figure>
 </div>
-<div id="exm-partion" class="theorem example">
+<div id="exm-partition" class="theorem example">
 <p><span class="theorem-title"><strong>Example 1.1</strong></span> Let <span class="math inline">\(Ω = \{1,2,3,4\}\)</span>. The following are partitions of <span class="math inline">\(Ω\)</span>:</p>
 <ul>
 <li><span class="math inline">\(\{ \{1\}, \{2\}, \{3\}, \{4\} \}\)</span>.</li>
@@ -644,7 +644,7 @@ A \cap (B \cap C)= (A \cap B) \cap C\]</span></p></li>
 <li><p><strong>Distributive</strong> <span class="math display">\[A \cup (B \cap C) = (A \cup B) \cap (A \cap C)
 \quad\text{and}\quad
 A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\]</span></p></li>
-<li><p><strong>De Morgan’s Law</strong> <span class="math display">\[(A \cup B)^c = A^c \cap B^\cap
+<li><p><strong>De Morgan’s Law</strong> <span class="math display">\[(A \cup B)^c = A^c \cap B^c
 \quad\text{and}\quad
 (A \cap B)^c = A^c \cup B^c\]</span></p></li>
 </ul>
@@ -682,7 +682,7 @@ A_1 \cap A_2 \cap \cdots \cap A_n \in \ALPHABET F
 <li><p>Let <span class="math inline">\(\ALPHABET D_1\)</span> and <span class="math inline">\(\ALPHABET D_2\)</span> be two partitions of <span class="math inline">\(Ω\)</span>. We say <strong><span class="math inline">\(\ALPHABET D_1\)</span> is finer than <span class="math inline">\(\ALPHABET D_2\)</span></strong> if <span class="math inline">\(σ(\ALPHABET D_1) \subseteq σ(\ALPHABET D_2)\)</span>. For instance, suppose <span class="math inline">\(Ω = \{1, 2, 3, 4\}\)</span> and <span class="math display">\[
   \ALPHABET D_1 = \{ \{1,2,3\}, \{4\} \}
   \quad\text{and}\quad
-  \ALPHABET D_1 = \{ \{1,2\}, \{3\}, \{4\} \}
+  \ALPHABET D_2 = \{ \{1,2\}, \{3\}, \{4\} \}
 \]</span> then, <span class="math inline">\(\ALPHABET D_1\)</span> is finer than <span class="math inline">\(\ALPHABET D_2\)</span>.</p></li>
 <li><p>If a partition <span class="math inline">\(\ALPHABET D_1\)</span> is finer than <span class="math inline">\(\ALPHABET D_2\)</span>, we also say that <strong><span class="math inline">\(\ALPHABET D_2\)</span> is coarser than <span class="math inline">\(\ALPHABET D_1\)</span></strong>.</p></li>
 </ol>
@@ -899,7 +899,7 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 </div></li>
 <li><p>A pair <span class="math inline">\((Ω, \ALPHABET F)\)</span> where <span class="math inline">\(Ω\)</span> is a set and <span class="math inline">\(\ALPHABET F\)</span> is a <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\(Ω\)</span> is called a <strong>measurable space</strong>.</p></li>
 <li><div id="def-probability" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1.1 (Probability)</strong></span> Given a measurable space <span class="math inline">\((Ω, \ALPHABET F)\)</span>, probability <span class="math inline">\(\PR \colon \ALPHABET F \to [0,1]\)</span> is a function that satisfies the following <strong>axioms of proability</strong></p>
+<p><span class="theorem-title"><strong>Definition 1.1 (Probability)</strong></span> Given a measurable space <span class="math inline">\((Ω, \ALPHABET F)\)</span>, probability <span class="math inline">\(\PR \colon \ALPHABET F \to [0,1]\)</span> is a function that satisfies the following <strong>axioms of probability</strong></p>
 <ol type="a">
 <li><strong>Non-negativity.</strong> <span class="math inline">\(\PR(A) \ge 0\)</span>.</li>
 <li><strong>Normalization.</strong> <span class="math inline">\(\PR(Ω) = 1\)</span>.</li>
@@ -996,7 +996,7 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 <h2 data-number="1.6" class="anchored" data-anchor-id="conditional-probability"><span class="header-section-number">1.6</span> Conditional Probability</h2>
 <ol type="1">
 <li><p>Conditional probabilities quantify the uncertainty of an event when it is known that another event has occurred</p>
-<div id="def-conidtional-probability" class="theorem definition">
+<div id="def-conditional-probability" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 1.2</strong></span> Let <span class="math inline">\((Ω,\ALPHABET F, \PR)\)</span> be a probability space and <span class="math inline">\(A, B \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(B) &gt; 0\)</span>. Then, the <strong>conditional probability</strong> that <span class="math inline">\(A\)</span> occurs given that <span class="math inline">\(B\)</span> occurs is defined as <span class="math display">\[
 \PR(A | B) = \dfrac{ \PR(A \cap B) }{ \PR(B) }.
 \]</span></p>
@@ -1237,7 +1237,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 <div id="exm-independence-two-dice" class="theorem example">
 <p><span class="theorem-title"><strong>Example 1.8</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;<span>1.9</span></a> are <strong>not</strong> independent.</p>
 </div>
-<div id="exr-indendence-sigma-algebra" class="theorem exercise">
+<div id="exr-independence-sigma-algebra" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 1.13</strong></span> <span class="math inline">\(A \independent B\)</span> implies the following:</p>
 <ul>
 <li><span class="math inline">\(A \independent B^c\)</span>.</li>
@@ -1270,7 +1270,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 <ol type="1">
 <li><p>Two sub-<span class="math inline">\(σ\)</span>-algebras <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> of <span class="math inline">\(\ALPHABET F\)</span> are said to be independent if every event <span class="math inline">\(A_1 \in \ALPHABET F_1\)</span> is independent of every event <span class="math inline">\(A_2 \in \ALPHABET F_2\)</span>.</p></li>
 <li><p>For any event <span class="math inline">\(A\)</span>, let <span class="math inline">\(σ(A)\)</span> denote the smallest <span class="math inline">\(σ\)</span>-algebra containing <span class="math inline">\(A\)</span>, i.e., <span class="math inline">\(σ(A) = \{\emptyset, A, A^c, Ω\}\)</span>.</p></li>
-<li><p><a href="#exr-indendence-sigma-algebra" class="quarto-xref">Exercise&nbsp;<span>1.13</span></a> implies that independence of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> implies the independence of <span class="math inline">\(σ(A)\)</span> and <span class="math inline">\(σ(B)\)</span>. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest <span class="math inline">\(σ\)</span>-algebra containing those events.</p></li>
+<li><p><a href="#exr-independence-sigma-algebra" class="quarto-xref">Exercise&nbsp;<span>1.13</span></a> implies that independence of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> implies the independence of <span class="math inline">\(σ(A)\)</span> and <span class="math inline">\(σ(B)\)</span>. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest <span class="math inline">\(σ\)</span>-algebra containing those events.</p></li>
 </ol>
 </div>
 </div></li>
@@ -1370,7 +1370,7 @@ S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3)
 \]</span> Then, <span class="math display">\[
    \PR(B_1 \cap B_2) = \PR_1(A_1) \PR_2(A_2) = \PR(B_1) \PR(B_2).
 \]</span> Thus, events <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> are independent.</p></li>
-<li><p>It is a bit more complicated when <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> are not finite. The difficulty is that <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> is not a <span class="math inline">\(σ\)</span>-algebra. So, take <span class="math inline">\(\ALPHABET F\)</span> to be <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (which is the smallest <span class="math inline">\(σ\)</span>-algebra comtaining <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span>) and define <span class="math inline">\(\PR\)</span> to be the extension of <span class="math inline">\(\PR_1 \times \PR_2\)</span> from <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> to <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (one can show that such an extension exists). Such product space is often written as <span class="math display">\[
+<li><p>It is a bit more complicated when <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> are not finite. The difficulty is that <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> is not a <span class="math inline">\(σ\)</span>-algebra. So, take <span class="math inline">\(\ALPHABET F\)</span> to be <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (which is the smallest <span class="math inline">\(σ\)</span>-algebra containing <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span>) and define <span class="math inline">\(\PR\)</span> to be the extension of <span class="math inline">\(\PR_1 \times \PR_2\)</span> from <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> to <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (one can show that such an extension exists). Such product space is often written as <span class="math display">\[
 (Ω, \ALPHABET F, \PR) = (Ω_1 \times Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2, \PR_1 \otimes \PR_2). \]</span></p></li>
 </ol>
 <p>We will not worry too much about the technical details of such product spaces, but will use the above notation at times in the course.</p>
@@ -1813,5 +1813,5 @@ S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3)
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/probability-spaces.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/probability-spaces.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

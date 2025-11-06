@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-03">
+<meta name="dcterms.date" content="2025-11-06">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>6&nbsp; Probability inequalities – Probability and Random Signals II</title>
@@ -107,7 +107,7 @@ window.MathJax = {
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
       IND: "\\mathbb{1}",
-      ONES: "\\mathbb{1}",
+      ONES: "\\mathbf{1}",
       reals: "\\mathbb{R}",
       naturalnumbers: "\\mathbb{N}",
       integers: "\\mathbb{Z}",
@@ -361,7 +361,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools tools-wide">
-    <a href="https://github.com/adityam/probabiity-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/adityam/probability-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -473,7 +473,7 @@ window.Quarto = {
   <li><a href="#chernoff-bound" id="toc-chernoff-bound" class="nav-link" data-scroll-target="#chernoff-bound"><span class="header-section-number">6.6</span> Chernoff bound</a></li>
   <li><a href="#azuma-hoeffding-inequality" id="toc-azuma-hoeffding-inequality" class="nav-link" data-scroll-target="#azuma-hoeffding-inequality"><span class="header-section-number">6.7</span> Azuma-Hoeffding inequality</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -507,7 +507,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 3, 2025</p>
+      <p class="date">November 6, 2025</p>
     </div>
   </div>
   
@@ -765,10 +765,10 @@ Figure&nbsp;6.1: Tangent at the mean of <span class="math inline">\(X\)</span>
 </div>
 </div>
 </div>
-<p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;<span>6.4</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vaccous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality of <span class="math inline">\(a \ge μ\)</span>.</p>
+<p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;<span>6.4</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vacuous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality when <span class="math inline">\(a \ge μ\)</span>.</p>
 <section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="6.4.1">
 <h3 data-number="6.4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">6.4.1</span> Union bound as a special case of Markov inequality</h3>
-<p>Note that it is possible to derive the union bound as a corrollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
+<p>Note that it is possible to derive the union bound as a corollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
 X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 1, &amp; ω \in A_i \\
 0, &amp; ω \not\in A_i
@@ -910,7 +910,7 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 \PR(X \ge a) \le e^{-φ(a)}
 \]</span> where <span class="math display">\[
 φ(a) = \max_{s &gt; 0} \{ s a - \log M_X(s) \}
-\]</span> is the <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Lengendre-Fenchel transform</a> of <span class="math inline">\(\log M_X(s)\)</span>.</p>
+\]</span> is the <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Legendre-Fenchel transform</a> of <span class="math inline">\(\log M_X(s)\)</span>.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1418,5 +1418,5 @@ D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 -
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

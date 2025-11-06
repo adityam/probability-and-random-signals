@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-03">
+<meta name="dcterms.date" content="2025-11-06">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>3&nbsp; Random vectors – Probability and Random Signals II</title>
@@ -107,7 +107,7 @@ window.MathJax = {
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
       IND: "\\mathbb{1}",
-      ONES: "\\mathbb{1}",
+      ONES: "\\mathbf{1}",
       reals: "\\mathbb{R}",
       naturalnumbers: "\\mathbb{N}",
       integers: "\\mathbb{Z}",
@@ -361,7 +361,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools tools-wide">
-    <a href="https://github.com/adityam/probabiity-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/adityam/probability-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -479,7 +479,7 @@ window.Quarto = {
   <li><a href="#linear-transformation-of-gaussian-vectors" id="toc-linear-transformation-of-gaussian-vectors" class="nav-link" data-scroll-target="#linear-transformation-of-gaussian-vectors"><span class="header-section-number">3.5.1</span> Linear transformation of Gaussian vectors</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-vectors.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/random-vectors.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -513,7 +513,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 3, 2025</p>
+      <p class="date">November 6, 2025</p>
     </div>
   </div>
   
@@ -979,7 +979,7 @@ f_Y(y) &amp;= \frac{d F_Y(y)}{dy} \\
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>In this case, <span class="math inline">\(f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)\)</span>. Therefore, we get <span class="math display">\[f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_2) d x_1 = (f_{X_1} * f_{X_2})(y)\]</span> where <span class="math inline">\(*\)</span> denotes convolution.</p>
+<p>In this case, <span class="math inline">\(f_{X_1, X_2}(x_1, x_2) = f_{X_1}(x_1) f_{X_2}(x_2)\)</span>. Therefore, we get <span class="math display">\[f_Y(y) = \int_{-∞}^{∞} f_{X_1}(x_1) f_{X_2}(y - x_1) d x_1 = (f_{X_1} * f_{X_2})(y)\]</span> where <span class="math inline">\(*\)</span> denotes convolution.</p>
 </div>
 </div>
 </div>
@@ -1157,14 +1157,14 @@ F_U(u)
 \COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
 \]</span></p></li>
 <li><p><strong>Correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
-<li><p>The correlation coefficeint satisfies <span class="math inline">\(\ABS{ρ_{XY}} \le 1\)</span> with equality if and only if <span class="math inline">\(\PR(aX + bY = c) = 1\)</span> for some <span class="math inline">\(a,b,c \in \reals\)</span>. [The proof follows from Cauchy-Schwartz inequality, which we will study later]</p></li>
+<li><p>The correlation coefficient satisfies <span class="math inline">\(\ABS{ρ_{XY}} \le 1\)</span> with equality if and only if <span class="math inline">\(\PR(aX + bY = c) = 1\)</span> for some <span class="math inline">\(a,b,c \in \reals\)</span>. [The proof follows from Cauchy-Schwartz inequality, which we will study later]</p></li>
 <li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be uncorrelated if <span class="math inline">\(ρ_{XY} = 0\)</span>, which is equivalent to <span class="math inline">\(\COV(X,Y) = 0\)</span> or <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</p></li>
 <li><p>Note that <span class="math display">\[\begin{align*}
   \VAR(X + Y) &amp;= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ]
   \\
   &amp;= \VAR(X) + \VAR(Y) + 2\COV(X,Y).
 \end{align*}\]</span> Thus, when <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are <strong>uncorrelated</strong>, we have <span class="math display">\[ \VAR(X + Y) = \VAR(X) + \VAR(Y). \]</span></p></li>
-<li><p>Indepdent random variables are uncorrelated but the reverse in not true.</p></li>
+<li><p>Independent random variables are uncorrelated but the reverse is not true.</p></li>
 </ul>
 <div id="exm-uncorrelated" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.18</strong></span> Consider the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0, 2 π)\)</span>, <span class="math inline">\(\ALPHABET F\)</span> is the Borel <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\([0, 2 π)\)</span> and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math inline">\(X(ω) = \cos ω\)</span> and <span class="math inline">\(Y(ω) = \sin ω\)</span>. Show that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are uncorrelated but not independent.</p>
@@ -1212,7 +1212,7 @@ X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span>, we have <
 <li><p>When <span class="math inline">\(X = [X_1, \dots, X_n]^\TRANS\)</span>, the covariance can be written as <span class="math display">\[
   Σ_X = \MATRIX{
       \VAR(X_1) &amp; \COV(X_1, X_2) &amp; \cdots &amp; \COV(X_1, X_n) \\
-      \COV(X_2, X_1) &amp; \VAR(X_2) &amp; \cdots &amp; \COV(X_1, X_n) \\
+      \COV(X_2, X_1) &amp; \VAR(X_2) &amp; \cdots &amp; \COV(X_2, X_n) \\
       \vdots &amp; \ddots &amp; \ddots &amp; \vdots \\
       \COV(X_n, X_1) &amp; \COV(X_n, X_2) &amp; \cdots &amp; \VAR(X_n) }
 \]</span></p></li>
@@ -1757,5 +1757,5 @@ X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span>, we have <
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-vectors.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/random-vectors.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

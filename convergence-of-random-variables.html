@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-03">
+<meta name="dcterms.date" content="2025-11-06">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>7&nbsp; Convergence of random variables – Probability and Random Signals II</title>
@@ -142,7 +142,7 @@ window.MathJax = {
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
       IND: "\\mathbb{1}",
-      ONES: "\\mathbb{1}",
+      ONES: "\\mathbf{1}",
       reals: "\\mathbb{R}",
       naturalnumbers: "\\mathbb{N}",
       integers: "\\mathbb{Z}",
@@ -398,7 +398,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools tools-wide">
-    <a href="https://github.com/adityam/probabiity-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/adityam/probability-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -509,7 +509,7 @@ window.Quarto = {
   <li><a href="#strong-law-of-large-numbers" id="toc-strong-law-of-large-numbers" class="nav-link" data-scroll-target="#strong-law-of-large-numbers"><span class="header-section-number">7.8</span> Strong law of large numbers</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">7.9</span> Further Reading</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/convergence-of-random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/convergence-of-random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -543,7 +543,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 3, 2025</p>
+      <p class="date">November 6, 2025</p>
     </div>
   </div>
   
@@ -634,7 +634,7 @@ X_n(ω) = \begin{cases}
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>For any <span class="math inline">\(ω \in (0,1]\)</span>, <span class="math inline">\(X_n(ω) = 1\)</span> for <span class="math inline">\(n &lt; \lfloor 1/n \rfloor\)</span>, and <span class="math inline">\(0\)</span> afterwards. Thus, <span class="math inline">\(X_n(ω) \to 0\)</span>.</p>
+<p>For any <span class="math inline">\(ω \in (0,1]\)</span>, <span class="math inline">\(X_n(ω) = 1\)</span> for <span class="math inline">\(n \le \lfloor 1/ω \rfloor\)</span>, and <span class="math inline">\(0\)</span> afterwards. Thus, <span class="math inline">\(X_n(ω) \to 0\)</span>.</p>
 <p>However, for <span class="math inline">\(ω = 0\)</span>, <span class="math inline">\(X_n(ω) = 1\)</span> for all <span class="math inline">\(n\)</span>. Thus, <span class="math inline">\(X_n(ω) \to 1\)</span>.</p>
 </div>
 </div>
@@ -689,7 +689,7 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 <li><p>However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example. An easier to understand example is presented in <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>7.5</span></a>, part&nbsp;(b).</p></li>
 </ol>
 <div id="exm-convergence-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7.2</strong></span> Consider a probability space as in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>. Define <span class="math inline">\(X_n(ω) = \IND_{A_n}(ω)\)</span>, where where <span class="math inline">\(A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 7.2</strong></span> Consider a probability space as in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>7.1</span></a>. Define <span class="math inline">\(X_n(ω) = \IND_{A_n}(ω)\)</span>, where <span class="math inline">\(A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}\)</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="132" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 131;"><span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>viewof ω_convergence_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"ω"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span><span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span>})</span>
 <span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a></span>
@@ -767,7 +767,7 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 </div>
 </div>
 <ol start="3" type="1">
-<li><p>There is however a partial converse. If <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> is a strictly decreasing sequence and <span class="math inline">\(c\)</span> is a constant then <span class="math display">\[
+<li><p>There is however a partial converse. If <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> is a <strong>monotone sequence</strong> of random variables (i.e., either <span class="math inline">\(X_1 \le X_2 \le \cdots\)</span> almost surely or <span class="math inline">\(X_1 \ge X_2 \ge \cdots\)</span> almost surely) and <span class="math inline">\(c\)</span> is a constant, then <span class="math display">\[
   [X_n \xrightarrow{p} c]
   \implies
   [X_n \xrightarrow{a.s.} c].
@@ -821,7 +821,7 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 <p>Thus, <span class="math display">\[
 F(x-ε) - \PR(\ABS{X_n - X} &gt; ε) \le F_n(x) \le F(x+ε) + \PR(\ABS{X_n - X} &gt; ε).
 \]</span> Taking <span class="math inline">\(n \to ∞\)</span>, we have <span class="math display">\[
-F(x-ε) \le \liminf_{x \to ∞} F_n(x) \le \limsup_{x \to ∞} F_n(x) \le F(x + ε).
+F(x-ε) \le \liminf_{n \to ∞} F_n(x) \le \limsup_{n \to ∞} F_n(x) \le F(x + ε).
 \]</span> The result is true for all <span class="math inline">\(ε &gt; 0\)</span>. Since <span class="math inline">\(F\)</span> is continuous at <span class="math inline">\(x\)</span>, when we take <span class="math inline">\(ε \downarrow 0\)</span>, we have <span class="math display">\[
 F(x - ε) \uparrow F(x)
 \quad\text{and}\quad
@@ -859,7 +859,7 @@ F(x + ε) \downarrow F(x)
      1 &amp; x \ge 0
    \end{cases}
 \]</span> which corresponds to a random variable <span class="math inline">\(X = 0\)</span>.</p>
-<p>However, for any <span class="math inline">\(k \ge 1\)</span>, we have <span class="math inline">\(\EXP[X_n^k] = n^{k-1}\)</span> but <span class="math inline">\(\EXP[X^k] = 1\)</span>. Thus, the moments do not converge!</p></li>
+<p>However, for any <span class="math inline">\(k \ge 1\)</span>, we have <span class="math inline">\(\EXP[X_n^k] = n^{k-1}\)</span> but <span class="math inline">\(\EXP[X^k] = 0\)</span>. Thus, the moments do not converge!</p></li>
 <li><p><strong>Skorokhod’s representation theorem.</strong> If <span class="math inline">\(X_n \xrightarrow{D} X\)</span>, then there exists a sequence <span class="math inline">\(\{Y_n\}_{n \ge 1}\)</span> that is identically distributed to <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> such that <span class="math inline">\(Y_n \xrightarrow{a.s.} Y\)</span>, where <span class="math inline">\(Y\)</span> is identically distributed to <span class="math inline">\(X\)</span>.</p></li>
 </ol>
 </section>
@@ -892,7 +892,7 @@ F(x + ε) \downarrow F(x)
 </div>
 </div></li>
 <li><p>However, the converse is not true as is illustrated by <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, part&nbsp;(c).</p></li>
-<li><p>Convergence in mean-square and almost surely are not comparable. <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, part&nbsp;(c) gives an example that converges almost surely not not in mean square. <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>7.5</span></a>, part&nbsp;(d) gives an example that converges in mean square but not almost surely.</p></li>
+<li><p>Convergence in mean-square and almost surely are not comparable. <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, part (c) gives an example that converges almost surely but not in mean square. <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>7.5</span></a>, part (a) gives an example that converges in mean square but not almost surely.</p></li>
 </ol>
 </section>
 <section id="continuity-properties-of-convergence" class="level2" data-number="7.5">
@@ -900,7 +900,7 @@ F(x + ε) \downarrow F(x)
 <ol type="1">
 <li><p><strong>Continuity preserves convergence</strong> almost surely, in probability, and in distribution. Thus, if <span class="math inline">\(X_n\)</span> converges to <span class="math inline">\(X\)</span> in any of these modes and <span class="math inline">\(g\)</span> is a continuous function, then <span class="math inline">\(g(X_n)\)</span> converges in the same mode to <span class="math inline">\(g(X)\)</span>.</p></li>
 <li><p>This is not the case for mean square convergence. For example, <span class="math inline">\(X_n = 0\)</span> with probability <span class="math inline">\(1 - \frac 1{n^3}\)</span> and <span class="math inline">\(X_n = 1\)</span> with probability <span class="math inline">\(\frac 1{n^3}\)</span>. Then, <span class="math display">\[ \EXP[|X_n - 0|^2] = n^2 \frac{1}{n^3} \to 0. \]</span> Thus, <span class="math inline">\(X_n \xrightarrow{m.s.} 0\)</span>. Now consider the function <span class="math inline">\(g(x) = x^2\)</span>. <span class="math display">\[ \EXP[ | g(X_n) - g(0)|^2 ] = n^4 \frac{1}{n^3} = n \to ∞. \]</span> Thus, <span class="math inline">\(g(X_n)\)</span> does not converge in mean square to <span class="math inline">\(g(0)\)</span>.</p></li>
-<li><p>If <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{a.s.} Y\)</span>, then <span class="math inline">\((X_n, Y_n) \xrightarrow{a.s.} (X,Y)\)</span>. Therefore, for any continuous function <span class="math inline">\(g\)</span>, we have <span class="math inline">\(g(X_n, Y_n) \xrightarrow{a.s} g(X,Y)\)</span>.</p>
+<li><p>If <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{a.s.} Y\)</span>, then <span class="math inline">\((X_n, Y_n) \xrightarrow{a.s.} (X,Y)\)</span>. Therefore, for any continuous function <span class="math inline">\(g\)</span>, we have <span class="math inline">\(g(X_n, Y_n) \xrightarrow{a.s.} g(X,Y)\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -923,7 +923,7 @@ F(x + ε) \downarrow F(x)
 </div></li>
 <li><p>The above property is also true for convergence in probability. The proof is left as a homework exercise.</p></li>
 <li><p>However, this property is not true for convergence in distribution as is illustrated by the following example. Suppose <span class="math inline">\(X_n \sim \text{Unif}(-1,1)\)</span> and <span class="math inline">\(X \sim \text{Unif}(-1,1)\)</span> be independent random variables. Define <span class="math inline">\(Y_n = X_n\)</span> and <span class="math inline">\(Y = - X\)</span>. Then, <span class="math inline">\(X_n \xrightarrow{D} X\)</span>, <span class="math inline">\(Y_n \xrightarrow{D} Y\)</span>, but <span class="math inline">\(X_n + Y_n = 2X_n\)</span> does not converge in distribution to <span class="math inline">\(X + Y = 0\)</span>.</p></li>
-<li><p><strong>Slutsky’s theorem:</strong> Suppose <span class="math inline">\(X_n \xrightarrow{D} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{D} c\)</span>, where <span class="math inline">\(c\)</span> is a constant. Then, <span class="math inline">\((X_n, Y_n) \xrightarrow{D} (X_n, c)\)</span>. Therefore, for any continuous function <span class="math inline">\(g(X_n, Y_n) \xrightarrow{D} g(X, c)\)</span>. In particular, <span class="math inline">\(X_n + Y_n \xrightarrow{D} X + c\)</span> and <span class="math inline">\(X_n Y_n \xrightarrow{D} cX\)</span>.</p></li>
+<li><p><strong>Slutsky’s theorem:</strong> Suppose <span class="math inline">\(X_n \xrightarrow{D} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{D} c\)</span>, where <span class="math inline">\(c\)</span> is a constant. Then, <span class="math inline">\((X_n, Y_n) \xrightarrow{D} (X, c)\)</span>. Therefore, for any continuous function <span class="math inline">\(g(X_n, Y_n) \xrightarrow{D} g(X, c)\)</span>. In particular, <span class="math inline">\(X_n + Y_n \xrightarrow{D} X + c\)</span> and <span class="math inline">\(X_n Y_n \xrightarrow{D} cX\)</span>.</p></li>
 <li><p>Note that we have already argued that <span class="math inline">\(Y_n \xrightarrow{D} c\)</span> is equivalent to <span class="math inline">\(Y_n \xrightarrow{p} c\)</span>. So, one can replace <span class="math inline">\(Y_n \xrightarrow{D} c\)</span> in Slutsky’s theorem by <span class="math inline">\(Y_n \xrightarrow{p} c\)</span>.</p></li>
 </ol>
 </section>
@@ -963,7 +963,7 @@ F(x + ε) \downarrow F(x)
 \]</span> which converges to <span class="math inline">\(0\)</span> as <span class="math inline">\(n \to ∞\)</span>. Therefore, <span class="math inline">\(X_n \xrightarrow{p} 0\)</span>.</p>
 <p>Consider <span class="math display">\[
   \EXP[\ABS{X_n}^2] = \int_{A_n} 1\, d ω = \frac{1}{n}
-\]</span> which converges to <span class="math inline">\(0\)</span> as <span class="math inline">\(n \to ∞\)</span>. Thus, <span class="math inline">\(X_n \xrightarrow{m.s.} X\)</span>.</p>
+\]</span> which converges to <span class="math inline">\(0\)</span> as <span class="math inline">\(n \to ∞\)</span>. Thus, <span class="math inline">\(X_n \xrightarrow{m.s.} 0\)</span>.</p>
 <p>However, observe that for part (c) <span class="math display">\[
   \EXP[\ABS{X_n}^2] = \int_{A_n} n^2\, d ω = n
 \]</span> which goes to <span class="math inline">\(∞\)</span> as <span class="math inline">\(n \to ∞\)</span>. Thus, <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> does not converge in mean square.</p>
@@ -1027,14 +1027,14 @@ F(x + ε) \downarrow F(x)
   &amp;= n \int_{0}^1 y (1-y)^{n-1}\, dy.
 \end{align*}\]</span> We could compute the integral using integration by parts, but here we simply use the fact that the above is a <a href="https://en.wikipedia.org/wiki/Beta_function">:Beta integral</a>. Thus, <span class="math display">\[
   \EXP[Y_n] = n \int_{0}^1 y (1-y)^{n-1}\, dy = n B(2,n)
-  = n\frac{1!}{(n-1)!}{(n+1)!}
+  = n\frac{1!(n-1)!}{(n+1)!}
   = \frac{1}{n+1}.
 \]</span> Thus, <span class="math display">\[
   \lim_{n \to ∞} \EXP[Y_n^2 ]
   \le
   \lim_{n \to ∞} \EXP[Y_n ]
   = 0.
-\]</span> Hence, <span class="math inline">\(X_n \xrightarrow{m.s.} 0\)</span>.</p>
+\]</span> Hence, <span class="math inline">\(Y_n \xrightarrow{m.s.} 0\)</span>.</p>
 </section>
 </div>
 </div>
@@ -1091,7 +1091,7 @@ D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
 <p>The limit of <span class="math inline">\(\{C_n\}_{n \ge 1}\)</span> is called the <strong>lim inf</strong> of <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span>, i.e., <span class="math display">\[
   \liminf_{n \to ∞} A_n = \lim_{n \to ∞} C_n = \bigcup_{n=1}^∞ C_n
   = \bigcup_{n=1}^{∞} \bigcap_{i=n}^{∞} A_i.
-\]</span> Similarly, the limit of <span class="math inline">\(\{D_n\}_{n \ge 1}\)</span> is call the <strong>lim sup</strong> of <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span>, i.e., <span class="math display">\[
+\]</span> Similarly, the limit of <span class="math inline">\(\{D_n\}_{n \ge 1}\)</span> is called the <strong>lim sup</strong> of <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span>, i.e., <span class="math display">\[
   \limsup_{n \to ∞} A_n = \lim_{n \to ∞} D_n = \bigcap_{n=1}^∞ D_n
   = \bigcap_{n=1}^{∞} \bigcup_{i=n}^{∞} A_i.
 \]</span> When the two limits are equal, we say that the sequence <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> has a limit.</p>
@@ -1107,7 +1107,7 @@ D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
 <p>For example, suppose we toss a coin infinite number of coins. Let <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> denote the corresponding probability space, and let <span class="math inline">\(A_n\)</span> denote the event that the <span class="math inline">\(n\)</span>-th toss is a heads. Then,</p>
 <ul>
 <li><span class="math inline">\(\limsup_{n \to ∞} A_n\)</span> is the event that there are infinitely many heads.</li>
-<li><span class="math inline">\(\liminf_{n \to ∞} A_n\)</span> is the event that there are all but a finite number of the coins were head, i.e., there were only finitely many tails.</li>
+<li><span class="math inline">\(\liminf_{n \to ∞} A_n\)</span> is the event that all but a finite number of the coins were heads, i.e., there were only finitely many tails.</li>
 </ul>
 </div>
 </div>
@@ -1138,11 +1138,11 @@ D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
 <ul>
 <li><p>Consider <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, part a, we have <span class="math display">\[
     \PR(E_n) = \frac 1n.
-\]</span> Since <span class="math inline">\(\sum_{n \ge 1} \PR(E_n) = ∞\)</span>, we cannot use the above theorem to infer that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>. This is not a contraction because <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a> is a sufficient condition, not a necessary condition.</p></li>
+\]</span> Since <span class="math inline">\(\sum_{n \ge 1} \PR(E_n) = ∞\)</span>, we cannot use the above theorem to infer that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>. This is not a contradiction because <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a> is a sufficient condition, not a necessary condition.</p></li>
 <li><p>Consider <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>7.3</span></a>, part b, we have <span class="math display">\[
     \PR(E_n) = \frac 1{n^2}.
 \]</span> Since <span class="math inline">\(\sum_{n \ge 1} \PR(E_n) &lt; ∞\)</span>, we can use <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a> to infer that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p></li>
-<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>7.4</span></a>, we have argued that <span class="math inline">\(\PR(Y_n &gt; ε) = (1-ε)^n\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(Y_n &gt; ε) = \frac{1}{ε} &lt; ∞\)</span>. Hence, by <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a>, <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
+<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>7.4</span></a>, we have argued that <span class="math inline">\(\PR(Y_n &gt; ε) = (1-ε)^n\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(Y_n &gt; ε) = \sum_{n=1}^∞ (1-ε)^n = \frac{1-ε}{ε} &lt; ∞\)</span> (for <span class="math inline">\(0 &lt; ε &lt; 1\)</span>). Hence, by <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a>, <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
 </ul>
 <p>We can also consider a variation of the above.</p>
 <div id="exm-convergence-5" class="theorem example">
@@ -1202,12 +1202,12 @@ X_n \xrightarrow{a.s.} X.
 <div class="callout-body-container callout-body">
 <p>To simplify the notation, we assume that <span class="math inline">\(X = 0\)</span>.</p>
 <p>Pick any <span class="math inline">\(ε &gt; 0\)</span> and define the sequence of events <span class="math display">\[
-A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
+A_n = \bigl\{ ω : \ABS{X_n} &gt; ε \bigr\},
 \quad n \in \naturalnumbers.
 \]</span></p>
-<p>From Markov inequality, we have <span class="math display">\[\PR(A_n) = \PR\bigl( \ABS{X_i} &gt; ε \bigr)
-\le \dfrac{\EXP[\ABS{X_i}]}{ε}. \]</span> Therefore, <span class="math display">\[ \sum_{n=1}^{∞} \PR(A_n)
-\le \frac{1}{ε} \sum_{n=1}^{∞} \EXP[\ABS{X_i}]
+<p>From Markov inequality, we have <span class="math display">\[\PR(A_n) = \PR\bigl( \ABS{X_n} &gt; ε \bigr)
+\le \dfrac{\EXP[\ABS{X_n}]}{ε}. \]</span> Therefore, <span class="math display">\[ \sum_{n=1}^{∞} \PR(A_n)
+\le \frac{1}{ε} \sum_{n=1}^{∞} \EXP[\ABS{X_n}]
 &lt; ∞
 \]</span> by the hypothesis of the result. Therefore, by Borel-Cantelli lemma, we have <span class="math display">\[
 \PR\Bigl( \limsup_{n \to ∞} A_n \Bigr) = 0.
@@ -1221,11 +1221,11 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 <div id="thm-SLLN" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 7.1</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> be an i.i.d. sequence of random variables with mean <span class="math inline">\(μ\)</span> and variance <span class="math inline">\(σ^2\)</span>. Let <span class="math display">\[
   \bar X_n = \frac 1n \sum_{i=1}^n X_i
-\]</span> be the sameple average. Then, <span class="math inline">\(\bar X_n \xrightarrow{a.s} μ\)</span>, i.e., <span class="math display">\[
-\PR\Bigl( ω : \lim_{n \to ∞} X_n(ω) = μ \Bigr) = 1.
+\]</span> be the sample average. Then, <span class="math inline">\(\bar X_n \xrightarrow{a.s.} μ\)</span>, i.e., <span class="math display">\[
+\PR\Bigl( ω : \lim_{n \to ∞} \bar X_n(ω) = μ \Bigr) = 1.
 \]</span></p>
 </div>
-<p>We provide a proof under the assumption that the fouth moment’s exist.</p>
+<p>We provide a proof under the assumption that the fourth moment exists.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1239,7 +1239,7 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 <div id="callout-12" class="callout-12-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We assume that <span class="math inline">\(μ = 0\)</span> (this is just for notational simplicity) and <span class="math inline">\(\EXP[X^4] = γ &lt; ∞\)</span> (this is a strong assumption).</p>
-<p>Since we know that the forth moment exist, we can use a forth moment version of Chebyshev inequality: <span class="math display">\[ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \EXP[ \bar X_n^4]}{ε^2}. \]</span></p>
+<p>Since we know that the fourth moment exists, we can use a fourth moment version of Markov inequality: <span class="math display">\[ \PR(\ABS{\bar X_n} \ge ε) = \PR(\ABS{\bar X_n}^4 \ge ε^4) \le \frac{ \EXP[ \bar X_n^4]}{ε^4}. \]</span></p>
 <p>Then, by the multinomial theorem, we have <span class="math display">\[ \EXP[\bar X_n^4] = \frac{1}{n^4} \EXP\biggl[
 \sum_{i} X_i^4 + \binom{4}{1,3} \sum_{i \neq j} X_i X_j^3 + \binom{4}{2,2} \sum_{i \neq j} X_i^2 X_j^2
 + \binom{4}{1,1,2} \sum_{i \neq j \neq k} X_i X_j X_k^2 + \sum_{i \neq j \neq k \neq \ell} X_i X_j X_k X_{\ell} \biggr].
@@ -1252,10 +1252,10 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 </ul>
 <p>Therefore, <span class="math display">\[
 \EXP[\bar X_n^4] = \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
-\le \frac{M_4}{n_3} + \frac{3 σ^4}{n^2}
-\]</span> where <span class="math inline">\(M_4\)</span> is the forth moment. Now, from the forth moment version of Chebyshev inequality, we have <span class="math display">\[ \PR \ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n_3} + \frac{3 σ^4}{n^2} }{ε^2}. \]</span> This implies that <span class="math display">\[
-\sum_{n=1}^{∞} \PR(\ABS{X_n} \ge ε) &lt; ∞.
-\]</span> Thus, from <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a>, we have that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p>
+\le \frac{M_4}{n^3} + \frac{3 σ^4}{n^2}
+\]</span> where <span class="math inline">\(M_4\)</span> is the fourth moment. Now, from the fourth moment version of Markov inequality, we have <span class="math display">\[ \PR(\ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n^3} + \frac{3 σ^4}{n^2} }{ε^4}. \]</span> This implies that <span class="math display">\[
+\sum_{n=1}^{∞} \PR(\ABS{\bar X_n} \ge ε) &lt; ∞.
+\]</span> Thus, from <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>7.3</span></a>, we have that <span class="math inline">\(\bar X_n \xrightarrow{a.s.} 0\)</span>.</p>
 </div>
 </div>
 </div>
@@ -1263,8 +1263,8 @@ A_n = \bigl\{ ω : \ABS{X_i} &gt; ε \bigr\},
 <section id="further-reading" class="level2" data-number="7.9">
 <h2 data-number="7.9" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">7.9</span> Further Reading</h2>
 <ul>
-<li><strong>Gubner:</strong> Sec.&nbsp;13.1, 14.1, 14,2, 14,3 (and corresponding problems at the end of the chapters)</li>
-<li><strong>Grimmett and Stirzaker:</strong> Sec.&nbsp;7.1, 7.2, 7.3, 7.4, 7.5 (and corresponding problems at the end of the sections and the end of the chapters)</li>
+<li><strong>Gubner:</strong> Sec. 13.1, 14.1, 14.2, 14.3 (and corresponding problems at the end of the chapters)</li>
+<li><strong>Grimmett and Stirzaker:</strong> Sec. 7.1, 7.2, 7.3, 7.4, 7.5 (and corresponding problems at the end of the sections and the end of the chapters)</li>
 </ul>
 
 
@@ -1712,5 +1712,5 @@ window._ojs.runtime.interpretFromScriptTags();
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/convergence-of-random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/convergence-of-random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

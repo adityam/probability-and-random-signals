@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-03">
+<meta name="dcterms.date" content="2025-11-06">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>2&nbsp; Random variables – Probability and Random Signals II</title>
@@ -142,7 +142,7 @@ window.MathJax = {
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
       IND: "\\mathbb{1}",
-      ONES: "\\mathbb{1}",
+      ONES: "\\mathbf{1}",
       reals: "\\mathbb{R}",
       naturalnumbers: "\\mathbb{N}",
       integers: "\\mathbb{Z}",
@@ -398,7 +398,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools tools-wide">
-    <a href="https://github.com/adityam/probabiity-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/adityam/probability-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -516,7 +516,7 @@ window.Quarto = {
   <li><a href="#higher-moments" id="toc-higher-moments" class="nav-link" data-scroll-target="#higher-moments"><span class="header-section-number">2.4.1</span> Higher moments</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -550,7 +550,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 3, 2025</p>
+      <p class="date">November 6, 2025</p>
     </div>
   </div>
   
@@ -775,7 +775,7 @@ Figure&nbsp;2.5: CDF of a Bernoulli random variable
 </ul>
 <p><span class="text-primary">Thus, for a discrete random variable, the CDF is a piecewise constant function</span></p>
 <p><a href="#fig-coin-toss-cdf" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>, <a href="#fig-const-cdf" class="quarto-xref">Figure&nbsp;<span>2.4</span></a>, <a href="#fig-bernoulli-cdf" class="quarto-xref">Figure&nbsp;<span>2.5</span></a> are all examples of discrete random variables.</p></li>
-<li><p>A random variable <span class="math inline">\(X\)</span> is called <strong>continuous</strong> if there exists an integrable function <span class="math inline">\(f \colon \reals \to [0, ∞)\)</span> called the <strong>probability denisity function</strong> such that the CDF can be written as <span class="math display">\[
+<li><p>A random variable <span class="math inline">\(X\)</span> is called <strong>continuous</strong> if there exists an integrable function <span class="math inline">\(f \colon \reals \to [0, ∞)\)</span> called the <strong>probability density function</strong> such that the CDF can be written as <span class="math display">\[
 F_X(x) = \int_{-∞}^x f_X(x) dx.
 \]</span></p>
 <p><span class="text-primary">Thus, for a continuous random variable, the CDF is a continuous function</span></p>
@@ -789,7 +789,7 @@ Figure&nbsp;2.6: CDF of a continuous random variable
 </figcaption>
 </figure>
 </div></li>
-<li><p>A random variable is called <strong>mixed</strong> if it is neither discrete nor continuous. <span class="text-primary">For a mixed random variable, the CDF has has jumps at a finite or countable infinite number of points and it is continuous over one or many intervals.</span></p>
+<li><p>A random variable is called <strong>mixed</strong> if it is neither discrete nor continuous. <span class="text-primary">For a mixed random variable, the CDF has jumps at a finite or countable infinite number of points and it is continuous over one or many intervals.</span></p>
 <div id="fig-cdf-mixed" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cdf-mixed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -816,7 +816,7 @@ Figure&nbsp;2.7: CDF of a mixed random variable
 <p>For a discrete random variable <span class="math inline">\(X\)</span>, define the <strong>probability mass function (PMF)</strong> <span class="math inline">\(P_X \colon \reals \to \reals\)</span> as <span class="math display">\[ P_X(x) = F_X(x) - F_X(x^{-}).\]</span> By construction, <span class="math inline">\(P_X(x) \ge 0\)</span> and <span class="math inline">\(\sum_{x \in \ALPHABET X} P_X(x) = 1\)</span>.</p>
 <p>Then, for any event <span class="math inline">\(A \in \mathscr{B}(\reals)\)</span>, <span class="math display">\[\PR(X \in A) = \sum_{x \in \ALPHABET X \cap A} P_X(x).\]</span></p></li>
 <li><p><strong>Properties of continuous random variables</strong></p>
-<p>For a discrete random variable <span class="math inline">\(X\)</span>, define the <strong>probability density function (PDF)</strong> <span class="math inline">\(f_X \colon \reals \to \reals\)</span> as <span class="math display">\[
+<p>For a continuous random variable <span class="math inline">\(X\)</span>, define the <strong>probability density function (PDF)</strong> <span class="math inline">\(f_X \colon \reals \to \reals\)</span> as <span class="math display">\[
    f_X(x) = \frac{d}{dx} F_X(x).
 \]</span> By construction, <span class="math inline">\(f_X(x) \ge 0\)</span> and <span class="math inline">\(\int_{-∞}^{∞} f_X(x)\, dx = 1\)</span>.</p>
 <p>Then, for any event <span class="math inline">\(A \in \mathscr{B}(\reals)\)</span>, <span class="math display">\[\PR(X \in A) = \int_{x \in A} f_X(x)\,dx.\]</span></p></li>
@@ -826,12 +826,12 @@ Figure&nbsp;2.7: CDF of a mixed random variable
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="examples-of-discrete-random-variables"><span class="header-section-number">2.2.1</span> Examples of discrete random variables</h3>
 <p>We now consider some other examples of discrete random variables, which are typically described by specifying their PMF.</p>
 <div id="exm-Binomial" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.6 (Binomial random variable)</strong></span> A Binomial random variable is the sum of intendant and identically Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binomial}(n,p)\)</span>. For such a random variable, <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.6 (Binomial random variable)</strong></span> A Binomial random variable is the sum of independent and identically distributed Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binomial}(n,p)\)</span>. For such a random variable, <span class="math display">\[
 P_X(k) = \binom n k p^k (1-p)^{n-k}, \quad 0 \le k \le n.
 \]</span></p>
 </div>
 <div id="exm-Geometric" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.7 (Geometric random variable)</strong></span> A geometric random variable is the number of trails in i.i.d.&nbsp;Bernoulli random variables. For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed repeated, the number of tosses needed for the first head is a geometric random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>_, which is denoted by <span class="math inline">\(\text{Geo}(p)\)</span>. For such a random variable, <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.7 (Geometric random variable)</strong></span> A geometric random variable is the number of trials in i.i.d.&nbsp;Bernoulli random variables. For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed repeatedly, the number of tosses needed for the first head is a geometric random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>, which is denoted by <span class="math inline">\(\text{Geo}(p)\)</span>. For such a random variable, <span class="math display">\[
 P_X(k) = (1-p)^{k-1} p, \quad k \in \integers_{&gt; 0}.
 \]</span></p>
 </div>
@@ -978,7 +978,7 @@ Figure&nbsp;2.10: The function <span class="math inline">\(g(x)\)</span> for <a 
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>From the definition of <span class="math inline">\(g\)</span>, we know that the rannge of <span class="math inline">\(g\)</span> is <span class="math inline">\([0,1]\)</span>. Thus, we know that the support of <span class="math inline">\(Y\)</span> is <span class="math inline">\([0,1]\)</span>.</p>
+<p>From the definition of <span class="math inline">\(g\)</span>, we know that the range of <span class="math inline">\(g\)</span> is <span class="math inline">\([0,1]\)</span>. Thus, we know that the support of <span class="math inline">\(Y\)</span> is <span class="math inline">\([0,1]\)</span>.</p>
 <ol type="1">
 <li><p>For any <span class="math inline">\(y &lt; 0\)</span>, the event <span class="math inline">\(\{Y \le y\} = \emptyset\)</span>. Therefore, <span class="math inline">\(F_Y(y) = 0\)</span>.</p></li>
 <li><p>For any <span class="math inline">\(y &gt; 1\)</span>, the event <span class="math inline">\(\{Y \le y\} = Ω\)</span>. Therefore, <span class="math inline">\(F_Y(y) = 1\)</span>.</p></li>
@@ -1835,5 +1835,5 @@ window._ojs.runtime.interpretFromScriptTags();
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probabiity-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/random-variables.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
