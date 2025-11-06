@@ -61,7 +61,7 @@ See the following video from [Veritasium](https://www.youtube.com/@veritasium) f
 
 ## Time-homogeneous Markov chains
 
-In this course, we will focus on time-homogeneous Markov chain.
+In this course, we will focus on time-homogeneous Markov chains.
 The Markov chain is called **time-homogeneous** if the right hand side of \eqref{eq:Markov} does not depend on $n$. In this case, we describe the Markov chain by a **state transition matrix** $P$, where $P_{ij} = \PR(X_{n+1} = j | X_n = i)$. Such Markov chains can also be visualized using **state transition diagrams** as we illustrate in the examples below. 
 
 :::{#exm-on-off}
@@ -100,7 +100,7 @@ The transition matrix can be visualized as follows.
 :::{#exm-random-walk}
 #### Random walk in one dimension
 
-Imagine a particle which moves in a straight line in unit steps. Each step is one unit to the right with probability $p$ or one unit to the left with probabity $q = 1-p$. It moves until it reaches one of two extreme points, which are called **boundary points**. The behavior of the particle at the boundary determines several different possibilities.
+Imagine a particle which moves in a straight line in unit steps. Each step is one unit to the right with probability $p$ or one unit to the left with probability $q = 1-p$. It moves until it reaches one of two extreme points, which are called **boundary points**. The behavior of the particle at the boundary determines several different possibilities.
 
 We will consider the case where the state space is $\ALPHABET X = \{-2, -1, 0, 1, 2\}$ and the process starts in state $0$.
 
@@ -179,7 +179,7 @@ In the rest of this section, we will present results in Markov chain theory that
 
 ## State occupancy probabilities
 
-1. Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. This is also called the **state occupancy probababilites**. We will think of of $μ^{(n)}$ as a row vector. 
+1. Let $μ^{(n)}$ denote the PMF of the state of the Markov chain at time $n$. This is also called the **state occupancy probabilities**. We will think of $μ^{(n)}$ as a row vector. 
 
 2. By the law of total probability, we have
    $$
@@ -191,7 +191,7 @@ In the rest of this section, we will present results in Markov chain theory that
    $$
    which can be written in matrix form as
    $$ μ^{(n)} = μ^{(n-1)} P $$
-   and, by recusively expanding the right hand side, we have
+   and, by recursively expanding the right hand side, we have
    $$ μ^{(n)} = μ^{(0)} P^n. $$
 
 3. We will abbreviate $[P^n]_{ij}$ as $P^{(n)}_{ij}$. Note that
@@ -296,7 +296,7 @@ end
 :::
 
 :::{#exm-on-off-occupancy}
-Analytically compute the state occupancy probabilites for the on-off Markov chain of @exm-on-off when it starts from the initial probability distribution $μ^{(0)}$. 
+Analytically compute the state occupancy probabilities for the on-off Markov chain of @exm-on-off when it starts from the initial probability distribution $μ^{(0)}$. 
 :::
 :::{.callout-note collapse="true"}
 #### Solution
@@ -309,7 +309,7 @@ Since $μ^{(n+1)} = μ^{(n)} P$, we have
   \\
   &= μ^{(n)}_0 (1-a-b) + b.
 \end{align*}
-If $a = b = 0$, then $μ^{(n+1)}_0 = μ^{(n)_0 = \cdots = μ^{(0)}_0$. 
+If $a = b = 0$, then $μ^{(n+1)}_0 = μ^{(n)}_0 = \cdots = μ^{(0)}_0$. 
 If not, we exploit the fact that 
 $$
   b = \frac{b}{a+b} - \frac{b}{a+b}(1-a-b)  
@@ -334,7 +334,7 @@ and, so on, to get
 Therefore,
 $$
   μ^{(n)}_1 = 1 - μ^{(n)}_0
-  = \left(μ^{(1)}_0 - \frac{a}{a+b}\right)(1-a-b)^n + \frac{a}{a+b}.
+  = \left(μ^{(0)}_1 - \frac{a}{a+b}\right)(1-a-b)^n + \frac{a}{a+b}.
 $$
 :::
 
@@ -391,9 +391,9 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
 
 
-1.  We say that a state $j$ is **accessible from** state $i$ (abbreviated as $i \rightsquigarrow j$) if there is exists an $m \in \integers_{\ge 0}$ (which may depend on $i$ and $j$) such that $[P^m]_{ij} > 0$. The fact that $P^{(m)}_{ij} > 0$ implies that there exists an ordered sequence of states $(i_0, \dots, i_m)$ such that $i_0 = i$ and $i_m = j$ such that $P_{i_k i_{k+1}} > 0$; thus, there is a path of positive probability from state $i$ to state $j$.
+1.  We say that a state $j$ is **accessible from** state $i$ (abbreviated as $i \rightsquigarrow j$) if there exists an $m \in \integers_{\ge 0}$ (which may depend on $i$ and $j$) such that $[P^m]_{ij} > 0$. The fact that $P^{(m)}_{ij} > 0$ implies that there exists an ordered sequence of states $(i_0, \dots, i_m)$ such that $i_0 = i$ and $i_m = j$ such that $P_{i_k i_{k+1}} > 0$; thus, there is a path of positive probability from state $i$ to state $j$.
 
-    Accessibility is an transitive relationship, i.e., if $i \rightsquigarrow j$ and $j \rightsquigarrow k$ implies that $i \rightsquigarrow k$.
+    Accessibility is a transitive relationship, i.e., if $i \rightsquigarrow j$ and $j \rightsquigarrow k$, then $i \rightsquigarrow k$.
 
     :::{#exm-accessible}
     Consider the Markov chain shown below. 
@@ -406,7 +406,7 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
     :::{.callout-note collapse="true"}
     #### Solution
     a. States accessible from state $1$ are $\{1,2,3\}$.
-    a. States from which state $1$ is accessible are $\{1,2,3,4,5,6\}$.
+    b. States from which state $1$ is accessible are $\{1,2,3,4,5,6\}$.
 
     :::
 
@@ -420,9 +420,9 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
 4.  It can be shown that a state $i$ is recurrent if and only if
     $$\sum_{m=1}^{\infty} P^{(m)}_{ii} = \infty.$$
-    This is a consequence of the second Borel-Cantelli lemma (@lem-Borel-Cantelli-2}) and **strong Markov property** (to be discussed later). 
+    This is a consequence of the second Borel-Cantelli lemma (@lem-Borel-Cantelli-2) and **strong Markov property** (to be discussed later). 
 
-5.  States $i$ and $j$ are said to belong to the same **communicating class** if $i$ and $j$ communicate. Communicating classes form a partition the state space. Within a communicating class, all states are of the same type, i.e., either all states are recurrent (in which case the class is called a recurrent class) or all states are transient (in which case the class is called a transient class).
+5.  States $i$ and $j$ are said to belong to the same **communicating class** if $i$ and $j$ communicate. Communicating classes form a partition of the state space. Within a communicating class, all states are of the same type, i.e., either all states are recurrent (in which case the class is called a recurrent class) or all states are transient (in which case the class is called a transient class).
 
     For example, in @exm-accessible, there are two communication classes: $\{1,2,3\}$ and $\{4,5,6\}$. The communication class $\{4,5,6\}$ is transient while the communication class $\{1,2,3\}$ is recurrent.
 
@@ -439,12 +439,12 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
 9.  The **period** of a state $i$, denoted by $d(i)$, is defined as $$d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} > 0 \}.$$ If the period is $1$, the state is **aperiodic**, and if the period is $2$ or more, the state is **periodic**. It can be shown that all states in the same class have the same period.
 
-10.  A Markov chain is aperiodic, if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state $i$ such that $P_{ii} > 0$. In general, for a finite and aperiodic Markov chain, there exists a positive integer $M$ such that 
+10.  A Markov chain is **aperiodic**, if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state $i$ such that $P_{ii} > 0$. In general, for a finite and aperiodic Markov chain, there exists a positive integer $M$ such that 
     $$ P^{(m)}_{ii} > 0, 
             \quad \forall m \ge M, i \in \ALPHABET X.$$
 
 
-## Hitting times
+## Hitting times and absorption probabilities
 
 1. We use the following notation:
 
@@ -470,112 +470,238 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
    This is called the **mean hitting time**.
 
 
-A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix $P$. 
+5. A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix $P$. 
 
-:::{#thm-hitting-probabilities}
-#### Hitting probabilities
-The hitting probabilities $\{h^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
-$$
-  h^A_i = \begin{cases}
-    1, & i \in A \\
-    \sum_{j \in \ALPHABET X} P_{ij} h^A_j, & i \not\in A
-  \end{cases}
-$$
-When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the hitting probabilities correspond to the *minimal* non-negative solution.
-:::
+   :::{#thm-hitting-probabilities}
+   #### Hitting probabilities
+   The hitting probabilities $\{h^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
+   $$
+     h^A_i = \begin{cases}
+       1, & i \in A \\
+       \sum_{j \in \ALPHABET X} P_{ij} h^A_j, & i \not\in A
+     \end{cases}
+   $$
+   When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the hitting probabilities correspond to the *minimal* non-negative solution.
+   :::
+   
+   :::{.callout-note collapse="true"}
+   #### Proof
+   When $X_0 = i \in A$, the hitting time $H^A = 0$, so $h^A_i = 1$. This proves the first part of the formula.
+   
+   For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
+   $$
+   \PR_i(H^A < ∞ \mid X_1 = j) = \PR_j(H^A < ∞) = h^A_j.
+   $$
+   Moreover, by the law of total probability, we have
+   \begin{align*}
+   h^A_i &= \PR_i(H^A < ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A < ∞, X_1 = j) \\
+   &= \sum_{j \in \ALPHABET X} \PR_i(H^A < ∞ \mid X_1 = j) \PR_i(X_1 = j) \\
+   &= \sum_{j \in \ALPHABET X} P_{ij} h^A_j.
+   \end{align*}
+   :::
 
-:::{.callout-note collapse="true"}
-#### Proof
-When $X_0 = i \in A$, the hitting time $H^A = 0$, so $h^A_i = 1$. This proves the first part of the formula.
+6. 
+   :::{#exm-gambler-ruin-instance}
+   Consider a gambler's ruin problem, where the gambler starts with \$$1$ and stops either when he is ruined or when his fortune reaches \$$K$. 
+   
+   Find the probability of ruin (i.e., the fortune gets absorbed in state $0$ rather than state $K$). 
+   :::
+   
+   :::{.callout-note collapse="true"}
+   ### Solution
+   For the ease of notation, we use $h_i$ as a short-form for $h^{\{0\}}_i$. The hitting probabilities satisy the linear system of equations:
+   
+   \begin{align*}
+     h_0 &= 1 \\
+     h_i &= ph_{i+1} + q h_{i-1}, \quad i \in \{1,\dots,K-1\} \\
+     h_K &= 0,
+   \end{align*}
+   where $q = 1-p$. 
+   
+   The characteristic equation associated with the linear recurrence relationship is
+   $$
+     λ = p λ^2 + q
+   $$
+   which has two distinct roots, $λ_1 = 1$ and $λ_2 = q/p$ if $p \neq q$ and a double root at $λ_1 = 1$ if $p = q = \frac 12$. Therefore, the general solution is of the form
+   $$
+     h_i = a λ_1^i + b λ_2^i = a + b\Bigl(\tfrac {q}{p} \Bigr)^i
+   $$
+   where we determine the coefficients $a$ and $b$ from the boundary conditions $h_0 = 1$ and $h_K = 0$. Solving for $a$ and $b$, we get that for $p \neq q$, we have
+   $$
+     h_i = \frac{1 - \Bigl(\frac qp\Bigr)^i}{1 - \Bigl(\frac qp\Bigr)^K}
+   $$
+   and for $p = q = \frac 12$, we have
+   $$
+     h_i = \frac{i}{K}.
+   $$
+   :::
 
-For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
-$$
-\PR_i(H^A < ∞ \mid X_1 = j) = \PR_j(H^A < ∞) = h^A_j.
-$$
-Moreover, by the law of total probability, we have
-\begin{align*}
-h^A_i &= \PR_i(H^A < ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A < ∞, X_1 = j) \\
-&= \sum_{j \in \ALPHABET X} \PR_i(H^A < ∞ \mid X_1 = j) \PR_i(X_1 = j) \\
-&= \sum_{j \in \ALPHABET X} P_{ij} h^A_j.
-\end{align*}
-:::
+7. 
+   :::{#thm-mean-hitting-times}
+   #### Mean hitting times
+   The mean hitting times $\{m^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
+   $$
+     m^A_i = \begin{cases}
+       0, & i \in A \\
+       1 + \sum_{j \not\in A} P_{ij} m^A_j, & i \not\in A
+     \end{cases}
+   $$
+   When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the mean hitting times correspond to the *minimal* non-negative solution.
+   :::
+   
+   :::{.callout-note collapse="true"}
+   #### Proof
+   
+   The proof is similar to the proof of @thm-hitting-probabilities. When $X_0 = i \in A$, the hitting time $H^A = 0$, so $m^A_i = 0$. This proves the first part of the formula.
+   
+   For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
+   $$
+     \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
+   $$
+   Moreover, by the law of total probability, we have
+   \begin{align*}
+     m^A_i &= \EXP_i[ H^A ] 
+     = \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
+     &= \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
+     &= \sum_{j \in \ALPHABET X} P_{ij} \bigl[ 1 + m^A_j \bigr]
+     \\
+     &= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
+   \end{align*}
+   
+   :::
 
-:::{#exm-gambler-ruin-instance}
-Consider a gambler's ruin problem, where the gambler starts with \$$1$ and stops either when he is ruined or when his fortune reaches \$$K$. 
+8. 
+   :::{#exm-no-of-tosses-1}
+   Suppose we toss a coin multiple times and stop at the first head. What is the expected number of coin tosses until stopping?
+   :::
 
-Find the probability of ruin (i.e., the fortune gets absorbed in state $0$ rather than state $K$). 
-:::
+9. 
+   :::{#exm-no-of-tosses-1}
+   Suppose we toss a coin multiple times and stop at two consecutive heads. What is the expected number of coin tosses until stopping?
+   :::
 
-:::{.callout-note collapse="true"}
-### Solution
-For the ease of notation, we use $h_i$ as a short-form for $h^{\{0\}}_i$. The hitting probabilities satisy the linear system of equations:
+10. For absorbing Markov chains, we can use matrix methods to efficiently compute hitting probabilities and mean hitting times. The key idea is to rearrange the transition matrix into a **canonical form** where absorbing states are grouped together.
 
-\begin{align*}
-  h_0 &= 1 \\
-  h_i &= ph_{i+1} + q h_{i-1}, \quad i \in \{1,\dots,K-1\} \\
-  h_K &= 0,
-\end{align*}
-where $q = 1-p$. 
+    Suppose the state space $\ALPHABET X$ can be partitioned into transient states $\ALPHABET T$ and absorbing states $\ALPHABET C$. By reordering the states so that all transient states come first, followed by all absorbing states, the transition matrix $P$ can be written in the **canonical form**:
+    $$
+      P = \MATRIX{ Q & R \\ 0 & I}.
+    $$
+    where:
+    - $Q$ is a $|\ALPHABET T| \times |\ALPHABET T|$ matrix containing transition probabilities between transient states,
+    - $R$ is a $|\ALPHABET T| \times |\ALPHABET C|$ matrix containing transition probabilities from transient states to absorbing states,
+    - $0$ is a $|\ALPHABET C| \times |\ALPHABET T|$ zero matrix (since absorbing states cannot transition to transient states),
+    - $I$ is a $|\ALPHABET C| \times |\ALPHABET C|$ identity matrix (since absorbing states stay in themselves).
 
-The characteristic equation associated with the linear recurrence relationship is
-$$
-  λ = p λ^2 + q
-$$
-which has two distinct roots, $λ_1 = 1$ and $λ_2 = q/p$ if $p \neq q$ and a double root at $λ_1 = 1$ if $p = q = \frac 12$. Therefore, the general solution is of the form
-$$
-  h_i = a λ_1^i + b λ_2^i = a + b\Bigl(\tfrac {q}{p} \Bigr)^i
-$$
-where we determine the coefficients $a$ and $b$ from the boundary conditions $h_0 = 1$ and $h_K = 0$. Solving for $a$ and $b$, we get that for $p \neq q$, we have
-$$
-  h_i = \frac{1 - \Bigl(\frac qp\Bigr)^i}{1 - \Bigl(\frac qp\Bigr)^K}
-$$
-and for $p = q = \frac 12$, we have
-$$
-  h_i = \frac{i}{K}.
-$$
-:::
+11. **Multi-step transitions:** For the canonical form, we can show by induction that
+  $$
+    P^n = \MATRIX{ Q^n & (I + Q + Q^2 + \cdots + Q^{n-1}) R \\ 0 & I}.
+  $$
+  This follows from the fact that matrix multiplication preserves the block structure, and the lower-left block remains zero while the lower-right block remains $I$ for all powers.
 
-:::{#thm-mean-hitting-times}
-#### Mean hitting times
-The mean hitting times $\{m^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
-$$
-  m^A_i = \begin{cases}
-    0, & i \in A \\
-    1 + \sum_{j \not\in A} P_{ij} m^A_j, & i \not\in A
-  \end{cases}
-$$
-When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the mean hitting times correspond to the *minimal* non-negative solution.
-:::
+12. **Fundamental Matrix:** The **fundamental matrix** $N$ is defined as
+  $$
+    N = (I - Q)^{-1} = I + Q + Q^2 + Q^3 + \cdots.
+  $$
+  The series expansion is valid because for transient states, the spectral radius of $Q$ is less than 1, ensuring convergence. The fundamental matrix exists and is well-defined for any Markov chain with at least one absorbing state.
 
-:::{.callout-note collapse="true"}
-#### Proof
+13. **Interpretation of $N_{ij}$:** The entry $N_{ij}$ represents the **expected number of visits to transient state $j$** before absorption, starting from transient state $i$. This can be seen from the series expansion:
+  $$
+    N_{ij} = \sum_{n=0}^∞ [Q^n]_{ij} = \sum_{n=0}^∞ \PR_i(X_n = j, \text{ chain hasn't been absorbed by time } n).
+  $$
 
-The proof is similar to the proof of @thm-hitting-probabilities. When $X_0 = i \in A$, the hitting time $H^A = 0$, so $m^A_i = 0$. This proves the first part of the formula.
+14. **Mean hitting times:** Let $\ONES$ denote a column vector of ones with dimension $|\ALPHABET T|$. Then the mean hitting times (expected time until absorption) starting from each transient state are given by
+    $$
+      m = N \ONES,
+    $$
+    where $m_i$ is the mean time until absorption starting from transient state $i$.
 
-For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
-$$
-  \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
-$$
-Moreover, by the law of total probability, we have
-\begin{align*}
-  m^A_i &= \EXP_i[ H^A ] 
-  = \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
-  &= \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
-  &= \sum_{j \in \ALPHABET X} P_{ij} \bigl[ 1 + m^A_j \bigr]
-  \\
-  &= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
-\end{align*}
+    :::{.callout-note collapse="true"}
+    #### Proof
+    The mean hitting time $m_i$ equals the expected number of steps spent in transient states before absorption. Since $N_{ij}$ represents the expected number of visits to transient state $j$ starting from transient state $i$, we have
+    $$
+      m_i = \sum_{j \in \ALPHABET T} N_{ij} = [N \ONES]_i,
+    $$
+    which gives the desired result in matrix form.
+    :::
 
-:::
+15. **Hitting probabilities:** The hitting probabilities (absorption probabilities) are given by
+    $$
+      h = N R,
+    $$
+    where $h_{ij}$ is the probability of being absorbed in absorbing state $j$ when starting from transient state $i$.
 
-:::{#exm-no-of-tosses-1}
-Suppose we toss a coin multiple times and stop at the first head. What is the expected number of coin tosses until stopping?
-:::
+    :::{.callout-note collapse="true"}
+    #### Proof
+    Starting from transient state $i$, the chain is absorbed in absorbing state $j$ if and only if it takes some number $n \ge 0$ of steps within transient states, and then transitions to $j$ in step $n+1$. The probability of being in transient state $k$ after $n$ steps (without being absorbed) is $[Q^n]_{ik}$, and the probability of transitioning from $k$ to $j$ is $R_{kj}$. Therefore,
+    $$
+      h_{ij} = \sum_{n=0}^∞ \sum_{k \in \ALPHABET T} [Q^n]_{ik} R_{kj} = \sum_{n=0}^∞ [Q^n R]_{ij} = [N R]_{ij},
+    $$
+    where the last equality follows from $N = I + Q + Q^2 + \cdots$.
+    :::
 
-:::{#exm-no-of-tosses-1}
-Suppose we toss a coin multiple times and stop at two consecutive heads. What is the expected number of coin tosses until stopping?
-:::
+16. 
+    :::{#exm-matrix-formulas-gamblers-ruin}
+    Consider the gambler's ruin problem from @exm-gambler-ruin-instance with $K = 3$ (i.e., the gambler starts with \$$1$ and stops at either \$$0$ or \$$3$). Write the transition matrix in canonical form and use the fundamental matrix to compute the probability of ruin and the expected duration of play.
+    :::
+    
+    :::{.callout-note collapse="true"}
+    #### Solution
+    
+    The state space is $\{0, 1, 2, 3\}$ where states $0$ and $3$ are absorbing. In the natural ordering $(0, 1, 2, 3)$, the transition matrix is:
+    $$
+    P = \MATRIX{
+      1 & 0 & 0 & 0 \\
+      q & 0 & p & 0 \\
+      0 & q & 0 & p \\
+      0 & 0 & 0 & 1
+    }
+    $$
+    where $q = 1-p$. Reordering to put transient states first, we use the ordering $(1, 2, 0, 3)$:
+    $$
+    P = \MATRIX{
+      0 & p & q & 0 \\
+      q & 0 & 0 & p \\
+      0 & 0 & 1 & 0 \\
+      0 & 0 & 0 & 1
+    }
+    = \MATRIX{ Q & R \\ 0 & I }
+    $$
+    where
+    $$
+    Q = \MATRIX{ 0 & p \\ q & 0 }, \quad
+    R = \MATRIX{ q & 0 \\ 0 & p }.
+    $$
+    
+    The fundamental matrix is:
+    $$
+    N = (I - Q)^{-1} = \MATRIX{ 1 & -p \\ -q & 1 }^{-1} 
+    = \frac{1}{1-pq} \MATRIX{ 1 & p \\ q & 1 }.
+    $$
+    
+    The hitting probabilities are:
+    $$
+    h = N R = \frac{1}{1-pq} \MATRIX{ 1 & p \\ q & 1 } \MATRIX{ q & 0 \\ 0 & p }
+    = \frac{1}{1-pq} \MATRIX{ q & p^2 \\ q^2 & p }.
+    $$
+    
+    Thus, starting from state $1$, the probability of ruin (absorption in state $0$) is $h_{1,0} = q/(1-pq)$ and the probability of winning (absorption in state $3$) is $h_{1,3} = p^2/(1-pq)$.
+    
+    The mean hitting times are:
+    $$
+    m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 & p \\ q & 1 } \MATRIX{ 1 \\ 1 }
+    = \frac{1}{1-pq} \MATRIX{ 1+p \\ q+1 }.
+    $$
+    
+    Thus, starting from state $1$, the expected duration is $m_1 = (1+p)/(1-pq)$.
+    :::
 
+## Invariant Distribution
+
+1. $π = π P$. 
+
+2. Balance equations to find invariant distributions
+
+3. 
 
 ## First passage time and strong Markov property
 
