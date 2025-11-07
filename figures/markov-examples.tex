@@ -8,13 +8,14 @@
 \usetikzlibrary[matrix,positioning]
 
 \tikzset{state/.style={circle, draw,
-                line width=2bp,
-                inner sep=0.5em,
-                draw=blue!85,
+                line width=1.5bp,
+                inner sep=0.6em,
+                draw=blue!75!black,
                 minimum width=3em,
-                fill=blue!25!white,
+                fill=blue!15!white,
+                font=\bold,
+                text=blue!90!black,
                 }}
-
 
 
 \starttext
@@ -38,11 +39,13 @@
 % Ehrenfest model of diffusion
 
 \tikzset{stateE/.style={circle, draw,
-                line width=2bp,
-                inner sep=0.5em,
-                draw=blue!85,
+                line width=1.5bp,
+                inner sep=0.6em,
+                draw=blue!75!black,
                 minimum width=4em,
-                fill=blue!25!white,
+                fill=blue!15!white,
+                font=\bold,
+                text=blue!90!black,
                 }}
 
 
@@ -95,6 +98,81 @@
        (m-2-3) edge[bend left, auto=left] node {$0.5$} (m-2-2)
 
        (m-2-1) edge[auto=left] node {$0.5$} (m-1-1)
+       ;
+
+\stoptikzpicture}
+\stopTEXpage
+
+% Coin toss: head before tail
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+   \matrix[matrix of nodes, nodes={state}, column sep=2cm, row sep=1.5cm] (m) {
+    \m{-1} & \m{0} & \m{1} \\
+  };
+  \draw[every loop]
+       (m-1-1) edge[loop left] node {$1$} (m-1-1)
+       (m-1-3) edge[loop right] node {$1$} (m-1-3)
+
+       (m-1-2) edge[bend left, auto=left] node {$p$} (m-1-3)
+       (m-1-2) edge[bend left, auto=left] node {$q$} (m-1-1)
+       ;
+
+\stoptikzpicture}
+\stopTEXpage
+
+% Coin toss: two heads before two tails
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+   \matrix[matrix of nodes, nodes={state}, column sep=1.5cm, row sep=1.5cm] (m) {
+    \m{-2} & \m{-1} & \m{0} & \m{1} & \m{2} \\
+  };
+  \draw[every loop]
+       (m-1-1) edge[loop left] node {$1$} (m-1-1)
+       (m-1-5) edge[loop right] node {$1$} (m-1-5)
+
+       (m-1-3) edge[bend left, auto=left] node {$p$} (m-1-4)
+       (m-1-3) edge[bend left, auto=left] node {$q$} (m-1-2)
+
+       (m-1-4) edge[bend left, auto=left] node {$p$} (m-1-5)
+       (m-1-4) edge[bend left, auto=left] node {$q$} (m-1-3)
+
+       (m-1-2) edge[bend left, auto=left] node {$p$} (m-1-3)
+       (m-1-2) edge[bend left, auto=left] node {$q$} (m-1-1)
+       ;
+
+\stoptikzpicture}
+\stopTEXpage
+
+% Coin toss: until first head
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+   \matrix[matrix of nodes, nodes={state}, column sep=2cm, row sep=1.5cm] (m) {
+    \m{0} & \m{1} \\
+  };
+  \draw[every loop]
+       (m-1-1) edge[loop left] node {$q$} (m-1-1)
+       (m-1-2) edge[loop right] node {$1$} (m-1-2)
+
+       (m-1-1) edge[bend left, auto=left] node {$p$} (m-1-2)
+       ;
+
+\stoptikzpicture}
+\stopTEXpage
+
+% Coin toss: until two consecutive heads
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+   \matrix[matrix of nodes, nodes={state}, column sep=1.5cm, row sep=1.5cm] (m) {
+    \m{0} & \m{1} & \m{2} \\
+  };
+  \draw[every loop]
+       (m-1-1) edge[loop left] node {$q$} (m-1-1)
+       (m-1-3) edge[loop right] node {$1$} (m-1-3)
+
+       (m-1-1) edge[bend left, auto=left] node {$p$} (m-1-2)
+
+       (m-1-2) edge[bend left, auto=left] node {$p$} (m-1-3)
+       (m-1-2) edge[bend left, auto=left] node {$q$} (m-1-1)
        ;
 
 \stoptikzpicture}

@@ -470,7 +470,60 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
    This is called the **mean hitting time**.
 
 
-5. A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix $P$. 
+5. A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix $P$. We start with some examples to illustrate the main idea.
+
+   :::{#exm-coin-toss-head-before-tail}
+   Suppose we toss a coin multiple times. What is the probability of getting a head before getting a tail?
+   
+   We model this using a Markov chain where the state represents the outcome we're waiting for. Let $p$ denote the probability of heads and $q = 1-p$ denote the probability of tails. The Markov chain has three states:
+   - State $-1$: tail has occurred (absorbing state, we lose)
+   - State $0$: initial state (no outcome yet)
+   - State $1$: head has occurred (absorbing state, we win)
+   
+   ![Markov chain for coin tossing until head or tail](figures/svg/markov-examples4.svg)
+   
+   Let $h^1_i$ denote the probability of hitting state $1$ (i.e., getting a head) when starting at state $i$. Then, we have
+   \begin{align*}
+     h^1_{-1} &= 0, \\
+     h^1_0 &= p h^1_1 + q h^1_{-1} = p \cdot 1 + q \cdot 0 = p, \\
+     h^1_1 &= 1.
+   \end{align*}
+   Therefore, starting from state $0$, the probability of getting a head before a tail is $h^1_0 = p$.
+   :::
+
+6. 
+   :::{#exm-two-heads-before-two-tails}
+   Two players are playing a game. They repeatedly toss a coin. Player 1 wins if two consecutive heads occur before two consecutive tails. Player 2 wins if two consecutive tails occur before two consecutive heads. What is the probability that Player 1 wins?
+   
+   We model this using a Markov chain where the state tracks the pattern of recent coin tosses. Let $p$ denote the probability of heads and $q = 1-p$ denote the probability of tails. The Markov chain has five states:
+   - State $-2$: two consecutive tails (Player 2 wins, absorbing state)
+   - State $-1$: one tail (last toss was a tail)
+   - State $0$: initial state (or after alternating outcomes like HT or TH)
+   - State $1$: one head (last toss was a head)
+   - State $2$: two consecutive heads (Player 1 wins, absorbing state)
+   
+   ![Markov chain for two heads before two tails](figures/svg/markov-examples5.svg)
+   
+   Let $h^2_i$ denote the probability of hitting state $2$ (i.e., Player 1 wins) when starting at state $i$. Then, we have
+   \begin{align*}
+     h^2_{-2} &= 0, \\
+     h^2_{-1} &= p h^2_0 + q h^2_{-2} = p h^2_0 + q \cdot 0 = p h^2_0, \\
+     h^2_0 &= p h^2_1 + q h^2_{-1}, \\
+     h^2_1 &= p h^2_2 + q h^2_0 = p \cdot 1 + q h^2_0 = p + q h^2_0, \\
+     h^2_2 &= 1.
+   \end{align*}
+   From the second equation, we get $h^2_{-1} = p h^2_0$. From the fourth equation, we get $h^2_1 = p + q h^2_0$. Substituting into the third equation:
+   $$
+     h^2_0 = p h^2_1 + q h^2_{-1} = p(p + q h^2_0) + q(p h^2_0) = p^2 + pq h^2_0 + pq h^2_0 = p^2 + 2pq h^2_0.
+   $$
+   Solving for $h^2_0$, we get $h^2_0(1 - 2pq) = p^2$, so
+   $$
+     h^2_0 = \frac{p^2}{1 - 2pq} = \frac{p^2}{1 - 2p(1-p)} = \frac{p^2}{1 - 2p + 2p^2} = \frac{p^2}{2p^2 - 2p + 1}.
+   $$
+   For a fair coin ($p = q = \frac{1}{2}$), we get $h^2_0 = \frac{(1/2)^2}{1 - 2(1/2)(1/2)} = \frac{1/4}{1 - 1/2} = \frac{1/4}{1/2} = \frac{1}{2}$.
+   :::
+
+7. We now provide a general formula for computing hitting probabilities.
 
    :::{#thm-hitting-probabilities}
    #### Hitting probabilities
@@ -500,7 +553,7 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
    \end{align*}
    :::
 
-6. 
+8. 
    :::{#exm-gambler-ruin-instance}
    Consider a gambler's ruin problem, where the gambler starts with \$$1$ and stops either when he is ruined or when his fortune reaches \$$K$. 
    
@@ -536,51 +589,75 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
    $$
    :::
 
-7. 
-   :::{#thm-mean-hitting-times}
-   #### Mean hitting times
-   The mean hitting times $\{m^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
-   $$
-     m^A_i = \begin{cases}
-       0, & i \in A \\
-       1 + \sum_{j \not\in A} P_{ij} m^A_j, & i \not\in A
-     \end{cases}
-   $$
-   When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the mean hitting times correspond to the *minimal* non-negative solution.
-   :::
-   
-   :::{.callout-note collapse="true"}
-   #### Proof
-   
-   The proof is similar to the proof of @thm-hitting-probabilities. When $X_0 = i \in A$, the hitting time $H^A = 0$, so $m^A_i = 0$. This proves the first part of the formula.
-   
-   For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
-   $$
-     \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
-   $$
-   Moreover, by the law of total probability, we have
-   \begin{align*}
-     m^A_i &= \EXP_i[ H^A ] 
-     = \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
-     &= \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
-     &= \sum_{j \in \ALPHABET X} P_{ij} \bigl[ 1 + m^A_j \bigr]
-     \\
-     &= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
-   \end{align*}
-   
-   :::
+9. Similarly as above, we can derive a formula for computing mean hitting times. We start with a couple of examples to illustrate the main idea. 
 
-8. 
    :::{#exm-no-of-tosses-1}
    Suppose we toss a coin multiple times and stop at the first head. What is the expected number of coin tosses until stopping?
+   
+   From elementary probability we know that the number of tosses until stopping is a geometric random variable. However, we will model this using a Markov chain where the state denotes the number of consecutive heads so far. Let $p$ denote the probability of heads and $q = 1-p$ denote the probability of tails. Then, the Markov chain model is as follows.
+   
+   ![Markov chain for coin tossing until one head](figures/svg/markov-examples6.svg)
+   
+   Let $m^1_i$ denote the expected number of tosses until stopping (i.e., hitting state $1$) when starting at state $i$. Then, we have
+   \begin{align*}
+     m^1_0 &= 1 + q m^1_0 + p m^1_1, \\
+     m^1_1 &= 0.
+   \end{align*}
+   Solving this system of equations, we get $m^1_0 = 1/(1-q) = 1/p$. 
    :::
 
-9. 
-   :::{#exm-no-of-tosses-1}
-   Suppose we toss a coin multiple times and stop at two consecutive heads. What is the expected number of coin tosses until stopping?
-   :::
+10. 
+    :::{#exm-no-of-tosses-2}
+    Suppose we toss a coin multiple times and stop at two consecutive heads. What is the expected number of coin tosses until stopping?
+    
+    We can model this in the same manner as before, where the state denotes the number of consecutive heads so far. The Markov chain is as follows:
+    
+    ![Markov chain for coin tossing until two heads](figures/svg/markov-examples7.svg)
+    
+    Let $m^2_i$ denote the expected number of tosses until stopping (i.e., hitting state $2$) when starting at state $i$. Then, we have
+    \begin{align*}
+      m^2_0 &= 1 + q m^2_0 + p m^2_1, \\
+      m^2_1 &= 1 + q m^2_0 + p m^2_2, \\
+      m^2_2 &= 0.
+    \end{align*}
+    Solving this system of equations, we get $m^2_0 = 1/(1-p)$. 
+    :::
 
-10. For absorbing Markov chains, we can use matrix methods to efficiently compute hitting probabilities and mean hitting times. The key idea is to rearrange the transition matrix into a **canonical form** where absorbing states are grouped together.
+11. We now provide a general formula for computing mean hitting times. 
+
+    :::{#thm-mean-hitting-times}
+    #### Mean hitting times
+    The mean hitting times $\{m^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
+    $$
+      m^A_i = \begin{cases}
+        0, & i \in A \\
+        1 + \sum_{j \not\in A} P_{ij} m^A_j, & i \not\in A
+      \end{cases}
+    $$
+    When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the mean hitting times correspond to the *minimal* non-negative solution.
+    :::
+    
+    :::{.callout-note collapse="true"}
+    #### Proof
+    
+    The proof is similar to the proof of @thm-hitting-probabilities. When $X_0 = i \in A$, the hitting time $H^A = 0$, so $m^A_i = 0$. This proves the first part of the formula.
+    
+    For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
+    $$
+      \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
+    $$
+    Moreover, by the law of total probability, we have
+    \begin{align*}
+      m^A_i &= \EXP_i[ H^A ] 
+      = \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
+      &= \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
+      &= \sum_{j \in \ALPHABET X} P_{ij} \bigl[ 1 + m^A_j \bigr]
+      \\
+      &= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
+    \end{align*}
+    :::
+
+12. For absorbing Markov chains, we can use matrix methods to efficiently compute hitting probabilities and mean hitting times. The key idea is to rearrange the transition matrix into a **canonical form** where absorbing states are grouped together.
 
     Suppose the state space $\ALPHABET X$ can be partitioned into transient states $\ALPHABET T$ and absorbing states $\ALPHABET C$. By reordering the states so that all transient states come first, followed by all absorbing states, the transition matrix $P$ can be written in the **canonical form**:
     $$
@@ -592,24 +669,24 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
     - $0$ is a $|\ALPHABET C| \times |\ALPHABET T|$ zero matrix (since absorbing states cannot transition to transient states),
     - $I$ is a $|\ALPHABET C| \times |\ALPHABET C|$ identity matrix (since absorbing states stay in themselves).
 
-11. **Multi-step transitions:** For the canonical form, we can show by induction that
+13. **Multi-step transitions:** For the canonical form, we can show by induction that
   $$
     P^n = \MATRIX{ Q^n & (I + Q + Q^2 + \cdots + Q^{n-1}) R \\ 0 & I}.
   $$
   This follows from the fact that matrix multiplication preserves the block structure, and the lower-left block remains zero while the lower-right block remains $I$ for all powers.
 
-12. **Fundamental Matrix:** The **fundamental matrix** $N$ is defined as
-  $$
-    N = (I - Q)^{-1} = I + Q + Q^2 + Q^3 + \cdots.
-  $$
-  The series expansion is valid because for transient states, the spectral radius of $Q$ is less than 1, ensuring convergence. The fundamental matrix exists and is well-defined for any Markov chain with at least one absorbing state.
+14. **Fundamental Matrix:** The **fundamental matrix** $N$ is defined as
+    $$
+      N = (I - Q)^{-1} = I + Q + Q^2 + Q^3 + \cdots.
+    $$
+     The series expansion is valid because for transient states, the spectral radius of $Q$ is less than 1, ensuring convergence. The fundamental matrix exists and is well-defined for any Markov chain with at least one absorbing state.
 
-13. **Interpretation of $N_{ij}$:** The entry $N_{ij}$ represents the **expected number of visits to transient state $j$** before absorption, starting from transient state $i$. This can be seen from the series expansion:
+15. **Interpretation of $N_{ij}$:** The entry $N_{ij}$ represents the **expected number of visits to transient state $j$** before absorption, starting from transient state $i$. This can be seen from the series expansion:
   $$
     N_{ij} = \sum_{n=0}^∞ [Q^n]_{ij} = \sum_{n=0}^∞ \PR_i(X_n = j, \text{ chain hasn't been absorbed by time } n).
   $$
 
-14. **Mean hitting times:** Let $\ONES$ denote a column vector of ones with dimension $|\ALPHABET T|$. Then the mean hitting times (expected time until absorption) starting from each transient state are given by
+16. **Mean hitting times:** Let $\ONES$ denote a column vector of ones with dimension $|\ALPHABET T|$. Then the mean hitting times (expected time until absorption) starting from each transient state are given by
     $$
       m = N \ONES,
     $$
@@ -624,7 +701,7 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
     which gives the desired result in matrix form.
     :::
 
-15. **Hitting probabilities:** The hitting probabilities (absorption probabilities) are given by
+17. **Hitting probabilities:** The hitting probabilities (absorption probabilities) are given by
     $$
       h = N R,
     $$
@@ -639,7 +716,7 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
     where the last equality follows from $N = I + Q + Q^2 + \cdots$.
     :::
 
-16. 
+18. 
     :::{#exm-matrix-formulas-gamblers-ruin}
     Consider the gambler's ruin problem from @exm-gambler-ruin-instance with $K = 3$ (i.e., the gambler starts with \$$1$ and stops at either \$$0$ or \$$3$). Write the transition matrix in canonical form and use the fundamental matrix to compute the probability of ruin and the expected duration of play.
     :::
@@ -778,49 +855,6 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 17. If $C$ is a finite irreducible closed set of states. Then every state in $C$ is recurrent.
 
 18. Let $\ALPHABET X_T$ and $\ALPHABET X_R$ denote the set of transient and recurrent states. The set $\ALPHABET X_R$ can be paritioned into a finite or countable number of irreducible closed sets $C_1$, $C_2$, $\dots$. 
-
-## Expected duration of play
-
-Let's start with a simple example. Suppose we toss a coin multiple times and
-stop at a heads. What are the expected number of tosses until stopping?
-
-From elementary probability we know that the number of tosses until stopping
-is a geometric random variable. However, we will model this using a Markov
-chain where the state denotes the number of consecutive heads so far. Let $p$
-denote the probability of heads and $q = 1-p$ denote the probability of tails.
-Then, the Markov chain model is as follows.
-
-![Markov chain for coin tossing until one head](figures/svg/markov-chains1.svg)
-
-
-Let $v_i$ denote the expected number of tosses until stopping when starting at
-state $i$. Then, we have
-\begin{align*}
-  v_0 &= 1 + q v_0 + p v_1, \\
-  v_1 &= 0.
-\end{align*}
-Solving this system of equations, we get $v_0 = 1/(1-q) = 1/p$. 
-
-Now, let's try a variation of the above model. Suppose we toss a coin multiple
-times and stop at two heads. What are the expected number of tosses until
-stopping. 
-
-We can model this in the same manner as the before, where the state denotes
-the number of consecutive heads so far. The Markov chain is as follows:
-
-![Markov chain for coin tossing until two heads](figures/svg/markov-chains2.svg)
-
-As before, let $v_i$ denote the expected number of tosses until stopping when
-starting at state $i$. Then, we have
-\begin{align*}
-  v_0 &= 1 + q v_0 + p v_1, \\
-  v_1 &= 1 + q v_0 + p v_2, \\
-  v_2 &= 0.
-\end{align*}
-Solving this system of equations, we get $v_0 = 1/(1-p)$. 
-
-We can generalize these ideas to find time of hitting a state.
-
 
 ## Stationary distribution
 
