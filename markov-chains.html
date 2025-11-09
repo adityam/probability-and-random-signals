@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-07">
+<meta name="dcterms.date" content="2025-11-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>9&nbsp; Markov chains – Probability and Random Signals II</title>
@@ -469,10 +469,12 @@ window.Quarto = {
   <li><a href="#class-structure" id="toc-class-structure" class="nav-link" data-scroll-target="#class-structure"><span class="header-section-number">9.3</span> Class structure</a></li>
   <li><a href="#hitting-times-and-absorption-probabilities" id="toc-hitting-times-and-absorption-probabilities" class="nav-link" data-scroll-target="#hitting-times-and-absorption-probabilities"><span class="header-section-number">9.4</span> Hitting times and absorption probabilities</a></li>
   <li><a href="#invariant-distribution" id="toc-invariant-distribution" class="nav-link" data-scroll-target="#invariant-distribution"><span class="header-section-number">9.5</span> Invariant Distribution</a></li>
-  <li><a href="#first-passage-time-and-strong-markov-property" id="toc-first-passage-time-and-strong-markov-property" class="nav-link" data-scroll-target="#first-passage-time-and-strong-markov-property"><span class="header-section-number">9.6</span> First passage time and strong Markov property</a></li>
-  <li><a href="#stationary-distribution" id="toc-stationary-distribution" class="nav-link" data-scroll-target="#stationary-distribution"><span class="header-section-number">9.7</span> Stationary distribution</a></li>
-  <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">9.8</span> Limiting distribution</a></li>
+  <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">9.6</span> Limiting Distribution</a>
+  <ul class="collapse">
+  <li><a href="#further-remarks" id="toc-further-remarks" class="nav-link" data-scroll-target="#further-remarks"><span class="header-section-number">9.6.1</span> Further Remarks</a></li>
+  </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -508,7 +510,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 7, 2025</p>
+      <p class="date">November 9, 2025</p>
     </div>
   </div>
   
@@ -1027,6 +1029,7 @@ window.Quarto = {
 \]</span> Thus, there is no escape from a closed class. For finite state spaces, a recurrent class is always closed and a transient class is never closed. But this is not the case for countable state Markov chains.</p></li>
 <li><p>A state <span class="math inline">\(i\)</span> is called <strong>absorbing</strong> if <span class="math inline">\(\{i\}\)</span> is a closed class, i.e., if <span class="math inline">\(P_{ii} = 1\)</span>.</p></li>
 <li><p>A Markov chain with a single communicating class (thus, all states communicate with each other and are, therefore, recurrent) is called <strong>irreducible</strong>.</p></li>
+<li><p>If <span class="math inline">\(C\)</span> is a finite irreducible closed set of states, then every state in <span class="math inline">\(C\)</span> is recurrent. This is an important result for finite-state Markov chains: any finite closed communicating class must be recurrent.</p></li>
 <li><p>The <strong>period</strong> of a state <span class="math inline">\(i\)</span>, denoted by <span class="math inline">\(d(i)\)</span>, is defined as <span class="math display">\[d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} &gt; 0 \}.\]</span> If the period is <span class="math inline">\(1\)</span>, the state is <strong>aperiodic</strong>, and if the period is <span class="math inline">\(2\)</span> or more, the state is <strong>periodic</strong>. It can be shown that all states in the same class have the same period.</p></li>
 <li><p>A Markov chain is <strong>aperiodic</strong>, if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state <span class="math inline">\(i\)</span> such that <span class="math inline">\(P_{ii} &gt; 0\)</span>. In general, for a finite and aperiodic Markov chain, there exists a positive integer <span class="math inline">\(M\)</span> such that <span class="math display">\[ P^{(m)}_{ii} &gt; 0,
        \quad \forall m \ge M, i \in \ALPHABET X.\]</span></p></li>
@@ -1346,89 +1349,171 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <section id="invariant-distribution" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="invariant-distribution"><span class="header-section-number">9.5</span> Invariant Distribution</h2>
 <ol type="1">
-<li><p><span class="math inline">\(π = π P\)</span>.</p></li>
-<li><p>Balance equations to find invariant distributions</p></li>
-<li></li>
-</ol>
-</section>
-<section id="first-passage-time-and-strong-markov-property" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="first-passage-time-and-strong-markov-property"><span class="header-section-number">9.6</span> First passage time and strong Markov property</h2>
-<ol start="3" type="1">
-<li><p>Define the <strong>first passage time</strong> <span class="math display">\[
-  f^{(n)}_{ij} \coloneqq P_i(T_j = n) = P_i(X_1 \neq j, \dots, X_{n-1} \neq j, X_n = j).
+<li><p>A probability distribution <span class="math inline">\(π\)</span> on the state space <span class="math inline">\(\ALPHABET X\)</span> is called an <strong>invariant distribution</strong> if it satisfies the equation <span class="math display">\[
+  π = π P.
 \]</span></p></li>
-<li><p><span class="math inline">\(f^{(n)}_{ij}\)</span> satisfies the following recursion.</p>
+<li><p>An invariant distribution is also called a <strong>stationary distribution</strong>. If the initial distribution of the Markov chain is <span class="math inline">\(π\)</span>, then the distribution remains <span class="math inline">\(π\)</span> at all future times. In other words, if <span class="math inline">\(μ^{(0)} = π\)</span> then <span class="math inline">\(μ^{(n)} = π\)</span> for all <span class="math inline">\(n \ge 0\)</span>.</p></li>
+<li><p>Consider the on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a> with transition matrix <span class="math display">\[
+  P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
+\]</span> This chain has an invariant distribution given by <span class="math inline">\(π = [b/(a+b), a/(a+b)]\)</span> (assuming <span class="math inline">\(a+b &gt; 0\)</span>). One can verify that <span class="math inline">\(π = π P\)</span>, which shows that an invariant distribution exists for this chain.</p></li>
+<li><p>A Markov chain can have multiple invariant distributions. For example, consider a Markov chain with two absorbing states <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. The transition matrix is <span class="math display">\[
+  P = \MATRIX{ 1 &amp; 0 \\ 0 &amp; 1 }.
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/markov-examples8.svg" class="img-fluid figure-img"></p>
+<figcaption>Markov chain with two absorbing states</figcaption>
+</figure>
+</div>
+<p>In this case, any distribution of the form <span class="math inline">\(π = [α, 1-α]\)</span> with <span class="math inline">\(α \in [0,1]\)</span> is an invariant distribution, since <span class="math display">\[
+π P = [α, 1-α]
+\MATRIX{ 1 &amp; 0 \\ 0 &amp; 1 }
+= [α, 1-α] = π.
+\]</span> Thus, there are uncountably many invariant distributions. This happens because the chain consists of two disjoint recurrent classes (the absorbing states <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>), and any probability mass can be put on either class and be preserved.</p>
+<p>More generally, if a Markov chain has multiple irreducible communicating (closed) classes, each class can have its own invariant distribution (supported only on that class). Any convex combination of these distributions is also an invariant distribution for the whole chain.</p></li>
+<li><p>An irreducible and aperiodic Markov chain has a <strong>unique</strong> invariant distribution. Such Markov chains are also called <strong>ergodic</strong>. As we will see later, such Markov chais have the property that for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span> Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called then <strong>limiting distribution</strong> or the <strong>steady-state</strong> distribution.</p></li>
+<li><p><strong>Computing invariant distributions.</strong> The equation <span class="math inline">\(π = π P\)</span> can be written component-wise as <span class="math display">\[
+  π_j = \sum_{i \in \ALPHABET X} π_i P_{ij}, \quad \forall j \in \ALPHABET X.
+\]</span> These equations are called <strong>balance equations</strong> and can be used to find invariant distributions. Together with the constraint that <span class="math inline">\(π\)</span> is a probability distribution (i.e., <span class="math inline">\(\sum_{j \in \ALPHABET X} π_j = 1\)</span> and <span class="math inline">\(π_j \ge 0\)</span> for all <span class="math inline">\(j\)</span>), they form a system of linear equations that can be solved to determine the invariant distribution.</p></li>
+<li><p>As an example, let’s compute the invariant distribution of the on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a>. The transition matrix is <span class="math display">\[
+  P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
+\]</span> To find the invariant distribution <span class="math inline">\(π = [π_0, π_1]\)</span>, we solve the balance equations <span class="math inline">\(π = π P\)</span>: <span class="math display">\[\begin{align*}
+  π_0 &amp;= π_0 (1-a) + π_1 b, \\
+  π_1 &amp;= π_0 a + π_1 (1-b).
+\end{align*}\]</span> From the first equation, we get <span class="math inline">\(π_0 = π_0 (1-a) + π_1 b\)</span>, which simplifies to <span class="math inline">\(π_0 a = π_1 b\)</span>, or equivalently <span class="math inline">\(π_1 = (a/b) π_0\)</span> (assuming <span class="math inline">\(b &gt; 0\)</span>). Using the normalization constraint <span class="math inline">\(π_0 + π_1 = 1\)</span>, we have <span class="math display">\[
+  π_0 + \frac{a}{b} π_0 = 1 \quad \Rightarrow \quad π_0 \left(1 + \frac{a}{b}\right) = 1 \quad \Rightarrow \quad π_0 = \frac{b}{a+b}.
+\]</span> Therefore, <span class="math inline">\(π_1 = 1 - π_0 = \frac{a}{a+b}\)</span>. The invariant distribution is <span class="math inline">\(π = [b/(a+b), a/(a+b)]\)</span>, which matches the result mentioned in point 3.</p></li>
+<li><p>We can write balance equations directly from the state transition diagram. For each state <span class="math inline">\(j\)</span>, the balance equation states that the probability flow into state <span class="math inline">\(j\)</span> equals the probability flow out of state <span class="math inline">\(j\)</span>. Consider the three-state Markov chain with transition matrix <span class="math display">\[
+  P = \MATRIX{ 0.3 &amp; 0.7 &amp; 0 \\
+               0 &amp; 0.3 &amp; 0.7 \\
+               0.7 &amp; 0 &amp; 0.3 }.
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/markov-examples9.svg" class="img-fluid figure-img"></p>
+<figcaption>Three-state aperiodic Markov chain</figcaption>
+</figure>
+</div>
+<p>The balance equations, equating the flow into and out of each state, can be written as:</p>
 <ul>
-<li><span class="math inline">\(f^{(1)}_{ij} = P_i(X_1 = j) = P_{ij}\)</span>.</li>
-<li>And for <span class="math inline">\(n &gt; 1\)</span>, <span class="math inline">\(f^{(n+1)}_{ij} = \sum_{k \neq j} P_{ik} f^{(n)}_{kj}\)</span>.</li>
-</ul></li>
-<li><p>Let <span class="math display">\[
-  f_{ij} = \sum_{n=1}^∞ f^{(n)}_{ij} = P_i(T_j &lt; ∞)
-\]</span> denotes the probability that a chain starting in <span class="math inline">\(i\)</span> eventually visits <span class="math inline">\(j\)</span>. In particular <span class="math inline">\(f_{jj}\)</span> denotes the probability that a chain starting in <span class="math inline">\(j\)</span> will return to <span class="math inline">\(j\)</span>.</p></li>
-<li><p><span class="math inline">\(f_{ij}\)</span> satisfy the following property.<br>
-<span class="math display">\[\displaystyle P^{(n)}_{ij} = \sum_{m=1}^n  f^{(m)}_{ij} P^{(n-m)}_{jj}.\]</span></p>
-<p>An immediate implication of the above is that if <span class="math inline">\(j\)</span> is an absorbing state then <span class="math inline">\(P^{(n)}_{ij} = \sum_{m=1}^n f^{(m)}_{ij} = P_i(T_j \le n).\)</span></p></li>
-<li><p>Let <span class="math inline">\(N^{(n)}_j = \sum_{m=1}^{n} \IND\{X_m = j\}\)</span> denote the number of visits to state <span class="math inline">\(j\)</span> in <span class="math inline">\(n\)</span> steps. Define <span class="math display">\[
-  G_{ij}^{(n)} = \EXP_i[ N^{(n)}_j ] = \sum_{m=1}^n P^{(m)}_{ij}
-\]</span> to be the expected number of visits to state <span class="math inline">\(j\)</span> in <span class="math inline">\(n\)</span> steps, starting in <span class="math inline">\(i\)</span>.</p></li>
-<li><p>Let <span class="math inline">\(N_j = \lim_{n \to ∞} N^{(n)}_j \sum_{m=1}^∞ \IND\{X_m = j \}\)</span> denote the number of visits to state <span class="math inline">\(j\)</span>. Similarly, define <span class="math display">\[
-   G_{ij} = \EXP_{i}[N_j] = \lim_{n \to ∞} G_{ij}^{(n)}
-   = \sum_{m=1}^{∞} P^{(m)}_{ij}
-\]</span> to denote the expected number of visits to state <span class="math inline">\(j\)</span> for a chain starting in <span class="math inline">\(i\)</span>.</p></li>
-<li><p>A state <span class="math inline">\(j\)</span> is <strong>recurrent</strong> if <span class="math inline">\(f_{jj} = 1\)</span> and <strong>transient</strong> if <span class="math inline">\(f_{jj} &lt; 1\)</span>.</p></li>
-<li><p>A state is called periodic if <span class="math inline">\(f_{ii}^(n)\)</span> is non-zero only for multiples of some smallest integer <span class="math inline">\(d\)</span>, <span class="math inline">\(d &gt; 1\)</span>.</p></li>
-<li><p>For every transient state <span class="math inline">\(j\)</span>, we have for every <span class="math inline">\(i\)</span>, <span class="math inline">\(P_i(N_j &lt; ∞) = 1\)</span> and <span class="math display">\[ G_{ij} = \dfrac{f_{ij}}{1 - f_{jj}}.\]</span> On the other hand, if <span class="math inline">\(j\)</span> is recurrent, then <span class="math inline">\(P_j(N_j = ∞) = 1\)</span> and <span class="math inline">\(G_{jj} = ∞\)</span>. Moreover, <span class="math display">\[ P_i(N_j = ∞) = P_i(T_j &lt; ∞) = f_{ij}. \]</span> So, if <span class="math inline">\(f_{ij} = 0\)</span>, then <span class="math inline">\(G_{ij} = 0\)</span> while if <span class="math inline">\(f_{ij} = ∞\)</span> then <span class="math inline">\(G_{ij} = ∞\)</span>.</p></li>
-<li><p>Thus, a state <span class="math inline">\(i\)</span> is recurrent if and only if <span class="math display">\[G_{ii} = \sum_{n=1}^∞ P^{(n)}_{ii} = ∞. \]</span></p></li>
-<li><p>A state <span class="math inline">\(j\)</span> is said to be <strong>accessible from</strong> <span class="math inline">\(i\)</span> (abbreviated as <span class="math inline">\(i \rightsquigarrow j\)</span>) if there is an ordered string of notes <span class="math inline">\((i_0, \dots, i_m)\)</span> such that <span class="math inline">\(i_0 = i\)</span> and <span class="math inline">\(i_m = j\)</span> and <span class="math inline">\(P_{i_k i_{k+1}} &gt; 0\)</span>. Equivalently, <span class="math inline">\(i \rightsquigarrow j\)</span> if there exists a <span class="math inline">\(m\)</span> such that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span>.</p></li>
-<li><p>Accessibility is an transitive relationship, i.e., if <span class="math inline">\(i \rightsquigarrow j\)</span> and <span class="math inline">\(j \rightsquigarrow k\)</span> implies that <span class="math inline">\(i \rightsquigarrow k\)</span>.</p></li>
-<li><p>If <span class="math inline">\(f_{ij} &gt; 0\)</span> but <span class="math inline">\(f_{ji} &lt; 1\)</span>, then <span class="math inline">\(i\)</span> is transient.</p></li>
-<li><p>If <span class="math inline">\(i\)</span> is recurrent and <span class="math inline">\(i \rightsquigarrow j\)</span>. Then, <span class="math inline">\(j\)</span> is also recurrent and <span class="math inline">\(f_{ij} = f_{ji} = 1\)</span>.</p></li>
-<li><p>A subset <span class="math inline">\(C\)</span> of <span class="math inline">\(\ALPHABET X\)</span> is said to be <strong>closed</strong> if no state inside <span class="math inline">\(C\)</span> can lead to any state outside <span class="math inline">\(C\)</span>, i.e., <span class="math display">\[
-    f_{ij} = 0, \quad \forall i \in C \text{ and } j \not\in C.
+<li><p><strong>State 0:</strong><br>
+<span class="math display">\[\begin{align*}
+\text{Inflow} &amp;= \pi_2 \cdot 0.7 \\
+\text{Outflow} &amp;= \pi_0 \cdot 0.7
+\end{align*}\]</span></p></li>
+<li><p><strong>State 1:</strong><br>
+<span class="math display">\[\begin{align*}
+\text{Inflow} &amp;= \pi_0 \cdot 0.7 \\
+\text{Outflow} &amp;= \pi_1 \cdot 0.7
+\end{align*}\]</span></p></li>
+<li><p><strong>State 2:</strong><br>
+<span class="math display">\[\begin{align*}
+\text{Inflow} &amp;= \pi_1 \cdot 0.7 \\
+\text{Outflow} &amp;= \pi_2 \cdot 0.7
+\end{align*}\]</span></p></li>
+</ul>
+<p>Thus, the balance equations are given by <span class="math display">\[\begin{align*}
+  \pi_0 \cdot 0.7 = \pi_2 \cdot 0.7 \\
+  \pi_1 \cdot 0.7 = \pi_0 \cdot 0.7 \\
+  \pi_2 \cdot 0.7 = \pi_1 \cdot 0.7
+\end{align*}\]</span> Together with the normalization constraint <span class="math inline">\(π_0 + π_1 + π_2 = 1\)</span>, we get <span class="math inline">\(π_0 = π_1 = π_2 = 1/3\)</span>. This illustrates how balance equations can be derived directly from the state diagram by considering probability flows.</p></li>
+<li><p>The above example is an illustration of a more general principle. If <span class="math inline">\(P\)</span> is doubly stochastic (i.e., both row sum and column sums are <span class="math inline">\(1\)</span>), then the invariant distribution is a uniform distribution.</p></li>
+</ol>
+<p>Note that if the chain is not irreducible, then it may have multiple invariant distributions.</p>
+<ol start="10" type="1">
+<li><p><strong>Exercises: Computing Invariant Distributions</strong></p>
+<div id="exm-invariant-transient-closed" class="theorem example">
+<p><span class="theorem-title"><strong>Example 9.16</strong></span> Consider the Markov chain with transition matrix<br>
+<span class="math display">\[
+  P = \MATRIX{ 0.6 &amp; 0.4 &amp; 0 &amp; 0 \\
+               0.3 &amp; 0.7 &amp; 0 &amp; 0 \\
+               0.2 &amp; 0.3 &amp; 0.3 &amp; 0.2 \\
+               0.1 &amp; 0.4 &amp; 0.1 &amp; 0.4 }.
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/markov-examples10.svg" class="img-fluid figure-img"></p>
+<figcaption>Markov chain with transient states and closed class</figcaption>
+</figure>
+</div>
+<p>This chain has states <span class="math inline">\(\{0, 1, 2, 3\}\)</span> where states <span class="math inline">\(\{0, 1\}\)</span> form a closed communicating class and states <span class="math inline">\(\{2, 3\}\)</span> are transient. Find all invariant distributions for this chain.</p>
+</div>
+<div id="exm-invariant-absorbing" class="theorem example">
+<p><span class="theorem-title"><strong>Example 9.17</strong></span> Consider the Markov chain with transition matrix<br>
+<span class="math display">\[
+  P = \MATRIX{ 1 &amp; 0 &amp; 0 \\
+               0.2 &amp; 0.4 &amp; 0.4 \\
+               0 &amp; 0 &amp; 1 }.
+\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/markov-examples11.svg" class="img-fluid figure-img"></p>
+<figcaption>Markov chain with absorbing states</figcaption>
+</figure>
+</div>
+<p>Note that this chain is not irreducible (it has two absorbing states). Compute all possible invariant distributions.</p>
+</div>
+<div id="exm-invariant-convex" class="theorem example">
+<p><span class="theorem-title"><strong>Example 9.18</strong></span> Suppose a Markov chain has <span class="math inline">\(N\)</span> absorbing states and no transitions between them. What does the set of invariant distributions look like? Express your answer in terms of convex combinations.</p>
+</div></li>
+</ol>
+</section>
+<section id="limiting-distribution" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="limiting-distribution"><span class="header-section-number">9.6</span> Limiting Distribution</h2>
+<ol type="1">
+<li><p>Suppose a finite Markov chain has the property that starting from any initial distribution, the distribution of <span class="math inline">\(X_n\)</span> converges to some distribution <span class="math inline">\(\pi\)</span> as <span class="math inline">\(n \to \infty\)</span>: <span class="math display">\[
+\lim_{n \to \infty} P^{(n)}_{i, j} = \pi_j \qquad \text{for all } i, j \in \ALPHABET X.
+\]</span> Then, <span class="math inline">\(\pi\)</span> is an invariant distribution.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We start by showing that <span class="math inline">\(π\)</span> must be a valid probability distribution. In particular, <span class="math display">\[
+\sum_{j \in \ALPHABET X} π_j =
+\sum_{j \in \ALPHABET X} \lim_{n \to ∞} P^{(n)}_{ij} =
+\lim_{n \to ∞} \sum_{j \in \ALPHABET X} P^{(n)}_{ij} = 1
+\]</span></p>
+<p>We now show that <span class="math inline">\(π\)</span> is an invariant distribution. <span class="math display">\[
+π_j = \lim_{n \to ∞} P^{(n)}_{ij}
+= \lim_{n \to ∞} \sum_{k \in \ALPHABET X} P^{(n-1)}_{ik} P_{kj}
+= \sum_{k \in \ALPHABET X} \lim_{n \to ∞} P^{(n-1)}_{ik} P_{kj}
+= \sum_{k \in \ALPHABET X} π_k P_{kj}
+\]</span> Thus, <span class="math inline">\(π\)</span> is an invariant distribution.</p>
+</div>
+</div>
+</div></li>
+<li><p>As discussed above, limiting distributions exist for ergodic Markov chains (i.e., irreducible and aperiodic Markov chains): for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span></p>
+<p>This is equivalent to the statement that for all <span class="math inline">\(i, j \in \ALPHABET X\)</span>, <span class="math display">\[\lim_{n \to \infty} P^{(n)}_{ij} = π_j.\]</span> The matrix version of this property is: <span class="math display">\[
+\lim_{n \to \infty} P^n =
+\MATRIX{
+   \pi \\
+   \pi \\
+   \vdots \\
+   \pi
+}
+\]</span> where each row of the limiting matrix is the invariant distribution <span class="math inline">\(π\)</span>. That is, for large <span class="math inline">\(n\)</span>, every row of <span class="math inline">\(P^n\)</span> approaches <span class="math inline">\(π\)</span>.</p></li>
+<li><p>In fact, we have a stronger result: the <strong>Strong Law of Large Numbers (SLLN) for (finite) Markov chains.</strong> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> be an irreducible and aperiodic (i.e., ergodic) Markov chain. Then, for any initial distribution, <span class="math display">\[
+\lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} \pi_j, \quad \forall j \in \ALPHABET X.
+\]</span> This is known as <strong>ergodic property</strong>: sample average equals ensemble average.</p></li>
+<li><p>An immediate consequence of the ergodic property is that given an ergodic Markov chain <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and any function <span class="math inline">\(f \colon \ALPHABET X \to \reals\)</span>, we have <span class="math display">\[
+\lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j).
 \]</span></p></li>
-<li><p>A closed set <span class="math inline">\(C\)</span> is called <strong>irreducible</strong> if <span class="math inline">\(i \rightsquigarrow j\)</span> for all <span class="math inline">\(i,j \in C\)</span>. Thus, if <span class="math inline">\(C\)</span> is an irreducible set, then all states in <span class="math inline">\(C\)</span> are either recurrent or transient.</p></li>
-<li><p>Consequently, if <span class="math inline">\(C\)</span> is an irreducible and closed set of recurrent states. Then for all <span class="math inline">\(i,j \in C\)</span>,</p>
+</ol>
+<section id="further-remarks" class="level3" data-number="9.6.1">
+<h3 data-number="9.6.1" class="anchored" data-anchor-id="further-remarks"><span class="header-section-number">9.6.1</span> Further Remarks</h3>
 <ul>
-<li><span class="math inline">\(f_{ij} = 1\)</span></li>
-<li><span class="math inline">\(P_i(N_j = ∞) = 1\)</span></li>
-<li><span class="math inline">\(G_{ij} = ∞\)</span></li>
-</ul></li>
-<li><p>If <span class="math inline">\(C\)</span> is a finite irreducible closed set of states. Then every state in <span class="math inline">\(C\)</span> is recurrent.</p></li>
-<li><p>Let <span class="math inline">\(\ALPHABET X_T\)</span> and <span class="math inline">\(\ALPHABET X_R\)</span> denote the set of transient and recurrent states. The set <span class="math inline">\(\ALPHABET X_R\)</span> can be paritioned into a finite or countable number of irreducible closed sets <span class="math inline">\(C_1\)</span>, <span class="math inline">\(C_2\)</span>, <span class="math inline">\(\dots\)</span>.</p></li>
-</ol>
+<li>If the chain is not aperiodic (i.e., has period <span class="math inline">\(d &gt; 1\)</span>), the limiting distribution as above may not exist, but the chain may still have an invariant distribution.</li>
+<li>In the special case where <span class="math inline">\(P\)</span> is doubly stochastic (rows and columns sum to 1), the limiting distribution is uniform: <span class="math inline">\(\pi_j = 1/|S|\)</span>.</li>
+</ul>
 </section>
-<section id="stationary-distribution" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="stationary-distribution"><span class="header-section-number">9.7</span> Stationary distribution</h2>
-<ol type="1">
-<li><p>A distribution <span class="math inline">\(π\)</span> is said the be a <strong>stationary distribution</strong> if <span class="math display">\[
-   π = π P.
-\]</span></p></li>
-<li><p>Stationary distributions can be computed by solving <strong>balance equations.</strong></p></li>
-<li><p>Let <span class="math inline">\(C\)</span> be an irreducible class of a Markov chain. Then, there is a unique stationary distribution <span class="math inline">\(π\)</span> that assigns positive probability only to states in <span class="math inline">\(C\)</span>.</p></li>
-<li><p>If <span class="math inline">\(π_1\)</span> and <span class="math inline">\(π_2\)</span> are stationary distributions of a Markov chain and <span class="math inline">\(α \in (0,1)\)</span>, then <span class="math inline">\(α π_1 + (1-α) π_2\)</span> is also a stationary distribution.</p></li>
-<li><p>Thus, if a Markov chain has a single irreducible class, then it has a unique stationary distribution; if it has multiple irreducible classes, then it has uncountable number of stationary distributions.</p></li>
-</ol>
-</section>
-<section id="limiting-distribution" class="level2" data-number="9.8">
-<h2 data-number="9.8" class="anchored" data-anchor-id="limiting-distribution"><span class="header-section-number">9.8</span> Limiting distribution</h2>
-<ol type="1">
-<li><p>Suppose <span class="math inline">\(j\)</span> is a transient state. Then, we know that <span class="math inline">\(N_j &lt; ∞\)</span> and <span class="math inline">\(G_{ij} &lt; ∞\)</span>. Therefore, <span class="math display">\[
-   \lim_{n \to ∞}
-   \frac{N^{(n)}_{j}}{n} = 0, a.s.,
-   \quad\text{and}\quad
-   \lim_{n \to ∞}
-   \frac{G^{(n)}_{ij}}{n} = 0, \forall i \in \ALPHABET X.
-\]</span></p></li>
-<li><p>Suppose <span class="math inline">\(j\)</span> is a recurrent state. Then, <span class="math display">\[
-   \lim_{n \to ∞}
-   \frac{N^{(n)}_{j}}{n} = μ_j, a.s.,
-   \quad\text{and}\quad
-   \lim_{n \to ∞}
-   \frac{G^{(n)}_{ij}}{n} = μ_j, \forall i \in \ALPHABET X
-\]</span> where <span class="math inline">\(μ_j = \EXP_{j}[T_j]\)</span> is the mean return time to state <span class="math inline">\(j\)</span>.</p></li>
-</ol>
-<p>A Markov chain is said to have a <em>steady state distribution</em> if <span class="math inline">\(π_n\)</span> converges to a limit as <span class="math inline">\(n \to ∞\)</span> and the limit does not depend on the initial distribution <span class="math inline">\(π_0\)</span>.</p>
-<p>A Markov chain has a steady state distribution if it is ergodic. We can find the steady state distribution by solving the <em>balance equation</em>: <span class="math inline">\(π = π P\)</span>.</p>
 </section>
 <section id="exercises" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
@@ -1448,6 +1533,15 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <li>If the outcome of the first roll is <span class="math inline">\(1\)</span>, what is the probability that the outcome of the <span class="math inline">\(n\)</span>th roll is also <span class="math inline">\(1\)</span>?</li>
 </ol>
 </div>
+</section>
+<section id="further-reading" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="further-reading">Further Reading</h2>
+<ol type="1">
+<li><p><a href="https://stats.libretexts.org/Bookshelves/Probability_Theory/Introductory_Probability_(Grinstead_and_Snell)/11%3A_Markov_Chains/11.01%3A_Introduction">Grinstead and Snell, Introduction to Probability</a>, Chapter 11 has an excellent treatment of finite Markov chains. Has interesting exercises.</p></li>
+<li><p><a href="https://catalog.hathitrust.org/api/volumes/oclc/528648.html">Kemeny and Snell, Finite Markov Chains</a>, Chapter 2–4.</p></li>
+<li><p><a href="https://archive.org/details/springer_10.1007-978-1-4684-9455-6">Kemeny, Snell, and Knapp, Denumerable Markov Chains</a>, a slightly advanced version of the previous book.</p></li>
+<li><p><a href="https://doi.org/10.5948/UPO9781614440222">Doyle and Snell, Random Walks and Electrical Networks</a> shows a facinating relationship between random walks and circuits!</p></li>
+</ol>
 
 
 </section>
