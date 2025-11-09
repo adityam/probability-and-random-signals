@@ -530,10 +530,10 @@ window.Quarto = {
 <p>Independence is a symmetric relationship. Thus, we expect the Markov property to also hold if time is reversed! <a href="#exr-time-reversal" class="quarto-xref">Exercise&nbsp;<span>9.1</span></a> asks you to formally prove that.</p>
 <p>We now present some examples of Markov chains arising in different applications.</p>
 <div id="exm-Gilbert-Elliot-channel" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.1 (Gilbert Elliot channel model for burst erasures)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Example 9.1 (Gilbert Elliot channel model for burst erasures)</strong></span> The Gilbert-Elliot channel model is used to model communication channels with burst errors. The channel can be in one of two states: a “good” state (state 0) with low error probability, or a “bad” state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a>.</p>
 </div>
 <div id="exm-Ehrenfest-diffusion" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.2 (Ehrenfest model of diffusion)</strong></span> The following simplified model of diffusion through a porous membrane was proposed by <span class="citation" data-cites="Ehrenfest1907">@Ehrenfest1907</span> to describe the exchange of heat between two systems at different temperature.</p>
+<p><span class="theorem-title"><strong>Example 9.2 (Ehrenfest model of diffusion)</strong></span> The following simplified model of diffusion through a porous membrane was proposed by <span class="citation" data-cites="Ehrenfest1907">@Ehrenfest1907</span> to describe the exchange of heat between two systems at different temperatures.</p>
 <p>There are <span class="math inline">\(K\)</span> particles that can either be in compartment <span class="math inline">\(A\)</span> or compartment <span class="math inline">\(B\)</span>. At each time, a particle is picked at random and moved from its compartment to the other. Thus, if there are <span class="math inline">\(X_n = i\)</span> particles in compartment <span class="math inline">\(A\)</span> at time <span class="math inline">\(n\)</span>, then the next state <span class="math inline">\(X_{n+1}\)</span> is either <span class="math inline">\(i-1\)</span> (a particle was displaced from compartment <span class="math inline">\(A\)</span> to <span class="math inline">\(B\)</span>) with probability <span class="math inline">\(i/K\)</span>, or <span class="math inline">\(i+1\)</span> (a particle was displaced from compartment <span class="math inline">\(B\)</span> to <span class="math inline">\(A\)</span>) with probability <span class="math inline">\((K-i)/K\)</span>.</p>
 </div>
 <div id="exm-gamblers-ruin" class="theorem example">
@@ -544,20 +544,11 @@ window.Quarto = {
 </div>
 <p>See the following video from <a href="https://www.youtube.com/@veritasium">Veritasium</a> for an excellent history of Markov chains and its applications</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/KZeIEiBrT_w" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<!--
-**TODO:** Add examples and non-examples of Markov processes. Not necessarily the mathematical description, but simply models that are Markov
-
-- iid coin tosses
-- Success runs
-- On off Markov chain (Gilbert Elliot)
-- Gambler's ruin
-
--->
 <section id="time-homogeneous-markov-chains" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="time-homogeneous-markov-chains"><span class="header-section-number">9.1</span> Time-homogeneous Markov chains</h2>
 <p>In this course, we will focus on time-homogeneous Markov chains. The Markov chain is called <strong>time-homogeneous</strong> if the right hand side of <span class="math inline">\(\eqref{eq:Markov}\)</span> does not depend on <span class="math inline">\(n\)</span>. In this case, we describe the Markov chain by a <strong>state transition matrix</strong> <span class="math inline">\(P\)</span>, where <span class="math inline">\(P_{ij} = \PR(X_{n+1} = j | X_n = i)\)</span>. Such Markov chains can also be visualized using <strong>state transition diagrams</strong> as we illustrate in the examples below.</p>
 <div id="exm-on-off" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.4 (On-Off Markov chain)</strong></span> The On-Off Markov chain discussed earlier can be modelled with <span class="math inline">\(\ALPHABET X = \{0, 1\}\)</span> and general transition probability matrix of the form. <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 9.4 (On-Off Markov chain)</strong></span> The On-Off Markov chain discussed earlier can be modelled with <span class="math inline">\(\ALPHABET X = \{0, 1\}\)</span> and a general transition probability matrix of the form. <span class="math display">\[
   P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
 \]</span> The transition matrix can be visualized as follows.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -650,10 +641,6 @@ window.Quarto = {
 </ol>
 </div>
 <p>Note that the gambler’s fortune in <a href="#exm-gamblers-ruin" class="quarto-xref">Example&nbsp;<span>9.3</span></a> is a random walk on non-negative integers <span class="math inline">\(\{0,1,2, \dots\}\)</span> with absorption at <span class="math inline">\(0\)</span>. In the variation where the gambler stops when his fortune reaches $<span class="math inline">\(K\)</span>, it is a random walk over <span class="math inline">\(\{0,1,\dots,K\}\)</span> with absorption at both ends: <span class="math inline">\(0\)</span> and <span class="math inline">\(K\)</span>.</p>
-<p><strong>TODO</strong>: Add other examples</p>
-<ul>
-<li>Success runs</li>
-</ul>
 <section id="properties-of-interest" class="level3" data-number="9.1.1">
 <h3 data-number="9.1.1" class="anchored" data-anchor-id="properties-of-interest"><span class="header-section-number">9.1.1</span> Properties of interest</h3>
 <p>Depending on the application, we are typically interested in the following properties of a Markov chain:</p>
@@ -949,7 +936,7 @@ window.Quarto = {
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing <span class="math inline">\(μ^{(0)} P^n\)</span>. What is an efficient way to compute <span class="math inline">\(P^n\)</span>? <strong>Eigen decomposition!</strong>. Since <span class="math inline">\(P\)</span> is a row stochastic matrix, we have <span class="math inline">\(P \mathbf{1} = 1.\)</span> Thus, <span class="math inline">\(λ_1 = 1\)</span> is always an eigenvector of <em>any</em> transition matrix with eigenvector <span class="math inline">\(\mathbf{1}\)</span>.</p>
+<p>The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing <span class="math inline">\(μ^{(0)} P^n\)</span>. What is an efficient way to compute <span class="math inline">\(P^n\)</span>? <strong>Eigen decomposition!</strong>. Since <span class="math inline">\(P\)</span> is a row stochastic matrix, we have <span class="math inline">\(P \mathbf{1} = \mathbf{1}\)</span>, where <span class="math inline">\(\mathbf{1}\)</span> is the all-ones vector. Thus, <span class="math inline">\(λ_1 = 1\)</span> is always an eigenvalue of <em>any</em> transition matrix, with corresponding eigenvector <span class="math inline">\(\mathbf{1}\)</span>.</p>
 <p>For <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, we can explicitly compute all eigenvalues by finding the roots of the characteristic equation <span class="math display">\[\begin{align*}
 \det(λI - P) &amp;= \DET{λ - 1 + a &amp; - a \\ -b &amp; λ - 1 + b} \\
 &amp;= (λ-1 +a)(λ-1+b) - ab \\
@@ -1371,7 +1358,7 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 = [α, 1-α] = π.
 \]</span> Thus, there are uncountably many invariant distributions. This happens because the chain consists of two disjoint recurrent classes (the absorbing states <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>), and any probability mass can be put on either class and be preserved.</p>
 <p>More generally, if a Markov chain has multiple irreducible communicating (closed) classes, each class can have its own invariant distribution (supported only on that class). Any convex combination of these distributions is also an invariant distribution for the whole chain.</p></li>
-<li><p>An irreducible and aperiodic Markov chain has a <strong>unique</strong> invariant distribution. Such Markov chains are also called <strong>ergodic</strong>. As we will see later, such Markov chais have the property that for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span> Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called then <strong>limiting distribution</strong> or the <strong>steady-state</strong> distribution.</p></li>
+<li><p>An irreducible and aperiodic Markov chain has a <strong>unique</strong> invariant distribution. Such Markov chains are also called <strong>ergodic</strong>. As we will see later, such Markov chains have the property that for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span> Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the <strong>limiting distribution</strong> or the <strong>steady-state</strong> distribution.</p></li>
 <li><p><strong>Computing invariant distributions.</strong> The equation <span class="math inline">\(π = π P\)</span> can be written component-wise as <span class="math display">\[
   π_j = \sum_{i \in \ALPHABET X} π_i P_{ij}, \quad \forall j \in \ALPHABET X.
 \]</span> These equations are called <strong>balance equations</strong> and can be used to find invariant distributions. Together with the constraint that <span class="math inline">\(π\)</span> is a probability distribution (i.e., <span class="math inline">\(\sum_{j \in \ALPHABET X} π_j = 1\)</span> and <span class="math inline">\(π_j \ge 0\)</span> for all <span class="math inline">\(j\)</span>), they form a system of linear equations that can be solved to determine the invariant distribution.</p></li>
@@ -1511,14 +1498,14 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <h3 data-number="9.6.1" class="anchored" data-anchor-id="further-remarks"><span class="header-section-number">9.6.1</span> Further Remarks</h3>
 <ul>
 <li>If the chain is not aperiodic (i.e., has period <span class="math inline">\(d &gt; 1\)</span>), the limiting distribution as above may not exist, but the chain may still have an invariant distribution.</li>
-<li>In the special case where <span class="math inline">\(P\)</span> is doubly stochastic (rows and columns sum to 1), the limiting distribution is uniform: <span class="math inline">\(\pi_j = 1/|S|\)</span>.</li>
+<li>In the special case where <span class="math inline">\(P\)</span> is doubly stochastic (rows and columns sum to 1), the limiting distribution is uniform: <span class="math inline">\(\pi_j = 1/|\ALPHABET X|\)</span>.</li>
 </ul>
 </section>
 </section>
 <section id="exercises" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
 <div id="exr-time-reversal" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.1 (Time reversal of Markov chains)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> is a Markov chain. Show that for any <span class="math inline">\(N &gt; n\)</span>, <span class="math display">\[
+<p><span class="theorem-title"><strong>Exercise 9.1 (Time reversal of Markov chains)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> be a Markov chain. Show that for any <span class="math inline">\(N &gt; n\)</span>, <span class="math display">\[
   \PR(X_n = x_n \mid X_{n+1:N} = x_{n+1:N})
   = \PR(X_n = x_n \mid X_{n+1} = x_{n+1}).
 \]</span> Thus, a time reversed Markov chain is also Markov.</p>
