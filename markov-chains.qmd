@@ -23,12 +23,13 @@ We now present some examples of Markov chains arising in different applications.
 :::{#exm-Gilbert-Elliot-channel}
 #### Gilbert Elliot channel model for burst erasures
 
+The Gilbert-Elliot channel model is used to model communication channels with burst errors. The channel can be in one of two states: a "good" state (state 0) with low error probability, or a "bad" state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in @exm-on-off.
 :::
 
 :::{#exm-Ehrenfest-diffusion}
 #### Ehrenfest model of diffusion
 
-The following simplified model of diffusion through a porous membrane was proposed by @Ehrenfest1907 to describe the exchange of heat between two systems at different temperature. 
+The following simplified model of diffusion through a porous membrane was proposed by @Ehrenfest1907 to describe the exchange of heat between two systems at different temperatures. 
 
 There are $K$ particles that can either be in compartment $A$ or compartment $B$. At each time, a particle is picked at random and moved from its compartment to the other. Thus, if there are $X_n = i$ particles in compartment $A$ at time $n$, then the next state $X_{n+1}$ is either $i-1$ (a particle was displaced from compartment $A$ to $B$) with probability $i/K$, or $i+1$ (a particle was displaced from compartment $B$ to $A$) with probability $(K-i)/K$. 
 :::
@@ -49,15 +50,6 @@ See the following video from [Veritasium](https://www.youtube.com/@veritasium) f
 
 {{< video https://www.youtube.com/watch?v=KZeIEiBrT_w >}}
 
-<!--
-**TODO:** Add examples and non-examples of Markov processes. Not necessarily the mathematical description, but simply models that are Markov
-
-- iid coin tosses
-- Success runs
-- On off Markov chain (Gilbert Elliot)
-- Gambler's ruin
-
--->
 
 ## Time-homogeneous Markov chains
 
@@ -67,7 +59,7 @@ The Markov chain is called **time-homogeneous** if the right hand side of \eqref
 :::{#exm-on-off}
 #### On-Off Markov chain
 
-The On-Off Markov chain discussed earlier can be modelled with $\ALPHABET X = \{0, 1\}$ and general transition probability matrix of the form.
+The On-Off Markov chain discussed earlier can be modelled with $\ALPHABET X = \{0, 1\}$ and a general transition probability matrix of the form.
 $$
   P = \MATRIX{ 1 - a & a \\ b & 1 - b }.
 $$
@@ -157,11 +149,7 @@ We will consider the case where the state space is $\ALPHABET X = \{-2, -1, 0, 1
    $$
 :::
 
-Note that the gambler's fortune in @exm-gamblers-ruin is a random walk on non-negative integers $\{0,1,2, \dots\}$ with absorption at $0$. In the variation where the gambler stops when his fortune reaches \$$K$, it is a random walk over $\{0,1,\dots,K\}$ with absorption at both ends: $0$ and $K$. 
-
-**TODO**: Add other examples
-
-- Success runs
+Note that the gambler's fortune in @exm-gamblers-ruin is a random walk on non-negative integers $\{0,1,2, \dots\}$ with absorption at $0$. In the variation where the gambler stops when his fortune reaches \$$K$, it is a random walk over $\{0,1,\dots,K\}$ with absorption at both ends: $0$ and $K$.
 
 ### Properties of interest
 
@@ -281,7 +269,7 @@ end
       random_walk(μ,P3,N)
     ```
 
-3. **Random walk with periodic boundary:** 
+4. **Random walk with periodic boundary:** 
    In this case, we have
 
     ```{julia}
@@ -341,7 +329,7 @@ $$
 :::{.callout-warning collapse="true"}
 #### How did we figure out the above calculation?
 
-The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing $μ^{(0)} P^n$. What is an efficient way to compute $P^n$? **Eigen decomposition!**. Since $P$ is a row stochastic matrix, we have $P \mathbf{1} = 1.$ Thus, $λ_1 = 1$ is always an eigenvector of _any_ transition matrix with eigenvector $\mathbf{1}$. 
+The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing $μ^{(0)} P^n$. What is an efficient way to compute $P^n$? **Eigen decomposition!**. Since $P$ is a row stochastic matrix, we have $P \mathbf{1} = \mathbf{1}$, where $\mathbf{1}$ is the all-ones vector. Thus, $λ_1 = 1$ is always an eigenvalue of _any_ transition matrix, with corresponding eigenvector $\mathbf{1}$. 
 
 For @exm-on-off, we can explicitly compute all eigenvalues by finding the roots of the characteristic equation
 \begin{align*}
@@ -806,9 +794,9 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
    More generally, if a Markov chain has multiple irreducible communicating (closed) classes, each class can have its own invariant distribution (supported only on that class). Any convex combination of these distributions is also an invariant distribution for the whole chain.
 
-5. An irreducible and aperiodic Markov chain has a **unique** invariant distribution. Such Markov chains are also called **ergodic**. As we will see later, such Markov chais have the property that for any initial distribution $μ^{(0)}$, we have 
+5. An irreducible and aperiodic Markov chain has a **unique** invariant distribution. Such Markov chains are also called **ergodic**. As we will see later, such Markov chains have the property that for any initial distribution $μ^{(0)}$, we have 
 $$\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.$$
-Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called then **limiting distribution** or the **steady-state** distribution.
+Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the **limiting distribution** or the **steady-state** distribution.
 
 6. **Computing invariant distributions.** 
   The equation $π = π P$ can be written component-wise as
@@ -963,13 +951,13 @@ Thus, an ergodic Markov chain converges to its invariant distribution. For this 
 ### Further Remarks
 
 - If the chain is not aperiodic (i.e., has period $d > 1$), the limiting distribution as above may not exist, but the chain may still have an invariant distribution.
-- In the special case where $P$ is doubly stochastic (rows and columns sum to 1), the limiting distribution is uniform: $\pi_j = 1/|S|$. 
+- In the special case where $P$ is doubly stochastic (rows and columns sum to 1), the limiting distribution is uniform: $\pi_j = 1/|\ALPHABET X|$. 
 
 ## Exercises{-}
 :::{#exr-time-reversal}
 #### Time reversal of Markov chains
 
-Let $\{X_n\}_{n \ge 1}$ is a Markov chain. Show that for any $N > n$,
+Let $\{X_n\}_{n \ge 0}$ be a Markov chain. Show that for any $N > n$,
 $$
   \PR(X_n = x_n \mid X_{n+1:N} = x_{n+1:N})
   = \PR(X_n = x_n \mid X_{n+1} = x_{n+1}).
