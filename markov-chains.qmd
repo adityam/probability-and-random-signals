@@ -437,9 +437,11 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
 8.  A Markov chain with a single communicating class (thus, all states communicate with each other and are, therefore, recurrent) is called **irreducible**.
 
-9.  The **period** of a state $i$, denoted by $d(i)$, is defined as $$d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} > 0 \}.$$ If the period is $1$, the state is **aperiodic**, and if the period is $2$ or more, the state is **periodic**. It can be shown that all states in the same class have the same period.
+9.  If $C$ is a finite irreducible closed set of states, then every state in $C$ is recurrent. This is an important result for finite-state Markov chains: any finite closed communicating class must be recurrent.
 
-10.  A Markov chain is **aperiodic**, if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state $i$ such that $P_{ii} > 0$. In general, for a finite and aperiodic Markov chain, there exists a positive integer $M$ such that 
+10.  The **period** of a state $i$, denoted by $d(i)$, is defined as $$d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} > 0 \}.$$ If the period is $1$, the state is **aperiodic**, and if the period is $2$ or more, the state is **periodic**. It can be shown that all states in the same class have the same period.
+
+11.  A Markov chain is **aperiodic**, if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state $i$ such that $P_{ii} > 0$. In general, for a finite and aperiodic Markov chain, there exists a positive integer $M$ such that 
     $$ P^{(m)}_{ii} > 0, 
             \quad \forall m \ge M, i \in \ALPHABET X.$$
 
@@ -774,131 +776,194 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
 ## Invariant Distribution
 
-1. $π = π P$. 
-
-2. Balance equations to find invariant distributions
-
-3. 
-
-## First passage time and strong Markov property
-
-3. Define the **first passage time**
+1. A probability distribution $π$ on the state space $\ALPHABET X$ is called an **invariant distribution** if it satisfies the equation
    $$
-     f^{(n)}_{ij} \coloneqq P_i(T_j = n) = P_i(X_1 \neq j, \dots, X_{n-1} \neq j, X_n = j).
+     π = π P.
    $$
 
-4. $f^{(n)}_{ij}$ satisfies the following recursion.
+2. An invariant distribution is also called a **stationary distribution**. If the initial distribution of the Markov chain is $π$, then the distribution remains $π$ at all future times. In other words, if $μ^{(0)} = π$  then $μ^{(n)} = π$ for all $n \ge 0$. 
 
-   - $f^{(1)}_{ij} = P_i(X_1 = j) = P_{ij}$.
-   - And for $n > 1$, $f^{(n+1)}_{ij} = \sum_{k \neq j} P_{ik} f^{(n)}_{kj}$.
-
-5. Let
+3. Consider the on-off Markov chain from @exm-on-off with transition matrix
    $$
-     f_{ij} = \sum_{n=1}^∞ f^{(n)}_{ij} = P_i(T_j < ∞)
+     P = \MATRIX{ 1 - a & a \\ b & 1 - b }.
    $$
-   denotes the probability that a chain starting in $i$ eventually visits $j$. In particular $f_{jj}$ denotes the probability that a chain starting in $j$ will return to $j$. 
+   This chain has an invariant distribution given by $π = [b/(a+b), a/(a+b)]$ (assuming $a+b > 0$). One can verify that $π = π P$, which shows that an invariant distribution exists for this chain.
 
-6. $f_{ij}$ satisfy the following property.  
-   $$\displaystyle P^{(n)}_{ij} = \sum_{m=1}^n  f^{(m)}_{ij} P^{(n-m)}_{jj}.$$
-
-      An immediate implication of the above is that if $j$ is an absorbing state then 
-      $P^{(n)}_{ij} = \sum_{m=1}^n f^{(m)}_{ij} = P_i(T_j \le n).$
-
-
-7. Let $N^{(n)}_j = \sum_{m=1}^{n} \IND\{X_m = j\}$ denote the number of visits to state $j$ in $n$ steps. Define
+4. A Markov chain can have multiple invariant distributions. For example, consider a Markov chain with two absorbing states $0$ and $1$. The transition matrix is
    $$
-     G_{ij}^{(n)} = \EXP_i[ N^{(n)}_j ] = \sum_{m=1}^n P^{(m)}_{ij}
+     P = \MATRIX{ 1 & 0 \\ 0 & 1 }.
    $$
-   to be the expected number of visits to state $j$ in $n$ steps, starting in $i$.
-
-8. Let $N_j = \lim_{n \to ∞} N^{(n)}_j \sum_{m=1}^∞ \IND\{X_m = j \}$ denote the number of visits to state $j$. Similarly, define
+   
+   ![Markov chain with two absorbing states](figures/svg/markov-examples8.svg)
+   
+   In this case, any distribution of the form $π = [α, 1-α]$ with $α \in [0,1]$ is an invariant distribution, since
    $$
-      G_{ij} = \EXP_{i}[N_j] = \lim_{n \to ∞} G_{ij}^{(n)}
-      = \sum_{m=1}^{∞} P^{(m)}_{ij}
+   π P = [α, 1-α]
+    \MATRIX{ 1 & 0 \\ 0 & 1 }
+   = [α, 1-α] = π.
    $$
-   to denote the expected number of visits to state $j$ for a chain starting in $i$.
+   Thus, there are uncountably many invariant distributions. This happens because the chain consists of two disjoint recurrent classes (the absorbing states $0$ and $1$), and any probability mass can be put on either class and be preserved. 
 
-8. A state $j$ is **recurrent** if $f_{jj} = 1$ and **transient** if $f_{jj} < 1$. 
+   More generally, if a Markov chain has multiple irreducible communicating (closed) classes, each class can have its own invariant distribution (supported only on that class). Any convex combination of these distributions is also an invariant distribution for the whole chain.
 
-9. A state is called periodic if $f_{ii}^(n)$ is non-zero only for multiples of some smallest integer $d$, $d > 1$. 
+5. An irreducible and aperiodic Markov chain has a **unique** invariant distribution. Such Markov chains are also called **ergodic**. As we will see later, such Markov chais have the property that for any initial distribution $μ^{(0)}$, we have 
+$$\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.$$
+Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called then **limiting distribution** or the **steady-state** distribution.
 
-9. For every transient state $j$, we have for every $i$, $P_i(N_j < ∞) = 1$ and 
-   $$ G_{ij} = \dfrac{f_{ij}}{1 - f_{jj}}.$$
-   On the other hand, if $j$ is recurrent, then $P_j(N_j = ∞) = 1$ and $G_{jj} = ∞$. Moreover,
-   $$ P_i(N_j = ∞) = P_i(T_j < ∞) = f_{ij}. $$
-   So, if $f_{ij} = 0$, then $G_{ij} = 0$ while if $f_{ij} = ∞$ then $G_{ij} = ∞$. 
+6. **Computing invariant distributions.** 
+  The equation $π = π P$ can be written component-wise as
+   $$
+     π_j = \sum_{i \in \ALPHABET X} π_i P_{ij}, \quad \forall j \in \ALPHABET X.
+   $$
+   These equations are called **balance equations** and can be used to find invariant distributions. Together with the constraint that $π$ is a probability distribution (i.e., $\sum_{j \in \ALPHABET X} π_j = 1$ and $π_j \ge 0$ for all $j$), they form a system of linear equations that can be solved to determine the invariant distribution.
 
-10. Thus, a state $i$ is recurrent if and only if 
-    $$G_{ii} = \sum_{n=1}^∞ P^{(n)}_{ii} = ∞. $$
+7. As an example, let's compute the invariant distribution of the on-off Markov chain from @exm-on-off. The transition matrix is
+   $$
+     P = \MATRIX{ 1 - a & a \\ b & 1 - b }.
+   $$
+   To find the invariant distribution $π = [π_0, π_1]$, we solve the balance equations $π = π P$:
+   \begin{align*}
+     π_0 &= π_0 (1-a) + π_1 b, \\
+     π_1 &= π_0 a + π_1 (1-b).
+   \end{align*}
+   From the first equation, we get $π_0 = π_0 (1-a) + π_1 b$, which simplifies to $π_0 a = π_1 b$, or equivalently $π_1 = (a/b) π_0$ (assuming $b > 0$). Using the normalization constraint $π_0 + π_1 = 1$, we have
+   $$
+     π_0 + \frac{a}{b} π_0 = 1 \quad \Rightarrow \quad π_0 \left(1 + \frac{a}{b}\right) = 1 \quad \Rightarrow \quad π_0 = \frac{b}{a+b}.
+   $$
+   Therefore, $π_1 = 1 - π_0 = \frac{a}{a+b}$. The invariant distribution is $π = [b/(a+b), a/(a+b)]$, which matches the result mentioned in point 3.
 
-11. A state $j$ is said to be **accessible from** $i$ (abbreviated as $i \rightsquigarrow j$) if there is an ordered string of notes $(i_0, \dots, i_m)$ such that $i_0 = i$ and $i_m = j$ and $P_{i_k i_{k+1}} > 0$. Equivalently, $i \rightsquigarrow j$ if there exists a $m$ such that $P^{(m)}_{ij} > 0$. 
+8. We can write balance equations directly from the state transition diagram. For each state $j$, the balance equation states that the probability flow into state $j$ equals the probability flow out of state $j$. Consider the three-state Markov chain with transition matrix
+   $$
+     P = \MATRIX{ 0.3 & 0.7 & 0 \\
+                  0 & 0.3 & 0.7 \\
+                  0.7 & 0 & 0.3 }.
+   $$
+   
+   ![Three-state aperiodic Markov chain](figures/svg/markov-examples9.svg)
+   
+   The balance equations, equating the flow into and out of each state, can be written as:
+   - **State 0:**  
+     \begin{align*}
+     \text{Inflow} &= \pi_2 \cdot 0.7 \\
+     \text{Outflow} &= \pi_0 \cdot 0.7
+     \end{align*}
 
-12. Accessibility is an transitive relationship, i.e., if $i \rightsquigarrow j$ and $j \rightsquigarrow k$ implies that $i \rightsquigarrow k$. 
+   - **State 1:**  
+     \begin{align*}
+     \text{Inflow} &= \pi_0 \cdot 0.7 \\
+     \text{Outflow} &= \pi_1 \cdot 0.7
+     \end{align*}
 
-#. If $f_{ij} > 0$ but $f_{ji} < 1$, then $i$ is transient. 
+   - **State 2:**  
+     \begin{align*}
+     \text{Inflow} &= \pi_1 \cdot 0.7 \\
+     \text{Outflow} &= \pi_2 \cdot 0.7
+     \end{align*}
+   
+   Thus, the balance equations are given by
+   \begin{align*}
+     \pi_0 \cdot 0.7 = \pi_2 \cdot 0.7 \\
+     \pi_1 \cdot 0.7 = \pi_0 \cdot 0.7 \\
+     \pi_2 \cdot 0.7 = \pi_1 \cdot 0.7
+   \end{align*}
+   Together with the normalization constraint $π_0 + π_1 + π_2 = 1$, we get $π_0 = π_1 = π_2 = 1/3$. This illustrates how balance equations can be derived directly from the state diagram by considering probability flows.
 
-13. If $i$ is recurrent and $i \rightsquigarrow j$. Then, $j$ is also recurrent and $f_{ij} = f_{ji} = 1$. 
+9. The above example is an illustration of a more general principle. If $P$ is doubly stochastic (i.e., both row sum and column sums are $1$), then the invariant distribution is a uniform distribution. 
 
-14. A subset $C$ of $\ALPHABET X$ is said to be **closed** if no state inside $C$ can lead to any state outside $C$, i.e.,
+  Note that if the chain is not irreducible, then it may have multiple invariant distributions. 
+
+10. **Exercises: Computing Invariant Distributions**
+
+    :::{#exm-invariant-transient-closed}
+    Consider the Markov chain with transition matrix  
     $$
-        f_{ij} = 0, \quad \forall i \in C \text{ and } j \not\in C.
+      P = \MATRIX{ 0.6 & 0.4 & 0 & 0 \\
+                   0.3 & 0.7 & 0 & 0 \\
+                   0.2 & 0.3 & 0.3 & 0.2 \\
+                   0.1 & 0.4 & 0.1 & 0.4 }.
     $$
+    
+    ![Markov chain with transient states and closed class](figures/svg/markov-examples10.svg)
+    
+    This chain has states $\{0, 1, 2, 3\}$ where states $\{0, 1\}$ form a closed communicating class and states $\{2, 3\}$ are transient. Find all invariant distributions for this chain.
+    :::
 
-15. A closed set $C$ is called **irreducible** if $i \rightsquigarrow j$ for all $i,j \in C$. Thus, if $C$ is an irreducible set, then all states in $C$ are either recurrent or transient. 
-
-16. Consequently, if $C$ is an irreducible and closed set of recurrent states. Then for all $i,j \in C$, 
-  
-      - $f_{ij} = 1$
-      - $P_i(N_j = ∞) = 1$
-      - $G_{ij} = ∞$
-
-17. If $C$ is a finite irreducible closed set of states. Then every state in $C$ is recurrent.
-
-18. Let $\ALPHABET X_T$ and $\ALPHABET X_R$ denote the set of transient and recurrent states. The set $\ALPHABET X_R$ can be paritioned into a finite or countable number of irreducible closed sets $C_1$, $C_2$, $\dots$. 
-
-## Stationary distribution
-
-1. A distribution $π$ is said the be a **stationary distribution** if 
+    :::{#exm-invariant-absorbing}
+    Consider the Markov chain with transition matrix  
     $$
-      π = π P.
+      P = \MATRIX{ 1 & 0 & 0 \\
+                   0.2 & 0.4 & 0.4 \\
+                   0 & 0 & 1 }.
     $$
+    
+    ![Markov chain with absorbing states](figures/svg/markov-examples11.svg)
+    
+    Note that this chain is not irreducible (it has two absorbing states). Compute all possible invariant distributions.
+    :::
 
-2. Stationary distributions can be computed by solving **balance equations.**
+    :::{#exm-invariant-convex}
+    Suppose a Markov chain has $N$ absorbing states and no transitions between them. What does the set of invariant distributions look like? Express your answer in terms of convex combinations.
+    :::
 
-3. Let $C$ be an irreducible class of a Markov chain. Then, there is a unique stationary distribution $π$ that assigns positive probability only to states in $C$. 
+## Limiting Distribution
 
-4. If $π_1$ and $π_2$ are stationary distributions of a Markov chain and $α \in (0,1)$, then $α π_1 + (1-α) π_2$ is also a stationary distribution. 
-
-5. Thus, if a Markov chain has a single irreducible class, then it has a unique stationary distribution; if it has multiple irreducible classes, then it has uncountable number of stationary distributions.
-
-## Limiting distribution
-
-1. Suppose $j$ is a transient state. Then, we know that $N_j < ∞$ and $G_{ij} < ∞$. Therefore,
+1. Suppose a finite Markov chain has the property that starting from any initial distribution, the distribution of $X_n$ converges to some distribution $\pi$ as $n \to \infty$:
    $$
-      \lim_{n \to ∞}
-      \frac{N^{(n)}_{j}}{n} = 0, a.s., 
-      \quad\text{and}\quad
-      \lim_{n \to ∞}
-      \frac{G^{(n)}_{ij}}{n} = 0, \forall i \in \ALPHABET X.
+   \lim_{n \to \infty} P^{(n)}_{i, j} = \pi_j \qquad \text{for all } i, j \in \ALPHABET X.
+   $$
+   Then, $\pi$ is an invariant distribution.
+
+   :::{.callout-note collapse="true"}
+   #### Proof
+   We start by showing that $π$ must be a valid probability distribution. In particular,
+   $$
+    \sum_{j \in \ALPHABET X} π_j = 
+    \sum_{j \in \ALPHABET X} \lim_{n \to ∞} P^{(n)}_{ij} = 
+    \lim_{n \to ∞} \sum_{j \in \ALPHABET X} P^{(n)}_{ij} = 1
    $$
 
-2. Suppose $j$ is a recurrent state. Then, 
+   We now show that $π$ is an invariant distribution.
    $$
-      \lim_{n \to ∞}
-      \frac{N^{(n)}_{j}}{n} = μ_j, a.s., 
-      \quad\text{and}\quad
-      \lim_{n \to ∞}
-      \frac{G^{(n)}_{ij}}{n} = μ_j, \forall i \in \ALPHABET X
+    π_j = \lim_{n \to ∞} P^{(n)}_{ij} 
+    = \lim_{n \to ∞} \sum_{k \in \ALPHABET X} P^{(n-1)}_{ik} P_{kj}
+    = \sum_{k \in \ALPHABET X} \lim_{n \to ∞} P^{(n-1)}_{ik} P_{kj}
+    = \sum_{k \in \ALPHABET X} π_k P_{kj}
    $$
-   where $μ_j = \EXP_{j}[T_j]$ is the mean return time to state $j$. 
+   Thus, $π$ is an invariant distribution. 
+   :::
 
+2. As discussed above, limiting distributions exist for ergodic Markov chains (i.e., irreducible and aperiodic Markov chains): for any initial distribution $μ^{(0)}$, we have 
+   $$\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.$$
 
-A Markov chain is said to have a _steady state distribution_ if $π_n$
-converges to a limit as $n \to ∞$ and the limit does not depend on the initial
-distribution $π_0$. 
+    This is equivalent to the statement that for all $i, j \in \ALPHABET X$,
+    $$\lim_{n \to \infty} P^{(n)}_{ij} = π_j.$$
+    The matrix version of this property is:
+    $$
+    \lim_{n \to \infty} P^n = 
+    \MATRIX{
+      \pi \\
+      \pi \\
+      \vdots \\
+      \pi
+    }
+    $$
+    where each row of the limiting matrix is the invariant distribution $π$. That is, for large $n$, every row of $P^n$ approaches $π$.
+ 
+3. In fact, we have a stronger result: the **Strong Law of Large Numbers (SLLN) for (finite) Markov chains.** Let $\{X_n\}_{n \ge 0}$ be an irreducible and aperiodic (i.e., ergodic) Markov chain. Then, for any initial distribution,
+   $$
+   \lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} \pi_j, \quad \forall j \in \ALPHABET X.
+   $$
+  This is known as **ergodic property**: sample average equals ensemble average. 
 
-A Markov chain has a steady state distribution if it is ergodic. We can find
-the steady state distribution by solving the _balance equation_: $π = π P$. 
+4. An immediate consequence of the ergodic property is that given an ergodic Markov chain $\{X_n\}_{n \ge 0}$ and any function $f \colon \ALPHABET X \to \reals$, we have
+   $$
+   \lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j). 
+   $$
+ 
+### Further Remarks
+
+- If the chain is not aperiodic (i.e., has period $d > 1$), the limiting distribution as above may not exist, but the chain may still have an invariant distribution.
+- In the special case where $P$ is doubly stochastic (rows and columns sum to 1), the limiting distribution is uniform: $\pi_j = 1/|S|$. 
 
 ## Exercises{-}
 :::{#exr-time-reversal}
