@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2025-11-10">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>7&nbsp; Probability inequalities – Probability and Random Signals II</title>
+<title>5&nbsp; Conditional expectation for Gaussians – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,8 +33,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./convergence-of-random-variables.html" rel="next">
-<link href="./moment-generating-functions.html" rel="prev">
+<link href="./moment-generating-functions.html" rel="next">
+<link href="./conditional-expectation.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -376,7 +376,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./inequalities.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability inequalities</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./conditional-expectation-gaussian.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -424,7 +424,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conditional-expectation-gaussian.html" class="sidebar-item-text sidebar-link">
+  <a href="./conditional-expectation-gaussian.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></span></a>
   </div>
 </li>
@@ -436,7 +436,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./inequalities.html" class="sidebar-item-text sidebar-link active">
+  <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
   </div>
 </li>
@@ -468,18 +468,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#union-bound" id="toc-union-bound" class="nav-link active" data-scroll-target="#union-bound"><span class="header-section-number">7.1</span> Union Bound</a></li>
-  <li><a href="#cauchy-schwartz-inequality" id="toc-cauchy-schwartz-inequality" class="nav-link" data-scroll-target="#cauchy-schwartz-inequality"><span class="header-section-number">7.2</span> Cauchy-Schwartz inequality</a></li>
-  <li><a href="#jensens-inequality" id="toc-jensens-inequality" class="nav-link" data-scroll-target="#jensens-inequality"><span class="header-section-number">7.3</span> Jensen’s inequality</a></li>
-  <li><a href="#markov-inequality" id="toc-markov-inequality" class="nav-link" data-scroll-target="#markov-inequality"><span class="header-section-number">7.4</span> Markov inequality</a>
-  <ul class="collapse">
-  <li><a href="#union-bound-as-a-special-case-of-markov-inequality" id="toc-union-bound-as-a-special-case-of-markov-inequality" class="nav-link" data-scroll-target="#union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">7.4.1</span> Union bound as a special case of Markov inequality</a></li>
-  </ul></li>
-  <li><a href="#chebyshev-inequality" id="toc-chebyshev-inequality" class="nav-link" data-scroll-target="#chebyshev-inequality"><span class="header-section-number">7.5</span> Chebyshev inequality</a></li>
-  <li><a href="#chernoff-bound" id="toc-chernoff-bound" class="nav-link" data-scroll-target="#chernoff-bound"><span class="header-section-number">7.6</span> Chernoff bound</a></li>
-  <li><a href="#azuma-hoeffding-inequality" id="toc-azuma-hoeffding-inequality" class="nav-link" data-scroll-target="#azuma-hoeffding-inequality"><span class="header-section-number">7.7</span> Azuma-Hoeffding inequality</a></li>
+  <li><a href="#review-of-gaussian-random-variables" id="toc-review-of-gaussian-random-variables" class="nav-link active" data-scroll-target="#review-of-gaussian-random-variables"><span class="header-section-number">5.1</span> Review of Gaussian random variables</a></li>
+  <li><a href="#conditional-expectation-for-gaussian-random-variables" id="toc-conditional-expectation-for-gaussian-random-variables" class="nav-link" data-scroll-target="#conditional-expectation-for-gaussian-random-variables"><span class="header-section-number">5.2</span> Conditional expectation for Gaussian random variables</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/conditional-expectation-gaussian.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -487,7 +479,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability inequalities</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></h1>
 </div>
 
 
@@ -525,470 +517,157 @@ window.Quarto = {
 </header>
 
 
-<section id="union-bound" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="union-bound"><span class="header-section-number">7.1</span> Union Bound</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Union bound
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(A_1, \dots, A_n\)</span> be a collection of events. Then, <span class="math display">\[
-\PR\biggl( \bigcup_{i=1}^n A_i \biggr)
-\le
-\sum_{i=1}^n \PR(A_n).
-\]</span></p>
-</div>
-</div>
-<p>We already proved this when talking about <a href="./probability-spaces.html#lem-probability-properties">probability spaces</a>.</p>
-<div id="exm-union-bound" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7.1</strong></span> Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables with CDF <span class="math inline">\(F_X(x)\)</span>. Find an upper bound on the CDF of <span class="math display">\[
-Z_n = \min(X_1, \dots, X_n).
-\]</span></p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>We know that <span class="math display">\[Z_n = \min(X_1, \dots, X_n) \le z\]</span> if and only if <span class="math display">\[ X_i \le Z \quad \forall i \in \{1, \dots, n\}.\]</span> Therefore, <span class="math display">\[\PR(Z_n \le z) = \PR\biggl( \bigcup_{i=1}^n \{X_i \le z \} \biggr)
-\le \sum_{i=1}^n \PR(X_i \le z) = n F_X(z).
-\]</span></p>
-</div>
-</div>
-</div>
-<div id="exm-union-bound-infinite-events" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7.2</strong></span> Let <span class="math inline">\(\{A_i\}_{i = 1}^{∞}\)</span> be a countably infinite sequence of events. Show that</p>
-<ol type="a">
-<li>If <span class="math inline">\(\PR(A_i) = 0\)</span> for all <span class="math inline">\(i \in \naturalnumbers\)</span>, then <span class="math display">\[ \PR\Bigl( \bigcup_{i=1}^{∞} A_i \Bigr) = 0. \]</span></li>
-<li>If <span class="math inline">\(\PR(A_i) = 1\)</span> for all <span class="math inline">\(i \in \naturalnumbers\)</span>, then <span class="math display">\[ \PR\Bigl( \bigcap_{i=1}^{∞} A_i \Bigr) = 1. \]</span></li>
+<section id="review-of-gaussian-random-variables" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="review-of-gaussian-random-variables"><span class="header-section-number">5.1</span> Review of Gaussian random variables</h2>
+<ol type="1">
+<li><p>A multivariate Gaussian random vector <span class="math inline">\(X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)\)</span> has a PDF <span class="math display">\[
+f_X(x) = \frac{1}{(2\pi)^{n/2} \det(\Sigma)^{1/2}} \exp\left( -\frac{1}{2} (x - \mu)^\TRANS \Sigma^{-1} (x - \mu) \right), \quad x \in \reals^n
+\]</span> and MGF <span class="math display">\[
+M_X(s) = \EXP\big[ e^{s^\TRANS X} \big] = \exp\left( s^\TRANS \mu + \frac{1}{2} s^\TRANS \Sigma s \right), \qquad s \in \reals^n.
+\]</span></p></li>
+<li><p>Thus, all moments of a Gaussian random variable can be expressed in terms of its mean and variance. In particular, if <span class="math inline">\(X \sim \mathcal{N}(0, \sigma^2)\)</span>, then all odd moments are zero; all even moments can be written in terms of the variance: <span class="math display">\[
+\EXP[X^{2k}] =
+\underbrace{(2k-1)\cdot(2k-3)\cdots3\cdot1}_{\eqqcolon (2k-1)!!}\, \sigma^{2k}
+\]</span></p></li>
+<li><p>Any linear combination of jointly Gaussian random variables is also Gaussian.</p>
+<p>More concretely, if <span class="math inline">\(X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)\)</span> and <span class="math inline">\(A \in \reals^{m \times n}\)</span> and <span class="math inline">\(b \in \reals^m\)</span>, then the affine transformation <span class="math inline">\(A X + b\)</span> is also Gaussian: <span class="math display">\[
+A X + b \sim \mathcal{N}\big(A\mu + b,\, A\Sigma A^\TRANS\big).
+\]</span></p></li>
+<li><p>A consequence of the above is that if <span class="math inline">\(X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)\)</span>, then any subvector formed by selecting a subset of the indices is itself multivariate Gaussian, with the corresponding mean vector and covariance matrix.</p></li>
+<li><p>Gaussian random variables are independent if and only if they are uncorrelated. In particular, if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are (jointly) Gaussian random variables, then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math inline">\(\COV(X, Y) = 0\)</span>.</p>
+<p>For a jointly Gaussian random vector <span class="math inline">\((X_1, \dots, X_n)\)</span>, the components are independent if and only if the covariance matrix is diagonal.</p></li>
 </ol>
-</div>
 </section>
-<section id="cauchy-schwartz-inequality" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="cauchy-schwartz-inequality"><span class="header-section-number">7.2</span> Cauchy-Schwartz inequality</h2>
-<p>This is a generalization of <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">:Cauchy-Schwartz inequality</a> on inner products to random variables.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Cauchy-Schwartz inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be real-valued random variables. Then, <span class="math display">\[
-\EXP[XY]^2 \le \EXP[X^2] \EXP[Y^2].
-\]</span> or equivalently, <span class="math display">\[
-\COV(X,Y)^2 \le \VAR(X) \VAR(Y).
+<section id="conditional-expectation-for-gaussian-random-variables" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="conditional-expectation-for-gaussian-random-variables"><span class="header-section-number">5.2</span> Conditional expectation for Gaussian random variables</h2>
+<ol type="1">
+<li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, then <span class="math inline">\(X|Y\)</span> is also Gaussian. In particular, suppose</p>
+<ul>
+<li><span class="math inline">\(X \sim \mathcal{N}(\mu_X, \sigma_X^2)\)</span><br>
+</li>
+<li><span class="math inline">\(Y \sim \mathcal{N}(\mu_Y, \sigma_Y^2)\)</span><br>
+</li>
+<li><span class="math inline">\(\COV(X, Y) = \rho \sigma_X \sigma_Y\)</span>, where <span class="math inline">\(-1 \leq \rho \leq 1\)</span></li>
+</ul>
+<p>then <span class="math display">\[
+X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
+\]</span> where:</p>
+<ul>
+<li><strong>Conditional mean:</strong> <span class="math display">\[
+\mu_{X|Y} = \mu_X + \rho \frac{\sigma_X}{\sigma_Y}(y - \mu_Y)
+\]</span></li>
+<li><strong>Conditional variance:</strong> <span class="math display">\[
+\sigma^2_{X|Y} = \sigma_X^2 (1 - \rho^2)
+\]</span></li>
+</ul></li>
+<li><p>It is possible to derive the above result from the definition of conditional probability by using some tedious algebra. However, we present a different approach here that is based on interpreting conditional expectations as orthogonal projections.</p></li>
+<li><p><strong>Hilbert space of random variables</strong>: The key idea is to construct a <strong>Hilbert space</strong> of square-integrable random variables. For scalar random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with <span class="math inline">\(\EXP[X^2] &lt; ∞\)</span> and <span class="math inline">\(\EXP[Y^2] &lt; ∞\)</span>, we define the inner product as <span class="math display">\[
+     \IP{X}{Y} = \EXP[XY].
+\]</span> The corresponding norm is <span class="math inline">\(\NORM{X}^2 = \EXP[X^2]\)</span>. It can be shown that this space is complete (i.e., all Cauchy sequences converge), and is therefore a Hilbert space.</p>
+<p>For <span class="math inline">\(\reals^n\)</span>-valued square-integrable random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (i.e., <span class="math inline">\(\EXP[\|X\|^2] &lt; ∞\)</span> and <span class="math inline">\(\EXP[\|Y\|^2] &lt; ∞\)</span>), we define the inner product as <span class="math display">\[
+     \IP{X}{Y} = \EXP[X^\TRANS Y].
+\]</span> The corresponding norm is <span class="math inline">\(\NORM{X}^2 = \EXP[\|X\|^2]\)</span>. As before, this space is complete and forms a Hilbert space.</p></li>
+<li><p><strong>Orthogonal projection theorem</strong>: A fundamental property of Hilbert spaces is the orthogonal projection theorem.</p>
+<div id="thm-orthogonal-projection" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 5.1 (Orthogonal Projection Theorem)</strong></span> Let <span class="math inline">\(\ALPHABET M\)</span> be a proper linear subspace of a Hilbert space <span class="math inline">\(\ALPHABET H\)</span>. Then any element <span class="math inline">\(x \in \ALPHABET H\)</span> can be uniquely represented in the form <span class="math display">\[ x = y + z \]</span> where <span class="math inline">\(y \in \ALPHABET M\)</span> and <span class="math inline">\(z \perp \ALPHABET M\)</span> (i.e., for any <span class="math inline">\(w \in \ALPHABET M\)</span>, <span class="math inline">\(\IP{z}{w} = 0\)</span>). This unique element <span class="math inline">\(y\)</span> is called the <strong>orthogonal projection</strong> of <span class="math inline">\(x\)</span> onto <span class="math inline">\(\ALPHABET M\)</span> and has the property that it minimizes the distance: <span class="math display">\[
+    \NORM{x - y} \le \NORM{x - w}, \quad \forall w \in \ALPHABET M.
 \]</span></p>
-</div>
-</div>
+</div></li>
+<li><p><strong>Application to Gaussian random vectors</strong>: Now consider <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> to be jointly Gaussian random vectors, i.e., <span class="math display">\[
+     \MATRIX{X \\ Y} \sim
+     \mathcal{N}\left(
+         \MATRIX{ μ_X \\ μ_Y},
+         \MATRIX{ Σ_{XX} &amp; Σ_{XY} \\ Σ_{XY}^\TRANS &amp; Σ_{YY}}
+         \right).
+\]</span> Let <span class="math inline">\(\ALPHABET M\)</span> denote the proper linear subspace of all affine functions of <span class="math inline">\(Y\)</span>, i.e., <span class="math display">\[
+     \ALPHABET M = \{ K Y + c : K \in \reals^{n \times m}, c \in \reals^n  \}.
+\]</span> Let <span class="math inline">\(\hat{X}\)</span> denote the orthogonal projection of <span class="math inline">\(X\)</span> onto <span class="math inline">\(\ALPHABET M\)</span>. From <a href="#thm-orthogonal-projection" class="quarto-xref">Theorem&nbsp;<span>5.1</span></a>, we know that <span class="math inline">\(\hat{X}\)</span> minimizes the distance, i.e., for any <span class="math inline">\(W \in \ALPHABET M\)</span>, <span class="math display">\[
+     \NORM{X - \hat{X}} \le \NORM{X - W}
+     \iff
+     \EXP[ \|X - \hat{X}\|^2] \le \EXP[ \|X - W\|^2].
+\]</span> Thus, <span class="math inline">\(\hat{X}\)</span> minimizes the mean-squared error. Moreover, by the orthogonality property, the projection error is orthogonal to the subspace: <span class="math display">\[
+     \IP{W}{X - \hat{X}} = 0, \quad \forall W \in \ALPHABET M
+     \iff
+     \EXP[ W^\TRANS (X - \hat{X})] = 0, \quad \forall W \in \ALPHABET M.
+\]</span></p></li>
+<li><p><strong>Connection to conditional expectation</strong>: The key insight is that for Gaussian random vectors, the orthogonal projection <span class="math inline">\(\hat{X}\)</span> equals the conditional expectation <span class="math inline">\(\EXP[X \mid Y]\)</span>.</p>
+<p>For general random variables, conditional expectation <span class="math inline">\(\EXP[X \mid Y]\)</span> is defined as the (measurable) function <span class="math inline">\(h(Y)\)</span> that minimizes <span class="math display">\[
+\EXP[ \| X - h(Y)\|^2 ]
+\]</span> among all measurable functions <span class="math inline">\(h(\cdot)\)</span>. We did not cover it earlier and simply take this as a fact.</p>
+<p>For Gaussian random vectors, a remarkable property is that the optimal <span class="math inline">\(h\)</span> is <strong>affine</strong> (linear plus constant). This means we can restrict our search to functions of the form <span class="math inline">\(h(Y) = K Y + c\)</span> for some matrix <span class="math inline">\(K\)</span> and vector <span class="math inline">\(c\)</span>. Since <span class="math inline">\(\hat{X}\)</span> minimizes the mean-squared error over all affine functions (by the orthogonal projection theorem), it must be the conditional expectation: <span class="math display">\[
+\hat{X} = \EXP[X \mid Y].
+\]</span></p></li>
+<li><p><strong>Deriving the formula</strong>: To find the explicit formula for <span class="math inline">\(\EXP[X \mid Y]\)</span>, we write <span class="math inline">\(\hat{X} = K_{\circ} Y + c_\circ\)</span> and find <span class="math inline">\(K_\circ\)</span> and <span class="math inline">\(c_\circ\)</span> from properties of orthogonal projection. First note that from the smoothing property of conditional expectation, we have <span class="math display">\[
+   \EXP[ \hat X] = \EXP[ \EXP[ X \mid Y] ] = \EXP[X]
+   \implies
+   K_\circ μ_Y + c_\circ = μ_X
+   \implies
+   c_\circ = μ_X - K_\circ μ_Y.
+\]</span></p>
+<p>By orthogonal projection theorem, the error <span class="math inline">\(X - \hat{X} = (X - μ_X) - K_{\circ}(Y - μ_Y)\)</span> must be orthogonal to all elements of <span class="math inline">\(\ALPHABET M\)</span>. In particular, it must be orthogonal to <span class="math inline">\(Y - μ_Y\)</span> and to constant vectors.</p>
+<p>The orthogonality condition with <span class="math inline">\(K(Y - μ_Y)\)</span> gives: <span class="math display">\[\begin{equation}\label{eq:orthogonal}
+\EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )^\TRANS K(Y - μ_Y)] = 0,
+  \quad \forall K \in \reals^{n \times m}.
+\end{equation}\]</span> We claim that <span class="math inline">\(\eqref{eq:orthogonal}\)</span> is equivalent to <span class="math display">\[\begin{equation}\label{eq:claim}
+\EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )(Y - μ_Y)^\TRANS ] = \mathbf{0}_{n \times m}.
+\end{equation}\]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
+<span class="screen-reader-only">Note</span>Proof of Claim
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(f(s) = \EXP[ (sX + Y)^2\)</span> for any <span class="math inline">\(s \in \reals\)</span>. Then, by linearity of expectation, we have <span class="math display">\[
-f(s) = \EXP[ (sX + Y)^2 ] = s^2 \EXP[X^2] + 2s \EXP[XY] + \EXP[Y^2].
-\]</span> We know that <span class="math inline">\(f(s) \ge 0\)</span>. Recall that a quadratic form <span class="math display">\[
-A s^2 + B s + C \ge 0
-\]</span> for all values of <span class="math inline">\(s\)</span> if and only it has repeated or complex roots. Thus, the determinant must be non-positive, that is <span class="math display">\[
-Δ = B^2 - 4AC \le 0.
-\]</span> The result follows by taking <span class="math inline">\(A = \EXP[X^2]\)</span>, <span class="math inline">\(B = 2 \EXP[XY]\)</span>, and <span class="math inline">\(C = \EXP[Y^2]\)</span>.</p>
-</div>
-</div>
-</div>
-<div id="exm-2025-mid-term-4" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7.3</strong></span> Let <span class="math inline">\(X \ge 0\)</span> be a random variable with mean <span class="math inline">\(μ\)</span> and finite variance <span class="math inline">\(σ^2\)</span>. Given <span class="math inline">\(λ \in (0,1)\)</span>, define <span class="math display">\[A = \{ ω : X(ω) \ge λ μ \}.\]</span></p>
-<ol type="a">
-<li><p>Show that <span class="math display">\[\EXP[ X \IND_{A} ] \ge (1 -λ) μ. \]</span></p>
-<p><em>Hint:</em> Note that <span class="math inline">\(X = X (\IND_A + \IND_{A^c})\)</span>. What do we know about <span class="math inline">\(X\)</span> when <span class="math inline">\(ω \in A^c\)</span>?</p></li>
-<li><p>Using the result of part&nbsp;(a), show that <span class="math display">\[
-  \PR(X \ge λ μ) \ge (1-λ)^2 \frac{ \EXP[X]^2 }{\EXP[X^2]}
-  = (1-λ)^2 \frac{μ^2}{μ^2 + σ^2}.   
-\]</span></p>
-<p><em>Hint:</em> Use Cauchy Schwartz to bound <span class="math inline">\(\EXP[X \IND_A]\)</span>.</p></li>
-</ol>
-</div>
-</section>
-<section id="jensens-inequality" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="jensens-inequality"><span class="header-section-number">7.3</span> Jensen’s inequality</h2>
-<p>If we take <span class="math inline">\(Y = 1\)</span> in Cauchy-Schwartz inequality, we get that <span class="math display">\[
-\EXP[X^2] \ge \EXP[X]^2.
-\]</span> This also follows from the fact that <span class="math inline">\(\VAR(X) \ge 0\)</span>. Jensen’s inequality may be thought as a generalization of this to convex functions.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Jensen’s inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Suppose <span class="math inline">\(X\)</span> is a real-valued random variable. Then for any <strong>convex</strong> <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
-\EXP[ g(X) ] \ge g(\EXP[X]).
-\]</span></p>
-<p>Moreover, for any <strong>concave</strong> <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
-\EXP[ g(X) ] \le g(\EXP[X]).
-\]</span></p>
-</div>
-</div>
-<p>For example, since <span class="math inline">\(g(x) = 1/x\)</span> is convex, we have <span class="math display">\[
-\EXP\left[\frac 1x\right] \ge \frac{1}{\EXP[X]}.
-\]</span> Moreover, since <span class="math inline">\(g(x) = \log(x)\)</span> is concave, we have <span class="math display">\[
-\EXP[ \log(X)] \le \log(\EXP[X]).
-\]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<div id="fig-tangent" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-tangent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="figures/svg/inequalities1.svg" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tangent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.1: Tangent at the mean of <span class="math inline">\(X\)</span>
-</figcaption>
-</figure>
-</div>
-<p>Let <span class="math inline">\(μ = \EXP[X]\)</span>. Consider the function <span class="math inline">\(L\)</span> defined in <a href="#fig-tangent" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>, which is the tangent at <span class="math inline">\(μ\)</span> on <span class="math inline">\(g(x)\)</span>. By construction, <span class="math inline">\(g(x) \ge L(x)\)</span>. Therefore, <span class="math display">\[
-  \EXP[g(X)] \ge \EXP[L(X)]
-  = \EXP[aX + b] = a μ + b = L(μ) = g(μ).
-\]</span></p>
-</div>
-</div>
-</div>
-</section>
-<section id="markov-inequality" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="markov-inequality"><span class="header-section-number">7.4</span> Markov inequality</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Markov inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>For any non-negative random variable <span class="math inline">\(X\)</span> and a number <span class="math inline">\(a &gt; 0\)</span>, <span class="math display">\[
-\PR(X \ge a) \le \frac{\EXP[X]}{a}.
-\]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(Z = \IND\{X \ge a\} a\)</span>, which moves all the “mass” of <span class="math inline">\(X\)</span> to the left.</p>
-<!-- TODO: Add figure -->
-<p>Thus, <span class="math display">\[
-\EXP[X] \ge \EXP[Z] = a \PR(X \ge a).
-\]</span></p>
-</div>
-</div>
-</div>
-<div id="exm-Markov" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7.4</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>The table below compares the actual tail probability with the bound obtained from Markov inequality.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><span class="math inline">\(a\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\PR(X \ge a)\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\EXP[X]/a\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.2 = 2.5\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.5 = 1\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.8 = .625\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;<span>7.4</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vacuous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality when <span class="math inline">\(a \ge μ\)</span>.</p>
-<section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="7.4.1">
-<h3 data-number="7.4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">7.4.1</span> Union bound as a special case of Markov inequality</h3>
-<p>Note that it is possible to derive the union bound as a corollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
-X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
-1, &amp; ω \in A_i \\
-0, &amp; ω \not\in A_i
-\end{cases}.
-\]</span> Let <span class="math display">\[ X = X_1 + \dots + X_n. \]</span> <span class="math inline">\(X_i\)</span> takes the value <span class="math inline">\(1\)</span> when event <span class="math inline">\(A_i\)</span> occurs. Therefore, the event <span class="math inline">\(\bigcup_{i=1}^n A_i\)</span> is equal to the event <span class="math inline">\(X \ge 1\)</span>, i.e., <span class="math display">\[
-\PR\left(\bigcup_{i=1}^n A_i \right)
-= \PR(X \ge 1).
-\]</span> Now, by Markov inequality, we have <span class="math display">\[
-\PR(X \ge 1) \le \EXP[X] = \PR(A_1) + \cdots + \PR(A_n).
-\]</span> The union bound follows by combining the above equations.</p>
-</section>
-</section>
-<section id="chebyshev-inequality" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="chebyshev-inequality"><span class="header-section-number">7.5</span> Chebyshev inequality</h2>
-<!-- TODO: AN Lec 15 -->
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Chebyshev inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable with mean <span class="math inline">\(μ\)</span>. Then for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
-\PR( \ABS{X - μ} \ge a) \le \frac{ \VAR(X) }{a^2}.
-\]</span></p>
-<p>An alternative form of is as follows. Let <span class="math inline">\(a = k σ\)</span>. Then, <span class="math display">\[
-\PR(\ABS{X - μ} \ge k σ) \le \frac{1}{k^2}.
-\]</span></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Observe that <span class="math display">\[\begin{align*}
-\PR( \ABS{X - μ} \ge a) &amp;= \PR((X - μ)^2 \ge a^2)
-\\
-&amp;\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
-\end{align*}\]</span> where <span class="math inline">\((a)\)</span> follows from Markov inequality.</p>
-</div>
-</div>
-</div>
-<p>In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.</p>
-<div id="exm-Binomial-comparison" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7.5</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Recall that <span class="math inline">\(\EXP[X] = np\)</span> and <span class="math inline">\(\VAR(X) = n p(1-p)\)</span>. Therefore, from Markov inequality we have <span class="math display">\[
-\PR(X \ge nq) \le \frac{np}{nq} = \frac{p}{q}.
-\]</span> Therefore, Markov inequality does not suggest any form of concentration with <span class="math inline">\(n\)</span>.</p>
-<p>We now consider Chebyshev inequality. To do so, we first massage the expression a bit <span class="math display">\[\begin{align*}
-\PR(X \ge nq) &amp;= \PR( X - np \ge n(q-p) ) \\
-&amp;\le \PR( \ABS{X - np} \ge n(q-p) )
-\le \frac{np(1-p)}{n^2(q-p)^2} = \frac{1}{n} \cdot \frac{p(1-p)}{(q-p)^2}
-\end{align*}\]</span> which shows that <span class="math inline">\(\PR(X \ge nq)\)</span> gets smaller as <span class="math inline">\(n\)</span> increases.</p>
-</div>
-</div>
-</div>
-<p>We can use Chebyshev inequality to prove the <strong>weak law of large numbers</strong>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Weak law of large numbers
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, X_2, \dots\)</span> be independent random variables with <span class="math inline">\(\EXP[X_n] = μ\)</span> and <span class="math inline">\(\VAR(X_n) = σ^2\)</span>. Let <span class="math display">\[
-\bar X_n = \frac 1n \sum_{i=1}^n X_i
-\]</span> be the sample mean. Then, <span class="math display">\[\PR(\ABS{X_n - μ} &gt; ε) \le \frac{σ^2}{n ε^2}. \]</span></p>
-<p>Therefore, <span class="math inline">\(X_n \xrightarrow{p} μ\)</span> (which reads as <span class="math inline">\(X_n\)</span> converges in probability to <span class="math inline">\(μ\)</span>; we will study convergence in probability in next lecture).</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>Observe that <span class="math display">\[\begin{align*}
-\EXP[\bar X_n] &amp;= \frac{1}{n} \sum_{i=1}^n \EXP[X_i] = μ \\
-\VAR(\bar X_n) &amp;= \frac{1}{n^2} \sum_{i=1}^n \VAR(X_i) = \frac{σ^2}{n}.
-\end{align*}\]</span></p>
-<p>Then, by Chebyshev inequality, we have <span class="math display">\[
-\PR(\ABS{X_n - μ} &gt; ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
-\]</span></p>
-</div>
-</div>
-</div>
-<p>If we do not know <span class="math inline">\(\VAR(X)\)</span>, we can still use Chebyshev inequality with an upper bound on <span class="math inline">\(\VAR(X)\)</span>. For example, if <span class="math inline">\(X \in [a,b]\)</span>, then we can show that <span class="math display">\[
-\VAR(X) \le \frac{(b-a)^2}{4}.
-\]</span> So, for any random variable <span class="math inline">\(X \in [a,b]\)</span>, we have that <span class="math display">\[
-\PR(\ABS{X - μ} &gt; ε) \le \frac{(b-a)^2}{4 ε^2}.
-\]</span></p>
-</section>
-<section id="chernoff-bound" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="chernoff-bound"><span class="header-section-number">7.6</span> Chernoff bound</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Chernoff Bound
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable. Then, for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
-\PR(X \ge a) \le e^{-φ(a)}
-\]</span> where <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ s a - \log M_X(s) \}
-\]</span> is the <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Legendre-Fenchel transform</a> of <span class="math inline">\(\log M_X(s)\)</span>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="true" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>The proof relies on two observations. First, for any <span class="math inline">\(s &gt; 0\)</span>, <span class="math inline">\(e^s x\)</span> is an increasing function of <span class="math inline">\(x\)</span>. Therefore, <span class="math display">\[
-\{ ω : X(ω) &gt; a \} = \{ ω : e^{sX(ω)} &gt; e^{sa} \}.
+<p>For the ease of notation, define <span class="math inline">\(U = (X - μ_X) - K_{\circ}(Y - μ_Y)\)</span> and <span class="math inline">\(V = Y - μ_Y\)</span>. Observe that <span class="math display">\[
+U^\TRANS KV = \sum_{i=1}^n U_i [KV]_i
+= \sum_{i=1}^n \sum_{j=1}^m K_{ij} U_i V_j.
+\]</span> Thus, <span class="math display">\[\begin{equation}\label{eq:intermediate}
+   \EXP[ U^\TRANS K V]
+   = \sum_{i=1}^n \sum_{j=1}^m K_{ij} \EXP[ U_i V_j]
+\end{equation}\]</span> We now show that <span class="math inline">\(\eqref{eq:orthogonal}\)</span> implies <span class="math inline">\(\eqref{eq:claim}\)</span>. Pick a <span class="math inline">\((i', j')\)</span> and set <span class="math inline">\(K_{ij} = δ_{ii'} δ_{jj'}\)</span>. Then, <span class="math inline">\(\eqref{eq:orthogonal}\)</span> and <span class="math inline">\(\eqref{eq:intermediate}\)</span> imply that <span class="math display">\[
+   \EXP[U_{i'} V_{j'}] = 0.
+\]</span> Since <span class="math inline">\((i',j')\)</span> were arbitrary, the above equation is true for all <span class="math inline">\((i', j')\)</span>. Writing this in vector notation gives <span class="math inline">\(\eqref{eq:claim}\)</span>.</p>
+<p>We now show the other direction. If <span class="math inline">\(\eqref{eq:claim}\)</span> is true, then each term in the summand in the RHS of <span class="math inline">\(\eqref{eq:intermediate}\)</span> is zero, and hence <span class="math inline">\(\eqref{eq:orthogonal}\)</span> is true.</p>
+</div>
+</div>
+</div>
+<p>Now the claim implies that <span class="math display">\[
+   Σ_{XY} = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ]
+   = K_{\circ} \EXP[ (Y - μ_Y) (Y - μ_Y)^\TRANS]
+   = K_{\circ} Σ_{YY}
 \]</span> Hence, <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \frac{\EXP[e^{sX}}{e^{sa}}
-= e^{-( sa - \log M_X(s) ) }
-\]</span> where the inequality follows from Markov inequality</p>
-<p>Second, observe that the above inequality holds for every <span class="math inline">\(s &gt; 0\)</span>. So, to get the tightest bound, we minimize the RHS over all <span class="math inline">\(s &gt; 0\)</span>, i.e., <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \min_{s &gt; 0} e^{-( sa - \log M_X(s) ) }
-\]</span> Since <span class="math inline">\(e^x\)</span> is increasing in <span class="math inline">\(x\)</span>, the minimizer above is the same as the maximizer for <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ sa - \log M_X(s) \}.
+   K_{\circ} = Σ_{XY} Σ_{YY}^{-1}
+   \quad\text{and}\quad
+   c_{\circ} = μ_X - Σ_{XY} Σ_{YY}^{-1} μ_Y.
 \]</span></p>
-</div>
-</div>
-</div>
-<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>7.5</span></a>. For a Binomial random variable, <span class="math display">\[
-M_X(s) = (1 - p + p e^s)^n.
-\]</span> Then, <span class="math display">\[\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
-= \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
-\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>7.5</span></a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
-\PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
-\]</span> where <span class="math display">\[
-D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
+<p>Thus, <span class="math display">\[
+\bbox[5pt,border: 1px solid]{
+    \EXP[ X \mid Y] = μ_X + Σ_{XY} Σ_{YY}^{-1}(Y - μ_Y)
+}
 \]</span></p>
-<p>We now present another example to show the tightness of the Chernoff bound.</p>
-<div id="exm-Chernoff-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7.6</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
-</div>
-<!-- TODO: Write solution -->
-</section>
-<section id="azuma-hoeffding-inequality" class="level2" data-number="7.7">
-<h2 data-number="7.7" class="anchored" data-anchor-id="azuma-hoeffding-inequality"><span class="header-section-number">7.7</span> Azuma-Hoeffding inequality</h2>
-<p>Although Chernoff bound is fairly tight, one of the drawbacks is that it requires the knowledge of the MGF of <span class="math inline">\(X\)</span>. This is in contrast to Markov and Chebyshev inequalities which only require knowledge of the mean and variance. For sums of i.i.d. random variables, it is possible to get a tight bound that only depends on the mean (and a proxy for variance).</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Azuma-Hoeffding inequality
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables such that <span class="math inline">\(X_i \in [a,b]\)</span> and <span class="math inline">\(\EXP[X_i] = μ\)</span>. Define <span class="math display">\[
-\bar X_n = \frac 1n \sum_{i=1}^n X_i.
-\]</span> Then, <span class="math display">\[ \PR( \bar X_n - μ  &gt; ε ) \le e ^ {- 2 ε^2 n } \]</span> and <span class="math display">\[ \PR( \ABS{\bar X_n - μ}  &gt; ε ) \le 2 e ^ {- 2 ε^2 n } \]</span></p>
-</div>
-</div>
-<p>We will not provide a proof of this inequality. The Azuma-Hoeffding inequality can also be interpreted as follows. For any <span class="math inline">\(δ &gt; 0\)</span>, we have that the true mean lies in the interval <span class="math display">\[
-\left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} },
-       \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
-\]</span></p>
-<p>We can revisit <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>7.5</span></a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
-\PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
-\le e^{-2 (q - p)^2 n}.
-\]</span></p>
-<p>The bound is weaker than what we obtained via Chernoff bound, but it only requires the first moment and the fact that the random variables are bounded.</p>
+<p>Since the conditional mean is an affine function of <span class="math inline">\(Y\)</span>, it is a Gaussian random variable.</p></li>
+<li><p>The <strong>conditional covariance</strong> <span class="math inline">\(\COV(X \mid Y)\)</span> is defined as <span class="math display">\[
+   \COV(X \mid Y) = \EXP[ (X - \EXP[X \mid Y])(X - \EXP[X \mid Y])^\TRANS \mid Y]
+\]</span> Note that we have already shown that <span class="math inline">\(X - \hat X\)</span> is orthogonal to every random variable in <span class="math inline">\(\ALPHABET M\)</span>. Thus, <span class="math inline">\(X - \hat X\)</span> is orthogonal to <span class="math inline">\(Y\)</span>. Hence, <span class="math display">\[
+   \EXP[ (X - \hat X)(X - \hat X)^\TRANS \mid Y]
+   = \EXP[ (X - \hat X) (X - \hat X)^\TRANS].
+\]</span> To simplify the calculation, we assume that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are zero mean. Then, <span class="math inline">\(\hat{X} = K_{\circ}Y\)</span>, and we have <span class="math display">\[\begin{align*}
+\COV(X \mid Y) &amp;= \EXP[ (X - \hat X) (X - \hat X)^\TRANS] \\
+&amp;= \EXP[ X X^\TRANS + K_{\circ} Y Y^\TRANS K_{\circ}^\TRANS - 2 X Y^\TRANS K_{\circ}^\TRANS] \\
+&amp;= Σ_{XX} + K_{\circ} Σ_{YY} K_{\circ}^\TRANS - 2 Σ_{XY} K_{\circ}^\TRANS \\
+&amp;= Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS.
+\end{align*}\]</span></p></li>
+<li><p><strong>Summary</strong>: For jointly Gaussian random vectors <span class="math inline">\((X, Y)\)</span> with the joint distribution given above, the conditional distribution is Gaussian and is given by: <span class="math display">\[
+\bbox[5pt,border: 1px solid]{
+X \mid Y  \sim \mathcal{N}\left(μ_X + Σ_{XY} Σ_{YY}^{-1} (Y - μ_Y), \, Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS\right)
+}
+\]</span></p></li>
+</ol>
 
 
 </section>
@@ -1409,13 +1088,13 @@ D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 -
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./moment-generating-functions.html" class="pagination-link" aria-label="Moment Generating Functions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span>
+      <a href="./conditional-expectation.html" class="pagination-link" aria-label="Conditional probability and conditional expectation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./convergence-of-random-variables.html" class="pagination-link" aria-label="Convergence of random variables">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./moment-generating-functions.html" class="pagination-link" aria-label="Moment Generating Functions">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1424,5 +1103,5 @@ D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 -
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/conditional-expectation-gaussian.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

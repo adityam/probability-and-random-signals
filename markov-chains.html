@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2025-11-10">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>9&nbsp; Markov chains – Probability and Random Signals II</title>
+<title>10&nbsp; Markov chains – Probability and Random Signals II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -375,7 +375,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./markov-chains.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Markov chains</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./markov-chains.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -423,32 +423,38 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./conditional-expectation-gaussian.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stochastic-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./markov-chains.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
   </div>
 </li>
     </ul>
@@ -461,15 +467,15 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#time-homogeneous-markov-chains" id="toc-time-homogeneous-markov-chains" class="nav-link active" data-scroll-target="#time-homogeneous-markov-chains"><span class="header-section-number">9.1</span> Time-homogeneous Markov chains</a>
+  <li><a href="#time-homogeneous-markov-chains" id="toc-time-homogeneous-markov-chains" class="nav-link active" data-scroll-target="#time-homogeneous-markov-chains"><span class="header-section-number">10.1</span> Time-homogeneous Markov chains</a>
   <ul class="collapse">
-  <li><a href="#properties-of-interest" id="toc-properties-of-interest" class="nav-link" data-scroll-target="#properties-of-interest"><span class="header-section-number">9.1.1</span> Properties of interest</a></li>
+  <li><a href="#properties-of-interest" id="toc-properties-of-interest" class="nav-link" data-scroll-target="#properties-of-interest"><span class="header-section-number">10.1.1</span> Properties of interest</a></li>
   </ul></li>
-  <li><a href="#state-occupancy-probabilities" id="toc-state-occupancy-probabilities" class="nav-link" data-scroll-target="#state-occupancy-probabilities"><span class="header-section-number">9.2</span> State occupancy probabilities</a></li>
-  <li><a href="#class-structure" id="toc-class-structure" class="nav-link" data-scroll-target="#class-structure"><span class="header-section-number">9.3</span> Class structure</a></li>
-  <li><a href="#hitting-times-and-absorption-probabilities" id="toc-hitting-times-and-absorption-probabilities" class="nav-link" data-scroll-target="#hitting-times-and-absorption-probabilities"><span class="header-section-number">9.4</span> Hitting times and absorption probabilities</a></li>
-  <li><a href="#invariant-distribution" id="toc-invariant-distribution" class="nav-link" data-scroll-target="#invariant-distribution"><span class="header-section-number">9.5</span> Invariant Distribution</a></li>
-  <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">9.6</span> Limiting Distribution</a></li>
+  <li><a href="#state-occupancy-probabilities" id="toc-state-occupancy-probabilities" class="nav-link" data-scroll-target="#state-occupancy-probabilities"><span class="header-section-number">10.2</span> State occupancy probabilities</a></li>
+  <li><a href="#class-structure" id="toc-class-structure" class="nav-link" data-scroll-target="#class-structure"><span class="header-section-number">10.3</span> Class structure</a></li>
+  <li><a href="#hitting-times-and-absorption-probabilities" id="toc-hitting-times-and-absorption-probabilities" class="nav-link" data-scroll-target="#hitting-times-and-absorption-probabilities"><span class="header-section-number">10.4</span> Hitting times and absorption probabilities</a></li>
+  <li><a href="#invariant-distribution" id="toc-invariant-distribution" class="nav-link" data-scroll-target="#invariant-distribution"><span class="header-section-number">10.5</span> Invariant Distribution</a></li>
+  <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">10.6</span> Limiting Distribution</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
@@ -481,7 +487,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Markov chains</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></h1>
 </div>
 
 
@@ -524,28 +530,28 @@ window.Quarto = {
   = \PR(X_{n+1} = x_{n+1} \mid X_n = x_n).
 \end{equation}\]</span></p>
 <p>The variable <span class="math inline">\(X_n\)</span> is called the <strong>state</strong> of the Markov chain at time <span class="math inline">\(n\)</span>; the set <span class="math inline">\(\ALPHABET X\)</span> is called <strong>state space</strong>. The <span class="math inline">\(\eqref{eq:Markov}\)</span> implies that the current state captures all the information from the past that is relevant for the future. Stated differently, <strong>conditioned on the present, the past is independent of the future</strong>.</p>
-<p>Independence is a symmetric relationship. Thus, we expect the Markov property to also hold if time is reversed! <a href="#exr-time-reversal" class="quarto-xref">Exercise&nbsp;<span>9.1</span></a> asks you to formally prove that.</p>
+<p>Independence is a symmetric relationship. Thus, we expect the Markov property to also hold if time is reversed! <a href="#exr-time-reversal" class="quarto-xref">Exercise&nbsp;<span>10.1</span></a> asks you to formally prove that.</p>
 <p>We now present some examples of Markov chains arising in different applications.</p>
 <div id="exm-Gilbert-Elliot-channel" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.1 (Gilbert Elliot channel model for burst erasures)</strong></span> The Gilbert-Elliot channel model is used to model communication channels with burst errors. The channel can be in one of two states: a “good” state (state 0) with low error probability, or a “bad” state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a>.</p>
+<p><span class="theorem-title"><strong>Example 10.1 (Gilbert Elliot channel model for burst erasures)</strong></span> The Gilbert-Elliot channel model is used to model communication channels with burst errors. The channel can be in one of two states: a “good” state (state 0) with low error probability, or a “bad” state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>10.4</span></a>.</p>
 </div>
 <div id="exm-Ehrenfest-diffusion" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.2 (Ehrenfest model of diffusion)</strong></span> The following simplified model of diffusion through a porous membrane was proposed by <span class="citation" data-cites="Ehrenfest1907">@Ehrenfest1907</span> to describe the exchange of heat between two systems at different temperatures.</p>
+<p><span class="theorem-title"><strong>Example 10.2 (Ehrenfest model of diffusion)</strong></span> The following simplified model of diffusion through a porous membrane was proposed by <span class="citation" data-cites="Ehrenfest1907">@Ehrenfest1907</span> to describe the exchange of heat between two systems at different temperatures.</p>
 <p>There are <span class="math inline">\(K\)</span> particles that can either be in compartment <span class="math inline">\(A\)</span> or compartment <span class="math inline">\(B\)</span>. At each time, a particle is picked at random and moved from its compartment to the other. Thus, if there are <span class="math inline">\(X_n = i\)</span> particles in compartment <span class="math inline">\(A\)</span> at time <span class="math inline">\(n\)</span>, then the next state <span class="math inline">\(X_{n+1}\)</span> is either <span class="math inline">\(i-1\)</span> (a particle was displaced from compartment <span class="math inline">\(A\)</span> to <span class="math inline">\(B\)</span>) with probability <span class="math inline">\(i/K\)</span>, or <span class="math inline">\(i+1\)</span> (a particle was displaced from compartment <span class="math inline">\(B\)</span> to <span class="math inline">\(A\)</span>) with probability <span class="math inline">\((K-i)/K\)</span>.</p>
 </div>
 <div id="exm-gamblers-ruin" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.3 (Gambler’s ruin)</strong></span> Consider a gambler who is playing in a casino. The gambler starts with an initial fortune of $<span class="math inline">\(x_0\)</span>. At each time, the gambler places a bet where he wins $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> and loses $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(1-p\)</span>. Thus, his fortune evolves as <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 10.3 (Gambler’s ruin)</strong></span> Consider a gambler who is playing in a casino. The gambler starts with an initial fortune of $<span class="math inline">\(x_0\)</span>. At each time, the gambler places a bet where he wins $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> and loses $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(1-p\)</span>. Thus, his fortune evolves as <span class="math display">\[
   X_{n+1} = X_n + Z_n
 \]</span> where <span class="math inline">\(\{Z_n\}_{n \ge 0}\)</span> is an i.i.d.&nbsp;sequence which takes values <span class="math inline">\(+1\)</span> with probability <span class="math inline">\(p\)</span> and <span class="math inline">\(-1\)</span> with probability <span class="math inline">\(1-p\)</span>.</p>
 <p>The gambler stops when his fortune is ruined, i.e., <span class="math inline">\(X_n = 0\)</span>. In some variations, the gambler may also stop when his fortune reaches a pre-specified amount of $<span class="math inline">\(K\)</span>.</p>
 </div>
 <p>See the following video from <a href="https://www.youtube.com/@veritasium">Veritasium</a> for an excellent history of Markov chains and its applications</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/KZeIEiBrT_w" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<section id="time-homogeneous-markov-chains" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="time-homogeneous-markov-chains"><span class="header-section-number">9.1</span> Time-homogeneous Markov chains</h2>
+<section id="time-homogeneous-markov-chains" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="time-homogeneous-markov-chains"><span class="header-section-number">10.1</span> Time-homogeneous Markov chains</h2>
 <p>In this course, we will focus on time-homogeneous Markov chains. The Markov chain is called <strong>time-homogeneous</strong> if the right hand side of <span class="math inline">\(\eqref{eq:Markov}\)</span> does not depend on <span class="math inline">\(n\)</span>. In this case, we describe the Markov chain by a <strong>state transition matrix</strong> <span class="math inline">\(P\)</span>, where <span class="math inline">\(P_{ij} = \PR(X_{n+1} = j | X_n = i)\)</span>. Such Markov chains can also be visualized using <strong>state transition diagrams</strong> as we illustrate in the examples below.</p>
 <div id="exm-on-off" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.4 (On-Off Markov chain)</strong></span> The On-Off Markov chain discussed earlier can be modelled with <span class="math inline">\(\ALPHABET X = \{0, 1\}\)</span> and a general transition probability matrix of the form. <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 10.4 (On-Off Markov chain)</strong></span> The On-Off Markov chain discussed earlier can be modelled with <span class="math inline">\(\ALPHABET X = \{0, 1\}\)</span> and a general transition probability matrix of the form. <span class="math display">\[
   P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
 \]</span> The transition matrix can be visualized as follows.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -561,7 +567,7 @@ window.Quarto = {
 <li><p>When <span class="math inline">\(a\)</span> or <span class="math inline">\(b\)</span> are small, the corresponding state is “sticky”, i.e., when the Markov chain enters a sticky state, it stays there for a long time.</p></li>
 </ul>
 <div id="exm-Ehrenfest-diffusion-model" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.5</strong></span> The Ehrenfest model of diffusion presented in <a href="#exm-Ehrenfest-diffusion" class="quarto-xref">Example&nbsp;<span>9.2</span></a> can be modelled as a Markov chain with state space <span class="math inline">\(\{0, 1, \dots, K\}\)</span> and transition probability <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 10.5</strong></span> The Ehrenfest model of diffusion presented in <a href="#exm-Ehrenfest-diffusion" class="quarto-xref">Example&nbsp;<span>10.2</span></a> can be modelled as a Markov chain with state space <span class="math inline">\(\{0, 1, \dots, K\}\)</span> and transition probability <span class="math display">\[
   P_{ij} = \begin{cases}
     i/K     &amp; j = i-1 \\
     (K-i)/K &amp; j = i + 1 \\
@@ -576,7 +582,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="exm-random-walk" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.6 (Random walk in one dimension)</strong></span> Imagine a particle which moves in a straight line in unit steps. Each step is one unit to the right with probability <span class="math inline">\(p\)</span> or one unit to the left with probability <span class="math inline">\(q = 1-p\)</span>. It moves until it reaches one of two extreme points, which are called <strong>boundary points</strong>. The behavior of the particle at the boundary determines several different possibilities.</p>
+<p><span class="theorem-title"><strong>Example 10.6 (Random walk in one dimension)</strong></span> Imagine a particle which moves in a straight line in unit steps. Each step is one unit to the right with probability <span class="math inline">\(p\)</span> or one unit to the left with probability <span class="math inline">\(q = 1-p\)</span>. It moves until it reaches one of two extreme points, which are called <strong>boundary points</strong>. The behavior of the particle at the boundary determines several different possibilities.</p>
 <p>We will consider the case where the state space is <span class="math inline">\(\ALPHABET X = \{-2, -1, 0, 1, 2\}\)</span> and the process starts in state <span class="math inline">\(0\)</span>.</p>
 <ol type="1">
 <li><p><strong>Absorbing random walk:</strong> Assume that when the particle reaches a boundary state, it stays there from that time on. We may visualize the Markov chain as follows.</p>
@@ -637,9 +643,9 @@ window.Quarto = {
 \]</span></p></li>
 </ol>
 </div>
-<p>Note that the gambler’s fortune in <a href="#exm-gamblers-ruin" class="quarto-xref">Example&nbsp;<span>9.3</span></a> is a random walk on non-negative integers <span class="math inline">\(\{0,1,2, \dots\}\)</span> with absorption at <span class="math inline">\(0\)</span>. In the variation where the gambler stops when his fortune reaches $<span class="math inline">\(K\)</span>, it is a random walk over <span class="math inline">\(\{0,1,\dots,K\}\)</span> with absorption at both ends: <span class="math inline">\(0\)</span> and <span class="math inline">\(K\)</span>.</p>
-<section id="properties-of-interest" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="properties-of-interest"><span class="header-section-number">9.1.1</span> Properties of interest</h3>
+<p>Note that the gambler’s fortune in <a href="#exm-gamblers-ruin" class="quarto-xref">Example&nbsp;<span>10.3</span></a> is a random walk on non-negative integers <span class="math inline">\(\{0,1,2, \dots\}\)</span> with absorption at <span class="math inline">\(0\)</span>. In the variation where the gambler stops when his fortune reaches $<span class="math inline">\(K\)</span>, it is a random walk over <span class="math inline">\(\{0,1,\dots,K\}\)</span> with absorption at both ends: <span class="math inline">\(0\)</span> and <span class="math inline">\(K\)</span>.</p>
+<section id="properties-of-interest" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="properties-of-interest"><span class="header-section-number">10.1.1</span> Properties of interest</h3>
 <p>Depending on the application, we are typically interested in the following properties of a Markov chain:</p>
 <ul>
 <li><p>If the chain starts in state <span class="math inline">\(i\)</span>, what is the probability that after <span class="math inline">\(n\)</span> steps it is in state <span class="math inline">\(j\)</span>?</p></li>
@@ -650,8 +656,8 @@ window.Quarto = {
 <p>In the rest of this section, we will present results in Markov chain theory that answer the above questions.</p>
 </section>
 </section>
-<section id="state-occupancy-probabilities" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="state-occupancy-probabilities"><span class="header-section-number">9.2</span> State occupancy probabilities</h2>
+<section id="state-occupancy-probabilities" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="state-occupancy-probabilities"><span class="header-section-number">10.2</span> State occupancy probabilities</h2>
 <ol type="1">
 <li><p>Let <span class="math inline">\(μ^{(n)}\)</span> denote the PMF of the state of the Markov chain at time <span class="math inline">\(n\)</span>. This is also called the <strong>state occupancy probabilities</strong>. We will think of <span class="math inline">\(μ^{(n)}\)</span> as a row vector.</p></li>
 <li><p>By the law of total probability, we have <span class="math display">\[
@@ -667,7 +673,7 @@ window.Quarto = {
 \]</span> Thus, the probability of going from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> in <span class="math inline">\(n+m\)</span> steps equals the probability of going from <span class="math inline">\(i\)</span> to <em>somewhere</em> in <span class="math inline">\(n\)</span> steps and then from there to <span class="math inline">\(j\)</span> in <span class="math inline">\(m\)</span> steps.</p></li>
 </ol>
 <div id="exm-random-walk-occupancy" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.7</strong></span> Numerically compute the state occupancy probabilities for the different examples of random walk presented in <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>9.6</span></a> when <span class="math inline">\(p = q = \tfrac 12\)</span> for <span class="math inline">\(n \in \{1, \dots, 8\}\)</span>. In all cases, the initial probability <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 10.7</strong></span> Numerically compute the state occupancy probabilities for the different examples of random walk presented in <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>10.6</span></a> when <span class="math inline">\(p = q = \tfrac 12\)</span> for <span class="math inline">\(n \in \{1, \dots, 8\}\)</span>. In all cases, the initial probability <span class="math display">\[
   μ^{(0)} = \MATRIX{0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 }.
 \]</span></p>
 </div>
@@ -881,7 +887,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="exm-on-off-occupancy" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.8</strong></span> Analytically compute the state occupancy probabilities for the on-off Markov chain of <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a> when it starts from the initial probability distribution <span class="math inline">\(μ^{(0)}\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 10.8</strong></span> Analytically compute the state occupancy probabilities for the on-off Markov chain of <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>10.4</span></a> when it starts from the initial probability distribution <span class="math inline">\(μ^{(0)}\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
@@ -934,7 +940,7 @@ window.Quarto = {
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing <span class="math inline">\(μ^{(0)} P^n\)</span>. What is an efficient way to compute <span class="math inline">\(P^n\)</span>? <strong>Eigen decomposition!</strong>. Since <span class="math inline">\(P\)</span> is a row stochastic matrix, we have <span class="math inline">\(P \mathbf{1} = \mathbf{1}\)</span>, where <span class="math inline">\(\mathbf{1}\)</span> is the all-ones vector. Thus, <span class="math inline">\(λ_1 = 1\)</span> is always an eigenvalue of <em>any</em> transition matrix, with corresponding eigenvector <span class="math inline">\(\mathbf{1}\)</span>.</p>
-<p>For <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, we can explicitly compute all eigenvalues by finding the roots of the characteristic equation <span class="math display">\[\begin{align*}
+<p>For <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>10.4</span></a>, we can explicitly compute all eigenvalues by finding the roots of the characteristic equation <span class="math display">\[\begin{align*}
 \det(λI - P) &amp;= \DET{λ - 1 + a &amp; - a \\ -b &amp; λ - 1 + b} \\
 &amp;= (λ-1 +a)(λ-1+b) - ab \\
 &amp;= (λ-1)^2 + (a+b)(λ-1) = (λ-1)(λ-1 + a + b).
@@ -969,13 +975,13 @@ window.Quarto = {
 </div>
 <p><strong>TODO:</strong> Add more examples!</p>
 </section>
-<section id="class-structure" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="class-structure"><span class="header-section-number">9.3</span> Class structure</h2>
+<section id="class-structure" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="class-structure"><span class="header-section-number">10.3</span> Class structure</h2>
 <ol type="1">
 <li><p>We say that a state <span class="math inline">\(j\)</span> is <strong>accessible from</strong> state <span class="math inline">\(i\)</span> (abbreviated as <span class="math inline">\(i \rightsquigarrow j\)</span>) if there exists an <span class="math inline">\(m \in \integers_{\ge 0}\)</span> (which may depend on <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>) such that <span class="math inline">\([P^m]_{ij} &gt; 0\)</span>. The fact that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span> implies that there exists an ordered sequence of states <span class="math inline">\((i_0, \dots, i_m)\)</span> such that <span class="math inline">\(i_0 = i\)</span> and <span class="math inline">\(i_m = j\)</span> such that <span class="math inline">\(P_{i_k i_{k+1}} &gt; 0\)</span>; thus, there is a path of positive probability from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span>.</p>
 <p>Accessibility is a transitive relationship, i.e., if <span class="math inline">\(i \rightsquigarrow j\)</span> and <span class="math inline">\(j \rightsquigarrow k\)</span>, then <span class="math inline">\(i \rightsquigarrow k\)</span>.</p>
 <div id="exm-accessible" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.9</strong></span> Consider the Markov chain shown below.</p>
+<p><span class="theorem-title"><strong>Example 10.9</strong></span> Consider the Markov chain shown below.</p>
 <p><img src="figures/svg/markov-examples3.svg" class="img-fluid"></p>
 <ol type="a">
 <li>Identify all states that are accessible from state <span class="math inline">\(1\)</span>.</li>
@@ -1002,12 +1008,12 @@ window.Quarto = {
 </div>
 </div></li>
 <li><p>Two distinct states <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to <strong>communicate</strong> (abbreviated to <span class="math inline">\(i \leftrightsquigarrow j\)</span>) if <span class="math inline">\(i\)</span> is accessible from <span class="math inline">\(j\)</span> (i.e., <span class="math inline">\(j \rightsquigarrow i\)</span>) and <span class="math inline">\(j\)</span> is accessible from <span class="math inline">\(i\)</span> (<span class="math inline">\(i \rightsquigarrow j\)</span>). Alternatively, we say that <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> communicate if there exist <span class="math inline">\(m, m' \in \integers_{\ge 0}\)</span> such that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span> and <span class="math inline">\(P^{(m')}_{ji} &gt; 0\)</span>.</p>
-<p>For instance, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>9.9</span></a>, state <span class="math inline">\(1\)</span> communicates with state <span class="math inline">\(2\)</span> but does not communicate with state <span class="math inline">\(5\)</span>.</p>
+<p>For instance, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>10.9</span></a>, state <span class="math inline">\(1\)</span> communicates with state <span class="math inline">\(2\)</span> but does not communicate with state <span class="math inline">\(5\)</span>.</p>
 <p>Communication is an equivalence relationship, i.e., it is reflexive (<span class="math inline">\(i \leftrightsquigarrow i\)</span>), symmetric (<span class="math inline">\(i \leftrightsquigarrow j\)</span> if and only if <span class="math inline">\(j \leftrightsquigarrow i\)</span>), and transitive (<span class="math inline">\(i \leftrightsquigarrow j\)</span> and <span class="math inline">\(j \leftrightsquigarrow k\)</span> implies <span class="math inline">\(i \leftrightsquigarrow k\)</span>).</p></li>
 <li><p>The states in a finite-state Markov chain can be partitioned into two sets: <strong>recurrent states</strong> and <strong>transient states</strong>. A state is recurrent if it is accessible from all states that are accessible from it (i.e., <span class="math inline">\(i\)</span> is recurrent if <span class="math inline">\(i \rightsquigarrow j\)</span> implies that <span class="math inline">\(j \rightsquigarrow i\)</span>). States that are not recurrent are <strong>transient</strong>.</p></li>
-<li><p>It can be shown that a state <span class="math inline">\(i\)</span> is recurrent if and only if <span class="math display">\[\sum_{m=1}^{\infty} P^{(m)}_{ii} = \infty.\]</span> This is a consequence of the second Borel-Cantelli lemma (<a href="convergence-of-random-variables.html#lem-Borel-Cantelli-2" class="quarto-xref">Lemma&nbsp;<span>7.2</span></a>) and <strong>strong Markov property</strong> (to be discussed later).</p></li>
+<li><p>It can be shown that a state <span class="math inline">\(i\)</span> is recurrent if and only if <span class="math display">\[\sum_{m=1}^{\infty} P^{(m)}_{ii} = \infty.\]</span> This is a consequence of the second Borel-Cantelli lemma (<a href="convergence-of-random-variables.html#lem-Borel-Cantelli-2" class="quarto-xref">Lemma&nbsp;<span>8.2</span></a>) and <strong>strong Markov property</strong> (to be discussed later).</p></li>
 <li><p>States <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to belong to the same <strong>communicating class</strong> if <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> communicate. Communicating classes form a partition of the state space. Within a communicating class, all states are of the same type, i.e., either all states are recurrent (in which case the class is called a recurrent class) or all states are transient (in which case the class is called a transient class).</p>
-<p>For example, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>9.9</span></a>, there are two communication classes: <span class="math inline">\(\{1,2,3\}\)</span> and <span class="math inline">\(\{4,5,6\}\)</span>. The communication class <span class="math inline">\(\{4,5,6\}\)</span> is transient while the communication class <span class="math inline">\(\{1,2,3\}\)</span> is recurrent.</p></li>
+<p>For example, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>10.9</span></a>, there are two communication classes: <span class="math inline">\(\{1,2,3\}\)</span> and <span class="math inline">\(\{4,5,6\}\)</span>. The communication class <span class="math inline">\(\{4,5,6\}\)</span> is transient while the communication class <span class="math inline">\(\{1,2,3\}\)</span> is recurrent.</p></li>
 <li><p>A communicating class <span class="math inline">\(C\)</span> is said to be <strong>closed</strong> if <span class="math display">\[
     i \in C \text{ and } i \rightsquigarrow j \implies j \in C.
 \]</span> Thus, there is no escape from a closed class. For finite state spaces, a recurrent class is always closed and a transient class is never closed. But this is not the case for countable state Markov chains.</p></li>
@@ -1019,8 +1025,8 @@ window.Quarto = {
        \quad \forall m \ge M, i \in \ALPHABET X.\]</span></p></li>
 </ol>
 </section>
-<section id="hitting-times-and-absorption-probabilities" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="hitting-times-and-absorption-probabilities"><span class="header-section-number">9.4</span> Hitting times and absorption probabilities</h2>
+<section id="hitting-times-and-absorption-probabilities" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="hitting-times-and-absorption-probabilities"><span class="header-section-number">10.4</span> Hitting times and absorption probabilities</h2>
 <ol type="1">
 <li><p>We use the following notation:</p>
 <ul>
@@ -1038,7 +1044,7 @@ window.Quarto = {
 \]</span> This is called the <strong>mean hitting time</strong>.</p></li>
 <li><p>A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix <span class="math inline">\(P\)</span>. We start with some examples to illustrate the main idea.</p>
 <div id="exm-coin-toss-head-before-tail" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.10</strong></span> Suppose we toss a coin multiple times. What is the probability of getting a head before getting a tail?</p>
+<p><span class="theorem-title"><strong>Example 10.10</strong></span> Suppose we toss a coin multiple times. What is the probability of getting a head before getting a tail?</p>
 We model this using a Markov chain where the state represents the outcome we’re waiting for. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. The Markov chain has three states:
 <ul>
 <li>State <span class="math inline">\(-1\)</span>: tail has occurred (absorbing state, we lose)</li>
@@ -1058,7 +1064,7 @@ We model this using a Markov chain where the state represents the outcome we’r
 \end{align*}\]</span> Therefore, starting from state <span class="math inline">\(0\)</span>, the probability of getting a head before a tail is <span class="math inline">\(h^1_0 = p\)</span>.</p>
 </div></li>
 <li><div id="exm-two-heads-before-two-tails" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.11</strong></span> Two players are playing a game. They repeatedly toss a coin. Player 1 wins if two consecutive heads occur before two consecutive tails. Player 2 wins if two consecutive tails occur before two consecutive heads. What is the probability that Player 1 wins?</p>
+<p><span class="theorem-title"><strong>Example 10.11</strong></span> Two players are playing a game. They repeatedly toss a coin. Player 1 wins if two consecutive heads occur before two consecutive tails. Player 2 wins if two consecutive tails occur before two consecutive heads. What is the probability that Player 1 wins?</p>
 We model this using a Markov chain where the state tracks the pattern of recent coin tosses. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. The Markov chain has five states:
 <ul>
 <li>State <span class="math inline">\(-2\)</span>: two consecutive tails (Player 2 wins, absorbing state)</li>
@@ -1087,7 +1093,7 @@ We model this using a Markov chain where the state tracks the pattern of recent 
 </div></li>
 <li><p>We now provide a general formula for computing hitting probabilities.</p>
 <div id="thm-hitting-probabilities" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 9.1 (Hitting probabilities)</strong></span> The hitting probabilities <span class="math inline">\(\{h^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 10.1 (Hitting probabilities)</strong></span> The hitting probabilities <span class="math inline">\(\{h^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
   h^A_i = \begin{cases}
     1, &amp; i \in A \\
     \sum_{j \in \ALPHABET X} P_{ij} h^A_j, &amp; i \not\in A
@@ -1118,7 +1124,7 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 </div>
 </div></li>
 <li><div id="exm-gambler-ruin-instance" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.12</strong></span> Consider a gambler’s ruin problem, where the gambler starts with $<span class="math inline">\(1\)</span> and stops either when he is ruined or when his fortune reaches $<span class="math inline">\(K\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 10.12</strong></span> Consider a gambler’s ruin problem, where the gambler starts with $<span class="math inline">\(1\)</span> and stops either when he is ruined or when his fortune reaches $<span class="math inline">\(K\)</span>.</p>
 <p>Find the probability of ruin (i.e., the fortune gets absorbed in state <span class="math inline">\(0\)</span> rather than state <span class="math inline">\(K\)</span>).</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1153,7 +1159,7 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 </div></li>
 <li><p>Similarly as above, we can derive a formula for computing mean hitting times. We start with a couple of examples to illustrate the main idea.</p>
 <div id="exm-no-of-tosses-1" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.13</strong></span> Suppose we toss a coin multiple times and stop at the first head. What is the expected number of coin tosses until stopping?</p>
+<p><span class="theorem-title"><strong>Example 10.13</strong></span> Suppose we toss a coin multiple times and stop at the first head. What is the expected number of coin tosses until stopping?</p>
 <p>From elementary probability we know that the number of tosses until stopping is a geometric random variable. However, we will model this using a Markov chain where the state denotes the number of consecutive heads so far. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. Then, the Markov chain model is as follows.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1167,7 +1173,7 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 \end{align*}\]</span> Solving this system of equations, we get <span class="math inline">\(m^1_0 = 1/(1-q) = 1/p\)</span>.</p>
 </div></li>
 <li><div id="exm-no-of-tosses-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.14</strong></span> Suppose we toss a coin multiple times and stop at two consecutive heads. What is the expected number of coin tosses until stopping?</p>
+<p><span class="theorem-title"><strong>Example 10.14</strong></span> Suppose we toss a coin multiple times and stop at two consecutive heads. What is the expected number of coin tosses until stopping?</p>
 <p>We can model this in the same manner as before, where the state denotes the number of consecutive heads so far. The Markov chain is as follows:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1183,7 +1189,7 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 </div></li>
 <li><p>We now provide a general formula for computing mean hitting times.</p>
 <div id="thm-mean-hitting-times" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 9.2 (Mean hitting times)</strong></span> The mean hitting times <span class="math inline">\(\{m^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 10.2 (Mean hitting times)</strong></span> The mean hitting times <span class="math inline">\(\{m^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
   m^A_i = \begin{cases}
     0, &amp; i \in A \\
     1 + \sum_{j \not\in A} P_{ij} m^A_j, &amp; i \not\in A
@@ -1202,7 +1208,7 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The proof is similar to the proof of <a href="#thm-hitting-probabilities" class="quarto-xref">Theorem&nbsp;<span>9.1</span></a>. When <span class="math inline">\(X_0 = i \in A\)</span>, the hitting time <span class="math inline">\(H^A = 0\)</span>, so <span class="math inline">\(m^A_i = 0\)</span>. This proves the first part of the formula.</p>
+<p>The proof is similar to the proof of <a href="#thm-hitting-probabilities" class="quarto-xref">Theorem&nbsp;<span>10.1</span></a>. When <span class="math inline">\(X_0 = i \in A\)</span>, the hitting time <span class="math inline">\(H^A = 0\)</span>, so <span class="math inline">\(m^A_i = 0\)</span>. This proves the first part of the formula.</p>
 <p>For the second part, consider <span class="math inline">\(X_0 = i \not\in A\)</span>. Then <span class="math inline">\(H^A_i \ge 1\)</span>. By the Markov property, we have <span class="math display">\[
   \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
 \]</span> Moreover, by the law of total probability, we have <span class="math display">\[\begin{align*}
@@ -1278,7 +1284,7 @@ N_{ij} = \sum_{n=0}^∞ [Q^n]_{ij} = \sum_{n=0}^∞ \PR_i(X_n = j, \text{ chain 
 </div>
 </div></li>
 <li><div id="exm-matrix-formulas-gamblers-ruin" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.15</strong></span> Consider the gambler’s ruin problem from <a href="#exm-gambler-ruin-instance" class="quarto-xref">Example&nbsp;<span>9.12</span></a> with <span class="math inline">\(K = 3\)</span> (i.e., the gambler starts with $<span class="math inline">\(1\)</span> and stops at either $<span class="math inline">\(0\)</span> or $<span class="math inline">\(3\)</span>). Write the transition matrix in canonical form and use the fundamental matrix to compute the probability of ruin and the expected duration of play.</p>
+<p><span class="theorem-title"><strong>Example 10.15</strong></span> Consider the gambler’s ruin problem from <a href="#exm-gambler-ruin-instance" class="quarto-xref">Example&nbsp;<span>10.12</span></a> with <span class="math inline">\(K = 3\)</span> (i.e., the gambler starts with $<span class="math inline">\(1\)</span> and stops at either $<span class="math inline">\(0\)</span> or $<span class="math inline">\(3\)</span>). Write the transition matrix in canonical form and use the fundamental matrix to compute the probability of ruin and the expected duration of play.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
@@ -1330,17 +1336,17 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 </div></li>
 </ol>
 </section>
-<section id="invariant-distribution" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="invariant-distribution"><span class="header-section-number">9.5</span> Invariant Distribution</h2>
+<section id="invariant-distribution" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="invariant-distribution"><span class="header-section-number">10.5</span> Invariant Distribution</h2>
 <ol type="1">
 <li><p>A probability distribution <span class="math inline">\(π\)</span> on the state space <span class="math inline">\(\ALPHABET X\)</span> is called an <strong>invariant distribution</strong> if it satisfies the equation <span class="math display">\[
   π = π P.
 \]</span></p></li>
 <li><p>An invariant distribution is also called a <strong>stationary distribution</strong>. If the initial distribution of the Markov chain is <span class="math inline">\(π\)</span>, then the distribution remains <span class="math inline">\(π\)</span> at all future times. In other words, if <span class="math inline">\(μ^{(0)} = π\)</span> then <span class="math inline">\(μ^{(n)} = π\)</span> for all <span class="math inline">\(n \ge 0\)</span>.</p></li>
-<li><p>Consider the on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a> with transition matrix <span class="math display">\[
+<li><p>Consider the on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>10.4</span></a> with transition matrix <span class="math display">\[
   P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
 \]</span> This chain has an invariant distribution given by <span class="math inline">\(π = [b/(a+b), a/(a+b)]\)</span> (assuming <span class="math inline">\(a+b &gt; 0\)</span>). One can verify that <span class="math inline">\(π = π P\)</span>, which shows that an invariant distribution exists for this chain.</p></li>
-<li><p>A finite Markov chain with only one communication class has a <strong>unique</strong> invariant distribution. Thus, irreducible Markov chains have a unique invariant distribution. Note that aperiodicity is not required. For instance, consider on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a> with <span class="math inline">\(a = b = 1\)</span>. This chain is periodic, but has a unique invariant distribution <span class="math inline">\(π = [\frac 12, \frac 12]\)</span>.</p></li>
+<li><p>A finite Markov chain with only one communication class has a <strong>unique</strong> invariant distribution. Thus, irreducible Markov chains have a unique invariant distribution. Note that aperiodicity is not required. For instance, consider on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>10.4</span></a> with <span class="math inline">\(a = b = 1\)</span>. This chain is periodic, but has a unique invariant distribution <span class="math inline">\(π = [\frac 12, \frac 12]\)</span>.</p></li>
 <li><p>A Markov chain with more than one closed communicating class has multiple invariant distributions. For example, consider a Markov chain with two absorbing states <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. The transition matrix is <span class="math display">\[
   P = \MATRIX{ 1 &amp; 0 \\ 0 &amp; 1 }.
 \]</span></p>
@@ -1361,7 +1367,7 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <li><p><strong>Computing invariant distributions.</strong> The equation <span class="math inline">\(π = π P\)</span> can be written component-wise as <span class="math display">\[
   π_j = \sum_{i \in \ALPHABET X} π_i P_{ij}, \quad \forall j \in \ALPHABET X.
 \]</span> These equations are called <strong>balance equations</strong> and can be used to find invariant distributions. Together with the constraint that <span class="math inline">\(π\)</span> is a probability distribution (i.e., <span class="math inline">\(\sum_{j \in \ALPHABET X} π_j = 1\)</span> and <span class="math inline">\(π_j \ge 0\)</span> for all <span class="math inline">\(j\)</span>), they form a system of linear equations that can be solved to determine the invariant distribution.</p></li>
-<li><p>As an example, let’s compute the invariant distribution of the on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a>. The transition matrix is <span class="math display">\[
+<li><p>As an example, let’s compute the invariant distribution of the on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>10.4</span></a>. The transition matrix is <span class="math display">\[
   P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
 \]</span> To find the invariant distribution <span class="math inline">\(π = [π_0, π_1]\)</span>, we solve the balance equations <span class="math inline">\(π = π P\)</span>: <span class="math display">\[\begin{align*}
   π_0 &amp;= π_0 (1-a) + π_1 b, \\
@@ -1406,7 +1412,7 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <li><p>The above example is an illustration of a more general principle. If <span class="math inline">\(P\)</span> is doubly stochastic (i.e., both row sum and column sums are <span class="math inline">\(1\)</span>), then the invariant distribution is a uniform distribution.</p></li>
 <li><p><strong>Exercises: Computing Invariant Distributions</strong></p>
 <div id="exm-invariant-transient-closed" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.16</strong></span> Consider the Markov chain with transition matrix<br>
+<p><span class="theorem-title"><strong>Example 10.16</strong></span> Consider the Markov chain with transition matrix<br>
 <span class="math display">\[
   P = \MATRIX{ 0.6 &amp; 0.4 &amp; 0 &amp; 0 \\
                0.3 &amp; 0.7 &amp; 0 &amp; 0 \\
@@ -1422,7 +1428,7 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <p>This chain has states <span class="math inline">\(\{0, 1, 2, 3\}\)</span> where states <span class="math inline">\(\{0, 1\}\)</span> form a closed communicating class and states <span class="math inline">\(\{2, 3\}\)</span> are transient. Find all invariant distributions for this chain.</p>
 </div>
 <div id="exm-invariant-absorbing" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.17</strong></span> Consider the Markov chain with transition matrix<br>
+<p><span class="theorem-title"><strong>Example 10.17</strong></span> Consider the Markov chain with transition matrix<br>
 <span class="math display">\[
   P = \MATRIX{ 1 &amp; 0 &amp; 0 \\
                0.2 &amp; 0.4 &amp; 0.4 \\
@@ -1438,8 +1444,8 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 </div></li>
 </ol>
 </section>
-<section id="limiting-distribution" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="limiting-distribution"><span class="header-section-number">9.6</span> Limiting Distribution</h2>
+<section id="limiting-distribution" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="limiting-distribution"><span class="header-section-number">10.6</span> Limiting Distribution</h2>
 <ol type="1">
 <li><p>Suppose a finite Markov chain has the property that starting from any initial distribution, the distribution of <span class="math inline">\(X_n\)</span> converges to some distribution <span class="math inline">\(\pi\)</span> as <span class="math inline">\(n \to \infty\)</span>: <span class="math display">\[
 \lim_{n \to \infty} P^{(n)}_{i, j} = \pi_j \qquad \text{for all } i, j \in \ALPHABET X.
@@ -1492,16 +1498,16 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <section id="exercises" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
 <div id="exr-time-reversal" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.1 (Time reversal of Markov chains)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> be a Markov chain. Show that for any <span class="math inline">\(N &gt; n\)</span>, <span class="math display">\[
+<p><span class="theorem-title"><strong>Exercise 10.1 (Time reversal of Markov chains)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> be a Markov chain. Show that for any <span class="math inline">\(N &gt; n\)</span>, <span class="math display">\[
   \PR(X_n = x_n \mid X_{n+1:N} = x_{n+1:N})
   = \PR(X_n = x_n \mid X_{n+1} = x_{n+1}).
 \]</span> Thus, a time reversed Markov chain is also Markov.</p>
 </div>
 <div id="exr-k-step-Markov" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.2</strong></span> Suppose <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P\)</span>. For a fixed positive integer <span class="math inline">\(k\)</span>, define <span class="math inline">\(Y_n = X_{kn}\)</span>. Show that <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P^k\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 10.2</strong></span> Suppose <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P\)</span>. For a fixed positive integer <span class="math inline">\(k\)</span>, define <span class="math inline">\(Y_n = X_{kn}\)</span>. Show that <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P^k\)</span>.</p>
 </div>
 <div id="exr-biased-die" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.3</strong></span> Suppose a (6-sided) die is ‘fixed’ so that two consecutive rolls cannot have the same outcome. In particular, if the outcome of a roll is <span class="math inline">\(i\)</span>, then the next roll cannot be <span class="math inline">\(i\)</span>; all <span class="math inline">\(5\)</span> other outcomes are equally likely.</p>
+<p><span class="theorem-title"><strong>Exercise 10.3</strong></span> Suppose a (6-sided) die is ‘fixed’ so that two consecutive rolls cannot have the same outcome. In particular, if the outcome of a roll is <span class="math inline">\(i\)</span>, then the next roll cannot be <span class="math inline">\(i\)</span>; all <span class="math inline">\(5\)</span> other outcomes are equally likely.</p>
 <ol type="a">
 <li>Model the above as a Markov chain.</li>
 <li>If the outcome of the first roll is <span class="math inline">\(1\)</span>, what is the probability that the outcome of the <span class="math inline">\(n\)</span>th roll is also <span class="math inline">\(1\)</span>?</li>
@@ -1937,7 +1943,7 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./stochastic-processes.html" class="pagination-link" aria-label="Stochastic processes">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
