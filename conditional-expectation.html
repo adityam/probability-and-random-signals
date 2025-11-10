@@ -578,7 +578,7 @@ F_{X|C}(x \mid C) = \PR(X \le x \mid C) = \frac{\PR( \{ X \le x \} \cap C)}{\PR(
   P_{X|C}(x\mid C) = F_{X|C}(x\mid C) - F_{X|C}(x^{-} \mid C).
 \]</span></p></li>
 <li><p>If <span class="math inline">\(F_{X|C}\)</span> is continuous, then <span class="math inline">\(X\)</span> conditioned on <span class="math inline">\(C\)</span> is a continuous random variable which has a conditional PDF <span class="math inline">\(f_{X|C}\)</span> given by <span class="math display">\[
-f_{X|C}(x\mid C) = \frac{d}{dx} F_X(x \mid C).
+f_{X|C}(x\mid C) = \frac{d}{dx} F_{X|C}(x \mid C).
 \]</span></p></li>
 <li><p>If <span class="math inline">\(F_{X|C}\)</span> is neither piecewise constant nor continuous, then <span class="math inline">\(X\)</span> conditioned on <span class="math inline">\(C\)</span> is a mixed random variable.</p></li>
 </ul>
@@ -603,9 +603,6 @@ P_X(x) = \sum_{i=1}^n P_{X|C_i}(x \mid C_i) \PR(C_i)
 <div id="exm-mixed-random-variable" class="theorem example">
 <p><span class="theorem-title"><strong>Example 4.1</strong></span> Consider the following experiment. A fair coin is tossed. If the outcome is heads, <span class="math inline">\(X\)</span> is a uniform <span class="math inline">\([0,1]\)</span> random variable. If the outcome is tails, <span class="math inline">\(X\)</span> is <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variable. Find <span class="math inline">\(F_X(x)\)</span>.</p>
 </div>
-<div id="exm-geometric-memoryless" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.2 (Memoryless property of geometric random variable)</strong></span> Let <span class="math inline">\(X \sim \text{geometric}(p)\)</span> and <span class="math inline">\(m,n\)</span> be positive integers. Compute <span class="math display">\[ \PR(X &gt; n + m \mid X &gt; m). \]</span></p>
-</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -617,6 +614,61 @@ P_X(x) = \sum_{i=1}^n P_{X|C_i}(x \mid C_i) \PR(C_i)
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(C_H\)</span> denote the event that the coin shows heads and <span class="math inline">\(C_T\)</span> the event that it shows tails. The coin is fair, so <span class="math inline">\(\PR(C_H) = \PR(C_T) = \frac{1}{2}\)</span>.</p>
+<ul>
+<li>If heads (<span class="math inline">\(C_H\)</span>): <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>, so the conditional CDF is <span class="math display">\[
+F_{X|C_H}(x) =
+\begin{cases}
+  0, &amp; x &lt; 0 \\
+  x, &amp; 0 \leq x \leq 1 \\
+  1, &amp; x &gt; 1
+\end{cases}
+\]</span></li>
+<li>If tails (<span class="math inline">\(C_T\)</span>): <span class="math inline">\(X \sim \text{Bernoulli}(p)\)</span>, so the conditional CDF is <span class="math display">\[
+F_{X|C_T}(x) =
+\begin{cases}
+  0, &amp; x &lt; 0 \\
+  1-p, &amp; 0 \leq x &lt; 1 \\
+  1, &amp; x \geq 1
+\end{cases}
+\]</span></li>
+</ul>
+<p>By the law of total probability, <span class="math display">\[\begin{align*}
+F_X(x) &amp;= F_{X|C_H}(x)\, \PR(C_H) + F_{X|C_T}(x)\, \PR(C_T) \\
+&amp;= \frac{1}{2} F_{X|C_H}(x) + \frac{1}{2} F_{X|C_T}(x)
+\end{align*}\]</span></p>
+<p>So, <span class="math display">\[
+F_X(x) =
+\begin{cases}
+0, &amp; x &lt; 0 \\\\
+\frac{1}{2}x + \frac{1}{2}(1-p), &amp; 0 \leq x &lt; 1 \\\\
+\frac{1}{2} \cdot 1 + \frac{1}{2} \cdot 1 = 1, &amp; x \geq 1
+\end{cases}
+=
+\begin{cases}
+0, &amp; x &lt; 0 \\
+\frac{1}{2}x + \frac{1-p}{2}, &amp; 0 \leq x &lt; 1 \\
+1, &amp; x \geq 1
+\end{cases}
+\]</span> Thus, <span class="math inline">\(X\)</span> is a mixed random variable.</p>
+</div>
+</div>
+</div>
+<div id="exm-geometric-memoryless" class="theorem example">
+<p><span class="theorem-title"><strong>Example 4.2 (Memoryless property of geometric random variable)</strong></span> Let <span class="math inline">\(X \sim \text{geometric}(p)\)</span> and <span class="math inline">\(m,n\)</span> be positive integers. Compute <span class="math display">\[ \PR(X &gt; n + m \mid X &gt; m). \]</span></p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Recall that the PMF of a geometric random variable is <span class="math display">\[
 P_X(k) = p (1-p)^{k-1}, \quad k \in \naturalnumbers.
@@ -640,7 +692,7 @@ P_X(k) = p (1-p)^{k-1}, \quad k \in \naturalnumbers.
 <p><span class="theorem-title"><strong>Example 4.3 (Memoryless property of exponential random variable)</strong></span> Let <span class="math inline">\(X \sim \text{Exponential}(λ)\)</span> and <span class="math inline">\(t,s\)</span> be positive reals. Compute <span class="math display">\[ \PR(X &gt; t + s \mid X &gt; t). \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -649,7 +701,7 @@ P_X(k) = p (1-p)^{k-1}, \quad k \in \naturalnumbers.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Recall that the PDF of an exponential random variable is <span class="math display">\[
 f_X(x) = λ e^{-λ x}, \quad x \ge 0.
@@ -673,30 +725,30 @@ f_X(x) = λ e^{-λ x}, \quad x \ge 0.
   \PR( X - Y &lt; 1 \mid Y &lt; 2).
 \]</span></p>
 <div class="cell hidden">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="154" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 153;"><span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>f_X_Y_2025_mid_term_1 <span class="op">=</span> [</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span>}<span class="op">,</span></span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>f_X_Y_2025_mid_term_1_A <span class="op">=</span> [</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span>}<span class="op">,</span></span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>f_X_Y_2025_mid_term_1_A_2 <span class="op">=</span> [</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">3</span>}<span class="op">,</span></span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>f_X_Y_2025_mid_term_1_B <span class="op">=</span> [</span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">2</span>}<span class="op">,</span></span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">2</span>}<span class="op">,</span></span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="202" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 201;"><span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>f_X_Y_2025_mid_term_1 <span class="op">=</span> [</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span>}<span class="op">,</span></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>f_X_Y_2025_mid_term_1_A <span class="op">=</span> [</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">4</span>}<span class="op">,</span></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>f_X_Y_2025_mid_term_1_A_2 <span class="op">=</span> [</span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">3</span>}<span class="op">,</span></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>f_X_Y_2025_mid_term_1_B <span class="op">=</span> [</span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">2</span>}<span class="op">,</span></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">2</span>}<span class="op">,</span></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}<span class="op">,</span></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>]<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display hidden">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -727,19 +779,19 @@ f_X(x) = λ e^{-λ x}, \quad x \ge 0.
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="182" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 181;"><span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"lightblue"</span>})<span class="op">,</span></span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span>})<span class="op">,</span></span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="230" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 229;"><span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"lightblue"</span>})<span class="op">,</span></span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span>})<span class="op">,</span></span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-2025-mid-term-1" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-2025-mid-term-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -755,7 +807,7 @@ Figure&nbsp;4.1: The joint PDF <span class="math inline">\(f_{X,Y}\)</span> is u
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -764,41 +816,41 @@ Figure&nbsp;4.1: The joint PDF <span class="math inline">\(f_{X,Y}\)</span> is u
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Define the events <span class="math display">\[
   A = \{ ω : X(ω) - Y(ω) &lt; 1 \}
   \quad\text{and}\quad
   B = \{ ω : Y(ω) &lt; 2 \}.
 \]</span> These are shown in <a href="#fig-2025-mid-term-1-details" class="quarto-xref">Figure&nbsp;<span>4.2</span></a></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="218" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 217;"><span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
-<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
-<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
-<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
-<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1_A<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"blue"</span>})<span class="op">,</span></span>
-<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1_A_2<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"lightblue"</span>})<span class="op">,</span></span>
-<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span>})<span class="op">,</span></span>
-<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
-<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
-<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
-<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
-<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"lightblue"</span>})<span class="op">,</span></span>
-<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1_B<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"blue"</span>})<span class="op">,</span></span>
-<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span>})<span class="op">,</span></span>
-<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="266" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 265;"><span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
+<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
+<span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1_A<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"blue"</span>})<span class="op">,</span></span>
+<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1_A_2<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"lightblue"</span>})<span class="op">,</span></span>
+<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span>})<span class="op">,</span></span>
+<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Axes</span></span>
+<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Data</span></span>
+<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"lightblue"</span>})<span class="op">,</span></span>
+<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(f_X_Y_2025_mid_term_1_B<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"blue"</span>})<span class="op">,</span></span>
+<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(f_X_Y_2025_mid_term_1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span>})<span class="op">,</span></span>
+<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-293"><a href="#cb3-293" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-2025-mid-term-1-details" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-2025-mid-term-1-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -907,7 +959,9 @@ F_X(x) = \PR(X \le x) = \int_{-∞}^{∞} \PR(X \le x \mid Y = y) f_Y(y)\, dy
 <li><p>If <span class="math inline">\(X\)</span> is independent of <span class="math inline">\(Y\)</span>, we have <span class="math display">\[
 f_{X|Y}(x\mid y) = f_X(x), \quad \forall x, y \in \reals.
 \]</span></p></li>
-<li><p>We can show that conditional PMF and conditional PDF satisfy all the properties of PMFs and PDFs. Therefore, we can define conditional expectation <span class="math inline">\(\EXP[ g(X) \mid Y = y ]\)</span> in terms of <span class="math inline">\(P_{X|Y}\)</span> or <span class="math inline">\(f_{X|Y}\)</span>. We can similarly define conditional variance</p></li>
+<li><p>We can show that conditional PMF and conditional PDF satisfy all the properties of PMFs and PDFs. Therefore, we can define conditional expectation <span class="math inline">\(\EXP[ g(X) \mid Y = y ]\)</span> in terms of <span class="math inline">\(P_{X|Y}\)</span> or <span class="math inline">\(f_{X|Y}\)</span>. We can similarly define conditional variance <span class="math inline">\(\VAR(X \mid Y = y)\)</span> using the conditional probability law: <span class="math display">\[
+\VAR(X \mid Y = y) = \EXP\left[ (X - \EXP[X \mid Y = y])^2 \mid Y = y \right].
+\]</span></p></li>
 </ol>
 <div id="exm-conditional-density" class="theorem example">
 <p><span class="theorem-title"><strong>Example 4.5</strong></span> Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous random variables with the joint PDF <span class="math display">\[
@@ -915,7 +969,7 @@ f_{X,Y}(x,y) = \frac{e^{-x/y} e^{-y}}{y}, \quad 0 &lt; x &lt; ∞, 0 &lt; y &lt;
 \]</span> Find <span class="math inline">\(f_{X|Y}\)</span>?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -924,7 +978,7 @@ f_{X,Y}(x,y) = \frac{e^{-x/y} e^{-y}}{y}, \quad 0 &lt; x &lt; ∞, 0 &lt; y &lt;
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We first compute the marginal <span class="math inline">\(f_Y(y)\)</span>.</p>
 <p><span class="math display">\[\begin{align*}
@@ -942,7 +996,7 @@ f_Y(y) &amp;= \int_{-∞}^{∞} f_{X,Y}(x,y) \, dx \\
 <p><span class="theorem-title"><strong>Example 4.6</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span> and given <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y\)</span> is uniformly distributed on <span class="math inline">\((0,x)\)</span>. Find the PDF of <span class="math inline">\(Y\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -951,7 +1005,7 @@ f_Y(y) &amp;= \int_{-∞}^{∞} f_{X,Y}(x,y) \, dx \\
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We will use the law of total probability. <span class="math display">\[
 F_Y(y) = \int_{-∞}^{∞} F_{Y|X}(y \mid x) f_X(x) \, dx
@@ -991,7 +1045,7 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 \]</span> where <span class="math inline">\(\ABS{ρ} &lt; 1\)</span>. Compute the conditional PDF <span class="math inline">\(f_{X_1 | X_2}\)</span>?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1000,7 +1054,7 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Recall that <span class="math display">\[
   f_{X_1,X_2}(x_1, x_2) =
@@ -1029,21 +1083,21 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 <h2 data-number="4.3" class="anchored" data-anchor-id="conditional-expectation"><span class="header-section-number">4.3</span> Conditional expectation</h2>
 <ol type="1">
 <li><p>When <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly discrete with joint PMF <span class="math inline">\(P_{X,Y}\)</span>, then we can define conditional expectation as <span class="math display">\[
-E[X \mid Y = y] = \sum_{x \in \ALPHABET X} x P_{X|Y}(x|y)
+\EXP[X \mid Y = y] = \sum_{x \in \ALPHABET X} x P_{X|Y}(x|y)
 \]</span> and, more generally, for any function <span class="math inline">\(g\)</span>, <span class="math display">\[
-E[g(X) \mid Y = y] = \sum_{x \in \ALPHABET X} g(x) P_{X|Y}(x|y).
+\EXP[g(X) \mid Y = y] = \sum_{x \in \ALPHABET X} g(x) P_{X|Y}(x|y).
 \]</span></p></li>
 <li><p>Analogously, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous with joint PDF <span class="math inline">\(f_{X,Y}\)</span>, we can define conditional expectation as <span class="math display">\[
-E[X|Y = y] = \int_{-∞}^{∞} x f_{X|Y}(x|y)\, dx
+\EXP[X|Y = y] = \int_{-∞}^{∞} x f_{X|Y}(x|y)\, dx
 \]</span> and, more generally, for any function <span class="math inline">\(g\)</span>, <span class="math display">\[
-E[g(X)|Y = y] = \int_{-∞}^{∞} g(x) f_{X|Y}(x|y)\, dx
+\EXP[g(X)|Y = y] = \int_{-∞}^{∞} g(x) f_{X|Y}(x|y)\, dx
 \]</span></p></li>
 <li><p>Now consider a function <span class="math inline">\(g(X,Y)\)</span>. Then, <span class="math display">\[
-E[g(X,Y) \mid Y = y] = \int_{-∞}^{∞} g(x,y) f_{X|Y}(x|y)\, dx
-= E[g(X,y) \mid Y = y].
+\EXP[g(X,Y) \mid Y = y] = \int_{-∞}^{∞} g(x,y) f_{X|Y}(x|y)\, dx
+= \EXP[g(X,y) \mid Y = y].
 \]</span></p></li>
 <li><p>Observe that <span class="math display">\[\begin{align*}
-\int_{-∞}^{∞} E[g(X,Y) \mid Y = y ] f_Y(y) dy
+\int_{-∞}^{∞} \EXP[g(X,Y) \mid Y = y ] f_Y(y) dy
 &amp;=
 \int_{-∞}^{∞} \int_{-∞}^{∞} g(x,y) f_{X|Y}(x|y) f_Y(y)\, dx\, dy \\
 &amp;=
@@ -1111,7 +1165,7 @@ E[g(X,Y) \mid Y = y] = \int_{-∞}^{∞} g(x,y) f_{X|Y}(x|y)\, dx
 <p>We will show that <span class="math display">\[ m(y) = \int_{B_X} \frac{ f_{X,Y}(x,y) }{ f_{Y}(y) } \, dx \]</span> satisfies <span class="math inline">\(\eqref{eq:defn-cond}\)</span>. In particular, the RHS of <span class="math inline">\(\eqref{eq:defn-cond}\)</span> is <span class="math display">\[
 \int_{B_Y} \left[ \int_{B_X} \frac{ f_{X,Y}(x,y) }{ f_{Y}(y) } \, dx \right] f_Y(y) \, dy
 = \int_{B_Y} \int_{B_X} f_{X,Y}(x,y) \, dx \, dy
-= \PR(X \in B_X, Y \in B_X)
+= \PR(X \in B_X, Y \in B_Y)
 \]</span> which equals the LHS of <span class="math inline">\(\eqref{eq:defn-cond}\)</span>. This is why the conditional density is defined the way it is defined!</p></li>
 <li><p>Finally, it can be shown that <span class="math inline">\(\PR(A \mid Y) \coloneqq \EXP[\IND_{A} \mid σ(Y)]\)</span>, <span class="math inline">\(A \in \ALPHABET F\)</span>, satisfies the axioms of probability.Therefore, conditional probability satisfies all the properties of probability (and consequently, conditional expectations satisfy all the properties of expectations).</p></li>
 <li><p>Note that the definition of conditional expectation generalizes Bayes rule. In particular, for any (measurable) function <span class="math inline">\(g \colon \reals \to \reals\)</span> we have <span class="math display">\[\begin{align*}
