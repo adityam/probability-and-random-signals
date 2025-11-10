@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-09">
+<meta name="dcterms.date" content="2025-11-10">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>9&nbsp; Markov chains – Probability and Random Signals II</title>
@@ -469,10 +469,7 @@ window.Quarto = {
   <li><a href="#class-structure" id="toc-class-structure" class="nav-link" data-scroll-target="#class-structure"><span class="header-section-number">9.3</span> Class structure</a></li>
   <li><a href="#hitting-times-and-absorption-probabilities" id="toc-hitting-times-and-absorption-probabilities" class="nav-link" data-scroll-target="#hitting-times-and-absorption-probabilities"><span class="header-section-number">9.4</span> Hitting times and absorption probabilities</a></li>
   <li><a href="#invariant-distribution" id="toc-invariant-distribution" class="nav-link" data-scroll-target="#invariant-distribution"><span class="header-section-number">9.5</span> Invariant Distribution</a></li>
-  <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">9.6</span> Limiting Distribution</a>
-  <ul class="collapse">
-  <li><a href="#further-remarks" id="toc-further-remarks" class="nav-link" data-scroll-target="#further-remarks"><span class="header-section-number">9.6.1</span> Further Remarks</a></li>
-  </ul></li>
+  <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">9.6</span> Limiting Distribution</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
@@ -510,7 +507,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 9, 2025</p>
+      <p class="date">November 10, 2025</p>
     </div>
   </div>
   
@@ -1343,7 +1340,8 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <li><p>Consider the on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a> with transition matrix <span class="math display">\[
   P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
 \]</span> This chain has an invariant distribution given by <span class="math inline">\(π = [b/(a+b), a/(a+b)]\)</span> (assuming <span class="math inline">\(a+b &gt; 0\)</span>). One can verify that <span class="math inline">\(π = π P\)</span>, which shows that an invariant distribution exists for this chain.</p></li>
-<li><p>A Markov chain can have multiple invariant distributions. For example, consider a Markov chain with two absorbing states <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. The transition matrix is <span class="math display">\[
+<li><p>A finite Markov chain with only one communication class has a <strong>unique</strong> invariant distribution. Thus, irreducible Markov chains have a unique invariant distribution. Note that aperiodicity is not required. For instance, consider on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>9.4</span></a> with <span class="math inline">\(a = b = 1\)</span>. This chain is periodic, but has a unique invariant distribution <span class="math inline">\(π = [\frac 12, \frac 12]\)</span>.</p></li>
+<li><p>A Markov chain with more than one closed communicating class has multiple invariant distributions. For example, consider a Markov chain with two absorbing states <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. The transition matrix is <span class="math display">\[
   P = \MATRIX{ 1 &amp; 0 \\ 0 &amp; 1 }.
 \]</span></p>
 <div class="quarto-figure quarto-figure-center">
@@ -1358,7 +1356,8 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 = [α, 1-α] = π.
 \]</span> Thus, there are uncountably many invariant distributions. This happens because the chain consists of two disjoint recurrent classes (the absorbing states <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>), and any probability mass can be put on either class and be preserved.</p>
 <p>More generally, if a Markov chain has multiple irreducible communicating (closed) classes, each class can have its own invariant distribution (supported only on that class). Any convex combination of these distributions is also an invariant distribution for the whole chain.</p></li>
-<li><p>An irreducible and aperiodic Markov chain has a <strong>unique</strong> invariant distribution. Such Markov chains are also called <strong>ergodic</strong>. As we will see later, such Markov chains have the property that for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span> Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the <strong>limiting distribution</strong> or the <strong>steady-state</strong> distribution.</p></li>
+<li><p>A Markov chain that is irreducible and <strong>aperiodic</strong> has a special prorperty: for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span></p>
+<p>Irreducible and aperiodic Markov chains are also called <strong>ergodic</strong>. Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the <strong>limiting distribution</strong> or the <strong>steady-state</strong> distribution.</p></li>
 <li><p><strong>Computing invariant distributions.</strong> The equation <span class="math inline">\(π = π P\)</span> can be written component-wise as <span class="math display">\[
   π_j = \sum_{i \in \ALPHABET X} π_i P_{ij}, \quad \forall j \in \ALPHABET X.
 \]</span> These equations are called <strong>balance equations</strong> and can be used to find invariant distributions. Together with the constraint that <span class="math inline">\(π\)</span> is a probability distribution (i.e., <span class="math inline">\(\sum_{j \in \ALPHABET X} π_j = 1\)</span> and <span class="math inline">\(π_j \ge 0\)</span> for all <span class="math inline">\(j\)</span>), they form a system of linear equations that can be solved to determine the invariant distribution.</p></li>
@@ -1405,9 +1404,6 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
   \pi_2 \cdot 0.7 = \pi_1 \cdot 0.7
 \end{align*}\]</span> Together with the normalization constraint <span class="math inline">\(π_0 + π_1 + π_2 = 1\)</span>, we get <span class="math inline">\(π_0 = π_1 = π_2 = 1/3\)</span>. This illustrates how balance equations can be derived directly from the state diagram by considering probability flows.</p></li>
 <li><p>The above example is an illustration of a more general principle. If <span class="math inline">\(P\)</span> is doubly stochastic (i.e., both row sum and column sums are <span class="math inline">\(1\)</span>), then the invariant distribution is a uniform distribution.</p></li>
-</ol>
-<p>Note that if the chain is not irreducible, then it may have multiple invariant distributions.</p>
-<ol start="10" type="1">
 <li><p><strong>Exercises: Computing Invariant Distributions</strong></p>
 <div id="exm-invariant-transient-closed" class="theorem example">
 <p><span class="theorem-title"><strong>Example 9.16</strong></span> Consider the Markov chain with transition matrix<br>
@@ -1439,9 +1435,6 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 </figure>
 </div>
 <p>Note that this chain is not irreducible (it has two absorbing states). Compute all possible invariant distributions.</p>
-</div>
-<div id="exm-invariant-convex" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.18</strong></span> Suppose a Markov chain has <span class="math inline">\(N\)</span> absorbing states and no transitions between them. What does the set of invariant distributions look like? Express your answer in terms of convex combinations.</p>
 </div></li>
 </ol>
 </section>
@@ -1478,7 +1471,7 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 </div>
 </div></li>
 <li><p>As discussed above, limiting distributions exist for ergodic Markov chains (i.e., irreducible and aperiodic Markov chains): for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span></p>
-<p>This is equivalent to the statement that for all <span class="math inline">\(i, j \in \ALPHABET X\)</span>, <span class="math display">\[\lim_{n \to \infty} P^{(n)}_{ij} = π_j.\]</span> The matrix version of this property is: <span class="math display">\[
+<p>This is equivalent to the statement that for all <span class="math inline">\(i, j \in \ALPHABET X\)</span>, <span class="math display">\[\lim_{n \to \infty} P^{(n)}_{ij} = π_j.\]</span> This is an consequence of <a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem">:Perron Frobenius Theorem</a>. In matrix form, we have <span class="math display">\[
 \lim_{n \to \infty} P^n =
 \MATRIX{
    \pi \\
@@ -1493,14 +1486,8 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <li><p>An immediate consequence of the ergodic property is that given an ergodic Markov chain <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and any function <span class="math inline">\(f \colon \ALPHABET X \to \reals\)</span>, we have <span class="math display">\[
 \lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j).
 \]</span></p></li>
+<li><p>If the chain is periodic with period <span class="math inline">\(d &gt; 1\)</span> (i.e., not aperiodic), the limiting distribution <span class="math inline">\(\lim_{n \to \infty} P^n\)</span> does not exist in the usual sense, as the transition probabilities continue to oscillate. However, if the chain is irreducible, it still possesses a unique invariant distribution <span class="math inline">\(π\)</span>. In the periodic case, results like ergodicity and the law of large numbers still hold if we consider time averages over subsequences that are integer multiples of the period <span class="math inline">\(d\)</span>, i.e., convergence happens along these subsequences, not along every <span class="math inline">\(n\)</span>.</p></li>
 </ol>
-<section id="further-remarks" class="level3" data-number="9.6.1">
-<h3 data-number="9.6.1" class="anchored" data-anchor-id="further-remarks"><span class="header-section-number">9.6.1</span> Further Remarks</h3>
-<ul>
-<li>If the chain is not aperiodic (i.e., has period <span class="math inline">\(d &gt; 1\)</span>), the limiting distribution as above may not exist, but the chain may still have an invariant distribution.</li>
-<li>In the special case where <span class="math inline">\(P\)</span> is doubly stochastic (rows and columns sum to 1), the limiting distribution is uniform: <span class="math inline">\(\pi_j = 1/|\ALPHABET X|\)</span>.</li>
-</ul>
-</section>
 </section>
 <section id="exercises" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
