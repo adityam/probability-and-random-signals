@@ -777,7 +777,9 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
    $$
    This chain has an invariant distribution given by $π = [b/(a+b), a/(a+b)]$ (assuming $a+b > 0$). One can verify that $π = π P$, which shows that an invariant distribution exists for this chain.
 
-4. A Markov chain can have multiple invariant distributions. For example, consider a Markov chain with two absorbing states $0$ and $1$. The transition matrix is
+4. A finite Markov chain with only one communication class has a **unique** invariant distribution. Thus, irreducible Markov chains have a unique invariant distribution. Note that aperiodicity is not required. For instance, consider on-off Markov chain from @exm-on-off with $a = b = 1$. This chain is periodic, but has a unique invariant distribution $π = [\frac 12, \frac 12]$. 
+
+4. A Markov chain with more than one closed communicating class has multiple invariant distributions. For example, consider a Markov chain with two absorbing states $0$ and $1$. The transition matrix is
    $$
      P = \MATRIX{ 1 & 0 \\ 0 & 1 }.
    $$
@@ -794,18 +796,19 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
    More generally, if a Markov chain has multiple irreducible communicating (closed) classes, each class can have its own invariant distribution (supported only on that class). Any convex combination of these distributions is also an invariant distribution for the whole chain.
 
-5. An irreducible and aperiodic Markov chain has a **unique** invariant distribution. Such Markov chains are also called **ergodic**. As we will see later, such Markov chains have the property that for any initial distribution $μ^{(0)}$, we have 
-$$\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.$$
-Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the **limiting distribution** or the **steady-state** distribution.
+6. A Markov chain that is irreducible and **aperiodic** has a special prorperty: for any initial distribution $μ^{(0)}$, we have 
+   $$\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.$$
 
-6. **Computing invariant distributions.** 
+     Irreducible and aperiodic Markov chains are also called **ergodic**. Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the **limiting distribution** or the **steady-state** distribution.
+
+7. **Computing invariant distributions.** 
   The equation $π = π P$ can be written component-wise as
    $$
      π_j = \sum_{i \in \ALPHABET X} π_i P_{ij}, \quad \forall j \in \ALPHABET X.
    $$
    These equations are called **balance equations** and can be used to find invariant distributions. Together with the constraint that $π$ is a probability distribution (i.e., $\sum_{j \in \ALPHABET X} π_j = 1$ and $π_j \ge 0$ for all $j$), they form a system of linear equations that can be solved to determine the invariant distribution.
 
-7. As an example, let's compute the invariant distribution of the on-off Markov chain from @exm-on-off. The transition matrix is
+8. As an example, let's compute the invariant distribution of the on-off Markov chain from @exm-on-off. The transition matrix is
    $$
      P = \MATRIX{ 1 - a & a \\ b & 1 - b }.
    $$
@@ -820,7 +823,7 @@ Thus, an ergodic Markov chain converges to its invariant distribution. For this 
    $$
    Therefore, $π_1 = 1 - π_0 = \frac{a}{a+b}$. The invariant distribution is $π = [b/(a+b), a/(a+b)]$, which matches the result mentioned in point 3.
 
-8. We can write balance equations directly from the state transition diagram. For each state $j$, the balance equation states that the probability flow into state $j$ equals the probability flow out of state $j$. Consider the three-state Markov chain with transition matrix
+9. We can write balance equations directly from the state transition diagram. For each state $j$, the balance equation states that the probability flow into state $j$ equals the probability flow out of state $j$. Consider the three-state Markov chain with transition matrix
    $$
      P = \MATRIX{ 0.3 & 0.7 & 0 \\
                   0 & 0.3 & 0.7 \\
@@ -856,9 +859,7 @@ Thus, an ergodic Markov chain converges to its invariant distribution. For this 
    \end{align*}
    Together with the normalization constraint $π_0 + π_1 + π_2 = 1$, we get $π_0 = π_1 = π_2 = 1/3$. This illustrates how balance equations can be derived directly from the state diagram by considering probability flows.
 
-9. The above example is an illustration of a more general principle. If $P$ is doubly stochastic (i.e., both row sum and column sums are $1$), then the invariant distribution is a uniform distribution. 
-
-  Note that if the chain is not irreducible, then it may have multiple invariant distributions. 
+10. The above example is an illustration of a more general principle. If $P$ is doubly stochastic (i.e., both row sum and column sums are $1$), then the invariant distribution is a uniform distribution. 
 
 10. **Exercises: Computing Invariant Distributions**
 
@@ -889,10 +890,6 @@ Thus, an ergodic Markov chain converges to its invariant distribution. For this 
     Note that this chain is not irreducible (it has two absorbing states). Compute all possible invariant distributions.
     :::
 
-    :::{#exm-invariant-convex}
-    Suppose a Markov chain has $N$ absorbing states and no transitions between them. What does the set of invariant distributions look like? Express your answer in terms of convex combinations.
-    :::
-
 ## Limiting Distribution
 
 1. Suppose a finite Markov chain has the property that starting from any initial distribution, the distribution of $X_n$ converges to some distribution $\pi$ as $n \to \infty$:
@@ -920,12 +917,13 @@ Thus, an ergodic Markov chain converges to its invariant distribution. For this 
    Thus, $π$ is an invariant distribution. 
    :::
 
+
 2. As discussed above, limiting distributions exist for ergodic Markov chains (i.e., irreducible and aperiodic Markov chains): for any initial distribution $μ^{(0)}$, we have 
    $$\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.$$
 
     This is equivalent to the statement that for all $i, j \in \ALPHABET X$,
     $$\lim_{n \to \infty} P^{(n)}_{ij} = π_j.$$
-    The matrix version of this property is:
+    This is an consequence of [:Perron Frobenius Theorem](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem).  In matrix form, we have
     $$
     \lim_{n \to \infty} P^n = 
     \MATRIX{
@@ -948,10 +946,7 @@ Thus, an ergodic Markov chain converges to its invariant distribution. For this 
    \lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j). 
    $$
  
-### Further Remarks
-
-- If the chain is not aperiodic (i.e., has period $d > 1$), the limiting distribution as above may not exist, but the chain may still have an invariant distribution.
-- In the special case where $P$ is doubly stochastic (rows and columns sum to 1), the limiting distribution is uniform: $\pi_j = 1/|\ALPHABET X|$. 
+5. If the chain is periodic with period $d > 1$ (i.e., not aperiodic), the limiting distribution $\lim_{n \to \infty} P^n$ does not exist in the usual sense, as the transition probabilities continue to oscillate. However, if the chain is irreducible, it still possesses a unique invariant distribution $π$. In the periodic case, results like ergodicity and the law of large numbers still hold if we consider time averages over subsequences that are integer multiples of the period $d$, i.e., convergence happens along these subsequences, not along every $n$.
 
 ## Exercises{-}
 :::{#exr-time-reversal}
