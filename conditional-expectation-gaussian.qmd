@@ -1,0 +1,211 @@
+---
+title: Conditional expectation for Gaussians
+---
+
+
+## Review of Gaussian random variables
+
+1. A multivariate Gaussian random vector $X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)$ has a PDF
+   $$
+   f_X(x) = \frac{1}{(2\pi)^{n/2} \det(\Sigma)^{1/2}} \exp\left( -\frac{1}{2} (x - \mu)^\TRANS \Sigma^{-1} (x - \mu) \right), \quad x \in \reals^n
+   $$
+   and MGF
+   $$
+   M_X(s) = \EXP\big[ e^{s^\TRANS X} \big] = \exp\left( s^\TRANS \mu + \frac{1}{2} s^\TRANS \Sigma s \right), \qquad s \in \reals^n.
+   $$
+
+2. Thus, all moments of a Gaussian random variable can be expressed in terms of its mean and variance. In particular, if $X \sim \mathcal{N}(0, \sigma^2)$, then all odd moments are zero; all even moments can be written in terms of the variance: 
+   $$
+   \EXP[X^{2k}] =
+   \underbrace{(2k-1)\cdot(2k-3)\cdots3\cdot1}_{\eqqcolon (2k-1)!!}\, \sigma^{2k}
+   $$
+   
+3. Any linear combination of jointly Gaussian random variables is also Gaussian.
+
+   More concretely, if $X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)$ and $A \in \reals^{m \times n}$ and $b \in \reals^m$, then the affine transformation $A X + b$ is also Gaussian:
+   $$
+   A X + b \sim \mathcal{N}\big(A\mu + b,\, A\Sigma A^\TRANS\big).
+   $$
+   
+4. A consequence of the above is that if $X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)$, then any subvector formed by selecting a subset of the indices is itself multivariate Gaussian, with the corresponding mean vector and covariance matrix.
+
+5. Gaussian random variables are independent if and only if they are uncorrelated. In particular, if $X$ and $Y$ are (jointly) Gaussian random variables, then $X$ and $Y$ are independent if and only if $\COV(X, Y) = 0$.
+
+    For a jointly Gaussian random vector $(X_1, \dots, X_n)$, the components are independent if and only if the covariance matrix is diagonal.
+
+
+## Conditional expectation for Gaussian random variables
+
+1. If $X$ and $Y$ are jointly Gaussian, then $X|Y$ is also Gaussian. In particular, suppose 
+
+    - $X \sim \mathcal{N}(\mu_X, \sigma_X^2)$  
+    - $Y \sim \mathcal{N}(\mu_Y, \sigma_Y^2)$  
+    - $\COV(X, Y) = \rho \sigma_X \sigma_Y$, where $-1 \leq \rho \leq 1$
+
+    then 
+    $$
+    X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
+    $$
+    where:
+    - **Conditional mean:**
+      $$
+      \mu_{X|Y} = \mu_X + \rho \frac{\sigma_X}{\sigma_Y}(y - \mu_Y)
+      $$
+    - **Conditional variance:**
+      $$
+      \sigma^2_{X|Y} = \sigma_X^2 (1 - \rho^2)
+      $$
+
+2. It is possible to derive the above result from the definition of conditional probability by using some tedious algebra. However, we present a different approach here that is based on interpreting conditional expectations as orthogonal projections. 
+
+3. **Hilbert space of random variables**: The key idea is to construct a **Hilbert space** of square-integrable random variables. For scalar random variables $X$ and $Y$ with $\EXP[X^2] < ∞$ and $\EXP[Y^2] < ∞$, we define the inner product as
+    $$
+        \IP{X}{Y} = \EXP[XY].
+    $$
+    The corresponding norm is $\NORM{X}^2 = \EXP[X^2]$. It can be shown that this space is complete (i.e., all Cauchy sequences converge), and is therefore a Hilbert space. 
+
+    For $\reals^n$-valued square-integrable random vectors $X$ and $Y$ (i.e., $\EXP[\|X\|^2] < ∞$ and $\EXP[\|Y\|^2] < ∞$), we define the inner product as
+    $$
+        \IP{X}{Y} = \EXP[X^\TRANS Y].
+    $$
+    The corresponding norm is $\NORM{X}^2 = \EXP[\|X\|^2]$. As before, this space is complete and forms a Hilbert space.
+
+4. **Orthogonal projection theorem**: A fundamental property of Hilbert spaces is the orthogonal projection theorem. 
+
+   :::{#thm-orthogonal-projection}
+   #### Orthogonal Projection Theorem
+
+   Let $\ALPHABET M$ be a proper linear subspace of a Hilbert space $\ALPHABET H$. Then any element $x \in \ALPHABET H$ can be uniquely represented in the form 
+   $$ x = y + z $$
+   where $y \in \ALPHABET M$ and $z \perp \ALPHABET M$ (i.e., for any $w \in \ALPHABET M$, $\IP{z}{w} = 0$). This unique element $y$ is called the **orthogonal projection** of $x$ onto $\ALPHABET M$ and has the property that it minimizes the distance:
+   $$
+       \NORM{x - y} \le \NORM{x - w}, \quad \forall w \in \ALPHABET M.
+   $$
+   :::
+
+5. **Application to Gaussian random vectors**: Now consider $X \in \reals^n$ and $Y \in \reals^m$ to be jointly Gaussian random vectors, i.e.,
+   $$
+        \MATRIX{X \\ Y} \sim 
+        \mathcal{N}\left( 
+            \MATRIX{ μ_X \\ μ_Y},
+            \MATRIX{ Σ_{XX} & Σ_{XY} \\ Σ_{XY}^\TRANS & Σ_{YY}}
+            \right).
+   $$
+   Let $\ALPHABET M$ denote the proper linear subspace of all affine functions of $Y$, i.e.,
+   $$
+        \ALPHABET M = \{ K Y + c : K \in \reals^{n \times m}, c \in \reals^n  \}.
+   $$
+   Let $\hat{X}$ denote the orthogonal projection of $X$ onto $\ALPHABET M$. From @thm-orthogonal-projection, we know that $\hat{X}$ minimizes the distance, i.e., for any $W \in \ALPHABET M$, 
+   $$
+        \NORM{X - \hat{X}} \le \NORM{X - W}
+        \iff
+        \EXP[ \|X - \hat{X}\|^2] \le \EXP[ \|X - W\|^2].
+   $$
+   Thus, $\hat{X}$ minimizes the mean-squared error. Moreover, by the orthogonality property, the projection error is orthogonal to the subspace:
+   $$
+        \IP{W}{X - \hat{X}} = 0, \quad \forall W \in \ALPHABET M
+        \iff 
+        \EXP[ W^\TRANS (X - \hat{X})] = 0, \quad \forall W \in \ALPHABET M.
+   $$
+
+6. **Connection to conditional expectation**: The key insight is that for Gaussian random vectors, the orthogonal projection $\hat{X}$ equals the conditional expectation $\EXP[X \mid Y]$. 
+
+   For general random variables, conditional expectation $\EXP[X \mid Y]$ is defined as the (measurable) function $h(Y)$ that minimizes
+   $$
+   \EXP[ \| X - h(Y)\|^2 ]
+   $$
+   among all measurable functions $h(\cdot)$. We did not cover it earlier and simply take this as a fact. 
+
+   For Gaussian random vectors, a remarkable property is that the optimal $h$ is **affine** (linear plus constant). This means we can restrict our search to functions of the form $h(Y) = K Y + c$ for some matrix $K$ and vector $c$. Since $\hat{X}$ minimizes the mean-squared error over all affine functions (by the orthogonal projection theorem), it must be the conditional expectation:
+   $$
+   \hat{X} = \EXP[X \mid Y].
+   $$
+
+7. **Deriving the formula**: To find the explicit formula for $\EXP[X \mid Y]$, we write $\hat{X} = K_{\circ} Y + c_\circ$ and find $K_\circ$ and $c_\circ$ from properties of orthogonal projection. First note that from the smoothing property of conditional expectation, we have
+   $$
+      \EXP[ \hat X] = \EXP[ \EXP[ X \mid Y] ] = \EXP[X]
+      \implies
+      K_\circ μ_Y + c_\circ = μ_X 
+      \implies
+      c_\circ = μ_X - K_\circ μ_Y.
+   $$
+
+   By orthogonal projection theorem, the error $X - \hat{X} = (X - μ_X) - K_{\circ}(Y - μ_Y)$ must be orthogonal to all elements of $\ALPHABET M$. In particular, it must be orthogonal to $Y - μ_Y$ and to constant vectors.
+
+   The orthogonality condition with $K(Y - μ_Y)$ gives:
+   \begin{equation}\label{eq:orthogonal}
+   \EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )^\TRANS K(Y - μ_Y)] = 0,
+  \quad \forall K \in \reals^{n \times m}.
+   \end{equation}
+   We claim that \eqref{eq:orthogonal} is equivalent to 
+   \begin{equation}\label{eq:claim}
+   \EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )(Y - μ_Y)^\TRANS ] = \mathbf{0}_{n \times m}.
+   \end{equation}
+
+   :::{.callout-note collapse="true"}
+   #### Proof of Claim
+
+   For the ease of notation, define $U = (X - μ_X) - K_{\circ}(Y - μ_Y)$ and $V = Y - μ_Y$. Observe that
+   $$
+    U^\TRANS KV = \sum_{i=1}^n U_i [KV]_i 
+    = \sum_{i=1}^n \sum_{j=1}^m K_{ij} U_i V_j.
+   $$
+   Thus, 
+   \begin{equation}\label{eq:intermediate}
+      \EXP[ U^\TRANS K V] 
+      = \sum_{i=1}^n \sum_{j=1}^m K_{ij} \EXP[ U_i V_j] 
+   \end{equation}
+   We now show that \eqref{eq:orthogonal} implies \eqref{eq:claim}. Pick a $(i', j')$ and set $K_{ij} = δ_{ii'} δ_{jj'}$. Then, \eqref{eq:orthogonal} and \eqref{eq:intermediate} imply that
+   $$
+      \EXP[U_{i'} V_{j'}] = 0.
+   $$
+   Since $(i',j')$ were arbitrary, the above equation is true for all $(i', j')$. Writing this in vector notation gives \eqref{eq:claim}.
+
+   We now show the other direction. If \eqref{eq:claim} is true, then each term in the summand in the RHS of \eqref{eq:intermediate} is zero, and hence \eqref{eq:orthogonal} is true.
+   :::
+
+   Now the claim implies that
+   $$
+      Σ_{XY} = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ]
+      = K_{\circ} \EXP[ (Y - μ_Y) (Y - μ_Y)^\TRANS] 
+      = K_{\circ} Σ_{YY}
+   $$
+   Hence,
+   $$
+      K_{\circ} = Σ_{XY} Σ_{YY}^{-1}
+      \quad\text{and}\quad
+      c_{\circ} = μ_X - Σ_{XY} Σ_{YY}^{-1} μ_Y.
+   $$
+
+   Thus,
+   $$
+    \bbox[5pt,border: 1px solid]{
+       \EXP[ X \mid Y] = μ_X + Σ_{XY} Σ_{YY}^{-1}(Y - μ_Y)
+    }
+   $$
+
+   Since the conditional mean is an affine function of $Y$, it is a Gaussian random variable. 
+
+8. The **conditional covariance** $\COV(X \mid Y)$ is defined as 
+   $$
+      \COV(X \mid Y) = \EXP[ (X - \EXP[X \mid Y])(X - \EXP[X \mid Y])^\TRANS \mid Y]
+   $$
+   Note that we have already shown that $X - \hat X$ is orthogonal to every random variable in $\ALPHABET M$. Thus, $X - \hat X$ is orthogonal to $Y$. Hence,
+   $$
+      \EXP[ (X - \hat X)(X - \hat X)^\TRANS \mid Y] 
+      = \EXP[ (X - \hat X) (X - \hat X)^\TRANS].
+   $$
+   To simplify the calculation, we assume that $X$ and $Y$ are zero mean. Then, $\hat{X} = K_{\circ}Y$, and we have
+   \begin{align*}
+    \COV(X \mid Y) &= \EXP[ (X - \hat X) (X - \hat X)^\TRANS] \\
+    &= \EXP[ X X^\TRANS + K_{\circ} Y Y^\TRANS K_{\circ}^\TRANS - 2 X Y^\TRANS K_{\circ}^\TRANS] \\
+    &= Σ_{XX} + K_{\circ} Σ_{YY} K_{\circ}^\TRANS - 2 Σ_{XY} K_{\circ}^\TRANS \\
+    &= Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS.
+   \end{align*}
+
+9. **Summary**: For jointly Gaussian random vectors $(X, Y)$ with the joint distribution given above, the conditional distribution is Gaussian and is given by:
+   $$
+   \bbox[5pt,border: 1px solid]{
+   X \mid Y  \sim \mathcal{N}\left(μ_X + Σ_{XY} Σ_{YY}^{-1} (Y - μ_Y), \, Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS\right)
+   }
+   $$

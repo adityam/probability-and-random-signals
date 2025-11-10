@@ -27,6 +27,7 @@ book:
       - random-variables.qmd
       - random-vectors.qmd
       - conditional-expectation.qmd
+      - conditional-expectation-gaussian.qmd
       - moment-generating-functions.qmd
       - inequalities.qmd
       - convergence-of-random-variables.qmd
