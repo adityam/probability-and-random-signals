@@ -36,7 +36,7 @@ Conditional probability is perhaps the most important aspect of probability theo
 
     - If $F_{X|C}$ is continuous, then $X$ conditioned on $C$ is a continuous random variable which has a conditional PDF $f_{X|C}$ given by
       $$
-      f_{X|C}(x\mid C) = \frac{d}{dx} F_X(x \mid C).
+      f_{X|C}(x\mid C) = \frac{d}{dx} F_{X|C}(x \mid C).
       $$
 
     - If $F_{X|C}$ is neither piecewise constant nor continuous, then $X$ conditioned on $C$ is a mixed random variable.
@@ -74,6 +74,54 @@ Conditional probability is perhaps the most important aspect of probability theo
 
 :::{#exm-mixed-random-variable}
 Consider the following experiment. A fair coin is tossed. If the outcome is heads, $X$ is a uniform $[0,1]$ random variable. If the outcome is tails, $X$ is $\text{Bernoulli}(p)$ random variable. Find $F_X(x)$.
+:::
+
+:::{.callout-note collapse="true"}
+#### Solution
+Let $C_H$ denote the event that the coin shows heads and $C_T$ the event that it shows tails. The coin is fair, so $\PR(C_H) = \PR(C_T) = \frac{1}{2}$. 
+
+- If heads ($C_H$): $X \sim \text{Uniform}[0,1]$, so the conditional CDF is
+  $$
+  F_{X|C_H}(x) = 
+  \begin{cases}
+    0, & x < 0 \\
+    x, & 0 \leq x \leq 1 \\
+    1, & x > 1
+  \end{cases}
+  $$
+- If tails ($C_T$): $X \sim \text{Bernoulli}(p)$, so the conditional CDF is
+  $$
+  F_{X|C_T}(x) =
+  \begin{cases}
+    0, & x < 0 \\
+    1-p, & 0 \leq x < 1 \\
+    1, & x \geq 1
+  \end{cases}
+  $$
+
+By the law of total probability,
+\begin{align*}
+F_X(x) &= F_{X|C_H}(x)\, \PR(C_H) + F_{X|C_T}(x)\, \PR(C_T) \\
+&= \frac{1}{2} F_{X|C_H}(x) + \frac{1}{2} F_{X|C_T}(x)
+\end{align*}
+
+So,
+$$
+F_X(x) = 
+\begin{cases}
+0, & x < 0 \\\\
+\frac{1}{2}x + \frac{1}{2}(1-p), & 0 \leq x < 1 \\\\
+\frac{1}{2} \cdot 1 + \frac{1}{2} \cdot 1 = 1, & x \geq 1
+\end{cases}
+=
+\begin{cases}
+0, & x < 0 \\
+\frac{1}{2}x + \frac{1-p}{2}, & 0 \leq x < 1 \\
+1, & x \geq 1
+\end{cases}
+$$
+Thus, $X$ is a mixed random variable.
+
 :::
 
 :::{#exm-geometric-memoryless}
@@ -361,7 +409,10 @@ We now consider the case when we are conditioning on a continuous random variabl
     f_{X|Y}(x\mid y) = f_X(x), \quad \forall x, y \in \reals.
    $$
 
-5. We can show that conditional PMF and conditional PDF satisfy all the properties of PMFs and PDFs. Therefore, we can define conditional expectation $\EXP[ g(X) \mid Y = y ]$ in terms of $P_{X|Y}$ or $f_{X|Y}$. We can similarly define conditional variance
+7. We can show that conditional PMF and conditional PDF satisfy all the properties of PMFs and PDFs. Therefore, we can define conditional expectation $\EXP[ g(X) \mid Y = y ]$ in terms of $P_{X|Y}$ or $f_{X|Y}$. We can similarly define conditional variance $\VAR(X \mid Y = y)$ using the conditional probability law:
+$$
+\VAR(X \mid Y = y) = \EXP\left[ (X - \EXP[X \mid Y = y])^2 \mid Y = y \right].
+$$
 
 :::{#exm-conditional-density}
 Suppose $X$ and $Y$ are jointly continuous random variables with the joint PDF
@@ -483,31 +534,31 @@ Thus, $X_1 \mid X_2 = x_2$ is $\mathcal{N}(ρ \frac{σ_1}{σ_2} x_2, σ_1^2(1 - 
 
 1. When $X$ and $Y$ are jointly discrete with joint PMF $P_{X,Y}$, then we can define conditional expectation as
    $$
-   E[X \mid Y = y] = \sum_{x \in \ALPHABET X} x P_{X|Y}(x|y)
+   \EXP[X \mid Y = y] = \sum_{x \in \ALPHABET X} x P_{X|Y}(x|y)
    $$
    and, more generally, for any function $g$, 
    $$
-   E[g(X) \mid Y = y] = \sum_{x \in \ALPHABET X} g(x) P_{X|Y}(x|y).
+   \EXP[g(X) \mid Y = y] = \sum_{x \in \ALPHABET X} g(x) P_{X|Y}(x|y).
    $$
 
 2. Analogously, $X$ and $Y$ are jointly continuous with joint PDF $f_{X,Y}$, we can define conditional expectation as 
    $$
-   E[X|Y = y] = \int_{-∞}^{∞} x f_{X|Y}(x|y)\, dx
+   \EXP[X|Y = y] = \int_{-∞}^{∞} x f_{X|Y}(x|y)\, dx
    $$
    and, more generally, for any function $g$, 
    $$
-   E[g(X)|Y = y] = \int_{-∞}^{∞} g(x) f_{X|Y}(x|y)\, dx
+   \EXP[g(X)|Y = y] = \int_{-∞}^{∞} g(x) f_{X|Y}(x|y)\, dx
    $$
 
 3. Now consider a function $g(X,Y)$. Then, 
    $$
-   E[g(X,Y) \mid Y = y] = \int_{-∞}^{∞} g(x,y) f_{X|Y}(x|y)\, dx
-   = E[g(X,y) \mid Y = y].
+   \EXP[g(X,Y) \mid Y = y] = \int_{-∞}^{∞} g(x,y) f_{X|Y}(x|y)\, dx
+   = \EXP[g(X,y) \mid Y = y].
    $$
 
 4. Observe that
    \begin{align*}
-   \int_{-∞}^{∞} E[g(X,Y) \mid Y = y ] f_Y(y) dy
+   \int_{-∞}^{∞} \EXP[g(X,Y) \mid Y = y ] f_Y(y) dy
    &=
    \int_{-∞}^{∞} \int_{-∞}^{∞} g(x,y) f_{X|Y}(x|y) f_Y(y)\, dx\, dy \\
    &= 
@@ -552,7 +603,7 @@ The key idea is conditioning on a $σ$-algebra. To avoid technical subtleties, w
    $$ \EXP[ a_1 X_1 + a_2 X_2 \mid \ALPHABET G]
    = a_1 \EXP[X_1 \mid \ALPHABET G] + a_2 \EXP[X_2 \mid \ALPHABET G]. $$
 
-5. If $Y$ is another random variable which is $\ALPHABET G$ measurable (i.e., $Y$ takes constant values on the atoms of $\ALPHABET G$), then
+7. If $Y$ is another random variable which is $\ALPHABET G$ measurable (i.e., $Y$ takes constant values on the atoms of $\ALPHABET G$), then
    $$
    \EXP[X Y \mid \ALPHABET G] = Y \EXP[X \mid \ALPHABET G].
    $$
@@ -614,7 +665,7 @@ where we have taken $\ALPHABET H = \{\emptyset, Ω\}$ as the trivial $σ$-algebr
     $$
     \int_{B_Y} \left[ \int_{B_X} \frac{ f_{X,Y}(x,y) }{ f_{Y}(y) } \, dx \right] f_Y(y) \, dy
     = \int_{B_Y} \int_{B_X} f_{X,Y}(x,y) \, dx \, dy
-    = \PR(X \in B_X, Y \in B_X)
+    = \PR(X \in B_X, Y \in B_Y)
     $$
     which equals the LHS of \eqref{eq:defn-cond}. This is why the conditional density is defined the way it is defined!
 
@@ -640,4 +691,3 @@ a. Consider the events $A_k = \{ ω : X(ω) + Y(ω) = k\}$, $k \in \{0,1,2\}$. F
 
 b. Compute $\EXP[X + Y \mid X]$.
 :::
-
