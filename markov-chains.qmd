@@ -973,10 +973,12 @@ b. If the outcome of the first roll is $1$, what is the probability that the out
 
 ## Further Reading {-}
 
-1. [Grinstead and Snell, Introduction to Probability](https://stats.libretexts.org/Bookshelves/Probability_Theory/Introductory_Probability_(Grinstead_and_Snell)/11%3A_Markov_Chains/11.01%3A_Introduction), Chapter 11 has an excellent treatment of finite Markov chains. Has interesting exercises.
+1. Gubner, Chapter 12.
 
-2. [Kemeny and Snell, Finite Markov Chains](https://catalog.hathitrust.org/api/volumes/oclc/528648.html), Chapter 2--4.
+2. [Grinstead and Snell, Introduction to Probability](https://stats.libretexts.org/Bookshelves/Probability_Theory/Introductory_Probability_(Grinstead_and_Snell)/11%3A_Markov_Chains/11.01%3A_Introduction), Chapter 11 has an excellent treatment of finite Markov chains. Has interesting exercises.
 
-3. [Kemeny, Snell, and Knapp, Denumerable Markov Chains](https://archive.org/details/springer_10.1007-978-1-4684-9455-6), a slightly advanced version of the previous book. 
+3. [Kemeny and Snell, Finite Markov Chains](https://catalog.hathitrust.org/api/volumes/oclc/528648.html), Chapter 2--4.
 
-4. [Doyle and Snell, Random Walks and Electrical Networks](https://doi.org/10.5948/UPO9781614440222) shows a facinating relationship between random walks and circuits!
+4. [Kemeny, Snell, and Knapp, Denumerable Markov Chains](https://archive.org/details/springer_10.1007-978-1-4684-9455-6), a slightly advanced version of the previous book. 
+
+5. [Doyle and Snell, Random Walks and Electrical Networks](https://doi.org/10.5948/UPO9781614440222) shows a facinating relationship between random walks and circuits!

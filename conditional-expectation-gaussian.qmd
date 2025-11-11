@@ -27,7 +27,9 @@ title: Conditional expectation for Gaussians
    A X + b \sim \mathcal{N}\big(A\mu + b,\, A\Sigma A^\TRANS\big).
    $$
    
-4. A consequence of the above is that if $X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)$, then any subvector formed by selecting a subset of the indices is itself multivariate Gaussian, with the corresponding mean vector and covariance matrix.
+4. As a consequence, marginals of jointly Gassian random variables are also Gaussian. 
+
+   More concretely, if $X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)$, then any subvector formed by selecting a subset of the indices is itself multivariate Gaussian, with the corresponding mean vector and covariance matrix.
 
 5. Gaussian random variables are independent if and only if they are uncorrelated. In particular, if $X$ and $Y$ are (jointly) Gaussian random variables, then $X$ and $Y$ are independent if and only if $\COV(X, Y) = 0$.
 
@@ -209,3 +211,16 @@ title: Conditional expectation for Gaussians
    X \mid Y  \sim \mathcal{N}\left(μ_X + Σ_{XY} Σ_{YY}^{-1} (Y - μ_Y), \, Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS\right)
    }
    $$
+
+
+## Exercises {-}
+
+:::{#exr-AWGN}
+  Let $X \sim \mathcal{N}(μ_X, Σ_X)$ denote the state of nature. We make an observation
+  $$ Y = X + W $$
+  where $W \sim \mathcal{N}(0, Σ_W)$. Find $\EXP[X \mid Y]$. 
+:::
+
+## Further reading {-}
+
+1. Gubner, Chapter 8.5, 9
