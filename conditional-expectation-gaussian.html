@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-10">
+<meta name="dcterms.date" content="2025-11-11">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>5&nbsp; Conditional expectation for Gaussians – Probability and Random Signals II</title>
@@ -470,6 +470,8 @@ window.Quarto = {
   <ul>
   <li><a href="#review-of-gaussian-random-variables" id="toc-review-of-gaussian-random-variables" class="nav-link active" data-scroll-target="#review-of-gaussian-random-variables"><span class="header-section-number">5.1</span> Review of Gaussian random variables</a></li>
   <li><a href="#conditional-expectation-for-gaussian-random-variables" id="toc-conditional-expectation-for-gaussian-random-variables" class="nav-link" data-scroll-target="#conditional-expectation-for-gaussian-random-variables"><span class="header-section-number">5.2</span> Conditional expectation for Gaussian random variables</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/conditional-expectation-gaussian.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -505,7 +507,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 10, 2025</p>
+      <p class="date">November 11, 2025</p>
     </div>
   </div>
   
@@ -533,7 +535,8 @@ M_X(s) = \EXP\big[ e^{s^\TRANS X} \big] = \exp\left( s^\TRANS \mu + \frac{1}{2} 
 <p>More concretely, if <span class="math inline">\(X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)\)</span> and <span class="math inline">\(A \in \reals^{m \times n}\)</span> and <span class="math inline">\(b \in \reals^m\)</span>, then the affine transformation <span class="math inline">\(A X + b\)</span> is also Gaussian: <span class="math display">\[
 A X + b \sim \mathcal{N}\big(A\mu + b,\, A\Sigma A^\TRANS\big).
 \]</span></p></li>
-<li><p>A consequence of the above is that if <span class="math inline">\(X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)\)</span>, then any subvector formed by selecting a subset of the indices is itself multivariate Gaussian, with the corresponding mean vector and covariance matrix.</p></li>
+<li><p>As a consequence, marginals of jointly Gassian random variables are also Gaussian.</p>
+<p>More concretely, if <span class="math inline">\(X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)\)</span>, then any subvector formed by selecting a subset of the indices is itself multivariate Gaussian, with the corresponding mean vector and covariance matrix.</p></li>
 <li><p>Gaussian random variables are independent if and only if they are uncorrelated. In particular, if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are (jointly) Gaussian random variables, then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math inline">\(\COV(X, Y) = 0\)</span>.</p>
 <p>For a jointly Gaussian random vector <span class="math inline">\((X_1, \dots, X_n)\)</span>, the components are independent if and only if the covariance matrix is diagonal.</p></li>
 </ol>
@@ -667,6 +670,18 @@ U^\TRANS KV = \sum_{i=1}^n U_i [KV]_i
 X \mid Y  \sim \mathcal{N}\left(μ_X + Σ_{XY} Σ_{YY}^{-1} (Y - μ_Y), \, Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS\right)
 }
 \]</span></p></li>
+</ol>
+</section>
+<section id="exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
+<div id="exr-AWGN" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 5.1</strong></span> Let <span class="math inline">\(X \sim \mathcal{N}(μ_X, Σ_X)\)</span> denote the state of nature. We make an observation <span class="math display">\[ Y = X + W \]</span> where <span class="math inline">\(W \sim \mathcal{N}(0, Σ_W)\)</span>. Find <span class="math inline">\(\EXP[X \mid Y]\)</span>.</p>
+</div>
+</section>
+<section id="further-reading" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="further-reading">Further reading</h2>
+<ol type="1">
+<li>Gubner, Chapter 8.5, 9</li>
 </ol>
 
 
