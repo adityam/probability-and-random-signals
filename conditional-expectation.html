@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-11">
+<meta name="dcterms.date" content="2025-11-12">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>4&nbsp; Conditional probability and conditional expectation – Probability and Random Signals II</title>
@@ -141,6 +141,7 @@ window.MathJax = {
       LEXP: "\\mathbb{L}",
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
+      GP: "\\operatorname{GP}",
       IND: "\\mathbb{1}",
       ONES: "\\mathbf{1}",
       reals: "\\mathbb{R}",
@@ -166,10 +167,12 @@ window.MathJax = {
       ALPHABET: ["\\mathcal{#1}", 1],
       MATRIX: ["\\begin{bmatrix} #1 \\end{bmatrix}", 1],
       DET: ["\\begin{vmatrix} #1 \\end{vmatrix}", 1],
-      NORM: ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1],
+      NORM: ["\\lVert #1 \\rVert", 1],
+      NORMSCALE: ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1],
       ABS: ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1],
       GRAD: "\\nabla",
-      IP: ["\\left\\langle #1, #2 \\right\\rangle", 2]
+      IP: ["\\langle #1, #2 \\rangle", 2],
+      IPSCALE: ["\\left\\langle #1, #2 \\right\\rangle", 2]
     },
   },
   options: {
@@ -513,6 +516,7 @@ window.Quarto = {
   <li><a href="#smoothing-property-of-conditional-expectation" id="toc-smoothing-property-of-conditional-expectation" class="nav-link" data-scroll-target="#smoothing-property-of-conditional-expectation"><span class="header-section-number">4.3.2</span> Smoothing property of conditional expectation</a></li>
   <li><a href="#conditioning-on-random-variable" id="toc-conditioning-on-random-variable" class="nav-link" data-scroll-target="#conditioning-on-random-variable"><span class="header-section-number">4.3.3</span> Conditioning on random variable</a></li>
   </ul></li>
+  <li><a href="#MMSE" id="toc-MMSE" class="nav-link" data-scroll-target="#MMSE"><span class="header-section-number">4.4</span> Conditional expectation as minimum mean square estimator</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/conditional-expectation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -548,7 +552,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 11, 2025</p>
+      <p class="date">November 12, 2025</p>
     </div>
   </div>
   
@@ -1193,9 +1197,84 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 <li><p>Compute <span class="math inline">\(\EXP[X + Y \mid X]\)</span>.</p></li>
 </ol>
 </div>
-
-
 </section>
+</section>
+<section id="MMSE" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="MMSE"><span class="header-section-number">4.4</span> Conditional expectation as minimum mean square estimator</h2>
+<ol type="1">
+<li><p>Suppose we observe a random variable <span class="math inline">\(Y\)</span> and wish to estimate another random variable <span class="math inline">\(X\)</span>. We seek a function <span class="math inline">\(h(Y)\)</span> that minimizes the mean-squared error: <span class="math display">\[
+\EXP[(X - h(Y))^2].
+\]</span> The function <span class="math inline">\(h\)</span> that minimizes this quantity is called the <strong>minimum mean-squared error (MMSE) estimator</strong> of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>The conditional expectation <span class="math inline">\(\EXP[X \mid Y]\)</span> is the MMSE estimator of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recall that in <a href="random-variables.html#exm-streaming-variance" class="quarto-xref">Example&nbsp;<span>2.23</span></a>, we had shown that <span class="math display">\[
+   \EXP[ (X-t)^2 ] = \EXP[ (X - μ)^2] + (t - μ)^2.
+\]</span></p>
+<p>By the same argument, we have <span class="math display">\[
+   \EXP[ (X - h(Y))^2 \mid Y ] = \EXP[ (X - \EXP[X\mid Y])^2 \mid Y] + (h(Y) - \EXP[X\mid Y])^2
+\]</span> since <span class="math inline">\(h(Y)\)</span> is <span class="math inline">\(Y\)</span>-measurable.</p>
+<p>By smoothing property of conditional expectation, we have <span class="math display">\[\begin{equation}\label{eq:MMSE-error}
+\EXP[(X - h(Y))^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(h(Y) - \EXP[X \mid Y])^2].
+\end{equation}\]</span> which is minimized when <span class="math inline">\(h(Y) = \EXP[X\mid Y]\)</span>.</p>
+</div>
+</div></li>
+<li><p>The error <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is <strong>orthogonal</strong> (i.e., uncorrelated) to all functions of <span class="math inline">\(Y\)</span>, i.e., for any (measurable) function <span class="math inline">\(g(Y)\)</span>, we have <span class="math display">\[ \EXP[(X - \EXP[X \mid Y]) g(Y)] = 0. \]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By the smoothing property of conditional expectation, we have <span class="math display">\[\begin{align*}
+\EXP[(X - \EXP[X \mid Y]) g(Y)] &amp;= \EXP[\EXP[(X - \EXP[X \mid Y]) g(Y) \mid Y]] \\
+&amp;= \EXP[g(Y) \EXP[X - \EXP[X \mid Y] \mid Y]] \\
+&amp;= \EXP[g(Y) \cdot 0] = 0
+\end{align*}\]</span> where we used the fact that <span class="math inline">\(\EXP[X - \EXP[X \mid Y] \mid Y] = 0\)</span>.</p>
+</div>
+</div></li>
+<li><p>Conversely, if a function <span class="math inline">\(h(Y)\)</span> is such that the error <span class="math inline">\(X - h(Y)\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>, i.e., <span class="math inline">\(\EXP[(X - h(Y)) g(Y)] = 0\)</span> for all functions <span class="math inline">\(g(Y)\)</span>, then <span class="math inline">\(h(Y) = \EXP[X \mid Y]\)</span> (almost surely), and hence <span class="math inline">\(h(Y)\)</span> is the MMSE estimator.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Suppose <span class="math inline">\(\EXP[(X - h(Y)) g(Y)] = 0\)</span> for all functions <span class="math inline">\(g(Y)\)</span>. In particular, taking <span class="math inline">\(g(Y) = h(Y) - \EXP[X \mid Y]\)</span>, we have: <span class="math display">\[
+\EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] = 0.
+\]</span> Expanding this, we get <span class="math display">\[\begin{align*}
+0 &amp;= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
+  &amp;= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
+  &amp;= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
+\end{align*}\]</span> The first term is zero because <span class="math inline">\(h(Y) - \EXP[X \mid Y]\)</span> is a function of <span class="math inline">\(Y\)</span> and, by point 4, <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>. Therefore, <span class="math display">\[
+\EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
+\]</span> which implies <span class="math inline">\(h(Y) = \EXP[X \mid Y]\)</span> almost surely. By point 2, this means <span class="math inline">\(h(Y)\)</span> is the MMSE estimator.</p>
+</div>
+</div></li>
+<li><p>The MMSE estimator is unbiased: <span class="math inline">\(\EXP[X - \EXP[X \mid Y]] = \EXP[X] - \EXP[\EXP[X \mid Y]] = 0\)</span> by the smoothing property.</p></li>
+<li><p>The total variance of <span class="math inline">\(X\)</span> can be decomposed as: <span class="math display">\[
+\VAR(X) = \EXP[(X - \EXP[X])^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(\EXP[X \mid Y] - \EXP[X])^2].
+\]</span> This follows from point 3 by taking <span class="math inline">\(h(Y) = \EXP[X]\)</span> (a constant function) in <span class="math inline">\(\eqref{eq:MMSE-error}\)</span>. The first term is the <strong>estimation error</strong> (the variance that cannot be reduced by observing <span class="math inline">\(Y\)</span>), and the second term is the variance of the estimator itself.</p></li>
+<li><p>When <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, the conditional expectation is an affine function of <span class="math inline">\(Y\)</span>. This is a special property of Gaussian distributions. We expanded on this in <a href="./conditional-expectation-gaussian.html">the next section</a>.</p></li>
+</ol>
+
+
 </section>
 
 
