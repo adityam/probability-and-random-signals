@@ -110,20 +110,43 @@ title: Conditional expectation for Gaussians
         \EXP[ W^\TRANS (X - \hat{X})] = 0, \quad \forall W \in \ALPHABET M.
    $$
 
-6. **Connection to conditional expectation**: The key insight is that for Gaussian random vectors, the orthogonal projection $\hat{X}$ equals the conditional expectation $\EXP[X \mid Y]$. 
-
-   For general random variables, conditional expectation $\EXP[X \mid Y]$ is defined as the (measurable) function $h(Y)$ that minimizes
+6. An immediate implication of the above is that $\hat X$ is an **unbiased estimator** of $X$, i.e., 
    $$
-   \EXP[ \| X - h(Y)\|^2 ]
+   \EXP[\hat{X}] = \EXP[X].
    $$
-   among all measurable functions $h(\cdot)$. We did not cover it earlier and simply take this as a fact. 
+   
+   :::{.callout-note}
+   #### Proof
+   
+   Since $\ALPHABET M$ includes all affine functions of $Y$, it includes $e_i$, the unit vector in the $i$-th direction. Hence,
+   $$
+   \EXP[\hat{X}] = \EXP[X] + \EXP[ \IP{X - \hat{X}}{e_i}] = \EXP[X] + \EXP[ \IP{X - \hat{X}}{e_i}] = \EXP[X].
+   $$
+   :::
 
-   For Gaussian random vectors, a remarkable property is that the optimal $h$ is **affine** (linear plus constant). This means we can restrict our search to functions of the form $h(Y) = K Y + c$ for some matrix $K$ and vector $c$. Since $\hat{X}$ minimizes the mean-squared error over all affine functions (by the orthogonal projection theorem), it must be the conditional expectation:
+7. The orthogonal projection is the conditional expectation, i.e.,
    $$
    \hat{X} = \EXP[X \mid Y].
    $$
 
-7. **Deriving the formula**: To find the explicit formula for $\EXP[X \mid Y]$, we write $\hat{X} = K_{\circ} Y + c_\circ$ and find $K_\circ$ and $c_\circ$ from properties of orthogonal projection. First note that from the smoothing property of conditional expectation, we have
+   :::{.callout-note}
+   #### Proof
+
+   Since $\hat{X} \in \ALPHABET M$, it is an affine function of $Y$. Hence $X - \hat X$ and $Y$ are jointly Gaussian. Moreover, since $Y \in \ALPHABET M$, $Y$ is orthogonal to $X - \hat X$, i.e., 
+   $$
+   \EXP[ \IP{X - \hat{X}}{Y}] = 0.
+   $$
+
+   Since $X - \hat X$ and $Y$ are jointly Gaussian, uncorrelation implies independence. Hence, $X - \hat{X}$ and $Y$ are independent. Therefore, for any (measurable) function $g$, the independence gives:
+   $$
+   \EXP[\IP{X - \hat{X}}{g(Y)}] = \EXP[X - \hat{X}]^\TRANS \EXP[g(Y)] = 0,
+   $$
+   where the last equality follows from the fact that $\hat X$ is an unbiased estimator of $X$. 
+
+   Now, [from last section](conditional-expectation.qmd#MMSE), we know that the conditional expectation is the unique function $h(Y)$ such that $X - h(Y)$ is orthogonal to all functions of $Y$. Hence, $\EXP[X \mid Y] = \hat{X}$. 
+   :::
+
+8. **Deriving the formula**: To find the explicit formula for $\EXP[X \mid Y]$, we write $\hat{X} = K_{\circ} Y + c_\circ$ and find $K_\circ$ and $c_\circ$ from properties of orthogonal projection. First note that from the smoothing property of conditional expectation, we have
    $$
       \EXP[ \hat X] = \EXP[ \EXP[ X \mid Y] ] = \EXP[X]
       \implies
@@ -188,7 +211,7 @@ title: Conditional expectation for Gaussians
 
    Since the conditional mean is an affine function of $Y$, it is a Gaussian random variable. 
 
-8. The **conditional covariance** $\COV(X \mid Y)$ is defined as 
+9. The **conditional covariance** $\COV(X \mid Y)$ is defined as 
    $$
       \COV(X \mid Y) = \EXP[ (X - \EXP[X \mid Y])(X - \EXP[X \mid Y])^\TRANS \mid Y]
    $$
@@ -205,7 +228,7 @@ title: Conditional expectation for Gaussians
     &= Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS.
    \end{align*}
 
-9. **Summary**: For jointly Gaussian random vectors $(X, Y)$ with the joint distribution given above, the conditional distribution is Gaussian and is given by:
+10. **Summary**: For jointly Gaussian random vectors $(X, Y)$ with the joint distribution given above, the conditional distribution is Gaussian and is given by:
    $$
    \bbox[5pt,border: 1px solid]{
    X \mid Y  \sim \mathcal{N}\left(μ_X + Σ_{XY} Σ_{YY}^{-1} (Y - μ_Y), \, Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS\right)
@@ -219,6 +242,16 @@ title: Conditional expectation for Gaussians
   Let $X \sim \mathcal{N}(μ_X, Σ_X)$ denote the state of nature. We make an observation
   $$ Y = X + W $$
   where $W \sim \mathcal{N}(0, Σ_W)$. Find $\EXP[X \mid Y]$. 
+:::
+
+:::{#exr-sensor-fusion}
+A robot is trying to estimate its position $X \sim \mathcal{N}(μ_X, Σ_X)$ using two independent sensors. Sensor 1 provides measurement
+$$ Y_1 = C_1 X + W_1 $$
+where $W_1 \sim \mathcal{N}(0, Σ_{W_1})$ is measurement noise and $C_1$ is a known measurement matrix. Sensor 2 provides measurement
+$$ Y_2 = C_2 X + W_2 $$
+where $W_2 \sim \mathcal{N}(0, Σ_{W_2})$ is independent of $W_1$ and $C_2$ is another known measurement matrix.
+
+Find $\EXP[X \mid Y_1, Y_2]$ and show how the conditional covariance compares to using a single sensor.
 :::
 
 ## Further reading {-}

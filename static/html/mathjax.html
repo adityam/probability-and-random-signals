@@ -25,6 +25,7 @@ window.MathJax = {
       LEXP: "\\mathbb{L}",
       "VAR": "\\operatorname{var}",
       COV: "\\operatorname{cov}",
+      GP: "\\operatorname{GP}",
       IND: "\\mathbb{1}",
       ONES: "\\mathbf{1}",
       reals: "\\mathbb{R}",
@@ -50,10 +51,12 @@ window.MathJax = {
       ALPHABET: ["\\mathcal{#1}", 1],
       MATRIX: ["\\begin{bmatrix} #1 \\end{bmatrix}", 1],
       DET: ["\\begin{vmatrix} #1 \\end{vmatrix}", 1],
-      NORM: ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1],
+      NORM: ["\\lVert #1 \\rVert", 1],
+      NORMSCALE: ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1],
       ABS: ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1],
       GRAD: "\\nabla",
-      IP: ["\\left\\langle #1, #2 \\right\\rangle", 2]
+      IP: ["\\langle #1, #2 \\rangle", 2],
+      IPSCALE: ["\\left\\langle #1, #2 \\right\\rangle", 2]
     },
   },
   options: {
