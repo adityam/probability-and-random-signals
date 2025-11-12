@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -42,9 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-b68a706d8191437c2c46203d0393f4be.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -348,10 +348,6 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
-  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -389,10 +385,6 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -557,27 +549,45 @@ A X + b \sim \mathcal{N}\big(A\mu + b,\, A\Sigma A^\TRANS\big).
 </ul>
 <p>then <span class="math display">\[
 X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
-\]</span> where:</p>
-<ul>
-<li><strong>Conditional mean:</strong> <span class="math display">\[
+\]</span> where the conditional mean is <span class="math display">\[
 \mu_{X|Y} = \mu_X + \rho \frac{\sigma_X}{\sigma_Y}(y - \mu_Y)
-\]</span></li>
-<li><strong>Conditional variance:</strong> <span class="math display">\[
+\]</span> and the conditional variance <span class="math display">\[
 \sigma^2_{X|Y} = \sigma_X^2 (1 - \rho^2)
-\]</span></li>
-</ul></li>
+\]</span></p></li>
 <li><p>It is possible to derive the above result from the definition of conditional probability by using some tedious algebra. However, we present a different approach here that is based on interpreting conditional expectations as orthogonal projections.</p></li>
 <li><p><strong>Hilbert space of random variables</strong>: The key idea is to construct a <strong>Hilbert space</strong> of square-integrable random variables. For scalar random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with <span class="math inline">\(\EXP[X^2] &lt; ∞\)</span> and <span class="math inline">\(\EXP[Y^2] &lt; ∞\)</span>, we define the inner product as <span class="math display">\[
      \IP{X}{Y} = \EXP[XY].
 \]</span> The corresponding norm is <span class="math inline">\(\NORM{X}^2 = \EXP[X^2]\)</span>. It can be shown that this space is complete (i.e., all Cauchy sequences converge), and is therefore a Hilbert space.</p>
-<p>For <span class="math inline">\(\reals^n\)</span>-valued square-integrable random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (i.e., <span class="math inline">\(\EXP[\|X\|^2] &lt; ∞\)</span> and <span class="math inline">\(\EXP[\|Y\|^2] &lt; ∞\)</span>), we define the inner product as <span class="math display">\[
-     \IP{X}{Y} = \EXP[X^\TRANS Y].
-\]</span> The corresponding norm is <span class="math inline">\(\NORM{X}^2 = \EXP[\|X\|^2]\)</span>. As before, this space is complete and forms a Hilbert space.</p></li>
+<p>For <span class="math inline">\(\reals^n\)</span>-valued square-integrable random vectors <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> (i.e., <span class="math inline">\(\EXP[\|X_1\|^2] &lt; ∞\)</span> and <span class="math inline">\(\EXP[\|X_2\|^2] &lt; ∞\)</span>), we define the inner product as <span class="math display">\[
+     \IP{X_1}{X_2} = \EXP[X_1^\TRANS X_2].
+\]</span> The corresponding norm is <span class="math inline">\(\NORM{X}^2 = \EXP[\NORM{X}^2]\)</span>. As before, this space is complete and forms a Hilbert space.</p></li>
 <li><p><strong>Orthogonal projection theorem</strong>: A fundamental property of Hilbert spaces is the orthogonal projection theorem.</p>
 <div id="thm-orthogonal-projection" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 5.1 (Orthogonal Projection Theorem)</strong></span> Let <span class="math inline">\(\ALPHABET M\)</span> be a proper linear subspace of a Hilbert space <span class="math inline">\(\ALPHABET H\)</span>. Then any element <span class="math inline">\(x \in \ALPHABET H\)</span> can be uniquely represented in the form <span class="math display">\[ x = y + z \]</span> where <span class="math inline">\(y \in \ALPHABET M\)</span> and <span class="math inline">\(z \perp \ALPHABET M\)</span> (i.e., for any <span class="math inline">\(w \in \ALPHABET M\)</span>, <span class="math inline">\(\IP{z}{w} = 0\)</span>). This unique element <span class="math inline">\(y\)</span> is called the <strong>orthogonal projection</strong> of <span class="math inline">\(x\)</span> onto <span class="math inline">\(\ALPHABET M\)</span> and has the property that it minimizes the distance: <span class="math display">\[
-    \NORM{x - y} \le \NORM{x - w}, \quad \forall w \in \ALPHABET M.
+<p><span class="theorem-title"><strong>Theorem 5.1 (Orthogonal Projection Theorem)</strong></span> Let <span class="math inline">\(\ALPHABET M\)</span> be a proper linear subspace of a Hilbert space <span class="math inline">\(\ALPHABET H\)</span>. Then any element <span class="math inline">\(x \in \ALPHABET H\)</span> can be uniquely represented in the form <span class="math display">\[ x = \hat x + e \]</span> where <span class="math inline">\(\hat x \in \ALPHABET M\)</span> and <span class="math inline">\(e \perp \ALPHABET M\)</span> (i.e., for any <span class="math inline">\(w \in \ALPHABET M\)</span>, <span class="math inline">\(\IP{e}{w} = 0\)</span>). This unique element <span class="math inline">\(\hat x\)</span> is called the <strong>orthogonal projection</strong> of <span class="math inline">\(x\)</span> onto <span class="math inline">\(\ALPHABET M\)</span> and has the property that it minimizes the distance: <span class="math display">\[
+    \NORM{x - \hat x} \le \NORM{x - w}, \quad \forall w \in \ALPHABET M.
 \]</span></p>
+</div></li>
+<li><p>We also state a Lemma which will be useful later on.</p>
+<div id="lem-matrix-orthogonality" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 5.1</strong></span> If <span class="math inline">\(u \in \reals^n\)</span> and <span class="math inline">\(w \in \reals^m\)</span> are vectors such that <span class="math inline">\(u^\TRANS K w = 0\)</span> for all matrices <span class="math inline">\(K \in \reals^{n \times m}\)</span>, then <span class="math inline">\(u w^\TRANS = \mathbf{0}_{n \times m}\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Note that <span class="math display">\[u^\TRANS K w = \sum_{i=1}^n \sum_{j=1}^m K_{ij} u_i w_j.\]</span></p>
+<p>For any <span class="math inline">\((i', j')\)</span> with <span class="math inline">\(1 \le i' \le n\)</span> and <span class="math inline">\(1 \le j' \le m\)</span>, choose <span class="math inline">\(K\)</span> such that <span class="math inline">\(K_{ij} = δ_{ii'} δ_{jj'}\)</span> (i.e., <span class="math inline">\(K\)</span> has a <span class="math inline">\(1\)</span> in position <span class="math inline">\((i', j')\)</span> and zeros elsewhere). Then <span class="math inline">\(u^\TRANS K w = u_{i'} w_{j'} = 0\)</span>.</p>
+<p>Since <span class="math inline">\((i', j')\)</span> was arbitrary, we have <span class="math inline">\(u_i w_j = 0\)</span> for all <span class="math inline">\(i, j\)</span>. Therefore, <span class="math inline">\(u w^\TRANS = \mathbf{0}_{n \times m}\)</span>.</p>
+</div>
+</div>
 </div></li>
 <li><p><strong>Application to Gaussian random vectors</strong>: Now consider <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> to be jointly Gaussian random vectors, i.e., <span class="math display">\[
      \MATRIX{X \\ Y} \sim
@@ -627,10 +637,11 @@ X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Since <span class="math inline">\(\hat{X} \in \ALPHABET M\)</span>, it is an affine function of <span class="math inline">\(Y\)</span>. Hence <span class="math inline">\(X - \hat X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian. Moreover, since <span class="math inline">\(Y \in \ALPHABET M\)</span>, <span class="math inline">\(Y\)</span> is orthogonal to <span class="math inline">\(X - \hat X\)</span>, i.e., <span class="math display">\[
-\EXP[ \IP{X - \hat{X}}{Y}] = 0.
-\]</span></p>
-<p>Since <span class="math inline">\(X - \hat X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, uncorrelation implies independence. Hence, <span class="math inline">\(X - \hat{X}\)</span> and <span class="math inline">\(Y\)</span> are independent. Therefore, for any (measurable) function <span class="math inline">\(g\)</span>, the independence gives: <span class="math display">\[
+<p>Since <span class="math inline">\(\hat{X} \in \ALPHABET M\)</span>, it is an affine function of <span class="math inline">\(Y\)</span>. Hence <span class="math inline">\(X - \hat X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian. Moreover, since <span class="math inline">\(K(Y - μ_Y) \in \ALPHABET M\)</span> for all <span class="math inline">\(K \in \reals^{n \times m}\)</span>, we have <span class="math display">\[
+\EXP[ (X - \hat{X})^\TRANS K(Y - μ_Y)] = 0, \quad \forall K \in \reals^{n \times m}.
+\]</span> By <a href="#lem-matrix-orthogonality" class="quarto-xref">Lemma&nbsp;<span>5.1</span></a>, this implies that <span class="math display">\[
+\EXP[(X - \hat{X})(Y - μ_Y)^\TRANS] = \mathbf{0}_{n \times m}.
+\]</span> Since <span class="math inline">\(X - \hat X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian and uncorrelated (as shown above), they are independent. Therefore, for any (measurable) function <span class="math inline">\(g\)</span>, the independence gives: <span class="math display">\[
 \EXP[\IP{X - \hat{X}}{g(Y)}] = \EXP[X - \hat{X}]^\TRANS \EXP[g(Y)] = 0,
 \]</span> where the last equality follows from the fact that <span class="math inline">\(\hat X\)</span> is an unbiased estimator of <span class="math inline">\(X\)</span>.</p>
 <p>Now, <a href="./conditional-expectation.html#MMSE">from last section</a>, we know that the conditional expectation is the unique function <span class="math inline">\(h(Y)\)</span> such that <span class="math inline">\(X - h(Y)\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>. Hence, <span class="math inline">\(\EXP[X \mid Y] = \hat{X}\)</span>.</p>
@@ -647,35 +658,10 @@ X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
 <p>The orthogonality condition with <span class="math inline">\(K(Y - μ_Y)\)</span> gives: <span class="math display">\[\begin{equation}\label{eq:orthogonal}
 \EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )^\TRANS K(Y - μ_Y)] = 0,
   \quad \forall K \in \reals^{n \times m}.
-\end{equation}\]</span> We claim that <span class="math inline">\(\eqref{eq:orthogonal}\)</span> is equivalent to <span class="math display">\[\begin{equation}\label{eq:claim}
+\end{equation}\]</span> By <a href="#lem-matrix-orthogonality" class="quarto-xref">Lemma&nbsp;<span>5.1</span></a>, <span class="math inline">\(\eqref{eq:orthogonal}\)</span> is equivalent to <span class="math display">\[\begin{equation}\label{eq:claim}
 \EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )(Y - μ_Y)^\TRANS ] = \mathbf{0}_{n \times m}.
 \end{equation}\]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof of Claim
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>For the ease of notation, define <span class="math inline">\(U = (X - μ_X) - K_{\circ}(Y - μ_Y)\)</span> and <span class="math inline">\(V = Y - μ_Y\)</span>. Observe that <span class="math display">\[
-U^\TRANS KV = \sum_{i=1}^n U_i [KV]_i
-= \sum_{i=1}^n \sum_{j=1}^m K_{ij} U_i V_j.
-\]</span> Thus, <span class="math display">\[\begin{equation}\label{eq:intermediate}
-   \EXP[ U^\TRANS K V]
-   = \sum_{i=1}^n \sum_{j=1}^m K_{ij} \EXP[ U_i V_j]
-\end{equation}\]</span> We now show that <span class="math inline">\(\eqref{eq:orthogonal}\)</span> implies <span class="math inline">\(\eqref{eq:claim}\)</span>. Pick a <span class="math inline">\((i', j')\)</span> and set <span class="math inline">\(K_{ij} = δ_{ii'} δ_{jj'}\)</span>. Then, <span class="math inline">\(\eqref{eq:orthogonal}\)</span> and <span class="math inline">\(\eqref{eq:intermediate}\)</span> imply that <span class="math display">\[
-   \EXP[U_{i'} V_{j'}] = 0.
-\]</span> Since <span class="math inline">\((i',j')\)</span> were arbitrary, the above equation is true for all <span class="math inline">\((i', j')\)</span>. Writing this in vector notation gives <span class="math inline">\(\eqref{eq:claim}\)</span>.</p>
-<p>We now show the other direction. If <span class="math inline">\(\eqref{eq:claim}\)</span> is true, then each term in the summand in the RHS of <span class="math inline">\(\eqref{eq:intermediate}\)</span> is zero, and hence <span class="math inline">\(\eqref{eq:orthogonal}\)</span> is true.</p>
-</div>
-</div>
-</div>
-<p>Now the claim implies that <span class="math display">\[
+<p>Now this implies that <span class="math display">\[
    Σ_{XY} = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ]
    = K_{\circ} \EXP[ (Y - μ_Y) (Y - μ_Y)^\TRANS]
    = K_{\circ} Σ_{YY}
