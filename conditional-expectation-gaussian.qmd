@@ -48,15 +48,14 @@ title: Conditional expectation for Gaussians
     $$
     X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
     $$
-    where:
-    - **Conditional mean:**
-      $$
-      \mu_{X|Y} = \mu_X + \rho \frac{\sigma_X}{\sigma_Y}(y - \mu_Y)
-      $$
-    - **Conditional variance:**
-      $$
-      \sigma^2_{X|Y} = \sigma_X^2 (1 - \rho^2)
-      $$
+    where the conditional mean is
+    $$
+    \mu_{X|Y} = \mu_X + \rho \frac{\sigma_X}{\sigma_Y}(y - \mu_Y)
+    $$
+    and the conditional variance
+    $$
+    \sigma^2_{X|Y} = \sigma_X^2 (1 - \rho^2)
+    $$
 
 2. It is possible to derive the above result from the definition of conditional probability by using some tedious algebra. However, we present a different approach here that is based on interpreting conditional expectations as orthogonal projections. 
 
@@ -66,11 +65,11 @@ title: Conditional expectation for Gaussians
     $$
     The corresponding norm is $\NORM{X}^2 = \EXP[X^2]$. It can be shown that this space is complete (i.e., all Cauchy sequences converge), and is therefore a Hilbert space. 
 
-    For $\reals^n$-valued square-integrable random vectors $X$ and $Y$ (i.e., $\EXP[\|X\|^2] < ∞$ and $\EXP[\|Y\|^2] < ∞$), we define the inner product as
+    For $\reals^n$-valued square-integrable random vectors $X_1$ and $X_2$ (i.e., $\EXP[\|X_1\|^2] < ∞$ and $\EXP[\|X_2\|^2] < ∞$), we define the inner product as
     $$
-        \IP{X}{Y} = \EXP[X^\TRANS Y].
+        \IP{X_1}{X_2} = \EXP[X_1^\TRANS X_2].
     $$
-    The corresponding norm is $\NORM{X}^2 = \EXP[\|X\|^2]$. As before, this space is complete and forms a Hilbert space.
+    The corresponding norm is $\NORM{X}^2 = \EXP[\NORM{X}^2]$. As before, this space is complete and forms a Hilbert space.
 
 4. **Orthogonal projection theorem**: A fundamental property of Hilbert spaces is the orthogonal projection theorem. 
 
@@ -78,11 +77,30 @@ title: Conditional expectation for Gaussians
    #### Orthogonal Projection Theorem
 
    Let $\ALPHABET M$ be a proper linear subspace of a Hilbert space $\ALPHABET H$. Then any element $x \in \ALPHABET H$ can be uniquely represented in the form 
-   $$ x = y + z $$
-   where $y \in \ALPHABET M$ and $z \perp \ALPHABET M$ (i.e., for any $w \in \ALPHABET M$, $\IP{z}{w} = 0$). This unique element $y$ is called the **orthogonal projection** of $x$ onto $\ALPHABET M$ and has the property that it minimizes the distance:
+   $$ x = \hat x + e $$
+   where $\hat x \in \ALPHABET M$ and $e \perp \ALPHABET M$ (i.e., for any $w \in \ALPHABET M$, $\IP{e}{w} = 0$). This unique element $\hat x$ is called the **orthogonal projection** of $x$ onto $\ALPHABET M$ and has the property that it minimizes the distance:
    $$
-       \NORM{x - y} \le \NORM{x - w}, \quad \forall w \in \ALPHABET M.
+       \NORM{x - \hat x} \le \NORM{x - w}, \quad \forall w \in \ALPHABET M.
    $$
+   :::
+
+5. We also state a Lemma which will be useful later on.
+
+   :::{#lem-matrix-orthogonality}
+   #### 
+
+   If $u \in \reals^n$ and $w \in \reals^m$ are vectors such that $u^\TRANS K w = 0$ for all matrices $K \in \reals^{n \times m}$, then $u w^\TRANS = \mathbf{0}_{n \times m}$.
+   :::
+
+   :::{.callout-note collapse="true"}
+   #### Proof
+
+   Note that 
+   $$u^\TRANS K w = \sum_{i=1}^n \sum_{j=1}^m K_{ij} u_i w_j.$$
+
+   For any $(i', j')$ with $1 \le i' \le n$ and $1 \le j' \le m$, choose $K$ such that $K_{ij} = δ_{ii'} δ_{jj'}$ (i.e., $K$ has a $1$ in position $(i', j')$ and zeros elsewhere). Then $u^\TRANS K w = u_{i'} w_{j'} = 0$.
+
+   Since $(i', j')$ was arbitrary, we have $u_i w_j = 0$ for all $i, j$. Therefore, $u w^\TRANS = \mathbf{0}_{n \times m}$.
    :::
 
 5. **Application to Gaussian random vectors**: Now consider $X \in \reals^n$ and $Y \in \reals^m$ to be jointly Gaussian random vectors, i.e.,
@@ -132,12 +150,15 @@ title: Conditional expectation for Gaussians
    :::{.callout-note}
    #### Proof
 
-   Since $\hat{X} \in \ALPHABET M$, it is an affine function of $Y$. Hence $X - \hat X$ and $Y$ are jointly Gaussian. Moreover, since $Y \in \ALPHABET M$, $Y$ is orthogonal to $X - \hat X$, i.e., 
+   Since $\hat{X} \in \ALPHABET M$, it is an affine function of $Y$. Hence $X - \hat X$ and $Y$ are jointly Gaussian. Moreover, since $K(Y - μ_Y) \in \ALPHABET M$ for all $K \in \reals^{n \times m}$, we have
    $$
-   \EXP[ \IP{X - \hat{X}}{Y}] = 0.
+   \EXP[ (X - \hat{X})^\TRANS K(Y - μ_Y)] = 0, \quad \forall K \in \reals^{n \times m}.
    $$
-
-   Since $X - \hat X$ and $Y$ are jointly Gaussian, uncorrelation implies independence. Hence, $X - \hat{X}$ and $Y$ are independent. Therefore, for any (measurable) function $g$, the independence gives:
+   By @lem-matrix-orthogonality, this implies that
+   $$
+   \EXP[(X - \hat{X})(Y - μ_Y)^\TRANS] = \mathbf{0}_{n \times m}.
+   $$
+   Since $X - \hat X$ and $Y$ are jointly Gaussian and uncorrelated (as shown above), they are independent. Therefore, for any (measurable) function $g$, the independence gives:
    $$
    \EXP[\IP{X - \hat{X}}{g(Y)}] = \EXP[X - \hat{X}]^\TRANS \EXP[g(Y)] = 0,
    $$
@@ -162,34 +183,12 @@ title: Conditional expectation for Gaussians
    \EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )^\TRANS K(Y - μ_Y)] = 0,
   \quad \forall K \in \reals^{n \times m}.
    \end{equation}
-   We claim that \eqref{eq:orthogonal} is equivalent to 
+   By @lem-matrix-orthogonality, \eqref{eq:orthogonal} is equivalent to 
    \begin{equation}\label{eq:claim}
    \EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )(Y - μ_Y)^\TRANS ] = \mathbf{0}_{n \times m}.
    \end{equation}
 
-   :::{.callout-note collapse="true"}
-   #### Proof of Claim
-
-   For the ease of notation, define $U = (X - μ_X) - K_{\circ}(Y - μ_Y)$ and $V = Y - μ_Y$. Observe that
-   $$
-    U^\TRANS KV = \sum_{i=1}^n U_i [KV]_i 
-    = \sum_{i=1}^n \sum_{j=1}^m K_{ij} U_i V_j.
-   $$
-   Thus, 
-   \begin{equation}\label{eq:intermediate}
-      \EXP[ U^\TRANS K V] 
-      = \sum_{i=1}^n \sum_{j=1}^m K_{ij} \EXP[ U_i V_j] 
-   \end{equation}
-   We now show that \eqref{eq:orthogonal} implies \eqref{eq:claim}. Pick a $(i', j')$ and set $K_{ij} = δ_{ii'} δ_{jj'}$. Then, \eqref{eq:orthogonal} and \eqref{eq:intermediate} imply that
-   $$
-      \EXP[U_{i'} V_{j'}] = 0.
-   $$
-   Since $(i',j')$ were arbitrary, the above equation is true for all $(i', j')$. Writing this in vector notation gives \eqref{eq:claim}.
-
-   We now show the other direction. If \eqref{eq:claim} is true, then each term in the summand in the RHS of \eqref{eq:intermediate} is zero, and hence \eqref{eq:orthogonal} is true.
-   :::
-
-   Now the claim implies that
+   Now this implies that
    $$
       Σ_{XY} = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ]
       = K_{\circ} \EXP[ (Y - μ_Y) (Y - μ_Y)^\TRANS] 
