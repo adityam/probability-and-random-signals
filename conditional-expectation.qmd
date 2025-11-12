@@ -691,3 +691,82 @@ a. Consider the events $A_k = \{ ω : X(ω) + Y(ω) = k\}$, $k \in \{0,1,2\}$. F
 
 b. Compute $\EXP[X + Y \mid X]$.
 :::
+
+## Conditional expectation as minimum mean square estimator {#MMSE}
+
+1. Suppose we observe a random variable $Y$ and wish to estimate another random variable $X$. We seek a function $h(Y)$ that minimizes the mean-squared error:
+   $$
+   \EXP[(X - h(Y))^2].
+   $$
+   The function $h$ that minimizes this quantity is called the **minimum mean-squared error (MMSE) estimator** of $X$ given $Y$.
+
+2. The conditional expectation $\EXP[X \mid Y]$ is the MMSE estimator of $X$ given $Y$
+
+   :::{.callout-note}
+   #### Proof
+
+   Recall that in @exm-streaming-variance, we had shown that
+   $$
+      \EXP[ (X-t)^2 ] = \EXP[ (X - μ)^2] + (t - μ)^2.
+   $$
+
+   By the same argument, we have
+   $$
+      \EXP[ (X - h(Y))^2 \mid Y ] = \EXP[ (X - \EXP[X\mid Y])^2 \mid Y] + (h(Y) - \EXP[X\mid Y])^2
+   $$
+   since $h(Y)$ is $Y$-measurable. 
+
+   By smoothing property of conditional expectation, we have
+   \begin{equation}\label{eq:MMSE-error}
+   \EXP[(X - h(Y))^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(h(Y) - \EXP[X \mid Y])^2].
+   \end{equation}
+   which is minimized when $h(Y) = \EXP[X\mid Y]$.
+   :::
+
+4. The error $X - \EXP[X \mid Y]$ is **orthogonal** (i.e., uncorrelated) to all functions of $Y$, i.e., for any (measurable) function $g(Y)$, we have
+   $$ \EXP[(X - \EXP[X \mid Y]) g(Y)] = 0. $$
+
+   :::{.callout-note}
+   #### Proof
+
+   By the smoothing property of conditional expectation, we have
+   \begin{align*}
+   \EXP[(X - \EXP[X \mid Y]) g(Y)] &= \EXP[\EXP[(X - \EXP[X \mid Y]) g(Y) \mid Y]] \\
+   &= \EXP[g(Y) \EXP[X - \EXP[X \mid Y] \mid Y]] \\
+   &= \EXP[g(Y) \cdot 0] = 0
+   \end{align*}
+   where we used the fact that $\EXP[X - \EXP[X \mid Y] \mid Y] = 0$. 
+   :::
+
+5. Conversely, if a function $h(Y)$ is such that the error $X - h(Y)$ is orthogonal to all functions of $Y$, i.e., $\EXP[(X - h(Y)) g(Y)] = 0$ for all functions $g(Y)$, then $h(Y) = \EXP[X \mid Y]$ (almost surely), and hence $h(Y)$ is the MMSE estimator.
+
+   :::{.callout-note}
+   #### Proof
+
+   Suppose $\EXP[(X - h(Y)) g(Y)] = 0$ for all functions $g(Y)$. In particular, taking $g(Y) = h(Y) - \EXP[X \mid Y]$, we have:
+   $$
+   \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] = 0.
+   $$
+   Expanding this, we get
+   \begin{align*}
+   0 &= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
+     &= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
+     &= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
+   \end{align*}
+   The first term is zero because $h(Y) - \EXP[X \mid Y]$ is a function of $Y$ and, by point 4, $X - \EXP[X \mid Y]$ is orthogonal to all functions of $Y$. Therefore,
+   $$
+   \EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
+   $$
+   which implies $h(Y) = \EXP[X \mid Y]$ almost surely. By point 2, this means $h(Y)$ is the MMSE estimator.
+   :::
+
+6. The MMSE estimator is unbiased: $\EXP[X - \EXP[X \mid Y]] = \EXP[X] - \EXP[\EXP[X \mid Y]] = 0$ by the smoothing property.
+
+7. The total variance of $X$ can be decomposed as:
+   $$
+   \VAR(X) = \EXP[(X - \EXP[X])^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(\EXP[X \mid Y] - \EXP[X])^2].
+   $$
+   This follows from point 3 by taking $h(Y) = \EXP[X]$ (a constant function) in \eqref{eq:MMSE-error}. The first term is the **estimation error** (the variance that cannot be reduced by observing $Y$), and the second term is the variance of the estimator itself.
+
+8. When $X$ and $Y$ are jointly Gaussian, the conditional expectation is an affine function of $Y$. This is a special property of Gaussian distributions. We expanded on this in [the next section](conditional-expectation-gaussian.qmd). 
+
