@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aditya Mahajan">
+<meta name="dcterms.date" content="2025-11-19">
+<meta name="description" content="Course Notes for ECSE 509 (McGill University)">
+
+<title>11&nbsp; Gaussian processes – Probability and Random Signals II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./markov-chains.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-b68a706d8191437c2c46203d0393f4be.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-73f166bbf3be02be0128c0a6a57c36c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-b68a706d8191437c2c46203d0393f4be.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script>
+// https://github.com/mathjax/MathJax/issues/2744#issuecomment-1658624747
+// To fix the bug that uppercase unicode letters are shown in italic
+window.MathJax = {
+  startup: {
+    ready() {
+      const {RANGES} = MathJax._.core.MmlTree.OperatorDictionary;
+      const {TEXCLASS} = MathJax._.core.MmlTree.MmlNode;
+      RANGES.splice(4, 1,
+        [0x0370, 0x0385, TEXCLASS.ORD, 'mi'],
+        [0x0386, 0x3AB, TEXCLASS.ORD, 'mi', 'normal'],
+        [0x03AC, 0x1A20, TEXCLASS.ORD, 'mi']
+      );
+      MathJax.startup.defaultReady();
+    }
+  },
+  tex: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    tags: "ams",
+    macros: {
+      PR: "\\mathbb{P}",
+      EXP: "\\mathbb{E}",
+      LEXP: "\\mathbb{L}",
+      "VAR": "\\operatorname{var}",
+      COV: "\\operatorname{cov}",
+      GP: "\\operatorname{GP}",
+      IND: "\\mathbb{1}",
+      ONES: "\\mathbf{1}",
+      reals: "\\mathbb{R}",
+      naturalnumbers: "\\mathbb{N}",
+      integers: "\\mathbb{Z}",
+      BLANK: "\\mathfrak{E}",
+      TRANS: "\\intercal",
+      // independent: "⫫", // Too short
+      independent: "\\mathrel{\\perp \\mkern -10mu \\perp}",
+      BELLMAN: "\\mathcal{B}",
+      RICCATI: "\\mathcal{R}",
+      GAIN: "\\mathcal{G}",
+      GREEDY: "\\mathcal{G}",
+      MISMATCH: "\\mathcal{D}",
+      VEC: "\\operatorname{vec}",
+      diag: "\\operatorname{diag}",
+      ROWS: "\\operatorname{vec}",
+      TR: "\\operatorname{Tr}",   
+      SPAN: "\\operatorname{sp}",   
+      DRE: "\\operatorname{DRE}",   
+      DARE: "\\operatorname{DARE}",   
+      LQR: "\\operatorname{LQR}",   
+      ALPHABET: ["\\mathcal{#1}", 1],
+      MATRIX: ["\\begin{bmatrix} #1 \\end{bmatrix}", 1],
+      DET: ["\\begin{vmatrix} #1 \\end{vmatrix}", 1],
+      NORM: ["\\lVert #1 \\rVert", 1],
+      NORMSCALE: ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1],
+      ABS: ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1],
+      GRAD: "\\nabla",
+      IP: ["\\langle #1, #2 \\rangle", 2],
+      IPSCALE: ["\\left\\langle #1, #2 \\right\\rangle", 2]
+    },
+  },
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+};
+</script>
+<script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Probability and Random Signals II</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/adityam/probability-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./gaussian-processes.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Outline</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Probability spaces</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random vectors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-expectation-gaussian.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stochastic-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./markov-chains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gaussian-processes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#gaussian-processes" id="toc-gaussian-processes" class="nav-link active" data-scroll-target="#gaussian-processes"><span class="header-section-number">11.1</span> Gaussian processes</a></li>
+  <li><a href="#properties-of-covariance-functions" id="toc-properties-of-covariance-functions" class="nav-link" data-scroll-target="#properties-of-covariance-functions"><span class="header-section-number">11.2</span> Properties of covariance functions</a></li>
+  <li><a href="#examples-of-gaussian-processes" id="toc-examples-of-gaussian-processes" class="nav-link" data-scroll-target="#examples-of-gaussian-processes"><span class="header-section-number">11.3</span> Examples of Gaussian processes</a></li>
+  <li><a href="#review-of-discrete-time-lti-systems" id="toc-review-of-discrete-time-lti-systems" class="nav-link" data-scroll-target="#review-of-discrete-time-lti-systems"><span class="header-section-number">11.4</span> Review of discrete-time LTI systems</a></li>
+  <li><a href="#stationary-gaussian-processes-through-lti-systems" id="toc-stationary-gaussian-processes-through-lti-systems" class="nav-link" data-scroll-target="#stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.5</span> Stationary Gaussian processes through LTI systems</a></li>
+  <li><a href="#note-on-non-gaussian-processes" id="toc-note-on-non-gaussian-processes" class="nav-link" data-scroll-target="#note-on-non-gaussian-processes"><span class="header-section-number">11.6</span> Note on non-Gaussian processes</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/gaussian-processes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://adityam.github.io">Aditya Mahajan</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="http://www.mcgill.ca/ece">
+            McGill University
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Updated</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 19, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="gaussian-processes" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="gaussian-processes"><span class="header-section-number">11.1</span> Gaussian processes</h2>
+<ol type="1">
+<li><p>A discrete-time stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is called a <strong>Gaussian process</strong> if for any finite collection of time indices <span class="math inline">\(\{n_1, n_2, \dots, n_k\}\)</span> with <span class="math inline">\(n_i \ge 0\)</span>, the random vector <span class="math inline">\((X_{n_1}, X_{n_2}, \dots, X_{n_k})\)</span> has a multivariate Gaussian (normal) distribution.</p></li>
+<li><p>Equivalently, a discrete-time stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Gaussian process if every finite linear combination of the random variables <span class="math inline">\(X_n\)</span> is a Gaussian random variable.</p></li>
+<li><p>Since a multivariate Gaussian distribution is completely characterized by its mean vector and covariance matrix, a Gaussian process is completely characterized by:</p>
+<ul>
+<li><strong>Mean function:</strong> <span class="math inline">\(μ_X(n) = \EXP[X_n]\)</span></li>
+<li><strong>Covariance function:</strong> <span class="math inline">\(R_X(m,n) = \COV(X_m, X_n) = \EXP[(X_m - μ_X(m))(X_n - μ_X(n))]\)</span></li>
+</ul></li>
+<li><p>Recall that a stochastic process is <strong>strict sense stationary</strong> if for any finite collection of time indices <span class="math inline">\(\{n_1, n_2, \dots, n_k\}\)</span> with <span class="math inline">\(n_i \ge 0\)</span>, the random vector <span class="math inline">\((X_{n_1}, X_{n_2}, \dots, X_{n_k})\)</span> has the same distribution as the random vector <span class="math inline">\((X_{n_1 + h}, X_{n_2 + h}, \dots, X_{n_k + h})\)</span> for any <span class="math inline">\(h \ge 0\)</span>. For a Gaussian process, this is equivalent to the mean function being constant and the covariance function depending only on the time difference, i.e., <span class="math display">\[
+μ_X(n) = μ_X \quad \text{for all } n \ge 0, \quad R_X(m,n) = R_X(|n-m|) \quad \text{for all } m, n \ge 0.
+\]</span> An implication is that the variance of <span class="math inline">\(X_n\)</span> does not depend on <span class="math inline">\(n\)</span>.</p></li>
+</ol>
+</section>
+<section id="properties-of-covariance-functions" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="properties-of-covariance-functions"><span class="header-section-number">11.2</span> Properties of covariance functions</h2>
+<ol type="1">
+<li><p><strong>Symmetry:</strong> <span class="math inline">\(R_X(m,n) = R_X(n,m)\)</span> for all <span class="math inline">\(m, n \ge 0\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(R_X(m,n) = \EXP[(X_m - μ_X(m))(X_n - μ_X(n))] = R_X(n,m)\)</span> by commutativity of multiplication.</p>
+</div>
+</div>
+</div></li>
+<li><p><strong>Non-negative definiteness:</strong> For any finite collection <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> with <span class="math inline">\(n_i \ge 0\)</span> and any real numbers <span class="math inline">\(a_1, \dots, a_k\)</span>, we have <span class="math display">\[
+\sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j) \ge 0.
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Consider the random variable <span class="math inline">\(Y = \sum_{i=1}^k a_i (X_{n_i} - μ_X(n_i))\)</span>. Then <span class="math display">\[\begin{align*}
+\EXP[Y^2] &amp;= \EXP\left[\left(\sum_{i=1}^k a_i (X_{n_i} - μ_X(n_i))\right)^2\right] \\
+&amp;= \EXP\left[\sum_{i=1}^k \sum_{j=1}^k a_i a_j (X_{n_i} - μ_X(n_i))(X_{n_j} - μ_X(n_j))\right] \\
+&amp;= \sum_{i=1}^k \sum_{j=1}^k a_i a_j \EXP[(X_{n_i} - μ_X(n_i))(X_{n_j} - μ_X(n_j))] \\
+&amp;= \sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j).
+\end{align*}\]</span> Since <span class="math inline">\(\EXP[Y^2] = \VAR(Y) \ge 0\)</span> (variance is always non-negative), we have <span class="math display">\[
+\sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j) \ge 0.
+\]</span></p>
+</div>
+</div>
+</div></li>
+<li><p><strong>Cauchy-Schwarz inequality:</strong> <span class="math inline">\(|R_X(m,n)|^2 \le R_X(m,m) R_X(n,n)\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>This is a direct consequence of the <a href="inequalities.qmd@cauchy-schwarz-inequality">Cauchy-Schwarz inequality</a> for random variables: <span class="math display">\[
+|\EXP[YZ]|^2 \leq \EXP[Y^2]\EXP[Z^2],
+\]</span> where <span class="math inline">\(Y = X_m - μ_X(m)\)</span> and <span class="math inline">\(Z = X_n - μ_X(n)\)</span>. Thus, <span class="math display">\[
+|R_X(m,n)|^2 \le R_X(m,m) R_X(n,n).
+\]</span></p>
+</div>
+</div>
+</div></li>
+<li><p>The variance function is <span class="math inline">\(R_X(n,n) = \VAR(X_n) \ge 0\)</span>.</p></li>
+</ol>
+</section>
+<section id="examples-of-gaussian-processes" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="examples-of-gaussian-processes"><span class="header-section-number">11.3</span> Examples of Gaussian processes</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="70" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 69;"><span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">// Standard Normal variate using Box-Muller transform.</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean<span class="op">=</span><span class="dv">0</span><span class="op">,</span> stdev<span class="op">=</span><span class="dv">1</span>) {</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>( <span class="op">-</span><span class="fl">2.0</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>( u ) ) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>( <span class="fl">2.0</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v )<span class="op">;</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z <span class="op">*</span> stdev <span class="op">+</span> mean<span class="op">;</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div id="exm-cosine-gaussian-phase" class="theorem example">
+<p><span class="theorem-title"><strong>Example 11.1 (Cosine with Gaussian amplitude)</strong></span> Consider a process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> defined as: <span class="math display">\[
+X_n = U \cos(\Omega n) + V \sin(\Omega n)
+\]</span> where <span class="math inline">\(\Omega \in \mathbb{R}\)</span> is a constant frequency, and <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent Gaussian random variables with <span class="math inline">\(U, V \sim \mathcal{N}(0, \sigma^2)\)</span>.</p>
+<p>A sample path of this process is shown below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="92" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 91;"><span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>viewof rerun_cosine_gauss <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>points_cosine_gauss <span class="op">=</span> {</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>    rerun_cosine_gauss</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> f <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> U <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> V <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> U <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n) <span class="op">+</span> V <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n)</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> val }</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="110" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 109;"><span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]}<span class="op">,</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Find the mean and covariance function of the process. Is the process stationary?</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Mean function:</strong></p>
+<p><span class="math display">\[\begin{align*}
+\mu_X(n) &amp;= \EXP[X_n] = \EXP[U \cos(\Omega n) + V \sin(\Omega n)] \\
+&amp;= \EXP[U] \cos(\Omega n) + \EXP[V] \sin(\Omega n) \\
+&amp;= 0
+\end{align*}\]</span> since <span class="math inline">\(\EXP[U] = \EXP[V] = 0\)</span>.</p>
+<p><strong>Covariance function:</strong></p>
+<p><span class="math display">\[\begin{align*}
+R_X(m,n) &amp;= \EXP[X_m X_n] \\
+&amp;= \EXP[(U \cos(\Omega m) + V \sin(\Omega m))(U \cos(\Omega n) + V \sin(\Omega n))] \\
+&amp;= \EXP[U^2] \cos(\Omega m) \cos(\Omega n) + \EXP[UV] \cos(\Omega m) \sin(\Omega n) \\
+&amp;\quad + \EXP[VU] \sin(\Omega m) \cos(\Omega n) + \EXP[V^2] \sin(\Omega m) \sin(\Omega n)
+  \\
+&amp;= \sigma^2 [\cos(\Omega m) \cos(\Omega n) + \sin(\Omega m) \sin(\Omega n)] \\
+&amp;= \sigma^2 \cos(\Omega (m-n))
+\end{align*}\]</span> using the identity <span class="math inline">\(\cos(a-b) = \cos(a)\cos(b) + \sin(a)\sin(b)\)</span>.</p>
+<p>Since cosine is even: <span class="math display">\[
+R_X(m,n) = \sigma^2 \cos(\Omega |m-n|)
+\]</span></p>
+<p>Thus, the process is sationary.</p>
+</div>
+</div>
+</div>
+<div id="exm-white-noise" class="theorem example">
+<p><span class="theorem-title"><strong>Example 11.2 (White noise process (i.i.d. Gaussian))</strong></span> A <strong>white noise process</strong> <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is a Gaussian process where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, \sigma^2)\)</span> for some <span class="math inline">\(\sigma &gt; 0\)</span>.</p>
+<p>A sample path of white noise is shown below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="170" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 169;"><span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a>viewof rerun_white <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>points_white <span class="op">=</span> {</span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>    rerun_white</span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N)</span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">W_n</span><span class="op">:</span> val }</span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="185" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 184;"><span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_white<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"W_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">,</span></span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_white<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"W_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Find the mean and covariance function of the process. Is the process stationary?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Mean function:</strong></p>
+<p>Since <span class="math inline">\(W_n \sim \mathcal{N}(0, \sigma^2)\)</span> for all <span class="math inline">\(n \ge 0\)</span>, we have: <span class="math display">\[
+\mu_W(n) = \EXP[W_n] = 0 \quad \text{for all } n \ge 0
+\]</span></p>
+<p><strong>Covariance function:</strong></p>
+<p>For <span class="math inline">\(m, n \ge 0\)</span>:</p>
+<ul>
+<li>If <span class="math inline">\(m = n\)</span>: <span class="math inline">\(R_W(m,n) = \COV(W_m, W_n) = \VAR(W_n) = \sigma^2\)</span></li>
+<li>If <span class="math inline">\(m \neq n\)</span>: Since <span class="math inline">\(W_m\)</span> and <span class="math inline">\(W_n\)</span> are independent, <span class="math inline">\(R_W(m,n) = \COV(W_m, W_n) = 0\)</span></li>
+</ul>
+<p>Therefore: <span class="math display">\[
+R_W(m,n) = \sigma^2 \IND_{\{m=n\}} \quad \text{for } m, n \ge 0
+\]</span> where <span class="math inline">\(\IND_{\{m=n\}}\)</span> is the indicator function that equals 1 when <span class="math inline">\(m = n\)</span> and 0 otherwise.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="exm-random-walk" class="theorem example">
+<p><span class="theorem-title"><strong>Example 11.3 (Gaussian random walk)</strong></span> A <strong>Gaussian random walk</strong> <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Gaussian process defined by: <span class="math display">\[
+X_0 = 0, \quad X_{n+1} = X_n + W_n, \quad n \ge 0
+\]</span> where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span> for some <span class="math inline">\(σ &gt; 0\)</span>.</p>
+<p>A sample path of a Gaussian random walk is shown below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="237" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 236;"><span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>viewof rerun_rw <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>points_rw <span class="op">=</span> {</span>
+<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>    rerun_rw</span>
+<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> X <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a>    points[<span class="dv">0</span>] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> <span class="dv">0</span> }</span>
+<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> W <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>      X <span class="op">=</span> X <span class="op">+</span> W</span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> X }</span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="255" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 254;"><span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_rw<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_rw<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Find the mean and covariance function of the process. Is the process sationary?</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Mean function:</strong></p>
+<p>Since <span class="math inline">\(X_0 = 0\)</span> and <span class="math inline">\(X_n = \sum_{k=0}^{n-1} W_k\)</span> for <span class="math inline">\(n \ge 1\)</span>, we have: <span class="math display">\[
+\mu_X(n) = \EXP[X_n] = \EXP\left[\sum_{k=0}^{n-1} W_k\right] = \sum_{k=0}^{n-1} \EXP[W_k] = 0 \quad \text{for all } n \ge 0
+\]</span></p>
+<p><strong>Covariance function:</strong></p>
+<p>For <span class="math inline">\(m, n \ge 0\)</span>, without loss of generality, assume <span class="math inline">\(m \le n\)</span>. Then: <span class="math display">\[\begin{align*}
+R_X(m,n) &amp;= \COV(X_m, X_n) = \EXP[X_m X_n] \\
+&amp;= \EXP\left[\left(\sum_{i=0}^{m-1} W_i\right)\left(\sum_{j=0}^{n-1} W_j\right)\right] \\
+&amp;= \EXP\left[\sum_{i=0}^{m-1} \sum_{j=0}^{n-1} W_i W_j\right] \\
+&amp;= \sum_{i=0}^{m-1} \sum_{j=0}^{n-1} \EXP[W_i W_j]
+\end{align*}\]</span></p>
+<p>Since <span class="math inline">\(W_i\)</span> and <span class="math inline">\(W_j\)</span> are independent for <span class="math inline">\(i \neq j\)</span> and <span class="math inline">\(\EXP[W_i] = 0\)</span>, we have <span class="math inline">\(\EXP[W_i W_j] = 0\)</span> for <span class="math inline">\(i \neq j\)</span> and <span class="math inline">\(\EXP[W_i^2] = \sigma^2\)</span> for <span class="math inline">\(i = j\)</span>. Therefore: <span class="math display">\[
+R_X(m,n) = \sum_{i=0}^{m-1} \EXP[W_i^2] = m \sigma^2
+\]</span></p>
+<p>For the general case <span class="math inline">\(m, n \ge 0\)</span>: <span class="math display">\[
+R_X(m,n) = \sigma^2 \min(m,n)
+\]</span> Thus, the process is not sationary.</p>
+</div>
+</div>
+</div>
+<div id="exm-AR1-process" class="theorem example">
+<p><span class="theorem-title"><strong>Example 11.4 (AR(1) process)</strong></span> An <strong>AR(1) process</strong> (also called discrete-time <strong>Ornstein-Uhlenbeck</strong> process) <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Gaussian process defined by the recursion: <span class="math display">\[
+X_{n+1} = a X_n + W_n, \quad n \ge 0
+\]</span> where <span class="math inline">\(|a| &lt; 1\)</span> and <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span>.</p>
+<p>A sample path of an AR(1) process is shown below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="315" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 314;"><span id="cb8-315"><a href="#cb8-315" aria-hidden="true" tabindex="-1"></a>viewof rerun_ar1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb8-316"><a href="#cb8-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-317"><a href="#cb8-317" aria-hidden="true" tabindex="-1"></a>points_ar1 <span class="op">=</span> {</span>
+<span id="cb8-318"><a href="#cb8-318" aria-hidden="true" tabindex="-1"></a>    rerun_ar1</span>
+<span id="cb8-319"><a href="#cb8-319" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb8-320"><a href="#cb8-320" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb8-321"><a href="#cb8-321" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> a <span class="op">=</span> <span class="fl">0.8</span></span>
+<span id="cb8-322"><a href="#cb8-322" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> var0 <span class="op">=</span> sigma<span class="op">*</span>sigma <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> a<span class="op">*</span>a)</span>
+<span id="cb8-323"><a href="#cb8-323" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb8-324"><a href="#cb8-324" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> X <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(var0))</span>
+<span id="cb8-325"><a href="#cb8-325" aria-hidden="true" tabindex="-1"></a>    points[<span class="dv">0</span>] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> X }</span>
+<span id="cb8-326"><a href="#cb8-326" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb8-327"><a href="#cb8-327" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> W <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb8-328"><a href="#cb8-328" aria-hidden="true" tabindex="-1"></a>      X <span class="op">=</span> a <span class="op">*</span> X <span class="op">+</span> W</span>
+<span id="cb8-329"><a href="#cb8-329" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> X }</span>
+<span id="cb8-330"><a href="#cb8-330" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-331"><a href="#cb8-331" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb8-332"><a href="#cb8-332" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-8-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-8-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb9" data-startfrom="335" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 334;"><span id="cb9-335"><a href="#cb9-335" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb9-336"><a href="#cb9-336" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb9-337"><a href="#cb9-337" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb9-338"><a href="#cb9-338" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb9-339"><a href="#cb9-339" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb9-340"><a href="#cb9-340" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb9-341"><a href="#cb9-341" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_ar1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb9-342"><a href="#cb9-342" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_ar1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb9-343"><a href="#cb9-343" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb9-344"><a href="#cb9-344" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>Find the mean and covariance function of the process assuming <span class="math inline">\(X_0 = x_0\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Mean function:</strong></p>
+<p>The mean function satisfies the recursion: <span class="math display">\[
+\mu_X(n) = a \mu_X(n-1)
+\]</span> with <span class="math inline">\(\mu_X(0) = x_0\)</span>. Therefore, <span class="math display">\[
+\mu_X(n) = a^n x_0
+\]</span></p>
+<p><strong>Covariance function:</strong></p>
+<p>We first consider the case <span class="math inline">\(n = m\)</span>. Then: <span class="math display">\[
+R_X(n,n) = \EXP[X_n^2] = \EXP[(a X_{n-1} + W_n)^2] = a^2 \EXP[X_{n-1}^2] + 2a \EXP[X_{n-1} W_n] + \EXP[W_n^2]
+\]</span> Since <span class="math inline">\(X_{n-1}\)</span> and <span class="math inline">\(W_n\)</span> are independent, we have <span class="math inline">\(\EXP[X_{n-1} W_n] = \EXP[X_{n-1}] \EXP[W_n] = 0\)</span>. Therefore:<br>
+<span class="math display">\[
+R_X(n,n) = a^2 R_X(n-1,n-1) + \sigma^2
+\]</span> with <span class="math inline">\(R_X(0,0) = 0\)</span>. By induction, we have: <span class="math display">\[
+R_X(n,n) = \sigma^2 \sum_{k=0}^{n-1} a^{2k}.
+\]</span></p>
+<p>Now consider the case <span class="math inline">\(n \neq m\)</span>. Without loss of generality, assume <span class="math inline">\(n &lt; m\)</span>. Using the recursion <span class="math inline">\(X_m = a X_{m-1} + W_{m-1}\)</span>: <span class="math display">\[
+R_X(n,m) = \EXP[X_n X_m] = \EXP[X_n (a X_{m-1} + W_{m-1})] = a \EXP[X_n X_{m-1}] + \EXP[X_n W_{m-1}]
+\]</span> Since <span class="math inline">\(X_n\)</span> and <span class="math inline">\(W_{m-1}\)</span> are independent (because <span class="math inline">\(m-1 \ge n\)</span> when <span class="math inline">\(n &lt; m\)</span>), we have <span class="math inline">\(\EXP[X_n W_{m-1}] = 0\)</span>. Therefore: <span class="math display">\[
+R_X(n,m) = a R_X(n, m-1)
+\]</span> with the base case <span class="math inline">\(R_X(n,n)\)</span> computed above. Therefore, we have <span class="math display">\[
+R_X(n,m) = a^{m-n} R_X(n,n) = a^{m-n} \sigma^2 \sum_{k=0}^{n-1} a^{2k}
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Invariant distribution and relationship to Markov chains
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Observe that the process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> satisfies the Markov property. So, it is also called a <strong>Gauss Markov process</strong>. From the results of <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>11.4</span></a>, observe that <span class="math display">\[
+   \lim_{n \to \infty} \mu_X(n) = 0 \quad \text{and} \quad \lim_{n \to \infty} R_X(n,n) = \frac{σ^2}{1-a^2}
+\]</span> for <span class="math inline">\(m, n \ge 0\)</span>. The above limits show that the distribution of <span class="math inline">\(X_n\)</span> converges to an invariant distribution with mean 0 and variance <span class="math inline">\(\frac{σ^2}{1-a^2}\)</span>.</p>
+<p>As was the case for Markov chains, if we start with the invariant distribution, i.e., <span class="math inline">\(X_0 \sim \mathcal{N}(0, \frac{σ^2}{1-a^2})\)</span>, the process will remain in the invariant distribution for all time. Furthermore, the process is a strict sense stationary process because <span class="math display">\[
+   \mu_X(n) = 0, \quad \forall n \ge 0
+\]</span> and using similar recursions as above, we have <span class="math display">\[
+R_X(n, m) = a^{|n-m|} R_X(n,n) = a^{|n-m|} \frac{σ^2}{1-a^2}.
+\]</span></p>
+</div>
+</div>
+<p>The above ideas can be generalized to vector valued processes as well.</p>
+<ol type="1">
+<li><p>In general, let <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> be a vector valued white noise process, where <span class="math inline">\(W_n \sim \mathcal{N}(0, Σ_W)\)</span>. Then <span class="math inline">\(μ_X(n) = 0\)</span> and <span class="math inline">\(R_X(n,m) = Σ_W \IND\{n = m\}\)</span>. The process is called a <strong>standard White noise</strong> process if <span class="math inline">\(Σ_W = I\)</span>.</p></li>
+<li><p>Consider a stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> defined as <span class="math display">\[
+  X_{n+1} = A_n X_n + B_n W_n.
+\]</span> where <span class="math inline">\(A_n\)</span> and <span class="math inline">\(B_n\)</span> are deterministic matrices and <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is standard White noise. Then, <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is <strong>Gauss Markov process</strong> and it can be shown that for any <span class="math inline">\(\ell &lt; n &lt; m\)</span>, we have <span class="math display">\[
+  R_X(\ell, m) = R_X(\ell,n) R_X(n,n)^{-1} R_X(n,m).
+\]</span></p></li>
+<li><p>The process is stationary when <span class="math inline">\(A_n\)</span> and <span class="math inline">\(B_n\)</span> do not depend on <span class="math inline">\(n\)</span>.</p></li>
+</ol>
+<!--
+:::{#exm-moving-average}
+#### Moving average process
+
+A **moving average process** $\{X_n\}_{n \ge 0}$ is defined as:
+$$
+X_n = \sum_{k=0}^{\min(n,q)} b_k W_{n-k}
+$$
+where $\{W_n\}_{n \ge 0}$ is white noise with $W_n \sim \mathcal{N}(0, σ^2)$ and $b_0, \dots, b_q$ are constants.
+
+A sample path of a moving average process (with $q=2$ and $b_0=1, b_1=0.5, b_2=0.25$) is shown below.
+
+
+::::::{.cell}
+
+```{.js .cell-code .hidden startFrom="440" source-offset="-0"}
+viewof rerun_ma = Inputs.button("Generate sample path")
+
+points_ma = {
+    rerun_ma
+    const N = 120
+    const sigma = 1.0
+    const q = 2
+    const b = [1, 0.5, 0.25]
+    var W_history = []
+    var points = new Array(N+1)
+    for(var n=0; n <= N; n++) {
+      var W = gaussianRandom(0, sigma)
+      W_history.unshift(W)
+      if(W_history.length > q+1) {
+        W_history.pop()
+      }
+      var X = 0
+      for(var k=0; k <= Math.min(n, q); k++) {
+        if(k < W_history.length) {
+          X += b[k] * W_history[k]
+        }
+      }
+      points[n] = { n: n, X_n: X }
+    }
+    return points
+}
+```
+
+:::::{.cell-output .cell-output-display}
+
+::::{}
+
+:::{#ojs-cell-10-1 nodetype="declaration"}
+:::
+::::
+:::::
+
+:::::{.cell-output .cell-output-display}
+
+::::{}
+
+:::{#ojs-cell-10-2 nodetype="declaration"}
+:::
+::::
+:::::
+::::::
+
+
+:::::{.cell}
+
+```{.js .cell-code .hidden startFrom="468" source-offset="0"}
+Plot.plot({
+  grid: true,
+  height: 150,
+  marks: [
+    Plot.ruleX([0]),
+    Plot.ruleY([0]),
+    Plot.line(points_ma, {x: "n", y: "X_n", strokeWidth: 1.5}),
+    Plot.dot(points_ma, {x: "n", y: "X_n", fill: "currentColor", r: 2}),
+  ]
+})
+```
+
+::::{.cell-output .cell-output-display}
+
+:::{#ojs-cell-11 nodetype="expression"}
+:::
+::::
+:::::
+
+Find the mean and covariance function of the process.
+
+:::{.callout-note collapse="true"}
+#### Solution
+
+**Mean function:**
+
+Since $W_n \sim \mathcal{N}(0, σ^2)$ for all $n \ge 0$, we have:
+$$
+\mu_X(n) = \EXP[X_n] = \EXP\left[\sum_{k=0}^{\min(n,q)} b_k W_{n-k}\right] = \sum_{k=0}^{\min(n,q)} b_k \EXP[W_{n-k}] = 0 \quad \text{for all } n \ge 0
+$$
+
+**Covariance function:**
+
+For $m, n \ge 0$:
+\begin{align*}
+R_X(m,n) &= \COV(X_m, X_n) = \EXP[X_m X_n] \\
+&= \EXP\left[\left(\sum_{i=0}^{\min(m,q)} b_i W_{m-i}\right)\left(\sum_{j=0}^{\min(n,q)} b_j W_{n-j}\right)\right] \\
+&= \sum_{i=0}^{\min(m,q)} \sum_{j=0}^{\min(n,q)} b_i b_j \EXP[W_{m-i} W_{n-j}]
+\end{align*}
+
+Since $W_k$ are independent with $\EXP[W_k] = 0$ and $\VAR(W_k) = \sigma^2$, we have $\EXP[W_{m-i} W_{n-j}] = \sigma^2$ if $m-i = n-j$ (i.e., $n-m = j-i$), and $0$ otherwise.
+
+Let $d = n-m$. Then:
+$$
+R_X(m,n) = \sigma^2 \sum_{k=0}^{q} b_k b_{k+|d|}
+$$
+where we define $b_k = 0$ for $k < 0$ or $k > q$.
+
+For the case when $n \ge m$ (so $d \ge 0$), we need $j = i + d$:
+$$
+R_X(m,n) = \sigma^2 \sum_{i=0}^{q} b_i b_{i+d}
+$$
+
+Since the covariance function is symmetric, for general $m, n \ge 0$:
+$$
+R_X(m,n) = \sigma^2 \sum_{k=0}^{q} b_k b_{k+|n-m|}
+$$
+:::
+:::
+-->
+</section>
+<section id="review-of-discrete-time-lti-systems" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="review-of-discrete-time-lti-systems"><span class="header-section-number">11.4</span> Review of discrete-time LTI systems</h2>
+<ol type="1">
+<li><p>Consider an LTI system with impulse resposnse <span class="math inline">\(\{h_k\}_{k \ge 0}\)</span>. The transfer function of the system is given by the Z-transform of the impulse response: <span class="math display">\[
+H(z) = \sum_{k=0}^∞ h_k z^{-k}
+\]</span></p></li>
+<li><p>The system is stable if <span class="math display">\[ \sum_{k=0}^∞ |h_k| &lt; ∞, \]</span> Equivalently, the ROC of <span class="math inline">\(H(z)\)</span> contains the unit circle <span class="math inline">\(|z| = 1\)</span>, i.e., all poles of <span class="math inline">\(H(z)\)</span> lie inside the unit circle.</p></li>
+<li><p>The Z-transform evaluated on the unit circle is called the <strong>Fourier transform</strong>, i.e., <span class="math display">\[
+   H(e^{j\omega}) = \sum_{k=-\infty}^∞ h_k e^{-j\omega k}
+\]</span> Note that we have a clash of notation. In Signals and Systems, <span class="math inline">\(\omega\)</span> is used to denote the frequency in radians per second, while in probabiblity <span class="math inline">\(\omega\)</span> is used to denote events in the sample space. To avoid confusion, we we will work use <span class="math inline">\(\Omega\)</span> to denote the frequency (it still clashes with the notation for sample space, but the meaning should be clear from the context). Thus, the Fourier transform is given by <span class="math display">\[
+   H(e^{j\Omega}) = \sum_{k=-\infty}^∞ h_k e^{-j\Omega k}
+\]</span></p></li>
+<li><p>The inverse Fourier transform is given by: <span class="math display">\[
+   h_k = \frac{1}{2\pi} \int_{-\pi}^{\pi} H(e^{j\Omega}) e^{j\Omega k} d\Omega
+\]</span></p></li>
+</ol>
+</section>
+<section id="stationary-gaussian-processes-through-lti-systems" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.5</span> Stationary Gaussian processes through LTI systems</h2>
+<ol type="1">
+<li><p>When a stationary Gaussian process is passed through a linear time-invariant (LTI) system, the output is also a stationary Gaussian process. This is a fundamental result in signal processing and stochastic control.</p></li>
+<li><p>Suppose a stationary Gaussian process <span class="math inline">\(\{X_n\}_{n ≥ 0}\)</span> is passed through an LTI system <span class="math inline">\(H(z)\)</span>. For every <span class="math inline">\(ω ∈ Ω\)</span>, the output process is given by <span class="math display">\[
+Y_n(ω) = \sum_{k=0}^∞ h_k X_{n-k}(ω)
+  \]</span> which is a sum of Gaussian random variables, and hence is Gaussian.</p></li>
+<li><p>The output <span class="math inline">\(\{Y_n\}_{n ≥ 0}\)</span> is a stationary Gaussian process.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The mean function of the output process is given by <span class="math display">\[
+  μ_Y(n) = \EXP[Y_n] = \EXP\left[\sum_{k=0}^∞ h_k X_{n-k}\right] = \sum_{k=0}^∞ h_k \EXP[X_{n-k}] = \sum_{k=0}^∞ h_k μ_X = μ_X \sum_{k=0}^∞ h_k = μ_X H(1)
+\]</span> which does not depend on <span class="math inline">\(n\)</span>.</p>
+<p>The covariance function of the output process is given by <span class="math display">\[
+  \begin{align*}
+    R_Y(n,m)
+      &amp;= \EXP[Y_n Y_m] \\
+      &amp;= \EXP\left[\sum_{k=0}^\infty h_k X_{n-k} \sum_{j=0}^\infty h_j X_{m-j}\right] \\
+      &amp;= \sum_{k=0}^\infty \sum_{j=0}^\infty h_k h_j \EXP[X_{n-k} X_{m-j}] \\
+      &amp;= \sum_{k=0}^\infty \sum_{j=0}^\infty h_k h_j R_X(|(n-k)-(m-j)|) \\
+      &amp;= \sum_{k=0}^\infty \sum_{j=0}^\infty h_k h_j R_X(|(n-m)-(k-j)|)
+  \end{align*}
+\]</span> which only depends on <span class="math inline">\(n-m\)</span>.</p>
+<p>Therefore, the output process is a stationary Gaussian process.</p>
+</div>
+</div></li>
+<li><p>For a stationary Gaussian process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> with covariance function <span class="math inline">\(R_X(k) = R_X(|n-m|)\)</span> where <span class="math inline">\(k = |n-m|\)</span>, the <strong>power spectral density</strong> (PSD) <span class="math inline">\(S_X(\omega)\)</span> is defined as the discrete-time Fourier transform (DTFT) of the covariance function: <span class="math display">\[
+S_X(\omega) = \sum_{n=-\infty}^{\infty} R_X(n) e^{-j\omega n}, \quad \omega \in [-\pi, \pi]
+\]</span> where <span class="math inline">\(j = \sqrt{-1}\)</span> and <span class="math inline">\(R_X(-n) = R_X(n)\)</span> by symmetry of the covariance function. For this infinite sum to converge, we require that <span class="math inline">\(\sum_{n=-\infty}^{\infty} |R_X(n)| &lt; \infty\)</span> (absolute summability of the covariance function).</p></li>
+<li><p>The covariance function can be recovered from the power spectral density via the inverse DTFT: <span class="math display">\[
+R_X(n) = \frac{1}{2\pi} \int_{-\pi}^{\pi} S_X(\omega) e^{j\omega n} \, d\omega, \quad n \in \mathbb{Z}
+\]</span> This establishes a Fourier transform pair between the covariance function in the time domain and the power spectral density in the frequency domain.</p></li>
+<li><p><strong>Properties of power spectral density:</strong></p>
+<ul>
+<li><strong>Non-negativity:</strong> <span class="math inline">\(S_X(\omega) \ge 0\)</span> for all <span class="math inline">\(\omega \in [-\pi, \pi]\)</span></li>
+<li><strong>Symmetry:</strong> <span class="math inline">\(S_X(\omega) = S_X(-\omega)\)</span> (for real-valued processes)</li>
+<li><strong>Total power:</strong> The variance of the process is given by <span class="math display">\[
+\VAR(X_n) = R_X(0) = \frac{1}{2\pi} \int_{-\pi}^{\pi} S_X(\omega) \, d\omega
+\]</span></li>
+</ul></li>
+<li><p><strong>Linear filtering:</strong> If <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is the output of a stable LTI system with frequency response <span class="math inline">\(H(\omega)\)</span> and input <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span>, then <span class="math display">\[
+S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
+\]</span> where <span class="math inline">\(H(\omega) = \sum_{n=-\infty}^{\infty} h_n e^{-j\omega n}\)</span> is the DTFT of the impulse response <span class="math inline">\(\{h_n\}_{n=-\infty}^{\infty}\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The output process is given by the convolution: <span class="math display">\[
+Y_n = \sum_{k=-\infty}^{\infty} h_k X_{n-k}
+\]</span></p>
+<p>The covariance function of the output is: <span class="math display">\[
+\begin{align*}
+R_Y(n) &amp;= \COV(Y_0, Y_n) = \EXP[Y_0 Y_n] - \EXP[Y_0]\EXP[Y_n] \\
+&amp;= \EXP\left[\sum_{k=-\infty}^{\infty} h_k X_{-k} \sum_{j=-\infty}^{\infty} h_j X_{n-j}\right] - \mu_Y^2 \\
+&amp;= \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j \EXP[X_{-k} X_{n-j}] - \mu_Y^2
+\end{align*}
+\]</span></p>
+<p>Since <span class="math inline">\(\{X_n\}\)</span> is stationary with mean <span class="math inline">\(\mu_X\)</span> and covariance <span class="math inline">\(R_X(m)\)</span>, we have: <span class="math display">\[
+\EXP[X_{-k} X_{n-j}] = R_X((n-j) - (-k)) + \mu_X^2 = R_X(n - j + k) + \mu_X^2
+\]</span></p>
+<p>Therefore: <span class="math display">\[
+\begin{align*}
+R_Y(n) &amp;= \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j (R_X(n - j + k) + \mu_X^2) - \mu_Y^2 \\
+&amp;= \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j R_X(n - j + k) + \mu_X^2 \sum_{k=-\infty}^{\infty} h_k \sum_{j=-\infty}^{\infty} h_j - \mu_Y^2
+\end{align*}
+\]</span></p>
+<p>Since <span class="math inline">\(\mu_Y = \mu_X H(1)\)</span> and <span class="math inline">\(H(1) = \sum_{k=-\infty}^{\infty} h_k\)</span>, the constant terms cancel, leaving: <span class="math display">\[
+R_Y(n) = \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j R_X(n - j + k)
+\]</span></p>
+<p>Making the substitution <span class="math inline">\(\ell = j - k\)</span>, we get: <span class="math display">\[
+R_Y(n) = \sum_{k=-\infty}^{\infty} \sum_{\ell=-\infty}^{\infty} h_k h_{k+\ell} R_X(n - \ell) = \sum_{\ell=-\infty}^{\infty} R_X(n - \ell) \sum_{k=-\infty}^{\infty} h_k h_{k+\ell}
+\]</span></p>
+<p>The inner sum <span class="math inline">\(\sum_{k=-\infty}^{\infty} h_k h_{k+\ell}\)</span> is the autocorrelation of the impulse response, which we denote as <span class="math inline">\(r_h(\ell)\)</span>. This is the convolution of <span class="math inline">\(h_k\)</span> with <span class="math inline">\(h_{-k}\)</span>: <span class="math display">\[
+r_h(\ell) = \sum_{k=-\infty}^{\infty} h_k h_{k+\ell} = (h * \tilde{h})(\ell)
+\]</span> where <span class="math inline">\(\tilde{h}_k = h_{-k}\)</span> is the time-reversed impulse response.</p>
+<p>Therefore: <span class="math display">\[
+R_Y(n) = \sum_{\ell=-\infty}^{\infty} r_h(\ell) R_X(n - \ell) = (r_h * R_X)(n)
+\]</span></p>
+<p>Taking the DTFT of both sides and using the convolution property of the DTFT: <span class="math display">\[
+S_Y(\omega) = \mathcal{F}\{r_h\}(\omega) \cdot S_X(\omega)
+\]</span></p>
+<p>where <span class="math inline">\(\mathcal{F}\{r_h\}(\omega)\)</span> is the DTFT of <span class="math inline">\(r_h(\ell)\)</span>. The DTFT of the autocorrelation <span class="math inline">\(r_h(\ell)\)</span> is: <span class="math display">\[
+\mathcal{F}\{r_h\}(\omega) = \sum_{\ell=-\infty}^{\infty} r_h(\ell) e^{-j\omega \ell} = \sum_{\ell=-\infty}^{\infty} \sum_{k=-\infty}^{\infty} h_k h_{k+\ell} e^{-j\omega \ell}
+\]</span></p>
+<p>Making the substitution <span class="math inline">\(m = k + \ell\)</span>: <span class="math display">\[
+\begin{align*}
+\mathcal{F}\{r_h\}(\omega) &amp;= \sum_{k=-\infty}^{\infty} \sum_{m=-\infty}^{\infty} h_k h_m e^{-j\omega (m-k)} \\
+&amp;= \sum_{k=-\infty}^{\infty} h_k e^{j\omega k} \sum_{m=-\infty}^{\infty} h_m e^{-j\omega m} \\
+&amp;= H^*(\omega) H(\omega) = |H(\omega)|^2
+\end{align*}
+\]</span></p>
+<p>where <span class="math inline">\(H^*(\omega)\)</span> is the complex conjugate of <span class="math inline">\(H(\omega)\)</span>.</p>
+<p>Therefore: <span class="math display">\[
+S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
+\]</span></p>
+<p>This shows that the power spectral density of the output is the power spectral density of the input multiplied by the squared magnitude of the frequency response.</p>
+</div>
+</div>
+</div></li>
+<li><p><strong>Interpretation:</strong> The power spectral density describes how the power (variance) of a stationary process is distributed across different frequencies. It is a fundamental tool in signal processing for analyzing the frequency content of random signals.</p></li>
+</ol>
+</section>
+<section id="note-on-non-gaussian-processes" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="note-on-non-gaussian-processes"><span class="header-section-number">11.6</span> Note on non-Gaussian processes</h2>
+<p>Since all the properties discussed above (mean function, covariance function, linear transformations, etc.) depend only on the first two moments (mean and covariance), they apply to stochastic processes beyond Gaussian processes, as long as we restrict our attention to first and second moments.</p>
+<p>However, it is important to distinguish between two notions of stationarity:</p>
+<ol type="1">
+<li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is called <strong>wide-sense stationary</strong> (or <strong>weakly stationary</strong>) if:</p>
+<ul>
+<li>The mean function is constant: <span class="math inline">\(μ_X(n) = μ_X\)</span> for all <span class="math inline">\(n \ge 0\)</span></li>
+<li>The covariance function depends only on the time difference: <span class="math inline">\(R_X(m,n) = R_X(|n-m|)\)</span> for some function <span class="math inline">\(R_X\)</span></li>
+</ul></li>
+<li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is called <strong>strict-sense stationary</strong> (or <strong>strongly stationary</strong>) if for any finite collection of time indices <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> and any integer <span class="math inline">\(h \ge 0\)</span>, the joint distribution of <span class="math inline">\((X_{n_1}, \dots, X_{n_k})\)</span> is the same as the joint distribution of <span class="math inline">\((X_{n_1+h}, \dots, X_{n_k+h})\)</span>.</p></li>
+</ol>
+<p>For any stochastic process, strict-sense stationarity implies wide-sense stationarity. However, the converse is not true in general. For <strong>Gaussian processes</strong>, since they are completely determined by their mean and covariance, wide-sense stationarity implies strict-sense stationarity. Thus, for Gaussian processes, the two notions are equivalent.</p>
+</section>
+<section id="exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
+<div id="exr-verify-covariance" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11.1 (Verifying covariance functions)</strong></span> Show that the following functions are valid covariance functions for a discrete-time Gaussian process:</p>
+<ol type="a">
+<li><span class="math inline">\(R_X(m,n) = σ^2 \min(m,n)\)</span> for <span class="math inline">\(m, n \ge 0\)</span></li>
+<li><span class="math inline">\(R_X(m,n) = ρ^{|n-m|}\)</span> for <span class="math inline">\(m, n \ge 0\)</span> and <span class="math inline">\(|ρ| &lt; 1\)</span></li>
+<li><span class="math inline">\(R_X(m,n) = \frac{σ^2}{1-a^2} a^{|n-m|}\)</span> for <span class="math inline">\(m, n \ge 0\)</span> and <span class="math inline">\(|a| &lt; 1\)</span></li>
+</ol>
+</div>
+<div id="exr-random-walk-properties" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11.2 (Properties of Gaussian random walk)</strong></span> Let <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> be a Gaussian random walk with <span class="math inline">\(R_W(m,n) = σ^2 \min(m,n)\)</span>. Show that:</p>
+<ol type="a">
+<li>For <span class="math inline">\(0 \le m &lt; n\)</span>, <span class="math inline">\(W_n - W_m \sim \mathcal{N}(0, σ^2(n-m))\)</span></li>
+<li>For <span class="math inline">\(0 \le n_1 &lt; n_2 &lt; n_3 &lt; n_4\)</span>, the increments <span class="math inline">\(W_{n_2} - W_{n_1}\)</span> and <span class="math inline">\(W_{n_4} - W_{n_3}\)</span> are independent</li>
+<li><span class="math inline">\(\EXP[W_m W_n] = σ^2 \min(m,n)\)</span></li>
+</ol>
+</div>
+<div id="exr-conditional-random-walk" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11.3 (Conditional distribution of Gaussian random walk)</strong></span> For a Gaussian random walk <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> with <span class="math inline">\(R_W(m,n) = σ^2 \min(m,n)\)</span>, compute the conditional distribution of <span class="math inline">\(W_n\)</span> given <span class="math inline">\(W_5 = 1\)</span> for: a. <span class="math inline">\(n = 3\)</span> b. <span class="math inline">\(n = 7\)</span></p>
+<p>Interpret the results.</p>
+</div>
+<div id="exr-GP-regression" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11.4 (Gaussian process regression)</strong></span> Consider a Gaussian process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> with mean function <span class="math inline">\(μ_X(n) = 0\)</span> and covariance function <span class="math inline">\(R_X(m,n) = ρ^{|n-m|}\)</span> where <span class="math inline">\(ρ = 0.8\)</span>.</p>
+<p>Given observations <span class="math inline">\(X_2 = 1\)</span> and <span class="math inline">\(X_8 = -0.5\)</span>:</p>
+<ol type="a">
+<li>Compute the conditional mean and variance of <span class="math inline">\(X_5\)</span>.</li>
+<li>Compute the conditional mean and variance of <span class="math inline">\(X_9\)</span>.</li>
+<li>Which prediction has higher uncertainty? Why?</li>
+</ol>
+</div>
+<div id="exr-sum-GP" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11.5 (Sum of Gaussian processes)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> be independent Gaussian processes with mean functions <span class="math inline">\(μ_X(n)\)</span>, <span class="math inline">\(μ_Y(n)\)</span> and covariance functions <span class="math inline">\(R_X(m,n)\)</span>, <span class="math inline">\(R_Y(m,n)\)</span> respectively.</p>
+<p>Show that <span class="math inline">\(\{X_n + Y_n\}_{n \ge 0}\)</span> is a Gaussian process and find its mean and covariance functions.</p>
+</div>
+<div id="exr-stationary-GP" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 11.6 (Stationary Gaussian process)</strong></span> A Gaussian process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is wide-sense stationary with covariance function <span class="math inline">\(R_X(k) = ρ^{k}\)</span> for <span class="math inline">\(k \ge 0\)</span> and <span class="math inline">\(|ρ| &lt; 1\)</span>.</p>
+<ol type="a">
+<li>Find the mean function <span class="math inline">\(μ_X(n)\)</span>.</li>
+<li>Show that <span class="math inline">\(R_X(k)\)</span> is a valid covariance function.</li>
+<li>Compute <span class="math inline">\(\VAR(X_n)\)</span>.</li>
+<li>For what values of <span class="math inline">\(k\)</span> is the correlation between <span class="math inline">\(X_n\)</span> and <span class="math inline">\(X_{n+k}\)</span> less than 0.1?</li>
+</ol>
+</div>
+</section>
+<section id="further-reading" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="further-reading">Further Reading</h2>
+<ol type="1">
+<li><p>Gubner, Chapter 15.</p></li>
+<li><p>Grimmett and Stirzaker, Chapter 13.</p></li>
+<li><p><a href="https://gaussianprocess.org/gpml/">Rasmussen and Williams, <em>Gaussian Processes for Machine Learning</em></a>, MIT Press, 2006. Available online.</p></li>
+<li><p><a href="https://www.springer.com/gp/book/9780387481168">Adler and Taylor, <em>Random Fields and Geometry</em></a>, Springer, 2007.</p></li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFN0YW5kYXJkIE5vcm1hbCB2YXJpYXRlIHVzaW5nIEJveC1NdWxsZXIgdHJhbnNmb3JtLlxuZnVuY3Rpb24gZ2F1c3NpYW5SYW5kb20obWVhbj0wLCBzdGRldj0xKSB7XG4gICAgY29uc3QgdSA9IDEgLSBNYXRoLnJhbmRvbSgpO1xuICAgIGNvbnN0IHYgPSBNYXRoLnJhbmRvbSgpO1xuICAgIGNvbnN0IHogPSBNYXRoLnNxcnQoIC0yLjAgKiBNYXRoLmxvZyggdSApICkgKiBNYXRoLmNvcyggMi4wICogTWF0aC5QSSAqIHYgKTtcbiAgICByZXR1cm4geiAqIHN0ZGV2ICsgbWVhbjtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9jb3NpbmVfZ2F1c3MgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2Nvc2luZV9nYXVzcyA9IHtcbiAgICByZXJ1bl9jb3NpbmVfZ2F1c3NcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICBjb25zdCBmID0gMC4xXG4gICAgY29uc3QgVSA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgIGNvbnN0IFYgPSBnYXVzc2lhblJhbmRvbSgwLCBzaWdtYSlcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4rMSlcbiAgICBmb3IodmFyIG49MDsgbiA8PSBOOyBuKyspIHtcbiAgICAgIHZhciB2YWwgPSBVICogTWF0aC5jb3MoMiAqIE1hdGguUEkgKiBmICogbikgKyBWICogTWF0aC5zaW4oMiAqIE1hdGguUEkgKiBmICogbilcbiAgICAgIHBvaW50c1tuXSA9IHsgbjogbiwgWF9uOiB2YWwgfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDE1MCxcbiAgeToge2RvbWFpbjogWy0yLCAyXX0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX2Nvc2luZV9nYXVzcywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX2Nvc2luZV9nYXVzcywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSksXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgcmVydW5fd2hpdGUgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX3doaXRlID0ge1xuICAgIHJlcnVuX3doaXRlXG4gICAgY29uc3QgTiA9IDEyMFxuICAgIGNvbnN0IHNpZ21hID0gMS4wXG4gICAgdmFyIHBvaW50cyA9IG5ldyBBcnJheShOKVxuICAgIGZvcih2YXIgbj0wOyBuIDwgTjsgbisrKSB7XG4gICAgICB2YXIgdmFsID0gZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gICAgICBwb2ludHNbbl0gPSB7IG46IG4sIFdfbjogdmFsIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX3doaXRlLCB7eDogXCJuXCIsIHk6IFwiV19uXCIsIHN0cm9rZVdpZHRoOiAxfSksXG4gICAgUGxvdC5kb3QocG9pbnRzX3doaXRlLCB7eDogXCJuXCIsIHk6IFwiV19uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9ydyA9IElucHV0cy5idXR0b24oXCJHZW5lcmF0ZSBzYW1wbGUgcGF0aFwiKVxuXG5wb2ludHNfcncgPSB7XG4gICAgcmVydW5fcndcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4rMSlcbiAgICB2YXIgWCA9IDBcbiAgICBwb2ludHNbMF0gPSB7IG46IDAsIFhfbjogMCB9XG4gICAgZm9yKHZhciBuPTE7IG4gPD0gTjsgbisrKSB7XG4gICAgICB2YXIgVyA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgICAgWCA9IFggKyBXXG4gICAgICBwb2ludHNbbl0gPSB7IG46IG4sIFhfbjogWCB9XG4gICAgfVxuICAgIHJldHVybiBwb2ludHNcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTUwLFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVgoWzBdKSxcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19ydywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX3J3LCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9hcjEgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2FyMSA9IHtcbiAgICByZXJ1bl9hcjFcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICBjb25zdCBhID0gMC44XG4gICAgY29uc3QgdmFyMCA9IHNpZ21hKnNpZ21hIC8gKDEgLSBhKmEpXG4gICAgdmFyIHBvaW50cyA9IG5ldyBBcnJheShOKzEpXG4gICAgdmFyIFggPSBnYXVzc2lhblJhbmRvbSgwLCBNYXRoLnNxcnQodmFyMCkpXG4gICAgcG9pbnRzWzBdID0geyBuOiAwLCBYX246IFggfVxuICAgIGZvcih2YXIgbj0xOyBuIDw9IE47IG4rKykge1xuICAgICAgdmFyIFcgPSBnYXVzc2lhblJhbmRvbSgwLCBzaWdtYSlcbiAgICAgIFggPSBhICogWCArIFdcbiAgICAgIHBvaW50c1tuXSA9IHsgbjogbiwgWF9uOiBYIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX2FyMSwge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX2FyMSwge3g6IFwiblwiLCB5OiBcIlhfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSksXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTEwIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHJlcnVuX21hID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIHNhbXBsZSBwYXRoXCIpXG5cbnBvaW50c19tYSA9IHtcbiAgICByZXJ1bl9tYVxuICAgIGNvbnN0IE4gPSAxMjBcbiAgICBjb25zdCBzaWdtYSA9IDEuMFxuICAgIGNvbnN0IHEgPSAyXG4gICAgY29uc3QgYiA9IFsxLCAwLjUsIDAuMjVdXG4gICAgdmFyIFdfaGlzdG9yeSA9IFtdXG4gICAgdmFyIHBvaW50cyA9IG5ldyBBcnJheShOKzEpXG4gICAgZm9yKHZhciBuPTA7IG4gPD0gTjsgbisrKSB7XG4gICAgICB2YXIgVyA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgICAgV19oaXN0b3J5LnVuc2hpZnQoVylcbiAgICAgIGlmKFdfaGlzdG9yeS5sZW5ndGggPiBxKzEpIHtcbiAgICAgICAgV19oaXN0b3J5LnBvcCgpXG4gICAgICB9XG4gICAgICB2YXIgWCA9IDBcbiAgICAgIGZvcih2YXIgaz0wOyBrIDw9IE1hdGgubWluKG4sIHEpOyBrKyspIHtcbiAgICAgICAgaWYoayA8IFdfaGlzdG9yeS5sZW5ndGgpIHtcbiAgICAgICAgICBYICs9IGJba10gKiBXX2hpc3Rvcnlba11cbiAgICAgICAgfVxuICAgICAgfVxuICAgICAgcG9pbnRzW25dID0geyBuOiBuLCBYX246IFggfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTExIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX21hLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfbWEsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pLFxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXJ1bl9jb3NpbmVfZ2F1c3MnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fd2hpdGUnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fcncnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fYXIxJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3JlcnVuX21hJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/adityam\.github\.io\/probability-and-random-signals\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./markov-chains.html" class="pagination-link" aria-label="Markov chains">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/gaussian-processes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

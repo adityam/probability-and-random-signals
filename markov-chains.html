@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-12">
+<meta name="dcterms.date" content="2025-11-19">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>10&nbsp; Markov chains – Probability and Random Signals II</title>
@@ -33,6 +33,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./gaussian-processes.html" rel="next">
 <link href="./stochastic-processes.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -452,6 +453,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gaussian-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -508,7 +515,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 12, 2025</p>
+      <p class="date">November 19, 2025</p>
     </div>
   </div>
   
@@ -668,7 +675,7 @@ window.Quarto = {
 \]</span> Thus, the probability of going from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> in <span class="math inline">\(n+m\)</span> steps equals the probability of going from <span class="math inline">\(i\)</span> to <em>somewhere</em> in <span class="math inline">\(n\)</span> steps and then from there to <span class="math inline">\(j\)</span> in <span class="math inline">\(m\)</span> steps.</p></li>
 </ol>
 <div id="exm-random-walk-occupancy" class="theorem example">
-<p><span class="theorem-title"><strong>Example 10.7</strong></span> Numerically compute the state occupancy probabilities for the different examples of random walk presented in <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>10.6</span></a> when <span class="math inline">\(p = q = \tfrac 12\)</span> for <span class="math inline">\(n \in \{1, \dots, 8\}\)</span>. In all cases, the initial probability <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 10.7</strong></span> Numerically compute the state occupancy probabilities for the different examples of random walk presented in <a href="gaussian-processes.html#exm-random-walk" class="quarto-xref">Example&nbsp;<span>11.3</span></a> when <span class="math inline">\(p = q = \tfrac 12\)</span> for <span class="math inline">\(n \in \{1, \dots, 8\}\)</span>. In all cases, the initial probability <span class="math display">\[
   μ^{(0)} = \MATRIX{0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 }.
 \]</span></p>
 </div>
@@ -1942,6 +1949,9 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./gaussian-processes.html" class="pagination-link" aria-label="Gaussian processes">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

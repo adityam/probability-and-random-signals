@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-12">
+<meta name="dcterms.date" content="2025-11-19">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>5&nbsp; Conditional expectation for Gaussians – Probability and Random Signals II</title>
@@ -453,6 +453,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gaussian-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -502,7 +508,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 12, 2025</p>
+      <p class="date">November 19, 2025</p>
     </div>
   </div>
   
@@ -641,10 +647,10 @@ X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
 \EXP[ (X - \hat{X})^\TRANS K(Y - μ_Y)] = 0, \quad \forall K \in \reals^{n \times m}.
 \]</span> By <a href="#lem-matrix-orthogonality" class="quarto-xref">Lemma&nbsp;<span>5.1</span></a>, this implies that <span class="math display">\[
 \EXP[(X - \hat{X})(Y - μ_Y)^\TRANS] = \mathbf{0}_{n \times m}.
-\]</span> Since <span class="math inline">\(X - \hat X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian and uncorrelated (as shown above), they are independent. Therefore, for any (measurable) function <span class="math inline">\(g\)</span>, the independence gives: <span class="math display">\[
+\]</span> Since <span class="math inline">\(X - \hat X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian and uncorrelated (because <span class="math inline">\(\EXP[X - \hat X] = 0\)</span>), they are independent. Therefore, for any (measurable) function <span class="math inline">\(g\)</span>, the independence gives: <span class="math display">\[
 \EXP[\IP{X - \hat{X}}{g(Y)}] = \EXP[X - \hat{X}]^\TRANS \EXP[g(Y)] = 0,
 \]</span> where the last equality follows from the fact that <span class="math inline">\(\hat X\)</span> is an unbiased estimator of <span class="math inline">\(X\)</span>.</p>
-<p>Now, <a href="./conditional-expectation.html#MMSE">from last section</a>, we know that the conditional expectation is the unique function <span class="math inline">\(h(Y)\)</span> such that <span class="math inline">\(X - h(Y)\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>. Hence, <span class="math inline">\(\EXP[X \mid Y] = \hat{X}\)</span>.</p>
+<p>Now, <a href="./conditional-expectation.html#MMSE">from last section</a>, we know that if a function <span class="math inline">\(h(Y)\)</span> is such that <span class="math inline">\(X - h(Y)\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>, then <span class="math inline">\(h(Y)\)</span> is the conditional expectation <span class="math inline">\(\EXP[X \mid Y]\)</span>. Hence, <span class="math inline">\(\hat X = \EXP[X \mid Y]\)</span>.</p>
 </div>
 </div></li>
 <li><p><strong>Deriving the formula</strong>: To find the explicit formula for <span class="math inline">\(\EXP[X \mid Y]\)</span>, we write <span class="math inline">\(\hat{X} = K_{\circ} Y + c_\circ\)</span> and find <span class="math inline">\(K_\circ\)</span> and <span class="math inline">\(c_\circ\)</span> from properties of orthogonal projection. First note that from the smoothing property of conditional expectation, we have <span class="math display">\[
