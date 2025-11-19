@@ -33,6 +33,7 @@ book:
       - convergence-of-random-variables.qmd
       - stochastic-processes.qmd
       - markov-chains.qmd
+      - gaussian-processes.qmd
 
 format:
   html:
