@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-19">
+<meta name="dcterms.date" content="2025-11-20">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>11&nbsp; Gaussian processes – Probability and Random Signals II</title>
@@ -508,9 +508,10 @@ window.Quarto = {
   <li><a href="#gaussian-processes" id="toc-gaussian-processes" class="nav-link active" data-scroll-target="#gaussian-processes"><span class="header-section-number">11.1</span> Gaussian processes</a></li>
   <li><a href="#properties-of-covariance-functions" id="toc-properties-of-covariance-functions" class="nav-link" data-scroll-target="#properties-of-covariance-functions"><span class="header-section-number">11.2</span> Properties of covariance functions</a></li>
   <li><a href="#examples-of-gaussian-processes" id="toc-examples-of-gaussian-processes" class="nav-link" data-scroll-target="#examples-of-gaussian-processes"><span class="header-section-number">11.3</span> Examples of Gaussian processes</a></li>
-  <li><a href="#review-of-discrete-time-lti-systems" id="toc-review-of-discrete-time-lti-systems" class="nav-link" data-scroll-target="#review-of-discrete-time-lti-systems"><span class="header-section-number">11.4</span> Review of discrete-time LTI systems</a></li>
-  <li><a href="#stationary-gaussian-processes-through-lti-systems" id="toc-stationary-gaussian-processes-through-lti-systems" class="nav-link" data-scroll-target="#stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.5</span> Stationary Gaussian processes through LTI systems</a></li>
-  <li><a href="#note-on-non-gaussian-processes" id="toc-note-on-non-gaussian-processes" class="nav-link" data-scroll-target="#note-on-non-gaussian-processes"><span class="header-section-number">11.6</span> Note on non-Gaussian processes</a></li>
+  <li><a href="#jointly-gaussian-stochastic-processes" id="toc-jointly-gaussian-stochastic-processes" class="nav-link" data-scroll-target="#jointly-gaussian-stochastic-processes"><span class="header-section-number">11.4</span> Jointly Gaussian stochastic processes</a></li>
+  <li><a href="#review-of-discrete-time-lti-systems" id="toc-review-of-discrete-time-lti-systems" class="nav-link" data-scroll-target="#review-of-discrete-time-lti-systems"><span class="header-section-number">11.5</span> Review of discrete-time LTI systems</a></li>
+  <li><a href="#stationary-gaussian-processes-through-lti-systems" id="toc-stationary-gaussian-processes-through-lti-systems" class="nav-link" data-scroll-target="#stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.6</span> Stationary Gaussian processes through LTI systems</a></li>
+  <li><a href="#note-on-non-gaussian-processes" id="toc-note-on-non-gaussian-processes" class="nav-link" data-scroll-target="#note-on-non-gaussian-processes"><span class="header-section-number">11.7</span> Note on non-Gaussian processes</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
@@ -548,7 +549,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 19, 2025</p>
+      <p class="date">November 20, 2025</p>
     </div>
   </div>
   
@@ -563,8 +564,9 @@ window.Quarto = {
 <section id="gaussian-processes" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="gaussian-processes"><span class="header-section-number">11.1</span> Gaussian processes</h2>
 <ol type="1">
-<li><p>A discrete-time stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is called a <strong>Gaussian process</strong> if for any finite collection of time indices <span class="math inline">\(\{n_1, n_2, \dots, n_k\}\)</span> with <span class="math inline">\(n_i \ge 0\)</span>, the random vector <span class="math inline">\((X_{n_1}, X_{n_2}, \dots, X_{n_k})\)</span> has a multivariate Gaussian (normal) distribution.</p></li>
-<li><p>Equivalently, a discrete-time stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Gaussian process if every finite linear combination of the random variables <span class="math inline">\(X_n\)</span> is a Gaussian random variable.</p></li>
+<li><p>Recall that a discrete-time stochastic process is a collection <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> of random variables defined on a common probability space where we specify the joint distribution for any collection <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> of time indices.</p></li>
+<li><p>A discrete-time stochastic process is called <strong>Gaussian</strong> if for any collection <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> of time indices, the random vector <span class="math inline">\(\{X_{n_1}, \dots, X_{n_k}\}\)</span> has a multivariate Guassian distribution.</p>
+<p>Recall that the definition of multivariable Gaussian random variables means we can equivalently define a discrete-time stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> to be a Gaussian process if every finite linear combination of the random variables <span class="math inline">\(X_n\)</span> is a Gaussian random variable.</p></li>
 <li><p>Since a multivariate Gaussian distribution is completely characterized by its mean vector and covariance matrix, a Gaussian process is completely characterized by:</p>
 <ul>
 <li><strong>Mean function:</strong> <span class="math inline">\(μ_X(n) = \EXP[X_n]\)</span></li>
@@ -578,6 +580,9 @@ window.Quarto = {
 <section id="properties-of-covariance-functions" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="properties-of-covariance-functions"><span class="header-section-number">11.2</span> Properties of covariance functions</h2>
 <ol type="1">
+<li><p>To fix ideas, consider three time indices <span class="math inline">\((\ell,n,m)\)</span>. Then, the random vector <span class="math inline">\(\{X_\ell, X_n, X_m\}\)</span> has a multivariate Gaussian distribution given by <span class="math display">\[
+  \MATRIX{X_{\ell}\\ X_n\\ X_m} \sim \mathcal{N}\left( \MATRIX{\mu_X(\ell)\\ \mu_X(n)\\ \mu_X(m)}, \MATRIX{R_X(\ell,\ell) &amp; R_X(\ell,n) &amp; R_X(\ell,m) \\ R_X(n,\ell) &amp; R_X(n,n) &amp; R_X(n,m) \\ R_X(m,\ell) &amp; R_X(m,n) &amp; R_X(m,m)} \right)
+\]</span> The covariance matrix above must be symmetric, non-negative definite, and satisfy the Cauchy-Schwarz inequality, i.e., <span class="math inline">\(\COV(X_m, X_n)^2 \le \COV(X_m, X_m) \COV(X_n, X_n)\)</span>. These properties are true in general as well.</p></li>
 <li><p><strong>Symmetry:</strong> <span class="math inline">\(R_X(m,n) = R_X(n,m)\)</span> for all <span class="math inline">\(m, n \ge 0\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -591,7 +596,7 @@ window.Quarto = {
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><span class="math inline">\(R_X(m,n) = \EXP[(X_m - μ_X(m))(X_n - μ_X(n))] = R_X(n,m)\)</span> by commutativity of multiplication.</p>
+<p><span class="math inline">\(R_X(m,n) = \COV(X_m, X_n) = \COV(X_n, X_m) = R_X(n,m)\)</span> by the symmetry of the covariance operator.</p>
 </div>
 </div>
 </div></li>
@@ -610,13 +615,10 @@ window.Quarto = {
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Consider the random variable <span class="math inline">\(Y = \sum_{i=1}^k a_i (X_{n_i} - μ_X(n_i))\)</span>. Then <span class="math display">\[\begin{align*}
-\EXP[Y^2] &amp;= \EXP\left[\left(\sum_{i=1}^k a_i (X_{n_i} - μ_X(n_i))\right)^2\right] \\
-&amp;= \EXP\left[\sum_{i=1}^k \sum_{j=1}^k a_i a_j (X_{n_i} - μ_X(n_i))(X_{n_j} - μ_X(n_j))\right] \\
-&amp;= \sum_{i=1}^k \sum_{j=1}^k a_i a_j \EXP[(X_{n_i} - μ_X(n_i))(X_{n_j} - μ_X(n_j))] \\
-&amp;= \sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j).
-\end{align*}\]</span> Since <span class="math inline">\(\EXP[Y^2] = \VAR(Y) \ge 0\)</span> (variance is always non-negative), we have <span class="math display">\[
-\sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j) \ge 0.
+<p>Let <span class="math inline">\(\Sigma\)</span> denote the covariance matrix of the random vector <span class="math inline">\(\{X_{n_1}, \dots, X_{n_k}\}\)</span>. Then, we have <span class="math display">\[
+\Sigma = \MATRIX{R_X(n_1,n_1) &amp; R_X(n_1,n_2) &amp; \dots &amp; R_X(n_1,n_k) \\ R_X(n_2,n_1) &amp; R_X(n_2,n_2) &amp; \dots &amp; R_X(n_2,n_k) \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ R_X(n_k,n_1) &amp; R_X(n_k,n_2) &amp; \dots &amp; R_X(n_k,n_k)}
+\]</span> Since <span class="math inline">\(\Sigma\)</span> is symmetric, non-negative definite, we have <span class="math inline">\(\Sigma \succeq 0\)</span>. Therefore, <span class="math display">\[
+\sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j) = a^T \Sigma a \ge 0.
 \]</span></p>
 </div>
 </div>
@@ -635,9 +637,7 @@ window.Quarto = {
 <div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>This is a direct consequence of the <a href="inequalities.qmd@cauchy-schwarz-inequality">Cauchy-Schwarz inequality</a> for random variables: <span class="math display">\[
-|\EXP[YZ]|^2 \leq \EXP[Y^2]\EXP[Z^2],
-\]</span> where <span class="math inline">\(Y = X_m - μ_X(m)\)</span> and <span class="math inline">\(Z = X_n - μ_X(n)\)</span>. Thus, <span class="math display">\[
-|R_X(m,n)|^2 \le R_X(m,m) R_X(n,n).
+|\COV(X_m, X_n)|^2 \leq \COV(X_m, X_m) \COV(X_n, X_n).
 \]</span></p>
 </div>
 </div>
@@ -648,13 +648,13 @@ window.Quarto = {
 <section id="examples-of-gaussian-processes" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="examples-of-gaussian-processes"><span class="header-section-number">11.3</span> Examples of Gaussian processes</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="70" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 69;"><span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">// Standard Normal variate using Box-Muller transform.</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean<span class="op">=</span><span class="dv">0</span><span class="op">,</span> stdev<span class="op">=</span><span class="dv">1</span>) {</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>( <span class="op">-</span><span class="fl">2.0</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>( u ) ) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>( <span class="fl">2.0</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v )<span class="op">;</span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z <span class="op">*</span> stdev <span class="op">+</span> mean<span class="op">;</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="71" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 70;"><span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co">// Standard Normal variate using Box-Muller transform.</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean<span class="op">=</span><span class="dv">0</span><span class="op">,</span> stdev<span class="op">=</span><span class="dv">1</span>) {</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">;</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>( <span class="op">-</span><span class="fl">2.0</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>( u ) ) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>( <span class="fl">2.0</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v )<span class="op">;</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z <span class="op">*</span> stdev <span class="op">+</span> mean<span class="op">;</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -663,26 +663,26 @@ window.Quarto = {
 </div>
 <div id="exm-cosine-gaussian-phase" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.1 (Cosine with Gaussian amplitude)</strong></span> Consider a process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> defined as: <span class="math display">\[
-X_n = U \cos(\Omega n) + V \sin(\Omega n)
-\]</span> where <span class="math inline">\(\Omega \in \mathbb{R}\)</span> is a constant frequency, and <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent Gaussian random variables with <span class="math inline">\(U, V \sim \mathcal{N}(0, \sigma^2)\)</span>.</p>
+X_n = A \cos(\Omega n) + B \sin(\Omega n)
+\]</span> where <span class="math inline">\(\Omega \in \mathbb{R}\)</span> is a constant frequency, and <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent Gaussian random variables with <span class="math inline">\(A, B \sim \mathcal{N}(0, σ^2)\)</span>.</p>
 <p>A sample path of this process is shown below.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="92" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 91;"><span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>viewof rerun_cosine_gauss <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>points_cosine_gauss <span class="op">=</span> {</span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>    rerun_cosine_gauss</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> f <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> U <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> V <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> U <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n) <span class="op">+</span> V <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n)</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> val }</span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="93" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 92;"><span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>viewof rerun_cosine_gauss <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>points_cosine_gauss <span class="op">=</span> {</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>    rerun_cosine_gauss</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> f <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> A <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> B <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> A <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n) <span class="op">+</span> B <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n)</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> val }</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="declaration">
@@ -699,17 +699,17 @@ X_n = U \cos(\Omega n) + V \sin(\Omega n)
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="110" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 109;"><span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]}<span class="op">,</span></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="111" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 110;"><span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]}<span class="op">,</span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="expression">
 
@@ -732,44 +732,46 @@ X_n = U \cos(\Omega n) + V \sin(\Omega n)
 <div class="callout-body-container callout-body">
 <p><strong>Mean function:</strong></p>
 <p><span class="math display">\[\begin{align*}
-\mu_X(n) &amp;= \EXP[X_n] = \EXP[U \cos(\Omega n) + V \sin(\Omega n)] \\
-&amp;= \EXP[U] \cos(\Omega n) + \EXP[V] \sin(\Omega n) \\
+\mu_X(n) &amp;= \EXP[X_n] = \EXP[A \cos(\Omega n) + B \sin(\Omega n)] \\
+&amp;= \EXP[A] \cos(\Omega n) + \EXP[B] \sin(\Omega n) \\
 &amp;= 0
-\end{align*}\]</span> since <span class="math inline">\(\EXP[U] = \EXP[V] = 0\)</span>.</p>
+\end{align*}\]</span> since <span class="math inline">\(\EXP[A] = \EXP[B] = 0\)</span>.</p>
 <p><strong>Covariance function:</strong></p>
 <p><span class="math display">\[\begin{align*}
 R_X(m,n) &amp;= \EXP[X_m X_n] \\
-&amp;= \EXP[(U \cos(\Omega m) + V \sin(\Omega m))(U \cos(\Omega n) + V \sin(\Omega n))] \\
-&amp;= \EXP[U^2] \cos(\Omega m) \cos(\Omega n) + \EXP[UV] \cos(\Omega m) \sin(\Omega n) \\
-&amp;\quad + \EXP[VU] \sin(\Omega m) \cos(\Omega n) + \EXP[V^2] \sin(\Omega m) \sin(\Omega n)
-  \\
-&amp;= \sigma^2 [\cos(\Omega m) \cos(\Omega n) + \sin(\Omega m) \sin(\Omega n)] \\
-&amp;= \sigma^2 \cos(\Omega (m-n))
+&amp;= \EXP[(A \cos(\Omega m) + B \sin(\Omega m))(A \cos(\Omega n) + B \sin(\Omega n))] \\
+&amp;= \EXP[A^2] \cos(\Omega m) \cos(\Omega n) + \EXP[AB] \cos(\Omega m) \sin(\Omega n) \\
+&amp;\quad + \EXP[BA] \sin(\Omega m) \cos(\Omega n) + \EXP[B^2] \sin(\Omega m) \sin(\Omega n)
+\end{align*}\]</span></p>
+<p>Since <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent with <span class="math inline">\(\EXP[A] = \EXP[B] = 0\)</span>, we have: - <span class="math inline">\(\EXP[A^2] = \VAR(A) = σ^2\)</span> - <span class="math inline">\(\EXP[B^2] = \VAR(B) = σ^2\)</span> - <span class="math inline">\(\EXP[AB] = \EXP[A]\EXP[B] = 0\)</span></p>
+<p>Therefore: <span class="math display">\[\begin{align*}
+R_X(m,n) &amp;= σ^2 [\cos(\Omega m) \cos(\Omega n) + \sin(\Omega m) \sin(\Omega n)] \\
+&amp;= σ^2 \cos(\Omega (m-n))
 \end{align*}\]</span> using the identity <span class="math inline">\(\cos(a-b) = \cos(a)\cos(b) + \sin(a)\sin(b)\)</span>.</p>
 <p>Since cosine is even: <span class="math display">\[
-R_X(m,n) = \sigma^2 \cos(\Omega |m-n|)
+R_X(m,n) = σ^2 \cos(\Omega |m-n|)
 \]</span></p>
 <p>Thus, the process is sationary.</p>
 </div>
 </div>
 </div>
 <div id="exm-white-noise" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.2 (White noise process (i.i.d. Gaussian))</strong></span> A <strong>white noise process</strong> <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is a Gaussian process where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, \sigma^2)\)</span> for some <span class="math inline">\(\sigma &gt; 0\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 11.2 (White noise process (i.i.d. Gaussian))</strong></span> A <strong>white noise process</strong> <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is a Gaussian process where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span> for some <span class="math inline">\(σ &gt; 0\)</span>.</p>
 <p>A sample path of white noise is shown below.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="170" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 169;"><span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a>viewof rerun_white <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
-<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>points_white <span class="op">=</span> {</span>
-<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>    rerun_white</span>
-<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
-<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N)</span>
-<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
-<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
-<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">W_n</span><span class="op">:</span> val }</span>
-<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
-<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="179" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 178;"><span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>viewof rerun_white <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>points_white <span class="op">=</span> {</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>    rerun_white</span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N)</span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">W_n</span><span class="op">:</span> val }</span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -786,16 +788,16 @@ R_X(m,n) = \sigma^2 \cos(\Omega |m-n|)
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="185" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 184;"><span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
-<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_white<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"W_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">,</span></span>
-<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_white<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"W_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
-<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="194" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 193;"><span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_white<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"W_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">,</span></span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_white<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"W_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-5" data-nodetype="expression">
 
@@ -804,7 +806,7 @@ R_X(m,n) = \sigma^2 \cos(\Omega |m-n|)
 </div>
 <p>Find the mean and covariance function of the process. Is the process stationary?</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -813,20 +815,20 @@ R_X(m,n) = \sigma^2 \cos(\Omega |m-n|)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p><strong>Mean function:</strong></p>
-<p>Since <span class="math inline">\(W_n \sim \mathcal{N}(0, \sigma^2)\)</span> for all <span class="math inline">\(n \ge 0\)</span>, we have: <span class="math display">\[
+<p>Since <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span> for all <span class="math inline">\(n \ge 0\)</span>, we have: <span class="math display">\[
 \mu_W(n) = \EXP[W_n] = 0 \quad \text{for all } n \ge 0
 \]</span></p>
 <p><strong>Covariance function:</strong></p>
 <p>For <span class="math inline">\(m, n \ge 0\)</span>:</p>
 <ul>
-<li>If <span class="math inline">\(m = n\)</span>: <span class="math inline">\(R_W(m,n) = \COV(W_m, W_n) = \VAR(W_n) = \sigma^2\)</span></li>
+<li>If <span class="math inline">\(m = n\)</span>: <span class="math inline">\(R_W(m,n) = \COV(W_m, W_n) = \VAR(W_n) = σ^2\)</span></li>
 <li>If <span class="math inline">\(m \neq n\)</span>: Since <span class="math inline">\(W_m\)</span> and <span class="math inline">\(W_n\)</span> are independent, <span class="math inline">\(R_W(m,n) = \COV(W_m, W_n) = 0\)</span></li>
 </ul>
 <p>Therefore: <span class="math display">\[
-R_W(m,n) = \sigma^2 \IND_{\{m=n\}} \quad \text{for } m, n \ge 0
+R_W(m,n) = σ^2 \IND_{\{m=n\}} \quad \text{for } m, n \ge 0
 \]</span> where <span class="math inline">\(\IND_{\{m=n\}}\)</span> is the indicator function that equals 1 when <span class="math inline">\(m = n\)</span> and 0 otherwise.</p>
 </div>
 </div>
@@ -838,22 +840,22 @@ X_0 = 0, \quad X_{n+1} = X_n + W_n, \quad n \ge 0
 \]</span> where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span> for some <span class="math inline">\(σ &gt; 0\)</span>.</p>
 <p>A sample path of a Gaussian random walk is shown below.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="237" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 236;"><span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>viewof rerun_rw <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
-<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>points_rw <span class="op">=</span> {</span>
-<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>    rerun_rw</span>
-<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
-<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> X <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a>    points[<span class="dv">0</span>] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> <span class="dv">0</span> }</span>
-<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
-<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> W <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
-<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>      X <span class="op">=</span> X <span class="op">+</span> W</span>
-<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> X }</span>
-<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
-<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="246" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 245;"><span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>viewof rerun_rw <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>points_rw <span class="op">=</span> {</span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>    rerun_rw</span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> X <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a>    points[<span class="dv">0</span>] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> <span class="dv">0</span> }</span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> W <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a>      X <span class="op">=</span> X <span class="op">+</span> W</span>
+<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> X }</span>
+<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-6-1" data-nodetype="declaration">
@@ -870,26 +872,27 @@ X_0 = 0, \quad X_{n+1} = X_n + W_n, \quad n \ge 0
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="255" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 254;"><span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
-<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_rw<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
-<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_rw<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
-<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="264" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 263;"><span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb7-267"><a href="#cb7-267" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">20</span><span class="op">,</span> <span class="dv">20</span>]}<span class="op">,</span></span>
+<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb7-269"><a href="#cb7-269" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_rw<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb7-272"><a href="#cb7-272" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_rw<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb7-273"><a href="#cb7-273" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-7" data-nodetype="expression">
 
 </div>
 </div>
 </div>
-<p>Find the mean and covariance function of the process. Is the process sationary?</p>
+<p>Assuming <span class="math inline">\(X_n \sim \mathcal{N}(0, σ^2)\)</span>, find the mean and covariance function of the process. Is the process sationary?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -898,25 +901,20 @@ X_0 = 0, \quad X_{n+1} = X_n + W_n, \quad n \ge 0
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p><strong>Mean function:</strong></p>
-<p>Since <span class="math inline">\(X_0 = 0\)</span> and <span class="math inline">\(X_n = \sum_{k=0}^{n-1} W_k\)</span> for <span class="math inline">\(n \ge 1\)</span>, we have: <span class="math display">\[
-\mu_X(n) = \EXP[X_n] = \EXP\left[\sum_{k=0}^{n-1} W_k\right] = \sum_{k=0}^{n-1} \EXP[W_k] = 0 \quad \text{for all } n \ge 0
-\]</span></p>
-<p><strong>Covariance function:</strong></p>
-<p>For <span class="math inline">\(m, n \ge 0\)</span>, without loss of generality, assume <span class="math inline">\(m \le n\)</span>. Then: <span class="math display">\[\begin{align*}
-R_X(m,n) &amp;= \COV(X_m, X_n) = \EXP[X_m X_n] \\
-&amp;= \EXP\left[\left(\sum_{i=0}^{m-1} W_i\right)\left(\sum_{j=0}^{n-1} W_j\right)\right] \\
-&amp;= \EXP\left[\sum_{i=0}^{m-1} \sum_{j=0}^{n-1} W_i W_j\right] \\
-&amp;= \sum_{i=0}^{m-1} \sum_{j=0}^{n-1} \EXP[W_i W_j]
+<p>Observe that the process satisfies the Markov property. So, it is also called a <strong>Gauss Markov process</strong>. Since the marginal distribution of <span class="math inline">\(X_n\)</span> is Gaussian, we can write recursive formulas for the mean and covariance function (which will be the analog of the <span class="math inline">\(\mu^{(n+1)} = \mu^{(n)} P\)</span> type recursions for Markov chains). <span class="math display">\[\begin{align*}
+  \mu_X(n+1) &amp;= \mu_X(n) + \EXP[W_{n+1}] = \mu_X(n), \\
+  R_X(n+1,n+1) &amp;= \EXP[ (X_n + W_n)(X_n + W_n)] \\
+  &amp;= R_X(n,n) + \EXP[W_n^2] = R_X(n,n) + σ^2.
 \end{align*}\]</span></p>
-<p>Since <span class="math inline">\(W_i\)</span> and <span class="math inline">\(W_j\)</span> are independent for <span class="math inline">\(i \neq j\)</span> and <span class="math inline">\(\EXP[W_i] = 0\)</span>, we have <span class="math inline">\(\EXP[W_i W_j] = 0\)</span> for <span class="math inline">\(i \neq j\)</span> and <span class="math inline">\(\EXP[W_i^2] = \sigma^2\)</span> for <span class="math inline">\(i = j\)</span>. Therefore: <span class="math display">\[
-R_X(m,n) = \sum_{i=0}^{m-1} \EXP[W_i^2] = m \sigma^2
-\]</span></p>
-<p>For the general case <span class="math inline">\(m, n \ge 0\)</span>: <span class="math display">\[
-R_X(m,n) = \sigma^2 \min(m,n)
-\]</span> Thus, the process is not sationary.</p>
+<p>Thus, <span class="math inline">\(\mu_X(n) = \mu_X(0) = 0\)</span> and <span class="math inline">\(R_X(n,n) = σ^2 n\)</span> for all <span class="math inline">\(n \ge 0\)</span>.</p>
+<p>For computing <span class="math inline">\(R_X(n,m)\)</span> for <span class="math inline">\(n \neq m\)</span>, we use the fact that (assuming <span class="math inline">\(n &lt; m\)</span>) the increment <span class="math inline">\(X_{m} - X_{n} = W_{n} + W_{n+1} + \cdots + W_{m-1}\)</span> is independent of <span class="math inline">\(X_n\)</span>. Therefore <span class="math display">\[\begin{align*}
+  R_X(n,m) &amp;= \EXP[X_n X_m] \\
+  &amp;= \EXP[X_n (X_{n} + W_{n} + W_{n+1} + \cdots + W_{m-1})] \\
+  &amp;= R_X(n,n).
+\end{align*}\]</span></p>
+<p>Combining the above we have <span class="math inline">\(R_X(n,m) = σ^2 \min(n,m)\)</span> for all <span class="math inline">\(n, m \ge 0\)</span>. Thus, the process is not sationary.</p>
 </div>
 </div>
 </div>
@@ -963,23 +961,24 @@ X_{n+1} = a X_n + W_n, \quad n \ge 0
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb9" data-startfrom="335" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 334;"><span id="cb9-335"><a href="#cb9-335" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
 <span id="cb9-336"><a href="#cb9-336" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
 <span id="cb9-337"><a href="#cb9-337" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
-<span id="cb9-338"><a href="#cb9-338" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb9-339"><a href="#cb9-339" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb9-340"><a href="#cb9-340" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb9-341"><a href="#cb9-341" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_ar1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
-<span id="cb9-342"><a href="#cb9-342" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_ar1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
-<span id="cb9-343"><a href="#cb9-343" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb9-344"><a href="#cb9-344" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-338"><a href="#cb9-338" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]}<span class="op">,</span></span>
+<span id="cb9-339"><a href="#cb9-339" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb9-340"><a href="#cb9-340" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb9-341"><a href="#cb9-341" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb9-342"><a href="#cb9-342" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_ar1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb9-343"><a href="#cb9-343" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_ar1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})<span class="op">,</span></span>
+<span id="cb9-344"><a href="#cb9-344" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb9-345"><a href="#cb9-345" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-9" data-nodetype="expression">
 
 </div>
 </div>
 </div>
-<p>Find the mean and covariance function of the process assuming <span class="math inline">\(X_0 = x_0\)</span>.</p>
+<p>Assuming <span class="math inline">\(X_0 \sim \mathcal{N}(0, σ^2)\)</span>, find the mean and covariance function of the process. Is the process sationary?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -988,30 +987,27 @@ X_{n+1} = a X_n + W_n, \quad n \ge 0
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p><strong>Mean function:</strong></p>
-<p>The mean function satisfies the recursion: <span class="math display">\[
-\mu_X(n) = a \mu_X(n-1)
-\]</span> with <span class="math inline">\(\mu_X(0) = x_0\)</span>. Therefore, <span class="math display">\[
-\mu_X(n) = a^n x_0
-\]</span></p>
-<p><strong>Covariance function:</strong></p>
-<p>We first consider the case <span class="math inline">\(n = m\)</span>. Then: <span class="math display">\[
-R_X(n,n) = \EXP[X_n^2] = \EXP[(a X_{n-1} + W_n)^2] = a^2 \EXP[X_{n-1}^2] + 2a \EXP[X_{n-1} W_n] + \EXP[W_n^2]
-\]</span> Since <span class="math inline">\(X_{n-1}\)</span> and <span class="math inline">\(W_n\)</span> are independent, we have <span class="math inline">\(\EXP[X_{n-1} W_n] = \EXP[X_{n-1}] \EXP[W_n] = 0\)</span>. Therefore:<br>
-<span class="math display">\[
-R_X(n,n) = a^2 R_X(n-1,n-1) + \sigma^2
-\]</span> with <span class="math inline">\(R_X(0,0) = 0\)</span>. By induction, we have: <span class="math display">\[
-R_X(n,n) = \sigma^2 \sum_{k=0}^{n-1} a^{2k}.
-\]</span></p>
-<p>Now consider the case <span class="math inline">\(n \neq m\)</span>. Without loss of generality, assume <span class="math inline">\(n &lt; m\)</span>. Using the recursion <span class="math inline">\(X_m = a X_{m-1} + W_{m-1}\)</span>: <span class="math display">\[
-R_X(n,m) = \EXP[X_n X_m] = \EXP[X_n (a X_{m-1} + W_{m-1})] = a \EXP[X_n X_{m-1}] + \EXP[X_n W_{m-1}]
-\]</span> Since <span class="math inline">\(X_n\)</span> and <span class="math inline">\(W_{m-1}\)</span> are independent (because <span class="math inline">\(m-1 \ge n\)</span> when <span class="math inline">\(n &lt; m\)</span>), we have <span class="math inline">\(\EXP[X_n W_{m-1}] = 0\)</span>. Therefore: <span class="math display">\[
-R_X(n,m) = a R_X(n, m-1)
-\]</span> with the base case <span class="math inline">\(R_X(n,n)\)</span> computed above. Therefore, we have <span class="math display">\[
-R_X(n,m) = a^{m-n} R_X(n,n) = a^{m-n} \sigma^2 \sum_{k=0}^{n-1} a^{2k}
-\]</span></p>
+<p>As was the case for <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>11.3</span></a>, AR(1) processes are also Gauss Markov processes. As before, we can write recursive formulas for the mean and covariance function: <span class="math display">\[\begin{align*}
+  \mu_X(n+1) &amp;= a \mu_X(n) + \EXP[W_{n+1}] = a \mu_X(n), \\
+  R_X(n+1,n+1) &amp;= \EXP[ (a X_n + W_n)(a X_n + W_n)] \\
+  &amp;= a^2 R_X(n,n) + \EXP[W_n^2] = a^2 R_X(n,n) + σ^2.
+\end{align*}\]</span></p>
+<p>Thus, <span class="math inline">\(\mu_X(n) = \mu_X(0) = 0\)</span> and <span class="math inline">\(R_X(n,n) = σ^2 \sum_{k=0}^{n-1} a^{2k}\)</span> for all <span class="math inline">\(n \ge 0\)</span>.</p>
+<p>For computing <span class="math inline">\(R_X(n,m)\)</span> for <span class="math inline">\(n \neq m\)</span>, we use the fact that (assuming <span class="math inline">\(n &lt; m\)</span>) <span class="math display">\[\begin{align*}
+X_{m} &amp;= a X_{m-1} + W_{m-1} \\
+&amp;= a (a X_{m-2} + W_{m-2}) + W_{m-1} \\
+&amp;= a^2 X_{m-2} + a W_{m-2} + W_{m-1} \\
+&amp;= \cdots \\
+&amp;= a^{m-n} X_{n} + a^{m-n-1} W_{n+1} + \cdots + W_{m-1}.
+\end{align*}\]</span> Note that the increment <span class="math inline">\(a^{m-n-1} W_{n+1} + \cdots + W_{m-1}\)</span> is independent of <span class="math inline">\(X_n\)</span>. Therefore <span class="math display">\[\begin{align*}
+  R_X(n,m) &amp;= \EXP[X_n X_m] \\
+  &amp;= \EXP[X_n (a^{m-n} X_{n} + a^{m-n-1} W_{n+1} + \cdots + W_{m-1})] \\
+  &amp;= a^{m-n} R_X(n,n).
+\end{align*}\]</span></p>
+<p>Combining the above we have <span class="math display">\[R_X(n,m) = σ^2 a^{|m-n|} \frac{1 - a^{2\min(n,m)}}{1 - a^2}, \quad \forall n, m \ge 0.\]</span> where we have used the geometric series formula <span class="math inline">\(\sum_{k=0}^{n-1} a^{2k} = \frac{1 - a^{2n}}{1 - a^2}\)</span> (for <span class="math inline">\(|a| &lt; 1\)</span>).</p>
+<p>Thus, the process is not stationary.</p>
 </div>
 </div>
 </div>
@@ -1021,18 +1017,21 @@ R_X(n,m) = a^{m-n} R_X(n,n) = a^{m-n} \sigma^2 \sum_{k=0}^{n-1} a^{2k}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Invariant distribution and relationship to Markov chains
+<span class="screen-reader-only">Tip</span>Invariant distribution and stationarity
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Observe that the process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> satisfies the Markov property. So, it is also called a <strong>Gauss Markov process</strong>. From the results of <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>11.4</span></a>, observe that <span class="math display">\[
+<p>From the results of <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>11.4</span></a>, observe that <span class="math display">\[
    \lim_{n \to \infty} \mu_X(n) = 0 \quad \text{and} \quad \lim_{n \to \infty} R_X(n,n) = \frac{σ^2}{1-a^2}
 \]</span> for <span class="math inline">\(m, n \ge 0\)</span>. The above limits show that the distribution of <span class="math inline">\(X_n\)</span> converges to an invariant distribution with mean 0 and variance <span class="math inline">\(\frac{σ^2}{1-a^2}\)</span>.</p>
-<p>As was the case for Markov chains, if we start with the invariant distribution, i.e., <span class="math inline">\(X_0 \sim \mathcal{N}(0, \frac{σ^2}{1-a^2})\)</span>, the process will remain in the invariant distribution for all time. Furthermore, the process is a strict sense stationary process because <span class="math display">\[
-   \mu_X(n) = 0, \quad \forall n \ge 0
-\]</span> and using similar recursions as above, we have <span class="math display">\[
+<p>As was the case for Markov chains, if we start with the invariant distribution, i.e., <span class="math inline">\(X_0 \sim \mathcal{N}(0, \frac{σ^2}{1-a^2})\)</span>, the process will remain in the invariant distribution for all time because <span class="math display">\[
+  \mu_X(n+1) = a \mu_X(n) = 0
+\]</span> and <span class="math display">\[
+R_X(1,1) = σ^2 + a^2 R_X(0,0) = σ^2 + a^2 \frac{σ^2}{1-a^2} = σ^2 \frac{1 + a^2}{1-a^2},
+\]</span> and simlarly for <span class="math inline">\(R_X(n,n)\)</span> for all <span class="math inline">\(n \ge 0\)</span>.</p>
+<p>Furthermore, the process is a strict sense stationary process because in addition to <span class="math inline">\(\mu_X(n) = 0\)</span>, we have <span class="math display">\[
 R_X(n, m) = a^{|n-m|} R_X(n,n) = a^{|n-m|} \frac{σ^2}{1-a^2}.
-\]</span></p>
+\]</span> which is a function of <span class="math inline">\(|n-m|\)</span> only.</p>
 </div>
 </div>
 <p>The above ideas can be generalized to vector valued processes as well.</p>
@@ -1152,29 +1151,39 @@ R_X(m,n) &= \COV(X_m, X_n) = \EXP[X_m X_n] \\
 &= \sum_{i=0}^{\min(m,q)} \sum_{j=0}^{\min(n,q)} b_i b_j \EXP[W_{m-i} W_{n-j}]
 \end{align*}
 
-Since $W_k$ are independent with $\EXP[W_k] = 0$ and $\VAR(W_k) = \sigma^2$, we have $\EXP[W_{m-i} W_{n-j}] = \sigma^2$ if $m-i = n-j$ (i.e., $n-m = j-i$), and $0$ otherwise.
+Since $W_k$ are independent with $\EXP[W_k] = 0$ and $\VAR(W_k) = σ^2$, we have $\EXP[W_{m-i} W_{n-j}] = σ^2$ if $m-i = n-j$ (i.e., $n-m = j-i$), and $0$ otherwise.
 
 Let $d = n-m$. Then:
 $$
-R_X(m,n) = \sigma^2 \sum_{k=0}^{q} b_k b_{k+|d|}
+R_X(m,n) = σ^2 \sum_{k=0}^{q} b_k b_{k+|d|}
 $$
 where we define $b_k = 0$ for $k < 0$ or $k > q$.
 
 For the case when $n \ge m$ (so $d \ge 0$), we need $j = i + d$:
 $$
-R_X(m,n) = \sigma^2 \sum_{i=0}^{q} b_i b_{i+d}
+R_X(m,n) = σ^2 \sum_{i=0}^{q} b_i b_{i+d}
 $$
 
 Since the covariance function is symmetric, for general $m, n \ge 0$:
 $$
-R_X(m,n) = \sigma^2 \sum_{k=0}^{q} b_k b_{k+|n-m|}
+R_X(m,n) = σ^2 \sum_{k=0}^{q} b_k b_{k+|n-m|}
 $$
 :::
 :::
 -->
 </section>
-<section id="review-of-discrete-time-lti-systems" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="review-of-discrete-time-lti-systems"><span class="header-section-number">11.4</span> Review of discrete-time LTI systems</h2>
+<section id="jointly-gaussian-stochastic-processes" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="jointly-gaussian-stochastic-processes"><span class="header-section-number">11.4</span> Jointly Gaussian stochastic processes</h2>
+<ol type="1">
+<li><p>Consider two stochastic processes defined on a common probability space: <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span>. Suppose for any collection <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> of time indices, the random vector <span class="math inline">\(\{X_{n_1}, \dots, X_{n_k}, Y_{n_1}, \dots, Y_{n_k}\}\)</span> has a multivariate Gaussian distribution. Then, the processes are called <strong>jointly Gaussian</strong>.</p></li>
+<li><p>The joint process <span class="math inline">\(\{X_n, Y_n\}_{n \ge 0}\)</span> is a Gaussian process with mean <span class="math inline">\(\mu_{X,Y}(n) = \MATRIX{\mu_X(n)\\ \mu_Y(n)}\)</span> and covariance <span class="math inline">\(R_{X,Y}(n,m) = \MATRIX{R_X(n,m) &amp; R_{XY}(n,m) \\ R_{YX}(n,m) &amp; R_Y(n,m)}\)</span>.</p></li>
+<li><p>The function <span class="math inline">\(R_{XY}(n,m) = COV(X_n, Y_m)\)</span> is called the <strong>cross-covariance function</strong> of the processes (and sometimes the processes <span class="math inline">\(R_X(n,m)\)</span> and <span class="math inline">\(R_Y(n,m)\)</span> are called the <strong>auto-covariance functions</strong> of the processes).</p></li>
+<li><p>The cross-covariance function satisfies <span class="math inline">\(R_{XY}(n,m) = \COV(X_n, Y_m) = R_{YX}(m,n)\)</span> for all <span class="math inline">\(n, m \ge 0\)</span>.</p></li>
+<li><p>The processes are <strong>uncorrelated</strong> if <span class="math inline">\(R_{XY}(n,m) = 0\)</span> for all <span class="math inline">\(n, m \ge 0\)</span>. Since the joint process is Gaussian, uncorrelated implies independent.</p></li>
+</ol>
+</section>
+<section id="review-of-discrete-time-lti-systems" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="review-of-discrete-time-lti-systems"><span class="header-section-number">11.5</span> Review of discrete-time LTI systems</h2>
 <ol type="1">
 <li><p>Consider an LTI system with impulse resposnse <span class="math inline">\(\{h_k\}_{k \ge 0}\)</span>. The transfer function of the system is given by the Z-transform of the impulse response: <span class="math display">\[
 H(z) = \sum_{k=0}^∞ h_k z^{-k}
@@ -1190,8 +1199,8 @@ H(z) = \sum_{k=0}^∞ h_k z^{-k}
 \]</span></p></li>
 </ol>
 </section>
-<section id="stationary-gaussian-processes-through-lti-systems" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.5</span> Stationary Gaussian processes through LTI systems</h2>
+<section id="stationary-gaussian-processes-through-lti-systems" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.6</span> Stationary Gaussian processes through LTI systems</h2>
 <ol type="1">
 <li><p>When a stationary Gaussian process is passed through a linear time-invariant (LTI) system, the output is also a stationary Gaussian process. This is a fundamental result in signal processing and stochastic control.</p></li>
 <li><p>Suppose a stationary Gaussian process <span class="math inline">\(\{X_n\}_{n ≥ 0}\)</span> is passed through an LTI system <span class="math inline">\(H(z)\)</span>. For every <span class="math inline">\(ω ∈ Ω\)</span>, the output process is given by <span class="math display">\[
@@ -1308,8 +1317,8 @@ S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
 <li><p><strong>Interpretation:</strong> The power spectral density describes how the power (variance) of a stationary process is distributed across different frequencies. It is a fundamental tool in signal processing for analyzing the frequency content of random signals.</p></li>
 </ol>
 </section>
-<section id="note-on-non-gaussian-processes" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="note-on-non-gaussian-processes"><span class="header-section-number">11.6</span> Note on non-Gaussian processes</h2>
+<section id="note-on-non-gaussian-processes" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="note-on-non-gaussian-processes"><span class="header-section-number">11.7</span> Note on non-Gaussian processes</h2>
 <p>Since all the properties discussed above (mean function, covariance function, linear transformations, etc.) depend only on the first two moments (mean and covariance), they apply to stochastic processes beyond Gaussian processes, as long as we restrict our attention to first and second moments.</p>
 <p>However, it is important to distinguish between two notions of stationarity:</p>
 <ol type="1">
@@ -1381,7 +1390,7 @@ S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFN0YW5kYXJkIE5vcm1hbCB2YXJpYXRlIHVzaW5nIEJveC1NdWxsZXIgdHJhbnNmb3JtLlxuZnVuY3Rpb24gZ2F1c3NpYW5SYW5kb20obWVhbj0wLCBzdGRldj0xKSB7XG4gICAgY29uc3QgdSA9IDEgLSBNYXRoLnJhbmRvbSgpO1xuICAgIGNvbnN0IHYgPSBNYXRoLnJhbmRvbSgpO1xuICAgIGNvbnN0IHogPSBNYXRoLnNxcnQoIC0yLjAgKiBNYXRoLmxvZyggdSApICkgKiBNYXRoLmNvcyggMi4wICogTWF0aC5QSSAqIHYgKTtcbiAgICByZXR1cm4geiAqIHN0ZGV2ICsgbWVhbjtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9jb3NpbmVfZ2F1c3MgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2Nvc2luZV9nYXVzcyA9IHtcbiAgICByZXJ1bl9jb3NpbmVfZ2F1c3NcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICBjb25zdCBmID0gMC4xXG4gICAgY29uc3QgVSA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgIGNvbnN0IFYgPSBnYXVzc2lhblJhbmRvbSgwLCBzaWdtYSlcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4rMSlcbiAgICBmb3IodmFyIG49MDsgbiA8PSBOOyBuKyspIHtcbiAgICAgIHZhciB2YWwgPSBVICogTWF0aC5jb3MoMiAqIE1hdGguUEkgKiBmICogbikgKyBWICogTWF0aC5zaW4oMiAqIE1hdGguUEkgKiBmICogbilcbiAgICAgIHBvaW50c1tuXSA9IHsgbjogbiwgWF9uOiB2YWwgfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDE1MCxcbiAgeToge2RvbWFpbjogWy0yLCAyXX0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX2Nvc2luZV9nYXVzcywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX2Nvc2luZV9nYXVzcywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSksXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgcmVydW5fd2hpdGUgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX3doaXRlID0ge1xuICAgIHJlcnVuX3doaXRlXG4gICAgY29uc3QgTiA9IDEyMFxuICAgIGNvbnN0IHNpZ21hID0gMS4wXG4gICAgdmFyIHBvaW50cyA9IG5ldyBBcnJheShOKVxuICAgIGZvcih2YXIgbj0wOyBuIDwgTjsgbisrKSB7XG4gICAgICB2YXIgdmFsID0gZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gICAgICBwb2ludHNbbl0gPSB7IG46IG4sIFdfbjogdmFsIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX3doaXRlLCB7eDogXCJuXCIsIHk6IFwiV19uXCIsIHN0cm9rZVdpZHRoOiAxfSksXG4gICAgUGxvdC5kb3QocG9pbnRzX3doaXRlLCB7eDogXCJuXCIsIHk6IFwiV19uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9ydyA9IElucHV0cy5idXR0b24oXCJHZW5lcmF0ZSBzYW1wbGUgcGF0aFwiKVxuXG5wb2ludHNfcncgPSB7XG4gICAgcmVydW5fcndcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4rMSlcbiAgICB2YXIgWCA9IDBcbiAgICBwb2ludHNbMF0gPSB7IG46IDAsIFhfbjogMCB9XG4gICAgZm9yKHZhciBuPTE7IG4gPD0gTjsgbisrKSB7XG4gICAgICB2YXIgVyA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgICAgWCA9IFggKyBXXG4gICAgICBwb2ludHNbbl0gPSB7IG46IG4sIFhfbjogWCB9XG4gICAgfVxuICAgIHJldHVybiBwb2ludHNcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTUwLFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVgoWzBdKSxcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19ydywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX3J3LCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9hcjEgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2FyMSA9IHtcbiAgICByZXJ1bl9hcjFcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICBjb25zdCBhID0gMC44XG4gICAgY29uc3QgdmFyMCA9IHNpZ21hKnNpZ21hIC8gKDEgLSBhKmEpXG4gICAgdmFyIHBvaW50cyA9IG5ldyBBcnJheShOKzEpXG4gICAgdmFyIFggPSBnYXVzc2lhblJhbmRvbSgwLCBNYXRoLnNxcnQodmFyMCkpXG4gICAgcG9pbnRzWzBdID0geyBuOiAwLCBYX246IFggfVxuICAgIGZvcih2YXIgbj0xOyBuIDw9IE47IG4rKykge1xuICAgICAgdmFyIFcgPSBnYXVzc2lhblJhbmRvbSgwLCBzaWdtYSlcbiAgICAgIFggPSBhICogWCArIFdcbiAgICAgIHBvaW50c1tuXSA9IHsgbjogbiwgWF9uOiBYIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX2FyMSwge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX2FyMSwge3g6IFwiblwiLCB5OiBcIlhfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSksXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTEwIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHJlcnVuX21hID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIHNhbXBsZSBwYXRoXCIpXG5cbnBvaW50c19tYSA9IHtcbiAgICByZXJ1bl9tYVxuICAgIGNvbnN0IE4gPSAxMjBcbiAgICBjb25zdCBzaWdtYSA9IDEuMFxuICAgIGNvbnN0IHEgPSAyXG4gICAgY29uc3QgYiA9IFsxLCAwLjUsIDAuMjVdXG4gICAgdmFyIFdfaGlzdG9yeSA9IFtdXG4gICAgdmFyIHBvaW50cyA9IG5ldyBBcnJheShOKzEpXG4gICAgZm9yKHZhciBuPTA7IG4gPD0gTjsgbisrKSB7XG4gICAgICB2YXIgVyA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgICAgV19oaXN0b3J5LnVuc2hpZnQoVylcbiAgICAgIGlmKFdfaGlzdG9yeS5sZW5ndGggPiBxKzEpIHtcbiAgICAgICAgV19oaXN0b3J5LnBvcCgpXG4gICAgICB9XG4gICAgICB2YXIgWCA9IDBcbiAgICAgIGZvcih2YXIgaz0wOyBrIDw9IE1hdGgubWluKG4sIHEpOyBrKyspIHtcbiAgICAgICAgaWYoayA8IFdfaGlzdG9yeS5sZW5ndGgpIHtcbiAgICAgICAgICBYICs9IGJba10gKiBXX2hpc3Rvcnlba11cbiAgICAgICAgfVxuICAgICAgfVxuICAgICAgcG9pbnRzW25dID0geyBuOiBuLCBYX246IFggfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTExIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX21hLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfbWEsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pLFxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXJ1bl9jb3NpbmVfZ2F1c3MnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fd2hpdGUnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fcncnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fYXIxJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3JlcnVuX21hJykifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFN0YW5kYXJkIE5vcm1hbCB2YXJpYXRlIHVzaW5nIEJveC1NdWxsZXIgdHJhbnNmb3JtLlxuZnVuY3Rpb24gZ2F1c3NpYW5SYW5kb20obWVhbj0wLCBzdGRldj0xKSB7XG4gICAgY29uc3QgdSA9IDEgLSBNYXRoLnJhbmRvbSgpO1xuICAgIGNvbnN0IHYgPSBNYXRoLnJhbmRvbSgpO1xuICAgIGNvbnN0IHogPSBNYXRoLnNxcnQoIC0yLjAgKiBNYXRoLmxvZyggdSApICkgKiBNYXRoLmNvcyggMi4wICogTWF0aC5QSSAqIHYgKTtcbiAgICByZXR1cm4geiAqIHN0ZGV2ICsgbWVhbjtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9jb3NpbmVfZ2F1c3MgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2Nvc2luZV9nYXVzcyA9IHtcbiAgICByZXJ1bl9jb3NpbmVfZ2F1c3NcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICBjb25zdCBmID0gMC4xXG4gICAgY29uc3QgQSA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgIGNvbnN0IEIgPSBnYXVzc2lhblJhbmRvbSgwLCBzaWdtYSlcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4rMSlcbiAgICBmb3IodmFyIG49MDsgbiA8PSBOOyBuKyspIHtcbiAgICAgIHZhciB2YWwgPSBBICogTWF0aC5jb3MoMiAqIE1hdGguUEkgKiBmICogbikgKyBCICogTWF0aC5zaW4oMiAqIE1hdGguUEkgKiBmICogbilcbiAgICAgIHBvaW50c1tuXSA9IHsgbjogbiwgWF9uOiB2YWwgfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDE1MCxcbiAgeToge2RvbWFpbjogWy0yLCAyXX0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX2Nvc2luZV9nYXVzcywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX2Nvc2luZV9nYXVzcywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSksXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgcmVydW5fd2hpdGUgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX3doaXRlID0ge1xuICAgIHJlcnVuX3doaXRlXG4gICAgY29uc3QgTiA9IDEyMFxuICAgIGNvbnN0IHNpZ21hID0gMS4wXG4gICAgdmFyIHBvaW50cyA9IG5ldyBBcnJheShOKVxuICAgIGZvcih2YXIgbj0wOyBuIDwgTjsgbisrKSB7XG4gICAgICB2YXIgdmFsID0gZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gICAgICBwb2ludHNbbl0gPSB7IG46IG4sIFdfbjogdmFsIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX3doaXRlLCB7eDogXCJuXCIsIHk6IFwiV19uXCIsIHN0cm9rZVdpZHRoOiAxfSksXG4gICAgUGxvdC5kb3QocG9pbnRzX3doaXRlLCB7eDogXCJuXCIsIHk6IFwiV19uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9ydyA9IElucHV0cy5idXR0b24oXCJHZW5lcmF0ZSBzYW1wbGUgcGF0aFwiKVxuXG5wb2ludHNfcncgPSB7XG4gICAgcmVydW5fcndcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4rMSlcbiAgICB2YXIgWCA9IDBcbiAgICBwb2ludHNbMF0gPSB7IG46IDAsIFhfbjogMCB9XG4gICAgZm9yKHZhciBuPTE7IG4gPD0gTjsgbisrKSB7XG4gICAgICB2YXIgVyA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgICAgWCA9IFggKyBXXG4gICAgICBwb2ludHNbbl0gPSB7IG46IG4sIFhfbjogWCB9XG4gICAgfVxuICAgIHJldHVybiBwb2ludHNcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTUwLFxuICB5OiB7ZG9tYWluOiBbLTIwLCAyMF19LFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVgoWzBdKSxcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19ydywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX3J3LCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9hcjEgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2FyMSA9IHtcbiAgICByZXJ1bl9hcjFcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICBjb25zdCBhID0gMC44XG4gICAgY29uc3QgdmFyMCA9IHNpZ21hKnNpZ21hIC8gKDEgLSBhKmEpXG4gICAgdmFyIHBvaW50cyA9IG5ldyBBcnJheShOKzEpXG4gICAgdmFyIFggPSBnYXVzc2lhblJhbmRvbSgwLCBNYXRoLnNxcnQodmFyMCkpXG4gICAgcG9pbnRzWzBdID0geyBuOiAwLCBYX246IFggfVxuICAgIGZvcih2YXIgbj0xOyBuIDw9IE47IG4rKykge1xuICAgICAgdmFyIFcgPSBnYXVzc2lhblJhbmRvbSgwLCBzaWdtYSlcbiAgICAgIFggPSBhICogWCArIFdcbiAgICAgIHBvaW50c1tuXSA9IHsgbjogbiwgWF9uOiBYIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIHk6IHtkb21haW46IFstNSwgNV19LFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVgoWzBdKSxcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19hcjEsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgc3Ryb2tlV2lkdGg6IDEuNX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19hcjEsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pLFxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9tYSA9IElucHV0cy5idXR0b24oXCJHZW5lcmF0ZSBzYW1wbGUgcGF0aFwiKVxuXG5wb2ludHNfbWEgPSB7XG4gICAgcmVydW5fbWFcbiAgICBjb25zdCBOID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgICBjb25zdCBxID0gMlxuICAgIGNvbnN0IGIgPSBbMSwgMC41LCAwLjI1XVxuICAgIHZhciBXX2hpc3RvcnkgPSBbXVxuICAgIHZhciBwb2ludHMgPSBuZXcgQXJyYXkoTisxKVxuICAgIGZvcih2YXIgbj0wOyBuIDw9IE47IG4rKykge1xuICAgICAgdmFyIFcgPSBnYXVzc2lhblJhbmRvbSgwLCBzaWdtYSlcbiAgICAgIFdfaGlzdG9yeS51bnNoaWZ0KFcpXG4gICAgICBpZihXX2hpc3RvcnkubGVuZ3RoID4gcSsxKSB7XG4gICAgICAgIFdfaGlzdG9yeS5wb3AoKVxuICAgICAgfVxuICAgICAgdmFyIFggPSAwXG4gICAgICBmb3IodmFyIGs9MDsgayA8PSBNYXRoLm1pbihuLCBxKTsgaysrKSB7XG4gICAgICAgIGlmKGsgPCBXX2hpc3RvcnkubGVuZ3RoKSB7XG4gICAgICAgICAgWCArPSBiW2tdICogV19oaXN0b3J5W2tdXG4gICAgICAgIH1cbiAgICAgIH1cbiAgICAgIHBvaW50c1tuXSA9IHsgbjogbiwgWF9uOiBYIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTUwLFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVgoWzBdKSxcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19tYSwge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX21hLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fY29zaW5lX2dhdXNzJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3JlcnVuX3doaXRlJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3JlcnVuX3J3JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3JlcnVuX2FyMScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXJ1bl9tYScpIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
