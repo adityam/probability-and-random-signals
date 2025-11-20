@@ -274,39 +274,29 @@ Plot.plot({
 })
 ```
 
-Find the mean and covariance function of the process. Is the process sationary?
+Assuming $X_n \sim \mathcal{N}(0, σ^2)$, find the mean and covariance function of the process. Is the process sationary?
 :::
 
 :::{.callout-note collapse="true"}
 #### Solution
 
-**Mean function:**
-
-Since $X_0 = 0$ and $X_n = \sum_{k=0}^{n-1} W_k$ for $n \ge 1$, we have:
-$$
-\mu_X(n) = \EXP[X_n] = \EXP\left[\sum_{k=0}^{n-1} W_k\right] = \sum_{k=0}^{n-1} \EXP[W_k] = 0 \quad \text{for all } n \ge 0
-$$
-
-**Covariance function:**
-
-For $m, n \ge 0$, without loss of generality, assume $m \le n$. Then:
+Observe that the process satisfies the Markov property. So, it is also called a **Gauss Markov process**. Since the marginal distribution of $X_n$ is Gaussian, we can write recursive formulas for the mean and covariance function (which will be the analog of the $\mu^{(n+1)} = \mu^{(n)} P$ type recursions for Markov chains). 
 \begin{align*}
-R_X(m,n) &= \COV(X_m, X_n) = \EXP[X_m X_n] \\
-&= \EXP\left[\left(\sum_{i=0}^{m-1} W_i\right)\left(\sum_{j=0}^{n-1} W_j\right)\right] \\
-&= \EXP\left[\sum_{i=0}^{m-1} \sum_{j=0}^{n-1} W_i W_j\right] \\
-&= \sum_{i=0}^{m-1} \sum_{j=0}^{n-1} \EXP[W_i W_j]
+  \mu_X(n+1) &= \mu_X(n) + \EXP[W_{n+1}] = \mu_X(n), \\
+  R_X(n+1,n+1) &= \EXP[ (X_n + W_n)(X_n + W_n)] \\
+  &= R_X(n,n) + \EXP[W_n^2] = R_X(n,n) + \sigma^2.
 \end{align*}
 
-Since $W_i$ and $W_j$ are independent for $i \neq j$ and $\EXP[W_i] = 0$, we have $\EXP[W_i W_j] = 0$ for $i \neq j$ and $\EXP[W_i^2] = \sigma^2$ for $i = j$. Therefore:
-$$
-R_X(m,n) = \sum_{i=0}^{m-1} \EXP[W_i^2] = m \sigma^2
-$$
+Thus, $\mu_X(n) = \mu_X(0) = 0$ and $R_X(n,n) = \sigma^2 n$ for all $n \ge 0$. 
 
-For the general case $m, n \ge 0$:
-$$
-R_X(m,n) = \sigma^2 \min(m,n)
-$$
-Thus, the process is not sationary.
+For computing $R_X(n,m)$ for $n \neq m$, we use the fact that (assuming $n < m$) the increment $X_{m} - X_{n} = W_{n} + W_{n+1} + \cdots + W_{m-1}$ is independent of $X_n$. Therefore
+\begin{align*}
+  R_X(n,m) &= \EXP[X_n X_m] \\ 
+  &= \EXP[X_n (X_{n} + W_{n} + W_{n+1} + \cdots + W_{m-1})] \\
+  &= R_X(n,n).
+\end{align*}
+
+Combining the above we have $R_X(n,m) = \sigma^2 \min(n,m)$ for all $n, m \ge 0$. Thus, the process is not sationary.
 :::
 
 :::{#exm-AR1-process}
