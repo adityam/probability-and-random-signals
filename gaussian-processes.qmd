@@ -85,7 +85,7 @@ Consider a process $\{X_n\}_{n \ge 0}$ defined as:
 $$
 X_n = A \cos(\Omega n) + B \sin(\Omega n)
 $$
-where $\Omega \in \mathbb{R}$ is a constant frequency, and $A$ and $B$ are independent Gaussian random variables with $A, B \sim \mathcal{N}(0, \sigma^2)$.
+where $\Omega \in \mathbb{R}$ is a constant frequency, and $A$ and $B$ are independent Gaussian random variables with $A, B \sim \mathcal{N}(0, σ^2)$.
 
 A sample path of this process is shown below.
 
@@ -147,20 +147,20 @@ R_X(m,n) &= \EXP[X_m X_n] \\
 \end{align*}
 
 Since $A$ and $B$ are independent with $\EXP[A] = \EXP[B] = 0$, we have:
-- $\EXP[A^2] = \VAR(A) = \sigma^2$
-- $\EXP[B^2] = \VAR(B) = \sigma^2$
+- $\EXP[A^2] = \VAR(A) = σ^2$
+- $\EXP[B^2] = \VAR(B) = σ^2$
 - $\EXP[AB] = \EXP[A]\EXP[B] = 0$
 
 Therefore:
 \begin{align*}
-R_X(m,n) &= \sigma^2 [\cos(\Omega m) \cos(\Omega n) + \sin(\Omega m) \sin(\Omega n)] \\
-&= \sigma^2 \cos(\Omega (m-n))
+R_X(m,n) &= σ^2 [\cos(\Omega m) \cos(\Omega n) + \sin(\Omega m) \sin(\Omega n)] \\
+&= σ^2 \cos(\Omega (m-n))
 \end{align*}
 using the identity $\cos(a-b) = \cos(a)\cos(b) + \sin(a)\sin(b)$.
 
 Since cosine is even:
 $$
-R_X(m,n) = \sigma^2 \cos(\Omega |m-n|)
+R_X(m,n) = σ^2 \cos(\Omega |m-n|)
 $$
 
 Thus, the process is sationary.
@@ -171,7 +171,7 @@ Thus, the process is sationary.
 :::{#exm-white-noise}
 #### White noise process (i.i.d. Gaussian)
 
-A **white noise process** $\{W_n\}_{n \ge 0}$ is a Gaussian process where $\{W_n\}_{n \ge 0}$ is an i.i.d. sequence with $W_n \sim \mathcal{N}(0, \sigma^2)$ for some $\sigma > 0$.
+A **white noise process** $\{W_n\}_{n \ge 0}$ is a Gaussian process where $\{W_n\}_{n \ge 0}$ is an i.i.d. sequence with $W_n \sim \mathcal{N}(0, σ^2)$ for some $σ > 0$.
 
 A sample path of white noise is shown below.
 
@@ -206,12 +206,12 @@ Plot.plot({
 
 Find the mean and covariance function of the process. Is the process stationary?
 
-:::{.callout-note collapse="true"}
+:::{.callout-note collapse="false"}
 #### Solution
 
 **Mean function:**
 
-Since $W_n \sim \mathcal{N}(0, \sigma^2)$ for all $n \ge 0$, we have:
+Since $W_n \sim \mathcal{N}(0, σ^2)$ for all $n \ge 0$, we have:
 $$
 \mu_W(n) = \EXP[W_n] = 0 \quad \text{for all } n \ge 0
 $$
@@ -220,12 +220,12 @@ $$
 
 For $m, n \ge 0$:
 
-- If $m = n$: $R_W(m,n) = \COV(W_m, W_n) = \VAR(W_n) = \sigma^2$
+- If $m = n$: $R_W(m,n) = \COV(W_m, W_n) = \VAR(W_n) = σ^2$
 - If $m \neq n$: Since $W_m$ and $W_n$ are independent, $R_W(m,n) = \COV(W_m, W_n) = 0$
 
 Therefore:
 $$
-R_W(m,n) = \sigma^2 \IND_{\{m=n\}} \quad \text{for } m, n \ge 0
+R_W(m,n) = σ^2 \IND_{\{m=n\}} \quad \text{for } m, n \ge 0
 $$
 where $\IND_{\{m=n\}}$ is the indicator function that equals 1 when $m = n$ and 0 otherwise.
 :::
@@ -265,6 +265,7 @@ points_rw = {
 Plot.plot({
   grid: true,
   height: 150,
+  y: {domain: [-20, 20]},
   marks: [
     Plot.ruleX([0]),
     Plot.ruleY([0]),
@@ -277,17 +278,17 @@ Plot.plot({
 Assuming $X_n \sim \mathcal{N}(0, σ^2)$, find the mean and covariance function of the process. Is the process sationary?
 :::
 
-:::{.callout-note collapse="true"}
+:::{.callout-note collapse="false"}
 #### Solution
 
 Observe that the process satisfies the Markov property. So, it is also called a **Gauss Markov process**. Since the marginal distribution of $X_n$ is Gaussian, we can write recursive formulas for the mean and covariance function (which will be the analog of the $\mu^{(n+1)} = \mu^{(n)} P$ type recursions for Markov chains). 
 \begin{align*}
   \mu_X(n+1) &= \mu_X(n) + \EXP[W_{n+1}] = \mu_X(n), \\
   R_X(n+1,n+1) &= \EXP[ (X_n + W_n)(X_n + W_n)] \\
-  &= R_X(n,n) + \EXP[W_n^2] = R_X(n,n) + \sigma^2.
+  &= R_X(n,n) + \EXP[W_n^2] = R_X(n,n) + σ^2.
 \end{align*}
 
-Thus, $\mu_X(n) = \mu_X(0) = 0$ and $R_X(n,n) = \sigma^2 n$ for all $n \ge 0$. 
+Thus, $\mu_X(n) = \mu_X(0) = 0$ and $R_X(n,n) = σ^2 n$ for all $n \ge 0$. 
 
 For computing $R_X(n,m)$ for $n \neq m$, we use the fact that (assuming $n < m$) the increment $X_{m} - X_{n} = W_{n} + W_{n+1} + \cdots + W_{m-1}$ is independent of $X_n$. Therefore
 \begin{align*}
@@ -296,7 +297,7 @@ For computing $R_X(n,m)$ for $n \neq m$, we use the fact that (assuming $n < m$)
   &= R_X(n,n).
 \end{align*}
 
-Combining the above we have $R_X(n,m) = \sigma^2 \min(n,m)$ for all $n, m \ge 0$. Thus, the process is not sationary.
+Combining the above we have $R_X(n,m) = σ^2 \min(n,m)$ for all $n, m \ge 0$. Thus, the process is not sationary.
 :::
 
 :::{#exm-AR1-process}
@@ -335,6 +336,7 @@ points_ar1 = {
 Plot.plot({
   grid: true,
   height: 150,
+  y: {domain: [-5, 5]},
   marks: [
     Plot.ruleX([0]),
     Plot.ruleY([0]),
@@ -344,68 +346,67 @@ Plot.plot({
 })
 ```
 
-Find the mean and covariance function of the process assuming $X_0 = x_0$. 
+Assuming $X_0 \sim \mathcal{N}(0, σ^2)$, find the mean and covariance function of the process. Is the process sationary?
 :::
 
-:::{.callout-note collapse="true"}
+:::{.callout-note collapse="false"}
 #### Solution
-**Mean function:**
 
-The mean function satisfies the recursion:
-$$
-\mu_X(n) = a \mu_X(n-1)
-$$
-with $\mu_X(0) = x_0$. Therefore,
-$$
-\mu_X(n) = a^n x_0
-$$
+As was the case for @exm-random-walk, AR(1) processes are also Gauss Markov processes. As before, we can write recursive formulas for the mean and covariance function: 
+\begin{align*}
+  \mu_X(n+1) &= a \mu_X(n) + \EXP[W_{n+1}] = a \mu_X(n), \\
+  R_X(n+1,n+1) &= \EXP[ (a X_n + W_n)(a X_n + W_n)] \\
+  &= a^2 R_X(n,n) + \EXP[W_n^2] = a^2 R_X(n,n) + σ^2.
+\end{align*}
 
-**Covariance function:**
+Thus, $\mu_X(n) = \mu_X(0) = 0$ and $R_X(n,n) = σ^2 \sum_{k=0}^{n-1} a^{2k}$ for all $n \ge 0$. 
 
-We first consider the case $n = m$. Then:
-$$
-R_X(n,n) = \EXP[X_n^2] = \EXP[(a X_{n-1} + W_n)^2] = a^2 \EXP[X_{n-1}^2] + 2a \EXP[X_{n-1} W_n] + \EXP[W_n^2]
-$$
-Since $X_{n-1}$ and $W_n$ are independent, we have $\EXP[X_{n-1} W_n] = \EXP[X_{n-1}] \EXP[W_n] = 0$. Therefore:  
-$$
-R_X(n,n) = a^2 R_X(n-1,n-1) + \sigma^2
-$$
-with $R_X(0,0) = 0$. By induction, we have:
-$$
-R_X(n,n) = \sigma^2 \sum_{k=0}^{n-1} a^{2k}.
-$$
+For computing $R_X(n,m)$ for $n \neq m$, we use the fact that (assuming $n < m$) 
+\begin{align*}
+X_{m} &= a X_{m-1} + W_{m-1} \\
+&= a (a X_{m-2} + W_{m-2}) + W_{m-1} \\
+&= a^2 X_{m-2} + a W_{m-2} + W_{m-1} \\
+&= \cdots \\
+&= a^{m-n} X_{n} + a^{m-n-1} W_{n+1} + \cdots + W_{m-1}.
+\end{align*}
+Note that the increment $a^{m-n-1} W_{n+1} + \cdots + W_{m-1}$ is independent of $X_n$. Therefore
+\begin{align*}
+  R_X(n,m) &= \EXP[X_n X_m] \\
+  &= \EXP[X_n (a^{m-n} X_{n} + a^{m-n-1} W_{n+1} + \cdots + W_{m-1})] \\
+  &= a^{m-n} R_X(n,n).
+\end{align*}  
 
-Now consider the case $n \neq m$. Without loss of generality, assume $n < m$. Using the recursion $X_m = a X_{m-1} + W_{m-1}$:
-$$
-R_X(n,m) = \EXP[X_n X_m] = \EXP[X_n (a X_{m-1} + W_{m-1})] = a \EXP[X_n X_{m-1}] + \EXP[X_n W_{m-1}]
-$$
-Since $X_n$ and $W_{m-1}$ are independent (because $m-1 \ge n$ when $n < m$), we have $\EXP[X_n W_{m-1}] = 0$. Therefore:
-$$
-R_X(n,m) = a R_X(n, m-1)
-$$
-with the base case $R_X(n,n)$ computed above. Therefore, we have
-$$
-R_X(n,m) = a^{m-n} R_X(n,n) = a^{m-n} \sigma^2 \sum_{k=0}^{n-1} a^{2k}
-$$
+Combining the above we have 
+$$R_X(n,m) = σ^2 a^{|m-n|} \frac{1 - a^{2\min(n,m)}}{1 - a^2}, \quad \forall n, m \ge 0.$$
+where we have used the geometric series formula $\sum_{k=0}^{n-1} a^{2k} = \frac{1 - a^{2n}}{1 - a^2}$ (for $|a| < 1$).
+
+Thus, the process is not stationary.
 :::
 
 :::{.callout-tip}
-#### Invariant distribution and relationship to Markov chains
+#### Invariant distribution and stationarity
 
-Observe that the process $\{X_n\}_{n \ge 0}$ satisfies the Markov property. So, it is also called a **Gauss Markov process**.  From the results of @exm-AR1-process, observe that 
+From the results of @exm-AR1-process, observe that 
 $$
    \lim_{n \to \infty} \mu_X(n) = 0 \quad \text{and} \quad \lim_{n \to \infty} R_X(n,n) = \frac{σ^2}{1-a^2}
 $$
 for $m, n \ge 0$.  The above limits show that the distribution of $X_n$ converges to an invariant distribution with mean 0 and variance $\frac{σ^2}{1-a^2}$. 
 
-As was the case for Markov chains, if we start with the invariant distribution, i.e., $X_0 \sim \mathcal{N}(0, \frac{σ^2}{1-a^2})$, the process will remain in the invariant distribution for all time. Furthermore, the process is a strict sense stationary process because
+As was the case for Markov chains, if we start with the invariant distribution, i.e., $X_0 \sim \mathcal{N}(0, \frac{σ^2}{1-a^2})$, the process will remain in the invariant distribution for all time because
 $$
-   \mu_X(n) = 0, \quad \forall n \ge 0
+  \mu_X(n+1) = a \mu_X(n) = 0
 $$
-and  using similar recursions as above, we have
+and
+$$
+R_X(1,1) = σ^2 + a^2 R_X(0,0) = σ^2 + a^2 \frac{σ^2}{1-a^2} = σ^2 \frac{1 + a^2}{1-a^2},
+$$
+and simlarly for $R_X(n,n)$ for all $n \ge 0$.
+
+Furthermore, the process is a strict sense stationary process because in addition to $\mu_X(n) = 0$, we have
 $$
 R_X(n, m) = a^{|n-m|} R_X(n,n) = a^{|n-m|} \frac{σ^2}{1-a^2}.
 $$
+which is a function of $|n-m|$ only.
 :::
 
 The above ideas can be generalized to vector valued processes as well. 
@@ -498,22 +499,22 @@ R_X(m,n) &= \COV(X_m, X_n) = \EXP[X_m X_n] \\
 &= \sum_{i=0}^{\min(m,q)} \sum_{j=0}^{\min(n,q)} b_i b_j \EXP[W_{m-i} W_{n-j}]
 \end{align*}
 
-Since $W_k$ are independent with $\EXP[W_k] = 0$ and $\VAR(W_k) = \sigma^2$, we have $\EXP[W_{m-i} W_{n-j}] = \sigma^2$ if $m-i = n-j$ (i.e., $n-m = j-i$), and $0$ otherwise.
+Since $W_k$ are independent with $\EXP[W_k] = 0$ and $\VAR(W_k) = σ^2$, we have $\EXP[W_{m-i} W_{n-j}] = σ^2$ if $m-i = n-j$ (i.e., $n-m = j-i$), and $0$ otherwise.
 
 Let $d = n-m$. Then:
 $$
-R_X(m,n) = \sigma^2 \sum_{k=0}^{q} b_k b_{k+|d|}
+R_X(m,n) = σ^2 \sum_{k=0}^{q} b_k b_{k+|d|}
 $$
 where we define $b_k = 0$ for $k < 0$ or $k > q$.
 
 For the case when $n \ge m$ (so $d \ge 0$), we need $j = i + d$:
 $$
-R_X(m,n) = \sigma^2 \sum_{i=0}^{q} b_i b_{i+d}
+R_X(m,n) = σ^2 \sum_{i=0}^{q} b_i b_{i+d}
 $$
 
 Since the covariance function is symmetric, for general $m, n \ge 0$:
 $$
-R_X(m,n) = \sigma^2 \sum_{k=0}^{q} b_k b_{k+|n-m|}
+R_X(m,n) = σ^2 \sum_{k=0}^{q} b_k b_{k+|n-m|}
 $$
 :::
 :::
