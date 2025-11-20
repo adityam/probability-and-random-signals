@@ -884,7 +884,7 @@
     "href": "gaussian-processes.html#further-reading",
     "title": "11  Gaussian processes",
     "section": "Further Reading",
-    "text": "Further Reading\n\nGubner, Chapter 15.\nGrimmett and Stirzaker, Chapter 13.\nRasmussen and Williams, Gaussian Processes for Machine Learning, MIT Press, 2006. Available online.\nAdler and Taylor, Random Fields and Geometry, Springer, 2007.",
+    "text": "Further Reading\n\nGubner, Chapter 15.\nGrimmett and Stirzaker, Chapter 13.\nHajek, Random Processes for Engineering, Chapter 7 and Chapter 8. Most of the discussion there is for countinuous time processes, but the ideas are the same.",
     "crumbs": [
       "Probability and Random Signals II",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Gaussian processes</span>"
