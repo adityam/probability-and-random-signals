@@ -787,6 +787,4 @@ d. For what values of $k$ is the correlation between $X_n$ and $X_{n+k}$ less th
 
 2. Grimmett and Stirzaker, Chapter 13.
 
-3. [Rasmussen and Williams, _Gaussian Processes for Machine Learning_](https://gaussianprocess.org/gpml/), MIT Press, 2006. Available online.
-
-4. [Adler and Taylor, _Random Fields and Geometry_](https://www.springer.com/gp/book/9780387481168), Springer, 2007.
+3. Hajek, [Random Processes for Engineering](https://hajek.ece.illinois.edu/Papers/randomprocJuly14.pdf), Chapter 7 and Chapter 8. Most of the discussion there is for countinuous time processes, but the ideas are the same.
