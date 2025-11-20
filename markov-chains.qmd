@@ -982,3 +982,5 @@ b. If the outcome of the first roll is $1$, what is the probability that the out
 4. [Kemeny, Snell, and Knapp, Denumerable Markov Chains](https://archive.org/details/springer_10.1007-978-1-4684-9455-6), a slightly advanced version of the previous book. 
 
 5. [Doyle and Snell, Random Walks and Electrical Networks](https://doi.org/10.5948/UPO9781614440222) shows a facinating relationship between random walks and circuits!
+
+6. [Weber's notes on Markov chains](https://www.statslab.cam.ac.uk//~rrw1/markov/M.pdf)
