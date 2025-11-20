@@ -6,9 +6,11 @@ execute:
 
 ## Gaussian processes
 
-1. A discrete-time stochastic process $\{X_n\}_{n \ge 0}$ is called a **Gaussian process** if for any finite collection of time indices $\{n_1, n_2, \dots, n_k\}$ with $n_i \ge 0$, the random vector $(X_{n_1}, X_{n_2}, \dots, X_{n_k})$ has a multivariate Gaussian (normal) distribution.
+1. Recall that a discrete-time stochastic process is a collection $\{X_n\}_{n \ge 0}$ of random variables defined on a common probability space where we specify the joint distribution for any collection $\{n_1, \dots, n_k\}$ of time indices. 
 
-2. Equivalently, a discrete-time stochastic process $\{X_n\}_{n \ge 0}$ is a Gaussian process if every finite linear combination of the random variables $X_n$ is a Gaussian random variable.
+2. A discrete-time stochastic process is called **Gaussian** if for any collection $\{n_1, \dots, n_k\}$ of time indices, the random vector $\{X_{n_1}, \dots, X_{n_k}\}$ has a multivariate Guassian distribution. 
+
+     Recall that the definition of multivariable Gaussian random variables means we can equivalently define a discrete-time stochastic process $\{X_n\}_{n \ge 0}$ to be a Gaussian process if every finite linear combination of the random variables $X_n$ is a Gaussian random variable.
 
 3. Since a multivariate Gaussian distribution is completely characterized by its mean vector and covariance matrix, a Gaussian process is completely characterized by:
    - **Mean function:** $μ_X(n) = \EXP[X_n]$
@@ -22,48 +24,47 @@ An implication is that the variance of $X_n$ does not depend on $n$.
 
 ## Properties of covariance functions
 
-1. **Symmetry:** $R_X(m,n) = R_X(n,m)$ for all $m, n \ge 0$.
+1. To fix ideas, consider three time indices $(\ell,n,m)$. Then, the random vector $\{X_\ell, X_n, X_m\}$ has a multivariate Gaussian distribution given by
+   $$ 
+     \MATRIX{X_{\ell}\\ X_n\\ X_m} \sim \mathcal{N}\left( \MATRIX{\mu_X(\ell)\\ \mu_X(n)\\ \mu_X(m)}, \MATRIX{R_X(\ell,\ell) & R_X(\ell,n) & R_X(\ell,m) \\ R_X(n,\ell) & R_X(n,n) & R_X(n,m) \\ R_X(m,\ell) & R_X(m,n) & R_X(m,m)} \right)
+   $$
+   The covariance matrix above must be symmetric, non-negative definite, and satisfy the Cauchy-Schwarz inequality, i.e., $\COV(X_m, X_n)^2 \le \COV(X_m, X_m) \COV(X_n, X_n)$. These properties are true in general as well. 
+
+2. **Symmetry:** $R_X(m,n) = R_X(n,m)$ for all $m, n \ge 0$.
 
    :::{.callout-note collapse="true"}
    #### Proof
-   $R_X(m,n) = \EXP[(X_m - μ_X(m))(X_n - μ_X(n))] = R_X(n,m)$ by commutativity of multiplication.
+   $R_X(m,n) = \COV(X_m, X_n) = \COV(X_n, X_m) = R_X(n,m)$ by the symmetry of the covariance operator.
    :::
 
-2. **Non-negative definiteness:** For any finite collection $\{n_1, \dots, n_k\}$ with $n_i \ge 0$ and any real numbers $a_1, \dots, a_k$, we have
+3. **Non-negative definiteness:** For any finite collection $\{n_1, \dots, n_k\}$ with $n_i \ge 0$ and any real numbers $a_1, \dots, a_k$, we have
    $$
    \sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j) \ge 0.
    $$
 
    :::{.callout-note collapse="false"}
    #### Proof
-   Consider the random variable $Y = \sum_{i=1}^k a_i (X_{n_i} - μ_X(n_i))$. Then
-   \begin{align*}
-   \EXP[Y^2] &= \EXP\left[\left(\sum_{i=1}^k a_i (X_{n_i} - μ_X(n_i))\right)^2\right] \\
-   &= \EXP\left[\sum_{i=1}^k \sum_{j=1}^k a_i a_j (X_{n_i} - μ_X(n_i))(X_{n_j} - μ_X(n_j))\right] \\
-   &= \sum_{i=1}^k \sum_{j=1}^k a_i a_j \EXP[(X_{n_i} - μ_X(n_i))(X_{n_j} - μ_X(n_j))] \\
-   &= \sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j).
-   \end{align*}
-   Since $\EXP[Y^2] = \VAR(Y) \ge 0$ (variance is always non-negative), we have
+   Let $\Sigma$ denote the covariance matrix of the random vector $\{X_{n_1}, \dots, X_{n_k}\}$. Then, we have
    $$
-   \sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j) \ge 0.
+   \Sigma = \MATRIX{R_X(n_1,n_1) & R_X(n_1,n_2) & \dots & R_X(n_1,n_k) \\ R_X(n_2,n_1) & R_X(n_2,n_2) & \dots & R_X(n_2,n_k) \\ \vdots & \vdots & \ddots & \vdots \\ R_X(n_k,n_1) & R_X(n_k,n_2) & \dots & R_X(n_k,n_k)}
+   $$
+   Since $\Sigma$ is symmetric, non-negative definite, we have $\Sigma \succeq 0$. Therefore,
+   $$
+   \sum_{i=1}^k \sum_{j=1}^k a_i a_j R_X(n_i, n_j) = a^T \Sigma a \ge 0.
    $$
    :::
 
-3. **Cauchy-Schwarz inequality:** $|R_X(m,n)|^2 \le R_X(m,m) R_X(n,n)$.
+4. **Cauchy-Schwarz inequality:** $|R_X(m,n)|^2 \le R_X(m,m) R_X(n,n)$.
 
    :::{.callout-note collapse="false"}
    #### Proof
    This is a direct consequence of the [Cauchy-Schwarz inequality](inequalities.qmd@cauchy-schwarz-inequality) for random variables:
    $$
-   |\EXP[YZ]|^2 \leq \EXP[Y^2]\EXP[Z^2],
-   $$
-   where $Y = X_m - μ_X(m)$ and $Z = X_n - μ_X(n)$. Thus,
-   $$
-   |R_X(m,n)|^2 \le R_X(m,m) R_X(n,n).
+   |\COV(X_m, X_n)|^2 \leq \COV(X_m, X_m) \COV(X_n, X_n).
    $$
    :::
 
-4. The variance function is $R_X(n,n) = \VAR(X_n) \ge 0$.
+5. The variance function is $R_X(n,n) = \VAR(X_n) \ge 0$.
 
 ## Examples of Gaussian processes
 
@@ -82,9 +83,9 @@ function gaussianRandom(mean=0, stdev=1) {
 
 Consider a process $\{X_n\}_{n \ge 0}$ defined as:
 $$
-X_n = U \cos(\Omega n) + V \sin(\Omega n)
+X_n = A \cos(\Omega n) + B \sin(\Omega n)
 $$
-where $\Omega \in \mathbb{R}$ is a constant frequency, and $U$ and $V$ are independent Gaussian random variables with $U, V \sim \mathcal{N}(0, \sigma^2)$.
+where $\Omega \in \mathbb{R}$ is a constant frequency, and $A$ and $B$ are independent Gaussian random variables with $A, B \sim \mathcal{N}(0, \sigma^2)$.
 
 A sample path of this process is shown below.
 
@@ -96,11 +97,11 @@ points_cosine_gauss = {
     const N = 120
     const sigma = 1.0
     const f = 0.1
-    const U = gaussianRandom(0, sigma)
-    const V = gaussianRandom(0, sigma)
+    const A = gaussianRandom(0, sigma)
+    const B = gaussianRandom(0, sigma)
     var points = new Array(N+1)
     for(var n=0; n <= N; n++) {
-      var val = U * Math.cos(2 * Math.PI * f * n) + V * Math.sin(2 * Math.PI * f * n)
+      var val = A * Math.cos(2 * Math.PI * f * n) + B * Math.sin(2 * Math.PI * f * n)
       points[n] = { n: n, X_n: val }
     }
     return points
@@ -130,21 +131,29 @@ Find the mean and covariance function of the process. Is the process stationary?
 **Mean function:**
 
 \begin{align*}
-\mu_X(n) &= \EXP[X_n] = \EXP[U \cos(\Omega n) + V \sin(\Omega n)] \\
-&= \EXP[U] \cos(\Omega n) + \EXP[V] \sin(\Omega n) \\
+\mu_X(n) &= \EXP[X_n] = \EXP[A \cos(\Omega n) + B \sin(\Omega n)] \\
+&= \EXP[A] \cos(\Omega n) + \EXP[B] \sin(\Omega n) \\
 &= 0
 \end{align*}
-since $\EXP[U] = \EXP[V] = 0$.
+since $\EXP[A] = \EXP[B] = 0$.
 
 **Covariance function:**
 
 \begin{align*}
 R_X(m,n) &= \EXP[X_m X_n] \\
-&= \EXP[(U \cos(\Omega m) + V \sin(\Omega m))(U \cos(\Omega n) + V \sin(\Omega n))] \\
-&= \EXP[U^2] \cos(\Omega m) \cos(\Omega n) + \EXP[UV] \cos(\Omega m) \sin(\Omega n) \\
-&\quad + \EXP[VU] \sin(\Omega m) \cos(\Omega n) + \EXP[V^2] \sin(\Omega m) \sin(\Omega n)
-  \\
- &= \sigma^2 [\cos(\Omega m) \cos(\Omega n) + \sin(\Omega m) \sin(\Omega n)] \\
+&= \EXP[(A \cos(\Omega m) + B \sin(\Omega m))(A \cos(\Omega n) + B \sin(\Omega n))] \\
+&= \EXP[A^2] \cos(\Omega m) \cos(\Omega n) + \EXP[AB] \cos(\Omega m) \sin(\Omega n) \\
+&\quad + \EXP[BA] \sin(\Omega m) \cos(\Omega n) + \EXP[B^2] \sin(\Omega m) \sin(\Omega n)
+\end{align*}
+
+Since $A$ and $B$ are independent with $\EXP[A] = \EXP[B] = 0$, we have:
+- $\EXP[A^2] = \VAR(A) = \sigma^2$
+- $\EXP[B^2] = \VAR(B) = \sigma^2$
+- $\EXP[AB] = \EXP[A]\EXP[B] = 0$
+
+Therefore:
+\begin{align*}
+R_X(m,n) &= \sigma^2 [\cos(\Omega m) \cos(\Omega n) + \sin(\Omega m) \sin(\Omega n)] \\
 &= \sigma^2 \cos(\Omega (m-n))
 \end{align*}
 using the identity $\cos(a-b) = \cos(a)\cos(b) + \sin(a)\sin(b)$.
@@ -520,7 +529,17 @@ $$
 :::
 -->
 
+## Jointly Gaussian stochastic processes
 
+1. Consider two stochastic processes defined on a common probability space: $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$. Suppose for any collection $\{n_1, \dots, n_k\}$ of time indices, the random vector $\{X_{n_1}, \dots, X_{n_k}, Y_{n_1}, \dots, Y_{n_k}\}$ has a multivariate Gaussian distribution. Then, the processes are called **jointly Gaussian**.
+
+2. The joint process $\{X_n, Y_n\}_{n \ge 0}$ is a Gaussian process with mean $\mu_{X,Y}(n) = \MATRIX{\mu_X(n)\\ \mu_Y(n)}$ and covariance $R_{X,Y}(n,m) = \MATRIX{R_X(n,m) & R_{XY}(n,m) \\ R_{YX}(n,m) & R_Y(n,m)}$.
+
+3. The function $R_{XY}(n,m) = COV(X_n, Y_m)$ is called the **cross-covariance function** of the processes (and sometimes the processes $R_X(n,m)$ and $R_Y(n,m)$ are called the **auto-covariance functions** of the processes). 
+
+4. The cross-covariance function satisfies $R_{XY}(n,m) = \COV(X_n, Y_m) = R_{YX}(m,n)$ for all $n, m \ge 0$. 
+
+5. The processes are **uncorrelated** if $R_{XY}(n,m) = 0$ for all $n, m \ge 0$. Since the joint process is Gaussian, uncorrelated implies independent.
 
 ## Review of discrete-time LTI systems
 
