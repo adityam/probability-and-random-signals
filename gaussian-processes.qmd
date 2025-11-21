@@ -231,7 +231,7 @@ where $\IND_{\{m=n\}}$ is the indicator function that equals 1 when $m = n$ and 
 :::
 :::
 
-:::{#exm-random-walk}
+:::{#exm-gaussian-random-walk}
 #### Gaussian random walk
 
 A **Gaussian random walk** $\{X_n\}_{n \ge 0}$ is a Gaussian process defined by:
@@ -557,10 +557,49 @@ $$
       h_k = \frac{1}{2\pi} \int_{-\pi}^{\pi} H(e^{j\Omega}) e^{j\Omega k} d\Omega
    $$
 
+5. A SISO (single-input single-output) discrete-time LTI system can be represented in **state space form** as:
+   $$
+   \begin{align*}
+   x_{n+1} &= A x_n + B u_n \\
+   y_n &= C x_n + D u_n
+   \end{align*}
+   $$
+   where $x_n \in \mathbb{R}^d$ is the state vector, $u_n \in \mathbb{R}$ is the input, $y_n \in \mathbb{R}$ is the output, and $A \in \mathbb{R}^{d \times d}$, $B \in \mathbb{R}^{d \times 1}$, $C \in \mathbb{R}^{1 \times d}$, and $D \in \mathbb{R}^{1 \times 1}$ are constant matrices. The system is stable if all eigenvalues of $A$ lie inside the unit circle. The transfer function $H(z)$ can be recovered from the state space representation as $H(z) = C(zI - A)^{-1}B + D$.
+
+6. Similar state space representations exist for MIMO (multiple-input multiple-output) systems, where the input and output are vectors.
 
 ## Stationary Gaussian processes through LTI systems
 
-1. When a stationary Gaussian process is passed through a linear time-invariant (LTI) system, the output is also a stationary Gaussian process. This is a fundamental result in signal processing and stochastic control.
+1. In many applications in signal processing and stochastic control, we are interested in the output of a LTI system when the input is a stationary Gaussian process. There are two ways to study such systems: either in the time domain using state space models or in the frequency domain using the transfer function. 
+
+2. Consider @exm-gaussian-random-walk which discussed a Gaussian random walk. The model was already presented in state space form but we can also explicitly write it as
+   $$
+   \begin{align*}
+   X_{n+1} &= X_n + W_n \\
+   Y_n &= X_n
+   \end{align*}
+   $$
+   Thus, the transfer function is given by
+   $$
+   H(z) = 1 \cdot (z - 1)^{-1} \cdot 1 + 0 = \frac{1}{z - 1} = \frac{z^{-1}}{1 - z^{-1}} = \sum_{k=1}^∞ z^{-k}
+   $$
+   Thus, the impulse response is given by
+   $$ h_0 = 0 \quad \text{and} \quad h_k = 1, \quad \forall k \ge 1 $$
+
+3. Similarly, consider @exm-AR1-process which discussed an AR(1) process. The model was already presented in state space form but we can also explicitly write it as
+   $$
+   \begin{align*}
+   X_{n+1} &= a X_n + W_n \\
+   Y_n &= X_n
+   \end{align*}   $$
+   The transfer function is given by
+   $$
+   H(z) = 1 \cdot (z - a)^{-1} \cdot 1 + 0 = \frac{1}{z - a} = \frac{z^{-1}}{1 - a z^{-1}} = \sum_{k=1}^∞ a^k z^{-k}
+   $$
+   Thus, the impulse response is given by
+   $$ h_0 = 0 \quad \text{and} \quad h_k = a^{k-1}, \quad \forall k \ge 1 $$
+
+4. Thus, these two examples show the output of two LTI systems when the input is white noise. Note that the transfer function for @exm-gaussian-random-walk is not stable (as it has a pole on the unit circle) and as a consequence the output is unstable (i.e., does not converge to an invariant distribution). In contrast, the transfer function for @exm-AR1-process is stable (as it has all poles inside the unit circle) and as a consequence the output is stable (i.e., converges to an invariant distribution).
 
 5. Suppose a stationary Gaussian process $\{X_n\}_{n ≥ 0}$ is passed through an LTI system $H(z)$. For every $ω ∈ Ω$, the output process is given by
   $$
