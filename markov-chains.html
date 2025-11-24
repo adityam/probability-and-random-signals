@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-20">
+<meta name="dcterms.date" content="2025-11-24">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>10&nbsp; Markov chains – Probability and Random Signals II</title>
@@ -515,7 +515,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 20, 2025</p>
+      <p class="date">November 24, 2025</p>
     </div>
   </div>
   
@@ -675,7 +675,7 @@ window.Quarto = {
 \]</span> Thus, the probability of going from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> in <span class="math inline">\(n+m\)</span> steps equals the probability of going from <span class="math inline">\(i\)</span> to <em>somewhere</em> in <span class="math inline">\(n\)</span> steps and then from there to <span class="math inline">\(j\)</span> in <span class="math inline">\(m\)</span> steps.</p></li>
 </ol>
 <div id="exm-random-walk-occupancy" class="theorem example">
-<p><span class="theorem-title"><strong>Example 10.7</strong></span> Numerically compute the state occupancy probabilities for the different examples of random walk presented in <a href="gaussian-processes.html#exm-random-walk" class="quarto-xref">Example&nbsp;<span>11.3</span></a> when <span class="math inline">\(p = q = \tfrac 12\)</span> for <span class="math inline">\(n \in \{1, \dots, 8\}\)</span>. In all cases, the initial probability <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 10.7</strong></span> Numerically compute the state occupancy probabilities for the different examples of random walk presented in <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>10.6</span></a> when <span class="math inline">\(p = q = \tfrac 12\)</span> for <span class="math inline">\(n \in \{1, \dots, 8\}\)</span>. In all cases, the initial probability <span class="math display">\[
   μ^{(0)} = \MATRIX{0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 }.
 \]</span></p>
 </div>
@@ -1519,10 +1519,12 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <section id="further-reading" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="further-reading">Further Reading</h2>
 <ol type="1">
+<li><p>Gubner, Chapter 12.</p></li>
 <li><p><a href="https://stats.libretexts.org/Bookshelves/Probability_Theory/Introductory_Probability_(Grinstead_and_Snell)/11%3A_Markov_Chains/11.01%3A_Introduction">Grinstead and Snell, Introduction to Probability</a>, Chapter 11 has an excellent treatment of finite Markov chains. Has interesting exercises.</p></li>
 <li><p><a href="https://catalog.hathitrust.org/api/volumes/oclc/528648.html">Kemeny and Snell, Finite Markov Chains</a>, Chapter 2–4.</p></li>
 <li><p><a href="https://archive.org/details/springer_10.1007-978-1-4684-9455-6">Kemeny, Snell, and Knapp, Denumerable Markov Chains</a>, a slightly advanced version of the previous book.</p></li>
 <li><p><a href="https://doi.org/10.5948/UPO9781614440222">Doyle and Snell, Random Walks and Electrical Networks</a> shows a facinating relationship between random walks and circuits!</p></li>
+<li><p><a href="https://www.statslab.cam.ac.uk//~rrw1/markov/M.pdf">Weber’s notes on Markov chains</a></p></li>
 </ol>
 
 

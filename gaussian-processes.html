@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-20">
+<meta name="dcterms.date" content="2025-11-24">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>11&nbsp; Gaussian processes – Probability and Random Signals II</title>
@@ -510,9 +510,10 @@ window.Quarto = {
   <li><a href="#examples-of-gaussian-processes" id="toc-examples-of-gaussian-processes" class="nav-link" data-scroll-target="#examples-of-gaussian-processes"><span class="header-section-number">11.3</span> Examples of Gaussian processes</a></li>
   <li><a href="#jointly-gaussian-stochastic-processes" id="toc-jointly-gaussian-stochastic-processes" class="nav-link" data-scroll-target="#jointly-gaussian-stochastic-processes"><span class="header-section-number">11.4</span> Jointly Gaussian stochastic processes</a></li>
   <li><a href="#review-of-discrete-time-lti-systems" id="toc-review-of-discrete-time-lti-systems" class="nav-link" data-scroll-target="#review-of-discrete-time-lti-systems"><span class="header-section-number">11.5</span> Review of discrete-time LTI systems</a></li>
-  <li><a href="#stationary-gaussian-processes-through-lti-systems" id="toc-stationary-gaussian-processes-through-lti-systems" class="nav-link" data-scroll-target="#stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.6</span> Stationary Gaussian processes through LTI systems</a></li>
-  <li><a href="#note-on-non-gaussian-processes" id="toc-note-on-non-gaussian-processes" class="nav-link" data-scroll-target="#note-on-non-gaussian-processes"><span class="header-section-number">11.7</span> Note on non-Gaussian processes</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#complex-valued-random-variables-and-processes" id="toc-complex-valued-random-variables-and-processes" class="nav-link" data-scroll-target="#complex-valued-random-variables-and-processes"><span class="header-section-number">11.6</span> Complex-valued random variables and processes</a></li>
+  <li><a href="#stationary-gaussian-processes-through-lti-systems" id="toc-stationary-gaussian-processes-through-lti-systems" class="nav-link" data-scroll-target="#stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.7</span> Stationary Gaussian processes through LTI systems</a></li>
+  <li><a href="#power-spectral-density" id="toc-power-spectral-density" class="nav-link" data-scroll-target="#power-spectral-density"><span class="header-section-number">11.8</span> Power spectral density</a></li>
+  <li><a href="#note-on-non-gaussian-processes" id="toc-note-on-non-gaussian-processes" class="nav-link" data-scroll-target="#note-on-non-gaussian-processes"><span class="header-section-number">11.9</span> Note on non-Gaussian processes</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/gaussian-processes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -549,7 +550,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 20, 2025</p>
+      <p class="date">November 24, 2025</p>
     </div>
   </div>
   
@@ -834,7 +835,7 @@ R_W(m,n) = σ^2 \IND_{\{m=n\}} \quad \text{for } m, n \ge 0
 </div>
 </div>
 </div>
-<div id="exm-random-walk" class="theorem example">
+<div id="exm-gaussian-random-walk" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.3 (Gaussian random walk)</strong></span> A <strong>Gaussian random walk</strong> <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Gaussian process defined by: <span class="math display">\[
 X_0 = 0, \quad X_{n+1} = X_n + W_n, \quad n \ge 0
 \]</span> where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span> for some <span class="math inline">\(σ &gt; 0\)</span>.</p>
@@ -989,7 +990,7 @@ X_{n+1} = a X_n + W_n, \quad n \ge 0
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>As was the case for <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>11.3</span></a>, AR(1) processes are also Gauss Markov processes. As before, we can write recursive formulas for the mean and covariance function: <span class="math display">\[\begin{align*}
+<p>As was the case for <a href="markov-chains.html#exm-random-walk" class="quarto-xref">Example&nbsp;<span>10.6</span></a>, AR(1) processes are also Gauss Markov processes. As before, we can write recursive formulas for the mean and covariance function: <span class="math display">\[\begin{align*}
   \mu_X(n+1) &amp;= a \mu_X(n) + \EXP[W_{n+1}] = a \mu_X(n), \\
   R_X(n+1,n+1) &amp;= \EXP[ (a X_n + W_n)(a X_n + W_n)] \\
   &amp;= a^2 R_X(n,n) + \EXP[W_n^2] = a^2 R_X(n,n) + σ^2.
@@ -1177,7 +1178,7 @@ $$
 <ol type="1">
 <li><p>Consider two stochastic processes defined on a common probability space: <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span>. Suppose for any collection <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> of time indices, the random vector <span class="math inline">\(\{X_{n_1}, \dots, X_{n_k}, Y_{n_1}, \dots, Y_{n_k}\}\)</span> has a multivariate Gaussian distribution. Then, the processes are called <strong>jointly Gaussian</strong>.</p></li>
 <li><p>The joint process <span class="math inline">\(\{X_n, Y_n\}_{n \ge 0}\)</span> is a Gaussian process with mean <span class="math inline">\(\mu_{X,Y}(n) = \MATRIX{\mu_X(n)\\ \mu_Y(n)}\)</span> and covariance <span class="math inline">\(R_{X,Y}(n,m) = \MATRIX{R_X(n,m) &amp; R_{XY}(n,m) \\ R_{YX}(n,m) &amp; R_Y(n,m)}\)</span>.</p></li>
-<li><p>The function <span class="math inline">\(R_{XY}(n,m) = COV(X_n, Y_m)\)</span> is called the <strong>cross-covariance function</strong> of the processes (and sometimes the processes <span class="math inline">\(R_X(n,m)\)</span> and <span class="math inline">\(R_Y(n,m)\)</span> are called the <strong>auto-covariance functions</strong> of the processes).</p></li>
+<li><p>The function <span class="math inline">\(R_{XY}(n,m) = \COV(X_n, Y_m)\)</span> is called the <strong>cross-covariance function</strong> of the processes (and sometimes the processes <span class="math inline">\(R_X(n,m)\)</span> and <span class="math inline">\(R_Y(n,m)\)</span> are called the <strong>auto-covariance functions</strong> of the processes).</p></li>
 <li><p>The cross-covariance function satisfies <span class="math inline">\(R_{XY}(n,m) = \COV(X_n, Y_m) = R_{YX}(m,n)\)</span> for all <span class="math inline">\(n, m \ge 0\)</span>.</p></li>
 <li><p>The processes are <strong>uncorrelated</strong> if <span class="math inline">\(R_{XY}(n,m) = 0\)</span> for all <span class="math inline">\(n, m \ge 0\)</span>. Since the joint process is Gaussian, uncorrelated implies independent.</p></li>
 </ol>
@@ -1197,128 +1198,194 @@ H(z) = \sum_{k=0}^∞ h_k z^{-k}
 <li><p>The inverse Fourier transform is given by: <span class="math display">\[
    h_k = \frac{1}{2\pi} \int_{-\pi}^{\pi} H(e^{j\Omega}) e^{j\Omega k} d\Omega
 \]</span></p></li>
+<li><p>A SISO (single-input single-output) discrete-time LTI system can be represented in <strong>state space form</strong> as: <span class="math display">\[
+\begin{align*}
+x_{n+1} &amp;= A x_n + B u_n \\
+y_n &amp;= C x_n + D u_n
+\end{align*}
+\]</span> where <span class="math inline">\(x_n \in \mathbb{R}^d\)</span> is the state vector, <span class="math inline">\(u_n \in \mathbb{R}\)</span> is the input, <span class="math inline">\(y_n \in \mathbb{R}\)</span> is the output, and <span class="math inline">\(A \in \mathbb{R}^{d \times d}\)</span>, <span class="math inline">\(B \in \mathbb{R}^{d \times 1}\)</span>, <span class="math inline">\(C \in \mathbb{R}^{1 \times d}\)</span>, and <span class="math inline">\(D \in \mathbb{R}^{1 \times 1}\)</span> are constant matrices. The system is stable if all eigenvalues of <span class="math inline">\(A\)</span> lie inside the unit circle. The transfer function <span class="math inline">\(H(z)\)</span> can be recovered from the state space representation as <span class="math inline">\(H(z) = C(zI - A)^{-1}B + D\)</span>.</p></li>
+<li><p>Similar state space representations exist for MIMO (multiple-input multiple-output) systems, where the input and output are vectors.</p></li>
 </ol>
 </section>
-<section id="stationary-gaussian-processes-through-lti-systems" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.6</span> Stationary Gaussian processes through LTI systems</h2>
+<section id="complex-valued-random-variables-and-processes" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="complex-valued-random-variables-and-processes"><span class="header-section-number">11.6</span> Complex-valued random variables and processes</h2>
 <ol type="1">
-<li><p>When a stationary Gaussian process is passed through a linear time-invariant (LTI) system, the output is also a stationary Gaussian process. This is a fundamental result in signal processing and stochastic control.</p></li>
-<li><p>Suppose a stationary Gaussian process <span class="math inline">\(\{X_n\}_{n ≥ 0}\)</span> is passed through an LTI system <span class="math inline">\(H(z)\)</span>. For every <span class="math inline">\(ω ∈ Ω\)</span>, the output process is given by <span class="math display">\[
-Y_n(ω) = \sum_{k=0}^∞ h_k X_{n-k}(ω)
-  \]</span> which is a sum of Gaussian random variables, and hence is Gaussian.</p></li>
-<li><p>The output <span class="math inline">\(\{Y_n\}_{n ≥ 0}\)</span> is a stationary Gaussian process.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<li><p>As we shall see, when viewing random processes in frequency domain, complex-valued random variables and processes arise naturally. If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are real-valued joint random variables, then <span class="math inline">\(Z = X + jY\)</span> is a complex-valued random variable. Similarly, if <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> are real-valued joint random processes, then <span class="math inline">\(\{Z_n\}_{n \ge 0} = \{X_n + jY_n\}_{n \ge 0}\)</span> is a complex-valued random process.</p></li>
+<li><p>We can think of the joint CDF of a complex-valued random variable as <span class="math inline">\(F_Z(x + jy) = F_{X,Y}(x,y)\)</span>.</p></li>
+<li><p>The covariance of two complex-valued random variables <span class="math inline">\(Z_1\)</span> and <span class="math inline">\(Z_2\)</span> is defined as <span class="math display">\[ \COV(Z_1, Z_2) = \EXP[Z_1 Z_2^*] \]</span> where <span class="math inline">\(Z_2^*\)</span> denotes the complex conjugate of <span class="math inline">\(Z_2\)</span>. Note that we use <span class="math inline">\(Z_2^*\)</span> (rather than <span class="math inline">\(Z_2\)</span>) to ensure that the variance <span class="math inline">\(\VAR(Z) = \COV(Z, Z) = \EXP[|Z|^2]\)</span> is real and non-negative. The same definition works for complex-valued random vectors, where <span class="math inline">\(Z_2^*\)</span> denotes the conjugate transpose of <span class="math inline">\(Z_2\)</span>.</p></li>
+<li><p>We say that <span class="math inline">\(Z\)</span> is a <strong>complex Gaussian random vector</strong> with mean <span class="math inline">\(\mu_Z\)</span> and covariance matrix <span class="math inline">\(\Sigma_Z\)</span> if the real and imaginary parts of <span class="math inline">\(Z\)</span> are jointly Gaussian and <span class="math inline">\(\EXP[Z] = \mu_Z\)</span> and <span class="math inline">\(\VAR(Z) = \COV(Z,Z) = \Sigma_Z\)</span>.</p></li>
+<li><p>For a complex-valued random process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span>, the auto-covariance function is conjugate symmetric, i.e., <span class="math inline">\(R_X(m,n) = R_X(n,m)^*\)</span>. Note that <span class="math inline">\(R_X(n,n) = \EXP[|X_n|^2]\)</span> is always real and non-negative. When the process is <strong>stationary</strong>, <span class="math inline">\(R_X(m,n) = R_X(m-n)\)</span>, and therefore <span class="math inline">\(R_X(k) = R_X(-k)^*\)</span> where <span class="math inline">\(k = m-n\)</span>.</p></li>
+<li><p>The cross-covariance between two complex-valued random processes <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is conjugate symmetric, i.e., <span class="math inline">\(R_{XY}(n,m) = R_{YX}(m,n)^*\)</span>. When both processes are <strong>stationary</strong>, <span class="math inline">\(R_{XY}(n,m) = R_{XY}(n-m)\)</span>, and therefore <span class="math inline">\(R_{XY}(k) = R_{YX}(-k)^*\)</span> where <span class="math inline">\(k = n-m\)</span>.</p></li>
+</ol>
+</section>
+<section id="stationary-gaussian-processes-through-lti-systems" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.7</span> Stationary Gaussian processes through LTI systems</h2>
+<ol type="1">
+<li><p>In many applications in signal processing and stochastic control, we are interested in the output of a linear system when the input is a stationary Gaussian process. There are two ways to study such systems: either in the time domain using state space models or in the frequency domain using the transfer function. For the purposes of this section, we will restrict our discussion to linear time-invariant (LTI) systems, but the main ideas can be generalized to time-varying linear systems as well.</p></li>
+<li><p>Consider <a href="#exm-gaussian-random-walk" class="quarto-xref">Example&nbsp;<span>11.3</span></a> which discussed a Gaussian random walk. The model was already presented in state space form but we can also explicitly write it as <span class="math display">\[
+\begin{align*}
+X_{n+1} &amp;= X_n + W_n \\
+Y_n &amp;= X_n
+\end{align*}
+\]</span> Thus, the transfer function is given by <span class="math display">\[
+H(z) = 1 \cdot (z - 1)^{-1} \cdot 1 + 0 = \frac{1}{z - 1} = \frac{z^{-1}}{1 - z^{-1}} = \sum_{k=1}^∞ z^{-k}
+\]</span> Thus, the impulse response is given by <span class="math display">\[ h_0 = 0 \quad \text{and} \quad h_k = 1, \quad \forall k \ge 1 \]</span></p></li>
+<li><p>Similarly, consider <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>11.4</span></a> which discussed an AR(1) process. The model was already presented in state space form but we can also explicitly write it as <span class="math display">\[
+\begin{align*}
+X_{n+1} &amp;= a X_n + W_n \\
+Y_n &amp;= X_n
+\end{align*}   \]</span> The transfer function is given by <span class="math display">\[
+H(z) = 1 \cdot (z - a)^{-1} \cdot 1 + 0 = \frac{1}{z - a} = \frac{z^{-1}}{1 - a z^{-1}} = \sum_{k=1}^∞ a^k z^{-k}
+\]</span> Thus, the impulse response is given by <span class="math display">\[ h_0 = 0 \quad \text{and} \quad h_k = a^{k-1}, \quad \forall k \ge 1 \]</span></p></li>
+<li><p>Thus, these two examples show the output of two LTI systems when the input is white noise. Note that the transfer function for <a href="#exm-gaussian-random-walk" class="quarto-xref">Example&nbsp;<span>11.3</span></a> is not stable (as it has a pole on the unit circle) and as a consequence the output is unstable (i.e., the marginal distribution does not converge to an invariant distribution). In contrast, the transfer function for <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>11.4</span></a> is stable (as it has all poles inside the unit circle) and as a consequence the output is stable (i.e., the marginal distribution converges to an invariant distribution).</p></li>
+<li><p>Suppose a (complex-valued) Gaussian process <span class="math inline">\(\{X_n\}_{n ≥ 0}\)</span> is passed through an LTI system <span class="math inline">\(H(z)\)</span>. For every <span class="math inline">\(ω ∈ Ω\)</span>, the output process is given by <span class="math display">\[
+Y_n(ω) = \sum_{k=-\infty}^∞ h_k X_{n-k}(ω)
+  \]</span> which is a sum of Gaussian random variables, and hence is Gaussian.</p>
+<p>For simplicity, we expression the sum from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(\infty\)</span>, even though, for causal systems, the impulse response is zero for negative indices and we are assuming that the input is zero for negative indices.</p></li>
+<li><p>Suppose <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a <strong>stationary</strong> Gaussian process with mean <span class="math inline">\(\mu_X(n)\)</span> and covariance function <span class="math inline">\(R_X(k) = R_X(|n-m|)\)</span> where <span class="math inline">\(k = |n-m|\)</span>. Then, the output process <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is also stationary. We establish this by a sequence of steps.</p>
 <p>The mean function of the output process is given by <span class="math display">\[
-  μ_Y(n) = \EXP[Y_n] = \EXP\left[\sum_{k=0}^∞ h_k X_{n-k}\right] = \sum_{k=0}^∞ h_k \EXP[X_{n-k}] = \sum_{k=0}^∞ h_k μ_X = μ_X \sum_{k=0}^∞ h_k = μ_X H(1)
-\]</span> which does not depend on <span class="math inline">\(n\)</span>.</p>
-<p>The covariance function of the output process is given by <span class="math display">\[
-  \begin{align*}
-    R_Y(n,m)
-      &amp;= \EXP[Y_n Y_m] \\
-      &amp;= \EXP\left[\sum_{k=0}^\infty h_k X_{n-k} \sum_{j=0}^\infty h_j X_{m-j}\right] \\
-      &amp;= \sum_{k=0}^\infty \sum_{j=0}^\infty h_k h_j \EXP[X_{n-k} X_{m-j}] \\
-      &amp;= \sum_{k=0}^\infty \sum_{j=0}^\infty h_k h_j R_X(|(n-k)-(m-j)|) \\
-      &amp;= \sum_{k=0}^\infty \sum_{j=0}^\infty h_k h_j R_X(|(n-m)-(k-j)|)
-  \end{align*}
-\]</span> which only depends on <span class="math inline">\(n-m\)</span>.</p>
-<p>Therefore, the output process is a stationary Gaussian process.</p>
+  μ_Y(n) = \EXP[Y_n] = \EXP\left[\sum_{k=-\infty}^∞ h_k X_{n-k}\right] = \sum_{k=-\infty}^∞ h_k \EXP[X_{n-k}] = \sum_{k=-\infty}^∞ h_k μ_X = μ_X \sum_{k=-\infty}^∞ h_k = μ_X H(1)
+\]</span> which does not depend on <span class="math inline">\(n\)</span>. This makes intuitive sense: the average of the output is the average of the input times the DC-gain of the system.</p></li>
+<li><p>The cross-covariance between the output and input is given as follows: <span class="math display">\[\begin{align*}
+  R_{YX}(n,m) &amp;= \EXP[Y_n X_m^*] = \EXP\left[\sum_{k=-\infty}^∞ h_{n-k} X_k X_m^*\right] \\
+  &amp;= \sum_{k=-\infty}^∞ h_{n-k} \EXP[X_k X_m^*] \\
+  &amp;= \sum_{k=-\infty}^∞ h_{n-k} R_X(k-m) \\
+  &amp;= (h * R_X)(n-m)
+\end{align*}\]</span> which only depends on <span class="math inline">\(n-m\)</span>. Thus, the cross-covariance between the output and input is the convolution of the impulse response with the covariance function of the input.</p>
+<p>Note that in the above calculations, we have used the following convolution identity: <span class="math display">\[\begin{equation}\label{eq:convolution-identity}
+    (f * g)(n-m) = \sum_{k=-\infty}^∞ f(n-k) g(k-m)
+  \end{equation}\]</span> which can be verified by change of variables in the standard definition of convolution.</p></li>
+<li><p>The auto-covariance of the output is given by <span class="math display">\[\begin{align*}
+  R_Y(n,m) &amp;= \EXP[Y_n Y_m^*] = \EXP\left[Y_n \left(\sum_{k=-\infty}^∞ h_{m-k} X_k\right)^*\right] \\
+  &amp;= \sum_{k=-\infty}^∞ h_{m-k}^* \EXP[Y_n X_k^*] \\
+  &amp;= \sum_{k=-\infty}^∞ h_{m-k}^* R_{YX}(n-k)
+\end{align*}\]</span> The above expression looks like a convolution but is not. To convert it to a convolution, define a new function <span class="math inline">\(\tilde h_k = h^*_{-k}\)</span>. Then, <span class="math display">\[
+   R_Y(n,m) = \sum_{k=-\infty}^\infty \tilde h_{k-m} R_{YX}(n-k)
+   = (\tilde h * R_{YX})(n-m)
+\]</span> due to <span class="math inline">\(\eqref{eq:convolution-identity}\)</span>, which is just a function of <span class="math inline">\(n-m\)</span>.</p></li>
+<li><p>Thus, we have shown that <span class="math inline">\(\mu_Y(n)\)</span> does not depend on <span class="math inline">\(n\)</span> and <span class="math inline">\(R_Y(n,m)\)</span> only depends on <span class="math inline">\(n-m\)</span>. Therefore, the output process is a stationary Gaussian process.</p></li>
+<li><p>To summarize, when a stationary Gaussian process is passed through a stable LTI system, the output is also a stationary Gaussian process with <span class="math display">\[
+  \mu_Y(n) = μ_X H(1), \quad R_{YX} = h * R_X, \quad R_Y = \tilde h * R_{YX} = \tilde h * h * R_X.
+\]</span></p></li>
+</ol>
+</section>
+<section id="power-spectral-density" class="level2" data-number="11.8">
+<h2 data-number="11.8" class="anchored" data-anchor-id="power-spectral-density"><span class="header-section-number">11.8</span> Power spectral density</h2>
+<ol type="1">
+<li><p>For a stationary Gaussian process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span>, the <strong>power spectral density</strong> (PSD) <span class="math inline">\(S_X(e^{j \Omega})\)</span> is defined as the discrete-time Fourier transform (DTFT) of the auto-covariance function: <span class="math display">\[
+R_X(n) \overset{\mathcal{F}}{\longleftrightarrow} S_X(e^{j \Omega})
+\]</span> where we are implicitly assuming that the covariance function is absolutely summable, so that the Fourier transform exists.</p></li>
+<li><p>Since <span class="math inline">\(R_X\)</span> is even, <span class="math inline">\(S_X\)</span> is conjugate symmetric, i.e., <span class="math inline">\(S_X(e^{j \Omega}) = S_X(e^{-j \Omega})^*\)</span>.</p></li>
+<li><div id="exm-white-noise-psd" class="theorem example">
+<p><span class="theorem-title"><strong>Example 11.5</strong></span> Compute the power spectral density of white noise.</p>
 </div>
-</div></li>
-<li><p>For a stationary Gaussian process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> with covariance function <span class="math inline">\(R_X(k) = R_X(|n-m|)\)</span> where <span class="math inline">\(k = |n-m|\)</span>, the <strong>power spectral density</strong> (PSD) <span class="math inline">\(S_X(\omega)\)</span> is defined as the discrete-time Fourier transform (DTFT) of the covariance function: <span class="math display">\[
-S_X(\omega) = \sum_{n=-\infty}^{\infty} R_X(n) e^{-j\omega n}, \quad \omega \in [-\pi, \pi]
-\]</span> where <span class="math inline">\(j = \sqrt{-1}\)</span> and <span class="math inline">\(R_X(-n) = R_X(n)\)</span> by symmetry of the covariance function. For this infinite sum to converge, we require that <span class="math inline">\(\sum_{n=-\infty}^{\infty} |R_X(n)| &lt; \infty\)</span> (absolute summability of the covariance function).</p></li>
-<li><p>The covariance function can be recovered from the power spectral density via the inverse DTFT: <span class="math display">\[
-R_X(n) = \frac{1}{2\pi} \int_{-\pi}^{\pi} S_X(\omega) e^{j\omega n} \, d\omega, \quad n \in \mathbb{Z}
-\]</span> This establishes a Fourier transform pair between the covariance function in the time domain and the power spectral density in the frequency domain.</p></li>
-<li><p><strong>Properties of power spectral density:</strong></p>
-<ul>
-<li><strong>Non-negativity:</strong> <span class="math inline">\(S_X(\omega) \ge 0\)</span> for all <span class="math inline">\(\omega \in [-\pi, \pi]\)</span></li>
-<li><strong>Symmetry:</strong> <span class="math inline">\(S_X(\omega) = S_X(-\omega)\)</span> (for real-valued processes)</li>
-<li><strong>Total power:</strong> The variance of the process is given by <span class="math display">\[
-\VAR(X_n) = R_X(0) = \frac{1}{2\pi} \int_{-\pi}^{\pi} S_X(\omega) \, d\omega
-\]</span></li>
-</ul></li>
-<li><p><strong>Linear filtering:</strong> If <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is the output of a stable LTI system with frequency response <span class="math inline">\(H(\omega)\)</span> and input <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span>, then <span class="math display">\[
-S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
-\]</span> where <span class="math inline">\(H(\omega) = \sum_{n=-\infty}^{\infty} h_n e^{-j\omega n}\)</span> is the DTFT of the impulse response <span class="math inline">\(\{h_n\}_{n=-\infty}^{\infty}\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
+<span class="screen-reader-only">Note</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>The output process is given by the convolution: <span class="math display">\[
-Y_n = \sum_{k=-\infty}^{\infty} h_k X_{n-k}
-\]</span></p>
-<p>The covariance function of the output is: <span class="math display">\[
-\begin{align*}
-R_Y(n) &amp;= \COV(Y_0, Y_n) = \EXP[Y_0 Y_n] - \EXP[Y_0]\EXP[Y_n] \\
-&amp;= \EXP\left[\sum_{k=-\infty}^{\infty} h_k X_{-k} \sum_{j=-\infty}^{\infty} h_j X_{n-j}\right] - \mu_Y^2 \\
-&amp;= \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j \EXP[X_{-k} X_{n-j}] - \mu_Y^2
-\end{align*}
-\]</span></p>
-<p>Since <span class="math inline">\(\{X_n\}\)</span> is stationary with mean <span class="math inline">\(\mu_X\)</span> and covariance <span class="math inline">\(R_X(m)\)</span>, we have: <span class="math display">\[
-\EXP[X_{-k} X_{n-j}] = R_X((n-j) - (-k)) + \mu_X^2 = R_X(n - j + k) + \mu_X^2
-\]</span></p>
-<p>Therefore: <span class="math display">\[
-\begin{align*}
-R_Y(n) &amp;= \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j (R_X(n - j + k) + \mu_X^2) - \mu_Y^2 \\
-&amp;= \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j R_X(n - j + k) + \mu_X^2 \sum_{k=-\infty}^{\infty} h_k \sum_{j=-\infty}^{\infty} h_j - \mu_Y^2
-\end{align*}
-\]</span></p>
-<p>Since <span class="math inline">\(\mu_Y = \mu_X H(1)\)</span> and <span class="math inline">\(H(1) = \sum_{k=-\infty}^{\infty} h_k\)</span>, the constant terms cancel, leaving: <span class="math display">\[
-R_Y(n) = \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j R_X(n - j + k)
-\]</span></p>
-<p>Making the substitution <span class="math inline">\(\ell = j - k\)</span>, we get: <span class="math display">\[
-R_Y(n) = \sum_{k=-\infty}^{\infty} \sum_{\ell=-\infty}^{\infty} h_k h_{k+\ell} R_X(n - \ell) = \sum_{\ell=-\infty}^{\infty} R_X(n - \ell) \sum_{k=-\infty}^{\infty} h_k h_{k+\ell}
-\]</span></p>
-<p>The inner sum <span class="math inline">\(\sum_{k=-\infty}^{\infty} h_k h_{k+\ell}\)</span> is the autocorrelation of the impulse response, which we denote as <span class="math inline">\(r_h(\ell)\)</span>. This is the convolution of <span class="math inline">\(h_k\)</span> with <span class="math inline">\(h_{-k}\)</span>: <span class="math display">\[
-r_h(\ell) = \sum_{k=-\infty}^{\infty} h_k h_{k+\ell} = (h * \tilde{h})(\ell)
-\]</span> where <span class="math inline">\(\tilde{h}_k = h_{-k}\)</span> is the time-reversed impulse response.</p>
-<p>Therefore: <span class="math display">\[
-R_Y(n) = \sum_{\ell=-\infty}^{\infty} r_h(\ell) R_X(n - \ell) = (r_h * R_X)(n)
-\]</span></p>
-<p>Taking the DTFT of both sides and using the convolution property of the DTFT: <span class="math display">\[
-S_Y(\omega) = \mathcal{F}\{r_h\}(\omega) \cdot S_X(\omega)
-\]</span></p>
-<p>where <span class="math inline">\(\mathcal{F}\{r_h\}(\omega)\)</span> is the DTFT of <span class="math inline">\(r_h(\ell)\)</span>. The DTFT of the autocorrelation <span class="math inline">\(r_h(\ell)\)</span> is: <span class="math display">\[
-\mathcal{F}\{r_h\}(\omega) = \sum_{\ell=-\infty}^{\infty} r_h(\ell) e^{-j\omega \ell} = \sum_{\ell=-\infty}^{\infty} \sum_{k=-\infty}^{\infty} h_k h_{k+\ell} e^{-j\omega \ell}
-\]</span></p>
-<p>Making the substitution <span class="math inline">\(m = k + \ell\)</span>: <span class="math display">\[
-\begin{align*}
-\mathcal{F}\{r_h\}(\omega) &amp;= \sum_{k=-\infty}^{\infty} \sum_{m=-\infty}^{\infty} h_k h_m e^{-j\omega (m-k)} \\
-&amp;= \sum_{k=-\infty}^{\infty} h_k e^{j\omega k} \sum_{m=-\infty}^{\infty} h_m e^{-j\omega m} \\
-&amp;= H^*(\omega) H(\omega) = |H(\omega)|^2
-\end{align*}
-\]</span></p>
-<p>where <span class="math inline">\(H^*(\omega)\)</span> is the complex conjugate of <span class="math inline">\(H(\omega)\)</span>.</p>
-<p>Therefore: <span class="math display">\[
-S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
-\]</span></p>
-<p>This shows that the power spectral density of the output is the power spectral density of the input multiplied by the squared magnitude of the frequency response.</p>
+<p>Recall that <span class="math inline">\(R_W(n) = \sigma^2 \delta_n\)</span> and <span class="math inline">\(\delta_n \overset{\mathcal{F}}{\longleftrightarrow} 1\)</span>. Therefore, <span class="math display">\[
+  S_W(e^{j \Omega}) = \sigma^2.
+\]</span> This is the reason that the process is called <strong>white noise</strong>, because its spectrum is flat (in contrast to colored noise, where the spectrum is not flat).</p>
 </div>
 </div>
 </div></li>
-<li><p><strong>Interpretation:</strong> The power spectral density describes how the power (variance) of a stationary process is distributed across different frequencies. It is a fundamental tool in signal processing for analyzing the frequency content of random signals.</p></li>
+<li><div id="exm-AR-psd" class="theorem example">
+<p><span class="theorem-title"><strong>Example 11.6</strong></span> Compute the power spectral density of an AR(1) process.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>Recall that <span class="math inline">\(R_X(n) = \dfrac{σ^2}{1-a^2} a^{|n|}\)</span> and <span class="math inline">\(a^{|n|} \xleftrightarrow{\mathcal{F}} \dfrac{1-a^2}{\ABS{1 - a e^{j \Omega}}^2}\)</span>. Therefore, <span class="math display">\[
+  S_X(e^{j \Omega}) = \frac{σ^2}{1-a^2} \frac{1-a^2}{\ABS{1 - a e^{j \Omega}}^2}
+  = \frac{σ^2}{\ABS{1 - a e^{j \Omega}}^2}.
+\]</span></p>
+</div>
+</div>
+</div></li>
+<li><p>For jointly Gaussian processes <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span>, the <strong>cross-power spectral density</strong> <span class="math inline">\(S_{YX}(e^{j \Omega})\)</span> is defined as the DTFT of the cross-covariance function: <span class="math display">\[
+R_{YX}(n) \overset{\mathcal{F}}{\longleftrightarrow} S_{YX}(e^{j \Omega}).
+\]</span></p></li>
+<li><p>The reason for the terminology “power spectral density” is the following. The power of the process is given by <span class="math display">\[
+\frac{1}{N} \sum_{n=0}^{N-1} \VAR(X_n) = \VAR(X_0) = R_X(0)
+\]</span> due to stationarity. From the formula for inverse DTFT, we have that <span class="math display">\[  R_X(0) = \frac{1}{2\pi} \int_{-\pi}^{\pi} S_X(e^{j \Omega}) \, d\Omega. \]</span> Thus, the power spectral density tells how the power of the process is distributed across different frequencies.</p>
+<p>Since <span class="math inline">\(R_X(0) \ge 0\)</span>, the above relationship suggests that <span class="math inline">\(S_X(e^{j \Omega}) \ge 0\)</span> for all <span class="math inline">\(\Omega \in [-\pi, \pi]\)</span>. This is a general property of power spectral densities and is a consequence of <a href="https://en.wikipedia.org/wiki/Wiener%E2%80%93Khinchin_theorem">:Wiener-Khinchin theorem</a>. See the discussion in Chapter 10.2 of Oppenheim and Verghese.</p></li>
+<li><p>Observe that <span class="math inline">\(\tilde h_k = h_{-k}^*\)</span>. Therefore, <span class="math inline">\(\tilde H(e^{j \Omega}) = H(e^{-j \Omega})^*\)</span>. Therefore, the fundamental relationships between input and output in frequency domain are given by <span class="math display">\[\begin{equation}\label{eq:psd-relationships}
+S_{YX}(e^{j \Omega}) = H(e^{j \Omega}) S_X(e^{j \Omega}),
+\quad
+S_Y(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_X(e^{j \Omega}).
+\end{equation}\]</span></p></li>
+<li><p>We can resolve <a href="#exm-AR-psd" class="quarto-xref">Example&nbsp;<span>11.6</span></a> using the above relationship. Recall that we showed that the AR(1) process is the output of an LTI system with transfer function <span class="math inline">\(H(z) = \frac{1}{z - a}\)</span> when the input is white noise. Therefore, <span class="math display">\[
+S_X(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_W(e^{j \Omega}) = \frac{1}{\ABS{1 - a e^{j \Omega}}^2} \sigma^2,
+\]</span> which matches the result in <a href="#exm-AR-psd" class="quarto-xref">Example&nbsp;<span>11.6</span></a>.</p></li>
+<li><p>Note that <span class="math inline">\(\eqref{eq:psd-relationships}\)</span> gives a way to identify the impluse response of an LTI system. The simplest setting is when the input is standard white noise, in which case, <span class="math inline">\(S_{YX}(e^{j \Omega}) = H(e^{j \Omega})\)</span>. Therefore, we can identify the impulse response by first computing the cross-correlation function <span class="math display">\[
+R_{YX}(n) \approx \frac 1N \sum_{k=0}^{N-1} Y_k X_{k+n}^*
+\]</span> for some large <span class="math inline">\(N\)</span> and then taking the DTFT of the result.</p></li>
+<li><p>The relationship <span class="math inline">\(\eqref{eq:psd-relationships}\)</span> is also useful in filtering. An important application is a <strong>whitening filter</strong>, which is a filter that transforms a colored noise process into white noise.</p>
+<p>Suppose <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a zero mean colored noise process with auto-covariance function <span class="math inline">\(R_X(n)\)</span>. Let <span class="math inline">\(H(z)\)</span> be (possibly non-causal) transfer function such that <span class="math display">\[
+   \ABS{H(e^{j \Omega})}^2 = \frac{1}{S_X(e^{j \Omega})}
+\]</span> Then, the output of the filter is a white noise process with variance <span class="math inline">\(\sigma^2\)</span>.</p></li>
+<li><p>As an illustration, consider a moving average process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> given by <span class="math display">\[
+   X_{n} = W_n + \tfrac{1}{2} W_{n-1}
+\]</span> where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is white noise with variance <span class="math inline">\(\sigma^2\)</span>. The mean of the process is <span class="math display">\[ μ_X(n) = 0. \]</span> To compute the auto-covariance function, we first observe that for <span class="math inline">\(n = m\)</span>, <span class="math display">\[
+  R_X(n,n) = \VAR(W_n + \tfrac{1}{2} W_{n-1}) = \sigma^2( 1 + \tfrac{1}{4}) = \tfrac{5}{4} \sigma^2.
+\]</span> For <span class="math inline">\(m = n+1\)</span>, we have <span class="math display">\[\begin{align*}
+  R_X(n,n+1) &amp;= \COV(W_n + \tfrac{1}{2} W_{n-1}, W_{n+1} + \tfrac{1}{2} W_{n})  \\
+  &amp;= \COV(W_n, W_{n+1}) + \tfrac{1}{2} \COV(W_n, W_{n}) + \tfrac{1}{2} \COV(W_{n-1}, W_{n+1}) + \tfrac{1}{4} \COV(W_{n-1}, W_{n}) \\
+  &amp;= \tfrac{1}{2} \sigma^2
+\end{align*}\]</span> as all terms other that <span class="math inline">\(\COV(W_n, W_n)\)</span> are zero. Furthermore, for all <span class="math inline">\(m \ge n+2\)</span>, there is no overlap between the two terms and therefore <span class="math inline">\(R_X(n,m) = 0\)</span>.</p>
+<p>Thus, the auto-covariance function depends only on the time difference <span class="math inline">\(|n-m|\)</span> and may be simplified as <span class="math display">\[
+    R_X(n) = \begin{cases}
+      \tfrac{5}{4} \sigma^2, &amp; n = 0 \\
+      \tfrac{1}{2} \sigma^2, &amp; |n| = 1 \\
+      0, &amp; |n| &gt; 1
+      \end{cases}
+  \]</span></p>
+<p>Therefore, the power spectral density is given by <span class="math display">\[
+    S_X(e^{j \Omega}) = \sigma^2 \left( \frac{5}{4} + \frac{1}{2} e^{-j \Omega} + \frac{1}{2} e^{j \Omega} \right)
+  \]</span></p>
+<p>Now, suppose we want to “whiten” the process. Observe that <span class="math display">\[
+     S_X(e^{j \Omega}) = \sigma^2 \left( \frac{5}{4} + \frac{1}{2} e^{-j \Omega} + \frac{1}{2} e^{j \Omega} \right)
+     = \sigma^2 \left| 1 + \frac{1}{2} e^{-j \Omega} \right|^2
+  \]</span> Therefore, if we pick <span class="math display">\[H(e^{j \Omega}) = \frac{1}{\sigma} \frac{1}{1 + \frac{1}{2} e^{-j \Omega}}\]</span> then the output of the filter is a standard white noise process.</p>
+<p>We can “see” this by writing the input-output relationship of this filter in time domain. Note that the filter transfer function is given by <span class="math display">\[
+     H(z) = \frac{1}{\sigma} \frac{1}{1 + \frac{1}{2} z^{-1}} = \frac{1}{\sigma} \frac{z}{z + \frac{1}{2}}
+  \]</span> For simplicity, let’s consider determinisitic input and outputs. We know <span class="math display">\[
+      Y(z) = X(z) H(z)
+      \implies
+      Y(z) \left( 1 + \frac{1}{2} z^{-1} \right) = \frac{1}{\sigma} X(z)
+  \]</span> which implies <span class="math display">\[
+     y_n + \tfrac{1}{2} y_{n-1} = \frac{1}{\sigma} x_n.
+  \]</span></p>
+<p>The same relationship holds for the stochastic case, i.e., <span class="math display">\[
+     Y_n = \frac{1}{\sigma} X_n - \frac{1}{2} Y_{n-1}
+  \]</span> We can observe recursively that (for simplificity take <span class="math inline">\(\sigma^2 = 1\)</span>) <span class="math display">\[\begin{align*}
+     Y_0 &amp;= X_0 = W_0 \\
+     Y_1 &amp;= X_1 - \frac{1}{2} Y_0 = W_1 \\
+     Y_2 &amp;= X_2 - \frac{1}{2} Y_1 = W_2 \\
+     Y_3 &amp;= X_3 - \frac{1}{2} Y_2 = W_3 \\
+     &amp;\vdots \\
+  \end{align*}\]</span> Thus, the output is white noise.</p></li>
 </ol>
 </section>
-<section id="note-on-non-gaussian-processes" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="note-on-non-gaussian-processes"><span class="header-section-number">11.7</span> Note on non-Gaussian processes</h2>
+<section id="note-on-non-gaussian-processes" class="level2" data-number="11.9">
+<h2 data-number="11.9" class="anchored" data-anchor-id="note-on-non-gaussian-processes"><span class="header-section-number">11.9</span> Note on non-Gaussian processes</h2>
 <p>Since all the properties discussed above (mean function, covariance function, linear transformations, etc.) depend only on the first two moments (mean and covariance), they apply to stochastic processes beyond Gaussian processes, as long as we restrict our attention to first and second moments.</p>
 <p>However, it is important to distinguish between two notions of stationarity:</p>
 <ol type="1">
@@ -1330,51 +1397,70 @@ S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
 <li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is called <strong>strict-sense stationary</strong> (or <strong>strongly stationary</strong>) if for any finite collection of time indices <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> and any integer <span class="math inline">\(h \ge 0\)</span>, the joint distribution of <span class="math inline">\((X_{n_1}, \dots, X_{n_k})\)</span> is the same as the joint distribution of <span class="math inline">\((X_{n_1+h}, \dots, X_{n_k+h})\)</span>.</p></li>
 </ol>
 <p>For any stochastic process, strict-sense stationarity implies wide-sense stationarity. However, the converse is not true in general. For <strong>Gaussian processes</strong>, since they are completely determined by their mean and covariance, wide-sense stationarity implies strict-sense stationarity. Thus, for Gaussian processes, the two notions are equivalent.</p>
-</section>
-<section id="exercises" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
-<div id="exr-verify-covariance" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 11.1 (Verifying covariance functions)</strong></span> Show that the following functions are valid covariance functions for a discrete-time Gaussian process:</p>
-<ol type="a">
-<li><span class="math inline">\(R_X(m,n) = σ^2 \min(m,n)\)</span> for <span class="math inline">\(m, n \ge 0\)</span></li>
-<li><span class="math inline">\(R_X(m,n) = ρ^{|n-m|}\)</span> for <span class="math inline">\(m, n \ge 0\)</span> and <span class="math inline">\(|ρ| &lt; 1\)</span></li>
-<li><span class="math inline">\(R_X(m,n) = \frac{σ^2}{1-a^2} a^{|n-m|}\)</span> for <span class="math inline">\(m, n \ge 0\)</span> and <span class="math inline">\(|a| &lt; 1\)</span></li>
-</ol>
-</div>
-<div id="exr-random-walk-properties" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 11.2 (Properties of Gaussian random walk)</strong></span> Let <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> be a Gaussian random walk with <span class="math inline">\(R_W(m,n) = σ^2 \min(m,n)\)</span>. Show that:</p>
-<ol type="a">
-<li>For <span class="math inline">\(0 \le m &lt; n\)</span>, <span class="math inline">\(W_n - W_m \sim \mathcal{N}(0, σ^2(n-m))\)</span></li>
-<li>For <span class="math inline">\(0 \le n_1 &lt; n_2 &lt; n_3 &lt; n_4\)</span>, the increments <span class="math inline">\(W_{n_2} - W_{n_1}\)</span> and <span class="math inline">\(W_{n_4} - W_{n_3}\)</span> are independent</li>
-<li><span class="math inline">\(\EXP[W_m W_n] = σ^2 \min(m,n)\)</span></li>
-</ol>
-</div>
-<div id="exr-conditional-random-walk" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 11.3 (Conditional distribution of Gaussian random walk)</strong></span> For a Gaussian random walk <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> with <span class="math inline">\(R_W(m,n) = σ^2 \min(m,n)\)</span>, compute the conditional distribution of <span class="math inline">\(W_n\)</span> given <span class="math inline">\(W_5 = 1\)</span> for: a. <span class="math inline">\(n = 3\)</span> b. <span class="math inline">\(n = 7\)</span></p>
-<p>Interpret the results.</p>
-</div>
-<div id="exr-GP-regression" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 11.4 (Gaussian process regression)</strong></span> Consider a Gaussian process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> with mean function <span class="math inline">\(μ_X(n) = 0\)</span> and covariance function <span class="math inline">\(R_X(m,n) = ρ^{|n-m|}\)</span> where <span class="math inline">\(ρ = 0.8\)</span>.</p>
-<p>Given observations <span class="math inline">\(X_2 = 1\)</span> and <span class="math inline">\(X_8 = -0.5\)</span>:</p>
-<ol type="a">
-<li>Compute the conditional mean and variance of <span class="math inline">\(X_5\)</span>.</li>
-<li>Compute the conditional mean and variance of <span class="math inline">\(X_9\)</span>.</li>
-<li>Which prediction has higher uncertainty? Why?</li>
-</ol>
-</div>
-<div id="exr-sum-GP" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 11.5 (Sum of Gaussian processes)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> be independent Gaussian processes with mean functions <span class="math inline">\(μ_X(n)\)</span>, <span class="math inline">\(μ_Y(n)\)</span> and covariance functions <span class="math inline">\(R_X(m,n)\)</span>, <span class="math inline">\(R_Y(m,n)\)</span> respectively.</p>
-<p>Show that <span class="math inline">\(\{X_n + Y_n\}_{n \ge 0}\)</span> is a Gaussian process and find its mean and covariance functions.</p>
-</div>
-<div id="exr-stationary-GP" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 11.6 (Stationary Gaussian process)</strong></span> A Gaussian process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is wide-sense stationary with covariance function <span class="math inline">\(R_X(k) = ρ^{k}\)</span> for <span class="math inline">\(k \ge 0\)</span> and <span class="math inline">\(|ρ| &lt; 1\)</span>.</p>
-<ol type="a">
-<li>Find the mean function <span class="math inline">\(μ_X(n)\)</span>.</li>
-<li>Show that <span class="math inline">\(R_X(k)\)</span> is a valid covariance function.</li>
-<li>Compute <span class="math inline">\(\VAR(X_n)\)</span>.</li>
-<li>For what values of <span class="math inline">\(k\)</span> is the correlation between <span class="math inline">\(X_n\)</span> and <span class="math inline">\(X_{n+k}\)</span> less than 0.1?</li>
-</ol>
-</div>
+<!--
+## Exercises{-}
+
+:::{#exr-verify-covariance}
+#### Verifying covariance functions
+
+Show that the following functions are valid covariance functions for a discrete-time Gaussian process:
+
+a. $R_X(m,n) = σ^2 \min(m,n)$ for $m, n \ge 0$
+b. $R_X(m,n) = ρ^{|n-m|}$ for $m, n \ge 0$ and $|ρ| < 1$
+c. $R_X(m,n) = \frac{σ^2}{1-a^2} a^{|n-m|}$ for $m, n \ge 0$ and $|a| < 1$
+:::
+
+:::{#exr-random-walk-properties}
+#### Properties of Gaussian random walk
+
+Let $\{W_n\}_{n \ge 0}$ be a Gaussian random walk with $R_W(m,n) = σ^2 \min(m,n)$. Show that:
+
+a. For $0 \le m < n$, $W_n - W_m \sim \mathcal{N}(0, σ^2(n-m))$
+b. For $0 \le n_1 < n_2 < n_3 < n_4$, the increments $W_{n_2} - W_{n_1}$ and $W_{n_4} - W_{n_3}$ are independent
+c. $\EXP[W_m W_n] = σ^2 \min(m,n)$
+:::
+
+:::{#exr-conditional-random-walk}
+#### Conditional distribution of Gaussian random walk
+
+For a Gaussian random walk $\{W_n\}_{n \ge 0}$ with $R_W(m,n) = σ^2 \min(m,n)$, compute the conditional distribution of $W_n$ given $W_5 = 1$ for:
+a. $n = 3$
+b. $n = 7$
+
+Interpret the results.
+:::
+
+:::{#exr-GP-regression}
+#### Gaussian process regression
+
+Consider a Gaussian process $\{X_n\}_{n \ge 0}$ with mean function $μ_X(n) = 0$ and covariance function $R_X(m,n) = ρ^{|n-m|}$ where $ρ = 0.8$.
+
+Given observations $X_2 = 1$ and $X_8 = -0.5$:
+
+a. Compute the conditional mean and variance of $X_5$.
+b. Compute the conditional mean and variance of $X_9$.
+c. Which prediction has higher uncertainty? Why?
+:::
+
+:::{#exr-sum-GP}
+#### Sum of Gaussian processes
+
+Let $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$ be independent Gaussian processes with mean functions $μ_X(n)$, $μ_Y(n)$ and covariance functions $R_X(m,n)$, $R_Y(m,n)$ respectively.
+
+Show that $\{X_n + Y_n\}_{n \ge 0}$ is a Gaussian process and find its mean and covariance functions.
+:::
+
+:::{#exr-stationary-GP}
+#### Stationary Gaussian process
+
+A Gaussian process $\{X_n\}_{n \ge 0}$ is wide-sense stationary with covariance function $R_X(k) = ρ^{k}$ for $k \ge 0$ and $|ρ| < 1$.
+
+a. Find the mean function $μ_X(n)$.
+b. Show that $R_X(k)$ is a valid covariance function.
+c. Compute $\VAR(X_n)$.
+d. For what values of $k$ is the correlation between $X_n$ and $X_{n+k}$ less than 0.1?
+:::
+-->
 </section>
 <section id="further-reading" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="further-reading">Further Reading</h2>
@@ -1382,6 +1468,7 @@ S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
 <li><p>Gubner, Chapter 15.</p></li>
 <li><p>Grimmett and Stirzaker, Chapter 13.</p></li>
 <li><p>Hajek, <a href="https://hajek.ece.illinois.edu/Papers/randomprocJuly14.pdf">Random Processes for Engineering</a>, Chapter 7 and Chapter 8. Most of the discussion there is for countinuous time processes, but the ideas are the same.</p></li>
+<li><p>Oppenheim and Verghese, <a href="https://ocw.mit.edu/courses/6-011-introduction-to-communication-control-and-signal-processing-spring-2010/pages/readings/">Random Signals and Systems</a>, Chapter 9 and 10.</p></li>
 </ol>
 
 
