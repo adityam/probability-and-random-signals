@@ -526,7 +526,7 @@ $$
 
 2. The joint process $\{X_n, Y_n\}_{n \ge 0}$ is a Gaussian process with mean $\mu_{X,Y}(n) = \MATRIX{\mu_X(n)\\ \mu_Y(n)}$ and covariance $R_{X,Y}(n,m) = \MATRIX{R_X(n,m) & R_{XY}(n,m) \\ R_{YX}(n,m) & R_Y(n,m)}$.
 
-3. The function $R_{XY}(n,m) = COV(X_n, Y_m)$ is called the **cross-covariance function** of the processes (and sometimes the processes $R_X(n,m)$ and $R_Y(n,m)$ are called the **auto-covariance functions** of the processes). 
+3. The function $R_{XY}(n,m) = \COV(X_n, Y_m)$ is called the **cross-covariance function** of the processes (and sometimes the processes $R_X(n,m)$ and $R_Y(n,m)$ are called the **auto-covariance functions** of the processes). 
 
 4. The cross-covariance function satisfies $R_{XY}(n,m) = \COV(X_n, Y_m) = R_{YX}(m,n)$ for all $n, m \ge 0$. 
 
@@ -568,9 +568,25 @@ $$
 
 6. Similar state space representations exist for MIMO (multiple-input multiple-output) systems, where the input and output are vectors.
 
+## Complex-valued random variables and processes
+
+1. As we shall see, when viewing random processes in frequency domain, complex-valued random variables and processes arise naturally. If $X$ and $Y$ are real-valued joint random variables, then $Z = X + jY$ is a complex-valued random variable. Similarly, if $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$ are real-valued joint random processes, then $\{Z_n\}_{n \ge 0} = \{X_n + jY_n\}_{n \ge 0}$ is a complex-valued random process.
+
+2. We can think of the joint CDF of a complex-valued random variable as $F_Z(x + jy) = F_{X,Y}(x,y)$. 
+
+3. The covariance of two complex-valued random variables $Z_1$ and $Z_2$ is defined as
+   $$ \COV(Z_1, Z_2) = \EXP[Z_1 Z_2^*] $$
+   where $Z_2^*$ denotes the complex conjugate of $Z_2$. Note that we use $Z_2^*$ (rather than $Z_2$) to ensure that the variance $\VAR(Z) = \COV(Z, Z) = \EXP[|Z|^2]$ is real and non-negative. The same definition works for complex-valued random vectors, where $Z_2^*$ denotes the conjugate transpose of $Z_2$.
+
+4. We say that $Z$ is a **complex Gaussian random vector** with mean $\mu_Z$ and covariance matrix $\Sigma_Z$ if the real and imaginary parts of $Z$ are jointly Gaussian and $\EXP[Z] = \mu_Z$ and $\VAR(Z) = \COV(Z,Z) = \Sigma_Z$.
+
+5. For a complex-valued random process $\{X_n\}_{n \ge 0}$, the auto-covariance function is conjugate symmetric, i.e., $R_X(m,n) = R_X(n,m)^*$. Note that $R_X(n,n) = \EXP[|X_n|^2]$ is always real and non-negative. When the process is **stationary**, $R_X(m,n) = R_X(m-n)$, and therefore $R_X(k) = R_X(-k)^*$ where $k = m-n$. 
+
+6. The cross-covariance between two complex-valued random processes $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$ is conjugate symmetric, i.e., $R_{XY}(n,m) = R_{YX}(m,n)^*$. When both processes are **stationary**, $R_{XY}(n,m) = R_{XY}(n-m)$, and therefore $R_{XY}(k) = R_{YX}(-k)^*$ where $k = n-m$. 
+
 ## Stationary Gaussian processes through LTI systems
 
-1. In many applications in signal processing and stochastic control, we are interested in the output of a LTI system when the input is a stationary Gaussian process. There are two ways to study such systems: either in the time domain using state space models or in the frequency domain using the transfer function. 
+1. In many applications in signal processing and stochastic control, we are interested in the output of a linear system when the input is a stationary Gaussian process. There are two ways to study such systems: either in the time domain using state space models or in the frequency domain using the transfer function. For the purposes of this section, we will restrict our discussion to linear time-invariant (LTI) systems, but the main ideas can be generalized to time-varying linear systems as well. 
 
 2. Consider @exm-gaussian-random-walk which discussed a Gaussian random walk. The model was already presented in state space form but we can also explicitly write it as
    $$
@@ -599,148 +615,213 @@ $$
    Thus, the impulse response is given by
    $$ h_0 = 0 \quad \text{and} \quad h_k = a^{k-1}, \quad \forall k \ge 1 $$
 
-4. Thus, these two examples show the output of two LTI systems when the input is white noise. Note that the transfer function for @exm-gaussian-random-walk is not stable (as it has a pole on the unit circle) and as a consequence the output is unstable (i.e., does not converge to an invariant distribution). In contrast, the transfer function for @exm-AR1-process is stable (as it has all poles inside the unit circle) and as a consequence the output is stable (i.e., converges to an invariant distribution).
+4. Thus, these two examples show the output of two LTI systems when the input is white noise. Note that the transfer function for @exm-gaussian-random-walk is not stable (as it has a pole on the unit circle) and as a consequence the output is unstable (i.e., the marginal distribution does not converge to an invariant distribution). In contrast, the transfer function for @exm-AR1-process is stable (as it has all poles inside the unit circle) and as a consequence the output is stable (i.e., the marginal distribution converges to an invariant distribution).
 
-5. Suppose a stationary Gaussian process $\{X_n\}_{n ≥ 0}$ is passed through an LTI system $H(z)$. For every $ω ∈ Ω$, the output process is given by
+5. Suppose a (complex-valued) Gaussian process $\{X_n\}_{n ≥ 0}$ is passed through an LTI system $H(z)$. For every $ω ∈ Ω$, the output process is given by
   $$
-    Y_n(ω) = \sum_{k=0}^∞ h_k X_{n-k}(ω)
+    Y_n(ω) = \sum_{k=-\infty}^∞ h_k X_{n-k}(ω)
   $$
-  which is a sum of Gaussian random variables, and hence is Gaussian.
-
-6. The output $\{Y_n\}_{n ≥ 0}$ is a stationary Gaussian process. 
-
-   :::{.callout-note}
-   #### Proof
+  which is a sum of Gaussian random variables, and hence is Gaussian. 
+  
+     For simplicity, we expression the sum from $-\infty$ to $\infty$, even though, for causal systems, the impulse response is zero for negative indices and we are assuming that the input is zero for negative indices. 
+     
+6. Suppose $\{X_n\}_{n \ge 0}$ is a **stationary** Gaussian process with mean $\mu_X(n)$ and covariance function $R_X(k) = R_X(|n-m|)$ where $k = |n-m|$. Then, the output process $\{Y_n\}_{n \ge 0}$ is also stationary. We establish this by a sequence of steps. 
 
    The mean function of the output process is given by
    $$
-     μ_Y(n) = \EXP[Y_n] = \EXP\left[\sum_{k=0}^∞ h_k X_{n-k}\right] = \sum_{k=0}^∞ h_k \EXP[X_{n-k}] = \sum_{k=0}^∞ h_k μ_X = μ_X \sum_{k=0}^∞ h_k = μ_X H(1)
+     μ_Y(n) = \EXP[Y_n] = \EXP\left[\sum_{k=-\infty}^∞ h_k X_{n-k}\right] = \sum_{k=-\infty}^∞ h_k \EXP[X_{n-k}] = \sum_{k=-\infty}^∞ h_k μ_X = μ_X \sum_{k=-\infty}^∞ h_k = μ_X H(1)
    $$
-   which does not depend on $n$. 
+   which does not depend on $n$. This makes intuitive sense: the average of the output is the average of the input times the DC-gain of the system.
 
-   The covariance function of the output process is given by
-   $$
-     \begin{align*}
-       R_Y(n,m) 
-         &= \EXP[Y_n Y_m] \\
-         &= \EXP\left[\sum_{k=0}^\infty h_k X_{n-k} \sum_{j=0}^\infty h_j X_{m-j}\right] \\
-         &= \sum_{k=0}^\infty \sum_{j=0}^\infty h_k h_j \EXP[X_{n-k} X_{m-j}] \\
-         &= \sum_{k=0}^\infty \sum_{j=0}^\infty h_k h_j R_X(|(n-k)-(m-j)|) \\
-         &= \sum_{k=0}^\infty \sum_{j=0}^\infty h_k h_j R_X(|(n-m)-(k-j)|)
-     \end{align*}
-   $$
-   which only depends on $n-m$.
+7. The cross-covariance between the output and input is given as follows: 
+   \begin{align*}
+     R_{YX}(n,m) &= \EXP[Y_n X_m^*] = \EXP\left[\sum_{k=-\infty}^∞ h_{n-k} X_k X_m^*\right] \\
+     &= \sum_{k=-\infty}^∞ h_{n-k} \EXP[X_k X_m^*] \\
+     &= \sum_{k=-\infty}^∞ h_{n-k} R_X(k-m) \\
+     &= (h * R_X)(n-m)
+   \end{align*}
+   which only depends on $n-m$. Thus, the cross-covariance between the output and input is the convolution of the impulse response with the covariance function of the input.
 
-   Therefore, the output process is a stationary Gaussian process.
+     Note that in the above calculations, we have used the following convolution identity:
+     \begin{equation}\label{eq:convolution-identity}
+       (f * g)(n-m) = \sum_{k=-\infty}^∞ f(n-k) g(k-m) 
+     \end{equation}
+     which can be verified by change of variables in the standard definition of convolution.
+
+8. The auto-covariance of the output is given by
+   \begin{align*}
+     R_Y(n,m) &= \EXP[Y_n Y_m^*] = \EXP\left[Y_n \left(\sum_{k=-\infty}^∞ h_{m-k} X_k\right)^*\right] \\
+     &= \sum_{k=-\infty}^∞ h_{m-k}^* \EXP[Y_n X_k^*] \\
+     &= \sum_{k=-\infty}^∞ h_{m-k}^* R_{YX}(n-k) 
+   \end{align*}
+   The above expression looks like a convolution but is not. To convert it to a convolution, define a new function $\tilde h_k = h^*_{-k}$. Then, 
+   $$
+      R_Y(n,m) = \sum_{k=-\infty}^\infty \tilde h_{k-m} R_{YX}(n-k)
+      = (\tilde h * R_{YX})(n-m)
+   $$
+   due to \eqref{eq:convolution-identity}, which is just a function of $n-m$.
+
+9. Thus, we have shown that $\mu_Y(n)$ does not depend on $n$ and $R_Y(n,m)$ only depends on $n-m$. Therefore, the output process is a stationary Gaussian process. 
+
+10. To summarize, when a stationary Gaussian process is passed through a stable LTI system, the output is also a stationary Gaussian process with
+$$ 
+  \mu_Y(n) = μ_X H(1), \quad R_{YX} = h * R_X, \quad R_Y = \tilde h * R_{YX} = \tilde h * h * R_X.
+$$
+
+## Power spectral density
+
+1. For a stationary Gaussian process $\{X_n\}_{n \ge 0}$, the **power spectral density** (PSD) $S_X(e^{j \Omega})$ is defined as the discrete-time Fourier transform (DTFT) of the auto-covariance function:
+   $$
+    R_X(n) \overset{\mathcal{F}}{\longleftrightarrow} S_X(e^{j \Omega})
+   $$
+   where we are implicitly assuming that the covariance function is absolutely summable, so that the Fourier transform exists. 
+
+2. Since $R_X$ is even, $S_X$ is conjugate symmetric, i.e., $S_X(e^{j \Omega}) = S_X(e^{-j \Omega})^*$.
+
+3. 
+   :::{#exm-white-noise-psd}
+   Compute the power spectral density of white noise.
    :::
 
-7. For a stationary Gaussian process $\{X_n\}_{n \ge 0}$ with covariance function $R_X(k) = R_X(|n-m|)$ where $k = |n-m|$, the **power spectral density** (PSD) $S_X(\omega)$ is defined as the discrete-time Fourier transform (DTFT) of the covariance function:
+   :::{.callout-note collapse="false"}
+   #### Solution
+
+   Recall that $R_W(n) = \sigma^2 \delta_n$ and $\delta_n \overset{\mathcal{F}}{\longleftrightarrow} 1$. Therefore,
    $$
-   S_X(\omega) = \sum_{n=-\infty}^{\infty} R_X(n) e^{-j\omega n}, \quad \omega \in [-\pi, \pi]
+     S_W(e^{j \Omega}) = \sigma^2.
    $$
-   where $j = \sqrt{-1}$ and $R_X(-n) = R_X(n)$ by symmetry of the covariance function. For this infinite sum to converge, we require that $\sum_{n=-\infty}^{\infty} |R_X(n)| < \infty$ (absolute summability of the covariance function).
+   This is the reason that the process is called **white noise**, because its spectrum is flat (in contrast to colored noise, where the spectrum is not flat).
+   :::
 
-8. The covariance function can be recovered from the power spectral density via the inverse DTFT:
+4. 
+   :::{#exm-AR-psd}
+
+   Compute the power spectral density of an AR(1) process.
+   :::
+
+   :::{.callout-note collapse="false"}
+   #### Solution
+
+   Recall that $R_X(n) = \dfrac{σ^2}{1-a^2} a^{|n|}$ and $a^{|n|} \xleftrightarrow{\mathcal{F}} \dfrac{1-a^2}{\ABS{1 - a e^{j \Omega}}^2}$. Therefore,
    $$
-   R_X(n) = \frac{1}{2\pi} \int_{-\pi}^{\pi} S_X(\omega) e^{j\omega n} \, d\omega, \quad n \in \mathbb{Z}
+     S_X(e^{j \Omega}) = \frac{σ^2}{1-a^2} \frac{1-a^2}{\ABS{1 - a e^{j \Omega}}^2}
+     = \frac{σ^2}{\ABS{1 - a e^{j \Omega}}^2}.
    $$
-   This establishes a Fourier transform pair between the covariance function in the time domain and the power spectral density in the frequency domain.
 
-9. **Properties of power spectral density:**
-   - **Non-negativity:** $S_X(\omega) \ge 0$ for all $\omega \in [-\pi, \pi]$
-   - **Symmetry:** $S_X(\omega) = S_X(-\omega)$ (for real-valued processes)
-   - **Total power:** The variance of the process is given by
-     $$
-     \VAR(X_n) = R_X(0) = \frac{1}{2\pi} \int_{-\pi}^{\pi} S_X(\omega) \, d\omega
-     $$
+5. For jointly Gaussian processes $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$, the **cross-power spectral density** $S_{YX}(e^{j \Omega})$ is defined as the DTFT of the cross-covariance function:
+   $$
+    R_{YX}(n) \overset{\mathcal{F}}{\longleftrightarrow} S_{YX}(e^{j \Omega}).
+   $$
 
-10. **Linear filtering:** If $\{Y_n\}_{n \ge 0}$ is the output of a stable LTI system with frequency response $H(\omega)$ and input $\{X_n\}_{n \ge 0}$, then
-    $$
-    S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
-    $$
-    where $H(\omega) = \sum_{n=-\infty}^{\infty} h_n e^{-j\omega n}$ is the DTFT of the impulse response $\{h_n\}_{n=-\infty}^{\infty}$.
+6. The reason for the terminology "power spectral density" is the following. The power of the process is given by
+   $$
+   \frac{1}{N} \sum_{n=0}^{N-1} \VAR(X_n) = \VAR(X_0) = R_X(0)
+   $$
+   due to stationarity. From the formula for inverse DTFT, we have that
+   $$  R_X(0) = \frac{1}{2\pi} \int_{-\pi}^{\pi} S_X(e^{j \Omega}) \, d\Omega. $$
+   Thus, the power spectral density tells how the power of the process is distributed across different frequencies.
 
-    :::{.callout-note collapse="true"}
-    #### Proof
+      Since $R_X(0) \ge 0$, the above relationship suggests that $S_X(e^{j \Omega}) \ge 0$ for all $\Omega \in [-\pi, \pi]$. This is a general property of power spectral densities and is a consequence of [:Wiener-Khinchin theorem](https://en.wikipedia.org/wiki/Wiener%E2%80%93Khinchin_theorem). See the discussion in Chapter 10.2 of Oppenheim and Verghese.
 
-    The output process is given by the convolution:
-    $$
-    Y_n = \sum_{k=-\infty}^{\infty} h_k X_{n-k}
-    $$
+7. Observe that $\tilde h_k = h_{-k}^*$. Therefore, $\tilde H(e^{j \Omega}) = H(e^{-j \Omega})^*$. Therefore, the fundamental relationships between input and output in frequency domain are given by
+\begin{equation}\label{eq:psd-relationships}
+   S_{YX}(e^{j \Omega}) = H(e^{j \Omega}) S_X(e^{j \Omega}), 
+   \quad
+   S_Y(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_X(e^{j \Omega}).
+\end{equation}
 
-    The covariance function of the output is:
+
+8. We can resolve @exm-AR-psd using the above relationship. Recall that we showed that the AR(1) process is the output of an LTI system with transfer function $H(z) = \frac{1}{z - a}$ when the input is white noise. Therefore,
+$$
+   S_X(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_W(e^{j \Omega}) = \frac{1}{\ABS{1 - a e^{j \Omega}}^2} \sigma^2,
+$$
+which matches the result in @exm-AR-psd.
+
+
+8. Note that \eqref{eq:psd-relationships} gives a way to identify the impluse response of an LTI system. The simplest setting is when the input is standard white noise, in which case, $S_{YX}(e^{j \Omega}) = H(e^{j \Omega})$. Therefore, we can identify the impulse response by first computing the cross-correlation function
+$$
+   R_{YX}(n) \approx \frac 1N \sum_{k=0}^{N-1} Y_k X_{k+n}^*
+$$
+for some large $N$ and then taking the DTFT of the result.
+
+9. The relationship \eqref{eq:psd-relationships} is also useful in filtering. An important application is a **whitening filter**, which is a filter that transforms a colored noise process into white noise. 
+
+   Suppose $\{X_n\}_{n \ge 0}$ is a zero mean colored noise process with auto-covariance function $R_X(n)$. Let $H(z)$ be (possibly non-causal) transfer function such that
+   $$
+      \ABS{H(e^{j \Omega})}^2 = \frac{1}{S_X(e^{j \Omega})}
+   $$
+   Then, the output of the filter is a white noise process with variance $\sigma^2$.
+
+10. As an illustration, consider a moving average process $\{X_n\}_{n \ge 0}$ given by
     $$
+       X_{n} = W_n + \tfrac{1}{2} W_{n-1}
+    $$
+    where $\{W_n\}_{n \ge 0}$ is white noise with variance $\sigma^2$. The mean of the process is
+    $$ μ_X(n) = 0. $$
+    To compute the auto-covariance function, we first observe that for $n = m$, 
+    $$
+      R_X(n,n) = \VAR(W_n + \tfrac{1}{2} W_{n-1}) = \sigma^2( 1 + \tfrac{1}{4}) = \tfrac{5}{4} \sigma^2.
+    $$
+    For $m = n+1$, we have
     \begin{align*}
-    R_Y(n) &= \COV(Y_0, Y_n) = \EXP[Y_0 Y_n] - \EXP[Y_0]\EXP[Y_n] \\
-    &= \EXP\left[\sum_{k=-\infty}^{\infty} h_k X_{-k} \sum_{j=-\infty}^{\infty} h_j X_{n-j}\right] - \mu_Y^2 \\
-    &= \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j \EXP[X_{-k} X_{n-j}] - \mu_Y^2
+      R_X(n,n+1) &= \COV(W_n + \tfrac{1}{2} W_{n-1}, W_{n+1} + \tfrac{1}{2} W_{n})  \\
+      &= \COV(W_n, W_{n+1}) + \tfrac{1}{2} \COV(W_n, W_{n}) + \tfrac{1}{2} \COV(W_{n-1}, W_{n+1}) + \tfrac{1}{4} \COV(W_{n-1}, W_{n}) \\
+      &= \tfrac{1}{2} \sigma^2
     \end{align*}
-    $$
+    as all terms other that $\COV(W_n, W_n)$ are zero. Furthermore, for all $m \ge n+2$, there is no overlap between the two terms and therefore $R_X(n,m) = 0$.
 
-    Since $\{X_n\}$ is stationary with mean $\mu_X$ and covariance $R_X(m)$, we have:
-    $$
-    \EXP[X_{-k} X_{n-j}] = R_X((n-j) - (-k)) + \mu_X^2 = R_X(n - j + k) + \mu_X^2
-    $$
+      Thus, the auto-covariance function depends only on the time difference $|n-m|$ and may be simplified as
+      $$
+        R_X(n) = \begin{cases}
+          \tfrac{5}{4} \sigma^2, & n = 0 \\
+          \tfrac{1}{2} \sigma^2, & |n| = 1 \\
+          0, & |n| > 1
+          \end{cases}
+      $$
+  
+      Therefore, the power spectral density is given by
+      $$
+        S_X(e^{j \Omega}) = \sigma^2 \left( \frac{5}{4} + \frac{1}{2} e^{-j \Omega} + \frac{1}{2} e^{j \Omega} \right)
+      $$
 
-    Therefore:
-    $$
-    \begin{align*}
-    R_Y(n) &= \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j (R_X(n - j + k) + \mu_X^2) - \mu_Y^2 \\
-    &= \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j R_X(n - j + k) + \mu_X^2 \sum_{k=-\infty}^{\infty} h_k \sum_{j=-\infty}^{\infty} h_j - \mu_Y^2
-    \end{align*}
-    $$
+      Now, suppose we want to "whiten" the process. Observe that
+      $$
+         S_X(e^{j \Omega}) = \sigma^2 \left( \frac{5}{4} + \frac{1}{2} e^{-j \Omega} + \frac{1}{2} e^{j \Omega} \right) 
+         = \sigma^2 \left| 1 + \frac{1}{2} e^{-j \Omega} \right|^2
+      $$
+      Therefore, if we pick 
+      $$H(e^{j \Omega}) = \frac{1}{\sigma} \frac{1}{1 + \frac{1}{2} e^{-j \Omega}}$$
+      then the output of the filter is a standard white noise process.
 
-    Since $\mu_Y = \mu_X H(1)$ and $H(1) = \sum_{k=-\infty}^{\infty} h_k$, the constant terms cancel, leaving:
-    $$
-    R_Y(n) = \sum_{k=-\infty}^{\infty} \sum_{j=-\infty}^{\infty} h_k h_j R_X(n - j + k)
-    $$
+      We can "see" this by writing the input-output relationship of this filter in time domain. Note that the filter transfer function is given by
+      $$
+         H(z) = \frac{1}{\sigma} \frac{1}{1 + \frac{1}{2} z^{-1}} = \frac{1}{\sigma} \frac{z}{z + \frac{1}{2}}
+      $$
+      For simplicity, let's consider determinisitic input and outputs. We know
+      $$
+          Y(z) = X(z) H(z)
+          \implies
+          Y(z) \left( 1 + \frac{1}{2} z^{-1} \right) = \frac{1}{\sigma} X(z)
+      $$
+      which implies
+      $$
+         y_n + \tfrac{1}{2} y_{n-1} = \frac{1}{\sigma} x_n.
+      $$
 
-    Making the substitution $\ell = j - k$, we get:
-    $$
-    R_Y(n) = \sum_{k=-\infty}^{\infty} \sum_{\ell=-\infty}^{\infty} h_k h_{k+\ell} R_X(n - \ell) = \sum_{\ell=-\infty}^{\infty} R_X(n - \ell) \sum_{k=-\infty}^{\infty} h_k h_{k+\ell}
-    $$
+      The same relationship holds for the stochastic case, i.e., 
+      $$
+         Y_n = \frac{1}{\sigma} X_n - \frac{1}{2} Y_{n-1}
+      $$
+      We can observe recursively that (for simplificity take $\sigma^2 = 1$)
+      \begin{align*}
+         Y_0 &= X_0 = W_0 \\
+         Y_1 &= X_1 - \frac{1}{2} Y_0 = W_1 \\
+         Y_2 &= X_2 - \frac{1}{2} Y_1 = W_2 \\
+         Y_3 &= X_3 - \frac{1}{2} Y_2 = W_3 \\
+         &\vdots \\
+      \end{align*}
+      Thus, the output is white noise. 
 
-    The inner sum $\sum_{k=-\infty}^{\infty} h_k h_{k+\ell}$ is the autocorrelation of the impulse response, which we denote as $r_h(\ell)$. This is the convolution of $h_k$ with $h_{-k}$:
-    $$
-    r_h(\ell) = \sum_{k=-\infty}^{\infty} h_k h_{k+\ell} = (h * \tilde{h})(\ell)
-    $$
-    where $\tilde{h}_k = h_{-k}$ is the time-reversed impulse response.
-
-    Therefore:
-    $$
-    R_Y(n) = \sum_{\ell=-\infty}^{\infty} r_h(\ell) R_X(n - \ell) = (r_h * R_X)(n)
-    $$
-
-    Taking the DTFT of both sides and using the convolution property of the DTFT:
-    $$
-    S_Y(\omega) = \mathcal{F}\{r_h\}(\omega) \cdot S_X(\omega)
-    $$
-
-    where $\mathcal{F}\{r_h\}(\omega)$ is the DTFT of $r_h(\ell)$. The DTFT of the autocorrelation $r_h(\ell)$ is:
-    $$
-    \mathcal{F}\{r_h\}(\omega) = \sum_{\ell=-\infty}^{\infty} r_h(\ell) e^{-j\omega \ell} = \sum_{\ell=-\infty}^{\infty} \sum_{k=-\infty}^{\infty} h_k h_{k+\ell} e^{-j\omega \ell}
-    $$
-
-    Making the substitution $m = k + \ell$:
-    $$
-    \begin{align*}
-    \mathcal{F}\{r_h\}(\omega) &= \sum_{k=-\infty}^{\infty} \sum_{m=-\infty}^{\infty} h_k h_m e^{-j\omega (m-k)} \\
-    &= \sum_{k=-\infty}^{\infty} h_k e^{j\omega k} \sum_{m=-\infty}^{\infty} h_m e^{-j\omega m} \\
-    &= H^*(\omega) H(\omega) = |H(\omega)|^2
-    \end{align*}
-    $$
-
-    where $H^*(\omega)$ is the complex conjugate of $H(\omega)$.
-
-    Therefore:
-    $$
-    S_Y(\omega) = |H(\omega)|^2 S_X(\omega)
-    $$
-
-    This shows that the power spectral density of the output is the power spectral density of the input multiplied by the squared magnitude of the frequency response.
-    :::
-
-11. **Interpretation:** The power spectral density describes how the power (variance) of a stationary process is distributed across different frequencies. It is a fundamental tool in signal processing for analyzing the frequency content of random signals.
 
 ## Note on non-Gaussian processes
 
@@ -757,6 +838,7 @@ However, it is important to distinguish between two notions of stationarity:
 
 For any stochastic process, strict-sense stationarity implies wide-sense stationarity. However, the converse is not true in general. For **Gaussian processes**, since they are completely determined by their mean and covariance, wide-sense stationarity implies strict-sense stationarity. Thus, for Gaussian processes, the two notions are equivalent.
 
+<!--
 ## Exercises{-}
 
 :::{#exr-verify-covariance}
@@ -819,6 +901,7 @@ b. Show that $R_X(k)$ is a valid covariance function.
 c. Compute $\VAR(X_n)$.
 d. For what values of $k$ is the correlation between $X_n$ and $X_{n+k}$ less than 0.1?
 :::
+-->
 
 ## Further Reading {-}
 
@@ -827,3 +910,5 @@ d. For what values of $k$ is the correlation between $X_n$ and $X_{n+k}$ less th
 2. Grimmett and Stirzaker, Chapter 13.
 
 3. Hajek, [Random Processes for Engineering](https://hajek.ece.illinois.edu/Papers/randomprocJuly14.pdf), Chapter 7 and Chapter 8. Most of the discussion there is for countinuous time processes, but the ideas are the same.
+
+4. Oppenheim and Verghese, [Random Signals and Systems](https://ocw.mit.edu/courses/6-011-introduction-to-communication-control-and-signal-processing-spring-2010/pages/readings/), Chapter 9 and 10.
