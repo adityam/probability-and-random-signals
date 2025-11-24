@@ -136,10 +136,20 @@ title: Conditional expectation for Gaussians
    :::{.callout-note}
    #### Proof
    
-   Since $\ALPHABET M$ includes all affine functions of $Y$, it includes $e_i$, the unit vector in the $i$-th direction. Hence,
+   Let $X_i$ and $\hat X_i$ denote the $i$-th component of the vectors $X$ and $\hat X$ and let $e_i$ denote the unit vector in the $i$-th direction. Note that
    $$
-   \EXP[\hat{X}] = \EXP[X] + \EXP[ \IP{X - \hat{X}}{e_i}] = \EXP[X] + \EXP[ \IP{X - \hat{X}}{e_i}] = \EXP[X].
+      X_i - \hat X_i = \IP{X - \hat X}{e_i}.
    $$
+   Thus,
+   $$
+     \EXP[X_i] - \EXP[\hat X_i] = \EXP[ \IP{X - \hat X}{e_i}].
+   $$
+   Since $\ALPHABET M$ includes all affine functions of $Y$, it includes all constants (and hence $e_i$). Therefore, $\EXP[ \IP{X - \hat X}{e_i}] = 0$. Subsituting this in the above equation implies
+   $$
+     \EXP[X_i] = \EXP[\hat X_i].
+   $$
+
+   Since the relationship holds for all components $i$, it holds for the vectors as well. Thus, $\EXP[X] = \EXP[\hat X]$.
    :::
 
 7. The orthogonal projection is the conditional expectation, i.e.,
