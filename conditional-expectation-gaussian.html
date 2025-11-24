@@ -625,9 +625,14 @@ X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Since <span class="math inline">\(\ALPHABET M\)</span> includes all affine functions of <span class="math inline">\(Y\)</span>, it includes <span class="math inline">\(e_i\)</span>, the unit vector in the <span class="math inline">\(i\)</span>-th direction. Hence, <span class="math display">\[
-\EXP[\hat{X}] = \EXP[X] + \EXP[ \IP{X - \hat{X}}{e_i}] = \EXP[X] + \EXP[ \IP{X - \hat{X}}{e_i}] = \EXP[X].
+<p>Let <span class="math inline">\(X_i\)</span> and <span class="math inline">\(\hat X_i\)</span> denote the <span class="math inline">\(i\)</span>-th component of the vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(\hat X\)</span> and let <span class="math inline">\(e_i\)</span> denote the unit vector in the <span class="math inline">\(i\)</span>-th direction. Note that <span class="math display">\[
+   X_i - \hat X_i = \IP{X - \hat X}{e_i}.
+\]</span> Thus, <span class="math display">\[
+  \EXP[X_i] - \EXP[\hat X_i] = \EXP[ \IP{X - \hat X}{e_i}].
+\]</span> Since <span class="math inline">\(\ALPHABET M\)</span> includes all affine functions of <span class="math inline">\(Y\)</span>, it includes all constants (and hence <span class="math inline">\(e_i\)</span>). Therefore, <span class="math inline">\(\EXP[ \IP{X - \hat X}{e_i}] = 0\)</span>. Subsituting this in the above equation implies <span class="math display">\[
+  \EXP[X_i] = \EXP[\hat X_i].
 \]</span></p>
+<p>Since the relationship holds for all components <span class="math inline">\(i\)</span>, it holds for the vectors as well. Thus, <span class="math inline">\(\EXP[X] = \EXP[\hat X]\)</span>.</p>
 </div>
 </div></li>
 <li><p>The orthogonal projection is the conditional expectation, i.e., <span class="math display">\[
