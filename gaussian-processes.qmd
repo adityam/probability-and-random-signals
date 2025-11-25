@@ -635,8 +635,8 @@ $$
 
 7. The cross-covariance between the output and input is given as follows: 
    \begin{align*}
-     R_{YX}(n,m) &= \EXP[Y_n X_m^*] = \EXP\left[\sum_{k=-\infty}^∞ h_{n-k} X_k X_m^*\right] \\
-     &= \sum_{k=-\infty}^∞ h_{n-k} \EXP[X_k X_m^*] \\
+     R_{YX}(n,m) &= \COV(Y_n, X_m) = \COV\left(\sum_{k=-\infty}^∞ h_{n-k} X_k, X_m\right) \\
+     &= \sum_{k=-\infty}^∞ h_{n-k} \COV(X_k, X_m) \\
      &= \sum_{k=-\infty}^∞ h_{n-k} R_X(k-m) \\
      &= (h * R_X)(n-m)
    \end{align*}
@@ -650,8 +650,8 @@ $$
 
 8. The auto-covariance of the output is given by
    \begin{align*}
-     R_Y(n,m) &= \EXP[Y_n Y_m^*] = \EXP\left[Y_n \left(\sum_{k=-\infty}^∞ h_{m-k} X_k\right)^*\right] \\
-     &= \sum_{k=-\infty}^∞ h_{m-k}^* \EXP[Y_n X_k^*] \\
+     R_Y(n,m) &= \COV(Y_n, Y_m) = \COV\left(Y_n, \sum_{k=-\infty}^∞ h_{m-k} X_k\right) \\
+     &= \sum_{k=-\infty}^∞ h_{m-k}^* \COV(Y_n, X_k) \\
      &= \sum_{k=-\infty}^∞ h_{m-k}^* R_{YX}(n-k) 
    \end{align*}
    The above expression looks like a convolution but is not. To convert it to a convolution, define a new function $\tilde h_k = h^*_{-k}$. Then, 
