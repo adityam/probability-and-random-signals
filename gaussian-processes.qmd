@@ -731,11 +731,17 @@ $$
 \end{equation}
 
 
-8. We can resolve @exm-AR-psd using the above relationship. Recall that we showed that the AR(1) process is the output of an LTI system with transfer function $H(z) = \frac{1}{z - a}$ when the input is white noise. Therefore,
-$$
-   S_X(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_W(e^{j \Omega}) = \frac{1}{\ABS{1 - a e^{j \Omega}}^2} \sigma^2,
-$$
-which matches the result in @exm-AR-psd.
+8. We can resolve @exm-AR-psd using the above relationship. Recall that we showed that the AR(1) process is the output of an LTI system with transfer function $H(z) = \frac{1}{z - a}$ when the input is white noise. 
+
+   Note that $H(e^{j \Omega}) = \frac{1}{e^{j \Omega} - a}$. To compute $|H(e^{j \Omega})|^2$, we observe that
+   $$
+   |e^{j \Omega} - a|^2 = |e^{j \Omega}(1 - a e^{-j \Omega})|^2 = |1 - a e^{-j \Omega}|^2 = |1 - a e^{j \Omega}|^2,
+   $$
+   where the last equality follows from the fact that $|z| = |z^*|$ for any complex number $z$. Therefore,
+   $$
+   S_X(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_W(e^{j \Omega}) = \frac{1}{|e^{j \Omega} - a|^2} \sigma^2 = \frac{1}{\ABS{1 - a e^{j \Omega}}^2} \sigma^2,
+   $$
+   which matches the result in @exm-AR-psd.
 
 
 8. Note that \eqref{eq:psd-relationships} gives a way to identify the impluse response of an LTI system. The simplest setting is when the input is standard white noise, in which case, $S_{YX}(e^{j \Omega}) = H(e^{j \Omega})$. Therefore, we can identify the impulse response by first computing the cross-correlation function
