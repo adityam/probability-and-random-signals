@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-24">
+<meta name="dcterms.date" content="2025-11-25">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>11&nbsp; Gaussian processes – Probability and Random Signals II</title>
@@ -550,7 +550,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 24, 2025</p>
+      <p class="date">November 25, 2025</p>
     </div>
   </div>
   
@@ -1247,8 +1247,8 @@ Y_n(ω) = \sum_{k=-\infty}^∞ h_k X_{n-k}(ω)
   μ_Y(n) = \EXP[Y_n] = \EXP\left[\sum_{k=-\infty}^∞ h_k X_{n-k}\right] = \sum_{k=-\infty}^∞ h_k \EXP[X_{n-k}] = \sum_{k=-\infty}^∞ h_k μ_X = μ_X \sum_{k=-\infty}^∞ h_k = μ_X H(1)
 \]</span> which does not depend on <span class="math inline">\(n\)</span>. This makes intuitive sense: the average of the output is the average of the input times the DC-gain of the system.</p></li>
 <li><p>The cross-covariance between the output and input is given as follows: <span class="math display">\[\begin{align*}
-  R_{YX}(n,m) &amp;= \EXP[Y_n X_m^*] = \EXP\left[\sum_{k=-\infty}^∞ h_{n-k} X_k X_m^*\right] \\
-  &amp;= \sum_{k=-\infty}^∞ h_{n-k} \EXP[X_k X_m^*] \\
+  R_{YX}(n,m) &amp;= \COV(Y_n, X_m) = \COV\left(\sum_{k=-\infty}^∞ h_{n-k} X_k, X_m\right) \\
+  &amp;= \sum_{k=-\infty}^∞ h_{n-k} \COV(X_k, X_m) \\
   &amp;= \sum_{k=-\infty}^∞ h_{n-k} R_X(k-m) \\
   &amp;= (h * R_X)(n-m)
 \end{align*}\]</span> which only depends on <span class="math inline">\(n-m\)</span>. Thus, the cross-covariance between the output and input is the convolution of the impulse response with the covariance function of the input.</p>
@@ -1256,8 +1256,8 @@ Y_n(ω) = \sum_{k=-\infty}^∞ h_k X_{n-k}(ω)
     (f * g)(n-m) = \sum_{k=-\infty}^∞ f(n-k) g(k-m)
   \end{equation}\]</span> which can be verified by change of variables in the standard definition of convolution.</p></li>
 <li><p>The auto-covariance of the output is given by <span class="math display">\[\begin{align*}
-  R_Y(n,m) &amp;= \EXP[Y_n Y_m^*] = \EXP\left[Y_n \left(\sum_{k=-\infty}^∞ h_{m-k} X_k\right)^*\right] \\
-  &amp;= \sum_{k=-\infty}^∞ h_{m-k}^* \EXP[Y_n X_k^*] \\
+  R_Y(n,m) &amp;= \COV(Y_n, Y_m) = \COV\left(Y_n, \sum_{k=-\infty}^∞ h_{m-k} X_k\right) \\
+  &amp;= \sum_{k=-\infty}^∞ h_{m-k}^* \COV(Y_n, X_k) \\
   &amp;= \sum_{k=-\infty}^∞ h_{m-k}^* R_{YX}(n-k)
 \end{align*}\]</span> The above expression looks like a convolution but is not. To convert it to a convolution, define a new function <span class="math inline">\(\tilde h_k = h^*_{-k}\)</span>. Then, <span class="math display">\[
    R_Y(n,m) = \sum_{k=-\infty}^\infty \tilde h_{k-m} R_{YX}(n-k)
@@ -1331,8 +1331,11 @@ S_{YX}(e^{j \Omega}) = H(e^{j \Omega}) S_X(e^{j \Omega}),
 \quad
 S_Y(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_X(e^{j \Omega}).
 \end{equation}\]</span></p></li>
-<li><p>We can resolve <a href="#exm-AR-psd" class="quarto-xref">Example&nbsp;<span>11.6</span></a> using the above relationship. Recall that we showed that the AR(1) process is the output of an LTI system with transfer function <span class="math inline">\(H(z) = \frac{1}{z - a}\)</span> when the input is white noise. Therefore, <span class="math display">\[
-S_X(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_W(e^{j \Omega}) = \frac{1}{\ABS{1 - a e^{j \Omega}}^2} \sigma^2,
+<li><p>We can resolve <a href="#exm-AR-psd" class="quarto-xref">Example&nbsp;<span>11.6</span></a> using the above relationship. Recall that we showed that the AR(1) process is the output of an LTI system with transfer function <span class="math inline">\(H(z) = \frac{1}{z - a}\)</span> when the input is white noise.</p>
+<p>Note that <span class="math inline">\(H(e^{j \Omega}) = \frac{1}{e^{j \Omega} - a}\)</span>. To compute <span class="math inline">\(|H(e^{j \Omega})|^2\)</span>, we observe that <span class="math display">\[
+|e^{j \Omega} - a|^2 = |e^{j \Omega}(1 - a e^{-j \Omega})|^2 = |1 - a e^{-j \Omega}|^2 = |1 - a e^{j \Omega}|^2,
+\]</span> where the last equality follows from the fact that <span class="math inline">\(|z| = |z^*|\)</span> for any complex number <span class="math inline">\(z\)</span>. Therefore, <span class="math display">\[
+S_X(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_W(e^{j \Omega}) = \frac{1}{|e^{j \Omega} - a|^2} \sigma^2 = \frac{1}{\ABS{1 - a e^{j \Omega}}^2} \sigma^2,
 \]</span> which matches the result in <a href="#exm-AR-psd" class="quarto-xref">Example&nbsp;<span>11.6</span></a>.</p></li>
 <li><p>Note that <span class="math inline">\(\eqref{eq:psd-relationships}\)</span> gives a way to identify the impluse response of an LTI system. The simplest setting is when the input is standard white noise, in which case, <span class="math inline">\(S_{YX}(e^{j \Omega}) = H(e^{j \Omega})\)</span>. Therefore, we can identify the impulse response by first computing the cross-correlation function <span class="math display">\[
 R_{YX}(n) \approx \frac 1N \sum_{k=0}^{N-1} Y_k X_{k+n}^*
