@@ -909,11 +909,31 @@ d. For what values of $k$ is the correlation between $X_n$ and $X_{n+k}$ less th
 :::
 -->
 
+## Weiner filtering
+
+1. Let $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$ be jointly Gaussian. Suppose we observe the $\{Y_n\}_{n \ge 0}$ process and want to design a filter with input $\{Y_n\}_{n \ge 0}$ and output $\{ \hat X_n\}_{n \ge 0}$ such that $\hat X_n$ is an MMSE estimator of $X_n$. 
+
+2. Let $\{h_n\}_{n \ge 0}$ denote the impulse response of the filter. Ideally, $\{h_n\}_{n \ge 0}$ should be causal, but we start by considering non-causal filter
+
+3. For $\hat X_n$ to be an MMSE estimator of $X_n$, the error $X_n - \hat X_n$ must be orthogonal to $\{Y_n\}_{n \ge 0}$, i.e., 
+   $$
+      \COV(X_n - \hat X_n, Y_m) = 0
+      \implies
+      R_{XY}(n-m) = R_{\hat X Y}(n-m).
+   $$
+
+4. We also know that $R_{\hat X Y} = h * R_Y$. Thus, $R_{XY} = h * R_Y$ or in frequency domain:
+   $$
+      S_{XY}(z) = H(z) S_Y(z)
+      \implies
+      H(z) = S_{XY}(z)/S_Y(z)
+   $$
+
 ## Further Reading {-}
 
-1. Gubner, Chapter 15.
+1. Gubner, Chapter 10.
 
-2. Grimmett and Stirzaker, Chapter 13.
+2. Grimmett and Stirzaker, Chapters 8 and 9.
 
 3. Hajek, [Random Processes for Engineering](https://hajek.ece.illinois.edu/Papers/randomprocJuly14.pdf), Chapter 7 and Chapter 8. Most of the discussion there is for countinuous time processes, but the ideas are the same.
 
