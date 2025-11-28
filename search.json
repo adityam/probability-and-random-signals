@@ -759,6 +759,17 @@
     ]
   },
   {
+    "objectID": "markov-chains.html#censored-markov-chains",
+    "href": "markov-chains.html#censored-markov-chains",
+    "title": "10  Markov chains",
+    "section": "10.7 Censored Markov chains",
+    "text": "10.7 Censored Markov chains\n\nSuppose a Markov chain is only observed when the state lies in a subset \\(\\ALPHABET O \\subset \\ALPHABET X\\). Let \\(\\{τ_k\\}_{k \\ge 1}\\) denote the when the Markov chain returns to the set \\(\\ALPHABET O\\), i.e., \\(τ_1\\) is the first time when the Markov chain \\(\\{X_n\\}_{n \\ge 1}\\) hits \\(\\ALPHABET O\\); \\(τ_2\\) denotes the second time when the Markov chain hits \\(\\ALPHABET O\\); and so on.\nDefine the process \\(\\{O_k\\}_{k \\ge 1}\\) by \\(O_k = X_{τ_k}\\). The strong Markov property implies that \\(\\{O_k\\}_{k \\ge 1}\\) is a Markov chain. What is the transition probability matrix \\(\\tilde P\\) of this chain?\nAs we did for the absorbing Markov chains, we re-order states so that the unobservable states \\(\\ALPHABET O^c\\) come first, followed by all observable state \\(\\ALPHABET O\\). Then the transition matrix \\(P\\) can be written as \\[\n   P = \\left(\\begin{array}{c|c}\n   Q & R \\\\ \\hline\n   S & P_O\n   \\end{array}\\right)\n\\] where:\n\n\\(Q\\) is a \\(\\ABS{\\ALPHABET O^c} × \\ABS{\\ALPHABET O^c}\\) matrix containing the transition probabilities between unobserved states,\n\\(R\\) is a \\(\\ABS{\\ALPHABET O^c} × \\ABS{\\ALPHABET O}\\) matrix containing the transition probabilities from unobserved to observed states,\n\\(S\\) is the \\(\\ABS{\\ALPHABET O} × \\ABS{\\ALPHABET O^c}\\) matrix containing the transition probabilities from observed to unobserved states\n\\(P_O\\) is the × $ matrix containing the transitions from observed to observed states.\n\nSuppose we start with a state \\(O_1 = X_1 \\in \\ALPHABET O\\). Then the probability of going to each of the states in \\(\\ALPHABET O\\) in one step is given by \\(P_O\\). To take more than one step, the chain must enter a state in \\(\\ALPHABET O^c\\) with probability \\(S\\). We will assume that the set \\(\\ALPHABET O^c\\) does not have any obsorbing subsets. Then, as we showed in the analysis for absorbing Markov chains, starting from a given state in \\(\\ALPHABET O^c\\), the Markov chain enters \\(\\ALPHABET O\\) for the first time with probability \\(NR = (I - Q)^{-1} R\\). Thus, we have that \\[\n   \\tilde P = P_O + S(I - Q)^{-1}R.\n\\]\nIf \\(P\\) has only one communicating class, then \\(\\{X_n\\}_{n \\ge 1}\\) has a unique invariant distribution, which we denote by \\(π\\). Then \\((π_k)_{k \\in \\ALPHABET O}\\) normalized to have sum \\(1\\) is the unique invariant distribution of \\(\\{O_n\\}_{n \\ge 1}\\).\nAs an example, consider the reflected random walk from Example 10.6 (point 2) with state space \\(\\{-2, -1, 0, 1, 2\\}\\)\n\n\n\nReflected random walk\n\n\nSuppose we only observe the process when \\(X_n \\in \\ALPHABET O = \\{0, 1, 2\\}\\), so the unobservable states are \\(\\ALPHABET O^c = \\{-2, -1\\}\\).\nSince the states are already ordered in the right order, we can write the transition matrix as: \\[\nP = \\left[\\begin{array}{cc|ccc} 0 & 1 & 0 & 0 & 0 \\\\\n           q & 0 & p & 0 & 0 \\\\ \\hline\n           0 & q & 0 & p & 0 \\\\\n           0 & 0 & q & 0 & p \\\\\n           0 & 0 & 0 & 1 & 0\\end{array}\\right].\n\\]\nTo simplify computations, we will assume \\(p = \\tfrac{1}{4}\\) and \\(q = \\tfrac{3}{4}\\). Then, the transition matrix of the Markov chain \\(\\{O_k\\}_{k \\ge 1}\\) is given by\n\\[\\begin{align*}\n\\tilde P &= P_O + S(I - Q)^{-1} R \\\\\n&= \\MATRIX{ 0 & \\tfrac{1}{4} & 0 \\\\ \\tfrac{3}{4} & 0 & \\tfrac{1}{4} \\\\ 0 & 1 & 0 } + \\MATRIX{ 0 & \\tfrac{3}{4} \\\\ 0 & 0 \\\\ 0 & 0 } \\MATRIX{ 1 & -1 \\\\ -\\tfrac{3}{4} & 1 }^{-1} \\MATRIX{ 0 & 0 & 0 \\\\ \\tfrac{1}{4} & 0 & 0 } \\\\\n&= \\MATRIX{ \\tfrac{3}{4} & \\tfrac{1}{4} & 0 \\\\ \\tfrac{3}{4} & 0 & \\tfrac{1}{4} \\\\ 0 & 1 & 0 }.\n\\end{align*}\\]\nThis intuitively makes sense. The chain \\(\\{X_n\\}_{n \\ge 1}\\) can only go to unobserved states at state \\(X_n = 0\\). When it does to go \\(\\ALPHABET O^c\\), the first observed state it visits must be \\(0\\). Then \\(\\tilde P_{00} = P_{0,-1} = \\frac 34\\). The rest of the entries of \\(\\tilde P\\) are the same as \\(P\\).\nThe invariant distribution of \\(\\tilde P\\) is \\[\\MATRIX{ \\tfrac{12}{17} & \\tfrac{4}{17} & \\tfrac{1}{17} }\\] while the invariant distribution of \\(P\\) is \\[\\MATRIX{ \\tfrac{27}{80} & \\tfrac{36}{80} & \\tfrac{12}{80} & \\tfrac{4}{80} & \\tfrac{1}{80} }.\\]\nObserve that if we take the last three elements of the latter and normalize it, we get the former.",
+    "crumbs": [
+      "Probability and Random Signals II",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Markov chains</span>"
+    ]
+  },
+  {
     "objectID": "markov-chains.html#exercises",
     "href": "markov-chains.html#exercises",
     "title": "10  Markov chains",
@@ -891,11 +902,22 @@
     ]
   },
   {
+    "objectID": "gaussian-processes.html#weiner-filtering",
+    "href": "gaussian-processes.html#weiner-filtering",
+    "title": "11  Gaussian processes",
+    "section": "11.10 Weiner filtering",
+    "text": "11.10 Weiner filtering\n\nLet \\(\\{X_n\\}_{n \\ge 0}\\) and \\(\\{Y_n\\}_{n \\ge 0}\\) be jointly Gaussian. Suppose we observe the \\(\\{Y_n\\}_{n \\ge 0}\\) process and want to design a filter with input \\(\\{Y_n\\}_{n \\ge 0}\\) and output \\(\\{ \\hat X_n\\}_{n \\ge 0}\\) such that \\(\\hat X_n\\) is an MMSE estimator of \\(X_n\\).\nLet \\(\\{h_n\\}_{n \\ge 0}\\) denote the impulse response of the filter. Ideally, \\(\\{h_n\\}_{n \\ge 0}\\) should be causal, but we start by considering non-causal filter\nFor \\(\\hat X_n\\) to be an MMSE estimator of \\(X_n\\), the error \\(X_n - \\hat X_n\\) must be orthogonal to \\(\\{Y_n\\}_{n \\ge 0}\\), i.e., \\[\n   \\COV(X_n - \\hat X_n, Y_m) = 0\n   \\implies\n   R_{XY}(n-m) = R_{\\hat X Y}(n-m).\n\\]\nWe also know that \\(R_{\\hat X Y} = h * R_Y\\). Thus, \\(R_{XY} = h * R_Y\\) or in frequency domain: \\[\n   S_{XY}(z) = H(z) S_Y(z)\n   \\implies\n   H(z) = S_{XY}(z)/S_Y(z)\n\\]",
+    "crumbs": [
+      "Probability and Random Signals II",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Gaussian processes</span>"
+    ]
+  },
+  {
     "objectID": "gaussian-processes.html#further-reading",
     "href": "gaussian-processes.html#further-reading",
     "title": "11  Gaussian processes",
     "section": "Further Reading",
-    "text": "Further Reading\n\nGubner, Chapter 15.\nGrimmett and Stirzaker, Chapter 13.\nHajek, Random Processes for Engineering, Chapter 7 and Chapter 8. Most of the discussion there is for countinuous time processes, but the ideas are the same.\nOppenheim and Verghese, Random Signals and Systems, Chapter 9 and 10.",
+    "text": "Further Reading\n\nGubner, Chapter 10.\nGrimmett and Stirzaker, Chapters 8 and 9.\nHajek, Random Processes for Engineering, Chapter 7 and Chapter 8. Most of the discussion there is for countinuous time processes, but the ideas are the same.\nOppenheim and Verghese, Random Signals and Systems, Chapter 9 and 10.",
     "crumbs": [
       "Probability and Random Signals II",
       "<span class='chapter-number'>11</span>  <span class='chapter-title'>Gaussian processes</span>"

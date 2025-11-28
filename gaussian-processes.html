@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-25">
+<meta name="dcterms.date" content="2025-11-28">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>11&nbsp; Gaussian processes – Probability and Random Signals II</title>
@@ -514,6 +514,7 @@ window.Quarto = {
   <li><a href="#stationary-gaussian-processes-through-lti-systems" id="toc-stationary-gaussian-processes-through-lti-systems" class="nav-link" data-scroll-target="#stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.7</span> Stationary Gaussian processes through LTI systems</a></li>
   <li><a href="#power-spectral-density" id="toc-power-spectral-density" class="nav-link" data-scroll-target="#power-spectral-density"><span class="header-section-number">11.8</span> Power spectral density</a></li>
   <li><a href="#note-on-non-gaussian-processes" id="toc-note-on-non-gaussian-processes" class="nav-link" data-scroll-target="#note-on-non-gaussian-processes"><span class="header-section-number">11.9</span> Note on non-Gaussian processes</a></li>
+  <li><a href="#weiner-filtering" id="toc-weiner-filtering" class="nav-link" data-scroll-target="#weiner-filtering"><span class="header-section-number">11.10</span> Weiner filtering</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/gaussian-processes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -550,7 +551,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 25, 2025</p>
+      <p class="date">November 28, 2025</p>
     </div>
   </div>
   
@@ -1465,11 +1466,28 @@ d. For what values of $k$ is the correlation between $X_n$ and $X_{n+k}$ less th
 :::
 -->
 </section>
+<section id="weiner-filtering" class="level2" data-number="11.10">
+<h2 data-number="11.10" class="anchored" data-anchor-id="weiner-filtering"><span class="header-section-number">11.10</span> Weiner filtering</h2>
+<ol type="1">
+<li><p>Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> be jointly Gaussian. Suppose we observe the <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> process and want to design a filter with input <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> and output <span class="math inline">\(\{ \hat X_n\}_{n \ge 0}\)</span> such that <span class="math inline">\(\hat X_n\)</span> is an MMSE estimator of <span class="math inline">\(X_n\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(\{h_n\}_{n \ge 0}\)</span> denote the impulse response of the filter. Ideally, <span class="math inline">\(\{h_n\}_{n \ge 0}\)</span> should be causal, but we start by considering non-causal filter</p></li>
+<li><p>For <span class="math inline">\(\hat X_n\)</span> to be an MMSE estimator of <span class="math inline">\(X_n\)</span>, the error <span class="math inline">\(X_n - \hat X_n\)</span> must be orthogonal to <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span>, i.e., <span class="math display">\[
+   \COV(X_n - \hat X_n, Y_m) = 0
+   \implies
+   R_{XY}(n-m) = R_{\hat X Y}(n-m).
+\]</span></p></li>
+<li><p>We also know that <span class="math inline">\(R_{\hat X Y} = h * R_Y\)</span>. Thus, <span class="math inline">\(R_{XY} = h * R_Y\)</span> or in frequency domain: <span class="math display">\[
+   S_{XY}(z) = H(z) S_Y(z)
+   \implies
+   H(z) = S_{XY}(z)/S_Y(z)
+\]</span></p></li>
+</ol>
+</section>
 <section id="further-reading" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="further-reading">Further Reading</h2>
 <ol type="1">
-<li><p>Gubner, Chapter 15.</p></li>
-<li><p>Grimmett and Stirzaker, Chapter 13.</p></li>
+<li><p>Gubner, Chapter 10.</p></li>
+<li><p>Grimmett and Stirzaker, Chapters 8 and 9.</p></li>
 <li><p>Hajek, <a href="https://hajek.ece.illinois.edu/Papers/randomprocJuly14.pdf">Random Processes for Engineering</a>, Chapter 7 and Chapter 8. Most of the discussion there is for countinuous time processes, but the ideas are the same.</p></li>
 <li><p>Oppenheim and Verghese, <a href="https://ocw.mit.edu/courses/6-011-introduction-to-communication-control-and-signal-processing-spring-2010/pages/readings/">Random Signals and Systems</a>, Chapter 9 and 10.</p></li>
 </ol>

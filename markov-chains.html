@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-25">
+<meta name="dcterms.date" content="2025-11-28">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>10&nbsp; Markov chains – Probability and Random Signals II</title>
@@ -478,6 +478,7 @@ window.Quarto = {
   <li><a href="#hitting-times-and-absorption-probabilities" id="toc-hitting-times-and-absorption-probabilities" class="nav-link" data-scroll-target="#hitting-times-and-absorption-probabilities"><span class="header-section-number">10.4</span> Hitting times and absorption probabilities</a></li>
   <li><a href="#invariant-distribution" id="toc-invariant-distribution" class="nav-link" data-scroll-target="#invariant-distribution"><span class="header-section-number">10.5</span> Invariant Distribution</a></li>
   <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">10.6</span> Limiting Distribution</a></li>
+  <li><a href="#censored-markov-chains" id="toc-censored-markov-chains" class="nav-link" data-scroll-target="#censored-markov-chains"><span class="header-section-number">10.7</span> Censored Markov chains</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
@@ -515,7 +516,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 25, 2025</p>
+      <p class="date">November 28, 2025</p>
     </div>
   </div>
   
@@ -1495,6 +1496,53 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 \lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j).
 \]</span></p></li>
 <li><p>If the chain is periodic with period <span class="math inline">\(d &gt; 1\)</span> (i.e., not aperiodic), the limiting distribution <span class="math inline">\(\lim_{n \to \infty} P^n\)</span> does not exist in the usual sense, as the transition probabilities continue to oscillate. However, if the chain is irreducible, it still possesses a unique invariant distribution <span class="math inline">\(π\)</span>. In the periodic case, results like ergodicity and the law of large numbers still hold if we consider time averages over subsequences that are integer multiples of the period <span class="math inline">\(d\)</span>, i.e., convergence happens along these subsequences, not along every <span class="math inline">\(n\)</span>.</p></li>
+</ol>
+</section>
+<section id="censored-markov-chains" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="censored-markov-chains"><span class="header-section-number">10.7</span> Censored Markov chains</h2>
+<ol type="1">
+<li><p>Suppose a Markov chain is only observed when the state lies in a subset <span class="math inline">\(\ALPHABET O \subset \ALPHABET X\)</span>. Let <span class="math inline">\(\{τ_k\}_{k \ge 1}\)</span> denote the when the Markov chain returns to the set <span class="math inline">\(\ALPHABET O\)</span>, i.e., <span class="math inline">\(τ_1\)</span> is the first time when the Markov chain <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> hits <span class="math inline">\(\ALPHABET O\)</span>; <span class="math inline">\(τ_2\)</span> denotes the second time when the Markov chain hits <span class="math inline">\(\ALPHABET O\)</span>; and so on.</p></li>
+<li><p>Define the process <span class="math inline">\(\{O_k\}_{k \ge 1}\)</span> by <span class="math inline">\(O_k = X_{τ_k}\)</span>. The <strong>strong Markov property</strong> implies that <span class="math inline">\(\{O_k\}_{k \ge 1}\)</span> is a Markov chain. What is the transition probability matrix <span class="math inline">\(\tilde P\)</span> of this chain?</p></li>
+<li><p>As we did for the absorbing Markov chains, we re-order states so that the unobservable states <span class="math inline">\(\ALPHABET O^c\)</span> come first, followed by all observable state <span class="math inline">\(\ALPHABET O\)</span>. Then the transition matrix <span class="math inline">\(P\)</span> can be written as <span class="math display">\[
+   P = \left(\begin{array}{c|c}
+   Q &amp; R \\ \hline
+   S &amp; P_O
+   \end{array}\right)
+\]</span> where:</p>
+<ul>
+<li><span class="math inline">\(Q\)</span> is a <span class="math inline">\(\ABS{\ALPHABET O^c} × \ABS{\ALPHABET O^c}\)</span> matrix containing the transition probabilities between unobserved states,</li>
+<li><span class="math inline">\(R\)</span> is a <span class="math inline">\(\ABS{\ALPHABET O^c} × \ABS{\ALPHABET O}\)</span> matrix containing the transition probabilities from unobserved to observed states,</li>
+<li><span class="math inline">\(S\)</span> is the <span class="math inline">\(\ABS{\ALPHABET O} × \ABS{\ALPHABET O^c}\)</span> matrix containing the transition probabilities from observed to unobserved states</li>
+<li><span class="math inline">\(P_O\)</span> is the × $ matrix containing the transitions from observed to observed states.</li>
+</ul></li>
+<li><p>Suppose we start with a state <span class="math inline">\(O_1 = X_1 \in \ALPHABET O\)</span>. Then the probability of going to each of the states in <span class="math inline">\(\ALPHABET O\)</span> in one step is given by <span class="math inline">\(P_O\)</span>. To take more than one step, the chain must enter a state in <span class="math inline">\(\ALPHABET O^c\)</span> with probability <span class="math inline">\(S\)</span>. We will assume that the set <span class="math inline">\(\ALPHABET O^c\)</span> does not have any obsorbing subsets. Then, as we showed in the analysis for absorbing Markov chains, starting from a given state in <span class="math inline">\(\ALPHABET O^c\)</span>, the Markov chain enters <span class="math inline">\(\ALPHABET O\)</span> for the first time with probability <span class="math inline">\(NR = (I - Q)^{-1} R\)</span>. Thus, we have that <span class="math display">\[
+   \tilde P = P_O + S(I - Q)^{-1}R.
+\]</span></p></li>
+<li><p>If <span class="math inline">\(P\)</span> has only one communicating class, then <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> has a unique invariant distribution, which we denote by <span class="math inline">\(π\)</span>. Then <span class="math inline">\((π_k)_{k \in \ALPHABET O}\)</span> normalized to have sum <span class="math inline">\(1\)</span> is the unique invariant distribution of <span class="math inline">\(\{O_n\}_{n \ge 1}\)</span>.</p></li>
+<li><p>As an example, consider the reflected random walk from <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>10.6</span></a> (point 2) with state space <span class="math inline">\(\{-2, -1, 0, 1, 2\}\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/random-walk2.svg" class="img-fluid figure-img"></p>
+<figcaption>Reflected random walk</figcaption>
+</figure>
+</div>
+<p>Suppose we only observe the process when <span class="math inline">\(X_n \in \ALPHABET O = \{0, 1, 2\}\)</span>, so the unobservable states are <span class="math inline">\(\ALPHABET O^c = \{-2, -1\}\)</span>.</p>
+<p>Since the states are already ordered in the right order, we can write the transition matrix as: <span class="math display">\[
+P = \left[\begin{array}{cc|ccc} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+           q &amp; 0 &amp; p &amp; 0 &amp; 0 \\ \hline
+           0 &amp; q &amp; 0 &amp; p &amp; 0 \\
+           0 &amp; 0 &amp; q &amp; 0 &amp; p \\
+           0 &amp; 0 &amp; 0 &amp; 1 &amp; 0\end{array}\right].
+\]</span></p>
+<p>To simplify computations, we will assume <span class="math inline">\(p = \tfrac{1}{4}\)</span> and <span class="math inline">\(q = \tfrac{3}{4}\)</span>. Then, the transition matrix of the Markov chain <span class="math inline">\(\{O_k\}_{k \ge 1}\)</span> is given by</p>
+<p><span class="math display">\[\begin{align*}
+\tilde P &amp;= P_O + S(I - Q)^{-1} R \\
+&amp;= \MATRIX{ 0 &amp; \tfrac{1}{4} &amp; 0 \\ \tfrac{3}{4} &amp; 0 &amp; \tfrac{1}{4} \\ 0 &amp; 1 &amp; 0 } + \MATRIX{ 0 &amp; \tfrac{3}{4} \\ 0 &amp; 0 \\ 0 &amp; 0 } \MATRIX{ 1 &amp; -1 \\ -\tfrac{3}{4} &amp; 1 }^{-1} \MATRIX{ 0 &amp; 0 &amp; 0 \\ \tfrac{1}{4} &amp; 0 &amp; 0 } \\
+&amp;= \MATRIX{ \tfrac{3}{4} &amp; \tfrac{1}{4} &amp; 0 \\ \tfrac{3}{4} &amp; 0 &amp; \tfrac{1}{4} \\ 0 &amp; 1 &amp; 0 }.
+\end{align*}\]</span></p>
+<p>This intuitively makes sense. The chain <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> can only go to unobserved states at state <span class="math inline">\(X_n = 0\)</span>. When it does to go <span class="math inline">\(\ALPHABET O^c\)</span>, the first observed state it visits must be <span class="math inline">\(0\)</span>. Then <span class="math inline">\(\tilde P_{00} = P_{0,-1} = \frac 34\)</span>. The rest of the entries of <span class="math inline">\(\tilde P\)</span> are the same as <span class="math inline">\(P\)</span>.</p>
+<p>The invariant distribution of <span class="math inline">\(\tilde P\)</span> is <span class="math display">\[\MATRIX{ \tfrac{12}{17} &amp; \tfrac{4}{17} &amp; \tfrac{1}{17} }\]</span> while the invariant distribution of <span class="math inline">\(P\)</span> is <span class="math display">\[\MATRIX{ \tfrac{27}{80} &amp; \tfrac{36}{80} &amp; \tfrac{12}{80} &amp; \tfrac{4}{80} &amp; \tfrac{1}{80} }.\]</span></p>
+<p>Observe that if we take the last three elements of the latter and normalize it, we get the former.</p></li>
 </ol>
 </section>
 <section id="exercises" class="level2 unnumbered">
