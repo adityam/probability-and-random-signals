@@ -948,6 +948,65 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
  
 5. If the chain is periodic with period $d > 1$ (i.e., not aperiodic), the limiting distribution $\lim_{n \to \infty} P^n$ does not exist in the usual sense, as the transition probabilities continue to oscillate. However, if the chain is irreducible, it still possesses a unique invariant distribution $π$. In the periodic case, results like ergodicity and the law of large numbers still hold if we consider time averages over subsequences that are integer multiples of the period $d$, i.e., convergence happens along these subsequences, not along every $n$.
 
+## Censored Markov chains
+
+1. Suppose a Markov chain is only observed when the state lies in a subset $\ALPHABET O \subset \ALPHABET X$.  Let $\{τ_k\}_{k \ge 1}$ denote the \emph{stopping times} when the Markov chain returns to the set $\ALPHABET O$, i.e., $τ_1$ is the first time when the Markov chain $\{X_n\}_{n \ge 1}$ hits $\ALPHABET O$; $τ_2$ denotes the second time when the Markov chain hits $\ALPHABET O$; and so on.
+
+2. Define the process $\{O_k\}_{k \ge 1}$ by $O_k = X_{τ_k}$. The **strong Markov property** implies that $\{O_k\}_{k \ge 1}$ is a Markov chain. What is the transition probability matrix $\tilde P$ of this chain?
+
+3. As we did for the absorbing Markov chains, we re-order states so that the unobservable states $\ALPHABET O^c$ come first, followed by all observable state $\ALPHABET O$. Then the transition matrix $P$ can be written as
+   $$
+      P = \left(\begin{array}{c|c}
+      Q & R \\ \hline
+      S & P_O
+      \end{array}\right)
+   $$
+   where:
+
+   - $Q$ is a $\ABS{\ALPHABET O^c} × \ABS{\ALPHABET O^c}$ matrix containing the transition probabilities between unobserved states,
+   - $R$ is a $\ABS{\ALPHABET O^c} × \ABS{\ALPHABET O}$ matrix containing the transition probabilities from unobserved to observed states,
+   - $S$ is the $\ABS{\ALPHABET O} × \ABS{\ALPHABET O^c}$ matrix containing the transition probabilities from observed to unobserved states
+   - $P_O$ is the \ABS{\ALPHABET O} × \ABS{\ALPHABET O}$ matrix containing the transitions from observed to observed states.
+
+5. Suppose we start with a state $O_1 = X_1 \in \ALPHABET O$. Then the probability of going to each of the states in $\ALPHABET O$ in one step is given by $P_O$. To take more than one step, the chain must enter a state in $\ALPHABET O^c$ with probability $S$. We will assume that the set $\ALPHABET O^c$ does not have any obsorbing subsets. Then, as we showed in the analysis for absorbing Markov chains, starting from a given state in $\ALPHABET O^c$, the Markov chain enters $\ALPHABET O$ for the first time with probability $NR = (I - Q)^{-1} R$. Thus, we have that
+   $$ 
+      \tilde P = P_O + S(I - Q)^{-1}R.
+   $$
+
+6. If $P$ has only one communicating class, then $\{X_n\}_{n \ge 1}$ has a unique invariant distribution, which we denote by $π$. Then $(π_k)_{k \in \ALPHABET O}$ normalized to have sum $1$ is the unique invariant distribution of $\{O_n\}_{n \ge 1}$.
+
+7. As an example, consider the reflected random walk from @exm-random-walk (point 2) with state space $\{-2, -1, 0, 1, 2\}$ 
+
+   ![Reflected random walk](figures/svg/random-walk2.svg)
+
+   Suppose we only observe the process when $X_n \in \ALPHABET O = \{0, 1, 2\}$, so the unobservable states are $\ALPHABET O^c = \{-2, -1\}$.
+
+   Since the states are already ordered in the right order, we can write the transition matrix as:
+   $$
+   P = \left[\begin{array}{cc|ccc} 0 & 1 & 0 & 0 & 0 \\
+              q & 0 & p & 0 & 0 \\ \hline
+              0 & q & 0 & p & 0 \\
+              0 & 0 & q & 0 & p \\
+              0 & 0 & 0 & 1 & 0\end{array}\right].
+   $$
+   
+   To simplify computations, we will assume $p = \tfrac{1}{4}$ and $q = \tfrac{3}{4}$. Then, the transition matrix of the Markov chain $\{O_k\}_{k \ge 1}$ is given by
+   
+   \begin{align*}
+   \tilde P &= P_O + S(I - Q)^{-1} R \\
+   &= \MATRIX{ 0 & \tfrac{1}{4} & 0 \\ \tfrac{3}{4} & 0 & \tfrac{1}{4} \\ 0 & 1 & 0 } + \MATRIX{ 0 & \tfrac{3}{4} \\ 0 & 0 \\ 0 & 0 } \MATRIX{ 1 & -1 \\ -\tfrac{3}{4} & 1 }^{-1} \MATRIX{ 0 & 0 & 0 \\ \tfrac{1}{4} & 0 & 0 } \\
+   &= \MATRIX{ \tfrac{3}{4} & \tfrac{1}{4} & 0 \\ \tfrac{3}{4} & 0 & \tfrac{1}{4} \\ 0 & 1 & 0 }.
+   \end{align*}
+
+   This intuitively makes sense. The chain $\{X_n\}_{n \ge 1}$ can only go to unobserved states at state $X_n = 0$. When it does to go $\ALPHABET O^c$, the first observed state it visits must be $0$. Then $\tilde P_{00} = P_{0,-1} = \frac 34$. The rest of the entries of $\tilde P$ are the same as $P$. 
+   
+   The invariant distribution of $\tilde P$ is 
+   $$\MATRIX{ \tfrac{12}{17} & \tfrac{4}{17} & \tfrac{1}{17} }$$
+   while the invariant distribution of $P$ is
+   $$\MATRIX{ \tfrac{27}{80} & \tfrac{36}{80} & \tfrac{12}{80} & \tfrac{4}{80} & \tfrac{1}{80} }.$$
+
+   Observe that if we take the last three elements of the latter and normalize it, we get the former. 
+
 ## Exercises{-}
 :::{#exr-time-reversal}
 #### Time reversal of Markov chains
