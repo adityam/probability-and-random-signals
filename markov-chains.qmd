@@ -956,17 +956,17 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
 3. As we did for the absorbing Markov chains, we re-order states so that the unobservable states $\ALPHABET O^c$ come first, followed by all observable state $\ALPHABET O$. Then the transition matrix $P$ can be written as
    $$
-      P = \left(\begin{array}{c|c}
-      Q & R \\ \hline
+      P = \MATRIX{
+      Q & R \\ 
       S & P_O
-      \end{array}\right)
+      }
    $$
    where:
 
    - $Q$ is a $\ABS{\ALPHABET O^c} × \ABS{\ALPHABET O^c}$ matrix containing the transition probabilities between unobserved states,
    - $R$ is a $\ABS{\ALPHABET O^c} × \ABS{\ALPHABET O}$ matrix containing the transition probabilities from unobserved to observed states,
    - $S$ is the $\ABS{\ALPHABET O} × \ABS{\ALPHABET O^c}$ matrix containing the transition probabilities from observed to unobserved states
-   - $P_O$ is the \ABS{\ALPHABET O} × \ABS{\ALPHABET O}$ matrix containing the transitions from observed to observed states.
+   - $P_O$ is the $\ABS{\ALPHABET O} × \ABS{\ALPHABET O}$ matrix containing the transitions from observed to observed states.
 
 5. Suppose we start with a state $O_1 = X_1 \in \ALPHABET O$. Then the probability of going to each of the states in $\ALPHABET O$ in one step is given by $P_O$. To take more than one step, the chain must enter a state in $\ALPHABET O^c$ with probability $S$. We will assume that the set $\ALPHABET O^c$ does not have any obsorbing subsets. Then, as we showed in the analysis for absorbing Markov chains, starting from a given state in $\ALPHABET O^c$, the Markov chain enters $\ALPHABET O$ for the first time with probability $NR = (I - Q)^{-1} R$. Thus, we have that
    $$ 
