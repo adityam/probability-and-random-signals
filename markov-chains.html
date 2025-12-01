@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-11-28">
+<meta name="dcterms.date" content="2025-12-01">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>10&nbsp; Markov chains – Probability and Random Signals II</title>
@@ -516,7 +516,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 28, 2025</p>
+      <p class="date">December 1, 2025</p>
     </div>
   </div>
   
@@ -1504,16 +1504,16 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <li><p>Suppose a Markov chain is only observed when the state lies in a subset <span class="math inline">\(\ALPHABET O \subset \ALPHABET X\)</span>. Let <span class="math inline">\(\{τ_k\}_{k \ge 1}\)</span> denote the when the Markov chain returns to the set <span class="math inline">\(\ALPHABET O\)</span>, i.e., <span class="math inline">\(τ_1\)</span> is the first time when the Markov chain <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> hits <span class="math inline">\(\ALPHABET O\)</span>; <span class="math inline">\(τ_2\)</span> denotes the second time when the Markov chain hits <span class="math inline">\(\ALPHABET O\)</span>; and so on.</p></li>
 <li><p>Define the process <span class="math inline">\(\{O_k\}_{k \ge 1}\)</span> by <span class="math inline">\(O_k = X_{τ_k}\)</span>. The <strong>strong Markov property</strong> implies that <span class="math inline">\(\{O_k\}_{k \ge 1}\)</span> is a Markov chain. What is the transition probability matrix <span class="math inline">\(\tilde P\)</span> of this chain?</p></li>
 <li><p>As we did for the absorbing Markov chains, we re-order states so that the unobservable states <span class="math inline">\(\ALPHABET O^c\)</span> come first, followed by all observable state <span class="math inline">\(\ALPHABET O\)</span>. Then the transition matrix <span class="math inline">\(P\)</span> can be written as <span class="math display">\[
-   P = \left(\begin{array}{c|c}
-   Q &amp; R \\ \hline
+   P = \MATRIX{
+   Q &amp; R \\
    S &amp; P_O
-   \end{array}\right)
+   }
 \]</span> where:</p>
 <ul>
 <li><span class="math inline">\(Q\)</span> is a <span class="math inline">\(\ABS{\ALPHABET O^c} × \ABS{\ALPHABET O^c}\)</span> matrix containing the transition probabilities between unobserved states,</li>
 <li><span class="math inline">\(R\)</span> is a <span class="math inline">\(\ABS{\ALPHABET O^c} × \ABS{\ALPHABET O}\)</span> matrix containing the transition probabilities from unobserved to observed states,</li>
 <li><span class="math inline">\(S\)</span> is the <span class="math inline">\(\ABS{\ALPHABET O} × \ABS{\ALPHABET O^c}\)</span> matrix containing the transition probabilities from observed to unobserved states</li>
-<li><span class="math inline">\(P_O\)</span> is the × $ matrix containing the transitions from observed to observed states.</li>
+<li><span class="math inline">\(P_O\)</span> is the <span class="math inline">\(\ABS{\ALPHABET O} × \ABS{\ALPHABET O}\)</span> matrix containing the transitions from observed to observed states.</li>
 </ul></li>
 <li><p>Suppose we start with a state <span class="math inline">\(O_1 = X_1 \in \ALPHABET O\)</span>. Then the probability of going to each of the states in <span class="math inline">\(\ALPHABET O\)</span> in one step is given by <span class="math inline">\(P_O\)</span>. To take more than one step, the chain must enter a state in <span class="math inline">\(\ALPHABET O^c\)</span> with probability <span class="math inline">\(S\)</span>. We will assume that the set <span class="math inline">\(\ALPHABET O^c\)</span> does not have any obsorbing subsets. Then, as we showed in the analysis for absorbing Markov chains, starting from a given state in <span class="math inline">\(\ALPHABET O^c\)</span>, the Markov chain enters <span class="math inline">\(\ALPHABET O\)</span> for the first time with probability <span class="math inline">\(NR = (I - Q)^{-1} R\)</span>. Thus, we have that <span class="math display">\[
    \tilde P = P_O + S(I - Q)^{-1}R.
