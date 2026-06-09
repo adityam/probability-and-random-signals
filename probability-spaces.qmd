@@ -23,11 +23,11 @@ In this course, we will revisit these topics with a more formal approach.
 
 ## Why do we care about probability theory
 
-Probability theory is used to model, analyze, and design various engineering systems. Broadly speaking, there are three forms of random phenomenon that arise in systems: noise, uncertainty, and randomness.
+Probability theory is used to model, analyze, and design various engineering systems. Broadly speaking, there are three forms of random phenomena that arise in systems: noise, uncertainty, and randomness.
 
 - **Noise.** Noise refers to effects beyond our control. For example, in a digital communication system, when a waveform indicating a binary $0$ is transmitted, background radiation may distort the signal, causing the receiver to incorrectly decode it as $1$. This interference can be modeled as _noise_ in the channel. Similar examples arise in computer networks, photonics, and other areas.
 
-- **Uncertainty.** Uncertainty refers to effects that arise due to lack of information. For example, to bid in an electricity market, a wind farm may need to know how much energy it can generate in the next hour, but this depends on the speed of wind which depends on a lot of factors and is difficult to predict precise. This lack of knowledge can be modelled as uncertainty and the system modeler may have a quantified belief on that uncertainty based on historical data. Similar examples arise in circuits (where quality of a chip may depend on the vagaries in the manufacturing process). 
+- **Uncertainty.** Uncertainty refers to effects that arise due to lack of information. For example, to bid in an electricity market, a wind farm may need to know how much energy it can generate in the next hour, but this depends on the speed of wind which depends on a lot of factors and is difficult to predict precisely. This lack of knowledge can be modelled as uncertainty and the system modeler may have a quantified belief on that uncertainty based on historical data. Similar examples arise in circuits (where quality of a chip may depend on the vagaries in the manufacturing process). 
 
 - **Randomness.** Sometimes introducing randomness can improve system performance. For example, **power of two choices** algorithm in multi-server load balancing randomly selects two servers and assigns the task to the one with lighter load. This simple strategy effectively reduces the peak load in the servers without needing to query all servers. Similar algorithms are used in bandwidth allocation in ad-hoc networks and randomized routing in networks on chips.
 
@@ -102,14 +102,14 @@ As you can see, probability theory is a foundational tool for Electrical Enginee
    - $\{ \{1, 2\}, \{3, 4\} \}$.
    - $\{ \{1\}, \{2, 3\}, \{4\} \}$.
  
-   The follow are **not** partitions of $Ω$ [Explain why?]
+   The following are **not** partitions of $Ω$ [Explain why?]
  
-   - $\{ \{1\}, \{2\}, \{3\}, \}$.
+   - $\{ \{1\}, \{2\}, \{3\} \}$.
    - $\{ \{1, 2, 3\}, \{3, 4\} \}$.
    - $\{ \{1\}, \{2, 3\}, \{4, 5\} \}$.
    :::
 
-7. In most of our discussion, we will work with a pre-specified universal set $Ω$. In this setting we use $A^c$ (read as the complement of $A$) as a short hand for $Ω\setminus A$. 
+7. In most of our discussion, we will work with a pre-specified universal set $Ω$. In this setting we use $A^c$ (read as the complement of $A$) as shorthand for $Ω\setminus A$. 
 
 8. 
    :::{.callout-tip appearance="simple"}
@@ -136,7 +136,7 @@ As you can see, probability theory is a foundational tool for Electrical Enginee
      A \cap (B \cap C)= (A \cap B) \cap C$$
  
    - **Distributive**
-     $$A \cup (B \cap C) = (A \cup B) \cap (A \cap C)
+     $$A \cup (B \cap C) = (A \cup B) \cap (A \cup C)
      \quad\text{and}\quad
      A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$$
  
@@ -180,11 +180,11 @@ As you can see, probability theory is a foundational tool for Electrical Enginee
 
 13. The reverse is also true. If $\ALPHABET F$ is an algebra on a finite space $Ω$, then there is a unique partition $\ALPHABET D = \{D_1, \dots, D_m\}$ such that $\ALPHABET F = 2^{\ALPHABET D}$. The elements $D_i$ are called **atoms** of $\ALPHABET F$.
 
-14. Let $\ALPHABET D_1$ and $\ALPHABET D_2$ be two partitions of $Ω$. We say **$\ALPHABET D_1$ is finer than $\ALPHABET D_2$** if $σ(\ALPHABET D_1) \subseteq σ(\ALPHABET D_2)$. For instance, suppose $Ω = \{1, 2, 3, 4\}$ and 
+14. Let $\ALPHABET D_1$ and $\ALPHABET D_2$ be two partitions of $Ω$. We say **$\ALPHABET D_1$ is finer than $\ALPHABET D_2$** if $σ(\ALPHABET D_1) \supseteq σ(\ALPHABET D_2)$. For instance, suppose $Ω = \{1, 2, 3, 4\}$ and 
     $$
-      \ALPHABET D_1 = \{ \{1,2,3\}, \{4\} \}
+      \ALPHABET D_1 = \{ \{1,2\}, \{3\}, \{4\} \}
       \quad\text{and}\quad
-      \ALPHABET D_2 = \{ \{1,2\}, \{3\}, \{4\} \}
+      \ALPHABET D_2 = \{ \{1,2,3\}, \{4\} \}
     $$
     then, $\ALPHABET D_1$ is finer than $\ALPHABET D_2$. 
 
@@ -192,7 +192,7 @@ As you can see, probability theory is a foundational tool for Electrical Enginee
 
 ## Functions
 
-1. A function $f$ is a rule that assign each input from a set $\ALPHABET X$ (called the **domain**) to exactly one output in another set $\ALPHABET Y$ (called the **co-domain**). Symbolically, this is written as
+1. A function $f$ is a rule that assigns each input from a set $\ALPHABET X$ (called the **domain**) to exactly one output in another set $\ALPHABET Y$ (called the **co-domain**). Symbolically, this is written as
    $$
      f \colon \ALPHABET X \to \ALPHABET Y
    $$
@@ -200,9 +200,9 @@ As you can see, probability theory is a foundational tool for Electrical Enginee
 
 2. The set of values $\{ f(x) : x \in \ALPHABET X\}$ is called the **range**. By definition, the range is a subset of the co-domain $\ALPHABET Y$, but the range may or may not be equal to $\ALPHABET Y$. For example, consider the function $f \colon \reals \to \reals$ defined by $f(x) = x^2$. The range of the function is $\reals_{\ge 0}$ which is a strict subset of the co-domain $\reals$. 
 
-3. A function is called **onto** or **surjective** if its range is equal to its co-domain.
+3. A function is called **onto** or **surjective** if its range is equal to its co-domain, i.e. for every $y \in \ALPHABET Y$ there exists an $x \in \ALPHABET X$ such that $f(x) = y$.
 
-4. A function is called **one-to-one** or **injective** if different inputs maps to different outputs. 
+4. A function is called **one-to-one** or **injective** if distinct inputs give distinct outputs, i.e., $f(x_1) = f(x_2)$ implies $x_1 = x_2$. 
 
 5. A function which is both onto and one-to-one is called **bijective**. A bijective function is **invertible** because for every $y \in \ALPHABET Y$, there is a unique $x$ such that $f(x) = y$.
 
@@ -222,7 +222,7 @@ Consider the following functions:
 
 all given by $f_i(x) = x^2$, $i \in \{1, \dots, 4\}$. 
 
-Explain if each of the function is onto, into, or bijective.
+Explain if each of the functions is onto, one-to-one, or bijective.
 :::
 
 
@@ -278,11 +278,11 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
    - Both head and tail occur in @exr-sample-space-coin-toss ($A = \emptyset$; this is an event that cannot happen, sometimes called the **impossible event**)
    - An even number is thrown in @exr-sample-space-die-roll ($A = \{2,4,6\}$).
 
-4. Note that events are subset of the sample space but not all subsets of a sample space may be events. The reasons are too complicated to explain, but the high-level explanation is that everything is okay for discrete sample spaces, but weird things can happen in continuous sample spaces. 
+4. Note that events are subsets of the sample space but not all subsets of a sample space may be events. The reasons are too complicated to explain, but the high-level explanation is that everything is okay for discrete sample spaces, but weird things can happen in continuous sample spaces. 
 
 5. **Probability** (denoted by $\PR$) is a function which assigns a number between $0$ and $1$ to every event. This number indicates what is the _chance_ that the event occurs. Such a function should satisfy some axioms, which we will explain below. 
 
-6. First, to define a function, we need to define it's domain and co-domain Let's denote the domain (i.e., the set of all events to which we can assign a probability) by $\ALPHABET F$. We expect probability to satisfy certain properties, which imposes constraints on the domain:
+6. First, to define a function, we need to define its domain and co-domain. Let's denote the domain (i.e., the set of all events to which we can assign a probability) by $\ALPHABET F$. We expect probability to satisfy certain properties, which imposes constraints on the domain:
 
    - Probability of an impossible event (e.g., getting both heads and tails when we toss a coin) should be zero. Thus, $\emptyset \in \ALPHABET F$.
  
@@ -304,14 +304,14 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
     $$
     :::
 
-    An illustration of uniform probability distribution on the outcomes of a fair coin or a fair dice. 
+    A coin toss or die roll modeled with uniform probability is called **fair**: every outcome in $Ω$ has the same probability $1/|Ω|$.
 
 8. In general, when $Ω = \{ω_1, \dots, ω_n\}$ is finite and $\ALPHABET F = 2^{Ω}$, we can think of probability as an assignment of a **weight** $p(ω_i)$ to each outcome $ω_i$ such that
 
    - $0 \le p(ω_i) \le 1$
    - $p(ω_1) + \cdots + p(ω_n) = 1$.
 
-   Then, for any event $A \in \ALPHABET F$ (i.e., any $A \subseteq Ω$, we define
+   Then, for any event $A \in \ALPHABET F$ (i.e., any $A \subseteq Ω$), we define
    $$
     \PR(A) = \sum_{i : ω_i \in A } p(ω_i).
    $$
@@ -348,7 +348,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
 10.  We now present an example to illustrate that restricting the domain of $\PR$ to be an algebra is not sufficient.
 
      ::: {#exm-infinite-coin-tosses}
-     A coin is tossed repeatedly until a head turns up. The sample space is $Ω = \{ω_1, ω_2, \dots\}$ where $ω_n$ denotes the event that the first $n-1$ tosses are tails followed by a head. 
+     A coin is tossed repeatedly until a head turns up. The sample space is $Ω = \{ω_1, ω_2, \dots\}$ where $ω_n$ denotes the outcome that the first $n-1$ tosses are tails followed by a head. 
      :::
  
      Suppose we are interested in finding the probability of the event that the coin is tossed an even number of times, i.e., $A = \{ω_2, ω_4, \dots\}$. Note that $ω_2, ω_4, \dots \in \ALPHABET F$. However, $A$ is a \emph{countable} set. If we want to assign probability to $A$ in terms of probability of $ω_n$, we require $\ALPHABET F$ to be closed under **countable unions**. This motivates the following definition.
@@ -406,7 +406,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
 
     a) **Non-negativity.** $\PR(A) \ge 0$.
     b) **Normalization.** $\PR(Ω) = 1$.
-    c) **Countable additivity.** If $A_1, A_2, \dots Ω$ is a collection of disjoint events in $\ALPHABET F$, then,
+    c) **Countable additivity.** If $A_1, A_2, \dots \in \ALPHABET F$ is a collection of disjoint events, then,
     $$
     \PR\biggl( \bigcup_{n=1}^∞ A_n \biggr) =
     \sum_{n=1}^∞ \PR(A_n).
@@ -437,7 +437,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
 
         Similarly, let $B_1, B_2, \dots$ be (weakly) decreasing sequence of events, i.e., $B_1 \supseteq B_2 \supseteq B_3 \supseteq \cdots$. Define
         $$
-          B = \lim_{n \to ∞} B_n = \bigcup_{n=1}^∞ B_n.
+          B = \lim_{n \to ∞} B_n = \bigcap_{n=1}^∞ B_n.
         $$
         Then, 
         $$
@@ -460,12 +460,13 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
 17. 
     Let $Ω = [0,1]$, $\ALPHABET F = \mathscr B[0,1]$, and $\PR$ be any probability measure on $(Ω, \ALPHABET F)$. Take any $a \in (0,1)$. 
 
-    - Consider $A_n = \bigl[0, a - \frac 1n \bigr)$. Then $A = \lim_{n \to ∞} A_n =  [0, a)$. 
-    - Consider $A_n = \bigl[0, a - \frac 1n \bigr]$. Then $A = \lim_{n \to ∞} A_n =  [0, a)$. 
-    - Consider $B_n = \bigl[0, 1 + \frac 1n \bigr)$. Then $B = \lim_{n \to ∞} B_n = [0,a]$.
-    - Consider $B_n = \bigl[0, 1 + \frac 1n \bigr]$. Then $B = \lim_{n \to ∞} B_n = [0,a]$.
+    Consider $A_n = \bigl[0, a - \frac 1n \bigr)$ and define $A = \lim_{n \to ∞} A_n$. Since $\{A_n\}_{n \ge 1}$ is an increasing sequence, by @lem-probability-properties (d), we have $A = \bigcup_{n=1}^∞ A_n = [0, a)$. Therefore, $\PR(A) = \lim_{n \to ∞} \PR(A_n)$.
 
-    In these examples, continuity implies that $\PR(A) = \lim_{n \to ∞} \PR(A_n)$ and $\PR(B) = \lim_{n \to ∞} \PR(B_n)$. 
+    The same argument holds when $A_n = \bigl[0, a - \frac 1n \bigr]$. We have $\PR(A) = \lim_{n \to ∞} \PR(A_n)$.
+
+    Consider $B_n = \bigl[0, a + \frac 1n \bigr)$ and define $B = \lim_{n \to ∞} B_n$. Since $\{B_n\}_{n \ge 1}$ is a decreasing sequence, by @lem-probability-properties (d), we have $B = \bigcap_{n=1}^∞ B_n = [0,a]$. Therefore, $\PR(B) = \lim_{n \to ∞} \PR(B_n)$.
+
+    The same argument holds when $B_n = \bigl[0, a + \frac 1n \bigr]$. We have $\PR(B) = \lim_{n \to ∞} \PR(B_n)$.
 
 18. 
     :::{.callout-tip}
@@ -477,7 +478,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
     - We say that $A$ occurs **almost surely** (abbreviated to a.s.) if $\PR(A) = 1$. 
     :::
 
-19. Consider $Ω = [0,1]$, $\ALPHABET F = \mathscr B([0,1])$, and $\PR$ to be the uniform probability distribution on $Ω$. Consider the event $A$ that the outcome is a rational number. $A$ is a countable set (because the set of rational numbers is countable). For any $x \in A$, $\{x\} \in \ALPHABET F$, and $\PR(\{x\}) = 0$ (we can infer this from the previous exercise by thinking of $\{x\}$ as the limit of intervals $\bigl[x, x+ \frac 1n\bigr]$). Thus, by countable additivity, $\PR(A) = 0$. Hence, $A$ is null.
+19. Consider $Ω = [0,1]$, $\ALPHABET F = \mathscr B([0,1])$, and $\PR$ to be the uniform probability distribution on $Ω$. Consider the event $A$ that the outcome is a rational number. $A$ is a countable set (because the set of rational numbers is countable). For any $x \in A$, $\{x\} \in \ALPHABET F$, and $\PR(\{x\}) = 0$ (see @exr-singleton-probability). Thus, by countable additivity, $\PR(A) = 0$. Hence, $A$ is null.
 
     The above analysis implies that $\PR(A^c) = 1$, thus the event that the outcome is irrational occurs almost surely.
 
@@ -491,11 +492,10 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
 - $\PR(A) = \PR(A \cap B) + \PR(A \cap B^c)$.
 :::
 
-:::{#exr-de-morgan}
-  Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B, C \in \ALPHABET F$. Prove that
-  $$
-    \PR(A \cup B \cup C) = 1 - \PR(A^c \mid B^c \cap C^c) \PR(B^c \mid C^c) \PR(C^c).
-  $$
+:::{#exr-singleton-probability}
+Let $Ω = [0,1]$, $\ALPHABET F = \mathscr B([0,1])$, and $\PR$ be the uniform distribution on $Ω$. For any $x \in [0,1]$, show that $\PR(\{x\}) = 0$.
+
+_Hint_: Write $\{x\}$ as the limit of a decreasing sequence of intervals.
 :::
 
 
@@ -514,7 +514,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    The notation $\PR(A | B)$ is read as "probability of $A$ given $B$" or "probability of $A$ conditioned on $B$". 
 
    :::{#exr-conditional-die}
-   Suppose we roll a fair six-sided die (a fair die means that all outcomes are equally likely). Consider the events $A$ that the outcomes is prime and $B$ that the outcome is a multiple of $3$. Compute $\PR(A | B)$ and $\PR(B | A)$.
+   Suppose we roll a fair six-sided die (a fair die means that all outcomes are equally likely). Consider the events $A$ that the outcome is prime and $B$ that the outcome is a multiple of $3$. Compute $\PR(A | B)$ and $\PR(B | A)$.
    :::
 
    :::{.callout-note collapse="true"}
@@ -563,7 +563,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
 
 
 2. 
-   :::{.callout-tip #conditional-probabilities-are-probabilties}
+   :::{.callout-tip #conditional-probabilities-are-probabilities}
    ### Conditional probabilities are probabilities
  
    Conditional probabilities are legitimate probability measures on $(Ω, \ALPHABET F)$. In particular, fix event $B$ with $\PR(B) > 0$. Then
@@ -582,7 +582,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    :::{#exr-conditional-prob}
    Given an event $B$ with $\PR(B) > 0$, show that
  
-   - $\PR(A^c | B) = 1 - P(A|B)$.
+   - $\PR(A^c | B) = 1 - \PR(A|B)$.
    - $\PR(A_1 \cup A_2 | B) = \PR(A_1 | B) + \PR(A_2 | B) - \PR(A_1 \cap A_2 | B)$.
    - If $A_1 \subset A_2$ then $\PR(A_1 | B) \le \PR(A_2 | B)$.
    :::
@@ -597,6 +597,15 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
  
    - If $\PR(B) > 0$, then $\PR(A \cap B) = \PR(A | B) \PR(B)$. 
    - If $\PR(A) > 0$, then $\PR(A \cap B) = \PR(B | A) \PR(A)$.
+   :::
+
+   :::{#exr-de-morgan}
+   Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B, C \in \ALPHABET F$ such that $\PR(B^c \cap C^c) > 0$ and $\PR(C^c) > 0$. Prove that
+   $$
+     \PR(A \cup B \cup C) = 1 - \PR(A^c \mid B^c \cap C^c) \PR(B^c \mid C^c) \PR(C^c).
+   $$
+
+   _Hint_: Apply De Morgan's law and the chain rule (@lem-chain-rule).
    :::
 
 4. Combining the chain rule with the basic properties of partitions, we get the law of total probability. 
@@ -689,7 +698,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    Recall the events $R_1$, $R_2$, and $D$ defined in the solution of @exr-total-probability. We were given that 
    $$\PR(R_1) = \frac 34, \quad \PR(R_2) = \frac 14, \quad
    \PR(D|R_1) = \frac 13, \quad \PR(D|R_2) = \frac 14.$$
-   We had compute that 
+   We had computed that 
    $$
    \PR(D) = 1 - \PR(D^c) = \frac 5{16}.
    $$
@@ -703,7 +712,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
 
 ## Independence
 
-1. In general, the knowledge that an event $B$ has occurred changes the probability of event $A$, since $\PR(A)$ is replaced by $\PR(A|B)$. If the knowledge that $B$ has occurred does not does not change our belief about $A$, i.e., when $\PR(A|B) = \PR(A)$, we say "$A$ and $B$ are **independent**". This leads to the following definition.
+1. In general, the knowledge that an event $B$ has occurred changes the probability of event $A$, since $\PR(A)$ is replaced by $\PR(A|B)$. If the knowledge that $B$ has occurred does not change our belief about $A$, i.e., when $\PR(A|B) = \PR(A)$, we say "$A$ and $B$ are **independent**". This leads to the following definition.
 
    :::{#def-independent}
    The events $A, B \in \ALPHABET F$ are called **independent** if
@@ -760,7 +769,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
 5. 
    :::{#def-collective-independence}
  
-   A family of events $\{A_1, A_2, \dots, A_n\}$ is called **independent** (sometimes **mutually independent** if for all non-empty subset of indices $\{k_1, \dots, k_m\} \subset \{1,\dots,n\}$, we have
+   A family of events $\{A_1, A_2, \dots, A_n\}$ is called **independent** (sometimes called **mutually independent**) if for all non-empty subsets of indices $\{k_1, \dots, k_m\} \subset \{1,\dots,n\}$, we have
    $$
    \PR\bigl( A_{k_1} \cap A_{k_2} \cap \cdots \cap A_{k_m} \bigr)
    = \PR(A_{k_1}) \PR(A_{k_2}) \cdots \PR(A_{k_m}).
@@ -782,7 +791,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    Moreover let $S$ denote the event that two bits are received correctly. Then,
    $$
    S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3) 
-   \cap (E_1 \cap C_2 \cap C_3).
+   \cup (E_1 \cap C_2 \cap C_3).
    $$
    Note that the three events in the right hand side are disjoint. Thus,
    \begin{align*}
@@ -814,7 +823,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    For independence, in addition to the above, we also need
    $$ \PR(A \cap B \cap C) = \PR(A)\PR(B) \PR(C). $$
  
-   The following example illustrates shows that independence is stronger than pairwise independence. Consider an urn with $M$ red balls and $M$ blue balls. Two balls are drawn at random, one at a time, with replacement. Consider the following events:
+   The following example shows that independence is stronger than pairwise independence. Consider an urn with $M$ red balls and $M$ blue balls. Two balls are drawn at random, one at a time, with replacement. Consider the following events:
  
    - $A$ is the event that the first ball is red.
    - $B$ is the event that the second ball is blue.
@@ -831,16 +840,16 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
 
    - $\PR(A) = \PR(B) = \PR(C) = \frac 12$.
    - $\PR(A \cap B) = \PR(B \cap C) = \PR(C \cap A) = \frac 14$.
-   - $\PR(A \cap B \cap C) = \emptyset$.
+   - $\PR(A \cap B \cap C) = 0$.
 
    Thus, $A$, $B$, $C$ are pairwise independent but not independent. 
    :::
   
 ## Product spaces
 
-1. So far, we have restricted attention to the outcome of one experiment. It is also possible to construct probability models which combine the outcome of two _independent_ experiments, e.g., suppose we toss a coin and also roll a die. Let $(Ω_1, \ALPHABET F_1, \PR_1)$ and $(Ω_2, \ALPHABET F_2, \PR_2)$ be the probability spaces associated with the two experiments? What is the probability space $(Ω, \ALPHABET F, \PR)$ of the joint experiments?
+1. So far, we have restricted attention to the outcome of one experiment. It is also possible to construct probability models which combine the outcome of two _independent_ experiments, e.g., suppose we toss a coin and also roll a die. Let $(Ω_1, \ALPHABET F_1, \PR_1)$ and $(Ω_2, \ALPHABET F_2, \PR_2)$ be the probability spaces associated with the two experiments. What is the probability space $(Ω, \ALPHABET F, \PR)$ of the joint experiment?
 
-2. The sample space should obviously be $Ω = Ω_1 \times Ω_2$. When $\ALPHABET F_1$ and $\ALPHABET F_2$ are finite, then we can simply define $\ALPHABET F = \ALPHABET F_1 \times \ALPHABET F_2$ and for any $A = (A_1, A_2) \in \ALPHABET F$, $\PR(A)$ to be $\PR_1(A_1) \PR_2(A_2)$. Note that $\PR(Ω) = \PR_1(Ω_1)\PR_2(Ω_2) = 1$, thus $(Ω, \ALPHABET F, \PR)$ is a valid probability space. This space is called **direct product** of probability spaces $(Ω_1, \ALPHABET F_1, \PR_1)$ and $(Ω_2, \ALPHABET F_2, \PR_2)$. 
+2. The sample space should obviously be $Ω = Ω_1 \times Ω_2$. When $\ALPHABET F_1$ and $\ALPHABET F_2$ are finite, then we can simply define $\ALPHABET F = \ALPHABET F_1 \times \ALPHABET F_2$ and for any $A = A_1 \times A_2 \in \ALPHABET F$, $\PR(A)$ to be $\PR_1(A_1) \PR_2(A_2)$. Note that $\PR(Ω) = \PR_1(Ω_1)\PR_2(Ω_2) = 1$, thus $(Ω, \ALPHABET F, \PR)$ is a valid probability space. This space is called **direct product** of probability spaces $(Ω_1, \ALPHABET F_1, \PR_1)$ and $(Ω_2, \ALPHABET F_2, \PR_2)$. 
 
 3. You would have implicitly constructed such product spaces when dealing with joint experiments (like the coin toss and die roll example above) in your undergrad courses. Such constructions were correct because of the following.
 
@@ -864,4 +873,4 @@ We will not worry too much about the technical details of such product spaces, b
 
 ## Notes {-}
 
-The material for this section is fairly standard and adapted from various sources. Both Grimmit and Stirzaker and Gubner have an excellent coverage of this material. The idea of categorizing random phenomenon as noise, uncertainty, or randomness is borrowed from [Maxim Raginsky's course notes](https://maxim.ece.illinois.edu/teaching/spring16/notes/lec01.pdf). See the book [Against the Gods](https://a.co/d/gVfRocK), which provides a fascinating historical account of the development of probability theory and, why a conceptual leap was needed to recognize that uncertainty could be modeled and measured. 
+The material for this section is fairly standard and adapted from various sources. Both Grimmett and Stirzaker and Gubner have an excellent coverage of this material. The idea of categorizing random phenomena as noise, uncertainty, or randomness is borrowed from [Maxim Raginsky's course notes](https://maxim.ece.illinois.edu/teaching/spring16/notes/lec01.pdf). See the book [Against the Gods](https://a.co/d/gVfRocK), which provides a fascinating historical account of the development of probability theory and, why a conceptual leap was needed to recognize that uncertainty could be modeled and measured. 

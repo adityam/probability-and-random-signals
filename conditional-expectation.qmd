@@ -19,7 +19,7 @@ Conditional probability is perhaps the most important aspect of probability theo
    $$
 
 
-3. As we pointed out, [conditional probabilities are probabilities](probability-spaces.qmd#conditional-probabilities-are-probabilties), the conditional CDF defined above satisfies the properties of regular CDFs. In particular
+3. As we pointed out, [conditional probabilities are probabilities](probability-spaces.qmd#conditional-probabilities-are-probabilities), the conditional CDF defined above satisfies the properties of regular CDFs. In particular
 
     - $0 \le F_{X|C}(x\mid C) \le 1$
     - $\displaystyle \lim_{x \to -∞} F_{X|C}(x \mid C) = 0$
