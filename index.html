@@ -2,16 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2025-12-01">
+<meta name="dcterms.date" content="2026-06-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>Probability and Random Signals II</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -36,19 +39,18 @@ ul.task-list li input[type="checkbox"] {
 <link href="./probability-spaces.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b68a706d8191437c2c46203d0393f4be.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-73f166bbf3be02be0128c0a6a57c36c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-b68a706d8191437c2c46203d0393f4be.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-637ebb88e1656ed7fefddcbc2ac457b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-26d5227c5f84a95820e04791e0f38fae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-637ebb88e1656ed7fefddcbc2ac457b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -441,7 +443,7 @@ window.MathJax = {
   <ul>
   <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a>
   <ul class="collapse">
-  <li><a href="#general-information" id="toc-general-information" class="nav-link" data-scroll-target="#general-information">General Information (Fall 2025)</a></li>
+  <li><a href="#general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d" id="toc-general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d" class="nav-link" data-scroll-target="#general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d">General Information (Fall 2026)</a></li>
   <li><a href="#course-content" id="toc-course-content" class="nav-link" data-scroll-target="#course-content">Course Content</a></li>
   <li><a href="#course-material" id="toc-course-material" class="nav-link" data-scroll-target="#course-material">Course Material</a></li>
   <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
@@ -489,7 +491,7 @@ window.MathJax = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 1, 2025</p>
+      <p class="date">June 9, 2026</p>
     </div>
   </div>
   
@@ -503,41 +505,49 @@ window.MathJax = {
 
 <section id="course-outline" class="level1 unnumbered">
 <h1 class="unnumbered">Course Outline</h1>
-<section id="general-information" class="level2">
-<h2 class="anchored" data-anchor-id="general-information">General Information (Fall 2025)</h2>
+<section id="general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d" class="level2">
+<h2 class="anchored" data-anchor-id="general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d">General Information (Fall 2026)</h2>
 <dl>
 <dt>Instructor</dt>
 <dd>
 <ul>
 <li>Aditya Mahajan</li>
-<li><em>Office Hours</em>: Tuesday 10:00am–11:00am</li>
 </ul>
 </dd>
+</dl>
+<ul>
+<li><em>Office Hours</em>: TBD</li>
+</ul>
+<dl>
 <dt>Teaching Assistants</dt>
 <dd>
 <ul>
-<li><p>Ziqi Huang</p></li>
+<li><p>Tao Zhang</p></li>
 </ul>
 </dd>
 <dt>Lectures</dt>
 <dd>
 <ul>
-<li><p>8:35am–9:55am Monday, Wednesday (ENGTR 2100)</p></li>
+<li><p>11:35am–12:55pm Monday, Wednesday (ENGTR 1080)</p></li>
 </ul>
 </dd>
 <dt>Tutorials</dt>
 <dd>
 <ul>
-<li><p>12:35pm–1:25pm Friday, (ENGTR 2110)</p></li>
+<li><p>8:35am-9:25am Friday, (ENGMC 12)</p></li>
 </ul>
 </dd>
 <dt>Prerequisites</dt>
 <dd>
 <ul>
 <li>ECSE 205 (Probability and Random Signals I)</li>
-<li>ECSE 206 or ECSE 316 (Signals and Systems)</li>
 </ul>
 </dd>
+</dl>
+<ul>
+<li>ECSE 206 or ECSE 316 (Signals and Systems)</li>
+</ul>
+<dl>
 <dt>Communication</dt>
 <dd>
 <span class="text-info">Use the discussion board on myCourses</span> for all questions related to the course. Only personal emails related to medical exceptions for missing a deliverable will be answered.
@@ -617,11 +627,11 @@ Upon the successful completion of this course, the student students will have de
 </tr>
 <tr class="odd">
 <td>11</td>
-<td style="text-align: left;"><a href="poisson-processes.qmd">Poisson processes</a></td>
+<td style="text-align: left;"><a href="./stochastic-processes.html">Stochastic processes</a></td>
 </tr>
 <tr class="even">
 <td>12</td>
-<td style="text-align: left;">Gaussian processes and minimum mean squared error estimation</td>
+<td style="text-align: left;"><a href="./gaussian-processes.html">Gaussian processes and minimum mean squared error estimation</a></td>
 </tr>
 <tr class="odd">
 <td>13</td>
@@ -644,24 +654,30 @@ Upon the successful completion of this course, the student students will have de
 <dd>
 <ul>
 <li>J.A. Gubner, <em>Probability and Random Processes for Electrical and Computer Engineers,</em> Cambridge University Press, 2006.</li>
+</ul>
+</dd>
+</dl>
+<ul>
 <li>S.H. Chan, <em>Introduction to Probability for Data Science,</em> Michigan Publishing, 2021.</li>
 <li>H. Hsu, <em>Probability, Random Variables, and Random Processes,</em> McGraw Hill, 1997.</li>
 </ul>
-</dd>
+<dl>
 <dt>Exercise books</dt>
 <dd>
 <ul>
 <li>F. Mosteller, <em>Fifty challenging problems in probability with solutions,</em> Courier Corporation, 1987. <a href="https://archive.org/details/fiftychallenging00most">Available online</a></li>
-<li>Grimmett and Stirzaker, <em>One Thousand Exercises in Probability,</em> Oxford University Press, 2000.</li>
 </ul>
 </dd>
 </dl>
+<ul>
+<li>Grimmett and Stirzaker, <em>One Thousand Exercises in Probability,</em> Oxford University Press, 2000.</li>
+</ul>
 </section>
 <section id="evaluation" class="level2">
 <h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
 <ul>
 <li><p><strong>Assignments (25%)</strong> Weekly homework assignments. Typically, each assignment will consist of four or five questions, out of which <span class="text-danger">one or two randomly selected questions will be graded</span>.</p></li>
-<li><p><strong>Mid Term (25%)</strong> Closed book in-class exam. <span class="text-danger"><strong>Oct 8</strong></span> (during class time)</p></li>
+<li><p><strong>Mid Term (25%)</strong> Closed book in-class exam. <span class="text-danger"><strong>Oct 19</strong></span> (during class time)</p></li>
 <li><p><strong>Final Exam (50%)</strong> Closed book, in-person exam. Will be scheduled by the exam office and the dates will be announced later.</p>
 <p>The final exam will cover <strong>all</strong> the material seen in the class during the term.</p></li>
 </ul>
@@ -685,8 +701,8 @@ In accord with McGill University’s <a href="https://www.mcgill.ca/secretariat/
 </dd>
 <dt>Academic Integrity</dt>
 <dd>
-<p>McGill University values academic integrity. Therefore all students must understand the meaning and consequences of cheating, plagiarism and other academic offences under the <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code of Student Conduct and Disciplinary Procedures</a> (see McGill’s <a href="http://www.mcgill.ca/students/srr/honest/">guide to academic honesty</a> for more information).</p>
-<p>L’université McGill attache une haute importance à l’honnêteté académique. Il incombe par conséquent à tous les étudiants de comprendre ce que l’on entend par tricherie, plagiat et autres infractions académiques, ainsi que les conséquences que peuvent avoir de telles actions, selon le <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code de conduite de l’étudiant et des procédures disciplinaires</a> (pour de plus amples renseignements, veuillez consulter le <a href="http://www.mcgill.ca/students/srr/honest/">guide pour l’honnêteté académique</a> de McGill.)</p>
+McGill University values academic integrity. Therefore all students must understand the meaning and consequences of cheating, plagiarism and other academic offences under the <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code of Student Conduct and Disciplinary Procedures</a> (see McGill’s <a href="http://www.mcgill.ca/students/srr/honest/">guide to academic honesty</a> for more information).
+L’université McGill attache une haute importance à l’honnêteté académique. Il incombe par conséquent à tous les étudiants de comprendre ce que l’on entend par tricherie, plagiat et autres infractions académiques, ainsi que les conséquences que peuvent avoir de telles actions, selon le <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code de conduite de l’étudiant et des procédures disciplinaires</a> (pour de plus amples renseignements, veuillez consulter le <a href="http://www.mcgill.ca/students/srr/honest/">guide pour l’honnêteté académique</a> de McGill.)
 </dd>
 </dl>
 </section>

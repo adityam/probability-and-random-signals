@@ -11,11 +11,11 @@
     ]
   },
   {
-    "objectID": "index.html#general-information",
-    "href": "index.html#general-information",
+    "objectID": "index.html#general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d",
+    "href": "index.html#general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d",
     "title": "Probability and Random Signals II",
-    "section": "General Information (Fall 2025)",
-    "text": "General Information (Fall 2025)\n\nInstructor\n\n\nAditya Mahajan\nOffice Hours: Tuesday 10:00am–11:00am\n\n\nTeaching Assistants\n\n\nZiqi Huang\n\n\nLectures\n\n\n8:35am–9:55am Monday, Wednesday (ENGTR 2100)\n\n\nTutorials\n\n\n12:35pm–1:25pm Friday, (ENGTR 2110)\n\n\nPrerequisites\n\n\nECSE 205 (Probability and Random Signals I)\nECSE 206 or ECSE 316 (Signals and Systems)\n\n\nCommunication\n\nUse the discussion board on myCourses for all questions related to the course. Only personal emails related to medical exceptions for missing a deliverable will be answered.",
+    "section": "General Information (Fall 2026)",
+    "text": "General Information (Fall 2026)\n\nInstructor\n\n\nAditya Mahajan\n\n\n\n\nOffice Hours: TBD\n\n\nTeaching Assistants\n\n\nTao Zhang\n\n\nLectures\n\n\n11:35am–12:55pm Monday, Wednesday (ENGTR 1080)\n\n\nTutorials\n\n\n8:35am-9:25am Friday, (ENGMC 12)\n\n\nPrerequisites\n\n\nECSE 205 (Probability and Random Signals I)\n\n\n\n\nECSE 206 or ECSE 316 (Signals and Systems)\n\n\nCommunication\n\nUse the discussion board on myCourses for all questions related to the course. Only personal emails related to medical exceptions for missing a deliverable will be answered.",
     "crumbs": [
       "Probability and Random Signals II",
       "Course Outline"
@@ -26,7 +26,7 @@
     "href": "index.html#course-content",
     "title": "Probability and Random Signals II",
     "section": "Course Content",
-    "text": "Course Content\n\n\n\n\n\n\n\nWeek\nMaterial Covered\n\n\n\n\n1\nProbability spaces, algebra of events, axioms of probability\n\n\n2\nRandom variables\n\n\n3\nRandom vectors\n\n\n4\nConditional probability and conditional expectation\n\n\n5\nMoment generating functions and sums of random variables\n\n\n6\nProbability inequalities\n\n\n7\nReview and Mid-Term\n\n\n8\nConvergence of random variables and the strong law of large numbers\n\n\n9\nMarkov chains\n\n\n10\nMarkov chains (continued)\n\n\n11\nPoisson processes\n\n\n12\nGaussian processes and minimum mean squared error estimation\n\n\n13\nWide sense stationary processes\n\n\n\nThe material for the lecture notes is taken from various sources including the textbook and the reference book, as well as the lecture notes of Prof. Ioannis Psaromiglikos (McGill) and Prof. Ashutosh Nayyar (USC).",
+    "text": "Course Content\n\n\n\n\n\n\n\nWeek\nMaterial Covered\n\n\n\n\n1\nProbability spaces, algebra of events, axioms of probability\n\n\n2\nRandom variables\n\n\n3\nRandom vectors\n\n\n4\nConditional probability and conditional expectation\n\n\n5\nMoment generating functions and sums of random variables\n\n\n6\nProbability inequalities\n\n\n7\nReview and Mid-Term\n\n\n8\nConvergence of random variables and the strong law of large numbers\n\n\n9\nMarkov chains\n\n\n10\nMarkov chains (continued)\n\n\n11\nStochastic processes\n\n\n12\nGaussian processes and minimum mean squared error estimation\n\n\n13\nWide sense stationary processes\n\n\n\nThe material for the lecture notes is taken from various sources including the textbook and the reference book, as well as the lecture notes of Prof. Ioannis Psaromiglikos (McGill) and Prof. Ashutosh Nayyar (USC).",
     "crumbs": [
       "Probability and Random Signals II",
       "Course Outline"
@@ -37,7 +37,7 @@
     "href": "index.html#course-material",
     "title": "Probability and Random Signals II",
     "section": "Course Material",
-    "text": "Course Material\n\nTextbook\n\n\nGrimmett and Stirzaker, Probability and Random Processes, 4th edition, Oxford University Press, 2020.\n\n\n“Engineering” Graduate Probability textbooks\n\n\nJ.A. Gubner, Probability and Random Processes for Electrical and Computer Engineers, Cambridge University Press, 2006.\nS.H. Chan, Introduction to Probability for Data Science, Michigan Publishing, 2021.\nH. Hsu, Probability, Random Variables, and Random Processes, McGraw Hill, 1997.\n\n\nExercise books\n\n\nF. Mosteller, Fifty challenging problems in probability with solutions, Courier Corporation, 1987. Available online\nGrimmett and Stirzaker, One Thousand Exercises in Probability, Oxford University Press, 2000.",
+    "text": "Course Material\n\nTextbook\n\n\nGrimmett and Stirzaker, Probability and Random Processes, 4th edition, Oxford University Press, 2020.\n\n\n“Engineering” Graduate Probability textbooks\n\n\nJ.A. Gubner, Probability and Random Processes for Electrical and Computer Engineers, Cambridge University Press, 2006.\n\n\n\n\nS.H. Chan, Introduction to Probability for Data Science, Michigan Publishing, 2021.\nH. Hsu, Probability, Random Variables, and Random Processes, McGraw Hill, 1997.\n\n\nExercise books\n\n\nF. Mosteller, Fifty challenging problems in probability with solutions, Courier Corporation, 1987. Available online\n\n\n\n\nGrimmett and Stirzaker, One Thousand Exercises in Probability, Oxford University Press, 2000.",
     "crumbs": [
       "Probability and Random Signals II",
       "Course Outline"
@@ -48,7 +48,7 @@
     "href": "index.html#evaluation",
     "title": "Probability and Random Signals II",
     "section": "Evaluation",
-    "text": "Evaluation\n\nAssignments (25%) Weekly homework assignments. Typically, each assignment will consist of four or five questions, out of which one or two randomly selected questions will be graded.\nMid Term (25%) Closed book in-class exam. Oct 8 (during class time)\nFinal Exam (50%) Closed book, in-person exam. Will be scheduled by the exam office and the dates will be announced later.\nThe final exam will cover all the material seen in the class during the term.",
+    "text": "Evaluation\n\nAssignments (25%) Weekly homework assignments. Typically, each assignment will consist of four or five questions, out of which one or two randomly selected questions will be graded.\nMid Term (25%) Closed book in-class exam. Oct 19 (during class time)\nFinal Exam (50%) Closed book, in-person exam. Will be scheduled by the exam office and the dates will be announced later.\nThe final exam will cover all the material seen in the class during the term.",
     "crumbs": [
       "Probability and Random Signals II",
       "Course Outline"
