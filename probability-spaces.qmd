@@ -571,11 +571,13 @@ _Hint_: Write $\{x\}$ as the limit of a decreasing sequence of intervals.
    - $\PR(A \mid B) \ge 0$.
    - $\PR(Ω \mid B) = \dfrac{\PR(Ω \cap B)}{\PR(B)} = 1$.
    - For disjoint events $A_1, A_2 \in \ALPHABET F$, 
-     $$\PR(A_1 \cup A_2 \mid B) =
-      \frac{ \PR( (A_1 \cup A_2) \cap B) }{ \PR(B) } = 
-      \frac{ \PR( (A_1 \cap B) \cup (A_2 \cap B) ) }{ \PR(B) } = 
-      \frac{ \PR(A_1 \cap B) + \PR (A_2 \cap B) }{ \PR(B) } = 
-      \PR(A_1 \mid B) + \PR(A_2 \mid B)$$
+     \begin{align*}
+     \PR(A_1 \cup A_2 \mid B) 
+      &= \frac{ \PR( (A_1 \cup A_2) \cap B) }{ \PR(B) } 
+      = \frac{ \PR( (A_1 \cap B) \cup (A_2 \cap B) ) }{ \PR(B) } \\
+      &= \frac{ \PR(A_1 \cap B) + \PR (A_2 \cap B) }{ \PR(B) } 
+      = \PR(A_1 \mid B) + \PR(A_2 \mid B)
+     \end{align*}
    where we have used the fact that $(A_1 \cap B)$ and $(A_2 \cap B)$ are disjoint. 
    :::
  
@@ -710,6 +712,10 @@ _Hint_: Write $\{x\}$ as the limit of a decreasing sequence of intervals.
    $$
    :::
 
+   :::{#exr-sensors}
+   An object is present at a location with probability $p$. Two sensors operate independently. If the object is present, sensor $i$ detects it with probability $d_i$; if absent, neither sensor detects it. If both sensors fail to detect the object, what is the probability that it is present?
+   :::
+
 ## Independence
 
 1. In general, the knowledge that an event $B$ has occurred changes the probability of event $A$, since $\PR(A)$ is replaced by $\PR(A|B)$. If the knowledge that $B$ has occurred does not change our belief about $A$, i.e., when $\PR(A|B) = \PR(A)$, we say "$A$ and $B$ are **independent**". This leads to the following definition.
@@ -739,14 +745,18 @@ _Hint_: Write $\{x\}$ as the limit of a decreasing sequence of intervals.
  
  
    :::{#exr-independence-sigma-algebra}
-     $A \independent B$ implies the following:
- 
+   Show that $A \independent B$ implies the following:
+
      - $A \independent B^c$.
      - $A^c \independent B$.
      - $A^c \independent B^c$.
    :::
- 
-2. Independence is what separates probability theory from the more general measure theory. 
+
+   :::{#exr-independence-union}
+   Let $A$, $B_1$, and $B_2$ be events such that $A \independent B_1$, $A \independent B_2$, and $A \independent (B_1 \cap B_2)$. Show that $A \independent (B_1 \cup B_2)$.
+   :::
+
+2. Independence is what separates probability theory from the more general measure theory.
  
 3. 
    :::{.callout-warning appearance="simple"}
@@ -864,6 +874,15 @@ _Hint_: Write $\{x\}$ as the limit of a decreasing sequence of intervals.
       \PR(B_1 \cap B_2) = \PR_1(A_1) \PR_2(A_2) = \PR(B_1) \PR(B_2).
    $$
    Thus, events $B_1$ and $B_2$ are independent. 
+
+   :::{#exr-coin-tosses}
+   A fair coin is tossed $n$ times; the tosses are mutually independent. Find the probability that:
+
+   - a head appears for the first time on the $n$-th toss;
+   - the number of heads so far equals the number of tails;
+   - exactly two heads have appeared so far;
+   - at least two heads have appeared so far.
+   :::
 
 5. It is a bit more complicated when $\ALPHABET F_1$ and $\ALPHABET F_2$ are not finite. The difficulty is that $\ALPHABET F_1 \times \ALPHABET F_2$ is not a $σ$-algebra. So, take $\ALPHABET F$ to be $σ(\ALPHABET F_1 \times \ALPHABET F_2)$ (which is the smallest $σ$-algebra containing $\ALPHABET F_1 \times \ALPHABET F_2$) and define $\PR$ to be the extension of $\PR_1 \times \PR_2$ from $\ALPHABET F_1 \times \ALPHABET F_2$ to $σ(\ALPHABET F_1 \times \ALPHABET F_2)$ (one can show that such an extension exists). Such product space is often written as
 $$
