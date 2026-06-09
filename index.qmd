@@ -1,13 +1,13 @@
 ---
 course:
-  term: "Fall 2025"
-  office-hours: "Tuesday 10:00am–11:00am"
-  teaching-assistants: "Ziqi Huang"
-  mid-term: "Oct 8"
+  term: "Fall 2026"
+  office-hours: "TBD"
+  teaching-assistants: "Tao Zhang"
+  mid-term: "Oct 19"
   lectures:
-    - "8:35am–9:55am Monday, Wednesday (ENGTR 2100)"
+    - "11:35am–12:55pm Monday, Wednesday (ENGTR 1080)"
   tutorials:
-    - "12:35pm–1:25pm Friday, (ENGTR 2110)"
+    - "8:35am-9:25am Friday, (ENGMC 12)"
 format: 
   html: 
     number-sections: false
@@ -70,8 +70,8 @@ Upon the successful completion of this course, the student students will have de
 | 8    | [Convergence of random variables and the strong law of large numbers](convergence-of-random-variables.qmd) | 
 | 9    | [Markov chains](markov-chains.qmd) | 
 | 10   | Markov chains (continued) | 
-| 11   | [Poisson processes](poisson-processes.qmd) |
-| 12   | Gaussian processes and minimum mean squared error estimation | 
+| 11   | [Stochastic processes](stochastic-processes.qmd) |
+| 12   | [Gaussian processes and minimum mean squared error estimation](gaussian-processes.qmd) | 
 | 13   | Wide sense stationary processes | 
 
 : {tbl-colwidths="[10,90]" .striped}
