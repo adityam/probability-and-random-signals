@@ -18,10 +18,10 @@ format:
 ## General Information ({{< meta course.term >}})
 
 Instructor
-: -  Aditya Mahajan 
+: - Aditya Mahajan 
 - *Office Hours*: {{< meta course.office-hours >}}
 
-Teaching Assistants
+Teaching Assistant
 : - {{< meta course.teaching-assistants >}} 
 
 Lectures
@@ -38,24 +38,6 @@ Prerequisites
 Communication
 : [Use the discussion board on myCourses]{.text-info} for all questions related to the course. Only personal emails related to medical exceptions for missing a deliverable will be answered.
 
-<!--
-## Graduate Attributes and Learning Outcomes
-
-| Attribute | Description | Status |
-|-----------|-------------|--------|
-| KB | Knowledge Base for Engineering | Developed |
-| PA | Problem Analysis | Developed |
-| IN | Investigation | Developed |
-| DE | Design | Introduced |
-
-Upon the successful completion of this course, the student students will have demonstrated the ability to:
-
-- Apply time- and frequency-domain tools to analyze linear time-invariant systems (KB, PA)
-- Design controllers based on state-space methods and lead-lag compensators to meet time-response specifications (KB, PA, DE)
-- Use Matlab to analyze and synthesize controllers for linear time-invariant systems (DE, IN)
-
--->
-
 ## Course Content
 
 | Week | Material Covered | 
@@ -71,7 +53,7 @@ Upon the successful completion of this course, the student students will have de
 | 9    | [Markov chains](markov-chains.qmd) | 
 | 10   | Markov chains (continued) | 
 | 11   | [Stochastic processes](stochastic-processes.qmd) |
-| 12   | [Gaussian processes and minimum mean squared error estimation](gaussian-processes.qmd) | 
+| 12   | [Gaussian processes](gaussian-processes.qmd) and [minimum mean squared error estimation](conditional-expectation-gaussian.qmd) | 
 | 13   | Wide sense stationary processes | 
 
 : {tbl-colwidths="[10,90]" .striped}
@@ -90,7 +72,7 @@ Textbook
 - S.H. Chan, _Introduction to Probability for Data Science,_ Michigan Publishing, 2021.
 - H. Hsu, _Probability, Random Variables, and Random Processes,_ McGraw Hill, 1997.
 
-Exercise books
+Exercise Books
 
 : - F. Mosteller, _Fifty challenging problems in probability with solutions,_ Courier Corporation, 1987. [Available online](https://archive.org/details/fiftychallenging00most)
 - Grimmett and Stirzaker, _One Thousand Exercises in Probability,_ Oxford University Press, 2000. 
@@ -100,7 +82,7 @@ Exercise books
 
 - **Assignments (25%)** Weekly homework assignments. Typically, each assignment will consist of four or five questions, out of which [one or two randomly selected questions will be graded]{.text-danger}. 
 
-- **Mid Term (25%)** Closed book in-class exam.
+- **Mid-Term (25%)** Closed book in-class exam.
   [**{{< meta course.mid-term >}}**]{.text-danger} (during class time)
 
 - **Final Exam (50%)** Closed book, in-person exam. Will be scheduled by the exam office and the dates will be announced later.
@@ -111,15 +93,15 @@ Exercise books
 
 - Assignments must be submitted electronically on myCourses as a PDF. You may write the assignments on paper and then scan them as a PDF (there are several such apps available for all phone platforms), or write on a tablet and convert to PDF, or type using a word processor.
 
-- **There will no make-up examination** for students who miss a mid-term.
+- **There will be no make-up examination** for students who miss a mid-term.
 
-  - Student who miss the exam due to a valid reason (see [Faculty of Engineering policy][policy]) should **notify the instructor within a week** of the exam and provide **necessary documentation**.
+  - Students who miss the exam due to a valid reason (see [Faculty of Engineering policy][policy]) should **notify the instructor within a week** of the exam and provide **necessary documentation**.
 
   - If, and only if, proper documentation for a missed exam is presented, the marks for the missed exam will be shifted to the final exam.
 
   - Students who miss the mid-term exam for any other reason (e.g., no medical note, going to the exam at the wrong time, or on the wrong day, etc.) will get zero marks on the exam.
 
-- Any request for reevaluation of a mid-term or an assignment must be made **in writing within a week of its return**. Note that requesting a re-grade will mean that you **WHOLE** assignment or exam will be re-graded.
+- Any request for re-evaluation of a mid-term or an assignment must be made **in writing within a week of its return**. Note that requesting a re-evaluation will mean that your **whole** assignment or exam will be re-evaluated.
 
 
 Right to submit in English or French written work that is to be graded.
@@ -132,13 +114,13 @@ Academic Integrity
 
 ## Course delivery
 
-The course is taught in a “chalk and board” style; there will be no power point presentations. All students are expected to attend lectures and take notes. Partial notes on some of the material will be provided, but are not a substitute for the material covered in class.
+The course is taught in a “chalk and board” style; there will be no PowerPoint presentations. All students are expected to attend lectures and take notes. Partial notes on some of the material will be provided, but are not a substitute for the material covered in class.
 
 © Instructor-generated course materials (e.g., handouts, notes, summaries, exam questions) are protected by law and may not be copied or distributed in any form or in any medium without explicit permission of the instructor. Note that infringements of copyright can be subject to follow up by the University under the Code of Student Conduct and Disciplinary Procedures.
 
 ## Additional Notes
 
-- As the instructor of this course I endeavor to provide an inclusive learning environment. However, if you experience barriers to learning in this course, do not hesitate to discuss them with me or contact the office of [Student Accessibility and Achievement][OSD].
+- As the instructor of this course I endeavor to provide an inclusive learning environment. However, if you experience barriers to learning in this course, do not hesitate to discuss them with me or contact the office of [Student Accessibility and Achievement][OSD].
 
 - [End-of-course evaluations][evaluations] are one of the ways that McGill works towards maintaining and improving the quality of courses and the student’s learning experience. You will be notified by e-mail when the evaluations are available. Please note that a minimum number of responses must be received for results to be available to students.
 
@@ -149,9 +131,9 @@ The course is taught in a “chalk and board” style; there will be no power po
 
 [code]: https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf
 
-[guide]: http://www.mcgill.ca/students/srr/honest/
+[guide]: https://www.mcgill.ca/deanofstudents/student-rights-and-conduct/academic-integrity
 
-[evaluations]: http://www.mcgill.ca/mercury/
+[evaluations]: https://www.mcgill.ca/mercury/
 
 [OSD]: https://www.mcgill.ca/access-achieve/
 
