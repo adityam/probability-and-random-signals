@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-06-09">
+<meta name="dcterms.date" content="2026-08-02">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>1&nbsp; Probability spaces – Probability and Random Signals II</title>
@@ -15,10 +15,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -44,14 +47,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-637ebb88e1656ed7fefddcbc2ac457b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-26d5227c5f84a95820e04791e0f38fae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-637ebb88e1656ed7fefddcbc2ac457b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0183313eb70119bc43db73366798b6f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -151,7 +154,7 @@ window.MathJax = {
 <script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -515,7 +518,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 9, 2026</p>
+      <p class="date">August 2, 2026</p>
     </div>
   </div>
   
@@ -664,7 +667,24 @@ A \cap (B \cup C) = (A \cap B) \cup (A \cap C)\]</span></p></li>
 <li><span class="math inline">\([2,4] \cup ([3,5] \cap [1,4])\)</span>.</li>
 </ul>
 </div></li>
-<li><p>Given a universal set <span class="math inline">\(Ω\)</span>, a collection <span class="math inline">\(\ALPHABET F = \{F_1, F_2, \dots, F_m\}\)</span> of subsets of <span class="math inline">\(Ω\)</span> is called an <strong>algebra</strong> if it satisfies the following properties:</p>
+<li><p><strong>Limits of sets</strong> {#set-limits} It is often useful to approximate a complicated set by a sequence of simpler sets. If <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> is a <strong>weakly increasing</strong> sequence, i.e., <span class="math inline">\(A_1 \subseteq A_2 \subseteq A_3 \subseteq \cdots\)</span>, we define its limit by <span class="math display">\[
+  \lim_{n \to ∞} A_n = \bigcup_{n=1}^∞ A_n.
+\]</span> If <span class="math inline">\(\{B_n\}_{n \ge 1}\)</span> is a <strong>weakly decreasing</strong> sequence, i.e., <span class="math inline">\(B_1 \supseteq B_2 \supseteq B_3 \supseteq \cdots\)</span>, we define its limit by <span class="math display">\[
+  \lim_{n \to ∞} B_n = \bigcap_{n=1}^∞ B_n.
+\]</span> For example, <span class="math inline">\([0, a - \tfrac 1n) \nearrow [0,a)\)</span> and <span class="math inline">\([x, x + \tfrac 1n] \searrow \{x\}\)</span>.</p>
+<p>When <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> is neither increasing nor decreasing, we define <span class="math display">\[
+  \liminf_{n \to ∞} A_n = \bigcup_{n=1}^{∞} \bigcap_{i=n}^{∞} A_i
+  \quad\text{and}\quad
+  \limsup_{n \to ∞} A_n = \bigcap_{n=1}^{∞} \bigcup_{i=n}^{∞} A_i.
+\]</span> Equivalently, <span class="math inline">\(\liminf_{n} A_n\)</span> is the limit of the increasing sequence <span class="math inline">\(C_n = \bigcap_{i=n}^{∞} A_i\)</span>, and <span class="math inline">\(\limsup_{n} A_n\)</span> is the limit of the decreasing sequence <span class="math inline">\(D_n = \bigcup_{i=n}^{∞} A_i\)</span>. When the two agree, the sequence has a limit.</p>
+<p>Another useful viewpoint uses indicator functions: <span class="math display">\[
+  ω \in \limsup_{n \to ∞} A_n
+  \iff \text{$ω$ belongs to infinitely many $A_n$},
+\]</span> and <span class="math display">\[
+  ω \in \liminf_{n \to ∞} A_n
+  \iff \text{$ω$ belongs to all but finitely many $A_n$}.
+\]</span> We will elaborate on this viewpoint <a href="./convergence-of-random-variables.html">later</a>.</p></li>
+<li><p>Given a universal set <span class="math inline">\(Ω\)</span>, a collection <span class="math inline">\(\ALPHABET F \subseteq 2^Ω\)</span> of subsets of <span class="math inline">\(Ω\)</span> is called an <strong>algebra</strong> if it satisfies the following properties:</p>
 <ul>
 <li><span class="math inline">\(\emptyset \in \ALPHABET F\)</span> and <span class="math inline">\(Ω \in \ALPHABET F\)</span>.</li>
 <li><strong>Closed under complements</strong>: if <span class="math inline">\(A \in \ALPHABET F\)</span> then <span class="math inline">\(A^c \in \ALPHABET F\)</span>.</li>
@@ -680,14 +700,16 @@ A_1 \cap A_2 \cap \cdots \cap A_n \in \ALPHABET F
 <li>If <span class="math inline">\(A\)</span> is any subset of <span class="math inline">\(Ω\)</span>, then <span class="math inline">\(\{\emptyset, A, A^c, Ω\}\)</span> is an algebra.</li>
 <li>For any set <span class="math inline">\(Ω\)</span>, the power-set <span class="math inline">\(2^Ω\)</span> is an algebra on <span class="math inline">\(Ω\)</span>. As an illustration, check that the power set defined in <a href="#exr-sets" class="quarto-xref">Exercise&nbsp;<span>1.1</span></a> is an algebra.</li>
 </ul></li>
-<li><p>These are all examples of a general principle: <strong>The power-set of any partition of a set is an algebra.</strong></p>
+<li><p>A finite partition generates an algebra by taking unions of its cells. In particular, if <span class="math inline">\(\ALPHABET D = \{D_1,\ldots,D_m\}\)</span> is a partition of <span class="math inline">\(Ω\)</span>, define <span class="math display">\[
+σ(\ALPHABET D)
+= \left\{\bigcup_{i \in I}D_i : I \subseteq \{1,\ldots,m\}\right\},
+\]</span> where the union corresponding to <span class="math inline">\(I=\emptyset\)</span> is <span class="math inline">\(\emptyset\)</span>. Then <span class="math inline">\(σ(\ALPHABET D)\)</span> is the algebra generated by the partition <span class="math inline">\(\ALPHABET D\)</span> and contains <span class="math inline">\(2^m\)</span> events.</p>
 <ul>
-<li>If the partition is <span class="math inline">\(\{Ω\}\)</span>, then the power-set <span class="math inline">\(\{ \emptyset, Ω \}\)</span> is an algebra.</li>
-<li>If the partition is <span class="math inline">\(\{A, A^c\}\)</span>, then the power-set <span class="math inline">\(\{ \emptyset, A, A^c, Ω\}\)</span> is an algebra.</li>
-<li>If the partition is the collection of all singleton elements of a set, then the power-set <span class="math inline">\(2^Ω\)</span> is an algebra.</li>
-</ul>
-<p>We will use the notation <span class="math inline">\(σ(\ALPHABET D)\)</span> to denote the algebra generated by a partition <span class="math inline">\(\ALPHABET D\)</span>.</p></li>
-<li><p>The reverse is also true. If <span class="math inline">\(\ALPHABET F\)</span> is an algebra on a finite space <span class="math inline">\(Ω\)</span>, then there is a unique partition <span class="math inline">\(\ALPHABET D = \{D_1, \dots, D_m\}\)</span> such that <span class="math inline">\(\ALPHABET F = 2^{\ALPHABET D}\)</span>. The elements <span class="math inline">\(D_i\)</span> are called <strong>atoms</strong> of <span class="math inline">\(\ALPHABET F\)</span>.</p></li>
+<li>If <span class="math inline">\(\ALPHABET D = \{Ω\}\)</span>, then <span class="math inline">\(σ(\ALPHABET D) = \{\emptyset,Ω\}\)</span>.</li>
+<li>If <span class="math inline">\(\ALPHABET D = \{A,A^c\}\)</span>, then <span class="math inline">\(σ(\ALPHABET D) = \{\emptyset,A,A^c,Ω\}\)</span>.</li>
+<li>If <span class="math inline">\(Ω\)</span> is finite and <span class="math inline">\(\ALPHABET D\)</span> is the partition into singleton sets, then <span class="math inline">\(σ(\ALPHABET D) = 2^Ω\)</span>.</li>
+</ul></li>
+<li><p>The reverse is also true. If <span class="math inline">\(\ALPHABET F\)</span> is an algebra on a finite space <span class="math inline">\(Ω\)</span>, then there is a unique partition <span class="math inline">\(\ALPHABET D = \{D_1, \dots, D_m\}\)</span> such that <span class="math inline">\(\ALPHABET F = σ(\ALPHABET D)\)</span>. The elements <span class="math inline">\(D_i\)</span> are called <strong>atoms</strong> of <span class="math inline">\(\ALPHABET F\)</span>.</p></li>
 <li><p>Let <span class="math inline">\(\ALPHABET D_1\)</span> and <span class="math inline">\(\ALPHABET D_2\)</span> be two partitions of <span class="math inline">\(Ω\)</span>. We say <strong><span class="math inline">\(\ALPHABET D_1\)</span> is finer than <span class="math inline">\(\ALPHABET D_2\)</span></strong> if <span class="math inline">\(σ(\ALPHABET D_1) \supseteq σ(\ALPHABET D_2)\)</span>. For instance, suppose <span class="math inline">\(Ω = \{1, 2, 3, 4\}\)</span> and <span class="math display">\[
   \ALPHABET D_1 = \{ \{1,2\}, \{3\}, \{4\} \}
   \quad\text{and}\quad
@@ -789,7 +811,7 @@ A_1 \cap A_2 \cap \cdots \cap A_n \in \ALPHABET F
 </div>
 </div>
 </div></li>
-<li><p>An <strong>event</strong> is any subset of the sample space. If the outcome of the random experiment belongs to the event <span class="math inline">\(A\)</span>, we say that “the event <span class="math inline">\(A\)</span> has occurred”. Some examples of events are:</p>
+<li><p>An <strong>event</strong> is a subset of the sample space. If the outcome of the random experiment belongs to the event <span class="math inline">\(A\)</span>, we say that “the event <span class="math inline">\(A\)</span> has occurred”. Some examples of events are:</p>
 <ul>
 <li>Head occurs in <a href="#exr-sample-space-coin-toss" class="quarto-xref">Exercise&nbsp;<span>1.4</span></a> (<span class="math inline">\(A = \{H\}\)</span>)</li>
 <li>Both head and tail occur in <a href="#exr-sample-space-coin-toss" class="quarto-xref">Exercise&nbsp;<span>1.4</span></a> (<span class="math inline">\(A = \emptyset\)</span>; this is an event that cannot happen, sometimes called the <strong>impossible event</strong>)</li>
@@ -882,7 +904,7 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 \end{equation}\]</span></p>
 <p>We have seen that if we want <span class="math inline">\(\PR\)</span> to be a meaningful measure, the domain <span class="math inline">\(\ALPHABET F\)</span> must at least be an algebra. We have also seen that the power-set <span class="math inline">\(2^Ω\)</span> is always an algebra. So, it is tempting to take <span class="math inline">\(\ALPHABET F = 2^{[0,1]}\)</span>. However, it turns out that <span class="math inline">\(2^{[0,1]}\)</span> includes some weird sets (technically, non-measurable sets) due to which we cannot define a function <span class="math inline">\(\PR\)</span> on <span class="math inline">\(2^{[0,1]}\)</span> that satisfies <span class="math inline">\(\eqref{eq:uniform}\)</span>.</p>
 <p>To workaround this technical limitation, we revisit the minimum requirements that we need from the domain of <span class="math inline">\(\PR\)</span>. Since we are interested in <span class="math inline">\(\PR([a,b])\)</span>, <span class="math inline">\(\ALPHABET F\)</span> must contain intervals (and therefore all finite unions and intersections of intervals). Since we are working with continuous sample spaces, we also want <span class="math inline">\(\PR\)</span> to be continuous, i.e., for any sequence of sets <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span>, we want <span class="math inline">\(\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)\)</span>. It turns out that the additional requirement of continuity implies that <span class="math inline">\(\ALPHABET F\)</span> must be closed under countable unions as well. Thus, the domain <span class="math inline">\(\ALPHABET F\)</span> must at least be a <span class="math inline">\(σ\)</span>-algebra.</p>
-<p>So, we restrict to the simplest choice of the domain <span class="math inline">\(\ALPHABET F\)</span> needed for <span class="math inline">\(\eqref{eq:uniform}\)</span> and continuity to hold. <span class="text-secondary">For technical reasons, we need another property known as <strong>completeness</strong>. See Sec.&nbsp;1.6 of the textbook.</span></p>
+<p>So, we restrict to the simplest choice of the domain <span class="math inline">\(\ALPHABET F\)</span> needed for <span class="math inline">\(\eqref{eq:uniform}\)</span> and continuity to hold. <span class="text-secondary">For technical reasons, we need another property known as <strong>completeness</strong>. A probability space can be completed by adding all subsets of null measurable sets. See Sec.&nbsp;1.6 of the textbook.</span></p>
 </div>
 </div>
 </div></li>
@@ -906,6 +928,15 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 <p><em>Note</em>: Borel <span class="math inline">\(σ\)</span>-algebra is usually defined for any topological space. We restrict our definition to subsets of reals.</p>
 </div>
 </div></li>
+<li><p><strong><span class="math inline">\(σ\)</span>-algebras as information.</strong> A sub-<span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\mathcal G \subseteq \ALPHABET F\)</span> can be interpreted as the information available to an observer. If <span class="math inline">\(A \in \mathcal G\)</span>, then this information is sufficient to determine whether or not the event <span class="math inline">\(A\)</span> occurred. Events outside <span class="math inline">\(\mathcal G\)</span> cannot be distinguished using the available information.</p>
+<ul>
+<li>The smallest <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\{\emptyset, Ω\}\)</span> represents no information: it distinguishes only the impossible event from the certain event.</li>
+<li>The <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET F\)</span> represents all the information modelled by the probability space.</li>
+<li>If <span class="math inline">\(\mathcal G_1 \subseteq \mathcal G_2\)</span>, then <span class="math inline">\(\mathcal G_2\)</span> contains at least as much information as <span class="math inline">\(\mathcal G_1\)</span>.</li>
+</ul>
+<p>As information is collected over time, it is natural to consider an increasing sequence <span class="math display">\[
+\mathcal G_0 \subseteq \mathcal G_1 \subseteq \mathcal G_2 \subseteq \cdots.
+\]</span> Such a sequence is called a <strong>filtration</strong>. Later, <span class="math inline">\(σ(X)\)</span> will represent the information revealed by a random variable <span class="math inline">\(X\)</span>, while <span class="math inline">\(σ(Y_0,\ldots,Y_n)\)</span> will represent the information contained in observations up to time <span class="math inline">\(n\)</span>.</p></li>
 <li><p>A pair <span class="math inline">\((Ω, \ALPHABET F)\)</span> where <span class="math inline">\(Ω\)</span> is a set and <span class="math inline">\(\ALPHABET F\)</span> is a <span class="math inline">\(σ\)</span>-algebra on <span class="math inline">\(Ω\)</span> is called a <strong>measurable space</strong>.</p></li>
 <li><div id="def-probability" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 1.1 (Probability)</strong></span> Given a measurable space <span class="math inline">\((Ω, \ALPHABET F)\)</span>, probability <span class="math inline">\(\PR \colon \ALPHABET F \to [0,1]\)</span> is a function that satisfies the following <strong>axioms of probability</strong></p>
@@ -960,11 +991,12 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 </div>
 </div>
 </div></li>
-<li><p>Let <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B[0,1]\)</span>, and <span class="math inline">\(\PR\)</span> be any probability measure on <span class="math inline">\((Ω, \ALPHABET F)\)</span>. Take any <span class="math inline">\(a \in (0,1)\)</span>.</p>
-<p>Consider <span class="math inline">\(A_n = \bigl[0, a - \frac 1n \bigr)\)</span> and define <span class="math inline">\(A = \lim_{n \to ∞} A_n\)</span>. Since <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> is an increasing sequence, by <a href="#lem-probability-properties" class="quarto-xref">Lemma&nbsp;<span>1.1</span></a> (d), we have <span class="math inline">\(A = \bigcup_{n=1}^∞ A_n = [0, a)\)</span>. Therefore, <span class="math inline">\(\PR(A) = \lim_{n \to ∞} \PR(A_n)\)</span>.</p>
-<p>The same argument holds when <span class="math inline">\(A_n = \bigl[0, a - \frac 1n \bigr]\)</span>. We have <span class="math inline">\(\PR(A) = \lim_{n \to ∞} \PR(A_n)\)</span>.</p>
-<p>Consider <span class="math inline">\(B_n = \bigl[0, a + \frac 1n \bigr)\)</span> and define <span class="math inline">\(B = \lim_{n \to ∞} B_n\)</span>. Since <span class="math inline">\(\{B_n\}_{n \ge 1}\)</span> is a decreasing sequence, by <a href="#lem-probability-properties" class="quarto-xref">Lemma&nbsp;<span>1.1</span></a> (d), we have <span class="math inline">\(B = \bigcap_{n=1}^∞ B_n = [0,a]\)</span>. Therefore, <span class="math inline">\(\PR(B) = \lim_{n \to ∞} \PR(B_n)\)</span>.</p>
-<p>The same argument holds when <span class="math inline">\(B_n = \bigl[0, a + \frac 1n \bigr]\)</span>. We have <span class="math inline">\(\PR(B) = \lim_{n \to ∞} \PR(B_n)\)</span>.</p></li>
+<li><div id="exm-singleton-probability" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1.7 (Probability of a singleton)</strong></span> Let <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> be the uniform distribution on <span class="math inline">\(Ω\)</span>. We show that <span class="math inline">\(\PR(\{x\}) = 0\)</span> for every <span class="math inline">\(x \in [0,1]\)</span>.</p>
+<p>Define <span class="math inline">\(B_n = [x, x + \tfrac 1n]\)</span>. Then <span class="math inline">\(\{B_n\}_{n \ge 1}\)</span> is decreasing and <span class="math inline">\(\lim_{n \to ∞} B_n = \{x\}\)</span> (see <span class="citation" data-cites="set-limits">@set-limits</span>). Under the uniform distribution, <span class="math inline">\(\PR(B_n) = \tfrac 1n\)</span>. By continuity (<a href="#lem-probability-properties" class="quarto-xref">Lemma&nbsp;<span>1.1</span></a> d), <span class="math display">\[
+  \PR(\{x\}) = \PR\Bigl(\lim_{n \to ∞} B_n\Bigr) = \lim_{n \to ∞} \PR(B_n) = 0.
+\]</span></p>
+</div></li>
 <li><div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -981,7 +1013,7 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 </ul>
 </div>
 </div></li>
-<li><p>Consider <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> to be the uniform probability distribution on <span class="math inline">\(Ω\)</span>. Consider the event <span class="math inline">\(A\)</span> that the outcome is a rational number. <span class="math inline">\(A\)</span> is a countable set (because the set of rational numbers is countable). For any <span class="math inline">\(x \in A\)</span>, <span class="math inline">\(\{x\} \in \ALPHABET F\)</span>, and <span class="math inline">\(\PR(\{x\}) = 0\)</span> (see <a href="#exr-singleton-probability" class="quarto-xref">Exercise&nbsp;<span>1.7</span></a>). Thus, by countable additivity, <span class="math inline">\(\PR(A) = 0\)</span>. Hence, <span class="math inline">\(A\)</span> is null.</p>
+<li><p>Consider <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> to be the uniform probability distribution on <span class="math inline">\(Ω\)</span>. Consider the event <span class="math inline">\(A\)</span> that the outcome is a rational number. <span class="math inline">\(A\)</span> is a countable set (because the set of rational numbers is countable). For any <span class="math inline">\(x \in A\)</span>, <span class="math inline">\(\{x\} \in \ALPHABET F\)</span>, and <span class="math inline">\(\PR(\{x\}) = 0\)</span> (<a href="#exm-singleton-probability" class="quarto-xref">Example&nbsp;<span>1.7</span></a>). Thus, by countable additivity, <span class="math inline">\(\PR(A) = 0\)</span>. Hence, <span class="math inline">\(A\)</span> is null.</p>
 <p>The above analysis implies that <span class="math inline">\(\PR(A^c) = 1\)</span>, thus the event that the outcome is irrational occurs almost surely.</p></li>
 </ol>
 <div id="exr-prob-set-difference" class="theorem exercise">
@@ -991,10 +1023,6 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 <li><p><span class="math inline">\(\PR(A \cup B) = \PR(A) + \PR(B) - \PR(A \cap B)\)</span>.</p></li>
 <li><p><span class="math inline">\(\PR(A) = \PR(A \cap B) + \PR(A \cap B^c)\)</span>.</p></li>
 </ul>
-</div>
-<div id="exr-singleton-probability" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.7</strong></span> Let <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> be the uniform distribution on <span class="math inline">\(Ω\)</span>. For any <span class="math inline">\(x \in [0,1]\)</span>, show that <span class="math inline">\(\PR(\{x\}) = 0\)</span>.</p>
-<p><em>Hint</em>: Write <span class="math inline">\(\{x\}\)</span> as the limit of a decreasing sequence of intervals.</p>
 </div>
 </section>
 <section id="conditional-probability" class="level2" data-number="1.6">
@@ -1008,7 +1036,7 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 </div>
 <p>The notation <span class="math inline">\(\PR(A | B)\)</span> is read as “probability of <span class="math inline">\(A\)</span> given <span class="math inline">\(B\)</span>” or “probability of <span class="math inline">\(A\)</span> conditioned on <span class="math inline">\(B\)</span>”.</p>
 <div id="exr-conditional-die" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.8</strong></span> Suppose we roll a fair six-sided die (a fair die means that all outcomes are equally likely). Consider the events <span class="math inline">\(A\)</span> that the outcome is prime and <span class="math inline">\(B\)</span> that the outcome is a multiple of <span class="math inline">\(3\)</span>. Compute <span class="math inline">\(\PR(A | B)\)</span> and <span class="math inline">\(\PR(B | A)\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 1.7</strong></span> Suppose we roll a fair six-sided die (a fair die means that all outcomes are equally likely). Consider the events <span class="math inline">\(A\)</span> that the outcome is prime and <span class="math inline">\(B\)</span> that the outcome is a multiple of <span class="math inline">\(3\)</span>. Compute <span class="math inline">\(\PR(A | B)\)</span> and <span class="math inline">\(\PR(B | A)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
@@ -1034,7 +1062,7 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 </div>
 </div>
 <div id="exr-conditional-two-dice" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.9</strong></span> Suppose we roll two fair six-sided dice. Consider the event <span class="math inline">\(A\)</span> that the maximum of the two rolls is less than or equal to <span class="math inline">\(8\)</span> and the event <span class="math inline">\(B\)</span> that the minimum of the two rolls is greater than or equal to <span class="math inline">\(6\)</span>. Compute <span class="math inline">\(\PR(A|B)\)</span> and <span class="math inline">\(\PR(B|A)\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 1.8</strong></span> Suppose we roll two fair six-sided dice. Consider the event <span class="math inline">\(A\)</span> that the sum of the two rolls is less than or equal to <span class="math inline">\(8\)</span> and the event <span class="math inline">\(B\)</span> that the sum of the two rolls is greater than or equal to <span class="math inline">\(6\)</span>. Compute <span class="math inline">\(\PR(A|B)\)</span> and <span class="math inline">\(\PR(B|A)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
@@ -1055,7 +1083,7 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 <img src="figures/svg/dice-rolls1.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-conditional-two-roll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.4: The different events in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;<span>1.9</span></a>
+Figure&nbsp;1.4: The different events in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;<span>1.8</span></a>
 </figcaption>
 </figure>
 </div>
@@ -1096,7 +1124,7 @@ Figure&nbsp;1.4: The different events in <a href="#exr-conditional-two-dice" cla
 </div>
 </div>
 <div id="exr-conditional-prob" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.10</strong></span> Given an event <span class="math inline">\(B\)</span> with <span class="math inline">\(\PR(B) &gt; 0\)</span>, show that</p>
+<p><span class="theorem-title"><strong>Exercise 1.9</strong></span> Given an event <span class="math inline">\(B\)</span> with <span class="math inline">\(\PR(B) &gt; 0\)</span>, show that</p>
 <ul>
 <li><span class="math inline">\(\PR(A^c | B) = 1 - \PR(A|B)\)</span>.</li>
 <li><span class="math inline">\(\PR(A_1 \cup A_2 | B) = \PR(A_1 | B) + \PR(A_2 | B) - \PR(A_1 \cap A_2 | B)\)</span>.</li>
@@ -1110,9 +1138,17 @@ Figure&nbsp;1.4: The different events in <a href="#exr-conditional-two-dice" cla
 <li>If <span class="math inline">\(\PR(B) &gt; 0\)</span>, then <span class="math inline">\(\PR(A \cap B) = \PR(A | B) \PR(B)\)</span>.</li>
 <li>If <span class="math inline">\(\PR(A) &gt; 0\)</span>, then <span class="math inline">\(\PR(A \cap B) = \PR(B | A) \PR(A)\)</span>.</li>
 </ul>
+<p>More generally, let <span class="math inline">\(A_1, A_2, \ldots, A_n\)</span> be events such that <span class="math inline">\(\PR(A_1 \cap \cdots \cap A_k) &gt; 0\)</span> for every <span class="math inline">\(k \in \{1,\ldots,n-1\}\)</span>. Then <span class="math display">\[
+\PR(A_1 \cap A_2 \cap \cdots \cap A_n)
+= \PR(A_1)\,
+  \PR(A_2 \mid A_1)\,
+  \PR(A_3 \mid A_1 \cap A_2)\,
+  \cdots\,
+  \PR(A_n \mid A_1 \cap A_2 \cap \cdots \cap A_{n-1}).
+\]</span></p>
 </div>
 <div id="exr-de-morgan" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.11</strong></span> Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> and events <span class="math inline">\(A, B, C \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(B^c \cap C^c) &gt; 0\)</span> and <span class="math inline">\(\PR(C^c) &gt; 0\)</span>. Prove that <span class="math display">\[
+<p><span class="theorem-title"><strong>Exercise 1.10</strong></span> Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> and events <span class="math inline">\(A, B, C \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(B^c \cap C^c) &gt; 0\)</span> and <span class="math inline">\(\PR(C^c) &gt; 0\)</span>. Prove that <span class="math display">\[
   \PR(A \cup B \cup C) = 1 - \PR(A^c \mid B^c \cap C^c) \PR(B^c \mid C^c) \PR(C^c).
 \]</span></p>
 <p><em>Hint</em>: Apply De Morgan’s law and the chain rule (<a href="#lem-chain-rule" class="quarto-xref">Lemma&nbsp;<span>1.2</span></a>).</p>
@@ -1157,7 +1193,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 </div>
 </div>
 <div id="exr-total-probability" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.12</strong></span> There are two routes for a packet to be transmitted from a source to the destination.</p>
+<p><span class="theorem-title"><strong>Exercise 1.11</strong></span> There are two routes for a packet to be transmitted from a source to the destination.</p>
 <ul>
 <li>The packet takes route <span class="math inline">\(R_1\)</span> with probability <span class="math inline">\(\frac 34\)</span> and takes route <span class="math inline">\(R_2\)</span> with probability <span class="math inline">\(\frac 14\)</span>.</li>
 <li>On route <span class="math inline">\(R_1\)</span>, the packet is dropped with probability <span class="math inline">\(\frac 13\)</span>.</li>
@@ -1203,7 +1239,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 \]</span> where we have used the law of total probability (<a href="#lem-total-probability" class="quarto-xref">Lemma&nbsp;<span>1.3</span></a>) in the denominator.</p>
 </div>
 <div id="exr-routing" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.13</strong></span> Consider the model of <a href="#exr-total-probability" class="quarto-xref">Exercise&nbsp;<span>1.12</span></a>. Suppose we know that the packet was dropped. What is the probability that it was transmitted via route <span class="math inline">\(R_1\)</span>?</p>
+<p><span class="theorem-title"><strong>Exercise 1.12</strong></span> Consider the model of <a href="#exr-total-probability" class="quarto-xref">Exercise&nbsp;<span>1.11</span></a>. Suppose we know that the packet was dropped. What is the probability that it was transmitted via route <span class="math inline">\(R_1\)</span>?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
@@ -1217,7 +1253,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Recall the events <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span>, and <span class="math inline">\(D\)</span> defined in the solution of <a href="#exr-total-probability" class="quarto-xref">Exercise&nbsp;<span>1.12</span></a>. We were given that <span class="math display">\[\PR(R_1) = \frac 34, \quad \PR(R_2) = \frac 14, \quad
+<p>Recall the events <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span>, and <span class="math inline">\(D\)</span> defined in the solution of <a href="#exr-total-probability" class="quarto-xref">Exercise&nbsp;<span>1.11</span></a>. We were given that <span class="math display">\[\PR(R_1) = \frac 34, \quad \PR(R_2) = \frac 14, \quad
 \PR(D|R_1) = \frac 13, \quad \PR(D|R_2) = \frac 14.\]</span> We had computed that <span class="math display">\[
 \PR(D) = 1 - \PR(D^c) = \frac 5{16}.
 \]</span></p>
@@ -1229,7 +1265,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 </div>
 </div>
 <div id="exr-sensors" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.14</strong></span> An object is present at a location with probability <span class="math inline">\(p\)</span>. Two sensors operate independently. If the object is present, sensor <span class="math inline">\(i\)</span> detects it with probability <span class="math inline">\(d_i\)</span>; if absent, neither sensor detects it. If both sensors fail to detect the object, what is the probability that it is present?</p>
+<p><span class="theorem-title"><strong>Exercise 1.13</strong></span> An object is present at a location with probability <span class="math inline">\(p\)</span>. Conditional on whether the object is present or absent, the detection events of the two sensors are independent. If the object is present, sensor <span class="math inline">\(i\)</span> detects it with probability <span class="math inline">\(d_i\)</span>; if the object is absent, neither sensor detects it. If both sensors fail to detect the object, what is the probability that it is present?</p>
 </div></li>
 </ol>
 </section>
@@ -1242,19 +1278,19 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 \PR(A|B) = \PR(A)
 \quad\text{or}\quad
 \PR(B|A) = \PR(B).
-\]</span> An alternative but equivalent definition is <span class="math display">\[
+\]</span> The above definition is valid only if <span class="math inline">\(\PR(B) &gt; 0\)</span> or <span class="math inline">\(\PR(A) &gt; 0\)</span>. An alternative but equivalent definition which does not require this condition is <span class="math display">\[
 \PR(A \cap B) = \PR(A) \PR(B).
 \]</span></p>
 <p>We will use the notation <span class="math inline">\(A \independent B\)</span> to denote that the events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent.</p>
 </div>
 <div id="exm-independence-die" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1.7</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-die" class="quarto-xref">Exercise&nbsp;<span>1.8</span></a> are independent.</p>
+<p><span class="theorem-title"><strong>Example 1.8</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-die" class="quarto-xref">Exercise&nbsp;<span>1.7</span></a> are independent.</p>
 </div>
 <div id="exm-independence-two-dice" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1.8</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;<span>1.9</span></a> are <strong>not</strong> independent.</p>
+<p><span class="theorem-title"><strong>Example 1.9</strong></span> The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> defined in <a href="#exr-conditional-two-dice" class="quarto-xref">Exercise&nbsp;<span>1.8</span></a> are <strong>not</strong> independent.</p>
 </div>
 <div id="exr-independence-sigma-algebra" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.15</strong></span> Show that <span class="math inline">\(A \independent B\)</span> implies the following:</p>
+<p><span class="theorem-title"><strong>Exercise 1.14</strong></span> Show that <span class="math inline">\(A \independent B\)</span> implies the following:</p>
 <ul>
 <li><span class="math inline">\(A \independent B^c\)</span>.</li>
 <li><span class="math inline">\(A^c \independent B\)</span>.</li>
@@ -1262,7 +1298,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 </ul>
 </div>
 <div id="exr-independence-union" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.16</strong></span> Let <span class="math inline">\(A\)</span>, <span class="math inline">\(B_1\)</span>, and <span class="math inline">\(B_2\)</span> be events such that <span class="math inline">\(A \independent B_1\)</span>, <span class="math inline">\(A \independent B_2\)</span>, and <span class="math inline">\(A \independent (B_1 \cap B_2)\)</span>. Show that <span class="math inline">\(A \independent (B_1 \cup B_2)\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 1.15</strong></span> Let <span class="math inline">\(A\)</span>, <span class="math inline">\(B_1\)</span>, and <span class="math inline">\(B_2\)</span> be events such that <span class="math inline">\(A \independent B_1\)</span>, <span class="math inline">\(A \independent B_2\)</span>, and <span class="math inline">\(A \independent (B_1 \cap B_2)\)</span>. Show that <span class="math inline">\(A \independent (B_1 \cup B_2)\)</span>.</p>
 </div></li>
 <li><p>Independence is what separates probability theory from the more general measure theory.</p></li>
 <li><div class="callout callout-style-simple callout-warning">
@@ -1289,7 +1325,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 <ol type="1">
 <li><p>Two sub-<span class="math inline">\(σ\)</span>-algebras <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> of <span class="math inline">\(\ALPHABET F\)</span> are said to be independent if every event <span class="math inline">\(A_1 \in \ALPHABET F_1\)</span> is independent of every event <span class="math inline">\(A_2 \in \ALPHABET F_2\)</span>.</p></li>
 <li><p>For any event <span class="math inline">\(A\)</span>, let <span class="math inline">\(σ(A)\)</span> denote the smallest <span class="math inline">\(σ\)</span>-algebra containing <span class="math inline">\(A\)</span>, i.e., <span class="math inline">\(σ(A) = \{\emptyset, A, A^c, Ω\}\)</span>.</p></li>
-<li><p><a href="#exr-independence-sigma-algebra" class="quarto-xref">Exercise&nbsp;<span>1.15</span></a> implies that independence of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> implies the independence of <span class="math inline">\(σ(A)\)</span> and <span class="math inline">\(σ(B)\)</span>. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest <span class="math inline">\(σ\)</span>-algebra containing those events.</p></li>
+<li><p><a href="#exr-independence-sigma-algebra" class="quarto-xref">Exercise&nbsp;<span>1.14</span></a> implies that independence of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> implies the independence of <span class="math inline">\(σ(A)\)</span> and <span class="math inline">\(σ(B)\)</span>. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest <span class="math inline">\(σ\)</span>-algebra containing those events.</p></li>
 </ol>
 </div>
 </div></li>
@@ -1300,7 +1336,7 @@ A = A \cap (B \cup B^c) = (A \cap B) \cup (A \cap B^c).
 \]</span></p>
 </div>
 <div id="exr-bits" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.17</strong></span> Three bits are transmitted over a noisy channel. For each bit, the probability of correct reception is <span class="math inline">\(λ\)</span>. The error events for the three transmissions are mutually independent. Find the probability that two bits are received correctly.</p>
+<p><span class="theorem-title"><strong>Exercise 1.16</strong></span> Three bits are transmitted over a noisy channel. For each bit, the probability of correct reception is <span class="math inline">\(λ\)</span>. The error events for the three transmissions are mutually independent. Find the probability that two bits are received correctly.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
@@ -1379,18 +1415,29 @@ S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3)
 <section id="product-spaces" class="level2" data-number="1.8">
 <h2 data-number="1.8" class="anchored" data-anchor-id="product-spaces"><span class="header-section-number">1.8</span> Product spaces</h2>
 <ol type="1">
-<li><p>So far, we have restricted attention to the outcome of one experiment. It is also possible to construct probability models which combine the outcome of two <em>independent</em> experiments, e.g., suppose we toss a coin and also roll a die. Let <span class="math inline">\((Ω_1, \ALPHABET F_1, \PR_1)\)</span> and <span class="math inline">\((Ω_2, \ALPHABET F_2, \PR_2)\)</span> be the probability spaces associated with the two experiments. What is the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> of the joint experiment?</p></li>
-<li><p>The sample space should obviously be <span class="math inline">\(Ω = Ω_1 \times Ω_2\)</span>. When <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> are finite, then we can simply define <span class="math inline">\(\ALPHABET F = \ALPHABET F_1 \times \ALPHABET F_2\)</span> and for any <span class="math inline">\(A = A_1 \times A_2 \in \ALPHABET F\)</span>, <span class="math inline">\(\PR(A)\)</span> to be <span class="math inline">\(\PR_1(A_1) \PR_2(A_2)\)</span>. Note that <span class="math inline">\(\PR(Ω) = \PR_1(Ω_1)\PR_2(Ω_2) = 1\)</span>, thus <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> is a valid probability space. This space is called <strong>direct product</strong> of probability spaces <span class="math inline">\((Ω_1, \ALPHABET F_1, \PR_1)\)</span> and <span class="math inline">\((Ω_2, \ALPHABET F_2, \PR_2)\)</span>.</p></li>
-<li><p>You would have implicitly constructed such product spaces when dealing with joint experiments (like the coin toss and die roll example above) in your undergrad courses. Such constructions were correct because of the following.</p></li>
-<li><p>Given <span class="math inline">\(A_1 \in \ALPHABET F_1\)</span> and <span class="math inline">\(A_2 \in \ALPHABET F_2\)</span>, define the events <span class="math display">\[
+<li><p>So far, we have restricted attention to the outcome of one experiment. It is also possible to construct a probability model that combines the outcomes of two <em>independent</em> experiments. For example, suppose we toss a coin and also roll a die. Let <span class="math inline">\((Ω_1, \ALPHABET F_1, \PR_1)\)</span> and <span class="math inline">\((Ω_2, \ALPHABET F_2, \PR_2)\)</span> be the probability spaces associated with the two experiments. What is the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> of the joint experiment?</p></li>
+<li><p>The sample space of the joint experiment is <span class="math inline">\(Ω = Ω_1 \times Ω_2\)</span>. For any <span class="math inline">\(A_1 \in \ALPHABET F_1\)</span> and <span class="math inline">\(A_2 \in \ALPHABET F_2\)</span>, the subset <span class="math inline">\(A_1 \times A_2\)</span> of <span class="math inline">\(Ω\)</span> is called a <strong>measurable rectangle</strong>. The collection of measurable rectangles is generally not a <span class="math inline">\(σ\)</span>-algebra: for example, a union of two rectangles need not itself be a rectangle. We therefore define the <strong>product <span class="math inline">\(σ\)</span>-algebra</strong> by <span class="math display">\[
+\ALPHABET F_1 \otimes \ALPHABET F_2
+= σ\left(\{A_1 \times A_2 : A_1 \in \ALPHABET F_1,\ A_2 \in \ALPHABET F_2\}\right).
+\]</span></p></li>
+<li><p>The <strong>product probability measure</strong> <span class="math inline">\(\PR_1 \otimes \PR_2\)</span> is the probability measure on <span class="math inline">\((Ω_1 \times Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2)\)</span> characterized by <span class="math display">\[
+(\PR_1 \otimes \PR_2)(A_1 \times A_2)
+= \PR_1(A_1)\PR_2(A_2),
+\qquad A_1 \in \ALPHABET F_1,\ A_2 \in \ALPHABET F_2.
+\]</span> It can be shown that this prescription extends uniquely from measurable rectangles to the entire product <span class="math inline">\(σ\)</span>-algebra. The resulting probability space is called the <strong>product</strong> of <span class="math inline">\((Ω_1, \ALPHABET F_1, \PR_1)\)</span> and <span class="math inline">\((Ω_2, \ALPHABET F_2, \PR_2)\)</span> and is written as <span class="math display">\[
+(Ω, \ALPHABET F, \PR)
+= (Ω_1 \times Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2, \PR_1 \otimes \PR_2).
+\]</span></p>
+<p>In the familiar finite case where <span class="math inline">\(\ALPHABET F_i = 2^{Ω_i}\)</span>, the product <span class="math inline">\(σ\)</span>-algebra is <span class="math inline">\(2^{Ω_1 \times Ω_2}\)</span>. Thus, the probability of an arbitrary event is obtained by summing the probabilities of the individual outcomes that it contains.</p></li>
+<li><p>Given <span class="math inline">\(A_1 \in \ALPHABET F_1\)</span> and <span class="math inline">\(A_2 \in \ALPHABET F_2\)</span>, define the coordinate events <span class="math display">\[
    B_1 = \{ ω  = (ω_1, ω_2) \in Ω : ω_1 \in A_1 \}
    \quad\text{and}\quad
    B_2 = \{ ω  = (ω_1, ω_2) \in Ω : ω_2 \in A_2 \}.
 \]</span> Then, <span class="math display">\[
    \PR(B_1 \cap B_2) = \PR_1(A_1) \PR_2(A_2) = \PR(B_1) \PR(B_2).
-\]</span> Thus, events <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> are independent.</p>
+\]</span> Thus, events determined by the first coordinate are independent of events determined by the second coordinate. This is precisely how the product probability measure models the independence of the two experiments.</p>
 <div id="exr-coin-tosses" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 1.18</strong></span> A fair coin is tossed <span class="math inline">\(n\)</span> times; the tosses are mutually independent. Find the probability that:</p>
+<p><span class="theorem-title"><strong>Exercise 1.17</strong></span> A fair coin is tossed <span class="math inline">\(n\)</span> times; the tosses are mutually independent. Find the probability that:</p>
 <ul>
 <li>a head appears for the first time on the <span class="math inline">\(n\)</span>-th toss;</li>
 <li>the number of heads so far equals the number of tails;</li>
@@ -1398,10 +1445,8 @@ S = (C_1 \cap C_2 \cap E_3) \cup (C_1 \cap E_2 \cap C_3)
 <li>at least two heads have appeared so far.</li>
 </ul>
 </div></li>
-<li><p>It is a bit more complicated when <span class="math inline">\(\ALPHABET F_1\)</span> and <span class="math inline">\(\ALPHABET F_2\)</span> are not finite. The difficulty is that <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> is not a <span class="math inline">\(σ\)</span>-algebra. So, take <span class="math inline">\(\ALPHABET F\)</span> to be <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (which is the smallest <span class="math inline">\(σ\)</span>-algebra containing <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span>) and define <span class="math inline">\(\PR\)</span> to be the extension of <span class="math inline">\(\PR_1 \times \PR_2\)</span> from <span class="math inline">\(\ALPHABET F_1 \times \ALPHABET F_2\)</span> to <span class="math inline">\(σ(\ALPHABET F_1 \times \ALPHABET F_2)\)</span> (one can show that such an extension exists). Such product space is often written as <span class="math display">\[
-(Ω, \ALPHABET F, \PR) = (Ω_1 \times Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2, \PR_1 \otimes \PR_2). \]</span></p></li>
+<li><p>We will not worry about the measure-theoretic details of the extension from rectangles to the product <span class="math inline">\(σ\)</span>-algebra, but will use product probability spaces throughout the course when combining independent random experiments.</p></li>
 </ol>
-<p>We will not worry too much about the technical details of such product spaces, but will use the above notation at times in the course.</p>
 </section>
 <section id="notes" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="notes">Notes</h2>

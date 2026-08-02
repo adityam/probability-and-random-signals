@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-06-09">
+<meta name="dcterms.date" content="2026-08-02">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>8&nbsp; Convergence of random variables – Probability and Random Signals II</title>
@@ -15,10 +15,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -79,14 +82,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-637ebb88e1656ed7fefddcbc2ac457b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-26d5227c5f84a95820e04791e0f38fae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-637ebb88e1656ed7fefddcbc2ac457b6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-0183313eb70119bc43db73366798b6f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -188,7 +191,7 @@ window.MathJax = {
 <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -552,7 +555,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 9, 2026</p>
+      <p class="date">August 2, 2026</p>
     </div>
   </div>
   
@@ -689,7 +692,7 @@ X_n(ω) = \begin{cases}
 A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
 \]</span> Then, <span class="math inline">\(\{A_n\}_{n \ge 1}\)</span> is a decreasing sequence of events. If <span class="math inline">\(ω \in \bigcap_{n \ge 1} A_n\)</span>, then <span class="math inline">\(X_n(ω) \not\xrightarrow{a.s} X(ω)\)</span>. This implies <span class="math display">\[\PR\Bigl( \bigcap_{n \ge 1} A_n \Bigr) \le
   \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞}X_n(ω) \neq X(ω) \Bigr\}\Bigr)
-= 0. \]</span> By continuity of probability, <span class="math display">\[
+= 0. \]</span> By <a href="./probability-spaces.html#lem-probability-properties">continuity of probability</a>, <span class="math display">\[
 \lim_{n \to ∞} \PR(A_n) = \PR\Bigl( \lim_{n \to ∞} A_n \Bigr) = 0.
 \]</span></p>
 </div>
@@ -1064,7 +1067,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Explanation adapted from math.stackexchange [<a href="https://math.stackexchange.com/a/1912079/763">1</a>] and [<a href="https://math.stackexchange.com/a/4080796/763">2</a>]</p>
+<p>We expand on the discussion of limits of sets presented <a href="./probability-spaces.html#set-limits">earlier</a>.</p>
 <p>Limits of sets is easy to describe when we have weakly increasing or weakly decreasing sequence of sets. In particular, if <span class="math inline">\(\{C_n\}_{n \ge 1}\)</span> is a <strong>weakly increasing</strong> sequence of sets, then <span class="math display">\[
 \lim_{n \to ∞} C_n = \bigcup_{n=1}^{∞} C_n.
 \]</span> Thus, the limit is the union of all sets. Moreover, if <span class="math inline">\(\{D_n\}_{n \ge 1}\)</span> is <strong>weakly decreasing</strong> sequence of sets, then <span class="math display">\[
@@ -1128,6 +1131,7 @@ D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
 \]</span> then the probability that infinitely many of them occur is zero, i.e., <span class="math display">\[
   \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 0.
 \]</span></p>
+<p><span class="text-muted">Explanation adapted from math.stackexchange [<a href="https://math.stackexchange.com/a/1912079/763">1</a>] and [<a href="https://math.stackexchange.com/a/40A80796/763">2</a>]</span></p>
 </div>
 <p>There is a partial converse of Borel-Cantelli lemma.</p>
 <div id="lem-Borel-Cantelli-2" class="theorem lemma">
