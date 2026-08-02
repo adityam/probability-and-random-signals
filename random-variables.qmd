@@ -494,7 +494,7 @@ g(x) = \begin{cases}
   0 & \hbox{otherwise}
 \end{cases}
 $$
-Define $Y = g(X)$. Find $F_Y(y)$ and $f_Y(y)$.
+Define $Y = g(X)$. Find $F_Y(y)$. Does $Y$ have a PDF?
 
 ```{ojs}
 //| output: false
@@ -526,6 +526,39 @@ Plot.plot({
   ]
 })
 ```
+:::
+
+:::{.callout-note collapse="false"}
+### Solution
+
+The range of $g$ is $[0,1]$. Therefore, $F_Y(y)=0$ for $y<0$ and $F_Y(y)=1$ for $y\geq 1$.
+
+Now consider $0 \leq y<1$. Except for endpoints, which have probability zero, the event $\{Y\leq y\}$ occurs when either $X\leq y$ or $X\geq 4-y$. Hence,
+\begin{align*}
+F_Y(y)
+&= \PR(X\leq y)+\PR(X\geq 4-y) \\
+&= \frac{y}{4}+\frac{y}{4}
+= \frac{y}{2}.
+\end{align*}
+Thus,
+$$
+F_Y(y)=
+\begin{cases}
+0, & y<0,\\
+\dfrac{y}{2}, & 0\leq y<1,\\
+1, & y\geq1.
+\end{cases}
+$$
+
+The CDF has a jump of size $1/2$ at $y=1$, so
+$$
+\PR(Y=1)=F_Y(1)-F_Y(1^-)=\frac12.
+$$
+This atom arises because $g(x)=1$ for $x\in(1,3)$, an interval having probability $1/2$. On $(0,1)$, the continuous component has density
+$$
+f_Y(y)=\frac12, \qquad 0<y<1.
+$$
+The density integrates to $1/2$; the remaining probability mass $1/2$ is concentrated at $y=1$. Thus, $Y$ has a mixed distribution and cannot be described by an ordinary PDF alone.
 :::
 
 :::{#exm-transformation-Gaussian}
