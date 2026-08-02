@@ -6,3 +6,5 @@
 *.log
 *.pgf
 .jupyter_cache/
+
+**/*.quarto_ipynb
