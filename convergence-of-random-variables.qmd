@@ -117,7 +117,7 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
    $$\PR\Bigl( \bigcap_{n \ge 1} A_n \Bigr) \le 
      \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞}X_n(ω) \neq X(ω) \Bigr\}\Bigr)
    = 0. $$
-   By continuity of probability, 
+   By [continuity of probability](probability-spaces.qmd#lem-probability-properties), 
    $$
    \lim_{n \to ∞} \PR(A_n) = \PR\Bigl( \lim_{n \to ∞} A_n \Bigr) = 0.
    $$
@@ -514,9 +514,7 @@ Hence, $Y_n \xrightarrow{m.s.} 0$.
 :::{.callout-warning collapse="false"}
 ### Lim inf and lim sup of sets
 
-Explanation adapted from math.stackexchange
-[[1](https://math.stackexchange.com/a/1912079/763)]
-and [[2](https://math.stackexchange.com/a/4080796/763)]
+We expand on the discussion of limits of sets presented [earlier](probability-spaces.qmd#set-limits).
 
 Limits of sets is easy to describe when we have weakly increasing or weakly decreasing sequence of sets. In particular, if $\{C_n\}_{n \ge 1}$ is a **weakly increasing** sequence of sets, then 
 $$
@@ -605,6 +603,12 @@ then the probability that infinitely many of them occur is zero, i.e.,
 $$
   \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 0.
 $$
+
+
+[Explanation adapted from math.stackexchange
+[[1](https://math.stackexchange.com/a/1912079/763)]
+and [[2](https://math.stackexchange.com/a/40A80796/763)]]{.text-muted}
+
 :::
 
 There is a partial converse of Borel-Cantelli lemma.
