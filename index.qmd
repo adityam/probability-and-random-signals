@@ -45,15 +45,15 @@ Communication
 | 1    | [Probability spaces, algebra of events, axioms of probability](probability-spaces.qmd) |
 | 2    | [Random variables](random-variables.qmd) | 
 | 3    | [Random vectors](random-vectors.qmd) | 
-| 4    | [Conditional probability and conditional expectation](conditional-expectation.qmd) |
-| 5    | [Moment generating functions and sums of random variables](moment-generating-functions.qmd) |
+| 4    | [Covariance of random vectors](random-vectors.qmd#covariance-of-random-vectors); [conditional probability and conditional expectation](conditional-expectation.qmd) |
+| 5    | [MMSE estimation](conditional-expectation.qmd#MMSE); [conditional distributions for Gaussian random vectors](conditional-expectation-gaussian.qmd) |
 | 6    | [Probability inequalities](inequalities.qmd) |
 | 7    | Review and Mid-Term | 
 | 8    | [Convergence of random variables and the strong law of large numbers](convergence-of-random-variables.qmd) | 
 | 9    | [Markov chains](markov-chains.qmd) | 
 | 10   | Markov chains (continued) | 
 | 11   | [Stochastic processes](stochastic-processes.qmd) |
-| 12   | [Gaussian processes](gaussian-processes.qmd) and [minimum mean squared error estimation](conditional-expectation-gaussian.qmd) | 
+| 12   | [Gaussian processes](gaussian-processes.qmd) |
 | 13   | Wide sense stationary processes | 
 
 : {tbl-colwidths="[10,90]" .striped}
@@ -136,4 +136,3 @@ The course is taught in a “chalk and board” style; there will be no PowerPoi
 [evaluations]: https://www.mcgill.ca/mercury/
 
 [OSD]: https://www.mcgill.ca/access-achieve/
-
