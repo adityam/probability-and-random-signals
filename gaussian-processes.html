@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2026-08-03">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>11&nbsp; Gaussian processes – Probability and Random Signals II</title>
+<title>12&nbsp; Gaussian processes – Probability and Random Signals II</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -416,7 +416,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./gaussian-processes.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./gaussian-processes.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gaussian processes</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -454,50 +454,56 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  <a href="./gaussian-random-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gaussian random vectors</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conditional-expectation-gaussian.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></span></a>
+  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mmse-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stochastic-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./markov-chains.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gaussian-processes.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
   </div>
 </li>
     </ul>
@@ -510,16 +516,16 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#gaussian-processes" id="toc-gaussian-processes" class="nav-link active" data-scroll-target="#gaussian-processes"><span class="header-section-number">11.1</span> Gaussian processes</a></li>
-  <li><a href="#properties-of-covariance-functions" id="toc-properties-of-covariance-functions" class="nav-link" data-scroll-target="#properties-of-covariance-functions"><span class="header-section-number">11.2</span> Properties of covariance functions</a></li>
-  <li><a href="#examples-of-gaussian-processes" id="toc-examples-of-gaussian-processes" class="nav-link" data-scroll-target="#examples-of-gaussian-processes"><span class="header-section-number">11.3</span> Examples of Gaussian processes</a></li>
-  <li><a href="#jointly-gaussian-stochastic-processes" id="toc-jointly-gaussian-stochastic-processes" class="nav-link" data-scroll-target="#jointly-gaussian-stochastic-processes"><span class="header-section-number">11.4</span> Jointly Gaussian stochastic processes</a></li>
-  <li><a href="#review-of-discrete-time-lti-systems" id="toc-review-of-discrete-time-lti-systems" class="nav-link" data-scroll-target="#review-of-discrete-time-lti-systems"><span class="header-section-number">11.5</span> Review of discrete-time LTI systems</a></li>
-  <li><a href="#complex-valued-random-variables-and-processes" id="toc-complex-valued-random-variables-and-processes" class="nav-link" data-scroll-target="#complex-valued-random-variables-and-processes"><span class="header-section-number">11.6</span> Complex-valued random variables and processes</a></li>
-  <li><a href="#stationary-gaussian-processes-through-lti-systems" id="toc-stationary-gaussian-processes-through-lti-systems" class="nav-link" data-scroll-target="#stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.7</span> Stationary Gaussian processes through LTI systems</a></li>
-  <li><a href="#power-spectral-density" id="toc-power-spectral-density" class="nav-link" data-scroll-target="#power-spectral-density"><span class="header-section-number">11.8</span> Power spectral density</a></li>
-  <li><a href="#note-on-non-gaussian-processes" id="toc-note-on-non-gaussian-processes" class="nav-link" data-scroll-target="#note-on-non-gaussian-processes"><span class="header-section-number">11.9</span> Note on non-Gaussian processes</a></li>
-  <li><a href="#weiner-filtering" id="toc-weiner-filtering" class="nav-link" data-scroll-target="#weiner-filtering"><span class="header-section-number">11.10</span> Weiner filtering</a></li>
+  <li><a href="#gaussian-processes" id="toc-gaussian-processes" class="nav-link active" data-scroll-target="#gaussian-processes"><span class="header-section-number">12.1</span> Gaussian processes</a></li>
+  <li><a href="#properties-of-covariance-functions" id="toc-properties-of-covariance-functions" class="nav-link" data-scroll-target="#properties-of-covariance-functions"><span class="header-section-number">12.2</span> Properties of covariance functions</a></li>
+  <li><a href="#examples-of-gaussian-processes" id="toc-examples-of-gaussian-processes" class="nav-link" data-scroll-target="#examples-of-gaussian-processes"><span class="header-section-number">12.3</span> Examples of Gaussian processes</a></li>
+  <li><a href="#jointly-gaussian-stochastic-processes" id="toc-jointly-gaussian-stochastic-processes" class="nav-link" data-scroll-target="#jointly-gaussian-stochastic-processes"><span class="header-section-number">12.4</span> Jointly Gaussian stochastic processes</a></li>
+  <li><a href="#review-of-discrete-time-lti-systems" id="toc-review-of-discrete-time-lti-systems" class="nav-link" data-scroll-target="#review-of-discrete-time-lti-systems"><span class="header-section-number">12.5</span> Review of discrete-time LTI systems</a></li>
+  <li><a href="#complex-valued-random-variables-and-processes" id="toc-complex-valued-random-variables-and-processes" class="nav-link" data-scroll-target="#complex-valued-random-variables-and-processes"><span class="header-section-number">12.6</span> Complex-valued random variables and processes</a></li>
+  <li><a href="#stationary-gaussian-processes-through-lti-systems" id="toc-stationary-gaussian-processes-through-lti-systems" class="nav-link" data-scroll-target="#stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">12.7</span> Stationary Gaussian processes through LTI systems</a></li>
+  <li><a href="#power-spectral-density" id="toc-power-spectral-density" class="nav-link" data-scroll-target="#power-spectral-density"><span class="header-section-number">12.8</span> Power spectral density</a></li>
+  <li><a href="#note-on-non-gaussian-processes" id="toc-note-on-non-gaussian-processes" class="nav-link" data-scroll-target="#note-on-non-gaussian-processes"><span class="header-section-number">12.9</span> Note on non-Gaussian processes</a></li>
+  <li><a href="#weiner-filtering" id="toc-weiner-filtering" class="nav-link" data-scroll-target="#weiner-filtering"><span class="header-section-number">12.10</span> Weiner filtering</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/gaussian-processes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -530,7 +536,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gaussian processes</span></h1>
 </div>
 
 
@@ -568,8 +574,8 @@ window.Quarto = {
 </header>
 
 
-<section id="gaussian-processes" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="gaussian-processes"><span class="header-section-number">11.1</span> Gaussian processes</h2>
+<section id="gaussian-processes" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="gaussian-processes"><span class="header-section-number">12.1</span> Gaussian processes</h2>
 <ol type="1">
 <li><p>Recall that a discrete-time stochastic process is a collection <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> of random variables defined on a common probability space where we specify the joint distribution for any collection <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> of time indices.</p></li>
 <li><p>A discrete-time stochastic process is called <strong>Gaussian</strong> if for any collection <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> of time indices, the random vector <span class="math inline">\(\{X_{n_1}, \dots, X_{n_k}\}\)</span> has a multivariate Guassian distribution.</p>
@@ -584,8 +590,8 @@ window.Quarto = {
 \]</span> An implication is that the variance of <span class="math inline">\(X_n\)</span> does not depend on <span class="math inline">\(n\)</span>.</p></li>
 </ol>
 </section>
-<section id="properties-of-covariance-functions" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="properties-of-covariance-functions"><span class="header-section-number">11.2</span> Properties of covariance functions</h2>
+<section id="properties-of-covariance-functions" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="properties-of-covariance-functions"><span class="header-section-number">12.2</span> Properties of covariance functions</h2>
 <ol type="1">
 <li><p>To fix ideas, consider three time indices <span class="math inline">\((\ell,n,m)\)</span>. Then, the random vector <span class="math inline">\(\{X_\ell, X_n, X_m\}\)</span> has a multivariate Gaussian distribution given by <span class="math display">\[
   \MATRIX{X_{\ell}\\ X_n\\ X_m} \sim \mathcal{N}\left( \MATRIX{\mu_X(\ell)\\ \mu_X(n)\\ \mu_X(m)}, \MATRIX{R_X(\ell,\ell) &amp; R_X(\ell,n) &amp; R_X(\ell,m) \\ R_X(n,\ell) &amp; R_X(n,n) &amp; R_X(n,m) \\ R_X(m,\ell) &amp; R_X(m,n) &amp; R_X(m,m)} \right)
@@ -652,8 +658,8 @@ window.Quarto = {
 <li><p>The variance function is <span class="math inline">\(R_X(n,n) = \VAR(X_n) \ge 0\)</span>.</p></li>
 </ol>
 </section>
-<section id="examples-of-gaussian-processes" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="examples-of-gaussian-processes"><span class="header-section-number">11.3</span> Examples of Gaussian processes</h2>
+<section id="examples-of-gaussian-processes" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="examples-of-gaussian-processes"><span class="header-section-number">12.3</span> Examples of Gaussian processes</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="71" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 70;"><span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co">// Standard Normal variate using Box-Muller transform.</span></span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean<span class="op">=</span><span class="dv">0</span><span class="op">,</span> stdev<span class="op">=</span><span class="dv">1</span>) {</span>
@@ -669,7 +675,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="exm-cosine-gaussian-phase" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.1 (Cosine with Gaussian amplitude)</strong></span> Consider a process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> defined as: <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 12.1 (Cosine with Gaussian amplitude)</strong></span> Consider a process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> defined as: <span class="math display">\[
 X_n = A \cos(\Omega n) + B \sin(\Omega n)
 \]</span> where <span class="math inline">\(\Omega \in \mathbb{R}\)</span> is a constant frequency, and <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent Gaussian random variables with <span class="math inline">\(A, B \sim \mathcal{N}(0, σ^2)\)</span>.</p>
 <p>A sample path of this process is shown below.</p>
@@ -763,7 +769,7 @@ R_X(m,n) = σ^2 \cos(\Omega |m-n|)
 </div>
 </div>
 <div id="exm-white-noise" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.2 (White noise process (i.i.d. Gaussian))</strong></span> A <strong>white noise process</strong> <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is a Gaussian process where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span> for some <span class="math inline">\(σ &gt; 0\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 12.2 (White noise process (i.i.d. Gaussian))</strong></span> A <strong>white noise process</strong> <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is a Gaussian process where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span> for some <span class="math inline">\(σ &gt; 0\)</span>.</p>
 <p>A sample path of white noise is shown below.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="179" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 178;"><span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>viewof rerun_white <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
@@ -842,7 +848,7 @@ R_W(m,n) = σ^2 \IND_{\{m=n\}} \quad \text{for } m, n \ge 0
 </div>
 </div>
 <div id="exm-gaussian-random-walk" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.3 (Gaussian random walk)</strong></span> A <strong>Gaussian random walk</strong> <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Gaussian process defined by: <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 12.3 (Gaussian random walk)</strong></span> A <strong>Gaussian random walk</strong> <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Gaussian process defined by: <span class="math display">\[
 X_0 = 0, \quad X_{n+1} = X_n + W_n, \quad n \ge 0
 \]</span> where <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span> for some <span class="math inline">\(σ &gt; 0\)</span>.</p>
 <p>A sample path of a Gaussian random walk is shown below.</p>
@@ -926,7 +932,7 @@ X_0 = 0, \quad X_{n+1} = X_n + W_n, \quad n \ge 0
 </div>
 </div>
 <div id="exm-AR1-process" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.4 (AR(1) process)</strong></span> An <strong>AR(1) process</strong> (also called discrete-time <strong>Ornstein-Uhlenbeck</strong> process) <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Gaussian process defined by the recursion: <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 12.4 (AR(1) process)</strong></span> An <strong>AR(1) process</strong> (also called discrete-time <strong>Ornstein-Uhlenbeck</strong> process) <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Gaussian process defined by the recursion: <span class="math display">\[
 X_{n+1} = a X_n + W_n, \quad n \ge 0
 \]</span> where <span class="math inline">\(|a| &lt; 1\)</span> and <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> is an i.i.d. sequence with <span class="math inline">\(W_n \sim \mathcal{N}(0, σ^2)\)</span>.</p>
 <p>A sample path of an AR(1) process is shown below.</p>
@@ -996,7 +1002,7 @@ X_{n+1} = a X_n + W_n, \quad n \ge 0
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>As was the case for <a href="markov-chains.html#exm-random-walk" class="quarto-xref">Example&nbsp;<span>10.6</span></a>, AR(1) processes are also Gauss Markov processes. As before, we can write recursive formulas for the mean and covariance function: <span class="math display">\[\begin{align*}
+<p>As was the case for <a href="markov-chains.html#exm-random-walk" class="quarto-xref">Example&nbsp;<span>11.6</span></a>, AR(1) processes are also Gauss Markov processes. As before, we can write recursive formulas for the mean and covariance function: <span class="math display">\[\begin{align*}
   \mu_X(n+1) &amp;= a \mu_X(n) + \EXP[W_{n+1}] = a \mu_X(n), \\
   R_X(n+1,n+1) &amp;= \EXP[ (a X_n + W_n)(a X_n + W_n)] \\
   &amp;= a^2 R_X(n,n) + \EXP[W_n^2] = a^2 R_X(n,n) + σ^2.
@@ -1028,7 +1034,7 @@ X_{m} &amp;= a X_{m-1} + W_{m-1} \\
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>From the results of <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>11.4</span></a>, observe that <span class="math display">\[
+<p>From the results of <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>12.4</span></a>, observe that <span class="math display">\[
    \lim_{n \to \infty} \mu_X(n) = 0 \quad \text{and} \quad \lim_{n \to \infty} R_X(n,n) = \frac{σ^2}{1-a^2}
 \]</span> for <span class="math inline">\(m, n \ge 0\)</span>. The above limits show that the distribution of <span class="math inline">\(X_n\)</span> converges to an invariant distribution with mean 0 and variance <span class="math inline">\(\frac{σ^2}{1-a^2}\)</span>.</p>
 <p>As was the case for Markov chains, if we start with the invariant distribution, i.e., <span class="math inline">\(X_0 \sim \mathcal{N}(0, \frac{σ^2}{1-a^2})\)</span>, the process will remain in the invariant distribution for all time because <span class="math display">\[
@@ -1179,8 +1185,8 @@ $$
 :::
 -->
 </section>
-<section id="jointly-gaussian-stochastic-processes" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="jointly-gaussian-stochastic-processes"><span class="header-section-number">11.4</span> Jointly Gaussian stochastic processes</h2>
+<section id="jointly-gaussian-stochastic-processes" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="jointly-gaussian-stochastic-processes"><span class="header-section-number">12.4</span> Jointly Gaussian stochastic processes</h2>
 <ol type="1">
 <li><p>Consider two stochastic processes defined on a common probability space: <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span>. Suppose for any collection <span class="math inline">\(\{n_1, \dots, n_k\}\)</span> of time indices, the random vector <span class="math inline">\(\{X_{n_1}, \dots, X_{n_k}, Y_{n_1}, \dots, Y_{n_k}\}\)</span> has a multivariate Gaussian distribution. Then, the processes are called <strong>jointly Gaussian</strong>.</p></li>
 <li><p>The joint process <span class="math inline">\(\{X_n, Y_n\}_{n \ge 0}\)</span> is a Gaussian process with mean <span class="math inline">\(\mu_{X,Y}(n) = \MATRIX{\mu_X(n)\\ \mu_Y(n)}\)</span> and covariance <span class="math inline">\(R_{X,Y}(n,m) = \MATRIX{R_X(n,m) &amp; R_{XY}(n,m) \\ R_{YX}(n,m) &amp; R_Y(n,m)}\)</span>.</p></li>
@@ -1189,8 +1195,8 @@ $$
 <li><p>The processes are <strong>uncorrelated</strong> if <span class="math inline">\(R_{XY}(n,m) = 0\)</span> for all <span class="math inline">\(n, m \ge 0\)</span>. Since the joint process is Gaussian, uncorrelated implies independent.</p></li>
 </ol>
 </section>
-<section id="review-of-discrete-time-lti-systems" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="review-of-discrete-time-lti-systems"><span class="header-section-number">11.5</span> Review of discrete-time LTI systems</h2>
+<section id="review-of-discrete-time-lti-systems" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="review-of-discrete-time-lti-systems"><span class="header-section-number">12.5</span> Review of discrete-time LTI systems</h2>
 <ol type="1">
 <li><p>Consider an LTI system with impulse resposnse <span class="math inline">\(\{h_k\}_{k \ge 0}\)</span>. The transfer function of the system is given by the Z-transform of the impulse response: <span class="math display">\[
 H(z) = \sum_{k=0}^∞ h_k z^{-k}
@@ -1213,8 +1219,8 @@ y_n &amp;= C x_n + D u_n
 <li><p>Similar state space representations exist for MIMO (multiple-input multiple-output) systems, where the input and output are vectors.</p></li>
 </ol>
 </section>
-<section id="complex-valued-random-variables-and-processes" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="complex-valued-random-variables-and-processes"><span class="header-section-number">11.6</span> Complex-valued random variables and processes</h2>
+<section id="complex-valued-random-variables-and-processes" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="complex-valued-random-variables-and-processes"><span class="header-section-number">12.6</span> Complex-valued random variables and processes</h2>
 <ol type="1">
 <li><p>As we shall see, when viewing random processes in frequency domain, complex-valued random variables and processes arise naturally. If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are real-valued joint random variables, then <span class="math inline">\(Z = X + jY\)</span> is a complex-valued random variable. Similarly, if <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> are real-valued joint random processes, then <span class="math inline">\(\{Z_n\}_{n \ge 0} = \{X_n + jY_n\}_{n \ge 0}\)</span> is a complex-valued random process.</p></li>
 <li><p>We can think of the joint CDF of a complex-valued random variable as <span class="math inline">\(F_Z(x + jy) = F_{X,Y}(x,y)\)</span>.</p></li>
@@ -1224,11 +1230,11 @@ y_n &amp;= C x_n + D u_n
 <li><p>The cross-covariance between two complex-valued random processes <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is conjugate symmetric, i.e., <span class="math inline">\(R_{XY}(n,m) = R_{YX}(m,n)^*\)</span>. When both processes are <strong>stationary</strong>, <span class="math inline">\(R_{XY}(n,m) = R_{XY}(n-m)\)</span>, and therefore <span class="math inline">\(R_{XY}(k) = R_{YX}(-k)^*\)</span> where <span class="math inline">\(k = n-m\)</span>.</p></li>
 </ol>
 </section>
-<section id="stationary-gaussian-processes-through-lti-systems" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">11.7</span> Stationary Gaussian processes through LTI systems</h2>
+<section id="stationary-gaussian-processes-through-lti-systems" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="stationary-gaussian-processes-through-lti-systems"><span class="header-section-number">12.7</span> Stationary Gaussian processes through LTI systems</h2>
 <ol type="1">
 <li><p>In many applications in signal processing and stochastic control, we are interested in the output of a linear system when the input is a stationary Gaussian process. There are two ways to study such systems: either in the time domain using state space models or in the frequency domain using the transfer function. For the purposes of this section, we will restrict our discussion to linear time-invariant (LTI) systems, but the main ideas can be generalized to time-varying linear systems as well.</p></li>
-<li><p>Consider <a href="#exm-gaussian-random-walk" class="quarto-xref">Example&nbsp;<span>11.3</span></a> which discussed a Gaussian random walk. The model was already presented in state space form but we can also explicitly write it as <span class="math display">\[
+<li><p>Consider <a href="#exm-gaussian-random-walk" class="quarto-xref">Example&nbsp;<span>12.3</span></a> which discussed a Gaussian random walk. The model was already presented in state space form but we can also explicitly write it as <span class="math display">\[
 \begin{align*}
 X_{n+1} &amp;= X_n + W_n \\
 Y_n &amp;= X_n
@@ -1236,14 +1242,14 @@ Y_n &amp;= X_n
 \]</span> Thus, the transfer function is given by <span class="math display">\[
 H(z) = 1 \cdot (z - 1)^{-1} \cdot 1 + 0 = \frac{1}{z - 1} = \frac{z^{-1}}{1 - z^{-1}} = \sum_{k=1}^∞ z^{-k}
 \]</span> Thus, the impulse response is given by <span class="math display">\[ h_0 = 0 \quad \text{and} \quad h_k = 1, \quad \forall k \ge 1 \]</span></p></li>
-<li><p>Similarly, consider <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>11.4</span></a> which discussed an AR(1) process. The model was already presented in state space form but we can also explicitly write it as <span class="math display">\[
+<li><p>Similarly, consider <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>12.4</span></a> which discussed an AR(1) process. The model was already presented in state space form but we can also explicitly write it as <span class="math display">\[
 \begin{align*}
 X_{n+1} &amp;= a X_n + W_n \\
 Y_n &amp;= X_n
 \end{align*}   \]</span> The transfer function is given by <span class="math display">\[
 H(z) = 1 \cdot (z - a)^{-1} \cdot 1 + 0 = \frac{1}{z - a} = \frac{z^{-1}}{1 - a z^{-1}} = \sum_{k=1}^∞ a^k z^{-k}
 \]</span> Thus, the impulse response is given by <span class="math display">\[ h_0 = 0 \quad \text{and} \quad h_k = a^{k-1}, \quad \forall k \ge 1 \]</span></p></li>
-<li><p>Thus, these two examples show the output of two LTI systems when the input is white noise. Note that the transfer function for <a href="#exm-gaussian-random-walk" class="quarto-xref">Example&nbsp;<span>11.3</span></a> is not stable (as it has a pole on the unit circle) and as a consequence the output is unstable (i.e., the marginal distribution does not converge to an invariant distribution). In contrast, the transfer function for <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>11.4</span></a> is stable (as it has all poles inside the unit circle) and as a consequence the output is stable (i.e., the marginal distribution converges to an invariant distribution).</p></li>
+<li><p>Thus, these two examples show the output of two LTI systems when the input is white noise. Note that the transfer function for <a href="#exm-gaussian-random-walk" class="quarto-xref">Example&nbsp;<span>12.3</span></a> is not stable (as it has a pole on the unit circle) and as a consequence the output is unstable (i.e., the marginal distribution does not converge to an invariant distribution). In contrast, the transfer function for <a href="#exm-AR1-process" class="quarto-xref">Example&nbsp;<span>12.4</span></a> is stable (as it has all poles inside the unit circle) and as a consequence the output is stable (i.e., the marginal distribution converges to an invariant distribution).</p></li>
 <li><p>Suppose a (complex-valued) Gaussian process <span class="math inline">\(\{X_n\}_{n ≥ 0}\)</span> is passed through an LTI system <span class="math inline">\(H(z)\)</span>. For every <span class="math inline">\(ω ∈ Ω\)</span>, the output process is given by <span class="math display">\[
 Y_n(ω) = \sum_{k=-\infty}^∞ h_k X_{n-k}(ω)
   \]</span> which is a sum of Gaussian random variables, and hence is Gaussian.</p>
@@ -1275,15 +1281,15 @@ Y_n(ω) = \sum_{k=-\infty}^∞ h_k X_{n-k}(ω)
 \]</span></p></li>
 </ol>
 </section>
-<section id="power-spectral-density" class="level2" data-number="11.8">
-<h2 data-number="11.8" class="anchored" data-anchor-id="power-spectral-density"><span class="header-section-number">11.8</span> Power spectral density</h2>
+<section id="power-spectral-density" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="power-spectral-density"><span class="header-section-number">12.8</span> Power spectral density</h2>
 <ol type="1">
 <li><p>For a stationary Gaussian process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span>, the <strong>power spectral density</strong> (PSD) <span class="math inline">\(S_X(e^{j \Omega})\)</span> is defined as the discrete-time Fourier transform (DTFT) of the auto-covariance function: <span class="math display">\[
 R_X(n) \overset{\mathcal{F}}{\longleftrightarrow} S_X(e^{j \Omega})
 \]</span> where we are implicitly assuming that the covariance function is absolutely summable, so that the Fourier transform exists.</p></li>
 <li><p>Since <span class="math inline">\(R_X\)</span> is even, <span class="math inline">\(S_X\)</span> is conjugate symmetric, i.e., <span class="math inline">\(S_X(e^{j \Omega}) = S_X(e^{-j \Omega})^*\)</span>.</p></li>
 <li><div id="exm-white-noise-psd" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.5</strong></span> Compute the power spectral density of white noise.</p>
+<p><span class="theorem-title"><strong>Example 12.5</strong></span> Compute the power spectral density of white noise.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
@@ -1304,7 +1310,7 @@ R_X(n) \overset{\mathcal{F}}{\longleftrightarrow} S_X(e^{j \Omega})
 </div>
 </div></li>
 <li><div id="exm-AR-psd" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.6</strong></span> Compute the power spectral density of an AR(1) process.</p>
+<p><span class="theorem-title"><strong>Example 12.6</strong></span> Compute the power spectral density of an AR(1) process.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
@@ -1337,12 +1343,12 @@ S_{YX}(e^{j \Omega}) = H(e^{j \Omega}) S_X(e^{j \Omega}),
 \quad
 S_Y(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_X(e^{j \Omega}).
 \end{equation}\]</span></p></li>
-<li><p>We can resolve <a href="#exm-AR-psd" class="quarto-xref">Example&nbsp;<span>11.6</span></a> using the above relationship. Recall that we showed that the AR(1) process is the output of an LTI system with transfer function <span class="math inline">\(H(z) = \frac{1}{z - a}\)</span> when the input is white noise.</p>
+<li><p>We can resolve <a href="#exm-AR-psd" class="quarto-xref">Example&nbsp;<span>12.6</span></a> using the above relationship. Recall that we showed that the AR(1) process is the output of an LTI system with transfer function <span class="math inline">\(H(z) = \frac{1}{z - a}\)</span> when the input is white noise.</p>
 <p>Note that <span class="math inline">\(H(e^{j \Omega}) = \frac{1}{e^{j \Omega} - a}\)</span>. To compute <span class="math inline">\(|H(e^{j \Omega})|^2\)</span>, we observe that <span class="math display">\[
 |e^{j \Omega} - a|^2 = |e^{j \Omega}(1 - a e^{-j \Omega})|^2 = |1 - a e^{-j \Omega}|^2 = |1 - a e^{j \Omega}|^2,
 \]</span> where the last equality follows from the fact that <span class="math inline">\(|z| = |z^*|\)</span> for any complex number <span class="math inline">\(z\)</span>. Therefore, <span class="math display">\[
 S_X(e^{j \Omega}) = |H(e^{j \Omega})|^2 S_W(e^{j \Omega}) = \frac{1}{|e^{j \Omega} - a|^2} \sigma^2 = \frac{1}{\ABS{1 - a e^{j \Omega}}^2} \sigma^2,
-\]</span> which matches the result in <a href="#exm-AR-psd" class="quarto-xref">Example&nbsp;<span>11.6</span></a>.</p></li>
+\]</span> which matches the result in <a href="#exm-AR-psd" class="quarto-xref">Example&nbsp;<span>12.6</span></a>.</p></li>
 <li><p>Note that <span class="math inline">\(\eqref{eq:psd-relationships}\)</span> gives a way to identify the impluse response of an LTI system. The simplest setting is when the input is standard white noise, in which case, <span class="math inline">\(S_{YX}(e^{j \Omega}) = H(e^{j \Omega})\)</span>. Therefore, we can identify the impulse response by first computing the cross-correlation function <span class="math display">\[
 R_{YX}(n) \approx \frac 1N \sum_{k=0}^{N-1} Y_k X_{k+n}^*
 \]</span> for some large <span class="math inline">\(N\)</span> and then taking the DTFT of the result.</p></li>
@@ -1393,8 +1399,8 @@ R_{YX}(n) \approx \frac 1N \sum_{k=0}^{N-1} Y_k X_{k+n}^*
   \end{align*}\]</span> Thus, the output is white noise.</p></li>
 </ol>
 </section>
-<section id="note-on-non-gaussian-processes" class="level2" data-number="11.9">
-<h2 data-number="11.9" class="anchored" data-anchor-id="note-on-non-gaussian-processes"><span class="header-section-number">11.9</span> Note on non-Gaussian processes</h2>
+<section id="note-on-non-gaussian-processes" class="level2" data-number="12.9">
+<h2 data-number="12.9" class="anchored" data-anchor-id="note-on-non-gaussian-processes"><span class="header-section-number">12.9</span> Note on non-Gaussian processes</h2>
 <p>Since all the properties discussed above (mean function, covariance function, linear transformations, etc.) depend only on the first two moments (mean and covariance), they apply to stochastic processes beyond Gaussian processes, as long as we restrict our attention to first and second moments.</p>
 <p>However, it is important to distinguish between two notions of stationarity:</p>
 <ol type="1">
@@ -1471,8 +1477,8 @@ d. For what values of $k$ is the correlation between $X_n$ and $X_{n+k}$ less th
 :::
 -->
 </section>
-<section id="weiner-filtering" class="level2" data-number="11.10">
-<h2 data-number="11.10" class="anchored" data-anchor-id="weiner-filtering"><span class="header-section-number">11.10</span> Weiner filtering</h2>
+<section id="weiner-filtering" class="level2" data-number="12.10">
+<h2 data-number="12.10" class="anchored" data-anchor-id="weiner-filtering"><span class="header-section-number">12.10</span> Weiner filtering</h2>
 <ol type="1">
 <li><p>Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> be jointly Gaussian. Suppose we observe the <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> process and want to design a filter with input <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> and output <span class="math inline">\(\{ \hat X_n\}_{n \ge 0}\)</span> such that <span class="math inline">\(\hat X_n\)</span> is an MMSE estimator of <span class="math inline">\(X_n\)</span>.</p></li>
 <li><p>Let <span class="math inline">\(\{h_n\}_{n \ge 0}\)</span> denote the impulse response of the filter. Ideally, <span class="math inline">\(\{h_n\}_{n \ge 0}\)</span> should be causal, but we start by considering non-causal filter</p></li>
@@ -1928,7 +1934,7 @@ window._ojs.runtime.interpretFromScriptTags();
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./markov-chains.html" class="pagination-link" aria-label="Markov chains">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Markov chains</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

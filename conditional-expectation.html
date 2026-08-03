@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2026-08-03">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>4&nbsp; Conditional probability and conditional expectation – Probability and Random Signals II</title>
+<title>5&nbsp; Conditional probability and conditional expectation – Probability and Random Signals II</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -74,8 +74,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./conditional-expectation-gaussian.html" rel="next">
-<link href="./random-vectors.html" rel="prev">
+<link href="./mmse-estimation.html" rel="next">
+<link href="./gaussian-random-vectors.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -417,7 +417,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./conditional-expectation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./conditional-expectation.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -455,50 +455,56 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  <a href="./gaussian-random-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gaussian random vectors</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conditional-expectation-gaussian.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></span></a>
+  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mmse-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stochastic-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./markov-chains.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gaussian-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
   </div>
 </li>
     </ul>
@@ -511,11 +517,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#conditioning-on-events" id="toc-conditioning-on-events" class="nav-link active" data-scroll-target="#conditioning-on-events"><span class="header-section-number">4.1</span> Conditioning on events</a></li>
-  <li><a href="#conditioning-on-finite-σ-algebras" id="toc-conditioning-on-finite-σ-algebras" class="nav-link" data-scroll-target="#conditioning-on-finite-σ-algebras"><span class="header-section-number">4.2</span> Conditioning on finite <span class="math inline">\(σ\)</span>-algebras</a></li>
-  <li><a href="#conditioning-on-finite-valued-random-variables" id="toc-conditioning-on-finite-valued-random-variables" class="nav-link" data-scroll-target="#conditioning-on-finite-valued-random-variables"><span class="header-section-number">4.3</span> Conditioning on finite-valued random variables</a></li>
-  <li><a href="#conditioning-on-continuous-random-variables" id="toc-conditioning-on-continuous-random-variables" class="nav-link" data-scroll-target="#conditioning-on-continuous-random-variables"><span class="header-section-number">4.4</span> Conditioning on continuous random variables</a></li>
-  <li><a href="#MMSE" id="toc-MMSE" class="nav-link" data-scroll-target="#MMSE"><span class="header-section-number">4.5</span> Conditional expectation as minimum mean square estimator</a></li>
+  <li><a href="#conditioning-on-events" id="toc-conditioning-on-events" class="nav-link active" data-scroll-target="#conditioning-on-events"><span class="header-section-number">5.1</span> Conditioning on events</a></li>
+  <li><a href="#conditioning-on-finite-σ-algebras" id="toc-conditioning-on-finite-σ-algebras" class="nav-link" data-scroll-target="#conditioning-on-finite-σ-algebras"><span class="header-section-number">5.2</span> Conditioning on finite <span class="math inline">\(σ\)</span>-algebras</a></li>
+  <li><a href="#conditioning-on-finite-valued-random-variables" id="toc-conditioning-on-finite-valued-random-variables" class="nav-link" data-scroll-target="#conditioning-on-finite-valued-random-variables"><span class="header-section-number">5.3</span> Conditioning on finite-valued random variables</a></li>
+  <li><a href="#conditioning-on-continuous-random-variables" id="toc-conditioning-on-continuous-random-variables" class="nav-link" data-scroll-target="#conditioning-on-continuous-random-variables"><span class="header-section-number">5.4</span> Conditioning on continuous random variables</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/conditional-expectation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -525,7 +530,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></h1>
 </div>
 
 
@@ -563,9 +568,9 @@ window.Quarto = {
 </header>
 
 
-<p>Conditional probability is perhaps the most important aspect of probability theory, because it explains how to incorporate new information into a probability model. In this lecture, we start from conditioning on events, then interpret conditioning as averaging given a finite information <span class="math inline">\(σ\)</span>-algebra, and specialize that view to finite-valued random variables. We then treat continuous random variables, where zero-probability events force a more abstract definition, and close with the interpretation of conditional expectation as the minimum mean-squared error estimator.</p>
-<section id="conditioning-on-events" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="conditioning-on-events"><span class="header-section-number">4.1</span> Conditioning on events</h2>
+<p>Conditional probability is perhaps the most important aspect of probability theory, because it explains how to incorporate new information into a probability model. In this lecture, we start from conditioning on events, then interpret conditioning as averaging given a finite information <span class="math inline">\(σ\)</span>-algebra, and specialize that view to finite-valued random variables. We then treat continuous random variables, where zero-probability events force a more abstract definition of conditional expectation and conditional density.</p>
+<section id="conditioning-on-events" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="conditioning-on-events"><span class="header-section-number">5.1</span> Conditioning on events</h2>
 <ol type="1">
 <li><p>Recall that <a href="./probability-spaces.html#conditional-probability">conditional probability for events</a> is defined as follows: given a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> and events <span class="math inline">\(A, B \in \ALPHABET F\)</span> such that <span class="math inline">\(\PR(B) &gt; 0\)</span>, we have <span class="math display">\[
 \PR(A \mid B) = \frac{\PR(A \cap B)}{\PR(B)}.
@@ -610,7 +615,7 @@ P_X(x) = \sum_{i=1}^n P_{X|C_i}(x \mid C_i) \PR(C_i).
 \]</span></p></li>
 </ol>
 <div id="exm-mixed-random-variable" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.1</strong></span> Consider the following experiment. A fair coin is tossed. If the outcome is heads, <span class="math inline">\(X\)</span> is a uniform <span class="math inline">\([0,1]\)</span> random variable. If the outcome is tails, <span class="math inline">\(X\)</span> is a <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variable. Find <span class="math inline">\(F_X(x)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 5.1</strong></span> Consider the following experiment. A fair coin is tossed. If the outcome is heads, <span class="math inline">\(X\)</span> is a uniform <span class="math inline">\([0,1]\)</span> random variable. If the outcome is tails, <span class="math inline">\(X\)</span> is a <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variable. Find <span class="math inline">\(F_X(x)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -665,7 +670,7 @@ F_X(x) =
 </div>
 </div>
 <div id="exm-geometric-memoryless" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.2 (Memoryless property of geometric random variable)</strong></span> Let <span class="math inline">\(X \sim \text{geometric}(p)\)</span> and <span class="math inline">\(m,n\)</span> be positive integers. Compute <span class="math display">\[ \PR(X &gt; n + m \mid X &gt; m). \]</span></p>
+<p><span class="theorem-title"><strong>Example 5.2 (Memoryless property of geometric random variable)</strong></span> Let <span class="math inline">\(X \sim \text{geometric}(p)\)</span> and <span class="math inline">\(m,n\)</span> be positive integers. Compute <span class="math display">\[ \PR(X &gt; n + m \mid X &gt; m). \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
@@ -698,7 +703,7 @@ P_X(k) = p (1-p)^{k-1}, \quad k \in \naturalnumbers.
 </div>
 </div>
 <div id="exm-exponential-memoryless" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.3 (Memoryless property of exponential random variable)</strong></span> Let <span class="math inline">\(X \sim \text{Exponential}(λ)\)</span> and <span class="math inline">\(t,s\)</span> be positive reals. Compute <span class="math display">\[ \PR(X &gt; t + s \mid X &gt; t). \]</span></p>
+<p><span class="theorem-title"><strong>Example 5.3 (Memoryless property of exponential random variable)</strong></span> Let <span class="math inline">\(X \sim \text{Exponential}(λ)\)</span> and <span class="math inline">\(t,s\)</span> be positive reals. Compute <span class="math display">\[ \PR(X &gt; t + s \mid X &gt; t). \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
@@ -730,7 +735,7 @@ f_X(x) = λ e^{-λ x}, \quad x \ge 0.
 </div>
 </div>
 <div id="exm-2025-mid-term-1" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.4</strong></span> Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are random variables that are uniformly distributed in the shaded region shown in <a href="#fig-2025-mid-term-1" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>. Compute <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 5.4</strong></span> Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are random variables that are uniformly distributed in the shaded region shown in <a href="#fig-2025-mid-term-1" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>. Compute <span class="math display">\[
   \PR( X - Y &lt; 1 \mid Y &lt; 2).
 \]</span></p>
 <div class="cell hidden">
@@ -809,7 +814,7 @@ f_X(x) = λ e^{-λ x}, \quad x \ge 0.
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2025-mid-term-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.1: The joint PDF <span class="math inline">\(f_{X,Y}\)</span> is uniform in the shaded region and zero outside.
+Figure&nbsp;5.1: The joint PDF <span class="math inline">\(f_{X,Y}\)</span> is uniform in the shaded region and zero outside.
 </figcaption>
 </figure>
 </div>
@@ -831,7 +836,7 @@ Figure&nbsp;4.1: The joint PDF <span class="math inline">\(f_{X,Y}\)</span> is u
   A = \{ ω : X(ω) - Y(ω) &lt; 1 \}
   \quad\text{and}\quad
   B = \{ ω : Y(ω) &lt; 2 \}.
-\]</span> These are shown in <a href="#fig-2025-mid-term-1-details" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>.</p>
+\]</span> These are shown in <a href="#fig-2025-mid-term-1-details" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="266" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 265;"><span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
 <span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
 <span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
@@ -895,7 +900,7 @@ Figure&nbsp;4.1: The joint PDF <span class="math inline">\(f_{X,Y}\)</span> is u
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2025-mid-term-1-details-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.2: The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>
+Figure&nbsp;5.2: The events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>
 </figcaption>
 </figure>
 </div>
@@ -920,8 +925,8 @@ Figure&nbsp;4.2: The events <span class="math inline">\(A\)</span> and <span cla
 </div>
 </div>
 </section>
-<section id="conditioning-on-finite-σ-algebras" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="conditioning-on-finite-σ-algebras"><span class="header-section-number">4.2</span> Conditioning on finite <span class="math inline">\(σ\)</span>-algebras</h2>
+<section id="conditioning-on-finite-σ-algebras" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="conditioning-on-finite-σ-algebras"><span class="header-section-number">5.2</span> Conditioning on finite <span class="math inline">\(σ\)</span>-algebras</h2>
 <p>Conditioning on an event <span class="math inline">\(C\)</span> updates the model when we learn that <span class="math inline">\(C\)</span> occurred. More generally, the information we receive may be coarser or finer than a single event: it may tell us which cell of a finite partition of <span class="math inline">\(Ω\)</span> contains the outcome, without identifying the outcome itself. A finite <span class="math inline">\(σ\)</span>-algebra is exactly that kind of information: it is generated by its atoms, and two outcomes that lie in the same atom cannot be distinguished. Conditional expectation given such information replaces a random variable by its average on each atom. To avoid technical subtleties, we first restrict attention to finite <span class="math inline">\(σ\)</span>-algebras.</p>
 <ol type="1">
 <li><p>Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(\ALPHABET F\)</span> is a finite <span class="math inline">\(σ\)</span>-algebra. Let <span class="math inline">\(\ALPHABET G\)</span> be a sub-<span class="math inline">\(σ\)</span>-algebra of <span class="math inline">\(\ALPHABET F\)</span>. In particular, we assume that there is a partition <span class="math inline">\(\{D_1, D_2, \dots, D_m\}\)</span> of <span class="math inline">\(Ω\)</span> such that <span class="math inline">\(\ALPHABET G = σ(D_1, \dots, D_m)\)</span>. The elements <span class="math inline">\(D_1, \dots, D_m\)</span> are called the <strong>atoms</strong> of the <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET G\)</span>.</p></li>
@@ -929,15 +934,15 @@ Figure&nbsp;4.2: The events <span class="math inline">\(A\)</span> and <span cla
 \EXP[X \mid \ALPHABET G](ω)
 = \sum_{i=1}^m \EXP[X \mid D_i] \IND_{D_i}(ω).
 \]</span> Thus, on each <span class="math inline">\(ω \in D_i\)</span>, the value of <span class="math inline">\(\EXP[X \mid \ALPHABET G]\)</span> is <span class="math inline">\(\EXP[X \mid D_i]\)</span>.</p>
-<p>As an illustration, let <span class="math inline">\(Ω\)</span> consist of <span class="math inline">\(16\)</span> equally likely outcomes, arranged as a <span class="math inline">\(4\times4\)</span> grid. The shaded regions in <a href="#fig-finite-sigma-algebra-information" class="quarto-xref">Figure&nbsp;<span>4.3</span></a> partition <span class="math inline">\(Ω\)</span> into four atoms <span class="math inline">\(D_1,D_2,D_3,D_4\)</span>, each containing four outcomes. Let <span class="math inline">\(\ALPHABET G\)</span> be the <span class="math inline">\(σ\)</span>-algebra generated by this partition.</p>
-<p>Knowing <span class="math inline">\(\ALPHABET G\)</span> means knowing which shaded atom contains the outcome, but not knowing which of its four cells occurred. Suppose the random variable <span class="math inline">\(X\)</span> takes the values shown in the left panel of <a href="#fig-finite-sigma-algebra-information" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>.</p>
+<p>As an illustration, let <span class="math inline">\(Ω\)</span> consist of <span class="math inline">\(16\)</span> equally likely outcomes, arranged as a <span class="math inline">\(4\times4\)</span> grid. The shaded regions in <a href="#fig-finite-sigma-algebra-information" class="quarto-xref">Figure&nbsp;<span>5.3</span></a> partition <span class="math inline">\(Ω\)</span> into four atoms <span class="math inline">\(D_1,D_2,D_3,D_4\)</span>, each containing four outcomes. Let <span class="math inline">\(\ALPHABET G\)</span> be the <span class="math inline">\(σ\)</span>-algebra generated by this partition.</p>
+<p>Knowing <span class="math inline">\(\ALPHABET G\)</span> means knowing which shaded atom contains the outcome, but not knowing which of its four cells occurred. Suppose the random variable <span class="math inline">\(X\)</span> takes the values shown in the left panel of <a href="#fig-finite-sigma-algebra-information" class="quarto-xref">Figure&nbsp;<span>5.3</span></a>.</p>
 <div id="fig-finite-sigma-algebra-information" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-finite-sigma-algebra-information-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figures/svg/conditional-expectation1.svg" class="img-fluid figure-img" style="width:85.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-finite-sigma-algebra-information-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.3: Conditional expectation retains exactly the distinctions available in the information <span class="math inline">\(σ\)</span>-algebra. The left panel shows <span class="math inline">\(X\)</span>; the right panel shows <span class="math inline">\(\EXP[X\mid\ALPHABET G]\)</span>.
+Figure&nbsp;5.3: Conditional expectation retains exactly the distinctions available in the information <span class="math inline">\(σ\)</span>-algebra. The left panel shows <span class="math inline">\(X\)</span>; the right panel shows <span class="math inline">\(\EXP[X\mid\ALPHABET G]\)</span>.
 </figcaption>
 </figure>
 </div>
@@ -971,7 +976,7 @@ Figure&nbsp;4.3: Conditional expectation retains exactly the distinctions availa
 \]</span></p>
 <p>Indeed, on each atom <span class="math inline">\(D_i\)</span> the random variable <span class="math inline">\(Y\)</span> is constant, say equal to <span class="math inline">\(y_i\)</span>, so <span class="math display">\[
 \EXP[XY \mid D_i] = y_i \EXP[X \mid D_i],
-\]</span> and assembling the atoms recovers <span class="math inline">\(\EXP[XY \mid \ALPHABET G] = Y \EXP[X \mid \ALPHABET G]\)</span>. (The same picture as <a href="#fig-finite-sigma-algebra-information" class="quarto-xref">Figure&nbsp;<span>4.3</span></a> applies, with the values of <span class="math inline">\(X\)</span> on each atom scaled by the constant value of <span class="math inline">\(Y\)</span> there.)</p></li>
+\]</span> and assembling the atoms recovers <span class="math inline">\(\EXP[XY \mid \ALPHABET G] = Y \EXP[X \mid \ALPHABET G]\)</span>. (The same picture as <a href="#fig-finite-sigma-algebra-information" class="quarto-xref">Figure&nbsp;<span>5.3</span></a> applies, with the values of <span class="math inline">\(X\)</span> on each atom scaled by the constant value of <span class="math inline">\(Y\)</span> there.)</p></li>
 <li><p>Let <span class="math inline">\(\ALPHABET H \subset \ALPHABET G \subset \ALPHABET F\)</span>, where <span class="math inline">\(\subset\)</span> means sub-<span class="math inline">\(σ\)</span>-algebra. Let <span class="math inline">\(\{E_1, \dots, E_k\}\)</span> denote the partition corresponding to <span class="math inline">\(\ALPHABET H\)</span> and <span class="math inline">\(\{D_1, \dots, D_m\}\)</span> denote the partition corresponding to <span class="math inline">\(\ALPHABET G\)</span>. Each atom <span class="math inline">\(E_i\)</span> of <span class="math inline">\(\ALPHABET H\)</span> is a union of atoms of <span class="math inline">\(\ALPHABET G\)</span>; equivalently, <span class="math inline">\(\{D_1, \dots, D_m\}\)</span> is a refinement of <span class="math inline">\(\{E_1, \dots, E_k\}\)</span>. Therefore, <span class="math display">\[\begin{equation}\tag{smoothing-property}
 \bbox[5pt,border: 1px solid]
 {\EXP[\EXP[X \mid \ALPHABET G] \mid \ALPHABET H]
@@ -982,8 +987,8 @@ Figure&nbsp;4.3: Conditional expectation retains exactly the distinctions availa
 \]</span> where <span class="math inline">\(\ALPHABET H = \{\emptyset, Ω\}\)</span> is the trivial <span class="math inline">\(σ\)</span>-algebra. This is the conditional-expectation version of the law of total expectation.</p></li>
 </ol>
 </section>
-<section id="conditioning-on-finite-valued-random-variables" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="conditioning-on-finite-valued-random-variables"><span class="header-section-number">4.3</span> Conditioning on finite-valued random variables</h2>
+<section id="conditioning-on-finite-valued-random-variables" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="conditioning-on-finite-valued-random-variables"><span class="header-section-number">5.3</span> Conditioning on finite-valued random variables</h2>
 <p>A finite-valued random variable <span class="math inline">\(Y\)</span> generates the finite <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(σ(Y)\)</span>. Its atoms are the events <span class="math inline">\(\{Y=y\}\)</span>, <span class="math inline">\(y \in \ALPHABET Y\)</span>. Thus, conditioning on <span class="math inline">\(Y\)</span> is conditioning on the information <span class="math inline">\(σ(Y)\)</span>, and we use the shorthand <span class="math display">\[
 \PR(A \mid Y) = \PR(A \mid σ(Y)),
 \qquad
@@ -1030,7 +1035,7 @@ h(Y) = \EXP[g(X,Y) \mid Y],
 \]</span></p></li>
 </ol>
 <div id="exm-conditional-probability" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.5</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent and identically distributed <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variables.</p>
+<p><span class="theorem-title"><strong>Example 5.5</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent and identically distributed <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variables.</p>
 <ol type="a">
 <li><p>Consider the events <span class="math inline">\(A_k = \{ω : X(ω) + Y(ω) = k\}\)</span>, <span class="math inline">\(k \in \{0,1,2\}\)</span>. Find <span class="math inline">\(\PR(A_k \mid X)\)</span>.</p></li>
 <li><p>Compute <span class="math inline">\(\EXP[X + Y \mid X]\)</span>.</p></li>
@@ -1078,8 +1083,8 @@ h(Y) = \EXP[g(X,Y) \mid Y],
 </div>
 </div>
 </section>
-<section id="conditioning-on-continuous-random-variables" class="level2 page-columns page-full" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="conditioning-on-continuous-random-variables"><span class="header-section-number">4.4</span> Conditioning on continuous random variables</h2>
+<section id="conditioning-on-continuous-random-variables" class="level2 page-columns page-full" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="conditioning-on-continuous-random-variables"><span class="header-section-number">5.4</span> Conditioning on continuous random variables</h2>
 <p>For a continuous random variable <span class="math inline">\(Y\)</span>, the event <span class="math inline">\(\{Y=y\}\)</span> has probability zero. Thus, unlike the finite-valued case, conditional probability cannot be defined by applying the event-conditioning formula directly to <span class="math inline">\(\{Y=y\}\)</span>.</p>
 <ol type="1">
 <li><p><strong>The familiar density-based definition.</strong> In undergraduate probability, conditioning on <span class="math inline">\(Y=y\)</span> is usually motivated by replacing the zero-probability event <span class="math inline">\(\{Y=y\}\)</span> with a short interval: <span class="math display">\[
@@ -1188,7 +1193,7 @@ f_{X|Y}(x\mid y)=f_X(x).
 </ul></li>
 </ol>
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;We begin with non-negative random variables to avoid the <span class="math inline">\(∞-∞\)</span> indeterminacy. The same definition applies to any integrable random variable.</p></div></div><div id="exm-conditional-density" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.6</strong></span> Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous random variables with the joint PDF <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 5.6</strong></span> Suppose <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly continuous random variables with the joint PDF <span class="math display">\[
 f_{X,Y}(x,y) = \frac{e^{-x/y} e^{-y}}{y}, \quad 0 &lt; x &lt; ∞, 0 &lt; y &lt; ∞.
 \]</span> Find <span class="math inline">\(f_{X|Y}\)</span> and compute <span class="math inline">\(\EXP[X \mid Y=y]\)</span>.</p>
 </div>
@@ -1221,7 +1226,7 @@ f_Y(y) &amp;= \int_{-∞}^{∞} f_{X,Y}(x,y) \, dx \\
 </div>
 </div>
 <div id="exm-conditional-uniform" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.7</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span> and given <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y\)</span> is uniformly distributed on <span class="math inline">\((0,x)\)</span>. Find the PDF of <span class="math inline">\(Y\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 5.7</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span> and given <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y\)</span> is uniformly distributed on <span class="math inline">\((0,x)\)</span>. Find the PDF of <span class="math inline">\(Y\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
@@ -1268,7 +1273,7 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 </div>
 </div>
 <div id="exm-bivariate-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 4.8</strong></span> Let <span class="math inline">\(X = [X_1, X_2]\)</span> be a bivariate Gaussian random variable with <span class="math inline">\(μ_X = 0\)</span> and <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 5.8</strong></span> Let <span class="math inline">\(X = [X_1, X_2]\)</span> be a bivariate Gaussian random variable with <span class="math inline">\(μ_X = 0\)</span> and <span class="math display">\[
 Σ_X = \MATRIX{ σ_1^2 &amp; ρ σ_1 σ_2 \\ ρ σ_1 σ_2 &amp; σ_2^2 }
 \]</span> where <span class="math inline">\(\ABS{ρ} &lt; 1\)</span>. Compute the conditional PDF <span class="math inline">\(f_{X_1 | X_2}\)</span>?</p>
 </div>
@@ -1284,7 +1289,7 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>From the nondegenerate multivariate Gaussian PDF in <a href="./random-vectors.html">random vectors</a> and the bivariate expression for <span class="math inline">\((x-μ)^\TRANS Σ^{-1}(x-μ)\)</span> there, with <span class="math inline">\(μ_X=0\)</span> we have <span class="math display">\[
+<p>From the nondegenerate multivariate Gaussian PDF in <a href="./gaussian-random-vectors.html">Gaussian random vectors</a> and the bivariate expression for <span class="math inline">\((x-μ)^\TRANS Σ^{-1}(x-μ)\)</span> there, with <span class="math inline">\(μ_X=0\)</span> we have <span class="math display">\[
 f_{X_1,X_2}(x_1,x_2)
 =
 \frac{1}{2π\,σ_1σ_2\sqrt{1-ρ^2}}
@@ -1319,93 +1324,6 @@ X_1 \mid X_2 = x_2
 </div>
 </div>
 </div>
-</section>
-<section id="MMSE" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="MMSE"><span class="header-section-number">4.5</span> Conditional expectation as minimum mean square estimator</h2>
-<ol type="1">
-<li><p>Suppose we observe a random variable <span class="math inline">\(Y\)</span> and wish to estimate a square-integrable random variable <span class="math inline">\(X\)</span>. Among all square-integrable functions <span class="math inline">\(h(Y)\)</span>, we seek one that minimizes the mean-squared error: <span class="math display">\[
-\EXP[(X - h(Y))^2].
-\]</span> The function <span class="math inline">\(h\)</span> that minimizes this quantity is called the <strong>minimum mean-squared error (MMSE) estimator</strong> of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span>.</p></li>
-<li><p>The conditional expectation <span class="math inline">\(\EXP[X \mid Y]\)</span> is the MMSE estimator of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Recall that in <a href="random-variables.html#exm-streaming-variance" class="quarto-xref">Example&nbsp;<span>2.23</span></a>, we had shown that <span class="math display">\[
-   \EXP[ (X-t)^2 ] = \EXP[ (X - μ)^2] + (t - μ)^2.
-\]</span></p>
-<p>By the same argument, we have <span class="math display">\[
-   \EXP[ (X - h(Y))^2 \mid Y ] = \EXP[ (X - \EXP[X\mid Y])^2 \mid Y] + (h(Y) - \EXP[X\mid Y])^2
-\]</span> since <span class="math inline">\(h(Y)\)</span> is <span class="math inline">\(Y\)</span>-measurable.</p>
-<p>By smoothing property of conditional expectation, we have <span class="math display">\[\begin{equation}\label{eq:MMSE-error}
-\EXP[(X - h(Y))^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(h(Y) - \EXP[X \mid Y])^2].
-\end{equation}\]</span> This is minimized when <span class="math inline">\(h(Y) = \EXP[X\mid Y]\)</span>.</p>
-</div>
-</div></li>
-<li><p>The error <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is <strong>orthogonal</strong> to every square-integrable function of <span class="math inline">\(Y\)</span>: for any square-integrable <span class="math inline">\(g(Y)\)</span>, <span class="math display">\[ \EXP[(X - \EXP[X \mid Y]) g(Y)] = 0. \]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>By the smoothing property of conditional expectation, we have <span class="math display">\[\begin{align*}
-\EXP[(X - \EXP[X \mid Y]) g(Y)] &amp;= \EXP[\EXP[(X - \EXP[X \mid Y]) g(Y) \mid Y]] \\
-&amp;= \EXP[g(Y) \EXP[X - \EXP[X \mid Y] \mid Y]] \\
-&amp;= \EXP[g(Y) \cdot 0] = 0
-\end{align*}\]</span> where we used the fact that <span class="math inline">\(\EXP[X - \EXP[X \mid Y] \mid Y] = 0\)</span>.</p>
-</div>
-</div></li>
-<li><p>Conversely, if <span class="math inline">\(h(Y)\)</span> is square-integrable and the error <span class="math inline">\(X-h(Y)\)</span> is orthogonal to every square-integrable function of <span class="math inline">\(Y\)</span>, i.e., <span class="math inline">\(\EXP[(X - h(Y)) g(Y)] = 0\)</span> for every square-integrable <span class="math inline">\(g(Y)\)</span>, then <span class="math inline">\(h(Y) = \EXP[X \mid Y]\)</span> (almost surely), and hence <span class="math inline">\(h(Y)\)</span> is the MMSE estimator.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Suppose <span class="math inline">\(\EXP[(X - h(Y)) g(Y)] = 0\)</span> for every square-integrable function <span class="math inline">\(g(Y)\)</span>. In particular, taking <span class="math inline">\(g(Y) = h(Y) - \EXP[X \mid Y]\)</span>, we have: <span class="math display">\[
-\EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] = 0.
-\]</span> Expanding this, we get <span class="math display">\[\begin{align*}
-0 &amp;= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
-  &amp;= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
-  &amp;= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
-\end{align*}\]</span> The first term is zero because <span class="math inline">\(h(Y) - \EXP[X \mid Y]\)</span> is a function of <span class="math inline">\(Y\)</span> and, by the orthogonality property in point~3, <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>. Therefore, <span class="math display">\[
-\EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
-\]</span> which implies <span class="math inline">\(h(Y) = \EXP[X \mid Y]\)</span> almost surely. By point 2, this means <span class="math inline">\(h(Y)\)</span> is the MMSE estimator.</p>
-</div>
-</div></li>
-<li><p>The estimation error has zero mean: <span class="math display">\[
-\EXP[X - \EXP[X \mid Y]]
-= \EXP[X] - \EXP[\EXP[X \mid Y]] = 0,
-\]</span> by the smoothing property.</p></li>
-<li><p>The total variance of <span class="math inline">\(X\)</span> can be decomposed as: <span class="math display">\[
-\VAR(X) = \EXP[(X - \EXP[X])^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(\EXP[X \mid Y] - \EXP[X])^2].
-\]</span> This follows by taking <span class="math inline">\(h(Y) = \EXP[X]\)</span> (a constant function) in <span class="math inline">\(\eqref{eq:MMSE-error}\)</span>. The first term is the <strong>estimation error</strong> (the variance that cannot be reduced by observing <span class="math inline">\(Y\)</span>), and the second term is the variance of the estimator itself.</p>
-<p>Define the conditional variance by <span class="math display">\[
-\VAR(X \mid Y)
-:= \EXP[(X-\EXP[X\mid Y])^2 \mid Y].
-\]</span> the smoothing property gives <span class="math display">\[
-\EXP[(X-\EXP[X\mid Y])^2] = \EXP[\VAR(X\mid Y)].
-\]</span> Therefore, the decomposition can also be written in its standard form: <span class="math display">\[
-\bbox[5pt,border: 1px solid]
-{\VAR(X) = \EXP[\VAR(X \mid Y)] + \VAR(\EXP[X \mid Y]).}
-\]</span></p></li>
-<li><p>When <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, the conditional expectation is an affine function of <span class="math inline">\(Y\)</span>. This is a special property of Gaussian distributions. We expand on this in <a href="./conditional-expectation-gaussian.html">the next section</a>.</p></li>
-</ol>
 
 
 </section>
@@ -1838,13 +1756,13 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./random-vectors.html" class="pagination-link" aria-label="Random vectors">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random vectors</span></span>
+      <a href="./gaussian-random-vectors.html" class="pagination-link" aria-label="Gaussian random vectors">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gaussian random vectors</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./conditional-expectation-gaussian.html" class="pagination-link" aria-label="Conditional expectation for Gaussians">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./mmse-estimation.html" class="pagination-link" aria-label="MMSE estimation">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

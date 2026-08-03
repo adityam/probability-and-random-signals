@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2026-08-03">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>5&nbsp; Conditional expectation for Gaussians – Probability and Random Signals II</title>
+<title>6&nbsp; MMSE estimation – Probability and Random Signals II</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -380,7 +380,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./conditional-expectation-gaussian.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mmse-estimation.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -418,50 +418,56 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  <a href="./gaussian-random-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gaussian random vectors</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conditional-expectation-gaussian.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></span></a>
+  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mmse-estimation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stochastic-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./markov-chains.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gaussian-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
   </div>
 </li>
     </ul>
@@ -474,12 +480,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#review-of-gaussian-random-variables" id="toc-review-of-gaussian-random-variables" class="nav-link active" data-scroll-target="#review-of-gaussian-random-variables"><span class="header-section-number">5.1</span> Review of Gaussian random variables</a></li>
-  <li><a href="#conditional-expectation-for-gaussian-random-variables" id="toc-conditional-expectation-for-gaussian-random-variables" class="nav-link" data-scroll-target="#conditional-expectation-for-gaussian-random-variables"><span class="header-section-number">5.2</span> Conditional expectation for Gaussian random variables</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+  <li><a href="#MMSE" id="toc-MMSE" class="nav-link active" data-scroll-target="#MMSE"><span class="header-section-number">6.1</span> Conditional expectation as minimum mean square estimator</a></li>
+  <li><a href="#mmse-estimation-for-jointly-gaussian-random-vectors" id="toc-mmse-estimation-for-jointly-gaussian-random-vectors" class="nav-link" data-scroll-target="#mmse-estimation-for-jointly-gaussian-random-vectors"><span class="header-section-number">6.2</span> MMSE estimation for jointly Gaussian random vectors</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/conditional-expectation-gaussian.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/mmse-estimation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -487,7 +491,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional expectation for Gaussians</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></h1>
 </div>
 
 
@@ -525,206 +529,212 @@ window.Quarto = {
 </header>
 
 
-<section id="review-of-gaussian-random-variables" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="review-of-gaussian-random-variables"><span class="header-section-number">5.1</span> Review of Gaussian random variables</h2>
+<p>Conditional expectation is not only a way of updating a probability model; it is also the optimal estimate of an unknown random variable under mean-squared error. This chapter develops that interpretation and then specializes it to jointly Gaussian random vectors.</p>
+<section id="MMSE" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="MMSE"><span class="header-section-number">6.1</span> Conditional expectation as minimum mean square estimator</h2>
 <ol type="1">
-<li><p>A multivariate Gaussian random vector <span class="math inline">\(X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)\)</span> has a PDF <span class="math display">\[
-f_X(x) = \frac{1}{(2\pi)^{n/2} \det(\Sigma)^{1/2}} \exp\left( -\frac{1}{2} (x - \mu)^\TRANS \Sigma^{-1} (x - \mu) \right), \quad x \in \reals^n
-\]</span> and MGF <span class="math display">\[
-M_X(s) = \EXP\big[ e^{s^\TRANS X} \big] = \exp\left( s^\TRANS \mu + \frac{1}{2} s^\TRANS \Sigma s \right), \qquad s \in \reals^n.
-\]</span></p></li>
-<li><p>Thus, all moments of a Gaussian random variable can be expressed in terms of its mean and variance. In particular, if <span class="math inline">\(X \sim \mathcal{N}(0, \sigma^2)\)</span>, then all odd moments are zero; all even moments can be written in terms of the variance: <span class="math display">\[
-\EXP[X^{2k}] =
-\underbrace{(2k-1)\cdot(2k-3)\cdots3\cdot1}_{\eqqcolon (2k-1)!!}\, \sigma^{2k}
-\]</span></p></li>
-<li><p>Any linear combination of jointly Gaussian random variables is also Gaussian.</p>
-<p>More concretely, if <span class="math inline">\(X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)\)</span> and <span class="math inline">\(A \in \reals^{m \times n}\)</span> and <span class="math inline">\(b \in \reals^m\)</span>, then the affine transformation <span class="math inline">\(A X + b\)</span> is also Gaussian: <span class="math display">\[
-A X + b \sim \mathcal{N}\big(A\mu + b,\, A\Sigma A^\TRANS\big).
-\]</span></p></li>
-<li><p>As a consequence, marginals of jointly Gassian random variables are also Gaussian.</p>
-<p>More concretely, if <span class="math inline">\(X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)\)</span>, then any subvector formed by selecting a subset of the indices is itself multivariate Gaussian, with the corresponding mean vector and covariance matrix.</p></li>
-<li><p>Gaussian random variables are independent if and only if they are uncorrelated. In particular, if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are (jointly) Gaussian random variables, then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math inline">\(\COV(X, Y) = 0\)</span>.</p>
-<p>For a jointly Gaussian random vector <span class="math inline">\((X_1, \dots, X_n)\)</span>, the components are independent if and only if the covariance matrix is diagonal.</p></li>
-</ol>
-</section>
-<section id="conditional-expectation-for-gaussian-random-variables" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="conditional-expectation-for-gaussian-random-variables"><span class="header-section-number">5.2</span> Conditional expectation for Gaussian random variables</h2>
-<ol type="1">
-<li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, then <span class="math inline">\(X|Y\)</span> is also Gaussian. In particular, suppose</p>
-<ul>
-<li><span class="math inline">\(X \sim \mathcal{N}(\mu_X, \sigma_X^2)\)</span><br>
-</li>
-<li><span class="math inline">\(Y \sim \mathcal{N}(\mu_Y, \sigma_Y^2)\)</span><br>
-</li>
-<li><span class="math inline">\(\COV(X, Y) = \rho \sigma_X \sigma_Y\)</span>, where <span class="math inline">\(-1 \leq \rho \leq 1\)</span></li>
-</ul>
-<p>then <span class="math display">\[
-X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
-\]</span> where the conditional mean is <span class="math display">\[
-\mu_{X|Y} = \mu_X + \rho \frac{\sigma_X}{\sigma_Y}(y - \mu_Y)
-\]</span> and the conditional variance <span class="math display">\[
-\sigma^2_{X|Y} = \sigma_X^2 (1 - \rho^2)
-\]</span></p></li>
-<li><p>It is possible to derive the above result from the definition of conditional probability by using some tedious algebra. However, we present a different approach here that is based on interpreting conditional expectations as orthogonal projections.</p></li>
-<li><p><strong>Hilbert space of random variables</strong>: The key idea is to construct a <strong>Hilbert space</strong> of square-integrable random variables. For scalar random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with <span class="math inline">\(\EXP[X^2] &lt; ∞\)</span> and <span class="math inline">\(\EXP[Y^2] &lt; ∞\)</span>, we define the inner product as <span class="math display">\[
-     \IP{X}{Y} = \EXP[XY].
-\]</span> The corresponding norm is <span class="math inline">\(\NORM{X}^2 = \EXP[X^2]\)</span>. It can be shown that this space is complete (i.e., all Cauchy sequences converge), and is therefore a Hilbert space.</p>
-<p>For <span class="math inline">\(\reals^n\)</span>-valued square-integrable random vectors <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> (i.e., <span class="math inline">\(\EXP[\|X_1\|^2] &lt; ∞\)</span> and <span class="math inline">\(\EXP[\|X_2\|^2] &lt; ∞\)</span>), we define the inner product as <span class="math display">\[
-     \IP{X_1}{X_2} = \EXP[X_1^\TRANS X_2].
-\]</span> The corresponding norm is <span class="math inline">\(\NORM{X}^2 = \EXP[\NORM{X}^2]\)</span>. As before, this space is complete and forms a Hilbert space.</p></li>
-<li><p><strong>Orthogonal projection theorem</strong>: A fundamental property of Hilbert spaces is the orthogonal projection theorem.</p>
-<div id="thm-orthogonal-projection" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 5.1 (Orthogonal Projection Theorem)</strong></span> Let <span class="math inline">\(\ALPHABET M\)</span> be a proper linear subspace of a Hilbert space <span class="math inline">\(\ALPHABET H\)</span>. Then any element <span class="math inline">\(x \in \ALPHABET H\)</span> can be uniquely represented in the form <span class="math display">\[ x = \hat x + e \]</span> where <span class="math inline">\(\hat x \in \ALPHABET M\)</span> and <span class="math inline">\(e \perp \ALPHABET M\)</span> (i.e., for any <span class="math inline">\(w \in \ALPHABET M\)</span>, <span class="math inline">\(\IP{e}{w} = 0\)</span>). This unique element <span class="math inline">\(\hat x\)</span> is called the <strong>orthogonal projection</strong> of <span class="math inline">\(x\)</span> onto <span class="math inline">\(\ALPHABET M\)</span> and has the property that it minimizes the distance: <span class="math display">\[
-    \NORM{x - \hat x} \le \NORM{x - w}, \quad \forall w \in \ALPHABET M.
-\]</span></p>
-</div></li>
-<li><p>We also state a Lemma which will be useful later on.</p>
-<div id="lem-matrix-orthogonality" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 5.1</strong></span> If <span class="math inline">\(u \in \reals^n\)</span> and <span class="math inline">\(w \in \reals^m\)</span> are vectors such that <span class="math inline">\(u^\TRANS K w = 0\)</span> for all matrices <span class="math inline">\(K \in \reals^{n \times m}\)</span>, then <span class="math inline">\(u w^\TRANS = \mathbf{0}_{n \times m}\)</span>.</p>
-</div>
+<li><p>Suppose we observe a random variable <span class="math inline">\(Y\)</span> and wish to estimate a square-integrable random variable <span class="math inline">\(X\)</span>. Among all square-integrable functions <span class="math inline">\(h(Y)\)</span>, we seek one that minimizes the mean-squared error: <span class="math display">\[
+\EXP[(X - h(Y))^2].
+\]</span> The function <span class="math inline">\(h\)</span> that minimizes this quantity is called the <strong>minimum mean-squared error (MMSE) estimator</strong> of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>The conditional expectation <span class="math inline">\(\EXP[X \mid Y]\)</span> is the MMSE estimator of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 <span class="screen-reader-only">Note</span>Proof
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recall that in <a href="random-variables.html#exm-streaming-variance" class="quarto-xref">Example&nbsp;<span>2.23</span></a>, we had shown that <span class="math display">\[
+   \EXP[ (X-t)^2 ] = \EXP[ (X - μ)^2] + (t - μ)^2.
+\]</span></p>
+<p>By the same argument, we have <span class="math display">\[
+   \EXP[ (X - h(Y))^2 \mid Y ] = \EXP[ (X - \EXP[X\mid Y])^2 \mid Y] + (h(Y) - \EXP[X\mid Y])^2
+\]</span> since <span class="math inline">\(h(Y)\)</span> is <span class="math inline">\(Y\)</span>-measurable.</p>
+<p>By smoothing property of conditional expectation, we have <span class="math display">\[\begin{equation}\label{eq:MMSE-error}
+\EXP[(X - h(Y))^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(h(Y) - \EXP[X \mid Y])^2].
+\end{equation}\]</span> This is minimized when <span class="math inline">\(h(Y) = \EXP[X\mid Y]\)</span>.</p>
+</div>
+</div></li>
+<li><p>The error <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is <strong>orthogonal</strong> to every square-integrable function of <span class="math inline">\(Y\)</span>: for any square-integrable <span class="math inline">\(g(Y)\)</span>, <span class="math display">\[ \EXP[(X - \EXP[X \mid Y]) g(Y)] = 0. \]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By the smoothing property of conditional expectation, we have <span class="math display">\[\begin{align*}
+\EXP[(X - \EXP[X \mid Y]) g(Y)] &amp;= \EXP[\EXP[(X - \EXP[X \mid Y]) g(Y) \mid Y]] \\
+&amp;= \EXP[g(Y) \EXP[X - \EXP[X \mid Y] \mid Y]] \\
+&amp;= \EXP[g(Y) \cdot 0] = 0
+\end{align*}\]</span> where we used the fact that <span class="math inline">\(\EXP[X - \EXP[X \mid Y] \mid Y] = 0\)</span>.</p>
+</div>
+</div></li>
+<li><p>Conversely, if <span class="math inline">\(h(Y)\)</span> is square-integrable and the error <span class="math inline">\(X-h(Y)\)</span> is orthogonal to every square-integrable function of <span class="math inline">\(Y\)</span>, i.e., <span class="math inline">\(\EXP[(X - h(Y)) g(Y)] = 0\)</span> for every square-integrable <span class="math inline">\(g(Y)\)</span>, then <span class="math inline">\(h(Y) = \EXP[X \mid Y]\)</span> (almost surely), and hence <span class="math inline">\(h(Y)\)</span> is the MMSE estimator.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Suppose <span class="math inline">\(\EXP[(X - h(Y)) g(Y)] = 0\)</span> for every square-integrable function <span class="math inline">\(g(Y)\)</span>. In particular, taking <span class="math inline">\(g(Y) = h(Y) - \EXP[X \mid Y]\)</span>, we have: <span class="math display">\[
+\EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] = 0.
+\]</span> Expanding this, we get <span class="math display">\[\begin{align*}
+0 &amp;= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
+  &amp;= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
+  &amp;= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
+\end{align*}\]</span> The first term is zero because <span class="math inline">\(h(Y) - \EXP[X \mid Y]\)</span> is a function of <span class="math inline">\(Y\)</span> and, by the orthogonality property in point~3, <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>. Therefore, <span class="math display">\[
+\EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
+\]</span> which implies <span class="math inline">\(h(Y) = \EXP[X \mid Y]\)</span> almost surely. By point 2, this means <span class="math inline">\(h(Y)\)</span> is the MMSE estimator.</p>
+</div>
+</div></li>
+<li><p>The estimation error has zero mean: <span class="math display">\[
+\EXP[X - \EXP[X \mid Y]]
+= \EXP[X] - \EXP[\EXP[X \mid Y]] = 0,
+\]</span> by the smoothing property.</p></li>
+<li><p>The total variance of <span class="math inline">\(X\)</span> can be decomposed as: <span class="math display">\[
+\VAR(X) = \EXP[(X - \EXP[X])^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(\EXP[X \mid Y] - \EXP[X])^2].
+\]</span> This follows by taking <span class="math inline">\(h(Y) = \EXP[X]\)</span> (a constant function) in <span class="math inline">\(\eqref{eq:MMSE-error}\)</span>. The first term is the <strong>estimation error</strong> (the variance that cannot be reduced by observing <span class="math inline">\(Y\)</span>), and the second term is the variance of the estimator itself.</p>
+<p>Define the conditional variance by <span class="math display">\[
+\VAR(X \mid Y)
+:= \EXP[(X-\EXP[X\mid Y])^2 \mid Y].
+\]</span> the smoothing property gives <span class="math display">\[
+\EXP[(X-\EXP[X\mid Y])^2] = \EXP[\VAR(X\mid Y)].
+\]</span> Therefore, the decomposition can also be written in its standard form: <span class="math display">\[
+\bbox[5pt,border: 1px solid]
+{\VAR(X) = \EXP[\VAR(X \mid Y)] + \VAR(\EXP[X \mid Y]).}
+\]</span></p></li>
+<li><p>The same interpretation applies to random vectors. If <span class="math inline">\(X\in\reals^n\)</span> is square-integrable, then <span class="math inline">\(\EXP[X\mid Y]\)</span> minimizes <span class="math display">\[
+\EXP[\|X-h(Y)\|^2]
+\]</span> over all square-integrable vector-valued functions <span class="math inline">\(h(Y)\)</span>. The error is orthogonal to every square-integrable vector-valued function <span class="math inline">\(g(Y)\)</span> in the sense that <span class="math display">\[
+\EXP[(X-\EXP[X\mid Y])^\TRANS g(Y)]=0.
+\]</span></p></li>
+</ol>
+</section>
+<section id="mmse-estimation-for-jointly-gaussian-random-vectors" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="mmse-estimation-for-jointly-gaussian-random-vectors"><span class="header-section-number">6.2</span> MMSE estimation for jointly Gaussian random vectors</h2>
+<p>Suppose <span class="math inline">\(X\in\reals^n\)</span> and <span class="math inline">\(Y\in\reals^m\)</span> are jointly Gaussian, with <span class="math display">\[
+\MATRIX{X\\Y}
+\sim
+\mathcal N\left(
+\MATRIX{\mu_X\\\mu_Y},
+\MATRIX{
+\Sigma_{XX} &amp; \Sigma_{XY}\\
+\Sigma_{YX} &amp; \Sigma_{YY}
+}
+\right),
+\]</span> where <span class="math inline">\(\Sigma_{YX}=\Sigma_{XY}^\TRANS\)</span> and <span class="math inline">\(\Sigma_{YY}\)</span> is positive definite.</p>
+<ol type="1">
+<li><p>Define the affine estimate <span class="math display">\[
+\widehat X
+=\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y)
+\]</span> and the corresponding error <span class="math inline">\(E=X-\widehat X\)</span>. Its mean and its cross-covariance with <span class="math inline">\(Y\)</span> are <span class="math display">\[\begin{align*}
+\EXP[E]&amp;=0,\\
+\COV(E,Y)
+&amp;=\Sigma_{XY}
+  -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YY}
+  =0.
+\end{align*}\]</span></p></li>
+<li><p>Since <span class="math inline">\((E,Y)\)</span> is an affine transformation of the jointly Gaussian vector <span class="math inline">\((X,Y)\)</span>, it is jointly Gaussian. For jointly Gaussian vectors, zero cross-covariance implies independence. Hence <span class="math inline">\(E\independent Y\)</span>, and therefore <span class="math display">\[
+\EXP[E\mid Y]=\EXP[E]=0.
+\]</span> Using <span class="math inline">\(X=\widehat X+E\)</span> gives <span class="math display">\[
+\bbox[5pt,border: 1px solid]{
+\EXP[X\mid Y]
+=\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y).
+}
+\]</span></p></li>
+<li><p>The covariance of the estimation error is <span class="math display">\[\begin{align*}
+\Sigma_E
+&amp;=\COV\left(X-\Sigma_{XY}\Sigma_{YY}^{-1}Y\right)\\
+&amp;=\Sigma_{XX}
+  -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}.
+\end{align*}\]</span> Because <span class="math inline">\(E\)</span> is Gaussian and independent of <span class="math inline">\(Y\)</span>, conditioning on <span class="math inline">\(Y=y\)</span> gives the complete conditional distribution: <span class="math display">\[
+\bbox[5pt,border: 1px solid]{
+X\mid(Y=y)
+\sim
+\mathcal N\left(
+\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(y-\mu_Y),
+\Sigma_{XX}-\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}
+\right).
+}
+\]</span></p></li>
+<li><p>For scalar jointly Gaussian random variables with <span class="math display">\[
+\COV(X,Y)=\rho\sigma_X\sigma_Y,
+\]</span> the formulas reduce to <span class="math display">\[\begin{align*}
+\EXP[X\mid Y]
+&amp;=\mu_X+\rho\frac{\sigma_X}{\sigma_Y}(Y-\mu_Y),\\
+\VAR(X\mid Y)&amp;=\sigma_X^2(1-\rho^2).
+\end{align*}\]</span></p></li>
+</ol>
+<div id="exm-sensor-network" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.1 (Estimation using a sensor network)</strong></span> Let the unknown state be <span class="math display">\[
+X\sim\mathcal N(\mu_X,\Sigma_X).
+\]</span> Sensor <span class="math inline">\(i\)</span> observes <span class="math display">\[
+Y_i=C_iX+W_i,
+\qquad i=1,\ldots,N,
+\]</span> where <span class="math inline">\(W_i\sim\mathcal N(0,R_i)\)</span>. Assume that the noises are mutually independent and independent of <span class="math inline">\(X\)</span>, and that <span class="math inline">\(\Sigma_X\)</span> and every <span class="math inline">\(R_i\)</span> are positive definite. Find the MMSE estimate of <span class="math inline">\(X\)</span> using all the sensor measurements.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Note that <span class="math display">\[u^\TRANS K w = \sum_{i=1}^n \sum_{j=1}^m K_{ij} u_i w_j.\]</span></p>
-<p>For any <span class="math inline">\((i', j')\)</span> with <span class="math inline">\(1 \le i' \le n\)</span> and <span class="math inline">\(1 \le j' \le m\)</span>, choose <span class="math inline">\(K\)</span> such that <span class="math inline">\(K_{ij} = δ_{ii'} δ_{jj'}\)</span> (i.e., <span class="math inline">\(K\)</span> has a <span class="math inline">\(1\)</span> in position <span class="math inline">\((i', j')\)</span> and zeros elsewhere). Then <span class="math inline">\(u^\TRANS K w = u_{i'} w_{j'} = 0\)</span>.</p>
-<p>Since <span class="math inline">\((i', j')\)</span> was arbitrary, we have <span class="math inline">\(u_i w_j = 0\)</span> for all <span class="math inline">\(i, j\)</span>. Therefore, <span class="math inline">\(u w^\TRANS = \mathbf{0}_{n \times m}\)</span>.</p>
-</div>
-</div>
-</div></li>
-<li><p><strong>Application to Gaussian random vectors</strong>: Now consider <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> to be jointly Gaussian random vectors, i.e., <span class="math display">\[
-     \MATRIX{X \\ Y} \sim
-     \mathcal{N}\left(
-         \MATRIX{ μ_X \\ μ_Y},
-         \MATRIX{ Σ_{XX} &amp; Σ_{XY} \\ Σ_{XY}^\TRANS &amp; Σ_{YY}}
-         \right).
-\]</span> Let <span class="math inline">\(\ALPHABET M\)</span> denote the proper linear subspace of all affine functions of <span class="math inline">\(Y\)</span>, i.e., <span class="math display">\[
-     \ALPHABET M = \{ K Y + c : K \in \reals^{n \times m}, c \in \reals^n  \}.
-\]</span> Let <span class="math inline">\(\hat{X}\)</span> denote the orthogonal projection of <span class="math inline">\(X\)</span> onto <span class="math inline">\(\ALPHABET M\)</span>. From <a href="#thm-orthogonal-projection" class="quarto-xref">Theorem&nbsp;<span>5.1</span></a>, we know that <span class="math inline">\(\hat{X}\)</span> minimizes the distance, i.e., for any <span class="math inline">\(W \in \ALPHABET M\)</span>, <span class="math display">\[
-     \NORM{X - \hat{X}} \le \NORM{X - W}
-     \iff
-     \EXP[ \|X - \hat{X}\|^2] \le \EXP[ \|X - W\|^2].
-\]</span> Thus, <span class="math inline">\(\hat{X}\)</span> minimizes the mean-squared error. Moreover, by the orthogonality property, the projection error is orthogonal to the subspace: <span class="math display">\[
-     \IP{W}{X - \hat{X}} = 0, \quad \forall W \in \ALPHABET M
-     \iff
-     \EXP[ W^\TRANS (X - \hat{X})] = 0, \quad \forall W \in \ALPHABET M.
-\]</span></p></li>
-<li><p>An immediate implication of the above is that <span class="math inline">\(\hat X\)</span> is an <strong>unbiased estimator</strong> of <span class="math inline">\(X\)</span>, i.e., <span class="math display">\[
-\EXP[\hat{X}] = \EXP[X].
+<p>Stack the measurements and noises as <span class="math display">\[
+Y=\MATRIX{Y_1\\\vdots\\Y_N},
+\qquad
+W=\MATRIX{W_1\\\vdots\\W_N},
+\qquad
+C=\MATRIX{C_1\\\vdots\\C_N}.
+\]</span> Then <span class="math display">\[
+Y=CX+W,
+\qquad
+R=\COV(W)=\operatorname{diag}(R_1,\ldots,R_N).
+\]</span> Consequently, <span class="math display">\[
+\mu_Y=C\mu_X,
+\qquad
+\Sigma_{XY}=\Sigma_XC^\TRANS,
+\qquad
+\Sigma_{YY}=C\Sigma_XC^\TRANS+R.
+\]</span> The MMSE estimate and its error covariance are therefore <span class="math display">\[
+\widehat X
+=\EXP[X\mid Y]
+=\mu_X+\Sigma_XC^\TRANS
+(C\Sigma_XC^\TRANS+R)^{-1}(Y-C\mu_X)
+\]</span> and <span class="math display">\[
+P_N
+=\COV(X\mid Y)
+=\Sigma_X-\Sigma_XC^\TRANS
+(C\Sigma_XC^\TRANS+R)^{-1}C\Sigma_X.
 \]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_i\)</span> and <span class="math inline">\(\hat X_i\)</span> denote the <span class="math inline">\(i\)</span>-th component of the vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(\hat X\)</span> and let <span class="math inline">\(e_i\)</span> denote the unit vector in the <span class="math inline">\(i\)</span>-th direction. Note that <span class="math display">\[
-   X_i - \hat X_i = \IP{X - \hat X}{e_i}.
-\]</span> Thus, <span class="math display">\[
-  \EXP[X_i] - \EXP[\hat X_i] = \EXP[ \IP{X - \hat X}{e_i}].
-\]</span> Since <span class="math inline">\(\ALPHABET M\)</span> includes all affine functions of <span class="math inline">\(Y\)</span>, it includes all constants (and hence <span class="math inline">\(e_i\)</span>). Therefore, <span class="math inline">\(\EXP[ \IP{X - \hat X}{e_i}] = 0\)</span>. Subsituting this in the above equation implies <span class="math display">\[
-  \EXP[X_i] = \EXP[\hat X_i].
-\]</span></p>
-<p>Since the relationship holds for all components <span class="math inline">\(i\)</span>, it holds for the vectors as well. Thus, <span class="math inline">\(\EXP[X] = \EXP[\hat X]\)</span>.</p>
-</div>
-</div></li>
-<li><p>The orthogonal projection is the conditional expectation, i.e., <span class="math display">\[
-\hat{X} = \EXP[X \mid Y].
-\]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
+<p>Equivalently, these expressions can be written in information form as <span class="math display">\[\begin{align*}
+P_N^{-1}
+&amp;=\Sigma_X^{-1}+\sum_{i=1}^N C_i^\TRANS R_i^{-1}C_i,\\
+\widehat X
+&amp;=P_N\left(
+\Sigma_X^{-1}\mu_X
++\sum_{i=1}^N C_i^\TRANS R_i^{-1}Y_i
+\right).
+\end{align*}\]</span> Each additional sensor contributes the positive-semidefinite term <span class="math inline">\(C_i^\TRANS R_i^{-1}C_i\)</span> to the information matrix. Thus, adding a sensor cannot increase the conditional covariance: <span class="math inline">\(P_N\preceq P_{N-1}\)</span>.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>Since <span class="math inline">\(\hat{X} \in \ALPHABET M\)</span>, it is an affine function of <span class="math inline">\(Y\)</span>. Hence <span class="math inline">\(X - \hat X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian. Moreover, since <span class="math inline">\(K(Y - μ_Y) \in \ALPHABET M\)</span> for all <span class="math inline">\(K \in \reals^{n \times m}\)</span>, we have <span class="math display">\[
-\EXP[ (X - \hat{X})^\TRANS K(Y - μ_Y)] = 0, \quad \forall K \in \reals^{n \times m}.
-\]</span> By <a href="#lem-matrix-orthogonality" class="quarto-xref">Lemma&nbsp;<span>5.1</span></a>, this implies that <span class="math display">\[
-\EXP[(X - \hat{X})(Y - μ_Y)^\TRANS] = \mathbf{0}_{n \times m}.
-\]</span> Since <span class="math inline">\(X - \hat X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian and uncorrelated (because <span class="math inline">\(\EXP[X - \hat X] = 0\)</span>), they are independent. Therefore, for any (measurable) function <span class="math inline">\(g\)</span>, the independence gives: <span class="math display">\[
-\EXP[\IP{X - \hat{X}}{g(Y)}] = \EXP[X - \hat{X}]^\TRANS \EXP[g(Y)] = 0,
-\]</span> where the last equality follows from the fact that <span class="math inline">\(\hat X\)</span> is an unbiased estimator of <span class="math inline">\(X\)</span>.</p>
-<p>Now, <a href="./conditional-expectation.html#MMSE">from last section</a>, we know that if a function <span class="math inline">\(h(Y)\)</span> is such that <span class="math inline">\(X - h(Y)\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>, then <span class="math inline">\(h(Y)\)</span> is the conditional expectation <span class="math inline">\(\EXP[X \mid Y]\)</span>. Hence, <span class="math inline">\(\hat X = \EXP[X \mid Y]\)</span>.</p>
 </div>
-</div></li>
-<li><p><strong>Deriving the formula</strong>: To find the explicit formula for <span class="math inline">\(\EXP[X \mid Y]\)</span>, we write <span class="math inline">\(\hat{X} = K_{\circ} Y + c_\circ\)</span> and find <span class="math inline">\(K_\circ\)</span> and <span class="math inline">\(c_\circ\)</span> from properties of orthogonal projection. First note that from the smoothing property of conditional expectation, we have <span class="math display">\[
-   \EXP[ \hat X] = \EXP[ \EXP[ X \mid Y] ] = \EXP[X]
-   \implies
-   K_\circ μ_Y + c_\circ = μ_X
-   \implies
-   c_\circ = μ_X - K_\circ μ_Y.
-\]</span></p>
-<p>By orthogonal projection theorem, the error <span class="math inline">\(X - \hat{X} = (X - μ_X) - K_{\circ}(Y - μ_Y)\)</span> must be orthogonal to all elements of <span class="math inline">\(\ALPHABET M\)</span>. In particular, it must be orthogonal to <span class="math inline">\(Y - μ_Y\)</span> and to constant vectors.</p>
-<p>The orthogonality condition with <span class="math inline">\(K(Y - μ_Y)\)</span> gives: <span class="math display">\[\begin{equation}\label{eq:orthogonal}
-\EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )^\TRANS K(Y - μ_Y)] = 0,
-  \quad \forall K \in \reals^{n \times m}.
-\end{equation}\]</span> By <a href="#lem-matrix-orthogonality" class="quarto-xref">Lemma&nbsp;<span>5.1</span></a>, <span class="math inline">\(\eqref{eq:orthogonal}\)</span> is equivalent to <span class="math display">\[\begin{equation}\label{eq:claim}
-\EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )(Y - μ_Y)^\TRANS ] = \mathbf{0}_{n \times m}.
-\end{equation}\]</span></p>
-<p>Now this implies that <span class="math display">\[
-   Σ_{XY} = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ]
-   = K_{\circ} \EXP[ (Y - μ_Y) (Y - μ_Y)^\TRANS]
-   = K_{\circ} Σ_{YY}
-\]</span> Hence, <span class="math display">\[
-   K_{\circ} = Σ_{XY} Σ_{YY}^{-1}
-   \quad\text{and}\quad
-   c_{\circ} = μ_X - Σ_{XY} Σ_{YY}^{-1} μ_Y.
-\]</span></p>
-<p>Thus, <span class="math display">\[
-\bbox[5pt,border: 1px solid]{
-    \EXP[ X \mid Y] = μ_X + Σ_{XY} Σ_{YY}^{-1}(Y - μ_Y)
-}
-\]</span></p>
-<p>Since the conditional mean is an affine function of <span class="math inline">\(Y\)</span>, it is a Gaussian random variable.</p></li>
-<li><p>The <strong>conditional covariance</strong> <span class="math inline">\(\COV(X \mid Y)\)</span> is defined as <span class="math display">\[
-   \COV(X \mid Y) = \EXP[ (X - \EXP[X \mid Y])(X - \EXP[X \mid Y])^\TRANS \mid Y]
-\]</span> Note that we have already shown that <span class="math inline">\(X - \hat X\)</span> is orthogonal to every random variable in <span class="math inline">\(\ALPHABET M\)</span>. Thus, <span class="math inline">\(X - \hat X\)</span> is orthogonal to <span class="math inline">\(Y\)</span>. Hence, <span class="math display">\[
-   \EXP[ (X - \hat X)(X - \hat X)^\TRANS \mid Y]
-   = \EXP[ (X - \hat X) (X - \hat X)^\TRANS].
-\]</span> To simplify the calculation, we assume that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are zero mean. Then, <span class="math inline">\(\hat{X} = K_{\circ}Y\)</span>, and we have <span class="math display">\[\begin{align*}
-\COV(X \mid Y) &amp;= \EXP[ (X - \hat X) (X - \hat X)^\TRANS] \\
-&amp;= \EXP[ X X^\TRANS + K_{\circ} Y Y^\TRANS K_{\circ}^\TRANS - 2 X Y^\TRANS K_{\circ}^\TRANS] \\
-&amp;= Σ_{XX} + K_{\circ} Σ_{YY} K_{\circ}^\TRANS - 2 Σ_{XY} K_{\circ}^\TRANS \\
-&amp;= Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS.
-\end{align*}\]</span></p></li>
-<li><p><strong>Summary</strong>: For jointly Gaussian random vectors <span class="math inline">\((X, Y)\)</span> with the joint distribution given above, the conditional distribution is Gaussian and is given by: <span class="math display">\[
-   \bbox[5pt,border: 1px solid]{
-   X \mid Y  \sim \mathcal{N}\left(μ_X + Σ_{XY} Σ_{YY}^{-1} (Y - μ_Y), \, Σ_{XX} - Σ_{XY} Σ_{YY}^{-1} Σ_{XY}^\TRANS\right)
-   }
-   \]</span></p></li>
-</ol>
-</section>
-<section id="exercises" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
-<div id="exr-AWGN" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.1</strong></span> Let <span class="math inline">\(X \sim \mathcal{N}(μ_X, Σ_X)\)</span> denote the state of nature. We make an observation <span class="math display">\[ Y = X + W \]</span> where <span class="math inline">\(W \sim \mathcal{N}(0, Σ_W)\)</span>. Find <span class="math inline">\(\EXP[X \mid Y]\)</span>.</p>
-</div>
-<div id="exr-sensor-fusion" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 5.2</strong></span> A robot is trying to estimate its position <span class="math inline">\(X \sim \mathcal{N}(μ_X, Σ_X)\)</span> using two independent sensors. Sensor 1 provides measurement <span class="math display">\[ Y_1 = C_1 X + W_1 \]</span> where <span class="math inline">\(W_1 \sim \mathcal{N}(0, Σ_{W_1})\)</span> is measurement noise and <span class="math inline">\(C_1\)</span> is a known measurement matrix. Sensor 2 provides measurement <span class="math display">\[ Y_2 = C_2 X + W_2 \]</span> where <span class="math inline">\(W_2 \sim \mathcal{N}(0, Σ_{W_2})\)</span> is independent of <span class="math inline">\(W_1\)</span> and <span class="math inline">\(C_2\)</span> is another known measurement matrix.</p>
-<p>Find <span class="math inline">\(\EXP[X \mid Y_1, Y_2]\)</span> and show how the conditional covariance compares to using a single sensor.</p>
-</div>
-</section>
-<section id="further-reading" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="further-reading">Further reading</h2>
-<ol type="1">
-<li>Gubner, Chapter 8.5, 9</li>
-</ol>
 
 
 </section>
@@ -1146,12 +1156,12 @@ X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./conditional-expectation.html" class="pagination-link" aria-label="Conditional probability and conditional expectation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./moment-generating-functions.html" class="pagination-link" aria-label="Moment Generating Functions">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1160,5 +1170,5 @@ X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/conditional-expectation-gaussian.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/mmse-estimation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
