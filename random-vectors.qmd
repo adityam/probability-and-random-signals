@@ -24,7 +24,7 @@ where we may write the right hand side as $\PR(X \le x, Y \le y)$ for short.
     3. Joint CDFs are continuous from above, i.e., 
        $$\lim_{u,v \downarrow 0}F_{X,Y}(x+u,y+v) = F_{X,Y}(x,y).$$
 
-    4. $\PR(X = x, Y = y) = F(x,y) - F(x^{-},y^{-})$. 
+    4. $\PR(X = x, Y = y) = F_{X,Y}(x,y) - F_{X,Y}(x^{-},y) - F_{X,Y}(x,y^{-}) + F_{X,Y}(x^{-},y^{-})$. 
 
 - **Marginalization of joint CDFs**
 
@@ -77,11 +77,11 @@ $$
 
 As was the case for random variables, we can also classify random vectors as discrete, continuous, and mixed.
 
-1. A random vector $(X,Y)$ is called **jointly discrete** if it takes values in a countable subset of $\reals^2$ (we denote this subset by $\ALPHABET X \times \ALPHABET Y$). The jointly discrete random variables have a joint PMF $P_{X,Y} \colon \reals^2 \to [0,1]$ given by
+1. A random vector $(X,Y)$ is called **jointly discrete** if it takes values in a countable support $S_{X,Y} \subseteq \reals^2$. The support need not be a Cartesian product. Such a random vector has a joint PMF $P_{X,Y} \colon \reals^2 \to [0,1]$ given by
    $$ \PR(X = x, Y = y) = P_{X,Y}(x,y). $$
 
 2. A random vector $(X, Y)$ is called **jointly continuous** (or **absolutely continuous**) if there exists an integrable function $f_{X,Y} \colon \reals^2 \to [0, ∞)$ such that
-   $$ F_{X,Y}(x,y) = \int_{-∞}^x \int_{-∞}^{y} f_{X,Y}(u,v)\, du dv, \quad
+   $$ F_{X,Y}(x,y) = \int_{-∞}^x \int_{-∞}^{y} f_{X,Y}(u,v)\, dv du, \quad
    x,y \in \reals $$
    $f_{X,Y}$ is called the **joint PDF** and can be computed as
    $$
@@ -105,13 +105,13 @@ $$
 $$
 i.e., the distribution is uniform along the diagonal of the unit square. 
 
-The diagonal is **a set a Lebesgue measure zero**. That means for any ordinary function $f_{X,Y}$
+The diagonal is **a set of Lebesgue measure zero**. That means for any ordinary function $f_{X,Y}$
 $$
   \iint_{A} f_{X,Y}(x,y)\, dx\,dy = 0
 $$
 for all subsets $A$ of the diagonal. Outside the diagonal, the density must be zero. Hence, the density cannot integrate to one over the entire plane. Therefore, mathematically, a density does not exist. Such random variables are said to be **singular**.
 
-Sometimes in the engineering literature, we sometimes set the PDF to be 
+In the engineering literature, the PDF is sometimes formally written as
 $$
     f_{X,Y}(x,y) = δ(x-y), \quad 0 \le x,y \le 1
 $$
@@ -124,10 +124,10 @@ which produces the correct $F_{X,Y}$ but delta functions are generalized functio
 - **Properties of PMFs**
 
   1. **Normalization.** For a jointly discrete random vector $(X,Y)$, 
-     $$\sum_{x,y \in \ALPHABET X × \ALPHABET Y}P_{X,Y}(x,y) = 1.$$
+     $$\sum_{(x,y) \in S_{X,Y}}P_{X,Y}(x,y) = 1.$$
 
-  2. For any event $A \in \ALPHABET F$, 
-     $$\PR((X,Y) \in A) = \sum_{(x,y) \in (\ALPHABET X \times \ALPHABET Y) \cap A} P_{X,Y}(x,y).$$ 
+  2. For any Borel set $B \subseteq \reals^2$,
+     $$\PR((X,Y) \in B) = \sum_{(x,y) \in S_{X,Y} \cap B} P_{X,Y}(x,y).$$ 
 
   3. **Marginalization.**
       - $\displaystyle \sum_{x \in \ALPHABET X} P_{X,Y}(x,y) = P_Y(y)$. 
@@ -138,15 +138,15 @@ which produces the correct $F_{X,Y}$ but delta functions are generalized functio
   1. **Normalization.** For a jointly continuous random vector $(X,Y)$, 
      $$\int_{-∞}^{∞} \int_{-∞}^{∞} f_{X,Y}(x,y)\, dxdy = 1.$$
 
-  2. For any event $A \in \ALPHABET F$, 
-     $$\PR((X,Y) \in A) = \iint_{(x,y) \in A} f_{X,Y}(x,y)\,dxdy.$$ 
+  2. For any Borel set $B \subseteq \reals^2$,
+     $$\PR((X,Y) \in B) = \iint_{(x,y) \in B} f_{X,Y}(x,y)\,dxdy.$$ 
 
   3. **Marginalization.**
       - $\displaystyle \int_{-∞}^{∞} f_{X,Y}(x,y) dx = f_Y(y)$.
       - $\displaystyle \int_{-∞}^{∞} f_{X,Y}(x,y) dy = f_X(x)$.
 :::
 
-The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors $X = (X_1, \dots, X_n) \in \reals^n$. In practice, we often do not make a distinction between random _variables_ and random _vectors_ and refer both of them simply as _random variables_. 
+The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors $X = [X_1, \dots, X_n]^\TRANS \in \reals^n$. In practice, we often do not make a distinction between random _variables_ and random _vectors_ and refer both of them simply as _random variables_. 
 
 :::{#exm-joint-discrete}
 Consider jointly discrete random variables $X \in \{1,2,3\}$ and $Y \in \{1, 2, 3\}$ with joint PMF
@@ -215,10 +215,10 @@ Find the constant $c$.
 #### Solution
 We know that the joint PDF must integrate to $1$. Thus,
 \begin{align*}
-  1 &= \int_{-∞}^{∞} f_{X,Y}(x,y)\, dx\, dy \\
+  1 &= \int_{-∞}^{∞} \int_{-∞}^{∞} f_{X,Y}(x,y)\, dy\, dx \\
   &= \int_{0}^{1} \int_{0}^x c xy\, dy\, dx  \\
   &= \int_{0}^{1} c x\frac{x^2}{2} dx \\
-  &= c \frac{x^3}{8}\biggr|_{0}^1 = \frac{c}{8}
+  &= c \frac{x^4}{8}\biggr|_{0}^1 = \frac{c}{8}
 \end{align*}
 Therefore, $c=8$.
 :::
@@ -229,12 +229,12 @@ Therefore, $c=8$.
 Two random variables $X$ and $Y$ defined on a common probability space $(Ω, \ALPHABET F, \PR)$ are said to be independent if the sigma algebras $σ(X)$ and $σ(Y)$ are independent.
 :::
 
-The above definition means that if we take any (Borel) subsets $B_1$ and $B_2$ of $\reals$, then the events $\{X \in B_1\}$ and $\{X \in B_2\}$ are independent, i.e., 
+The above definition means that if we take any (Borel) subsets $B_1$ and $B_2$ of $\reals$, then the events $\{X \in B_1\}$ and $\{Y \in B_2\}$ are independent, i.e., 
 $$
 \PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2).
 $$
 
-Using this, we can show that following:
+Using this, we can show the following:
 
 1. $X$ and $Y$ are independent if and only if
    $$
@@ -264,15 +264,15 @@ Using this, we can show that following:
 
 Observe that $F_{X,Y}(x,y) \neq F_X(x) F_Y(y)$. Hence, the two random variables are not independent.
 
-We can also see that because $f_{X,Y}(x,y) \neq f_X(x) f_Y(y)$. 
+We can also see this from $f_{X,Y}(x,y) \neq f_X(x) f_Y(y)$. 
 :::
 
 :::{#exm-uniform-unit-square}
-Consider random variables $X$ and $Y$ with joint PDF $f_{X,Y}$ which is a uniform distribution on the unit square. Are $X$ and $Y$ independent?
+Consider random variables $X$ and $Y$ whose joint PDF $f_{X,Y}$ is uniform on the unit square. Are $X$ and $Y$ independent?
 :::
 
 :::{#exm-uniform-unit-triangle}
-Consider random variables $X$ and $Y$ with joint PDF $f_{X,Y}$ which is a uniform distribution on the unit triangle Are $X$ and $Y$ independent?
+Consider random variables $X$ and $Y$ whose joint PDF $f_{X,Y}$ is uniform on the unit triangle. Are $X$ and $Y$ independent?
 :::
 
 These definitions extend naturally to any number of random variables:
@@ -336,15 +336,15 @@ Consider any (Borel) subsets $B_1$ and $B_2$ of $\reals$ and consider the events
 - $\{ U \in B_1 \} = \{ X \in g^{-1}(B_1) \}$.
 - $\{ V \in B_2 \} = \{ Y \in h^{-1}(B_2) \}$.
 
-Since the random variables $X$ and $Y$ are independent, the events $\{ X \in g^{-1}(B_1) \}$ and $\{ Y \in h^{-1}(B_2) \}$. Which implies that the events $\{ U \in B_1 \}$ and $\{ V \in B_2 \}$ are independent. Consequently, the random variables $U$ and $V$ are independent.
+Since the random variables $X$ and $Y$ are independent, the events $\{ X \in g^{-1}(B_1) \}$ and $\{ Y \in h^{-1}(B_2) \}$ are independent. It follows that the events $\{ U \in B_1 \}$ and $\{ V \in B_2 \}$ are independent. Consequently, the random variables $U$ and $V$ are independent.
 :::
 
 :::{#prp-independence-as-expectation}
-Let $X$ and $Y$ be independent random variables defined on a common probability space. Then $X$ and $Y$ are independent if and only if
+Let $X$ and $Y$ be random variables defined on a common probability space. Then $X$ and $Y$ are independent if and only if
 \begin{equation}\label{eq:expectation-product}
   \EXP[ g(X) h(Y) ] = \EXP[ g(X) ] \EXP[ h(Y) ]
 \end{equation}
-for all (measurable) functions $g$ and $h$.
+for all (bounded measurable) functions $g$ and $h$.
 :::
 
 :::{.callout-note collapse="true"}
@@ -356,7 +356,7 @@ There are two claims here.
 
 2. If \eqref{eq:expectation-product} holds, then $X$ and $Y$ are independent.
 
-We will prove the first claim assuming that $X$ and $Y$ are continuous. Similar argument works for the discrete case as well. 
+We will prove the first claim assuming that $X$ and $Y$ are continuous. A similar argument works for the discrete case as well. 
 \begin{align*}
   \EXP[ g(X) h(Y) ] 
   &= \int_{-∞}^∞ \int_{-∞}^∞ g(x) h(y) f_{X,Y}(x,y)\, dx dy \\
@@ -373,7 +373,7 @@ To prove the second claim, pick any (Borel) subsets $B_1$ and $B_2$ of $\reals$ 
   \PR(X \in B_1, Y \in B_2) 
   &= \EXP[\IND_{ \{ X \in B_1, Y \in B_2 \}}] \\
   &\stackrel{(d)}= \EXP[\IND_{ \{ X \in B_1 \}} \IND_{\{ Y \in B_2 \}}] \\
-  &\stackrel{(e)}=\EXP[\IND_{ \{ X \in B_1 \}}\ \EXP[ \IND_{\{ Y \in B_2 \}}] \\ 
+  &\stackrel{(e)}=\EXP[\IND_{ \{ X \in B_1 \}}]\ \EXP[ \IND_{\{ Y \in B_2 \}}] \\ 
   &\stackrel{(f)}= \PR(X \in B_1) \PR(Y \in B_2)
 \end{align*}
 where $(d)$ follows from basic algebra, $(e)$ follows from \eqref{eq:expectation-product}, and $(f)$ follows from expectation of an indicator.
@@ -391,13 +391,13 @@ b. $\VAR(X + Y) = \VAR(X) + \VAR(Y)$.
 :::{#def-iid}
 A collection of random variables $X_1, \dots, X_n$ is called **independent and identically distributed (i.i.d.)** if all random variables are independent and have the same distribution, i.e., 
 $$
-  F_{X_1}(x_1) = F_{X_2}(x_2) = \cdots = F_{X_n}(x_n).
+  F_{X_1}(x) = F_{X_2}(x) = \cdots = F_{X_n}(x), \quad \forall x \in \reals.
 $$
 :::
 
 ## Functions of random variables
 
-In an interconnected systems, the output of one system is used as input to another system. To analyze such systems, it is important to understand how to analyze functions of random variables. 
+In an interconnected system, the output of one system is used as input to another system. To analyze such systems, it is important to understand functions of random variables. 
 
 The same idea can be used for functions of multiple random variables as we illustrate via the following examples.
 
@@ -418,7 +418,7 @@ Find $F_U$ and $F_V$.
    $$ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).$$
 
 2. Now consider $F_V$. The event $\{V \le v\}$ can be expressed as
-  $$ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \} \cap \{X \le v \} \cap \{Y \le v\}.$$
+  $$ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \}. $$
   Thus,
   $$F_V(v) = F_X(v) + F_Y(v) - F_{X,Y}(v,v). $$
 :::
@@ -487,7 +487,7 @@ Thus, $Y \sim \text{Poisson}(λ_1 + λ_2)$.
 
 ### Change of variables formulas
 
-For continuous random variables, it is possible to obtain a general **change of variable** formula to obtain the PDF of functions of random variable in terms of their joint PDF. 
+For continuous random variables, a general **change-of-variables** formula gives the PDF of their functions in terms of the joint PDF. 
 
 
 Suppose $\{X_1, \dots, X_n\}$ are jointly continuous random variables with joint PDF $f$. Consider $n$ random variables:
@@ -495,9 +495,16 @@ Suppose $\{X_1, \dots, X_n\}$ are jointly continuous random variables with joint
     Y_1 &= g_1(X_1, \dots, X_n), \\
     Y_2 &= g_2(X_1, \dots, X_n), \\
     \vdots &= \vdots \\
-    Y_n &= g_n(X_1, \dots, X_n).
+    Y_n &= g_n(X_1, \dots, X_n),
  \end{align*}
- We can view this as an equation between two $n$-dimensional vectors $Y = \VEC(Y_1, \dots, Y_n)$ and $X = \VEC(X_1, \dots, X_n)$ written as 
+ where $g_i$ are continuously differentiable functions.
+ We can view this as an equation between two $n$-dimensional column vectors
+ $$
+ Y = \MATRIX{Y_1 \\ \vdots \\ Y_n}
+ \quad\text{and}\quad
+ X = \MATRIX{X_1 \\ \vdots \\ X_n},
+ $$
+ written compactly as
  $$ Y = g(X) $$
 
  As was the case for the scalar system, for a given $y \in \reals^n$, the vector equation $y = g(x)$ may have zero, one, or multiple solutions. 
@@ -507,7 +514,7 @@ Suppose $\{X_1, \dots, X_n\}$ are jointly continuous random variables with joint
 
 - If $y = g(x)$, $y \in \reals^n$ has one solution $x \in \reals^n$, then
   $$ f_Y(y) = \frac{f_X(x)}{\ABS{J(x)}}, \quad \text{where } y = g(x)$$
-  and $J(x)$ denotes the Jacobian on $g(x)$ evaluated at $x = (x_1, \dots, x_n)$, i.e., 
+  and $J(x)$ denotes the Jacobian of $g(x)$ evaluated at $x = [x_1, \dots, x_n]^\TRANS$, i.e., 
   $$
   \def\1#1#2{\dfrac{∂ g_{#1}}{∂ x_{#2}}}
   J(x_1, \dots, x_n) = 
@@ -530,7 +537,7 @@ Resolve @exm-function-max-min using the change of variables formula.
 Let $g_1(x,y) = \max\{x, y\}$ and $g_2(x,y) = \min\{x,y\}$. Define
 $$ U = g_1(X,Y) \quad\text{and}\quad V = g_2(X,Y).$$
 
-Define $g(x,y) = \VEC(g_1(x,y), g_2(x,y))$. Note that $g$ is not differentiable at $x=y$. 
+Define $g(x,y) = \MATRIX{g_1(x,y) \\ g_2(x,y)}$. Note that $g$ is not differentiable at $x=y$. 
 
 - When $x > y$, we have $g_1(x,y) = x$ and $g_2(x,y) = y$. Thus,
   $$
@@ -597,7 +604,7 @@ Let $X$ and $Y$ be random variables defined on a common probability space. Defin
 $$
   U = X^2 \quad\text{and}\quad V = X + Y.
 $$
-Find $F_{U,V}$?
+Find $f_{U,V}$?
 :::
 
 :::{.callout-note collapse="false"}
@@ -614,7 +621,7 @@ $$
 
 1. If $u < 0$, then the system of equations has no solutions. Therefore,
    $$ 
-      F_{U,V}(u,v) = 0, \quad u < 0.
+      f_{U,V}(u,v) = 0, \quad u < 0.
    $$
 
 2. If $u = 0$, then the system of equations has one solution:
@@ -625,7 +632,7 @@ $$
    $$
       f_{U,V}(0,v) = \frac{f_{X,Y}(0,v)}{J(0,v)} 
    $$
-   is undefined. However, since $u = 0$ is a line in two-dimensions (i.e., a set of measure zero), the choice of $f_{U,V}$ at $u = 0$ will not affect any probability computations. So, we set
+   is undefined. However, since $u = 0$ is a line in two dimensions (i.e., a set of measure zero), the choice of $f_{U,V}$ at $u = 0$ will not affect any probability computations. So, we set
    $$
       f_{U,V}(0,v) = 0.
    $$
@@ -658,12 +665,18 @@ Let $X$ and $Y$ be real-valued random variables defined on the same probability 
   \COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
   $$
 
-- **Correlation coefficient** between $X$ and $Y$ is defined as 
+- If $\VAR(X)>0$ and $\VAR(Y)>0$, the **correlation coefficient** between $X$ and $Y$ is defined as
   $$ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.$$
 
-- The correlation coefficient satisfies $\ABS{ρ_{XY}} \le 1$ with equality if and only if $\PR(aX + bY = c) = 1$ for some $a,b,c \in \reals$. [The proof follows from Cauchy-Schwartz inequality, which we will study later]
+- The correlation coefficient satisfies $\ABS{ρ_{XY}} \le 1$, with equality if and only if
+  $$
+  \PR(Y = aX+b)=1
+  $$
+  for some $a \neq 0$ and $b \in \reals$. [The proof follows from the Cauchy--Schwarz inequality, which we will study later.]
 
-- $X$ and $Y$ are said to be uncorrelated if $ρ_{XY} = 0$, which is equivalent to $\COV(X,Y) = 0$ or $\EXP[XY] = \EXP[X] \EXP[Y]$.
+- $X$ and $Y$ are said to be **uncorrelated** if
+  $$\COV(X,Y)=0,$$
+  or, equivalently, if $\EXP[XY] = \EXP[X] \EXP[Y]$. This definition also applies when one of the random variables is constant.
 
 - Note that
   \begin{align*}
@@ -684,7 +697,23 @@ Show that $X$ and $Y$ are uncorrelated but not independent.
 :::{.callout-note collapse="false"}
 ### Solution
 
-The event $\{X = 1\}$ corresponds to $ω = 0$ and therefore $\{Y = 0\}$. Thus, $X$ and $Y$ are not independent. 
+To show that $X$ and $Y$ are not independent, consider the events
+$$
+A = \{X > \tfrac12\}
+\quad\text{and}\quad
+B = \{Y > \tfrac12\}.
+$$
+The event $A$ corresponds to
+$$
+ω \in (0,\tfrac{π}{3}) \cup (\tfrac{5π}{3},2π),
+$$
+while $B$ corresponds to $ω \in (\tfrac{π}{6},\tfrac{5π}{6})$. Therefore,
+$$
+\PR(A)=\PR(B)=\frac13,
+\qquad
+\PR(A\cap B)=\frac1{12}.
+$$
+Since $\PR(A\cap B) \neq \PR(A)\PR(B)=\frac19$, the random variables $X$ and $Y$ are not independent.
 
 Observe that
 
@@ -693,7 +722,7 @@ Observe that
 - $\displaystyle \EXP[Y] = \int_{0}^{2 π} \sin ω \frac{1}{2 π}\, d ω = 0$.
 
 - $\displaystyle \EXP[XY] = \int_{0}^{2 π} \cos ω \sin ω \frac{1}{2 π}\, d ω = 
-  \frac{1}{4{π}} \int_0^{2 π} \cos 2 ω\, d ω = 0$.
+  \frac{1}{4π} \int_0^{2 π} \sin 2 ω\, d ω = 0$.
 
 Thus,
 $$\EXP[XY] = \EXP[X]\EXP[Y].$$
@@ -704,8 +733,8 @@ $$\EXP[XY] = \EXP[X]\EXP[Y].$$
 
 The idea of covariance generalizes to random vectors. First we recall the definition of expectation for random vectors and random matrices.
 
-- For a random vector $X = [X_1, \dots, X_n] \in \reals^n$, we have
-  $$ \EXP[X] = \MATRIX{ \EXP[X_1] & \cdots & \EXP[X_n] }. $$
+- For a random vector $X = [X_1, \dots, X_n]^\TRANS \in \reals^n$, we have
+  $$ \EXP[X] = \MATRIX{ \EXP[X_1] \\ \vdots \\ \EXP[X_n] }. $$
 
 - For a random matrix $X = \MATRIX{ X_{1,1} & \cdots & X_{1,n} \\ X_{2,1} & \cdots & X_{2,n} \\
   \vdots & \vdots & \vdots \\
@@ -733,128 +762,594 @@ With the above notation, we have the following.
 
 4. If the components $X_1, \dots, X_n$ are independent, then $Σ_X$ is a diagonal matrix.
 
-5. $Σ_X$ is positive semidefinite, i.e., its eigenvalues are real and non-negative. To see this, observe that for any (deterministic) vector $v$, we have
+5. $Σ_X$ is positive semidefinite, i.e., its eigenvalues are real and non-negative. To see this, observe that for any deterministic vector $v \in \reals^n$, we have
    \begin{align*}
      v^\TRANS Σ_X v 
      &= v^\TRANS \EXP[ (X - μ_X) (X - μ_X)^\TRANS ] v \\
      &= \EXP[ v^\TRANS (X - μ_X) (X - μ_X)^\TRANS v ]  \\
-     &= \EXP[ w^\TRANS w ] = \EXP[ \NORM{w}^2 ] \ge 0. 
+     &= \EXP[ w^2 ] \ge 0. 
    \end{align*}
-   where $w = (X - μ_X)^\TRANS v$.
+   where $w = (X - μ_X)^\TRANS v$ is a scalar random variable.
       
-6. The **cross covariance matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is a $n × p$ matrix given by
+6. The **cross covariance matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is an $n × m$ matrix given by
   $$
     Σ_{XY} = \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
   $$
 
-7. Two random vectors $X$ and $Y$ are called **uncorrelated** if 
-  $$ Σ_{XY} = 0 \implies 
-    \EXP[XY^\TRANS] = \EXP[X] \EXP[Y]^\TRANS. $$
+7. Two random vectors $X$ and $Y$ are called **uncorrelated** if $Σ_{XY} = 0_{n \times m}$. Equivalently,
+  $$ \EXP[XY^\TRANS] = \EXP[X] \EXP[Y]^\TRANS. $$
 
 8. Two random vectors $X$ and $Y$ are called **orthogonal** if 
-  $$\EXP[X Y^\TRANS] = 0 $$
+  $$\EXP[X Y^\TRANS] = 0_{n \times m}. $$
 
-### Linear transformation of mean and covariance
+9. Let $Z$ be the random vector obtained by stacking $X$ and $Y$:
+   $$
+   Z = \MATRIX{X \\ Y} \in \reals^{n+m}.
+   $$
+   Its mean and covariance have the block structure
+   $$
+   μ_Z = \MATRIX{μ_X \\ μ_Y}
+   \quad\text{and}\quad
+   Σ_Z
+   = \MATRIX{
+       Σ_X & Σ_{XY} \\
+       Σ_{YX} & Σ_Y
+     },
+   $$
+   where
+   $$
+   Σ_{YX} = Σ_{XY}^\TRANS.
+   $$
 
-Consider a random vector (not necessarily Gaussian) $X = [X_1, \dots, X_n]^\TRANS$ with mean $μ_X$ and covariance $Σ_X$. 
+### Affine transformation of random vectors
 
-Let $A \in \reals^{n × n}$ be a deterministic matrix and $b \in \reals^n$ be a deterministic vector. 
-
-Define $Y = A X + b$ and let $μ_Y$ and $Σ_Y$ denote the mean and covariance of $Y$. Then,
-$$
-  μ_Y = A μ_X + b
+1. **Mean and covariance.** Let $X \in \reals^n$ have mean $μ_X$ and covariance $Σ_X$. If
+  $$
+  Y=AX+b \in \reals^m,
+  $$
+  where $A \in \reals^{m \times n}$ and $b \in \reals^m$ are deterministic, then
+  $$
+  μ_Y=Aμ_X+b
   \quad\text{and}\quad
-  Σ_Y = A Σ_X A^\TRANS
-$$
+  Σ_Y=AΣ_XA^\TRANS.
+  $$
+
+2. **Cross-covariance.** Let $X \in \reals^n$ and $Y \in \reals^p$ have cross-covariance $Σ_{XY}$. If
+  $$
+  U=AX+b \in \reals^m
+  \quad\text{and}\quad
+  V=CY+d \in \reals^q,
+  $$
+  where $A \in \reals^{m \times n}$, $C \in \reals^{q \times p}$, $b \in \reals^m$, and $d \in \reals^q$ are deterministic, then
+  $$
+  Σ_{UV}=\COV(U,V)=AΣ_{XY}C^\TRANS.
+  $$
 
 :::{.callout-note collapse="true"}
-#### Proof
+#### Proofs
 
-The property of the mean follows immediately from properties of expectation. For the covariance, note that
+For the first result, the property of the mean follows immediately from the properties of expectation. For the covariance,
 \begin{align*}
-  Σ_Y &= \EXP[ (Y - μ_Y) (Y - μ_Y)^\TRANS ] \\
-  &= \EXP[ (A X - A μ_X) (AX - A μ_X)^\TRANS ] \\
-  &= \EXP[ A (X - μ_X) (X - μ_X)^\TRANS A^\TRANS ] \\
-  &= A Σ_X A^\TRANS
+Σ_Y
+&= \EXP[(Y-μ_Y)(Y-μ_Y)^\TRANS] \\
+&= \EXP[A(X-μ_X)(X-μ_X)^\TRANS A^\TRANS] \\
+&= AΣ_XA^\TRANS.
+\end{align*}
+
+For the second result, $U-μ_U=A(X-μ_X)$ and $V-μ_V=C(Y-μ_Y)$. Therefore,
+\begin{align*}
+Σ_{UV}
+&= \EXP[(U-μ_U)(V-μ_V)^\TRANS] \\
+&= A\EXP[(X-μ_X)(Y-μ_Y)^\TRANS]C^\TRANS \\
+&= AΣ_{XY}C^\TRANS.
 \end{align*}
 :::
 
-## Multi-dimensional Gaussian 
+## Multivariate Gaussian random vectors
 
-A $n$-dimensional Gaussian with mean $μ$ and covariance $Σ$, written as $\mathcal{N}(μ, Σ)$, has the PDF
+### Definition
+
+:::{#def-multivariate-Gaussian}
+A random vector $X \in \reals^n$ is called **Gaussian** if every linear combination of its components is a scalar Gaussian random variable. Thus, for every deterministic vector $a \in \reals^n$, $a^\TRANS X$ is Gaussian.
+
+If $μ=\EXP[X]$ and $Σ=\COV(X)$, we write
 $$
-  f_X(x) = \frac{1}{\sqrt{(2 π)^n \det(Σ)}}
-  \exp\left( - \tfrac{1}{2} (x - μ)^\TRANS Σ^{-1} (x-μ) \right),
-  \quad x \in \reals^n.
+X \sim \mathcal{N}(μ,Σ).
+$$
+In particular,
+$$
+a^\TRANS X \sim \mathcal{N}(a^\TRANS μ,a^\TRANS Σa),
+\qquad a \in \reals^n.
+$$
+A Gaussian random variable with zero variance is interpreted as a constant almost surely.
+:::
+
+Random vectors $X \in \reals^n$ and $Y \in \reals^m$ are called **jointly Gaussian** if the stacked vector is Gaussian, i.e.,
+$$
+\MATRIX{X \\ Y}
+\sim
+\mathcal{N}\left(
+\MATRIX{μ_X \\ μ_Y},
+\MATRIX{
+Σ_X & Σ_{XY} \\
+Σ_{YX} & Σ_Y
+}
+\right).
 $$
 
-We consider a few special cases to understand the definition.
+The mean vector and covariance matrix completely determine the distribution of a Gaussian random vector. This fact is what makes Gaussian models especially convenient: means and covariance matrices can replace full joint CDFs or PDFs.
 
-1. Consider the special case when all components are independent, let 
-   $$
-      μ = \MATRIX{μ_1 \\ \vdots μ_n},
-     \quad\text{and}\quad
-     Σ = \MATRIX{σ_1^2 & \cdots & 0 \\ 
-                 \vdots & \ddots & \vdots \\
-                 0 & \cdots & σ_n^2 }
-   $$
-   where $μ_i = \EXP[X_i]$ and $σ_i^2 = \VAR(X_i)$. Observe that
-   $$
-     \det(Σ) = \prod_{i=1}^n σ_i^2
-   $$
-   and 
-   $$
-     (x - μ)^\TRANS Σ^{-1} (x - μ) = \sum_{i=1}^n \frac{(x_i - μ_i)^2}{σ_i^2}.
-   $$
-   Thus, 
-   $$
-     f_X(x) = \prod_{i=1}^n \frac{1}{\sqrt{2 π σ_i^2}}
-     \exp\left(-\frac{(x_i-μ_i)^2}{2 σ_i^2} \right)
-   $$
-   which is the product of the marginal distributions. 
+:::{.callout-important appearance="simple"}
+#### Gaussian marginals do not imply joint Gaussianity
 
-2. Consider the two-dimensional Gaussian vector and let $σ_i^2 = \VAR(X_i)$ and $ρ = \COV(X_1,X_2)/σ_1 σ_2$. Then,
-   $$
-      Σ = \MATRIX{ σ_1^2 & ρ σ_1 σ_2 \\ ρ σ_1 σ_2 & σ_2^2 }.
-   $$
-   When $\ABS{ρ} = 1$, the distribution is singular. When $\ABS{ρ} < 1$, $\det(Σ) = (1 - ρ^2)σ_1^2 σ_2^2$ and
-   $$
-      Σ^{-1} = \frac{1}{(1 - ρ^2)σ_1^2 σ_2^2}
-      \MATRIX{ σ_2^2 & -ρ σ_1^2 σ_2^2 \\ -ρ σ_1^2 σ_2^2 & σ_1^2}.
-   $$
-   Thus,
-   $$
-    (x-μ)^\TRANS Σ^{-1} (x - μ) 
-    = \frac{1}{1 - ρ^2} \biggl[
-      \frac{(x_1 - μ_1)^2}{2 σ_1^2 } 
-      - 2 ρ \frac{(x_1 - μ_1)(x_2 - μ_2)}{σ_1 σ_2}
-      + \frac{(x_2 - μ_2)^2}{2 σ_2^2 } 
-    \biggr].
-   $$
-   Thus, the level set 
-   $$(x - μ)^\TRANS Σ^{-1} (x - μ) = k^2$$
-   is an ellipse centered at $μ$.
+It is not enough for each component to be Gaussian. Let $X \sim \mathcal{N}(0,1)$, and let $S$ be independent of $X$ with
+$$
+\PR(S=1)=\PR(S=-1)=\frac12.
+$$
+Define $Y=SX$. Both $X$ and $Y$ have the $\mathcal{N}(0,1)$ distribution, but
+$$
+\PR(X+Y=0)=\frac12.
+$$
+Thus, $X+Y$ is not a continuous random variable. It is also not constant, so it cannot be a Gaussian random variable (either nondegenerate or degenerate). Consequently, $(X,Y)$ is not jointly Gaussian.
+:::
 
-   - When $ρ = 0$, the axes of the ellipse are aligned with the coordinates.
-   - When $ρ > 0$, the ellipse tilts towards the $x_1 = x_2$ diagonal
-   - When $ρ < 0$, the ellipse tilts towards the anti-diagonal. 
+### Construction, density, and singularity
 
-### Linear transformation of Gaussian vectors
+Let $Z \sim \mathcal{N}(0,I_r)$, let $L \in \reals^{n \times r}$ be deterministic, and define
+$$
+X=μ+LZ.
+$$
+Then
+$$
+X \sim \mathcal{N}(μ,LL^\TRANS).
+$$
+Conversely, if $X \sim \mathcal{N}(μ,Σ)$ and $Σ$ has rank $r$, then $Σ$ can be factored as $Σ=LL^\TRANS$ and $X$ has the same distribution as $μ+LZ$. Thus, a valid Gaussian covariance matrix is always positive semidefinite.
 
-1. If real-valued random variables $X$ and $Y$ are jointly Gaussian, then $X + Y$ is Gaussian. We will prove this later using moment generating functions. 
+- If $Σ$ is positive definite, then $r=n$ and $X$ has the PDF
+  $$
+  f_X(x)
+  =\frac{1}{\sqrt{(2π)^n\det(Σ)}}
+  \exp\left(-\frac12(x-μ)^\TRANS Σ^{-1}(x-μ)\right),
+  \qquad x \in \reals^n.
+  $$
 
-2. If $X$ and $Y$ are jointly Gaussian, then they are independent if and only if they are uncorrelated.
+- If $Σ$ is singular, then $X$ is supported on the lower-dimensional affine subspace
+  $$
+  μ+\operatorname{range}(L)
+  $$
+  and does not have an ordinary PDF on $\reals^n$.
 
-3. Let $X$ let a Gaussian random vector with mean $μ_X$ and covariance $Σ_X$  and $Y = AX + b$ for a constant matrix $A$ and vector $b$. Then $Y$ is also a Gaussian vector with 
-   $$μ_Y = A μ_X  + b 
-    \quad\text{and}\quad 
-     Σ_Y = A Σ_X A^\TRANS.
+### Properties of Gaussian vectors
+
+1. **Affine transformations.** If $X \sim \mathcal{N}(μ_X,Σ_X)$, $A \in \reals^{m \times n}$, and $b \in \reals^m$, then
    $$
+   AX+b \sim \mathcal{N}(Aμ_X+b,AΣ_XA^\TRANS).
+   $$
+   This remains true when $AΣ_XA^\TRANS$ is singular.
 
-4. Let $X \sim \mathcal{N}(μ, Σ)$ and define $Z = Σ^{-\frac 12}(X - μ)$. Then,
+2. **Marginals.** Every subvector of a Gaussian random vector is Gaussian. Its mean and covariance are obtained by selecting the corresponding entries and blocks of the original mean and covariance.
+
+3. **Sums.** If $X$ and $Y$ are jointly Gaussian random vectors of the same dimension, then $X+Y$ is Gaussian. In particular, independent Gaussian random vectors are jointly Gaussian, so their sum is Gaussian.
+
+4. **Independence.** If $X$ and $Y$ are jointly Gaussian, then
    $$
-      μ_Z = Σ^{-1}(μ - μ) = 0
-      \quad\text{and}\quad
-      Σ_Z = Σ^{-\frac 12} Σ Σ^{-\frac 12} = I.
+   X \independent Y
+   \quad\Longleftrightarrow\quad
+   Σ_{XY}=0.
    $$
-   Thus, $Z \sim \mathcal{N}(0, I)$.
+   Consequently, the components of a Gaussian random vector are mutually independent if and only if its covariance matrix is diagonal.
+
+5. **Standardization.** If $X \sim \mathcal{N}(μ,Σ)$ and $Σ$ is positive definite, then
+   $$
+   Z=Σ^{-\frac12}(X-μ) \sim \mathcal{N}(0,I_n).
+   $$
+   This operation is also called **whitening**.
+
+:::{.callout-note collapse="true"}
+#### Why affine transformations remain Gaussian
+
+For any $t \in \reals^m$,
+$$
+t^\TRANS(AX+b)=(A^\TRANS t)^\TRANS X+t^\TRANS b,
+$$
+which is Gaussian by @def-multivariate-Gaussian. Its mean and variance are
+$$
+t^\TRANS(Aμ_X+b)
+\quad\text{and}\quad
+t^\TRANS AΣ_XA^\TRANS t,
+$$
+respectively. The marginal and sum properties follow by applying appropriate selection or addition matrices to the relevant jointly Gaussian vector.
+:::
+
+### Independent components and Gaussian contours
+
+Suppose $Σ$ is positive definite and diagonal:
+$$
+μ=\MATRIX{μ_1 \\ \vdots \\ μ_n},
+\qquad
+Σ=\MATRIX{
+σ_1^2 & \cdots & 0 \\
+\vdots & \ddots & \vdots \\
+0 & \cdots & σ_n^2
+}.
+$$
+Then
+$$
+f_X(x)
+=\prod_{i=1}^n
+\frac{1}{\sqrt{2πσ_i^2}}
+\exp\left(-\frac{(x_i-μ_i)^2}{2σ_i^2}\right),
+$$
+which is the product of the marginal PDFs. Thus, the components are independent.
+
+For a general positive-definite covariance matrix, the level sets of the PDF are
+$$
+(x-μ)^\TRANS Σ^{-1}(x-μ)=k^2.
+$$
+These are ellipsoids centered at $μ$. If
+$$
+Σ=QΛQ^\TRANS,
+$$
+then the columns of $Q$ give the principal directions of the ellipsoids, and their semi-axis lengths are $k\sqrt{λ_i}$, where $λ_i$ are the eigenvalues of $Σ$.
+
+For example, consider a two-dimensional Gaussian vector with $σ_i^2=\VAR(X_i)>0$ and
+$$
+ρ=\frac{\COV(X_1,X_2)}{σ_1σ_2}.
+$$
+Its covariance matrix is
+$$
+Σ=\MATRIX{
+σ_1^2 & ρσ_1σ_2 \\
+ρσ_1σ_2 & σ_2^2
+}.
+$$
+When $\ABS{ρ}<1$,
+$$
+\det(Σ)=(1-ρ^2)σ_1^2σ_2^2
+$$
+and
+$$
+Σ^{-1}
+=\frac{1}{(1-ρ^2)σ_1^2σ_2^2}
+\MATRIX{
+σ_2^2 & -ρσ_1σ_2 \\
+-ρσ_1σ_2 & σ_1^2
+}.
+$$
+Therefore,
+$$
+(x-μ)^\TRANS Σ^{-1}(x-μ)
+=\frac{1}{1-ρ^2}
+\left[
+\frac{(x_1-μ_1)^2}{σ_1^2}
+-2ρ\frac{(x_1-μ_1)(x_2-μ_2)}{σ_1σ_2}
++\frac{(x_2-μ_2)^2}{σ_2^2}
+\right].
+$$
+
+- When $ρ=0$, the ellipse axes are aligned with the coordinate axes.
+- When $ρ>0$, the major axis has positive slope.
+- When $ρ<0$, the major axis has negative slope.
+
+When $\ABS{ρ}=1$, the distribution is singular and is supported on the line
+$$
+X_2-μ_2=ρ\frac{σ_2}{σ_1}(X_1-μ_1)
+\quad\text{almost surely}.
+$$
+
+The following interactive figure illustrates these properties for a zero-mean bivariate Gaussian distribution. The standard deviations $σ_1$ and $σ_2$ control the spread along the two coordinates, while $ρ$ controls the orientation and elongation of the contours. Recall that $ρ=0$ corresponds to independent components in the jointly Gaussian case. The three curves are the contours
+$$
+x^\TRANS Σ^{-1}x=k^2,
+\qquad k=1,2,3.
+$$
+
+```{ojs}
+//| echo: false
+
+viewof gaussian_sigma_1 = Inputs.range([0.5, 2], {
+  label: "σ₁",
+  value: 1.2,
+  step: 0.05
+})
+
+viewof gaussian_sigma_2 = Inputs.range([0.5, 2], {
+  label: "σ₂",
+  value: 0.8,
+  step: 0.05
+})
+
+viewof gaussian_rho = Inputs.range([-0.95, 0.95], {
+  label: "ρ",
+  value: 0,
+  step: 0.05
+})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+
+gaussian_pdf_grid = {
+  const limit = 6
+  const bins = 70
+  const width = 2 * limit / bins
+  const oneMinusRhoSquared = 1 - gaussian_rho * gaussian_rho
+  const normalizer = 1 / (
+    2 * Math.PI * gaussian_sigma_1 * gaussian_sigma_2
+    * Math.sqrt(oneMinusRhoSquared)
+  )
+  const values = []
+
+  for (let i = 0; i < bins; ++i) {
+    const x = -limit + (i + 0.5) * width
+    for (let j = 0; j < bins; ++j) {
+      const y = -limit + (j + 0.5) * width
+      const z1 = x / gaussian_sigma_1
+      const z2 = y / gaussian_sigma_2
+      const mahalanobisSquared = (
+        z1 * z1 - 2 * gaussian_rho * z1 * z2 + z2 * z2
+      ) / oneMinusRhoSquared
+
+      values.push({
+        x1: x - width / 2,
+        x2: x + width / 2,
+        y1: y - width / 2,
+        y2: y + width / 2,
+        density: normalizer * Math.exp(-0.5 * mahalanobisSquared)
+      })
+    }
+  }
+  return values
+}
+
+gaussian_pdf_contours = {
+  const values = []
+  const sineScale = gaussian_sigma_2 * Math.sqrt(
+    1 - gaussian_rho * gaussian_rho
+  )
+
+  for (const level of [1, 2, 3]) {
+    for (let j = 0; j <= 180; ++j) {
+      const theta = 2 * Math.PI * j / 180
+      const cosine = Math.cos(theta)
+      const sine = Math.sin(theta)
+      values.push({
+        level,
+        x: level * gaussian_sigma_1 * cosine,
+        y: level * (
+          gaussian_rho * gaussian_sigma_2 * cosine
+          + sineScale * sine
+        )
+      })
+    }
+  }
+  return values
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-gaussian-covariance-interactive
+//| fig-cap: Interactive PDF and equal-Mahalanobis-distance contours for a zero-mean bivariate Gaussian distribution.
+
+Plot.plot({
+  width: 640,
+  height: 560,
+  marginRight: 90,
+  x: {domain: [-6, 6], label: "x₁", grid: true},
+  y: {domain: [-6, 6], label: "x₂", grid: true},
+  color: {
+    type: "sqrt",
+    domain: [0, 2.05],
+    clamp: true,
+    scheme: "blues",
+    legend: true,
+    label: "density"
+  },
+  marks: [
+    Plot.rect(gaussian_pdf_grid, {
+      x1: "x1",
+      x2: "x2",
+      y1: "y1",
+      y2: "y2",
+      fill: "density"
+    }),
+    Plot.ruleX([0], {stroke: "currentColor", strokeOpacity: 0.25}),
+    Plot.ruleY([0], {stroke: "currentColor", strokeOpacity: 0.25}),
+    Plot.line(gaussian_pdf_contours, {
+      x: "x",
+      y: "y",
+      z: "level",
+      stroke: "currentColor",
+      strokeWidth: 1.5
+    }),
+    Plot.dot([{x: 0, y: 0}], {
+      x: "x",
+      y: "y",
+      fill: "currentColor",
+      r: 2.5
+    })
+  ]
+})
+```
+
+### A linear Gaussian input-output model
+
+Let
+$$
+X \sim \mathcal{N}(μ_X,Σ_X)
+$$
+and suppose that the output is
+$$
+Y=AX+b+W,
+$$
+where $W \sim \mathcal{N}(0,Σ_W)$ is independent of $X$. The affine-transformation and independence properties give
+$$
+Y \sim \mathcal{N}(Aμ_X+b,AΣ_XA^\TRANS+Σ_W).
+$$
+Moreover, $X$ and $Y$ are jointly Gaussian, with
+$$
+\MATRIX{X \\ Y}
+\sim
+\mathcal{N}\left(
+\MATRIX{μ_X \\ Aμ_X+b},
+\MATRIX{
+Σ_X & Σ_XA^\TRANS \\
+AΣ_X & AΣ_XA^\TRANS+Σ_W
+}
+\right).
+$$
+In particular,
+$$
+Σ_{XY}=Σ_XA^\TRANS.
+$$
+This calculation is the basic covariance propagation step for linear Gaussian state-space models. A later chapter derives the conditional distribution of $X$ given an observed value of $Y$; see [Conditional expectation for Gaussians](conditional-expectation-gaussian.qmd).
+
+### Mixture of Gaussian distributions: BPSK over an AWGN channel
+
+The preceding model assumes that the input is Gaussian. In a digital communication system, however, the transmitted symbol is discrete. Consider binary phase-shift keying (BPSK). Let
+$$
+\PR(B=+1)=\PR(B=-1)=\frac12,
+$$
+and transmit the symbol
+$$
+X=aB,
+$$
+where $a>0$ is the signal amplitude. The received signal over an additive white Gaussian noise (AWGN) channel is
+$$
+Y=X+W=aB+W,
+$$
+where $W \sim \mathcal{N}(0,σ^2)$ is independent of $B$.
+
+Conditioned on the transmitted bit, the received signal is Gaussian:
+$$
+Y \mid (B=+1) \sim \mathcal{N}(a,σ^2),
+\qquad
+Y \mid (B=-1) \sim \mathcal{N}(-a,σ^2).
+$$
+Define the zero-mean Gaussian density
+$$
+φ_σ(u)=\frac{1}{\sqrt{2πσ^2}}
+\exp\left(-\frac{u^2}{2σ^2}\right).
+$$
+Marginalizing over the unobserved bit gives
+$$
+f_Y(y)
+=\frac12 φ_σ(y-a)+\frac12 φ_σ(y+a).
+$$
+Thus, the channel output is a **mixture of two Gaussian distributions** rather than a Gaussian random variable. Its mean and variance are
+$$
+\EXP[Y]=0,
+\qquad
+\VAR(Y)=a^2+σ^2.
+$$
+Nevertheless, these two moments do not make $Y$ Gaussian. For $a \neq 0$,
+$$
+\EXP[Y^4]
+=a^4+6a^2σ^2+3σ^4
+\neq
+3(a^2+σ^2)^2,
+$$
+where the expression on the right is the fourth moment of a zero-mean Gaussian random variable with variance $a^2+σ^2$.
+
+The two conditional densities also determine the receiver. For equally likely bits, the log-likelihood ratio is
+$$
+\log\frac{f_{Y\mid B}(y\mid +1)}{f_{Y\mid B}(y\mid -1)}
+=\frac{2ay}{σ^2}.
+$$
+Therefore, the maximum a posteriori decision rule is the threshold detector
+$$
+\widehat B=
+\begin{cases}
++1, & Y \ge 0, \\
+-1, & Y<0.
+\end{cases}
+$$
+
+Only the normalized separation $a/σ$ determines the shape of the standardized mixture. In the following figure, $σ=1$ and the slider changes $a/σ$. At small separation the mixture appears nearly Gaussian and unimodal; at large separation its two components become visible.
+
+```{ojs}
+//| echo: false
+
+viewof bpsk_separation = Inputs.range([0, 4], {
+  label: "a/σ",
+  value: 1.5,
+  step: 0.1
+})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+
+bpsk_density_data = {
+  const sigma = 1
+  const amplitude = bpsk_separation * sigma
+  const normalizer = 1 / (Math.sqrt(2 * Math.PI) * sigma)
+  const gaussianDensity = u => normalizer * Math.exp(
+    -0.5 * u * u / (sigma * sigma)
+  )
+  const values = []
+  const points = 560
+
+  for (let i = 0; i <= points; ++i) {
+    const y = -7 + 14 * i / points
+    const plusDensity = gaussianDensity(y - amplitude)
+    const minusDensity = gaussianDensity(y + amplitude)
+
+    values.push(
+      {y, density: 0.5 * (plusDensity + minusDensity), curve: "mixture"},
+      {y, density: plusDensity, curve: "B = +1"},
+      {y, density: minusDensity, curve: "B = -1"}
+    )
+  }
+  return values
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-bpsk-gaussian-mixture
+//| fig-cap: Conditional Gaussian densities and the resulting BPSK output mixture as the normalized signal separation changes.
+
+Plot.plot({
+  width: 700,
+  height: 400,
+  x: {domain: [-7, 7], label: "received value y", grid: true},
+  y: {domain: [0, 0.42], label: "density", grid: true},
+  color: {
+    domain: ["mixture", "B = +1", "B = -1"],
+    range: ["#4c78a8", "#54a24b", "#e45756"],
+    legend: true
+  },
+  marks: [
+    Plot.ruleX([0], {
+      stroke: "currentColor",
+      strokeOpacity: 0.45,
+      strokeDasharray: "4,4"
+    }),
+    Plot.ruleY([0]),
+    Plot.line(
+      bpsk_density_data.filter(d => d.curve === "mixture"),
+      {
+        x: "y",
+        y: "density",
+        z: "curve",
+        stroke: "curve",
+        strokeWidth: 2.75
+      }
+    ),
+    Plot.line(
+      bpsk_density_data.filter(d => d.curve !== "mixture"),
+      {
+        x: "y",
+        y: "density",
+        z: "curve",
+        stroke: "curve",
+        strokeWidth: 2,
+        strokeDasharray: "6,4"
+      }
+    )
+  ]
+})
+```
