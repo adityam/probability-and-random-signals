@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-02">
+<meta name="dcterms.date" content="2026-08-03">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>3&nbsp; Random vectors – Probability and Random Signals II</title>
@@ -28,6 +28,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -152,6 +187,8 @@ window.MathJax = {
 };
 </script>
 <script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -484,11 +521,16 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#real-valued-random-variables" id="toc-real-valued-random-variables" class="nav-link" data-scroll-target="#real-valued-random-variables"><span class="header-section-number">3.4.1</span> Real-valued random variables</a></li>
   <li><a href="#random-vectors" id="toc-random-vectors" class="nav-link" data-scroll-target="#random-vectors"><span class="header-section-number">3.4.2</span> Random vectors</a></li>
-  <li><a href="#linear-transformation-of-mean-and-covariance" id="toc-linear-transformation-of-mean-and-covariance" class="nav-link" data-scroll-target="#linear-transformation-of-mean-and-covariance"><span class="header-section-number">3.4.3</span> Linear transformation of mean and covariance</a></li>
+  <li><a href="#affine-transformation-of-random-vectors" id="toc-affine-transformation-of-random-vectors" class="nav-link" data-scroll-target="#affine-transformation-of-random-vectors"><span class="header-section-number">3.4.3</span> Affine transformation of random vectors</a></li>
   </ul></li>
-  <li><a href="#multi-dimensional-gaussian" id="toc-multi-dimensional-gaussian" class="nav-link" data-scroll-target="#multi-dimensional-gaussian"><span class="header-section-number">3.5</span> Multi-dimensional Gaussian</a>
+  <li><a href="#multivariate-gaussian-random-vectors" id="toc-multivariate-gaussian-random-vectors" class="nav-link" data-scroll-target="#multivariate-gaussian-random-vectors"><span class="header-section-number">3.5</span> Multivariate Gaussian random vectors</a>
   <ul class="collapse">
-  <li><a href="#linear-transformation-of-gaussian-vectors" id="toc-linear-transformation-of-gaussian-vectors" class="nav-link" data-scroll-target="#linear-transformation-of-gaussian-vectors"><span class="header-section-number">3.5.1</span> Linear transformation of Gaussian vectors</a></li>
+  <li><a href="#definition" id="toc-definition" class="nav-link" data-scroll-target="#definition"><span class="header-section-number">3.5.1</span> Definition</a></li>
+  <li><a href="#construction-density-and-singularity" id="toc-construction-density-and-singularity" class="nav-link" data-scroll-target="#construction-density-and-singularity"><span class="header-section-number">3.5.2</span> Construction, density, and singularity</a></li>
+  <li><a href="#properties-of-gaussian-vectors" id="toc-properties-of-gaussian-vectors" class="nav-link" data-scroll-target="#properties-of-gaussian-vectors"><span class="header-section-number">3.5.3</span> Properties of Gaussian vectors</a></li>
+  <li><a href="#independent-components-and-gaussian-contours" id="toc-independent-components-and-gaussian-contours" class="nav-link" data-scroll-target="#independent-components-and-gaussian-contours"><span class="header-section-number">3.5.4</span> Independent components and Gaussian contours</a></li>
+  <li><a href="#a-linear-gaussian-input-output-model" id="toc-a-linear-gaussian-input-output-model" class="nav-link" data-scroll-target="#a-linear-gaussian-input-output-model"><span class="header-section-number">3.5.5</span> A linear Gaussian input-output model</a></li>
+  <li><a href="#mixture-of-gaussian-distributions-bpsk-over-an-awgn-channel" id="toc-mixture-of-gaussian-distributions-bpsk-over-an-awgn-channel" class="nav-link" data-scroll-target="#mixture-of-gaussian-distributions-bpsk-over-an-awgn-channel"><span class="header-section-number">3.5.6</span> Mixture of Gaussian distributions: BPSK over an AWGN channel</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/random-vectors.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -525,7 +567,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 2, 2026</p>
+      <p class="date">August 3, 2026</p>
     </div>
   </div>
   
@@ -550,7 +592,7 @@ F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 <li><p><span class="math inline">\(\lim_{x \to -∞} F_{X,Y}(x,y) = 0\)</span>, <span class="math inline">\(\lim_{y \to -∞} F_{X,Y}(x,y) = 0\)</span> and <span class="math inline">\(\lim_{x,y \to +∞} F(x,y) = 1\)</span>.</p></li>
 <li><p>Joint CDFs are non-decreasing, i.e., if <span class="math inline">\((x_1,y_1) &lt; (x_2, y_2)\)</span>, then <span class="math inline">\(F_{X,Y}(x_1,y_1) \le F_{X,Y}(x_2,y_2)\)</span>.</p></li>
 <li><p>Joint CDFs are continuous from above, i.e., <span class="math display">\[\lim_{u,v \downarrow 0}F_{X,Y}(x+u,y+v) = F_{X,Y}(x,y).\]</span></p></li>
-<li><p><span class="math inline">\(\PR(X = x, Y = y) = F(x,y) - F(x^{-},y^{-})\)</span>.</p></li>
+<li><p><span class="math inline">\(\PR(X = x, Y = y) = F_{X,Y}(x,y) - F_{X,Y}(x^{-},y) - F_{X,Y}(x,y^{-}) + F_{X,Y}(x^{-},y^{-})\)</span>.</p></li>
 </ol></li>
 <li><p><strong>Marginalization of joint CDFs</strong></p>
 <ol type="1">
@@ -605,8 +647,8 @@ F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 <h2 data-number="3.1" class="anchored" data-anchor-id="classification-of-random-vectors"><span class="header-section-number">3.1</span> Classification of random vectors</h2>
 <p>As was the case for random variables, we can also classify random vectors as discrete, continuous, and mixed.</p>
 <ol type="1">
-<li><p>A random vector <span class="math inline">\((X,Y)\)</span> is called <strong>jointly discrete</strong> if it takes values in a countable subset of <span class="math inline">\(\reals^2\)</span> (we denote this subset by <span class="math inline">\(\ALPHABET X \times \ALPHABET Y\)</span>). The jointly discrete random variables have a joint PMF <span class="math inline">\(P_{X,Y} \colon \reals^2 \to [0,1]\)</span> given by <span class="math display">\[ \PR(X = x, Y = y) = P_{X,Y}(x,y). \]</span></p></li>
-<li><p>A random vector <span class="math inline">\((X, Y)\)</span> is called <strong>jointly continuous</strong> (or <strong>absolutely continuous</strong>) if there exists an integrable function <span class="math inline">\(f_{X,Y} \colon \reals^2 \to [0, ∞)\)</span> such that <span class="math display">\[ F_{X,Y}(x,y) = \int_{-∞}^x \int_{-∞}^{y} f_{X,Y}(u,v)\, du dv, \quad
+<li><p>A random vector <span class="math inline">\((X,Y)\)</span> is called <strong>jointly discrete</strong> if it takes values in a countable support <span class="math inline">\(S_{X,Y} \subseteq \reals^2\)</span>. The support need not be a Cartesian product. Such a random vector has a joint PMF <span class="math inline">\(P_{X,Y} \colon \reals^2 \to [0,1]\)</span> given by <span class="math display">\[ \PR(X = x, Y = y) = P_{X,Y}(x,y). \]</span></p></li>
+<li><p>A random vector <span class="math inline">\((X, Y)\)</span> is called <strong>jointly continuous</strong> (or <strong>absolutely continuous</strong>) if there exists an integrable function <span class="math inline">\(f_{X,Y} \colon \reals^2 \to [0, ∞)\)</span> such that <span class="math display">\[ F_{X,Y}(x,y) = \int_{-∞}^x \int_{-∞}^{y} f_{X,Y}(u,v)\, dv du, \quad
 x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called the <strong>joint PDF</strong> and can be computed as <span class="math display">\[
    f_{X,Y}(x,y) = \frac{∂^2}{∂x ∂y}F_{X,Y}(x,y).
 \]</span></p></li>
@@ -630,10 +672,10 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 \]</span> This is a valid CDF. It corresponds to <span class="math display">\[
   (X,Y) = (U,U), \quad \text{where } U \sim \text{Unif}[0,1],
 \]</span> i.e., the distribution is uniform along the diagonal of the unit square.</p>
-<p>The diagonal is <strong>a set a Lebesgue measure zero</strong>. That means for any ordinary function <span class="math inline">\(f_{X,Y}\)</span> <span class="math display">\[
+<p>The diagonal is <strong>a set of Lebesgue measure zero</strong>. That means for any ordinary function <span class="math inline">\(f_{X,Y}\)</span> <span class="math display">\[
   \iint_{A} f_{X,Y}(x,y)\, dx\,dy = 0
 \]</span> for all subsets <span class="math inline">\(A\)</span> of the diagonal. Outside the diagonal, the density must be zero. Hence, the density cannot integrate to one over the entire plane. Therefore, mathematically, a density does not exist. Such random variables are said to be <strong>singular</strong>.</p>
-<p>Sometimes in the engineering literature, we sometimes set the PDF to be <span class="math display">\[
+<p>In the engineering literature, the PDF is sometimes formally written as <span class="math display">\[
     f_{X,Y}(x,y) = δ(x-y), \quad 0 \le x,y \le 1
 \]</span> which produces the correct <span class="math inline">\(F_{X,Y}\)</span> but delta functions are generalized functions. Thus, although the CDF is continuous, it does not have a joint density.</p>
 </div>
@@ -643,8 +685,8 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 <ul>
 <li><p><strong>Properties of PMFs</strong></p>
 <ol type="1">
-<li><p><strong>Normalization.</strong> For a jointly discrete random vector <span class="math inline">\((X,Y)\)</span>, <span class="math display">\[\sum_{x,y \in \ALPHABET X × \ALPHABET Y}P_{X,Y}(x,y) = 1.\]</span></p></li>
-<li><p>For any event <span class="math inline">\(A \in \ALPHABET F\)</span>, <span class="math display">\[\PR((X,Y) \in A) = \sum_{(x,y) \in (\ALPHABET X \times \ALPHABET Y) \cap A} P_{X,Y}(x,y).\]</span></p></li>
+<li><p><strong>Normalization.</strong> For a jointly discrete random vector <span class="math inline">\((X,Y)\)</span>, <span class="math display">\[\sum_{(x,y) \in S_{X,Y}}P_{X,Y}(x,y) = 1.\]</span></p></li>
+<li><p>For any Borel set <span class="math inline">\(B \subseteq \reals^2\)</span>, <span class="math display">\[\PR((X,Y) \in B) = \sum_{(x,y) \in S_{X,Y} \cap B} P_{X,Y}(x,y).\]</span></p></li>
 <li><p><strong>Marginalization.</strong></p>
 <ul>
 <li><span class="math inline">\(\displaystyle \sum_{x \in \ALPHABET X} P_{X,Y}(x,y) = P_Y(y)\)</span>.</li>
@@ -654,7 +696,7 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 <li><p><strong>Properties of PDFs</strong></p>
 <ol type="1">
 <li><p><strong>Normalization.</strong> For a jointly continuous random vector <span class="math inline">\((X,Y)\)</span>, <span class="math display">\[\int_{-∞}^{∞} \int_{-∞}^{∞} f_{X,Y}(x,y)\, dxdy = 1.\]</span></p></li>
-<li><p>For any event <span class="math inline">\(A \in \ALPHABET F\)</span>, <span class="math display">\[\PR((X,Y) \in A) = \iint_{(x,y) \in A} f_{X,Y}(x,y)\,dxdy.\]</span></p></li>
+<li><p>For any Borel set <span class="math inline">\(B \subseteq \reals^2\)</span>, <span class="math display">\[\PR((X,Y) \in B) = \iint_{(x,y) \in B} f_{X,Y}(x,y)\,dxdy.\]</span></p></li>
 <li><p><strong>Marginalization.</strong></p>
 <ul>
 <li><span class="math inline">\(\displaystyle \int_{-∞}^{∞} f_{X,Y}(x,y) dx = f_Y(y)\)</span>.</li>
@@ -663,7 +705,7 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 </ol></li>
 </ul>
 </div>
-<p>The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors <span class="math inline">\(X = (X_1, \dots, X_n) \in \reals^n\)</span>. In practice, we often do not make a distinction between random <em>variables</em> and random <em>vectors</em> and refer both of them simply as <em>random variables</em>.</p>
+<p>The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors <span class="math inline">\(X = [X_1, \dots, X_n]^\TRANS \in \reals^n\)</span>. In practice, we often do not make a distinction between random <em>variables</em> and random <em>vectors</em> and refer both of them simply as <em>random variables</em>.</p>
 <div id="exm-joint-discrete" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.3</strong></span> Consider jointly discrete random variables <span class="math inline">\(X \in \{1,2,3\}\)</span> and <span class="math inline">\(Y \in \{1, 2, 3\}\)</span> with joint PMF <span class="math display">\[
   P_{X,Y} = \MATRIX{
@@ -739,10 +781,10 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We know that the joint PDF must integrate to <span class="math inline">\(1\)</span>. Thus, <span class="math display">\[\begin{align*}
-  1 &amp;= \int_{-∞}^{∞} f_{X,Y}(x,y)\, dx\, dy \\
+  1 &amp;= \int_{-∞}^{∞} \int_{-∞}^{∞} f_{X,Y}(x,y)\, dy\, dx \\
   &amp;= \int_{0}^{1} \int_{0}^x c xy\, dy\, dx  \\
   &amp;= \int_{0}^{1} c x\frac{x^2}{2} dx \\
-  &amp;= c \frac{x^3}{8}\biggr|_{0}^1 = \frac{c}{8}
+  &amp;= c \frac{x^4}{8}\biggr|_{0}^1 = \frac{c}{8}
 \end{align*}\]</span> Therefore, <span class="math inline">\(c=8\)</span>.</p>
 </div>
 </div>
@@ -753,10 +795,10 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 <div id="def-independence-RVs" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 3.1</strong></span> Two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> are said to be independent if the sigma algebras <span class="math inline">\(σ(X)\)</span> and <span class="math inline">\(σ(Y)\)</span> are independent.</p>
 </div>
-<p>The above definition means that if we take any (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span>, then the events <span class="math inline">\(\{X \in B_1\}\)</span> and <span class="math inline">\(\{X \in B_2\}\)</span> are independent, i.e., <span class="math display">\[
+<p>The above definition means that if we take any (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span>, then the events <span class="math inline">\(\{X \in B_1\}\)</span> and <span class="math inline">\(\{Y \in B_2\}\)</span> are independent, i.e., <span class="math display">\[
 \PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2).
 \]</span></p>
-<p>Using this, we can show that following:</p>
+<p>Using this, we can show the following:</p>
 <ol type="1">
 <li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[
    F_{X,Y}(x,y) = F_X(x) F_Y(y), \quad \forall x, y \in \reals.
@@ -787,15 +829,15 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Observe that <span class="math inline">\(F_{X,Y}(x,y) \neq F_X(x) F_Y(y)\)</span>. Hence, the two random variables are not independent.</p>
-<p>We can also see that because <span class="math inline">\(f_{X,Y}(x,y) \neq f_X(x) f_Y(y)\)</span>.</p>
+<p>We can also see this from <span class="math inline">\(f_{X,Y}(x,y) \neq f_X(x) f_Y(y)\)</span>.</p>
 </div>
 </div>
 </div>
 <div id="exm-uniform-unit-square" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.8</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint PDF <span class="math inline">\(f_{X,Y}\)</span> which is a uniform distribution on the unit square. Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p>
+<p><span class="theorem-title"><strong>Example 3.8</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> whose joint PDF <span class="math inline">\(f_{X,Y}\)</span> is uniform on the unit square. Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p>
 </div>
 <div id="exm-uniform-unit-triangle" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.9</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> with joint PDF <span class="math inline">\(f_{X,Y}\)</span> which is a uniform distribution on the unit triangle Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p>
+<p><span class="theorem-title"><strong>Example 3.9</strong></span> Consider random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> whose joint PDF <span class="math inline">\(f_{X,Y}\)</span> is uniform on the unit triangle. Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p>
 </div>
 <p>These definitions extend naturally to any number of random variables:</p>
 <ol type="1">
@@ -861,14 +903,14 @@ f_{X,Y}(x,y) = f_X(x)\, f_Y(y) \int_{-\infty}^{\infty} f_Z(z)\, dz
 <li><span class="math inline">\(\{ U \in B_1 \} = \{ X \in g^{-1}(B_1) \}\)</span>.</li>
 <li><span class="math inline">\(\{ V \in B_2 \} = \{ Y \in h^{-1}(B_2) \}\)</span>.</li>
 </ul>
-<p>Since the random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, the events <span class="math inline">\(\{ X \in g^{-1}(B_1) \}\)</span> and <span class="math inline">\(\{ Y \in h^{-1}(B_2) \}\)</span>. Which implies that the events <span class="math inline">\(\{ U \in B_1 \}\)</span> and <span class="math inline">\(\{ V \in B_2 \}\)</span> are independent. Consequently, the random variables <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent.</p>
+<p>Since the random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent, the events <span class="math inline">\(\{ X \in g^{-1}(B_1) \}\)</span> and <span class="math inline">\(\{ Y \in h^{-1}(B_2) \}\)</span> are independent. It follows that the events <span class="math inline">\(\{ U \in B_1 \}\)</span> and <span class="math inline">\(\{ V \in B_2 \}\)</span> are independent. Consequently, the random variables <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are independent.</p>
 </div>
 </div>
 </div>
 <div id="prp-independence-as-expectation" class="theorem proposition">
-<p><span class="theorem-title"><strong>Proposition 3.2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be independent random variables defined on a common probability space. Then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[\begin{equation}\label{eq:expectation-product}
+<p><span class="theorem-title"><strong>Proposition 3.2</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent if and only if <span class="math display">\[\begin{equation}\label{eq:expectation-product}
   \EXP[ g(X) h(Y) ] = \EXP[ g(X) ] \EXP[ h(Y) ]
-\end{equation}\]</span> for all (measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>.</p>
+\end{equation}\]</span> for all (bounded measurable) functions <span class="math inline">\(g\)</span> and <span class="math inline">\(h\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
@@ -887,7 +929,7 @@ f_{X,Y}(x,y) = f_X(x)\, f_Y(y) \int_{-\infty}^{\infty} f_Z(z)\, dz
 <li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent then <span class="math inline">\(\eqref{eq:expectation-product}\)</span> holds.</p></li>
 <li><p>If <span class="math inline">\(\eqref{eq:expectation-product}\)</span> holds, then <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent.</p></li>
 </ol>
-<p>We will prove the first claim assuming that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are continuous. Similar argument works for the discrete case as well. <span class="math display">\[\begin{align*}
+<p>We will prove the first claim assuming that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are continuous. A similar argument works for the discrete case as well. <span class="math display">\[\begin{align*}
   \EXP[ g(X) h(Y) ]
   &amp;= \int_{-∞}^∞ \int_{-∞}^∞ g(x) h(y) f_{X,Y}(x,y)\, dx dy \\
   &amp;\stackrel{(a)}= \int_{-∞}^∞ \int_{-∞}^∞ g(x) h(y) f_{X}(x) f_{Y}(y)\, dy dx \\
@@ -900,7 +942,7 @@ f_{X,Y}(x,y) = f_X(x)\, f_Y(y) \int_{-\infty}^{\infty} f_Z(z)\, dz
   \PR(X \in B_1, Y \in B_2)
   &amp;= \EXP[\IND_{ \{ X \in B_1, Y \in B_2 \}}] \\
   &amp;\stackrel{(d)}= \EXP[\IND_{ \{ X \in B_1 \}} \IND_{\{ Y \in B_2 \}}] \\
-  &amp;\stackrel{(e)}=\EXP[\IND_{ \{ X \in B_1 \}}\ \EXP[ \IND_{\{ Y \in B_2 \}}] \\
+  &amp;\stackrel{(e)}=\EXP[\IND_{ \{ X \in B_1 \}}]\ \EXP[ \IND_{\{ Y \in B_2 \}}] \\
   &amp;\stackrel{(f)}= \PR(X \in B_1) \PR(Y \in B_2)
 \end{align*}\]</span> where <span class="math inline">\((d)\)</span> follows from basic algebra, <span class="math inline">\((e)\)</span> follows from <span class="math inline">\(\eqref{eq:expectation-product}\)</span>, and <span class="math inline">\((f)\)</span> follows from expectation of an indicator.</p>
 <p>The above equation shows that for any arbitrary (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span>, <span class="math inline">\(\PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2)\)</span>. Hence, <span class="math inline">\(\{X \in B_1\} \independent \{Y \in B_2 \}\)</span>. Since <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> were arbitrary, we have <span class="math inline">\(X \independent Y\)</span>.</p>
@@ -916,13 +958,13 @@ f_{X,Y}(x,y) = f_X(x)\, f_Y(y) \int_{-\infty}^{\infty} f_Z(z)\, dz
 </div>
 <div id="def-iid" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 3.2</strong></span> A collection of random variables <span class="math inline">\(X_1, \dots, X_n\)</span> is called <strong>independent and identically distributed (i.i.d.)</strong> if all random variables are independent and have the same distribution, i.e., <span class="math display">\[
-  F_{X_1}(x_1) = F_{X_2}(x_2) = \cdots = F_{X_n}(x_n).
+  F_{X_1}(x) = F_{X_2}(x) = \cdots = F_{X_n}(x), \quad \forall x \in \reals.
 \]</span></p>
 </div>
 </section>
 <section id="functions-of-random-variables" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="functions-of-random-variables"><span class="header-section-number">3.3</span> Functions of random variables</h2>
-<p>In an interconnected systems, the output of one system is used as input to another system. To analyze such systems, it is important to understand how to analyze functions of random variables.</p>
+<p>In an interconnected system, the output of one system is used as input to another system. To analyze such systems, it is important to understand functions of random variables.</p>
 <p>The same idea can be used for functions of multiple random variables as we illustrate via the following examples.</p>
 <div id="exm-function-max-min" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.12</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
@@ -945,7 +987,7 @@ V = \min(X,Y).
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li><p>We first look at <span class="math inline">\(F_U\)</span>. By definition <span class="math display">\[ F_U(u) = \PR(X \le u, Y \le u) = F_{X,Y}(u,u).\]</span></p></li>
-<li><p>Now consider <span class="math inline">\(F_V\)</span>. The event <span class="math inline">\(\{V \le v\}\)</span> can be expressed as <span class="math display">\[ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \} \cap \{X \le v \} \cap \{Y \le v\}.\]</span> Thus, <span class="math display">\[F_V(v) = F_X(v) + F_Y(v) - F_{X,Y}(v,v). \]</span></p></li>
+<li><p>Now consider <span class="math inline">\(F_V\)</span>. The event <span class="math inline">\(\{V \le v\}\)</span> can be expressed as <span class="math display">\[ \{ V \le v \} = \{ X \le v \} \cup \{Y \le v \}. \]</span> Thus, <span class="math display">\[F_V(v) = F_X(v) + F_Y(v) - F_{X,Y}(v,v). \]</span></p></li>
 </ol>
 </div>
 </div>
@@ -1032,17 +1074,21 @@ P_Y(n) &amp;= (P_{X_1} * P_{X_2})(n)
 </div>
 <section id="change-of-variables-formulas" class="level3" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="change-of-variables-formulas"><span class="header-section-number">3.3.1</span> Change of variables formulas</h3>
-<p>For continuous random variables, it is possible to obtain a general <strong>change of variable</strong> formula to obtain the PDF of functions of random variable in terms of their joint PDF.</p>
+<p>For continuous random variables, a general <strong>change-of-variables</strong> formula gives the PDF of their functions in terms of the joint PDF.</p>
 <p>Suppose <span class="math inline">\(\{X_1, \dots, X_n\}\)</span> are jointly continuous random variables with joint PDF <span class="math inline">\(f\)</span>. Consider <span class="math inline">\(n\)</span> random variables: <span class="math display">\[\begin{align*}
     Y_1 &amp;= g_1(X_1, \dots, X_n), \\
     Y_2 &amp;= g_2(X_1, \dots, X_n), \\
     \vdots &amp;= \vdots \\
-    Y_n &amp;= g_n(X_1, \dots, X_n).
-\end{align*}\]</span> We can view this as an equation between two <span class="math inline">\(n\)</span>-dimensional vectors <span class="math inline">\(Y = \VEC(Y_1, \dots, Y_n)\)</span> and <span class="math inline">\(X = \VEC(X_1, \dots, X_n)\)</span> written as <span class="math display">\[ Y = g(X) \]</span></p>
+    Y_n &amp;= g_n(X_1, \dots, X_n),
+\end{align*}\]</span> where <span class="math inline">\(g_i\)</span> are continuously differentiable functions. We can view this as an equation between two <span class="math inline">\(n\)</span>-dimensional column vectors <span class="math display">\[
+Y = \MATRIX{Y_1 \\ \vdots \\ Y_n}
+\quad\text{and}\quad
+X = \MATRIX{X_1 \\ \vdots \\ X_n},
+\]</span> written compactly as <span class="math display">\[ Y = g(X) \]</span></p>
 <p>As was the case for the scalar system, for a given <span class="math inline">\(y \in \reals^n\)</span>, the vector equation <span class="math inline">\(y = g(x)\)</span> may have zero, one, or multiple solutions.</p>
 <ul>
 <li><p>If <span class="math inline">\(y = g(x)\)</span>, <span class="math inline">\(y \in \reals^n\)</span> has no solution, then <span class="math display">\[ f_Y(y) = 0. \]</span></p></li>
-<li><p>If <span class="math inline">\(y = g(x)\)</span>, <span class="math inline">\(y \in \reals^n\)</span> has one solution <span class="math inline">\(x \in \reals^n\)</span>, then <span class="math display">\[ f_Y(y) = \frac{f_X(x)}{\ABS{J(x)}}, \quad \text{where } y = g(x)\]</span> and <span class="math inline">\(J(x)\)</span> denotes the Jacobian on <span class="math inline">\(g(x)\)</span> evaluated at <span class="math inline">\(x = (x_1, \dots, x_n)\)</span>, i.e., <span class="math display">\[
+<li><p>If <span class="math inline">\(y = g(x)\)</span>, <span class="math inline">\(y \in \reals^n\)</span> has one solution <span class="math inline">\(x \in \reals^n\)</span>, then <span class="math display">\[ f_Y(y) = \frac{f_X(x)}{\ABS{J(x)}}, \quad \text{where } y = g(x)\]</span> and <span class="math inline">\(J(x)\)</span> denotes the Jacobian of <span class="math inline">\(g(x)\)</span> evaluated at <span class="math inline">\(x = [x_1, \dots, x_n]^\TRANS\)</span>, i.e., <span class="math display">\[
 \def\1#1#2{\dfrac{∂ g_{#1}}{∂ x_{#2}}}
 J(x_1, \dots, x_n) =
 \DET{ \1 11 &amp; \cdots &amp; \1 1n \\
@@ -1068,7 +1114,7 @@ J(x_1, \dots, x_n) =
 <div id="callout-13" class="callout-13-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">\(g_1(x,y) = \max\{x, y\}\)</span> and <span class="math inline">\(g_2(x,y) = \min\{x,y\}\)</span>. Define <span class="math display">\[ U = g_1(X,Y) \quad\text{and}\quad V = g_2(X,Y).\]</span></p>
-<p>Define <span class="math inline">\(g(x,y) = \VEC(g_1(x,y), g_2(x,y))\)</span>. Note that <span class="math inline">\(g\)</span> is not differentiable at <span class="math inline">\(x=y\)</span>.</p>
+<p>Define <span class="math inline">\(g(x,y) = \MATRIX{g_1(x,y) \\ g_2(x,y)}\)</span>. Note that <span class="math inline">\(g\)</span> is not differentiable at <span class="math inline">\(x=y\)</span>.</p>
 <ul>
 <li><p>When <span class="math inline">\(x &gt; y\)</span>, we have <span class="math inline">\(g_1(x,y) = x\)</span> and <span class="math inline">\(g_2(x,y) = y\)</span>. Thus, <span class="math display">\[
 J(x,y) = \DET{\1 11 &amp; \1 12 \\ \1 21 &amp; \1 22}
@@ -1114,7 +1160,7 @@ F_U(u)
 <div id="exm-function-multiple" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.17</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
   U = X^2 \quad\text{and}\quad V = X + Y.
-\]</span> Find <span class="math inline">\(F_{U,V}\)</span>?</p>
+\]</span> Find <span class="math inline">\(f_{U,V}\)</span>?</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
@@ -1135,13 +1181,13 @@ F_U(u)
 \]</span></p>
 <ol type="1">
 <li><p>If <span class="math inline">\(u &lt; 0\)</span>, then the system of equations has no solutions. Therefore, <span class="math display">\[
-   F_{U,V}(u,v) = 0, \quad u &lt; 0.
+   f_{U,V}(u,v) = 0, \quad u &lt; 0.
 \]</span></p></li>
 <li><p>If <span class="math inline">\(u = 0\)</span>, then the system of equations has one solution: <span class="math display">\[
    x^{(1)} = 0 \quad\text{and}\quad y^{(1)} = v.
 \]</span> However, <span class="math inline">\(J(0,v) = 0\)</span>. So, <span class="math display">\[
    f_{U,V}(0,v) = \frac{f_{X,Y}(0,v)}{J(0,v)}
-\]</span> is undefined. However, since <span class="math inline">\(u = 0\)</span> is a line in two-dimensions (i.e., a set of measure zero), the choice of <span class="math inline">\(f_{U,V}\)</span> at <span class="math inline">\(u = 0\)</span> will not affect any probability computations. So, we set <span class="math display">\[
+\]</span> is undefined. However, since <span class="math inline">\(u = 0\)</span> is a line in two dimensions (i.e., a set of measure zero), the choice of <span class="math inline">\(f_{U,V}\)</span> at <span class="math inline">\(u = 0\)</span> will not affect any probability computations. So, we set <span class="math display">\[
    f_{U,V}(0,v) = 0.
 \]</span></p></li>
 <li><p>If <span class="math inline">\(u &gt; 0\)</span>, then the system of equations has two solutions: <span class="math display">\[
@@ -1168,9 +1214,11 @@ F_U(u)
 <li><p><strong>Covariance</strong> measures how two random variables vary together. In particular, let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be jointly distributed random variables and let <span class="math inline">\(μ_X\)</span> and <span class="math inline">\(μ_Y\)</span> denote their means. Then, <span class="math display">\[ \COV(X,Y) = \EXP[(X - μ_X) (Y - μ_Y)].\]</span> Properties of expectation imply that <span class="math display">\[
 \COV(X,Y) = \EXP[XY] - \EXP[X] \EXP[Y].
 \]</span></p></li>
-<li><p><strong>Correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
-<li><p>The correlation coefficient satisfies <span class="math inline">\(\ABS{ρ_{XY}} \le 1\)</span> with equality if and only if <span class="math inline">\(\PR(aX + bY = c) = 1\)</span> for some <span class="math inline">\(a,b,c \in \reals\)</span>. [The proof follows from Cauchy-Schwartz inequality, which we will study later]</p></li>
-<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be uncorrelated if <span class="math inline">\(ρ_{XY} = 0\)</span>, which is equivalent to <span class="math inline">\(\COV(X,Y) = 0\)</span> or <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>.</p></li>
+<li><p>If <span class="math inline">\(\VAR(X)&gt;0\)</span> and <span class="math inline">\(\VAR(Y)&gt;0\)</span>, the <strong>correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
+<li><p>The correlation coefficient satisfies <span class="math inline">\(\ABS{ρ_{XY}} \le 1\)</span>, with equality if and only if <span class="math display">\[
+\PR(Y = aX+b)=1
+\]</span> for some <span class="math inline">\(a \neq 0\)</span> and <span class="math inline">\(b \in \reals\)</span>. [The proof follows from the Cauchy–Schwarz inequality, which we will study later.]</p></li>
+<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be <strong>uncorrelated</strong> if <span class="math display">\[\COV(X,Y)=0,\]</span> or, equivalently, if <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>. This definition also applies when one of the random variables is constant.</p></li>
 <li><p>Note that <span class="math display">\[\begin{align*}
   \VAR(X + Y) &amp;= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ]
   \\
@@ -1193,13 +1241,23 @@ F_U(u)
 </div>
 <div id="callout-15" class="callout-15-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>The event <span class="math inline">\(\{X = 1\}\)</span> corresponds to <span class="math inline">\(ω = 0\)</span> and therefore <span class="math inline">\(\{Y = 0\}\)</span>. Thus, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are not independent.</p>
+<p>To show that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are not independent, consider the events <span class="math display">\[
+A = \{X &gt; \tfrac12\}
+\quad\text{and}\quad
+B = \{Y &gt; \tfrac12\}.
+\]</span> The event <span class="math inline">\(A\)</span> corresponds to <span class="math display">\[
+ω \in (0,\tfrac{π}{3}) \cup (\tfrac{5π}{3},2π),
+\]</span> while <span class="math inline">\(B\)</span> corresponds to <span class="math inline">\(ω \in (\tfrac{π}{6},\tfrac{5π}{6})\)</span>. Therefore, <span class="math display">\[
+\PR(A)=\PR(B)=\frac13,
+\qquad
+\PR(A\cap B)=\frac1{12}.
+\]</span> Since <span class="math inline">\(\PR(A\cap B) \neq \PR(A)\PR(B)=\frac19\)</span>, the random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are not independent.</p>
 <p>Observe that</p>
 <ul>
 <li><p><span class="math inline">\(\displaystyle \EXP[X] = \int_{0}^{2 π} \cos ω \frac{1}{2 π}\, d ω = 0\)</span>.</p></li>
 <li><p><span class="math inline">\(\displaystyle \EXP[Y] = \int_{0}^{2 π} \sin ω \frac{1}{2 π}\, d ω = 0\)</span>.</p></li>
 <li><p><span class="math inline">\(\displaystyle \EXP[XY] = \int_{0}^{2 π} \cos ω \sin ω \frac{1}{2 π}\, d ω =
-\frac{1}{4{π}} \int_0^{2 π} \cos 2 ω\, d ω = 0\)</span>.</p></li>
+\frac{1}{4π} \int_0^{2 π} \sin 2 ω\, d ω = 0\)</span>.</p></li>
 </ul>
 <p>Thus, <span class="math display">\[\EXP[XY] = \EXP[X]\EXP[Y].\]</span></p>
 </div>
@@ -1210,7 +1268,7 @@ F_U(u)
 <h3 data-number="3.4.2" class="anchored" data-anchor-id="random-vectors"><span class="header-section-number">3.4.2</span> Random vectors</h3>
 <p>The idea of covariance generalizes to random vectors. First we recall the definition of expectation for random vectors and random matrices.</p>
 <ul>
-<li><p>For a random vector <span class="math inline">\(X = [X_1, \dots, X_n] \in \reals^n\)</span>, we have <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_1] &amp; \cdots &amp; \EXP[X_n] }. \]</span></p></li>
+<li><p>For a random vector <span class="math inline">\(X = [X_1, \dots, X_n]^\TRANS \in \reals^n\)</span>, we have <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_1] \\ \vdots \\ \EXP[X_n] }. \]</span></p></li>
 <li><p>For a random matrix <span class="math inline">\(X = \MATRIX{ X_{1,1} &amp; \cdots &amp; X_{1,n} \\ X_{2,1} &amp; \cdots &amp; X_{2,n} \\
 \vdots &amp; \vdots &amp; \vdots \\
 X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span>, we have <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] &amp; \cdots &amp; \EXP[X_{1,n}] \\ \EXP[X_{2,1}] &amp; \cdots &amp; \EXP[X_{2,n}] \\
@@ -1230,115 +1288,581 @@ X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span>, we have <
 \]</span></p></li>
 <li><p>It is easy to see that <span class="math inline">\(Σ_X = Σ_X^\TRANS\)</span>. Thus, the covariance matrix is symmetric.</p></li>
 <li><p>If the components <span class="math inline">\(X_1, \dots, X_n\)</span> are independent, then <span class="math inline">\(Σ_X\)</span> is a diagonal matrix.</p></li>
-<li><p><span class="math inline">\(Σ_X\)</span> is positive semidefinite, i.e., its eigenvalues are real and non-negative. To see this, observe that for any (deterministic) vector <span class="math inline">\(v\)</span>, we have <span class="math display">\[\begin{align*}
+<li><p><span class="math inline">\(Σ_X\)</span> is positive semidefinite, i.e., its eigenvalues are real and non-negative. To see this, observe that for any deterministic vector <span class="math inline">\(v \in \reals^n\)</span>, we have <span class="math display">\[\begin{align*}
   v^\TRANS Σ_X v
   &amp;= v^\TRANS \EXP[ (X - μ_X) (X - μ_X)^\TRANS ] v \\
   &amp;= \EXP[ v^\TRANS (X - μ_X) (X - μ_X)^\TRANS v ]  \\
-  &amp;= \EXP[ w^\TRANS w ] = \EXP[ \NORM{w}^2 ] \ge 0.
-\end{align*}\]</span> where <span class="math inline">\(w = (X - μ_X)^\TRANS v\)</span>.</p></li>
-<li><p>The <strong>cross covariance matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is a <span class="math inline">\(n × p\)</span> matrix given by <span class="math display">\[
+  &amp;= \EXP[ w^2 ] \ge 0.
+\end{align*}\]</span> where <span class="math inline">\(w = (X - μ_X)^\TRANS v\)</span> is a scalar random variable.</p></li>
+<li><p>The <strong>cross covariance matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is an <span class="math inline">\(n × m\)</span> matrix given by <span class="math display">\[
 Σ_{XY} = \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
   \]</span></p></li>
-<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math display">\[ Σ_{XY} = 0 \implies
-\EXP[XY^\TRANS] = \EXP[X] \EXP[Y]^\TRANS. \]</span></p></li>
-<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>orthogonal</strong> if <span class="math display">\[\EXP[X Y^\TRANS] = 0 \]</span></p></li>
+<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math inline">\(Σ_{XY} = 0_{n \times m}\)</span>. Equivalently, <span class="math display">\[ \EXP[XY^\TRANS] = \EXP[X] \EXP[Y]^\TRANS. \]</span></p></li>
+<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>orthogonal</strong> if <span class="math display">\[\EXP[X Y^\TRANS] = 0_{n \times m}. \]</span></p></li>
+<li><p>Let <span class="math inline">\(Z\)</span> be the random vector obtained by stacking <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>: <span class="math display">\[
+Z = \MATRIX{X \\ Y} \in \reals^{n+m}.
+\]</span> Its mean and covariance have the block structure <span class="math display">\[
+μ_Z = \MATRIX{μ_X \\ μ_Y}
+\quad\text{and}\quad
+Σ_Z
+= \MATRIX{
+    Σ_X &amp; Σ_{XY} \\
+    Σ_{YX} &amp; Σ_Y
+  },
+\]</span> where <span class="math display">\[
+Σ_{YX} = Σ_{XY}^\TRANS.
+\]</span></p></li>
 </ol>
 </section>
-<section id="linear-transformation-of-mean-and-covariance" class="level3" data-number="3.4.3">
-<h3 data-number="3.4.3" class="anchored" data-anchor-id="linear-transformation-of-mean-and-covariance"><span class="header-section-number">3.4.3</span> Linear transformation of mean and covariance</h3>
-<p>Consider a random vector (not necessarily Gaussian) <span class="math inline">\(X = [X_1, \dots, X_n]^\TRANS\)</span> with mean <span class="math inline">\(μ_X\)</span> and covariance <span class="math inline">\(Σ_X\)</span>.</p>
-<p>Let <span class="math inline">\(A \in \reals^{n × n}\)</span> be a deterministic matrix and <span class="math inline">\(b \in \reals^n\)</span> be a deterministic vector.</p>
-<p>Define <span class="math inline">\(Y = A X + b\)</span> and let <span class="math inline">\(μ_Y\)</span> and <span class="math inline">\(Σ_Y\)</span> denote the mean and covariance of <span class="math inline">\(Y\)</span>. Then, <span class="math display">\[
-  μ_Y = A μ_X + b
+<section id="affine-transformation-of-random-vectors" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="affine-transformation-of-random-vectors"><span class="header-section-number">3.4.3</span> Affine transformation of random vectors</h3>
+<ol type="1">
+<li><p><strong>Mean and covariance.</strong> Let <span class="math inline">\(X \in \reals^n\)</span> have mean <span class="math inline">\(μ_X\)</span> and covariance <span class="math inline">\(Σ_X\)</span>. If <span class="math display">\[
+  Y=AX+b \in \reals^m,
+  \]</span> where <span class="math inline">\(A \in \reals^{m \times n}\)</span> and <span class="math inline">\(b \in \reals^m\)</span> are deterministic, then <span class="math display">\[
+  μ_Y=Aμ_X+b
   \quad\text{and}\quad
-  Σ_Y = A Σ_X A^\TRANS
-\]</span></p>
+  Σ_Y=AΣ_XA^\TRANS.
+  \]</span></p></li>
+<li><p><strong>Cross-covariance.</strong> Let <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^p\)</span> have cross-covariance <span class="math inline">\(Σ_{XY}\)</span>. If <span class="math display">\[
+  U=AX+b \in \reals^m
+  \quad\text{and}\quad
+  V=CY+d \in \reals^q,
+  \]</span> where <span class="math inline">\(A \in \reals^{m \times n}\)</span>, <span class="math inline">\(C \in \reals^{q \times p}\)</span>, <span class="math inline">\(b \in \reals^m\)</span>, and <span class="math inline">\(d \in \reals^q\)</span> are deterministic, then <span class="math display">\[
+  Σ_{UV}=\COV(U,V)=AΣ_{XY}C^\TRANS.
+  \]</span></p></li>
+</ol>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
+<span class="screen-reader-only">Note</span>Proofs
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The property of the mean follows immediately from properties of expectation. For the covariance, note that <span class="math display">\[\begin{align*}
-  Σ_Y &amp;= \EXP[ (Y - μ_Y) (Y - μ_Y)^\TRANS ] \\
-  &amp;= \EXP[ (A X - A μ_X) (AX - A μ_X)^\TRANS ] \\
-  &amp;= \EXP[ A (X - μ_X) (X - μ_X)^\TRANS A^\TRANS ] \\
-  &amp;= A Σ_X A^\TRANS
+<p>For the first result, the property of the mean follows immediately from the properties of expectation. For the covariance, <span class="math display">\[\begin{align*}
+Σ_Y
+&amp;= \EXP[(Y-μ_Y)(Y-μ_Y)^\TRANS] \\
+&amp;= \EXP[A(X-μ_X)(X-μ_X)^\TRANS A^\TRANS] \\
+&amp;= AΣ_XA^\TRANS.
+\end{align*}\]</span></p>
+<p>For the second result, <span class="math inline">\(U-μ_U=A(X-μ_X)\)</span> and <span class="math inline">\(V-μ_V=C(Y-μ_Y)\)</span>. Therefore, <span class="math display">\[\begin{align*}
+Σ_{UV}
+&amp;= \EXP[(U-μ_U)(V-μ_V)^\TRANS] \\
+&amp;= A\EXP[(X-μ_X)(Y-μ_Y)^\TRANS]C^\TRANS \\
+&amp;= AΣ_{XY}C^\TRANS.
 \end{align*}\]</span></p>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="multi-dimensional-gaussian" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="multi-dimensional-gaussian"><span class="header-section-number">3.5</span> Multi-dimensional Gaussian</h2>
-<p>A <span class="math inline">\(n\)</span>-dimensional Gaussian with mean <span class="math inline">\(μ\)</span> and covariance <span class="math inline">\(Σ\)</span>, written as <span class="math inline">\(\mathcal{N}(μ, Σ)\)</span>, has the PDF <span class="math display">\[
-  f_X(x) = \frac{1}{\sqrt{(2 π)^n \det(Σ)}}
-  \exp\left( - \tfrac{1}{2} (x - μ)^\TRANS Σ^{-1} (x-μ) \right),
-  \quad x \in \reals^n.
+<section id="multivariate-gaussian-random-vectors" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="multivariate-gaussian-random-vectors"><span class="header-section-number">3.5</span> Multivariate Gaussian random vectors</h2>
+<section id="definition" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="definition"><span class="header-section-number">3.5.1</span> Definition</h3>
+<div id="def-multivariate-Gaussian" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3.3</strong></span> A random vector <span class="math inline">\(X \in \reals^n\)</span> is called <strong>Gaussian</strong> if every linear combination of its components is a scalar Gaussian random variable. Thus, for every deterministic vector <span class="math inline">\(a \in \reals^n\)</span>, <span class="math inline">\(a^\TRANS X\)</span> is Gaussian.</p>
+<p>If <span class="math inline">\(μ=\EXP[X]\)</span> and <span class="math inline">\(Σ=\COV(X)\)</span>, we write <span class="math display">\[
+X \sim \mathcal{N}(μ,Σ).
+\]</span> In particular, <span class="math display">\[
+a^\TRANS X \sim \mathcal{N}(a^\TRANS μ,a^\TRANS Σa),
+\qquad a \in \reals^n.
+\]</span> A Gaussian random variable with zero variance is interpreted as a constant almost surely.</p>
+</div>
+<p>Random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> are called <strong>jointly Gaussian</strong> if the stacked vector is Gaussian, i.e., <span class="math display">\[
+\MATRIX{X \\ Y}
+\sim
+\mathcal{N}\left(
+\MATRIX{μ_X \\ μ_Y},
+\MATRIX{
+Σ_X &amp; Σ_{XY} \\
+Σ_{YX} &amp; Σ_Y
+}
+\right).
 \]</span></p>
-<p>We consider a few special cases to understand the definition.</p>
-<ol type="1">
-<li><p>Consider the special case when all components are independent, let <span class="math display">\[
-   μ = \MATRIX{μ_1 \\ \vdots μ_n},
-  \quad\text{and}\quad
-  Σ = \MATRIX{σ_1^2 &amp; \cdots &amp; 0 \\
-              \vdots &amp; \ddots &amp; \vdots \\
-              0 &amp; \cdots &amp; σ_n^2 }
-\]</span> where <span class="math inline">\(μ_i = \EXP[X_i]\)</span> and <span class="math inline">\(σ_i^2 = \VAR(X_i)\)</span>. Observe that <span class="math display">\[
-  \det(Σ) = \prod_{i=1}^n σ_i^2
-\]</span> and <span class="math display">\[
-  (x - μ)^\TRANS Σ^{-1} (x - μ) = \sum_{i=1}^n \frac{(x_i - μ_i)^2}{σ_i^2}.
-\]</span> Thus, <span class="math display">\[
-  f_X(x) = \prod_{i=1}^n \frac{1}{\sqrt{2 π σ_i^2}}
-  \exp\left(-\frac{(x_i-μ_i)^2}{2 σ_i^2} \right)
-\]</span> which is the product of the marginal distributions.</p></li>
-<li><p>Consider the two-dimensional Gaussian vector and let <span class="math inline">\(σ_i^2 = \VAR(X_i)\)</span> and <span class="math inline">\(ρ = \COV(X_1,X_2)/σ_1 σ_2\)</span>. Then, <span class="math display">\[
-   Σ = \MATRIX{ σ_1^2 &amp; ρ σ_1 σ_2 \\ ρ σ_1 σ_2 &amp; σ_2^2 }.
-\]</span> When <span class="math inline">\(\ABS{ρ} = 1\)</span>, the distribution is singular. When <span class="math inline">\(\ABS{ρ} &lt; 1\)</span>, <span class="math inline">\(\det(Σ) = (1 - ρ^2)σ_1^2 σ_2^2\)</span> and <span class="math display">\[
-   Σ^{-1} = \frac{1}{(1 - ρ^2)σ_1^2 σ_2^2}
-   \MATRIX{ σ_2^2 &amp; -ρ σ_1^2 σ_2^2 \\ -ρ σ_1^2 σ_2^2 &amp; σ_1^2}.
-\]</span> Thus, <span class="math display">\[
-(x-μ)^\TRANS Σ^{-1} (x - μ)
-= \frac{1}{1 - ρ^2} \biggl[
-   \frac{(x_1 - μ_1)^2}{2 σ_1^2 }
-   - 2 ρ \frac{(x_1 - μ_1)(x_2 - μ_2)}{σ_1 σ_2}
-   + \frac{(x_2 - μ_2)^2}{2 σ_2^2 }
-\biggr].
-\]</span> Thus, the level set <span class="math display">\[(x - μ)^\TRANS Σ^{-1} (x - μ) = k^2\]</span> is an ellipse centered at <span class="math inline">\(μ\)</span>.</p>
+<p>The mean vector and covariance matrix completely determine the distribution of a Gaussian random vector. This fact is what makes Gaussian models especially convenient: means and covariance matrices can replace full joint CDFs or PDFs.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Gaussian marginals do not imply joint Gaussianity
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is not enough for each component to be Gaussian. Let <span class="math inline">\(X \sim \mathcal{N}(0,1)\)</span>, and let <span class="math inline">\(S\)</span> be independent of <span class="math inline">\(X\)</span> with <span class="math display">\[
+\PR(S=1)=\PR(S=-1)=\frac12.
+\]</span> Define <span class="math inline">\(Y=SX\)</span>. Both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have the <span class="math inline">\(\mathcal{N}(0,1)\)</span> distribution, but <span class="math display">\[
+\PR(X+Y=0)=\frac12.
+\]</span> Thus, <span class="math inline">\(X+Y\)</span> is not a continuous random variable. It is also not constant, so it cannot be a Gaussian random variable (either nondegenerate or degenerate). Consequently, <span class="math inline">\((X,Y)\)</span> is not jointly Gaussian.</p>
+</div>
+</div>
+</section>
+<section id="construction-density-and-singularity" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="construction-density-and-singularity"><span class="header-section-number">3.5.2</span> Construction, density, and singularity</h3>
+<p>Let <span class="math inline">\(Z \sim \mathcal{N}(0,I_r)\)</span>, let <span class="math inline">\(L \in \reals^{n \times r}\)</span> be deterministic, and define <span class="math display">\[
+X=μ+LZ.
+\]</span> Then <span class="math display">\[
+X \sim \mathcal{N}(μ,LL^\TRANS).
+\]</span> Conversely, if <span class="math inline">\(X \sim \mathcal{N}(μ,Σ)\)</span> and <span class="math inline">\(Σ\)</span> has rank <span class="math inline">\(r\)</span>, then <span class="math inline">\(Σ\)</span> can be factored as <span class="math inline">\(Σ=LL^\TRANS\)</span> and <span class="math inline">\(X\)</span> has the same distribution as <span class="math inline">\(μ+LZ\)</span>. Thus, a valid Gaussian covariance matrix is always positive semidefinite.</p>
 <ul>
-<li>When <span class="math inline">\(ρ = 0\)</span>, the axes of the ellipse are aligned with the coordinates.</li>
-<li>When <span class="math inline">\(ρ &gt; 0\)</span>, the ellipse tilts towards the <span class="math inline">\(x_1 = x_2\)</span> diagonal</li>
-<li>When <span class="math inline">\(ρ &lt; 0\)</span>, the ellipse tilts towards the anti-diagonal.</li>
-</ul></li>
-</ol>
-<section id="linear-transformation-of-gaussian-vectors" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="linear-transformation-of-gaussian-vectors"><span class="header-section-number">3.5.1</span> Linear transformation of Gaussian vectors</h3>
-<ol type="1">
-<li><p>If real-valued random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, then <span class="math inline">\(X + Y\)</span> is Gaussian. We will prove this later using moment generating functions.</p></li>
-<li><p>If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, then they are independent if and only if they are uncorrelated.</p></li>
-<li><p>Let <span class="math inline">\(X\)</span> let a Gaussian random vector with mean <span class="math inline">\(μ_X\)</span> and covariance <span class="math inline">\(Σ_X\)</span> and <span class="math inline">\(Y = AX + b\)</span> for a constant matrix <span class="math inline">\(A\)</span> and vector <span class="math inline">\(b\)</span>. Then <span class="math inline">\(Y\)</span> is also a Gaussian vector with <span class="math display">\[μ_Y = A μ_X  + b
-\quad\text{and}\quad
-  Σ_Y = A Σ_X A^\TRANS.
+<li><p>If <span class="math inline">\(Σ\)</span> is positive definite, then <span class="math inline">\(r=n\)</span> and <span class="math inline">\(X\)</span> has the PDF <span class="math display">\[
+f_X(x)
+=\frac{1}{\sqrt{(2π)^n\det(Σ)}}
+\exp\left(-\frac12(x-μ)^\TRANS Σ^{-1}(x-μ)\right),
+\qquad x \in \reals^n.
 \]</span></p></li>
-<li><p>Let <span class="math inline">\(X \sim \mathcal{N}(μ, Σ)\)</span> and define <span class="math inline">\(Z = Σ^{-\frac 12}(X - μ)\)</span>. Then, <span class="math display">\[
-   μ_Z = Σ^{-1}(μ - μ) = 0
-   \quad\text{and}\quad
-   Σ_Z = Σ^{-\frac 12} Σ Σ^{-\frac 12} = I.
-\]</span> Thus, <span class="math inline">\(Z \sim \mathcal{N}(0, I)\)</span>.</p></li>
+<li><p>If <span class="math inline">\(Σ\)</span> is singular, then <span class="math inline">\(X\)</span> is supported on the lower-dimensional affine subspace <span class="math display">\[
+μ+\operatorname{range}(L)
+\]</span> and does not have an ordinary PDF on <span class="math inline">\(\reals^n\)</span>.</p></li>
+</ul>
+</section>
+<section id="properties-of-gaussian-vectors" class="level3" data-number="3.5.3">
+<h3 data-number="3.5.3" class="anchored" data-anchor-id="properties-of-gaussian-vectors"><span class="header-section-number">3.5.3</span> Properties of Gaussian vectors</h3>
+<ol type="1">
+<li><p><strong>Affine transformations.</strong> If <span class="math inline">\(X \sim \mathcal{N}(μ_X,Σ_X)\)</span>, <span class="math inline">\(A \in \reals^{m \times n}\)</span>, and <span class="math inline">\(b \in \reals^m\)</span>, then <span class="math display">\[
+AX+b \sim \mathcal{N}(Aμ_X+b,AΣ_XA^\TRANS).
+\]</span> This remains true when <span class="math inline">\(AΣ_XA^\TRANS\)</span> is singular.</p></li>
+<li><p><strong>Marginals.</strong> Every subvector of a Gaussian random vector is Gaussian. Its mean and covariance are obtained by selecting the corresponding entries and blocks of the original mean and covariance.</p></li>
+<li><p><strong>Sums.</strong> If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian random vectors of the same dimension, then <span class="math inline">\(X+Y\)</span> is Gaussian. In particular, independent Gaussian random vectors are jointly Gaussian, so their sum is Gaussian.</p></li>
+<li><p><strong>Independence.</strong> If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, then <span class="math display">\[
+X \independent Y
+\quad\Longleftrightarrow\quad
+Σ_{XY}=0.
+\]</span> Consequently, the components of a Gaussian random vector are mutually independent if and only if its covariance matrix is diagonal.</p></li>
+<li><p><strong>Standardization.</strong> If <span class="math inline">\(X \sim \mathcal{N}(μ,Σ)\)</span> and <span class="math inline">\(Σ\)</span> is positive definite, then <span class="math display">\[
+Z=Σ^{-\frac12}(X-μ) \sim \mathcal{N}(0,I_n).
+\]</span> This operation is also called <strong>whitening</strong>.</p></li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why affine transformations remain Gaussian
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For any <span class="math inline">\(t \in \reals^m\)</span>, <span class="math display">\[
+t^\TRANS(AX+b)=(A^\TRANS t)^\TRANS X+t^\TRANS b,
+\]</span> which is Gaussian by <a href="#def-multivariate-Gaussian" class="quarto-xref">Definition&nbsp;<span>3.3</span></a>. Its mean and variance are <span class="math display">\[
+t^\TRANS(Aμ_X+b)
+\quad\text{and}\quad
+t^\TRANS AΣ_XA^\TRANS t,
+\]</span> respectively. The marginal and sum properties follow by applying appropriate selection or addition matrices to the relevant jointly Gaussian vector.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="independent-components-and-gaussian-contours" class="level3" data-number="3.5.4">
+<h3 data-number="3.5.4" class="anchored" data-anchor-id="independent-components-and-gaussian-contours"><span class="header-section-number">3.5.4</span> Independent components and Gaussian contours</h3>
+<p>Suppose <span class="math inline">\(Σ\)</span> is positive definite and diagonal: <span class="math display">\[
+μ=\MATRIX{μ_1 \\ \vdots \\ μ_n},
+\qquad
+Σ=\MATRIX{
+σ_1^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \ddots &amp; \vdots \\
+0 &amp; \cdots &amp; σ_n^2
+}.
+\]</span> Then <span class="math display">\[
+f_X(x)
+=\prod_{i=1}^n
+\frac{1}{\sqrt{2πσ_i^2}}
+\exp\left(-\frac{(x_i-μ_i)^2}{2σ_i^2}\right),
+\]</span> which is the product of the marginal PDFs. Thus, the components are independent.</p>
+<p>For a general positive-definite covariance matrix, the level sets of the PDF are <span class="math display">\[
+(x-μ)^\TRANS Σ^{-1}(x-μ)=k^2.
+\]</span> These are ellipsoids centered at <span class="math inline">\(μ\)</span>. If <span class="math display">\[
+Σ=QΛQ^\TRANS,
+\]</span> then the columns of <span class="math inline">\(Q\)</span> give the principal directions of the ellipsoids, and their semi-axis lengths are <span class="math inline">\(k\sqrt{λ_i}\)</span>, where <span class="math inline">\(λ_i\)</span> are the eigenvalues of <span class="math inline">\(Σ\)</span>.</p>
+<p>For example, consider a two-dimensional Gaussian vector with <span class="math inline">\(σ_i^2=\VAR(X_i)&gt;0\)</span> and <span class="math display">\[
+ρ=\frac{\COV(X_1,X_2)}{σ_1σ_2}.
+\]</span> Its covariance matrix is <span class="math display">\[
+Σ=\MATRIX{
+σ_1^2 &amp; ρσ_1σ_2 \\
+ρσ_1σ_2 &amp; σ_2^2
+}.
+\]</span> When <span class="math inline">\(\ABS{ρ}&lt;1\)</span>, <span class="math display">\[
+\det(Σ)=(1-ρ^2)σ_1^2σ_2^2
+\]</span> and <span class="math display">\[
+Σ^{-1}
+=\frac{1}{(1-ρ^2)σ_1^2σ_2^2}
+\MATRIX{
+σ_2^2 &amp; -ρσ_1σ_2 \\
+-ρσ_1σ_2 &amp; σ_1^2
+}.
+\]</span> Therefore, <span class="math display">\[
+(x-μ)^\TRANS Σ^{-1}(x-μ)
+=\frac{1}{1-ρ^2}
+\left[
+\frac{(x_1-μ_1)^2}{σ_1^2}
+-2ρ\frac{(x_1-μ_1)(x_2-μ_2)}{σ_1σ_2}
++\frac{(x_2-μ_2)^2}{σ_2^2}
+\right].
+\]</span></p>
+<ul>
+<li>When <span class="math inline">\(ρ=0\)</span>, the ellipse axes are aligned with the coordinate axes.</li>
+<li>When <span class="math inline">\(ρ&gt;0\)</span>, the major axis has positive slope.</li>
+<li>When <span class="math inline">\(ρ&lt;0\)</span>, the major axis has negative slope.</li>
+</ul>
+<p>When <span class="math inline">\(\ABS{ρ}=1\)</span>, the distribution is singular and is supported on the line <span class="math display">\[
+X_2-μ_2=ρ\frac{σ_2}{σ_1}(X_1-μ_1)
+\quad\text{almost surely}.
+\]</span></p>
+<p>The following interactive figure illustrates these properties for a zero-mean bivariate Gaussian distribution. The standard deviations <span class="math inline">\(σ_1\)</span> and <span class="math inline">\(σ_2\)</span> control the spread along the two coordinates, while <span class="math inline">\(ρ\)</span> controls the orientation and elongation of the contours. Recall that <span class="math inline">\(ρ=0\)</span> corresponds to independent components in the jointly Gaussian case. The three curves are the contours <span class="math display">\[
+x^\TRANS Σ^{-1}x=k^2,
+\qquad k=1,2,3.
+\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="1049" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1048;"><span id="cb1-1049"><a href="#cb1-1049" aria-hidden="true" tabindex="-1"></a>viewof gaussian_sigma_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {</span>
+<span id="cb1-1050"><a href="#cb1-1050" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"σ₁"</span><span class="op">,</span></span>
+<span id="cb1-1051"><a href="#cb1-1051" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">1.2</span><span class="op">,</span></span>
+<span id="cb1-1052"><a href="#cb1-1052" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span></span>
+<span id="cb1-1053"><a href="#cb1-1053" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-1054"><a href="#cb1-1054" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1055"><a href="#cb1-1055" aria-hidden="true" tabindex="-1"></a>viewof gaussian_sigma_2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">2</span>]<span class="op">,</span> {</span>
+<span id="cb1-1056"><a href="#cb1-1056" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"σ₂"</span><span class="op">,</span></span>
+<span id="cb1-1057"><a href="#cb1-1057" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">0.8</span><span class="op">,</span></span>
+<span id="cb1-1058"><a href="#cb1-1058" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span></span>
+<span id="cb1-1059"><a href="#cb1-1059" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-1060"><a href="#cb1-1060" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-1061"><a href="#cb1-1061" aria-hidden="true" tabindex="-1"></a>viewof gaussian_rho <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="op">-</span><span class="fl">0.95</span><span class="op">,</span> <span class="fl">0.95</span>]<span class="op">,</span> {</span>
+<span id="cb1-1062"><a href="#cb1-1062" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"ρ"</span><span class="op">,</span></span>
+<span id="cb1-1063"><a href="#cb1-1063" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb1-1064"><a href="#cb1-1064" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.05</span></span>
+<span id="cb1-1065"><a href="#cb1-1065" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="1072" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1071;"><span id="cb2-1072"><a href="#cb2-1072" aria-hidden="true" tabindex="-1"></a>gaussian_pdf_grid <span class="op">=</span> {</span>
+<span id="cb2-1073"><a href="#cb2-1073" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> limit <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb2-1074"><a href="#cb2-1074" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> bins <span class="op">=</span> <span class="dv">70</span></span>
+<span id="cb2-1075"><a href="#cb2-1075" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> width <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> limit <span class="op">/</span> bins</span>
+<span id="cb2-1076"><a href="#cb2-1076" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> oneMinusRhoSquared <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> gaussian_rho <span class="op">*</span> gaussian_rho</span>
+<span id="cb2-1077"><a href="#cb2-1077" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalizer <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (</span>
+<span id="cb2-1078"><a href="#cb2-1078" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> gaussian_sigma_1 <span class="op">*</span> gaussian_sigma_2</span>
+<span id="cb2-1079"><a href="#cb2-1079" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(oneMinusRhoSquared)</span>
+<span id="cb2-1080"><a href="#cb2-1080" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-1081"><a href="#cb2-1081" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> values <span class="op">=</span> []</span>
+<span id="cb2-1082"><a href="#cb2-1082" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-1083"><a href="#cb2-1083" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> bins<span class="op">;</span> <span class="op">++</span>i) {</span>
+<span id="cb2-1084"><a href="#cb2-1084" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> x <span class="op">=</span> <span class="op">-</span>limit <span class="op">+</span> (i <span class="op">+</span> <span class="fl">0.5</span>) <span class="op">*</span> width</span>
+<span id="cb2-1085"><a href="#cb2-1085" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> bins<span class="op">;</span> <span class="op">++</span>j) {</span>
+<span id="cb2-1086"><a href="#cb2-1086" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> y <span class="op">=</span> <span class="op">-</span>limit <span class="op">+</span> (j <span class="op">+</span> <span class="fl">0.5</span>) <span class="op">*</span> width</span>
+<span id="cb2-1087"><a href="#cb2-1087" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z1 <span class="op">=</span> x <span class="op">/</span> gaussian_sigma_1</span>
+<span id="cb2-1088"><a href="#cb2-1088" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> z2 <span class="op">=</span> y <span class="op">/</span> gaussian_sigma_2</span>
+<span id="cb2-1089"><a href="#cb2-1089" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> mahalanobisSquared <span class="op">=</span> (</span>
+<span id="cb2-1090"><a href="#cb2-1090" aria-hidden="true" tabindex="-1"></a>        z1 <span class="op">*</span> z1 <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> gaussian_rho <span class="op">*</span> z1 <span class="op">*</span> z2 <span class="op">+</span> z2 <span class="op">*</span> z2</span>
+<span id="cb2-1091"><a href="#cb2-1091" aria-hidden="true" tabindex="-1"></a>      ) <span class="op">/</span> oneMinusRhoSquared</span>
+<span id="cb2-1092"><a href="#cb2-1092" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-1093"><a href="#cb2-1093" aria-hidden="true" tabindex="-1"></a>      values<span class="op">.</span><span class="fu">push</span>({</span>
+<span id="cb2-1094"><a href="#cb2-1094" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x1</span><span class="op">:</span> x <span class="op">-</span> width <span class="op">/</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb2-1095"><a href="#cb2-1095" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x2</span><span class="op">:</span> x <span class="op">+</span> width <span class="op">/</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb2-1096"><a href="#cb2-1096" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y1</span><span class="op">:</span> y <span class="op">-</span> width <span class="op">/</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb2-1097"><a href="#cb2-1097" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y2</span><span class="op">:</span> y <span class="op">+</span> width <span class="op">/</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb2-1098"><a href="#cb2-1098" aria-hidden="true" tabindex="-1"></a>        <span class="dt">density</span><span class="op">:</span> normalizer <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> mahalanobisSquared)</span>
+<span id="cb2-1099"><a href="#cb2-1099" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb2-1100"><a href="#cb2-1100" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-1101"><a href="#cb2-1101" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-1102"><a href="#cb2-1102" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> values</span>
+<span id="cb2-1103"><a href="#cb2-1103" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-1104"><a href="#cb2-1104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-1105"><a href="#cb2-1105" aria-hidden="true" tabindex="-1"></a>gaussian_pdf_contours <span class="op">=</span> {</span>
+<span id="cb2-1106"><a href="#cb2-1106" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> values <span class="op">=</span> []</span>
+<span id="cb2-1107"><a href="#cb2-1107" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sineScale <span class="op">=</span> gaussian_sigma_2 <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(</span>
+<span id="cb2-1108"><a href="#cb2-1108" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="op">-</span> gaussian_rho <span class="op">*</span> gaussian_rho</span>
+<span id="cb2-1109"><a href="#cb2-1109" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-1110"><a href="#cb2-1110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-1111"><a href="#cb2-1111" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> level <span class="kw">of</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>]) {</span>
+<span id="cb2-1112"><a href="#cb2-1112" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;=</span> <span class="dv">180</span><span class="op">;</span> <span class="op">++</span>j) {</span>
+<span id="cb2-1113"><a href="#cb2-1113" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> theta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> j <span class="op">/</span> <span class="dv">180</span></span>
+<span id="cb2-1114"><a href="#cb2-1114" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> cosine <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(theta)</span>
+<span id="cb2-1115"><a href="#cb2-1115" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> sine <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(theta)</span>
+<span id="cb2-1116"><a href="#cb2-1116" aria-hidden="true" tabindex="-1"></a>      values<span class="op">.</span><span class="fu">push</span>({</span>
+<span id="cb2-1117"><a href="#cb2-1117" aria-hidden="true" tabindex="-1"></a>        level<span class="op">,</span></span>
+<span id="cb2-1118"><a href="#cb2-1118" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> level <span class="op">*</span> gaussian_sigma_1 <span class="op">*</span> cosine<span class="op">,</span></span>
+<span id="cb2-1119"><a href="#cb2-1119" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> level <span class="op">*</span> (</span>
+<span id="cb2-1120"><a href="#cb2-1120" aria-hidden="true" tabindex="-1"></a>          gaussian_rho <span class="op">*</span> gaussian_sigma_2 <span class="op">*</span> cosine</span>
+<span id="cb2-1121"><a href="#cb2-1121" aria-hidden="true" tabindex="-1"></a>          <span class="op">+</span> sineScale <span class="op">*</span> sine</span>
+<span id="cb2-1122"><a href="#cb2-1122" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-1123"><a href="#cb2-1123" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb2-1124"><a href="#cb2-1124" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-1125"><a href="#cb2-1125" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-1126"><a href="#cb2-1126" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> values</span>
+<span id="cb2-1127"><a href="#cb2-1127" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="1133" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1132;"><span id="cb3-1133"><a href="#cb3-1133" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-1134"><a href="#cb3-1134" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">640</span><span class="op">,</span></span>
+<span id="cb3-1135"><a href="#cb3-1135" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">560</span><span class="op">,</span></span>
+<span id="cb3-1136"><a href="#cb3-1136" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">90</span><span class="op">,</span></span>
+<span id="cb3-1137"><a href="#cb3-1137" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">6</span><span class="op">,</span> <span class="dv">6</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"x₁"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb3-1138"><a href="#cb3-1138" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">6</span><span class="op">,</span> <span class="dv">6</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"x₂"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb3-1139"><a href="#cb3-1139" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb3-1140"><a href="#cb3-1140" aria-hidden="true" tabindex="-1"></a>    <span class="dt">type</span><span class="op">:</span> <span class="st">"sqrt"</span><span class="op">,</span></span>
+<span id="cb3-1141"><a href="#cb3-1141" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="fl">2.05</span>]<span class="op">,</span></span>
+<span id="cb3-1142"><a href="#cb3-1142" aria-hidden="true" tabindex="-1"></a>    <span class="dt">clamp</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb3-1143"><a href="#cb3-1143" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scheme</span><span class="op">:</span> <span class="st">"blues"</span><span class="op">,</span></span>
+<span id="cb3-1144"><a href="#cb3-1144" aria-hidden="true" tabindex="-1"></a>    <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb3-1145"><a href="#cb3-1145" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"density"</span></span>
+<span id="cb3-1146"><a href="#cb3-1146" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb3-1147"><a href="#cb3-1147" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-1148"><a href="#cb3-1148" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">rect</span>(gaussian_pdf_grid<span class="op">,</span> {</span>
+<span id="cb3-1149"><a href="#cb3-1149" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x1</span><span class="op">:</span> <span class="st">"x1"</span><span class="op">,</span></span>
+<span id="cb3-1150"><a href="#cb3-1150" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x2</span><span class="op">:</span> <span class="st">"x2"</span><span class="op">,</span></span>
+<span id="cb3-1151"><a href="#cb3-1151" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y1</span><span class="op">:</span> <span class="st">"y1"</span><span class="op">,</span></span>
+<span id="cb3-1152"><a href="#cb3-1152" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y2</span><span class="op">:</span> <span class="st">"y2"</span><span class="op">,</span></span>
+<span id="cb3-1153"><a href="#cb3-1153" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> <span class="st">"density"</span></span>
+<span id="cb3-1154"><a href="#cb3-1154" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
+<span id="cb3-1155"><a href="#cb3-1155" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.25</span>})<span class="op">,</span></span>
+<span id="cb3-1156"><a href="#cb3-1156" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.25</span>})<span class="op">,</span></span>
+<span id="cb3-1157"><a href="#cb3-1157" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(gaussian_pdf_contours<span class="op">,</span> {</span>
+<span id="cb3-1158"><a href="#cb3-1158" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb3-1159"><a href="#cb3-1159" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb3-1160"><a href="#cb3-1160" aria-hidden="true" tabindex="-1"></a>      <span class="dt">z</span><span class="op">:</span> <span class="st">"level"</span><span class="op">,</span></span>
+<span id="cb3-1161"><a href="#cb3-1161" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span></span>
+<span id="cb3-1162"><a href="#cb3-1162" aria-hidden="true" tabindex="-1"></a>      <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span></span>
+<span id="cb3-1163"><a href="#cb3-1163" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
+<span id="cb3-1164"><a href="#cb3-1164" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>([{<span class="dt">x</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">0</span>}]<span class="op">,</span> {</span>
+<span id="cb3-1165"><a href="#cb3-1165" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb3-1166"><a href="#cb3-1166" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb3-1167"><a href="#cb3-1167" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span></span>
+<span id="cb3-1168"><a href="#cb3-1168" aria-hidden="true" tabindex="-1"></a>      <span class="dt">r</span><span class="op">:</span> <span class="fl">2.5</span></span>
+<span id="cb3-1169"><a href="#cb3-1169" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb3-1170"><a href="#cb3-1170" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-1171"><a href="#cb3-1171" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-gaussian-covariance-interactive" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gaussian-covariance-interactive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gaussian-covariance-interactive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: Interactive PDF and equal-Mahalanobis-distance contours for a zero-mean bivariate Gaussian distribution.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="a-linear-gaussian-input-output-model" class="level3" data-number="3.5.5">
+<h3 data-number="3.5.5" class="anchored" data-anchor-id="a-linear-gaussian-input-output-model"><span class="header-section-number">3.5.5</span> A linear Gaussian input-output model</h3>
+<p>Let <span class="math display">\[
+X \sim \mathcal{N}(μ_X,Σ_X)
+\]</span> and suppose that the output is <span class="math display">\[
+Y=AX+b+W,
+\]</span> where <span class="math inline">\(W \sim \mathcal{N}(0,Σ_W)\)</span> is independent of <span class="math inline">\(X\)</span>. The affine-transformation and independence properties give <span class="math display">\[
+Y \sim \mathcal{N}(Aμ_X+b,AΣ_XA^\TRANS+Σ_W).
+\]</span> Moreover, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly Gaussian, with <span class="math display">\[
+\MATRIX{X \\ Y}
+\sim
+\mathcal{N}\left(
+\MATRIX{μ_X \\ Aμ_X+b},
+\MATRIX{
+Σ_X &amp; Σ_XA^\TRANS \\
+AΣ_X &amp; AΣ_XA^\TRANS+Σ_W
+}
+\right).
+\]</span> In particular, <span class="math display">\[
+Σ_{XY}=Σ_XA^\TRANS.
+\]</span> This calculation is the basic covariance propagation step for linear Gaussian state-space models. A later chapter derives the conditional distribution of <span class="math inline">\(X\)</span> given an observed value of <span class="math inline">\(Y\)</span>; see <a href="./conditional-expectation-gaussian.html">Conditional expectation for Gaussians</a>.</p>
+</section>
+<section id="mixture-of-gaussian-distributions-bpsk-over-an-awgn-channel" class="level3" data-number="3.5.6">
+<h3 data-number="3.5.6" class="anchored" data-anchor-id="mixture-of-gaussian-distributions-bpsk-over-an-awgn-channel"><span class="header-section-number">3.5.6</span> Mixture of Gaussian distributions: BPSK over an AWGN channel</h3>
+<p>The preceding model assumes that the input is Gaussian. In a digital communication system, however, the transmitted symbol is discrete. Consider binary phase-shift keying (BPSK). Let <span class="math display">\[
+\PR(B=+1)=\PR(B=-1)=\frac12,
+\]</span> and transmit the symbol <span class="math display">\[
+X=aB,
+\]</span> where <span class="math inline">\(a&gt;0\)</span> is the signal amplitude. The received signal over an additive white Gaussian noise (AWGN) channel is <span class="math display">\[
+Y=X+W=aB+W,
+\]</span> where <span class="math inline">\(W \sim \mathcal{N}(0,σ^2)\)</span> is independent of <span class="math inline">\(B\)</span>.</p>
+<p>Conditioned on the transmitted bit, the received signal is Gaussian: <span class="math display">\[
+Y \mid (B=+1) \sim \mathcal{N}(a,σ^2),
+\qquad
+Y \mid (B=-1) \sim \mathcal{N}(-a,σ^2).
+\]</span> Define the zero-mean Gaussian density <span class="math display">\[
+φ_σ(u)=\frac{1}{\sqrt{2πσ^2}}
+\exp\left(-\frac{u^2}{2σ^2}\right).
+\]</span> Marginalizing over the unobserved bit gives <span class="math display">\[
+f_Y(y)
+=\frac12 φ_σ(y-a)+\frac12 φ_σ(y+a).
+\]</span> Thus, the channel output is a <strong>mixture of two Gaussian distributions</strong> rather than a Gaussian random variable. Its mean and variance are <span class="math display">\[
+\EXP[Y]=0,
+\qquad
+\VAR(Y)=a^2+σ^2.
+\]</span> Nevertheless, these two moments do not make <span class="math inline">\(Y\)</span> Gaussian. For <span class="math inline">\(a \neq 0\)</span>, <span class="math display">\[
+\EXP[Y^4]
+=a^4+6a^2σ^2+3σ^4
+\neq
+3(a^2+σ^2)^2,
+\]</span> where the expression on the right is the fourth moment of a zero-mean Gaussian random variable with variance <span class="math inline">\(a^2+σ^2\)</span>.</p>
+<p>The two conditional densities also determine the receiver. For equally likely bits, the log-likelihood ratio is <span class="math display">\[
+\log\frac{f_{Y\mid B}(y\mid +1)}{f_{Y\mid B}(y\mid -1)}
+=\frac{2ay}{σ^2}.
+\]</span> Therefore, the maximum a posteriori decision rule is the threshold detector <span class="math display">\[
+\widehat B=
+\begin{cases}
++1, &amp; Y \ge 0, \\
+-1, &amp; Y&lt;0.
+\end{cases}
+\]</span></p>
+<p>Only the normalized separation <span class="math inline">\(a/σ\)</span> determines the shape of the standardized mixture. In the following figure, <span class="math inline">\(σ=1\)</span> and the slider changes <span class="math inline">\(a/σ\)</span>. At small separation the mixture appears nearly Gaussian and unimodal; at large separation its two components become visible.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="1272" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1271;"><span id="cb4-1272"><a href="#cb4-1272" aria-hidden="true" tabindex="-1"></a>viewof bpsk_separation <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">,</span> {</span>
+<span id="cb4-1273"><a href="#cb4-1273" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"a/σ"</span><span class="op">,</span></span>
+<span id="cb4-1274"><a href="#cb4-1274" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">1.5</span><span class="op">,</span></span>
+<span id="cb4-1275"><a href="#cb4-1275" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span></span>
+<span id="cb4-1276"><a href="#cb4-1276" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="1283" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1282;"><span id="cb5-1283"><a href="#cb5-1283" aria-hidden="true" tabindex="-1"></a>bpsk_density_data <span class="op">=</span> {</span>
+<span id="cb5-1284"><a href="#cb5-1284" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sigma <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-1285"><a href="#cb5-1285" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> amplitude <span class="op">=</span> bpsk_separation <span class="op">*</span> sigma</span>
+<span id="cb5-1286"><a href="#cb5-1286" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> normalizer <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span>) <span class="op">*</span> sigma)</span>
+<span id="cb5-1287"><a href="#cb5-1287" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gaussianDensity <span class="op">=</span> u <span class="kw">=&gt;</span> normalizer <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(</span>
+<span id="cb5-1288"><a href="#cb5-1288" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> u <span class="op">*</span> u <span class="op">/</span> (sigma <span class="op">*</span> sigma)</span>
+<span id="cb5-1289"><a href="#cb5-1289" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-1290"><a href="#cb5-1290" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> values <span class="op">=</span> []</span>
+<span id="cb5-1291"><a href="#cb5-1291" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="dv">560</span></span>
+<span id="cb5-1292"><a href="#cb5-1292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1293"><a href="#cb5-1293" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> points<span class="op">;</span> <span class="op">++</span>i) {</span>
+<span id="cb5-1294"><a href="#cb5-1294" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> y <span class="op">=</span> <span class="op">-</span><span class="dv">7</span> <span class="op">+</span> <span class="dv">14</span> <span class="op">*</span> i <span class="op">/</span> points</span>
+<span id="cb5-1295"><a href="#cb5-1295" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> plusDensity <span class="op">=</span> <span class="fu">gaussianDensity</span>(y <span class="op">-</span> amplitude)</span>
+<span id="cb5-1296"><a href="#cb5-1296" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> minusDensity <span class="op">=</span> <span class="fu">gaussianDensity</span>(y <span class="op">+</span> amplitude)</span>
+<span id="cb5-1297"><a href="#cb5-1297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-1298"><a href="#cb5-1298" aria-hidden="true" tabindex="-1"></a>    values<span class="op">.</span><span class="fu">push</span>(</span>
+<span id="cb5-1299"><a href="#cb5-1299" aria-hidden="true" tabindex="-1"></a>      {y<span class="op">,</span> <span class="dt">density</span><span class="op">:</span> <span class="fl">0.5</span> <span class="op">*</span> (plusDensity <span class="op">+</span> minusDensity)<span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"mixture"</span>}<span class="op">,</span></span>
+<span id="cb5-1300"><a href="#cb5-1300" aria-hidden="true" tabindex="-1"></a>      {y<span class="op">,</span> <span class="dt">density</span><span class="op">:</span> plusDensity<span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"B = +1"</span>}<span class="op">,</span></span>
+<span id="cb5-1301"><a href="#cb5-1301" aria-hidden="true" tabindex="-1"></a>      {y<span class="op">,</span> <span class="dt">density</span><span class="op">:</span> minusDensity<span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"B = -1"</span>}</span>
+<span id="cb5-1302"><a href="#cb5-1302" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-1303"><a href="#cb5-1303" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-1304"><a href="#cb5-1304" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> values</span>
+<span id="cb5-1305"><a href="#cb5-1305" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="1313" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 1312;"><span id="cb6-1313"><a href="#cb6-1313" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb6-1314"><a href="#cb6-1314" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">700</span><span class="op">,</span></span>
+<span id="cb6-1315"><a href="#cb6-1315" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">400</span><span class="op">,</span></span>
+<span id="cb6-1316"><a href="#cb6-1316" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">7</span><span class="op">,</span> <span class="dv">7</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"received value y"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb6-1317"><a href="#cb6-1317" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="fl">0.42</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"density"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb6-1318"><a href="#cb6-1318" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb6-1319"><a href="#cb6-1319" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> [<span class="st">"mixture"</span><span class="op">,</span> <span class="st">"B = +1"</span><span class="op">,</span> <span class="st">"B = -1"</span>]<span class="op">,</span></span>
+<span id="cb6-1320"><a href="#cb6-1320" aria-hidden="true" tabindex="-1"></a>    <span class="dt">range</span><span class="op">:</span> [<span class="st">"#4c78a8"</span><span class="op">,</span> <span class="st">"#54a24b"</span><span class="op">,</span> <span class="st">"#e45756"</span>]<span class="op">,</span></span>
+<span id="cb6-1321"><a href="#cb6-1321" aria-hidden="true" tabindex="-1"></a>    <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb6-1322"><a href="#cb6-1322" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb6-1323"><a href="#cb6-1323" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb6-1324"><a href="#cb6-1324" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> {</span>
+<span id="cb6-1325"><a href="#cb6-1325" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span></span>
+<span id="cb6-1326"><a href="#cb6-1326" aria-hidden="true" tabindex="-1"></a>      <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.45</span><span class="op">,</span></span>
+<span id="cb6-1327"><a href="#cb6-1327" aria-hidden="true" tabindex="-1"></a>      <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,4"</span></span>
+<span id="cb6-1328"><a href="#cb6-1328" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
+<span id="cb6-1329"><a href="#cb6-1329" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb6-1330"><a href="#cb6-1330" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(</span>
+<span id="cb6-1331"><a href="#cb6-1331" aria-hidden="true" tabindex="-1"></a>      bpsk_density_data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">curve</span> <span class="op">===</span> <span class="st">"mixture"</span>)<span class="op">,</span></span>
+<span id="cb6-1332"><a href="#cb6-1332" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb6-1333"><a href="#cb6-1333" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb6-1334"><a href="#cb6-1334" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"density"</span><span class="op">,</span></span>
+<span id="cb6-1335"><a href="#cb6-1335" aria-hidden="true" tabindex="-1"></a>        <span class="dt">z</span><span class="op">:</span> <span class="st">"curve"</span><span class="op">,</span></span>
+<span id="cb6-1336"><a href="#cb6-1336" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> <span class="st">"curve"</span><span class="op">,</span></span>
+<span id="cb6-1337"><a href="#cb6-1337" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.75</span></span>
+<span id="cb6-1338"><a href="#cb6-1338" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb6-1339"><a href="#cb6-1339" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb6-1340"><a href="#cb6-1340" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(</span>
+<span id="cb6-1341"><a href="#cb6-1341" aria-hidden="true" tabindex="-1"></a>      bpsk_density_data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">curve</span> <span class="op">!==</span> <span class="st">"mixture"</span>)<span class="op">,</span></span>
+<span id="cb6-1342"><a href="#cb6-1342" aria-hidden="true" tabindex="-1"></a>      {</span>
+<span id="cb6-1343"><a href="#cb6-1343" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb6-1344"><a href="#cb6-1344" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"density"</span><span class="op">,</span></span>
+<span id="cb6-1345"><a href="#cb6-1345" aria-hidden="true" tabindex="-1"></a>        <span class="dt">z</span><span class="op">:</span> <span class="st">"curve"</span><span class="op">,</span></span>
+<span id="cb6-1346"><a href="#cb6-1346" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stroke</span><span class="op">:</span> <span class="st">"curve"</span><span class="op">,</span></span>
+<span id="cb6-1347"><a href="#cb6-1347" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb6-1348"><a href="#cb6-1348" aria-hidden="true" tabindex="-1"></a>        <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"6,4"</span></span>
+<span id="cb6-1349"><a href="#cb6-1349" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb6-1350"><a href="#cb6-1350" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-1351"><a href="#cb6-1351" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb6-1352"><a href="#cb6-1352" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-bpsk-gaussian-mixture" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bpsk-gaussian-mixture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-6" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bpsk-gaussian-mixture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: Conditional Gaussian densities and the resulting BPSK output mixture as the normalized signal separation changes.
+</figcaption>
+</figure>
+</div>
+</div>
 
 
 </section>
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIGdhdXNzaWFuX3NpZ21hXzEgPSBJbnB1dHMucmFuZ2UoWzAuNSwgMl0sIHtcbiAgbGFiZWw6IFwiz4PigoFcIixcbiAgdmFsdWU6IDEuMixcbiAgc3RlcDogMC4wNVxufSlcblxudmlld29mIGdhdXNzaWFuX3NpZ21hXzIgPSBJbnB1dHMucmFuZ2UoWzAuNSwgMl0sIHtcbiAgbGFiZWw6IFwiz4PigoJcIixcbiAgdmFsdWU6IDAuOCxcbiAgc3RlcDogMC4wNVxufSlcblxudmlld29mIGdhdXNzaWFuX3JobyA9IElucHV0cy5yYW5nZShbLTAuOTUsIDAuOTVdLCB7XG4gIGxhYmVsOiBcIs+BXCIsXG4gIHZhbHVlOiAwLFxuICBzdGVwOiAwLjA1XG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG5nYXVzc2lhbl9wZGZfZ3JpZCA9IHtcbiAgY29uc3QgbGltaXQgPSA2XG4gIGNvbnN0IGJpbnMgPSA3MFxuICBjb25zdCB3aWR0aCA9IDIgKiBsaW1pdCAvIGJpbnNcbiAgY29uc3Qgb25lTWludXNSaG9TcXVhcmVkID0gMSAtIGdhdXNzaWFuX3JobyAqIGdhdXNzaWFuX3Job1xuICBjb25zdCBub3JtYWxpemVyID0gMSAvIChcbiAgICAyICogTWF0aC5QSSAqIGdhdXNzaWFuX3NpZ21hXzEgKiBnYXVzc2lhbl9zaWdtYV8yXG4gICAgKiBNYXRoLnNxcnQob25lTWludXNSaG9TcXVhcmVkKVxuICApXG4gIGNvbnN0IHZhbHVlcyA9IFtdXG5cbiAgZm9yIChsZXQgaSA9IDA7IGkgPCBiaW5zOyArK2kpIHtcbiAgICBjb25zdCB4ID0gLWxpbWl0ICsgKGkgKyAwLjUpICogd2lkdGhcbiAgICBmb3IgKGxldCBqID0gMDsgaiA8IGJpbnM7ICsraikge1xuICAgICAgY29uc3QgeSA9IC1saW1pdCArIChqICsgMC41KSAqIHdpZHRoXG4gICAgICBjb25zdCB6MSA9IHggLyBnYXVzc2lhbl9zaWdtYV8xXG4gICAgICBjb25zdCB6MiA9IHkgLyBnYXVzc2lhbl9zaWdtYV8yXG4gICAgICBjb25zdCBtYWhhbGFub2Jpc1NxdWFyZWQgPSAoXG4gICAgICAgIHoxICogejEgLSAyICogZ2F1c3NpYW5fcmhvICogejEgKiB6MiArIHoyICogejJcbiAgICAgICkgLyBvbmVNaW51c1Job1NxdWFyZWRcblxuICAgICAgdmFsdWVzLnB1c2goe1xuICAgICAgICB4MTogeCAtIHdpZHRoIC8gMixcbiAgICAgICAgeDI6IHggKyB3aWR0aCAvIDIsXG4gICAgICAgIHkxOiB5IC0gd2lkdGggLyAyLFxuICAgICAgICB5MjogeSArIHdpZHRoIC8gMixcbiAgICAgICAgZGVuc2l0eTogbm9ybWFsaXplciAqIE1hdGguZXhwKC0wLjUgKiBtYWhhbGFub2Jpc1NxdWFyZWQpXG4gICAgICB9KVxuICAgIH1cbiAgfVxuICByZXR1cm4gdmFsdWVzXG59XG5cbmdhdXNzaWFuX3BkZl9jb250b3VycyA9IHtcbiAgY29uc3QgdmFsdWVzID0gW11cbiAgY29uc3Qgc2luZVNjYWxlID0gZ2F1c3NpYW5fc2lnbWFfMiAqIE1hdGguc3FydChcbiAgICAxIC0gZ2F1c3NpYW5fcmhvICogZ2F1c3NpYW5fcmhvXG4gIClcblxuICBmb3IgKGNvbnN0IGxldmVsIG9mIFsxLCAyLCAzXSkge1xuICAgIGZvciAobGV0IGogPSAwOyBqIDw9IDE4MDsgKytqKSB7XG4gICAgICBjb25zdCB0aGV0YSA9IDIgKiBNYXRoLlBJICogaiAvIDE4MFxuICAgICAgY29uc3QgY29zaW5lID0gTWF0aC5jb3ModGhldGEpXG4gICAgICBjb25zdCBzaW5lID0gTWF0aC5zaW4odGhldGEpXG4gICAgICB2YWx1ZXMucHVzaCh7XG4gICAgICAgIGxldmVsLFxuICAgICAgICB4OiBsZXZlbCAqIGdhdXNzaWFuX3NpZ21hXzEgKiBjb3NpbmUsXG4gICAgICAgIHk6IGxldmVsICogKFxuICAgICAgICAgIGdhdXNzaWFuX3JobyAqIGdhdXNzaWFuX3NpZ21hXzIgKiBjb3NpbmVcbiAgICAgICAgICArIHNpbmVTY2FsZSAqIHNpbmVcbiAgICAgICAgKVxuICAgICAgfSlcbiAgICB9XG4gIH1cbiAgcmV0dXJuIHZhbHVlc1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG5QbG90LnBsb3Qoe1xuICB3aWR0aDogNjQwLFxuICBoZWlnaHQ6IDU2MCxcbiAgbWFyZ2luUmlnaHQ6IDkwLFxuICB4OiB7ZG9tYWluOiBbLTYsIDZdLCBsYWJlbDogXCJ44oKBXCIsIGdyaWQ6IHRydWV9LFxuICB5OiB7ZG9tYWluOiBbLTYsIDZdLCBsYWJlbDogXCJ44oKCXCIsIGdyaWQ6IHRydWV9LFxuICBjb2xvcjoge1xuICAgIHR5cGU6IFwic3FydFwiLFxuICAgIGRvbWFpbjogWzAsIDIuMDVdLFxuICAgIGNsYW1wOiB0cnVlLFxuICAgIHNjaGVtZTogXCJibHVlc1wiLFxuICAgIGxlZ2VuZDogdHJ1ZSxcbiAgICBsYWJlbDogXCJkZW5zaXR5XCJcbiAgfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJlY3QoZ2F1c3NpYW5fcGRmX2dyaWQsIHtcbiAgICAgIHgxOiBcIngxXCIsXG4gICAgICB4MjogXCJ4MlwiLFxuICAgICAgeTE6IFwieTFcIixcbiAgICAgIHkyOiBcInkyXCIsXG4gICAgICBmaWxsOiBcImRlbnNpdHlcIlxuICAgIH0pLFxuICAgIFBsb3QucnVsZVgoWzBdLCB7c3Ryb2tlOiBcImN1cnJlbnRDb2xvclwiLCBzdHJva2VPcGFjaXR5OiAwLjI1fSksXG4gICAgUGxvdC5ydWxlWShbMF0sIHtzdHJva2U6IFwiY3VycmVudENvbG9yXCIsIHN0cm9rZU9wYWNpdHk6IDAuMjV9KSxcbiAgICBQbG90LmxpbmUoZ2F1c3NpYW5fcGRmX2NvbnRvdXJzLCB7XG4gICAgICB4OiBcInhcIixcbiAgICAgIHk6IFwieVwiLFxuICAgICAgejogXCJsZXZlbFwiLFxuICAgICAgc3Ryb2tlOiBcImN1cnJlbnRDb2xvclwiLFxuICAgICAgc3Ryb2tlV2lkdGg6IDEuNVxuICAgIH0pLFxuICAgIFBsb3QuZG90KFt7eDogMCwgeTogMH1dLCB7XG4gICAgICB4OiBcInhcIixcbiAgICAgIHk6IFwieVwiLFxuICAgICAgZmlsbDogXCJjdXJyZW50Q29sb3JcIixcbiAgICAgIHI6IDIuNVxuICAgIH0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbnZpZXdvZiBicHNrX3NlcGFyYXRpb24gPSBJbnB1dHMucmFuZ2UoWzAsIDRdLCB7XG4gIGxhYmVsOiBcImEvz4NcIixcbiAgdmFsdWU6IDEuNSxcbiAgc3RlcDogMC4xXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG5icHNrX2RlbnNpdHlfZGF0YSA9IHtcbiAgY29uc3Qgc2lnbWEgPSAxXG4gIGNvbnN0IGFtcGxpdHVkZSA9IGJwc2tfc2VwYXJhdGlvbiAqIHNpZ21hXG4gIGNvbnN0IG5vcm1hbGl6ZXIgPSAxIC8gKE1hdGguc3FydCgyICogTWF0aC5QSSkgKiBzaWdtYSlcbiAgY29uc3QgZ2F1c3NpYW5EZW5zaXR5ID0gdSA9PiBub3JtYWxpemVyICogTWF0aC5leHAoXG4gICAgLTAuNSAqIHUgKiB1IC8gKHNpZ21hICogc2lnbWEpXG4gIClcbiAgY29uc3QgdmFsdWVzID0gW11cbiAgY29uc3QgcG9pbnRzID0gNTYwXG5cbiAgZm9yIChsZXQgaSA9IDA7IGkgPD0gcG9pbnRzOyArK2kpIHtcbiAgICBjb25zdCB5ID0gLTcgKyAxNCAqIGkgLyBwb2ludHNcbiAgICBjb25zdCBwbHVzRGVuc2l0eSA9IGdhdXNzaWFuRGVuc2l0eSh5IC0gYW1wbGl0dWRlKVxuICAgIGNvbnN0IG1pbnVzRGVuc2l0eSA9IGdhdXNzaWFuRGVuc2l0eSh5ICsgYW1wbGl0dWRlKVxuXG4gICAgdmFsdWVzLnB1c2goXG4gICAgICB7eSwgZGVuc2l0eTogMC41ICogKHBsdXNEZW5zaXR5ICsgbWludXNEZW5zaXR5KSwgY3VydmU6IFwibWl4dHVyZVwifSxcbiAgICAgIHt5LCBkZW5zaXR5OiBwbHVzRGVuc2l0eSwgY3VydmU6IFwiQiA9ICsxXCJ9LFxuICAgICAge3ksIGRlbnNpdHk6IG1pbnVzRGVuc2l0eSwgY3VydmU6IFwiQiA9IC0xXCJ9XG4gICAgKVxuICB9XG4gIHJldHVybiB2YWx1ZXNcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuUGxvdC5wbG90KHtcbiAgd2lkdGg6IDcwMCxcbiAgaGVpZ2h0OiA0MDAsXG4gIHg6IHtkb21haW46IFstNywgN10sIGxhYmVsOiBcInJlY2VpdmVkIHZhbHVlIHlcIiwgZ3JpZDogdHJ1ZX0sXG4gIHk6IHtkb21haW46IFswLCAwLjQyXSwgbGFiZWw6IFwiZGVuc2l0eVwiLCBncmlkOiB0cnVlfSxcbiAgY29sb3I6IHtcbiAgICBkb21haW46IFtcIm1peHR1cmVcIiwgXCJCID0gKzFcIiwgXCJCID0gLTFcIl0sXG4gICAgcmFuZ2U6IFtcIiM0Yzc4YThcIiwgXCIjNTRhMjRiXCIsIFwiI2U0NTc1NlwiXSxcbiAgICBsZWdlbmQ6IHRydWVcbiAgfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVYKFswXSwge1xuICAgICAgc3Ryb2tlOiBcImN1cnJlbnRDb2xvclwiLFxuICAgICAgc3Ryb2tlT3BhY2l0eTogMC40NSxcbiAgICAgIHN0cm9rZURhc2hhcnJheTogXCI0LDRcIlxuICAgIH0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUoXG4gICAgICBicHNrX2RlbnNpdHlfZGF0YS5maWx0ZXIoZCA9PiBkLmN1cnZlID09PSBcIm1peHR1cmVcIiksXG4gICAgICB7XG4gICAgICAgIHg6IFwieVwiLFxuICAgICAgICB5OiBcImRlbnNpdHlcIixcbiAgICAgICAgejogXCJjdXJ2ZVwiLFxuICAgICAgICBzdHJva2U6IFwiY3VydmVcIixcbiAgICAgICAgc3Ryb2tlV2lkdGg6IDIuNzVcbiAgICAgIH1cbiAgICApLFxuICAgIFBsb3QubGluZShcbiAgICAgIGJwc2tfZGVuc2l0eV9kYXRhLmZpbHRlcihkID0+IGQuY3VydmUgIT09IFwibWl4dHVyZVwiKSxcbiAgICAgIHtcbiAgICAgICAgeDogXCJ5XCIsXG4gICAgICAgIHk6IFwiZGVuc2l0eVwiLFxuICAgICAgICB6OiBcImN1cnZlXCIsXG4gICAgICAgIHN0cm9rZTogXCJjdXJ2ZVwiLFxuICAgICAgICBzdHJva2VXaWR0aDogMixcbiAgICAgICAgc3Ryb2tlRGFzaGFycmF5OiBcIjYsNFwiXG4gICAgICB9XG4gICAgKVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdnYXVzc2lhbl9zaWdtYV8xJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2dhdXNzaWFuX3NpZ21hXzInKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZ2F1c3NpYW5fcmhvJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2Jwc2tfc2VwYXJhdGlvbicpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
