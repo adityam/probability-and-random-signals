@@ -1,0 +1,94 @@
+\usepath[/home/adityam/Projects/presentations]
+
+\enablemode[lucida]
+\environment env-fonts.tex
+\setupbodyfont[slidefont,16pt]
+
+\definecolor[lightgray][s=0.82]
+
+\startMPdefinitions
+  vardef draw_atom(expr lowerleft) =
+    save atom;
+    path atom;
+
+    atom := unitsquare xyscaled (2u, 2u) shifted lowerleft;
+    atom := atom cornered (0.14u) blownup (-0.10u, -0.10u)
+                 randomized (0.025u);
+
+    fill atom withcolor "lightgray";
+    draw atom withpen pencircle scaled 0.7bp;
+  enddef;
+
+  vardef draw_grid(expr lowerleft) =
+    for i = 0 upto 4:
+      draw ((i*u, 0) -- (i*u, 4u)) shifted lowerleft
+        withpen pencircle scaled 0.55bp;
+      draw ((0, i*u) -- (4u, i*u)) shifted lowerleft
+        withpen pencircle scaled 0.55bp;
+    endfor
+  enddef;
+\stopMPdefinitions
+
+\starttext
+
+\startMPpage[offset=1dk, scale=1500]
+  randomseed := 509;
+  numeric u;
+  u := 0.9cm;
+
+  pair leftorigin, rightorigin;
+  leftorigin := origin;
+  rightorigin := (5.6cm, 0);
+
+  % The four atoms of the information sigma-algebra.
+  draw_atom(leftorigin shifted (0, 2u));
+  draw_atom(leftorigin shifted (2u, 2u));
+  draw_atom(leftorigin);
+  draw_atom(leftorigin shifted (2u, 0));
+
+  draw_atom(rightorigin shifted (0, 2u));
+  draw_atom(rightorigin shifted (2u, 2u));
+  draw_atom(rightorigin);
+  draw_atom(rightorigin shifted (2u, 0));
+
+  draw_grid(leftorigin);
+  draw_grid(rightorigin);
+
+  label.lft("\switchtobodyfont[8pt]$D_1$", leftorigin shifted (-0.12u, 3u));
+  label.rt("\switchtobodyfont[8pt]$D_2$", leftorigin shifted (4.12u, 3u));
+  label.lft("\switchtobodyfont[8pt]$D_3$", leftorigin shifted (-0.12u, u));
+  label.rt("\switchtobodyfont[8pt]$D_4$", leftorigin shifted (4.12u, u));
+
+  label.top("\switchtobodyfont[10pt]$X$", leftorigin shifted (2u, 4.35u));
+  label.top("\switchtobodyfont[10pt]$\mathbb{E}[X\mid\mathcal G]$",
+            rightorigin shifted (2u, 4.35u));
+
+  string conditionalmean[];
+  conditionalmean[1] := "3.5";
+  conditionalmean[2] := "5.5";
+  conditionalmean[3] := "11.5";
+  conditionalmean[4] := "13.5";
+
+  for row = 0 upto 3:
+    for column = 0 upto 3:
+      numeric idx, atomidx;
+      idx := 4row + column + 1;
+
+      if row < 2:
+        if column < 2: atomidx := 1; else: atomidx := 2; fi;
+      else:
+        if column < 2: atomidx := 3; else: atomidx := 4; fi;
+      fi;
+
+      pair cellcenter;
+      cellcenter := ((column + 0.5)*u, (3.5 - row)*u);
+
+      label("\switchtobodyfont[9pt]$" & decimal idx & "$",
+            leftorigin shifted cellcenter);
+      label("\switchtobodyfont[9pt]$" & conditionalmean[atomidx] & "$",
+            rightorigin shifted cellcenter);
+    endfor
+  endfor
+\stopMPpage
+
+\stoptext
