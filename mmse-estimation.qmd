@@ -1,0 +1,250 @@
+---
+title: MMSE estimation
+---
+
+Conditional expectation is not only a way of updating a probability model; it is also the optimal estimate of an unknown random variable under mean-squared error. This chapter develops that interpretation and then specializes it to jointly Gaussian random vectors.
+
+## Conditional expectation as minimum mean square estimator {#MMSE}
+
+1. Suppose we observe a random variable $Y$ and wish to estimate a square-integrable random variable $X$. Among all square-integrable functions $h(Y)$, we seek one that minimizes the mean-squared error:
+   $$
+   \EXP[(X - h(Y))^2].
+   $$
+   The function $h$ that minimizes this quantity is called the **minimum mean-squared error (MMSE) estimator** of $X$ given $Y$.
+
+2. The conditional expectation $\EXP[X \mid Y]$ is the MMSE estimator of $X$ given $Y$.
+
+   :::{.callout-note}
+   #### Proof
+
+   Recall that in @exm-streaming-variance, we had shown that
+   $$
+      \EXP[ (X-t)^2 ] = \EXP[ (X - μ)^2] + (t - μ)^2.
+   $$
+
+   By the same argument, we have
+   $$
+      \EXP[ (X - h(Y))^2 \mid Y ] = \EXP[ (X - \EXP[X\mid Y])^2 \mid Y] + (h(Y) - \EXP[X\mid Y])^2
+   $$
+   since $h(Y)$ is $Y$-measurable.
+
+   By smoothing property of conditional expectation, we have
+   \begin{equation}\label{eq:MMSE-error}
+   \EXP[(X - h(Y))^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(h(Y) - \EXP[X \mid Y])^2].
+   \end{equation}
+   This is minimized when $h(Y) = \EXP[X\mid Y]$.
+   :::
+
+3. The error $X - \EXP[X \mid Y]$ is **orthogonal** to every square-integrable function of $Y$: for any square-integrable $g(Y)$,
+   $$ \EXP[(X - \EXP[X \mid Y]) g(Y)] = 0. $$
+
+   :::{.callout-note}
+   #### Proof
+
+   By the smoothing property of conditional expectation, we have
+   \begin{align*}
+   \EXP[(X - \EXP[X \mid Y]) g(Y)] &= \EXP[\EXP[(X - \EXP[X \mid Y]) g(Y) \mid Y]] \\
+   &= \EXP[g(Y) \EXP[X - \EXP[X \mid Y] \mid Y]] \\
+   &= \EXP[g(Y) \cdot 0] = 0
+   \end{align*}
+   where we used the fact that $\EXP[X - \EXP[X \mid Y] \mid Y] = 0$.
+   :::
+
+4. Conversely, if $h(Y)$ is square-integrable and the error $X-h(Y)$ is orthogonal to every square-integrable function of $Y$, i.e., $\EXP[(X - h(Y)) g(Y)] = 0$ for every square-integrable $g(Y)$, then $h(Y) = \EXP[X \mid Y]$ (almost surely), and hence $h(Y)$ is the MMSE estimator.
+
+   :::{.callout-note}
+   #### Proof
+
+   Suppose $\EXP[(X - h(Y)) g(Y)] = 0$ for every square-integrable function $g(Y)$. In particular, taking $g(Y) = h(Y) - \EXP[X \mid Y]$, we have:
+   $$
+   \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] = 0.
+   $$
+   Expanding this, we get
+   \begin{align*}
+   0 &= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
+     &= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
+     &= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
+   \end{align*}
+   The first term is zero because $h(Y) - \EXP[X \mid Y]$ is a function of $Y$ and, by the orthogonality property in point~3, $X - \EXP[X \mid Y]$ is orthogonal to all functions of $Y$. Therefore,
+   $$
+   \EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
+   $$
+   which implies $h(Y) = \EXP[X \mid Y]$ almost surely. By point 2, this means $h(Y)$ is the MMSE estimator.
+   :::
+
+5. The estimation error has zero mean:
+   $$
+   \EXP[X - \EXP[X \mid Y]]
+   = \EXP[X] - \EXP[\EXP[X \mid Y]] = 0,
+   $$
+   by the smoothing property.
+
+6. The total variance of $X$ can be decomposed as:
+   $$
+   \VAR(X) = \EXP[(X - \EXP[X])^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(\EXP[X \mid Y] - \EXP[X])^2].
+   $$
+   This follows by taking $h(Y) = \EXP[X]$ (a constant function) in \eqref{eq:MMSE-error}. The first term is the **estimation error** (the variance that cannot be reduced by observing $Y$), and the second term is the variance of the estimator itself.
+
+   Define the conditional variance by
+   $$
+   \VAR(X \mid Y)
+   := \EXP[(X-\EXP[X\mid Y])^2 \mid Y].
+   $$
+   the smoothing property gives
+   $$
+   \EXP[(X-\EXP[X\mid Y])^2] = \EXP[\VAR(X\mid Y)].
+   $$
+   Therefore, the decomposition can also be written in its standard form:
+   $$
+   \bbox[5pt,border: 1px solid]
+   {\VAR(X) = \EXP[\VAR(X \mid Y)] + \VAR(\EXP[X \mid Y]).}
+   $$
+
+7. The same interpretation applies to random vectors. If $X\in\reals^n$ is square-integrable, then $\EXP[X\mid Y]$ minimizes
+   $$
+   \EXP[\|X-h(Y)\|^2]
+   $$
+   over all square-integrable vector-valued functions $h(Y)$. The error is orthogonal to every square-integrable vector-valued function $g(Y)$ in the sense that
+   $$
+   \EXP[(X-\EXP[X\mid Y])^\TRANS g(Y)]=0.
+   $$
+
+## MMSE estimation for jointly Gaussian random vectors
+
+Suppose $X\in\reals^n$ and $Y\in\reals^m$ are jointly Gaussian, with
+$$
+\MATRIX{X\\Y}
+\sim
+\mathcal N\left(
+\MATRIX{\mu_X\\\mu_Y},
+\MATRIX{
+\Sigma_{XX} & \Sigma_{XY}\\
+\Sigma_{YX} & \Sigma_{YY}
+}
+\right),
+$$
+where $\Sigma_{YX}=\Sigma_{XY}^\TRANS$ and $\Sigma_{YY}$ is positive definite.
+
+1. Define the affine estimate
+   $$
+   \widehat X
+   =\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y)
+   $$
+   and the corresponding error $E=X-\widehat X$. Its mean and its cross-covariance with $Y$ are
+   \begin{align*}
+   \EXP[E]&=0,\\
+   \COV(E,Y)
+   &=\Sigma_{XY}
+     -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YY}
+     =0.
+   \end{align*}
+
+2. Since $(E,Y)$ is an affine transformation of the jointly Gaussian vector $(X,Y)$, it is jointly Gaussian. For jointly Gaussian vectors, zero cross-covariance implies independence. Hence $E\independent Y$, and therefore
+   $$
+   \EXP[E\mid Y]=\EXP[E]=0.
+   $$
+   Using $X=\widehat X+E$ gives
+   $$
+   \bbox[5pt,border: 1px solid]{
+   \EXP[X\mid Y]
+   =\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y).
+   }
+   $$
+
+3. The covariance of the estimation error is
+   \begin{align*}
+   \Sigma_E
+   &=\COV\left(X-\Sigma_{XY}\Sigma_{YY}^{-1}Y\right)\\
+   &=\Sigma_{XX}
+     -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}.
+   \end{align*}
+   Because $E$ is Gaussian and independent of $Y$, conditioning on $Y=y$ gives the complete conditional distribution:
+   $$
+   \bbox[5pt,border: 1px solid]{
+   X\mid(Y=y)
+   \sim
+   \mathcal N\left(
+   \mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(y-\mu_Y),
+   \Sigma_{XX}-\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}
+   \right).
+   }
+   $$
+
+4. For scalar jointly Gaussian random variables with
+   $$
+   \COV(X,Y)=\rho\sigma_X\sigma_Y,
+   $$
+   the formulas reduce to
+   \begin{align*}
+   \EXP[X\mid Y]
+   &=\mu_X+\rho\frac{\sigma_X}{\sigma_Y}(Y-\mu_Y),\\
+   \VAR(X\mid Y)&=\sigma_X^2(1-\rho^2).
+   \end{align*}
+
+:::{#exm-sensor-network}
+### Estimation using a sensor network
+
+Let the unknown state be
+$$
+X\sim\mathcal N(\mu_X,\Sigma_X).
+$$
+Sensor $i$ observes
+$$
+Y_i=C_iX+W_i,
+\qquad i=1,\ldots,N,
+$$
+where $W_i\sim\mathcal N(0,R_i)$. Assume that the noises are mutually independent and independent of $X$, and that $\Sigma_X$ and every $R_i$ are positive definite. Find the MMSE estimate of $X$ using all the sensor measurements.
+:::
+
+:::{.callout-note collapse="true"}
+### Solution
+
+Stack the measurements and noises as
+$$
+Y=\MATRIX{Y_1\\\vdots\\Y_N},
+\qquad
+W=\MATRIX{W_1\\\vdots\\W_N},
+\qquad
+C=\MATRIX{C_1\\\vdots\\C_N}.
+$$
+Then
+$$
+Y=CX+W,
+\qquad
+R=\COV(W)=\operatorname{diag}(R_1,\ldots,R_N).
+$$
+Consequently,
+$$
+\mu_Y=C\mu_X,
+\qquad
+\Sigma_{XY}=\Sigma_XC^\TRANS,
+\qquad
+\Sigma_{YY}=C\Sigma_XC^\TRANS+R.
+$$
+The MMSE estimate and its error covariance are therefore
+$$
+\widehat X
+=\EXP[X\mid Y]
+=\mu_X+\Sigma_XC^\TRANS
+(C\Sigma_XC^\TRANS+R)^{-1}(Y-C\mu_X)
+$$
+and
+$$
+P_N
+=\COV(X\mid Y)
+=\Sigma_X-\Sigma_XC^\TRANS
+(C\Sigma_XC^\TRANS+R)^{-1}C\Sigma_X.
+$$
+
+Equivalently, these expressions can be written in information form as
+\begin{align*}
+P_N^{-1}
+&=\Sigma_X^{-1}+\sum_{i=1}^N C_i^\TRANS R_i^{-1}C_i,\\
+\widehat X
+&=P_N\left(
+\Sigma_X^{-1}\mu_X
++\sum_{i=1}^N C_i^\TRANS R_i^{-1}Y_i
+\right).
+\end{align*}
+Each additional sensor contributes the positive-semidefinite term $C_i^\TRANS R_i^{-1}C_i$ to the information matrix. Thus, adding a sensor cannot increase the conditional covariance: $P_N\preceq P_{N-1}$.
+:::

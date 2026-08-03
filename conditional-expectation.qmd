@@ -4,7 +4,7 @@ execute:
   echo: false
 ---
 
-Conditional probability is perhaps the most important aspect of probability theory, because it explains how to incorporate new information into a probability model. In this lecture, we start from conditioning on events, then interpret conditioning as averaging given a finite information $σ$-algebra, and specialize that view to finite-valued random variables. We then treat continuous random variables, where zero-probability events force a more abstract definition, and close with the interpretation of conditional expectation as the minimum mean-squared error estimator.
+Conditional probability is perhaps the most important aspect of probability theory, because it explains how to incorporate new information into a probability model. In this lecture, we start from conditioning on events, then interpret conditioning as averaging given a finite information $σ$-algebra, and specialize that view to finite-valued random variables. We then treat continuous random variables, where zero-probability events force a more abstract definition of conditional expectation and conditional density.
 
 ## Conditioning on events
 
@@ -799,7 +799,7 @@ where $\ABS{ρ} < 1$. Compute the conditional PDF $f_{X_1 | X_2}$?
 
 :::{.callout-note collapse="false"}
 #### Solution
-From the nondegenerate multivariate Gaussian PDF in [random vectors](random-vectors.qmd) and the bivariate expression for $(x-μ)^\TRANS Σ^{-1}(x-μ)$ there, with $μ_X=0$ we have
+From the nondegenerate multivariate Gaussian PDF in [Gaussian random vectors](gaussian-random-vectors.qmd) and the bivariate expression for $(x-μ)^\TRANS Σ^{-1}(x-μ)$ there, with $μ_X=0$ we have
 $$
 f_{X_1,X_2}(x_1,x_2)
 =
@@ -839,101 +839,3 @@ X_1 \mid X_2 = x_2
 \mathcal{N}\Biggl(ρ \frac{σ_1}{σ_2} x_2,\; σ_1^2(1-ρ^2)\Biggr).
 $$
 :::
-
-## Conditional expectation as minimum mean square estimator {#MMSE}
-
-1. Suppose we observe a random variable $Y$ and wish to estimate a square-integrable random variable $X$. Among all square-integrable functions $h(Y)$, we seek one that minimizes the mean-squared error:
-   $$
-   \EXP[(X - h(Y))^2].
-   $$
-   The function $h$ that minimizes this quantity is called the **minimum mean-squared error (MMSE) estimator** of $X$ given $Y$.
-
-2. The conditional expectation $\EXP[X \mid Y]$ is the MMSE estimator of $X$ given $Y$.
-
-   :::{.callout-note}
-   #### Proof
-
-   Recall that in @exm-streaming-variance, we had shown that
-   $$
-      \EXP[ (X-t)^2 ] = \EXP[ (X - μ)^2] + (t - μ)^2.
-   $$
-
-   By the same argument, we have
-   $$
-      \EXP[ (X - h(Y))^2 \mid Y ] = \EXP[ (X - \EXP[X\mid Y])^2 \mid Y] + (h(Y) - \EXP[X\mid Y])^2
-   $$
-   since $h(Y)$ is $Y$-measurable. 
-
-   By smoothing property of conditional expectation, we have
-   \begin{equation}\label{eq:MMSE-error}
-   \EXP[(X - h(Y))^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(h(Y) - \EXP[X \mid Y])^2].
-   \end{equation}
-   This is minimized when $h(Y) = \EXP[X\mid Y]$.
-   :::
-
-3. The error $X - \EXP[X \mid Y]$ is **orthogonal** to every square-integrable function of $Y$: for any square-integrable $g(Y)$,
-   $$ \EXP[(X - \EXP[X \mid Y]) g(Y)] = 0. $$
-
-   :::{.callout-note}
-   #### Proof
-
-   By the smoothing property of conditional expectation, we have
-   \begin{align*}
-   \EXP[(X - \EXP[X \mid Y]) g(Y)] &= \EXP[\EXP[(X - \EXP[X \mid Y]) g(Y) \mid Y]] \\
-   &= \EXP[g(Y) \EXP[X - \EXP[X \mid Y] \mid Y]] \\
-   &= \EXP[g(Y) \cdot 0] = 0
-   \end{align*}
-   where we used the fact that $\EXP[X - \EXP[X \mid Y] \mid Y] = 0$. 
-   :::
-
-4. Conversely, if $h(Y)$ is square-integrable and the error $X-h(Y)$ is orthogonal to every square-integrable function of $Y$, i.e., $\EXP[(X - h(Y)) g(Y)] = 0$ for every square-integrable $g(Y)$, then $h(Y) = \EXP[X \mid Y]$ (almost surely), and hence $h(Y)$ is the MMSE estimator.
-
-   :::{.callout-note}
-   #### Proof
-
-   Suppose $\EXP[(X - h(Y)) g(Y)] = 0$ for every square-integrable function $g(Y)$. In particular, taking $g(Y) = h(Y) - \EXP[X \mid Y]$, we have:
-   $$
-   \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] = 0.
-   $$
-   Expanding this, we get
-   \begin{align*}
-   0 &= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
-     &= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
-     &= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
-   \end{align*}
-   The first term is zero because $h(Y) - \EXP[X \mid Y]$ is a function of $Y$ and, by the orthogonality property in point~3, $X - \EXP[X \mid Y]$ is orthogonal to all functions of $Y$. Therefore,
-   $$
-   \EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
-   $$
-   which implies $h(Y) = \EXP[X \mid Y]$ almost surely. By point 2, this means $h(Y)$ is the MMSE estimator.
-   :::
-
-5. The estimation error has zero mean:
-   $$
-   \EXP[X - \EXP[X \mid Y]]
-   = \EXP[X] - \EXP[\EXP[X \mid Y]] = 0,
-   $$
-   by the smoothing property.
-
-6. The total variance of $X$ can be decomposed as:
-   $$
-   \VAR(X) = \EXP[(X - \EXP[X])^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(\EXP[X \mid Y] - \EXP[X])^2].
-   $$
-   This follows by taking $h(Y) = \EXP[X]$ (a constant function) in \eqref{eq:MMSE-error}. The first term is the **estimation error** (the variance that cannot be reduced by observing $Y$), and the second term is the variance of the estimator itself.
-
-   Define the conditional variance by
-   $$
-   \VAR(X \mid Y)
-   := \EXP[(X-\EXP[X\mid Y])^2 \mid Y].
-   $$
-   the smoothing property gives
-   $$
-   \EXP[(X-\EXP[X\mid Y])^2] = \EXP[\VAR(X\mid Y)].
-   $$
-   Therefore, the decomposition can also be written in its standard form:
-   $$
-   \bbox[5pt,border: 1px solid]
-   {\VAR(X) = \EXP[\VAR(X \mid Y)] + \VAR(\EXP[X \mid Y]).}
-   $$
-
-7. When $X$ and $Y$ are jointly Gaussian, the conditional expectation is an affine function of $Y$. This is a special property of Gaussian distributions. We expand on this in [the next section](conditional-expectation-gaussian.qmd). 

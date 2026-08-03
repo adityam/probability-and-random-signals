@@ -5,35 +5,38 @@ title: Conditional expectation for Gaussians
 
 ## Review of Gaussian random variables
 
-1. A multivariate Gaussian random vector $X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)$ has a PDF
+1. Recall that a random vector $X\in\reals^n$ is **Gaussian** if every linear combination of its components is a scalar Gaussian random variable. If $\mu=\EXP[X]$ and $\Sigma=\COV(X)$, we write
    $$
-   f_X(x) = \frac{1}{(2\pi)^{n/2} \det(\Sigma)^{1/2}} \exp\left( -\frac{1}{2} (x - \mu)^\TRANS \Sigma^{-1} (x - \mu) \right), \quad x \in \reals^n
-   $$
-   and MGF
-   $$
-   M_X(s) = \EXP\big[ e^{s^\TRANS X} \big] = \exp\left( s^\TRANS \mu + \frac{1}{2} s^\TRANS \Sigma s \right), \qquad s \in \reals^n.
+   X\sim\mathcal N(\mu,\Sigma).
    $$
 
-2. Thus, all moments of a Gaussian random variable can be expressed in terms of its mean and variance. In particular, if $X \sim \mathcal{N}(0, \sigma^2)$, then all odd moments are zero; all even moments can be written in terms of the variance: 
+2. Gaussian random vectors are closed under affine transformations. If $X\sim\mathcal N(\mu,\Sigma)$, $A\in\reals^{m\times n}$, and $b\in\reals^m$, then
    $$
-   \EXP[X^{2k}] =
-   \underbrace{(2k-1)\cdot(2k-3)\cdots3\cdot1}_{\eqqcolon (2k-1)!!}\, \sigma^{2k}
+   AX+b\sim\mathcal N(A\mu+b,A\Sigma A^\TRANS).
    $$
-   
-3. Any linear combination of jointly Gaussian random variables is also Gaussian.
 
-   More concretely, if $X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)$ and $A \in \reals^{m \times n}$ and $b \in \reals^m$, then the affine transformation $A X + b$ is also Gaussian:
+3. Consequently, every subvector of a Gaussian random vector is Gaussian. Its mean vector and covariance matrix are obtained by selecting the corresponding entries and blocks of the original mean and covariance.
+
+4. Random vectors $X\in\reals^n$ and $Y\in\reals^m$ are **jointly Gaussian** if their stacked vector is Gaussian. We write its mean and covariance in block form as
    $$
-   A X + b \sim \mathcal{N}\big(A\mu + b,\, A\Sigma A^\TRANS\big).
+   \MATRIX{X\\Y}
+   \sim
+   \mathcal N\left(
+   \MATRIX{\mu_X\\\mu_Y},
+   \MATRIX{
+   \Sigma_{XX} & \Sigma_{XY}\\
+   \Sigma_{XY}^\TRANS & \Sigma_{YY}
+   }
+   \right).
    $$
-   
-4. As a consequence, marginals of jointly Gassian random variables are also Gaussian. 
 
-   More concretely, if $X = (X_1, \dots, X_n) \sim \mathcal{N}(\mu, \Sigma)$, then any subvector formed by selecting a subset of the indices is itself multivariate Gaussian, with the corresponding mean vector and covariance matrix.
-
-5. Gaussian random variables are independent if and only if they are uncorrelated. In particular, if $X$ and $Y$ are (jointly) Gaussian random variables, then $X$ and $Y$ are independent if and only if $\COV(X, Y) = 0$.
-
-    For a jointly Gaussian random vector $(X_1, \dots, X_n)$, the components are independent if and only if the covariance matrix is diagonal.
+5. Jointly Gaussian random vectors are independent if and only if they are uncorrelated:
+   $$
+   X\independent Y
+   \quad\Longleftrightarrow\quad
+   \Sigma_{XY}=0.
+   $$
+   In particular, the components of a Gaussian random vector are mutually independent if and only if its covariance matrix is diagonal.
 
 
 ## Conditional expectation for Gaussian random variables
@@ -174,7 +177,7 @@ title: Conditional expectation for Gaussians
    $$
    where the last equality follows from the fact that $\hat X$ is an unbiased estimator of $X$. 
 
-   Now, [from last section](conditional-expectation.qmd#MMSE), we know that if a function $h(Y)$ is such that $X - h(Y)$ is orthogonal to all functions of $Y$, then $h(Y)$ is the conditional expectation $\EXP[X \mid Y]$. Hence, $\hat X = \EXP[X \mid Y]$. 
+   From [the MMSE estimation chapter](mmse-estimation.qmd#MMSE), we know that if a function $h(Y)$ is such that $X - h(Y)$ is orthogonal to all functions of $Y$, then $h(Y)$ is the conditional expectation $\EXP[X \mid Y]$. Hence, $\hat X = \EXP[X \mid Y]$.
    :::
 
 8. **Deriving the formula**: To find the explicit formula for $\EXP[X \mid Y]$, we write $\hat{X} = K_{\circ} Y + c_\circ$ and find $K_\circ$ and $c_\circ$ from properties of orthogonal projection. First note that from the smoothing property of conditional expectation, we have
