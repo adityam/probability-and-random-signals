@@ -162,6 +162,69 @@ Thus,
 
 :::
 
+### Cumulant generating functions
+
+Suppose the region of convergence $\mathcal R_X$ contains an open neighborhood of the origin. Since $M_X(0)=1$, the transform is nonzero in a sufficiently small neighborhood of the origin. The **cumulant generating function (CGF)** is defined there by
+$$
+K_X(s)=\log M_X(s),
+\qquad K_X(0)=0.
+$$
+For real $s$, this is the ordinary real logarithm because $M_X(s)>0$. For complex $s$, we use the local branch of the logarithm containing $s=0$.
+
+The $k$-th **cumulant** of $X$ is
+$$
+κ_k(X)=\frac{d^k}{ds^k}K_X(s)\biggr|_{s=0}.
+$$
+The first four cumulants are
+\begin{align*}
+κ_1(X)&=\EXP[X]=μ,\\
+κ_2(X)&=\VAR(X),\\
+κ_3(X)&=\EXP[(X-μ)^3],\\
+κ_4(X)&=\EXP[(X-μ)^4]-3\VAR(X)^2.
+\end{align*}
+Thus, the first cumulant is the mean, the second is the variance, and the third is the third central moment. Beginning with order four, cumulants and central moments are different.
+
+1. If $Z=X_1+\cdots+X_n$ and the random variables are independent, then
+   $$
+   K_Z(s)
+   =\log\left(\prod_{i=1}^nM_{X_i}(s)\right)
+   =\sum_{i=1}^nK_{X_i}(s).
+   $$
+   Consequently, cumulants add under independent sums:
+   $$
+   κ_k(Z)=\sum_{i=1}^nκ_k(X_i).
+   $$
+
+2. If $Y=aX+b$, then
+   $$
+   K_Y(s)=bs+K_X(as).
+   $$
+   Therefore,
+   $$
+   κ_1(Y)=aκ_1(X)+b,
+   \qquad
+   κ_k(Y)=a^kκ_k(X),\quad k\ge2.
+   $$
+
+3. If $X\sim\mathcal N(μ,σ^2)$, then
+   $$
+   K_X(s)=μs+\frac12σ^2s^2.
+   $$
+   Hence, a Gaussian random variable has mean $μ$, variance $σ^2$, and all cumulants of order three and higher equal to zero.
+
+4. If $X\sim\operatorname{Pois}(λ)$, then
+   $$
+   K_X(s)=λ(e^s-1).
+   $$
+   Thus, $κ_k(X)=λ$ for every $k\ge1$.
+
+The CGF also appears naturally in exponential tail bounds. For $s>0$ in the region of convergence,
+$$
+\PR(X\ge a)
+\le \exp\bigl(-(sa-K_X(s))\bigr).
+$$
+Optimizing over $s$ gives the Chernoff bound developed in [the next chapter](inequalities.qmd#chernoff-bound).
+
 ### Moment generating functions and sums of independent random variables
 
 :::{#thm-sum-of-independent}
@@ -394,10 +457,68 @@ which is the transform of $\mathcal N(0,1)$ on the imaginary axis. The continuit
 The central limit theorem is one of the cornerstones of probability theory. The earliest statement of the result goes back to de Moivre (1773), but there was little follow-up until Laplace's _Théorie analytique des probabilités_ (1812). The term "central limit theorem" is due to Pólya (1920), who chose the name because the theorem plays a central role in probability theory.
 
 
-## Moment generating function of random vectors
+## Moment generating functions of random vectors
 
-For random vectors, $X \in \reals^n$, the MGF is a function $M_X \colon \mathbb{C}^n \to \mathbb{C}$ and for any $s \in \mathbb{C}^n$ is given by
+Let $X\in\reals^n$ be a random vector. For $s\in\mathbb C^n$, define
+$$
+M_X(s)=\EXP[e^{s^\TRANS X}]
+$$
+whenever the expectation exists. Its region of convergence is
+$$
+\mathcal R_X
+=\left\{
+s\in\mathbb C^n:
+\EXP[e^{\operatorname{Re}(s)^\TRANS X}]<∞
+\right\}.
+$$
+In particular, $j\reals^n\subseteq\mathcal R_X$.
 
-$$M_X(s) = \EXP[e^{ \langle s, X \rangle }]. $$
+1. If $\mathcal R_X$ contains an open neighborhood of the origin, partial derivatives of the transform generate the joint moments. In particular,
+   $$
+   \nabla M_X(0)=\EXP[X]=μ_X
+   $$
+   and
+   $$
+   \nabla^2M_X(0)=\EXP[XX^\TRANS].
+   $$
+   Therefore, the covariance matrix is
+   $$
+   \boxed{
+   Σ_X=\nabla^2M_X(0)-\nabla M_X(0)\nabla M_X(0)^\TRANS.
+   }
+   $$
 
-**TODO**: Multivariate Gaussian. Relationship with correlation and covariance. 
+2. When $\mathcal R_X$ contains an open neighborhood of the origin, the cumulant generating function of a random vector is
+   $$
+   K_X(s)=\log M_X(s).
+   $$
+   Its first two derivatives have the particularly simple interpretations
+   $$
+   \nabla K_X(0)=μ_X,
+   \qquad
+   \nabla^2K_X(0)=Σ_X.
+   $$
+
+3. If $Y=AX+b$, where $A\in\reals^{m\times n}$ and $b\in\reals^m$, then for $t\in\mathbb C^m$ for which the expectations exist,
+   $$
+   M_Y(t)
+   =e^{t^\TRANS b}M_X(A^\TRANS t).
+   $$
+
+4. If the components $X_1,\ldots,X_n$ are independent, then
+   $$
+   M_X(s)
+   =\prod_{i=1}^n M_{X_i}(s_i),
+   \qquad s\in\mathcal R_X.
+   $$
+   Conversely, factorization on the imaginary subspace $j\reals^n$ implies that the components are independent, because the transform on $j\reals^n$ uniquely determines the joint distribution.
+
+5. If $X\sim\mathcal N(μ,Σ)$ is a Gaussian random vector, then
+   $$
+   \boxed{
+   M_X(s)
+   =\exp\left(s^\TRANS μ+\frac12s^\TRANS Σs\right),
+   \qquad s\in\mathbb C^n.
+   }
+   $$
+   Thus, the transform of a Gaussian random vector is completely determined by its mean vector and covariance matrix, just as its probability distribution is.
