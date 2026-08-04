@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-03">
+<meta name="dcterms.date" content="2026-08-04">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>Probability and Random Signals II</title>
@@ -87,6 +87,7 @@ ul.task-list li input[type="checkbox"] {
 // https://github.com/mathjax/MathJax/issues/2744#issuecomment-1658624747
 // To fix the bug that uppercase unicode letters are shown in italic
 window.MathJax = {
+  loader: {load: ['[tex]/mathtools']},
   startup: {
     ready() {
       const {RANGES} = MathJax._.core.MmlTree.OperatorDictionary;
@@ -100,6 +101,7 @@ window.MathJax = {
     }
   },
   tex: {
+    packages: {'[+]': ['mathtools']},
     inlineMath: [ ['$','$'], ["\\(","\\)"] ],
     displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
     processEscapes: true,
@@ -500,7 +502,7 @@ window.MathJax = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 3, 2026</p>
+      <p class="date">August 4, 2026</p>
     </div>
   </div>
   
