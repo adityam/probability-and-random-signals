@@ -8,7 +8,11 @@ The **moment generating function (MGF)** of a random variable $X$ is defined as
 $$ 
 M_X(s) = \EXP[e^{sX}]
 $$
-provided the expectation exists.
+for any $s\in\mathbb C$ for which the expectation exists. Its region of convergence is
+$$
+\mathcal R_X
+=\{s\in\mathbb C:\EXP[e^{\operatorname{Re}(s)X}]<∞\}.
+$$
 
 - When $X$ is discrete, we have
   $$ M_X(s) = \sum_{x \in \ALPHABET X} e^{sx} p_X(x). $$
@@ -19,14 +23,14 @@ provided the expectation exists.
 :::{.callout-important}
 ### Relationship to Laplace transforms
 
-Although most texts (including the textbook) restrict $s$ to be real, my personal view is that one should really interpret $s$ as a complex number. If we do so, then we have the following:
+Although most texts (including the textbook) restrict $s$ to be real, we will interpret $s$ as a complex number in the region of convergence $\mathcal R_X$. Then:
 
-- $M_X(-s)$ is the Laplace transform of the PDF. 
-- $M_X(-j ω)$ is the Fourier transform of the PDF, which is called the **characteristic function** of $X$.
+- $M_X(-s)$ is the bilateral Laplace transform of the probability distribution.
+- $M_X(-jω)$ is its Fourier transform, also called the **characteristic function** of $X$.
 
-Therefore, we can recover the PDF by taking the inverse Laplace transform of MGF. **Thus, specifying the MGF of a random variable is equivalent to specifying the PDF.**
+Thus, specifying $M_X$ on the imaginary axis uniquely specifies the probability distribution. When a PDF exists, it can be recovered by Fourier inversion under the usual inversion conditions.
 
-Historically, MGF is defined for $s \in \reals$ and there are distributions (e.g., Cauchy) for which MGF does not exist for any $s \neq 0$. To avoid such situations, one uses the characteristic function because the characteristic function always exists. However, if we view the domain of MGF to be $\mathbb{C}$, then there is no need for a distinction between MGF and characteristic function.
+The imaginary axis always belongs to $\mathcal R_X$, because $\ABS{e^{jωX}}=1$. For some distributions, the region of convergence contains no nonzero real numbers. For example, the region of convergence for a Cauchy random variable is the imaginary axis. We use $M_X$ for the unified transform and do not introduce separate notation for its real- and imaginary-axis restrictions.
 :::
 
 :::{#exm-MGF-discrete}
@@ -63,6 +67,7 @@ M_X(s) &= \EXP[e^{sX}] \\
 &= λ \int_{0}^∞ e^{(s-λ)x} \, dx \\
 &= \frac{λ}{λ-s}.
 \end{align*}
+The integral converges for $\operatorname{Re}(s)<λ$.
 
 Note that we could have looked up this result from the Laplace transform tables which show that
 $$
@@ -72,21 +77,21 @@ $$
 
 The MGF of common random variables is shown in @tbl-MGF.
 
-| **Random variable** | **Parameter(s)** | **MGF** |
-|:---------------:|:------------:|:----:|
-| Bernoulli       | $p$          | $1 - p + p e^s$ | 
-| Binomial        | $(n,p)$      | $(1-p + p e^s)^n$ | 
-| Geometric       | $p$          | $\dfrac{p e^s}{1 - (1-p)e^s}$ |
-| Poisson         | $λ$          | $\exp(λ (e^s - 1))$ |
-| Uniform         | $(a,b)$      | $\dfrac{e^{sb} - e^{sa}}{s(b-a)}$ |
-| Exponential     | $λ$          | $\dfrac{λ}{λ-s}$ |
-| Gaussian        | $(μ,σ^2)$    | $\exp\bigl(μ s + \frac 12 σ^2 s^2 \bigr)$ |
+| **Random variable** | **Parameter(s)** | **MGF** | **Region of convergence** |
+|:---------------:|:------------:|:----:|:-------------------------:|
+| Bernoulli       | $p$          | $1 - p + p e^s$ | $s\in\mathbb C$ |
+| Binomial        | $(n,p)$      | $(1-p + p e^s)^n$ | $s\in\mathbb C$ |
+| Geometric       | $p$          | $\dfrac{p e^s}{1 - (1-p)e^s}$ | $\operatorname{Re}(s)<-\log(1-p)$ |
+| Poisson         | $λ$          | $\exp(λ (e^s - 1))$ | $s\in\mathbb C$ |
+| Uniform         | $(a,b)$      | $\dfrac{e^{sb} - e^{sa}}{s(b-a)}$ | $s\in\mathbb C$ |
+| Exponential     | $λ$          | $\dfrac{λ}{λ-s}$ | $\operatorname{Re}(s)<λ$ |
+| Gaussian        | $(μ,σ^2)$    | $\exp\bigl(μ s + \frac 12 σ^2 s^2 \bigr)$ | $s\in\mathbb C$ |
 
 
 : MGF of common random variables {#tbl-MGF}
 
 
-If $M_X(s)$ is well-defined in a neighborhood of the origin, then we can use the MGF to "generate the moments" of $X$ as follows:
+If the region of convergence $\mathcal R_X$ contains an open neighborhood of the origin, then we can use the MGF to "generate the moments" of $X$ as follows:
 
 1. $M_X(0) = 1$
 
@@ -101,7 +106,9 @@ If $M_X(s)$ is well-defined in a neighborhood of the origin, then we can use the
    $$
     M_X(s) = \sum_{k=0}^∞ \frac{\EXP[X^k]}{k!} s^k.
    $$
-   Thus, when the MGF is well-defined in a neighborhood of the origin, knowing all the moments of a distribution is sufficient to construct the MGF. We already saw that the MGF is sufficient to construct the PDF/PMF of the distribution. Thus, **the distribution of a random variable is completely characterized by its moments.**
+   Thus, when $\mathcal R_X$ contains an open neighborhood of the origin, the moments determine the MGF in that neighborhood, and the MGF uniquely determines the probability distribution. Under this condition, **the distribution of a random variable is completely characterized by its moments**.
+
+   Without this condition, the moments need not uniquely determine the distribution. For example, the lognormal distribution has moments of every order but is not uniquely determined by them.
 
 
 :::{.callout-note collapse="true"}
@@ -266,24 +273,33 @@ $$
 For this reason, convergence in distribution is sometimes called **weak convergence**. 
 
 
-The relationship between PDFs and MGFs implies the following continuity theorem:
+The relationship between probability distributions and their transforms gives the following continuity theorem:
 
 :::{.callout-important}
 ### Continuity Theorem
 
-Consider a sequence of random variables $\{X_n\}_{n \ge 1}$. For ease of notation, we use $(F_n, M_n)$ to denote the CDF and MGF of $X_n$.
+Consider a sequence of random variables $\{X_n\}_{n \ge 1}$. For ease of notation, let $(F_n,M_n)$ denote the CDF and transform of $X_n$.
 
-a. If $F_n \to F$ for some CDF $F$ with MGF $M$, then $M_n(s) \to M(s)$ for all $s$. 
-b. Conversely, if $M(s) = \lim_{n\to ∞} M_n(s)$ exists and is continuous at $s = 0$, then $M$ is the MGF of some CDF $F$ and $F_n \to F$. 
+a. If $F_n\to F$ for some CDF $F$ with transform $M$, then
+   $$
+   M_n(jω)\to M(jω),
+   \qquad ω\in\reals.
+   $$
+
+b. Conversely, suppose
+   $$
+   \psi(ω)=\lim_{n\to∞}M_n(jω)
+   $$
+   exists for every $ω\in\reals$ and is continuous at $ω=0$. Then $\psi(ω)=M(jω)$ for some probability distribution with CDF $F$, and $F_n\to F$.
 :::
 
-The proof is a bit involved and technical but makes sense from a signal processing point of view: we know that if a sequence of signals $x_n \to x$, then $\mathcal L(x_n) \to \mathcal L(x)$. 
+The proof is a bit involved and is omitted. The convergence statement uses the imaginary axis, where $\ABS{e^{jωX}}=1$. Convergence of the transform away from the imaginary axis generally requires additional conditions.
 
 ### Two limit theorems
 
-We now prove two limit theorems using the moment generating function.[^note]
+We now prove two limit theorems using the transform.[^note]
 
-[^note]: Traditionally, these results are proved via the characteristic function and not the MGF. However, as discussed above, my personal view is that we can do everything with MGFs if we define them over complex numbers (as is done in Signals and Systems) rather than real numbers (as is done in probability theory). 
+[^note]: We first perform the transform calculations for a general $s$ in the region of convergence. We restrict to $s=jω$ only when applying the continuity theorem.
 
 :::{#thm-LLLN}
 ### A law of large numbers
@@ -298,29 +314,35 @@ $$
 :::{.callout-note collapse="false"}
 ### Proof
 
-The theorem asserts that as $n \to ∞$, 
+The theorem asserts that
 $$
-\PR(n^{-1}S_n \le x) = 
+\lim_{n\to∞}\PR(n^{-1}S_n \le x) =
 \begin{cases}
   0 & \hbox{if } x < μ, \\
-  1 & \hbox{if } x \ge μ.
+  1 & \hbox{if } x > μ.
 \end{cases}
 $$
+No condition is required at $x=μ$, where the limiting CDF is discontinuous.
 
-Let $M_X$ denote the common MGF of the $X_i$. From @thm-sum-of-independent, we know that
+Let $M_X$ denote the common transform of the $X_i$. From @thm-sum-of-independent, we know that
 $$
-M_{n^{-1} S_n}(s) = M_X(s/n)^n.
+M_{n^{-1} S_n}(s) = M_X(s/n)^n,
+\qquad s\in\mathcal R_X.
 $$
 
-From the Taylor series expansion of $M_X(s)$, we know that 
+For any fixed $s\in\mathcal R_X$, the expansion as $s/n\to0$ within the region of convergence gives
 $$
 M_X(s/n) = 1 + \frac{μs}{n} + o\left(\frac{1}{n}\right).
 $$
 Therefore,
-$$M_{n^{-1} S_n}(s) = \left(1 + \frac{μs}{n} + o\left(\frac{1}{n}\right) \right)^n \to \exp(μ s)
+$$M_{n^{-1} S_n}(s) = \left(1 + \frac{μs}{n} + o\left(\frac{1}{n}\right) \right)^n \to \exp(μs)
 \quad \text{as} \quad n \to ∞,
 $$
-which is the MGF of a constant random variable. 
+which is the transform of the constant random variable $μ$. In particular, taking $s=jω$ gives
+$$
+M_{n^{-1}S_n}(jω)\to e^{jμω}.
+$$
+The continuity theorem therefore gives $n^{-1}S_n\xrightarrow{D}μ$.
 :::
 
 We will show later that convergence in distribution to a constant implies convergence in probability. Therefore, the above implies the weak law of large numbers.
@@ -346,20 +368,27 @@ $$
 :::{.callout-note collapse="false"}
 ### Proof
 
-The proof idea is similar to that of @thm-LLLN. Consider the "normalized" sequence of random variables $Y_n = (X_n - μ)/σ$, which have mean zero and unit variance. Let $M_Y$ denote their MGF. Then, the Taylor series expansion of $M_Y$ gives 
-$$ M_Y(s) = 1 + \frac{1}{2} s^2 + o(s^2). $$
+The proof idea is similar to that of @thm-LLLN. Define the normalized random variables $Y_i=(X_i-μ)/σ$, which have mean zero and unit variance. Let $M_Y$ denote their common transform. Its expansion within the region of convergence is
+$$
+M_Y(s)=1+\frac12s^2+o(\ABS{s}^2),
+\qquad s\to0.
+$$
 Moreover, observe that
 $$
 Z_n \coloneqq \frac{S_n - n μ }{\sqrt{n}\, σ} 
 = \frac{1}{\sqrt{n}} \sum_{i=1}^n Y_i.
 $$
-Therefore, by @thm-sum-of-independent, we have
+Therefore, for any fixed $s\in\mathcal R_Y$, @thm-sum-of-independent gives
 $$
 M_{Z_n}(s) = M_Y(s/\sqrt{n})^n
-= \left(1 + \frac {s^2}{2n} + o\left( \frac {s^2}{n} \right) \right)^n
-\to \exp(-\tfrac 12 s^2),
+= \left(1+\frac{s^2}{2n}+o\left(\frac{1}{n}\right)\right)^n
+\to \exp(\tfrac12s^2).
 $$
-which is the MGF of ${\cal N}(0,1)$. 
+Taking $s=jω$ gives
+$$
+M_{Z_n}(jω)\to\exp(-\tfrac12ω^2),
+$$
+which is the transform of $\mathcal N(0,1)$ on the imaginary axis. The continuity theorem gives $Z_n\xrightarrow{D}\mathcal N(0,1)$.
 :::
 
 The central limit theorem is one of the cornerstones of probability theory. The earliest statement of the result goes back to de Moivre (1773), but there was little follow-up until Laplace's _Théorie analytique des probabilités_ (1812). The term "central limit theorem" is due to Pólya (1920), who chose the name because the theorem plays a central role in probability theory.
