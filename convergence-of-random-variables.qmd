@@ -8,7 +8,7 @@ Suppose we have an infinite **sequence $\{X_n\}_{n \ge 1}$ of random variables**
 $$
   X_1(ω), X_2(ω), X_3(ω), \dots
 $$
-A sequence of random variables, also called a **stochastic process**, can be thought of a generalization of random vectors. When does this sequence converge?
+A sequence of random variables, also called a **stochastic process**, can be thought of as a generalization of random vectors. When does this sequence converge?
 
 ## Almost sure convergence
 
@@ -59,7 +59,7 @@ Plot.plot({
   ]
 })
 ```
-Show that $\{X_n\}_{n \ge 1}$ does not converge in the sure sense.
+Show that $\{X_n\}_{n \ge 1}$ does not converge surely to the zero random variable.
 :::
 
 :::{.callout-note collapse="false"}
@@ -67,7 +67,7 @@ Show that $\{X_n\}_{n \ge 1}$ does not converge in the sure sense.
 
 For any $ω \in (0,1]$, $X_n(ω) = 1$ for $n \le \lfloor 1/ω \rfloor$, and $0$ afterwards. Thus, $X_n(ω) \to 0$. 
 
-However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
+However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Therefore, $\{X_n\}_{n \ge 1}$ does not converge surely to the zero random variable.
 :::
 
 4. From a practical point of view, we do not care about not converging at $ω = 0$, because that is an event of zero probability. Stated differently, the set 
@@ -111,9 +111,9 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
 
    Fix $ε > 0$. Define
    $$
-   A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X} \ge ε \}.
+   A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X(ω)} \ge ε \}.
    $$
-   Then, $\{A_n\}_{n \ge 1}$ is a decreasing sequence of events. If $ω \in \bigcap_{n \ge 1} A_n$, then $X_n(ω) \not\xrightarrow{a.s} X(ω)$. This implies
+   Then, $\{A_n\}_{n \ge 1}$ is a decreasing sequence of events. If $ω \in \bigcap_{n \ge 1} A_n$, then $\ABS{X_n(ω)-X(ω)}\ge ε$ infinitely often, so $X_n(ω)$ does not converge to $X(ω)$. This implies
    $$\PR\Bigl( \bigcap_{n \ge 1} A_n \Bigr) \le 
      \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞}X_n(ω) \neq X(ω) \Bigr\}\Bigr)
    = 0. $$
@@ -121,12 +121,36 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Thus, $X_n(ω) \to 1$.
    $$
    \lim_{n \to ∞} \PR(A_n) = \PR\Bigl( \lim_{n \to ∞} A_n \Bigr) = 0.
    $$
+   Since
+   $$
+   \{ω : \ABS{X_n(ω)-X(ω)}\ge ε\}\subseteq A_n,
+   $$
+   we have
+   $$
+   \PR(\ABS{X_n-X}\ge ε)\le \PR(A_n)\longrightarrow 0.
+   $$
+   Hence, $X_n\xrightarrow{p}X$.
    :::
 
-2. However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example. An easier to understand example is presented in @exm-convergence-5, part (b).
+2. However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example. Another example is presented in @exm-convergence-5, part (a).
 
 :::{#exm-convergence-2}
-Consider a probability space as in @exm-convergence-1. Define $X_n(ω) = \IND_{A_n}(ω)$, where $A_n = \{ ω : n ω - \lfloor n ω \rfloor \in [0, \frac 1n] \}$.
+Consider a probability space as in @exm-convergence-1. Let
+$$
+q_n=2^{\lfloor\log_2 n\rfloor},
+$$
+which is the largest power of two not exceeding $n$, and define
+$$
+A_n=\left[\frac{n-q_n}{q_n},\frac{n-q_n+1}{q_n}\right),
+\qquad X_n(ω)=\IND_{A_n}(ω).
+$$
+For the last interval at each level, include the endpoint $1$. Thus, the sets are enumerated as
+$$
+[0,1],\quad
+\left[0,\frac12\right),\left[\frac12,1\right],\quad
+\left[0,\frac14\right),\left[\frac14,\frac12\right),
+\left[\frac12,\frac34\right),\left[\frac34,1\right],\quad\ldots
+$$
 
 ```{ojs}
 viewof ω_convergence_2 = Inputs.range([0.0, 1], {label: "ω", value:0.05, step: 0.01})
@@ -136,7 +160,12 @@ points_convergence_2 = {
     var points = new Array(N)
 
     for(var n=1; n <= N; n++) {
-      var val = ((ω_convergence_2*n % 1)*n <= 1) ? 1 : 0 ;
+      const q_n = 2 ** Math.floor(Math.log2(n))
+      const k = n - q_n
+      const left = k / q_n
+      const right = (k + 1) / q_n
+      const val = (ω_convergence_2 >= left &&
+                   (ω_convergence_2 < right || (k === q_n - 1 && ω_convergence_2 === 1))) ? 1 : 0
       points[n-1] = { n: n, X_n: val }
     }
     return points
@@ -164,27 +193,25 @@ Show that $\{X_n\}_{n \ge 1}$ converges in probability but not almost surely.
 :::{.callout-note collapse="true"}
 #### Solution
 
-Note that $X_n(ω) \in \{0, 1\}$. Therefore, the sequence $\{X_n(ω)\}_{n \ge 1}$ of real numbers converges if and only if there exists an $N(ω)$ such that $X_n(ω)$ takes a constant value for all $n \ge N(ω)$. However, as can be seen from the above figure, for any value of $ω \neq 0$, $X_n(ω)$ takes both values $0$ and $1$ infinitely often. Therefore, $X_n(ω)$ does not converge to a limit. 
-
-For $ω = 0$, $X_n(ω) = 1$, and therefore $X_n(ω) \to 1$. However, $\PR(\{ω = 0 \}) = 0$. Hence, the sequence $\{X_n(ω)\}_{n \ge 1}$ does not converge almost surely. 
+At each level $m$, the intervals $A_{2^m},\ldots,A_{2^{m+1}-1}$ partition $[0,1]$. Consequently, for every $ω\in[0,1]$, exactly one of the corresponding random variables equals $1$. As the levels continue indefinitely, $X_n(ω)=1$ infinitely often. It also equals $0$ infinitely often. Hence, $X_n(ω)$ does not converge for any $ω$, and the sequence does not converge almost surely.
 
 Now fix an $ε > 0$ and consider the set
 $$
   E_n = \{ ω : |X_n(ω) - 0| > ε \}. 
 $$
-If $ε > 1$, then $E_n = \emptyset$, and $\PR(E_n) = 0$ for all $n$. So, we assume that $ε < 1$. Then, 
+If $ε \ge 1$, then $E_n = \emptyset$, and $\PR(E_n) = 0$ for all $n$. So, assume that $0<ε<1$. Then,
 $$
   E_n = \{ ω : X_n(ω) = 1 \}.
 $$
-Note that $X_n(ω) = 1$ for roughly $1/n$ fraction of points (One can make this argument formal by showing the sequence $X_n(ω)$ is equidistributed sequence modulo $1$ by using [Weyl's criterion](https://en.wikipedia.org/wiki/Equidistributed_sequence#Weyl's_criterion)). So,
+The interval $A_n$ has length $1/q_n$. Therefore,
 $$
-  \PR(E_n) = \PR(X_n = 1) = \frac 1n.
+  \PR(E_n) = \PR(X_n = 1) = \frac{1}{q_n}.
 $$
-Thus, 
+As $n\to∞$, we also have $q_n\to∞$, and hence
 $$
   \lim_{n \to ∞} \PR(E_n) = 0.
 $$
-Hence, $\{X_n\}$ converges in probability.
+Thus, $X_n\xrightarrow{p}0$.
 :::
 
 3. There is however a partial converse.
@@ -260,7 +287,7 @@ Hence, $\{X_n\}$ converges in probability.
    which implies that $F_n(x) \to F(x)$. 
    :::
 
-4. The converse is not true. For example, let $X_n$ be a sequence of i.i.d. $\text{Uniform}(0,1)$ random variables. Clearly, $X_n \xrightarrow{D} X$, where $X$ is also $\text{Uniform}(0,1)$. However, for any $ε \in (0,1)$, 
+4. The converse is not true. For example, let $X_1,X_2,\ldots,X$ be independent $\text{Uniform}(0,1)$ random variables. Clearly, $X_n \xrightarrow{D} X$. However, for any $ε \in (0,1)$,
     $$
       \PR( \ABS{X_n - X} > ε ) = (1-ε)^2
     $$
@@ -306,7 +333,7 @@ Hence, $\{X_n\}$ converges in probability.
 
       However, for any $k \ge 1$, we have $\EXP[X_n^k] = n^{k-1}$ but $\EXP[X^k] = 0$. Thus, the moments do not converge!
 
-7. **Skorokhod’s representation theorem.** If $X_n \xrightarrow{D} X$, then there exists a sequence $\{Y_n\}_{n \ge 1}$ that is identically distributed to $\{X_n\}_{n \ge 1}$ such that $Y_n \xrightarrow{a.s.} Y$, where $Y$ is identically distributed to $X$.
+7. **Skorokhod’s representation theorem.** If $X_n \xrightarrow{D} X$, then there exist random variables $Y_1,Y_2,\ldots,Y$ on a common probability space such that $Y_n$ has the same distribution as $X_n$ for every $n$, $Y$ has the same distribution as $X$, and $Y_n \xrightarrow{a.s.} Y$.
 
 ## Convergence in $r$-th mean
 
@@ -315,9 +342,9 @@ Hence, $\{X_n\}$ converges in probability.
       \lim_{n \to ∞} \EXP[ \ABS{X_n - X}^r ] = 0.
     $$
 
-2. When $r = 1$, we say that $\{X_n\}_{n \ge 1}$ **converges in the mean.** When $r=2$, we say that $\{X_n\}_{n \ge 1}$ **converges in the mean-square**. We will mainly focus on mean-square convergence and denote it by $X_n \xrightarrow{m.s.} X$. 
+2. When $r = 1$, we say that $\{X_n\}_{n \ge 1}$ **converges in mean.** When $r=2$, we say that $\{X_n\}_{n \ge 1}$ **converges in mean square**. We will mainly focus on mean-square convergence and denote it by $X_n \xrightarrow{m.s.} X$.
 
-3. If $\{X_n\}_{n \ge 1}$ converges to $X$ in the $r$-th mean, then it also converges in the $s$-th mean, for all $s < r$. 
+3. If $\{X_n\}_{n \ge 1}$ converges to $X$ in the $r$-th mean, then it also converges in the $s$-th mean, for all $1\le s < r$.
 
 4. Convergence in $r$-th mean implies convergence in probability. 
 
@@ -333,13 +360,41 @@ Hence, $\{X_n\}$ converges in probability.
 
 5. However, the converse is not true as is illustrated by @exm-convergence-3, part (c). 
 
-6. Convergence in mean-square and almost surely are not comparable. @exm-convergence-3, part (c) gives an example that converges almost surely but not in mean square. @exm-convergence-5, part (a) gives an example that converges in mean square but not almost surely.
+6. Mean-square convergence and almost-sure convergence are not comparable. @exm-convergence-3, part (c) gives an example that converges almost surely but not in mean square. @exm-convergence-5, part (a) gives an example that converges in mean square but not almost surely.
+
+7. **Mean-square Cauchy criterion:** A sequence $\{X_n\}_{n\ge1}$ of random variables with finite second moments converges in mean square to some random variable $X$ if and only if
+   $$
+   \lim_{m,n\to∞}\EXP[\ABS{X_n-X_m}^2]=0.
+   $$
+   Thus, mean-square convergence can be established without knowing the limiting random variable in advance.
+
+   :::{.callout-note collapse="false"}
+   #### Proof
+
+   Define the mean-square norm by
+   $$
+   \lVert X\rVert_2=\sqrt{\EXP[\ABS{X}^2]}.
+   $$
+   If $X_n\xrightarrow{m.s.}X$, then the triangle inequality gives
+   $$
+   \lVert X_n-X_m\rVert_2
+   \le \lVert X_n-X\rVert_2+\lVert X_m-X\rVert_2
+   \longrightarrow0
+   $$
+   as $m,n\to∞$. Hence, $\EXP[\ABS{X_n-X_m}^2]\to0$.
+
+   Conversely, the space of random variables with finite second moments is complete under the mean-square norm. Therefore, if $\{X_n\}_{n\ge1}$ satisfies the Cauchy condition above, there exists a random variable $X$ with finite second moment such that
+   $$
+   \lVert X_n-X\rVert_2\longrightarrow0.
+   $$
+   Equivalently, $X_n\xrightarrow{m.s.}X$.
+   :::
 
 ## Continuity properties of convergence
 
 1. **Continuity preserves convergence** almost surely, in probability, and in distribution. Thus, if $X_n$ converges to $X$ in any of these modes and $g$ is a continuous function, then $g(X_n)$ converges in the same mode to $g(X)$. 
 
-2. This is not the case for mean square convergence. For example, $X_n = 0$ with probability $1 - \frac 1{n^3}$ and $X_n = 1$ with probability $\frac 1{n^3}$. Then, 
+2. This is not the case for mean-square convergence. For example, $X_n = 0$ with probability $1 - \frac 1{n^3}$ and $X_n = n$ with probability $\frac 1{n^3}$. Then,
    $$ \EXP[|X_n - 0|^2] = n^2 \frac{1}{n^3} \to 0. $$
    Thus, $X_n \xrightarrow{m.s.} 0$. Now consider the function $g(x) = x^2$. 
    $$ \EXP[ | g(X_n) - g(0)|^2 ] = n^4 \frac{1}{n^3} = n \to ∞. $$
@@ -361,16 +416,24 @@ Hence, $\{X_n\}$ converges in probability.
  
 4. The above property is also true for convergence in probability. The proof is left as a homework exercise. 
 
-5. However, this property is not true for convergence in distribution as is illustrated by the following example. Suppose $X_n \sim \text{Unif}(-1,1)$ and $X \sim \text{Unif}(-1,1)$ be independent random variables. Define $Y_n = X_n$ and $Y = - X$. Then, $X_n \xrightarrow{D} X$, $Y_n \xrightarrow{D} Y$, but $X_n + Y_n = 2X_n$ does not converge in distribution to $X + Y = 0$. 
+5. However, this property is not true for convergence in distribution, as illustrated by the following example. Let $X,X_1,X_2,\ldots$ be independent $\text{Unif}(-1,1)$ random variables. Define $Y_n=X_n$ and $Y=-X$. Then, $X_n\xrightarrow{D}X$ and $Y_n\xrightarrow{D}Y$, but
+   $$
+   X_n+Y_n=2X_n\xrightarrow{D}2X,
+   $$
+   whereas $X+Y=0$. Thus, marginal convergence of $X_n$ and $Y_n$ does not imply joint convergence of $(X_n,Y_n)$.
 
-6. **Slutsky's theorem:** Suppose $X_n \xrightarrow{D} X$ and $Y_n \xrightarrow{D} c$, where $c$ is a constant. Then, $(X_n, Y_n) \xrightarrow{D} (X, c)$. Therefore, for any continuous function $g(X_n, Y_n) \xrightarrow{D} g(X, c)$. In particular, $X_n + Y_n \xrightarrow{D} X + c$ and $X_n Y_n \xrightarrow{D} cX$. 
+6. **Slutsky's theorem:** Suppose $X_n \xrightarrow{D} X$ and $Y_n \xrightarrow{D} c$, where $c$ is a constant. Then, $(X_n, Y_n) \xrightarrow{D} (X, c)$. Therefore, for any continuous function $g$,
+   $$
+   g(X_n,Y_n)\xrightarrow{D}g(X,c).
+   $$
+   In particular, $X_n + Y_n \xrightarrow{D} X + c$ and $X_n Y_n \xrightarrow{D} cX$.
 
 7. Note that we have already argued that $Y_n \xrightarrow{D} c$ is equivalent to $Y_n \xrightarrow{p} c$. So, one can replace $Y_n \xrightarrow{D} c$ in Slutsky's theorem by $Y_n \xrightarrow{p} c$. 
 
 ## Some examples
 
 :::{#exm-convergence-3}
-Consider the probability space $(Ω, \ALPHABET F, \PR)$ as in @exm-convergence-1, and consider different choices of $X_n$ shown below. For each case, determine whether $X_n$ converges almost surely, in probability, or in mean-square. 
+Consider the probability space $(Ω, \ALPHABET F, \PR)$ as in @exm-convergence-1, and consider different choices of $X_n$ shown below. For each case, determine whether $X_n$ converges almost surely, in probability, or in mean square.
 
 a. $X_n(ω) = \IND_{A_n}(ω)$, where $A_n = [0, \frac 1n]$. 
 b. $X_n(ω) = \IND_{A_n}(ω)$, where $A_n = [0, \frac 1{n^2}]$. 
@@ -380,40 +443,39 @@ c. $X_n(ω) = \textcolor{red}{n}\IND_{A_n}(ω)$, where $A_n = [0, \frac 1n]$.
 :::{.callout-note collapse="false"}
 ### Solution
 
-We only prove part (a). The proof of the other two parts is similar.
+For every $ω\in(0,1]$, there exists an $N(ω)$ such that $ω>1/n$ and $ω>1/n^2$ for all $n\ge N(ω)$. Hence, in each of the three parts, $X_n(ω)=0$ for all sufficiently large $n$. At $ω=0$, the sequence equals $1$ in parts (a) and (b), and equals $n$ in part (c). Since $\PR(\{0\})=0$, all three sequences converge almost surely to zero:
+$$
+X_n\xrightarrow{a.s.}0.
+$$
 
-For $ω \neq 0$, the sequence $\{X_n(ω)\}_{n \ge 1}$ is a finite sequence of ones followed by an infinite sequence of zeros. Then, $\lim_{n \to ∞} X_n(ω) = 0$. Thus, 
+For convergence in probability, fix $ε>0$. In parts (a) and (b), for $0<ε<1$,
+\begin{align*}
+\PR(\ABS{X_n}>ε)
+&=\frac1n &&\text{in part (a)},\\
+\PR(\ABS{X_n}>ε)
+&=\frac1{n^2} &&\text{in part (b)}.
+\end{align*}
+For $ε\ge1$, both probabilities are zero. In part (c), once $n>ε$,
 $$
-  \PR\Bigl( \Bigl\{ ω : \lim_{n \to ∞} X_n(ω) = 0 \Bigr\} \Bigr) 
-  = \PR( ω \in (0,1]) = 1.
+\PR(\ABS{X_n}>ε)
+=\PR\left(ω\in\left[0,\frac1n\right]\right)
+=\frac1n.
 $$
-Hence, $X_n \xrightarrow{a.s} 0$.
+Thus, all three sequences also converge in probability to zero:
+$$
+X_n\xrightarrow{p}0.
+$$
 
-Fix an $ε > 0$ and consider the set
-$$
-  E_n = \{ ω : |X_n(ω) - 0| > ε \}. 
-$$
-If $ε > 1$, then $E_n = \emptyset$, and $\PR(E_n) = 0$ for all $n$. So, we assume that $ε < 1$. Then, 
-$$
-  E_n = \{ ω : X_n(ω) = 1 \}.
-$$
-Hence,
-$$
-  \PR(E_n) = \PR(X_n = 1) = \frac 1n
-$$
-which converges to $0$ as $n \to ∞$. Therefore, $X_n \xrightarrow{p} 0$. 
-
-Consider 
-$$
-  \EXP[\ABS{X_n}^2] = \int_{A_n} 1\, d ω = \frac{1}{n}
-$$
-which converges to $0$ as $n \to ∞$. Thus, $X_n \xrightarrow{m.s.} 0$. 
-
-However, observe that for part (c)
-$$
-  \EXP[\ABS{X_n}^2] = \int_{A_n} n^2\, d ω = n
-$$
-which goes to $∞$ as $n \to ∞$. Thus, $\{X_n\}_{n \ge 1}$ does not converge in mean square.
+Finally,
+\begin{align*}
+\EXP[\ABS{X_n}^2]
+&=\frac1n &&\text{in part (a)},\\
+\EXP[\ABS{X_n}^2]
+&=\frac1{n^2} &&\text{in part (b)},\\
+\EXP[\ABS{X_n}^2]
+&=n^2\frac1n=n &&\text{in part (c)}.
+\end{align*}
+Therefore, the sequences in parts (a) and (b) converge in mean square to zero. The sequence in part (c) does not converge in mean square to zero. It cannot have a different mean-square limit because mean-square convergence implies convergence in probability, and a limit in probability is unique almost surely. Hence, the sequence in part (c) does not converge in mean square.
 :::
 
 
@@ -422,7 +484,7 @@ Consider an i.i.d. sequence $\{X_n\}_{n \ge 1}$, where $X_n \sim \text{Uniform}(
 $$
   Y_n = \min\{X_1, \dots, X_n\}.
 $$
-Determine whether $Y_n$ converges almost surely, in probability, or in mean-square. 
+Determine whether $Y_n$ converges almost surely, in probability, or in mean square.
 :::
 
 :::{.callout-note collapse="false"}
@@ -584,7 +646,7 @@ $$
 $$
 which holds if and only if the binary sequence $\{\IND_{A_n}(ω)\}$ eventually becomes $1$ forever, i.e., $ω$ is eventually a member of $A_n$ forever.
 
-For example, suppose we toss a coin infinite number of coins. Let $(Ω, \ALPHABET F, \PR)$ denote the corresponding probability space, and let $A_n$ denote the event that the $n$-th toss is a heads. Then, 
+For example, suppose we toss a coin infinitely many times. Let $(Ω, \ALPHABET F, \PR)$ denote the corresponding probability space, and let $A_n$ denote the event that the $n$-th toss is heads. Then,
 
 - $\limsup_{n \to ∞} A_n$ is the event that there are infinitely many heads.
 - $\liminf_{n \to ∞} A_n$ is the event that all but a finite number of the coins were heads, i.e., there were only finitely many tails.
@@ -689,10 +751,10 @@ b. $p_n = \frac 1{n^2}$.
 Note that part (a) converges in probability and mean square but not almost surely.
 :::
 
-A variation of @lem-as-exp is the following:
+A useful consequence of @lem-as is the following:
 
 :::{#lem-as-exp}
-Let $\{X_n\}_{n \ge 1}$ be a sequence of random variables with finite expectations and let $X$ be another random variable. If
+Let $\{X_n\}_{n \ge 1}$ be a sequence of random variables and let $X$ be another random variable. If
 $$
 \sum_{n=1}^{∞} \EXP[ \ABS{X_n - X} ]  < ∞ 
 $$
@@ -705,26 +767,26 @@ $$
 :::{.callout-note collapse="false"}
 ### Proof
 
-To simplify the notation, we assume that $X = 0$. 
-
-Pick any $ε > 0$ and define the sequence of events 
+For every $m\in\naturalnumbers$, define
 $$
-A_n = \bigl\{ ω : \ABS{X_n} > ε \bigr\}, 
-\quad n \in \naturalnumbers.
+A_n^{(m)}=\left\{ω:\ABS{X_n(ω)-X(ω)}>\frac1m\right\}.
 $$
 
-From Markov inequality, we have
-$$\PR(A_n) = \PR\bigl( \ABS{X_n} > ε \bigr)
-\le \dfrac{\EXP[\ABS{X_n}]}{ε}. $$
-Therefore,
-$$ \sum_{n=1}^{∞} \PR(A_n) 
-\le \frac{1}{ε} \sum_{n=1}^{∞} \EXP[\ABS{X_n}]
-< ∞
+By Markov's inequality,
 $$
-by the hypothesis of the result. Therefore, by Borel-Cantelli lemma, we have 
+\sum_{n=1}^{∞}\PR\left(A_n^{(m)}\right)
+\le m\sum_{n=1}^{∞}\EXP[\ABS{X_n-X}]<∞.
 $$
-\PR\Bigl( \limsup_{n \to ∞} A_n \Bigr) = 0.
+Therefore, the Borel-Cantelli lemma gives
 $$
+\PR\left(\limsup_{n\to∞}A_n^{(m)}\right)=0
+\qquad\text{for every }m\in\naturalnumbers.
+$$
+The countable union of these probability-zero events also has probability zero. Outside this union, for every $m$ there exists an $N_m(ω)$ such that
+$$
+n\ge N_m(ω)\implies \ABS{X_n(ω)-X(ω)}\le\frac1m.
+$$
+Thus, $X_n(ω)\to X(ω)$ outside a probability-zero set, and hence $X_n\xrightarrow{a.s.}X$.
 :::
 
 
@@ -747,29 +809,26 @@ We provide a proof under the assumption that the fourth moment exists.
 :::{.callout-note collapse="false"}
 #### Proof
 
-We assume that $μ = 0$ (this is just for notational simplicity) and $\EXP[X^4] = γ < ∞$ (this is a strong assumption). 
+We assume that $μ = 0$ (this is just for notational simplicity) and let $M_4=\EXP[X_1^4]<∞$ (this is a strong assumption).
 
 Since we know that the fourth moment exists, we can use a fourth moment version of Markov inequality: 
 $$ \PR(\ABS{\bar X_n} \ge ε) = \PR(\ABS{\bar X_n}^4 \ge ε^4) \le \frac{ \EXP[ \bar X_n^4]}{ε^4}. $$
 
-Then, by the multinomial theorem, we have 
-$$ \EXP[\bar X_n^4] = \frac{1}{n^4} \EXP\biggl[
-\sum_{i} X_i^4 + \binom{4}{1,3} \sum_{i \neq j} X_i X_j^3 + \binom{4}{2,2} \sum_{i \neq j} X_i^2 X_j^2 
-+ \binom{4}{1,1,2} \sum_{i \neq j \neq k} X_i X_j X_k^2 + \sum_{i \neq j \neq k \neq \ell} X_i X_j X_k X_{\ell} \biggr].
+When we expand $(X_1+\cdots+X_n)^4$, independence and the zero-mean assumption imply that every term containing an index exactly once has expectation zero. The only surviving terms are those in which all four indices are equal or there are two pairs of equal indices. Therefore,
+\begin{align*}
+\EXP\left[(X_1+\cdots+X_n)^4\right]
+&=\sum_{i=1}^n\EXP[X_i^4]
++6\sum_{1\le i<j\le n}\EXP[X_i^2X_j^2]\\
+&=nM_4+6\binom n2σ^4\\
+&=nM_4+3n(n-1)σ^4.
+\end{align*}
+Consequently,
 $$
-
-Since the $\{X_i\}_{i \ge 1}$ are independent and zero mean, we have
-
-- $\EXP[X_i X_j^3] = \EXP[X_i] \EXP[X_j^3] = 0$.
-- $\EXP[X_i X_j X_k^2] = \EXP[X_i] \EXP[X_j] \EXP[X_k^2] = 0$.
-- $\EXP[X_i X_j X_k X_{\ell}] = \EXP[X_i] \EXP[X_j] \EXP[X_k] \EXP[X_{\ell}] = 0$.
-
-Therefore,
+\EXP[\bar X_n^4]
+=\frac{M_4}{n^3}+\frac{3(n-1)σ^4}{n^3}
+\le \frac{M_4}{n^3}+\frac{3σ^4}{n^2}.
 $$
-\EXP[\bar X_n^4] = \frac{1}{n^4} \bigl[ n \EXP[X_i^4] + 3 n(n-1) \EXP[ X_i^2 X_j^2] \bigr]
-\le \frac{M_4}{n^3} + \frac{3 σ^4}{n^2}
-$$
-where $M_4$ is the fourth moment. Now, from the fourth moment version of Markov inequality, we have
+Thus, the fourth-moment version of Markov's inequality gives
 $$ \PR(\ABS{\bar X_n} \ge ε) \le \frac{ \frac{M_4}{n^3} + \frac{3 σ^4}{n^2} }{ε^4}. $$
 This implies that
 $$
