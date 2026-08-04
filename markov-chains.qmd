@@ -8,15 +8,26 @@ execute:
   freeze: true
 ---
 
-Let $\ALPHABET X$ be a finite set. A stochastic process $\{X_n\}_{n \ge 0}$, $X_n \in \ALPHABET X$, is called a **Markov chain** if it satisfies the _Markov property_: for any $n \in \integers_{\ge 0}$ and any $x_{1:n+1} \in \ALPHABET X^{n+1}$, we have
+Let $\ALPHABET X$ be a finite set. A stochastic process $\{X_n\}_{n \ge 0}$, $X_n \in \ALPHABET X$, is called a **Markov chain** if it satisfies the _Markov property_: for any $n \in \integers_{\ge 0}$ and any $x_{0:n+1} \in \ALPHABET X^{n+2}$ such that $\PR(X_{0:n}=x_{0:n})>0$, we have
 \begin{equation}\tag{Markov property}\label{eq:Markov}
-  \PR(X_{n+1} = x_{n+1} \mid X_{1:n} = x_{1:n}) 
+  \PR(X_{n+1} = x_{n+1} \mid X_{0:n} = x_{0:n})
   = \PR(X_{n+1} = x_{n+1} \mid X_n = x_n).
 \end{equation}
 
 The variable $X_n$ is called the **state** of the Markov chain at time $n$; the set $\ALPHABET X$ is called **state space**. The \eqref{eq:Markov} implies that the current state captures all the information from the past that is relevant for the future. Stated differently, **conditioned on the present, the past is independent of the future**.
 
-Independence is a symmetric relationship. Thus, we expect the Markov property to also hold if time is reversed! @exr-time-reversal asks you to formally prove that. 
+The Markov property also holds when a chain is viewed backward over a finite time horizon; @exr-time-reversal asks you to prove this. However, even if the forward chain is time-homogeneous, its backward transition probabilities may depend on time. If the chain is initialized with an invariant distribution, then the reversed chain is also time-homogeneous.
+
+A common way to construct a Markov chain is through a state recursion
+$$
+X_{n+1}=f_n(X_n,W_n),
+$$
+where $W_0,W_1,\ldots$ are independent random variables and are independent of $X_0$. Since $W_n$ is independent of the history up to time $n$,
+$$
+\PR(X_{n+1}=j\mid X_{0:n}=x_{0:n})
+=\PR(f_n(x_n,W_n)=j),
+$$
+which depends on the past only through the current state $x_n$. If $f_n=f$ for all $n$ and the random variables $W_n$ are identically distributed, then the resulting Markov chain is time-homogeneous. This construction will reappear when we study stochastic state-space models.
 
 We now present some examples of Markov chains arising in different applications.
 
@@ -27,11 +38,11 @@ The Gilbert-Elliot channel model is used to model communication channels with bu
 :::
 
 :::{#exm-Ehrenfest-diffusion}
-#### Ehrenfest model of diffusion
+#### Ehrenfest urn model
 
-The following simplified model of diffusion through a porous membrane was proposed by @Ehrenfest1907 to describe the exchange of heat between two systems at different temperatures. 
+The following urn model was introduced by @Ehrenfest1907 to illustrate the probabilistic behavior underlying Boltzmann's $H$-theorem.
 
-There are $K$ particles that can either be in compartment $A$ or compartment $B$. At each time, a particle is picked at random and moved from its compartment to the other. Thus, if there are $X_n = i$ particles in compartment $A$ at time $n$, then the next state $X_{n+1}$ is either $i-1$ (a particle was displaced from compartment $A$ to $B$) with probability $i/K$, or $i+1$ (a particle was displaced from compartment $B$ to $A$) with probability $(K-i)/K$. 
+There are $K$ labelled particles, each of which is in either compartment $A$ or compartment $B$. At each time, one particle is chosen uniformly at random and moved to the other compartment. Thus, if there are $X_n=i$ particles in compartment $A$ at time $n$, then $X_{n+1}=i-1$ with probability $i/K$ and $X_{n+1}=i+1$ with probability $(K-i)/K$.
 :::
 
 :::{#exm-gamblers-ruin}
@@ -54,7 +65,31 @@ See the following video from [Veritasium](https://www.youtube.com/@veritasium) f
 ## Time-homogeneous Markov chains
 
 In this course, we will focus on time-homogeneous Markov chains.
-The Markov chain is called **time-homogeneous** if the right hand side of \eqref{eq:Markov} does not depend on $n$. In this case, we describe the Markov chain by a **state transition matrix** $P$, where $P_{ij} = \PR(X_{n+1} = j | X_n = i)$. Such Markov chains can also be visualized using **state transition diagrams** as we illustrate in the examples below. 
+The Markov chain is called **time-homogeneous** if the right hand side of \eqref{eq:Markov} does not depend on $n$. In this case, we describe the Markov chain by a **state transition matrix** $P$, where
+$$
+P_{ij}=\PR(X_{n+1}=j\mid X_n=i).
+$$
+The matrix $P$ is row stochastic:
+$$
+P_{ij}\ge0,
+\qquad
+\sum_{j\in\ALPHABET X}P_{ij}=1
+\quad\text{for every }i\in\ALPHABET X.
+$$
+
+A time-homogeneous Markov chain is completely specified by its initial distribution $μ^{(0)}$, where
+$$
+μ^{(0)}_i=\PR(X_0=i),
+$$
+and its transition matrix $P$. Indeed, the chain rule and the Markov property give
+\begin{align*}
+&\PR(X_0=x_0,X_1=x_1,\ldots,X_n=x_n)\\
+&\quad=μ^{(0)}_{x_0}
+P_{x_0x_1}P_{x_1x_2}\cdots P_{x_{n-1}x_n}.
+\end{align*}
+Thus, $μ^{(0)}$ and $P$ determine all the finite-dimensional distributions of the process. Conversely, any probability distribution $μ^{(0)}$ and row-stochastic matrix $P$ define a time-homogeneous Markov chain.
+
+Such Markov chains can also be visualized using **state transition diagrams**, as illustrated in the examples below.
 
 :::{#exm-on-off}
 #### On-Off Markov chain
@@ -75,7 +110,7 @@ In spite of its simplicity, such simple on-off Markov chains are used in various
 - When $a$ or $b$ are small, the corresponding state is "sticky", i.e., when the Markov chain enters a sticky state, it stays there for a long time.
 
 :::{#exm-Ehrenfest-diffusion-model}
-The Ehrenfest model of diffusion presented in @exm-Ehrenfest-diffusion can be modelled as a Markov chain with state space $\{0, 1, \dots, K\}$ and transition probability
+The Ehrenfest urn model presented in @exm-Ehrenfest-diffusion can be modelled as a Markov chain with state space $\{0, 1, \dots, K\}$ and transition probability
 $$
   P_{ij} = \begin{cases}
     i/K     & j = i-1 \\
@@ -85,7 +120,7 @@ $$
 $$
 The transition matrix can be visualized as follows.
 
-![Ehrenfest model of diffusion](figures/svg/markov-examples2.svg)
+![Ehrenfest urn model](figures/svg/markov-examples2.svg)
 
 :::
 
@@ -329,7 +364,7 @@ $$
 :::{.callout-warning collapse="true"}
 #### How did we figure out the above calculation?
 
-The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing $μ^{(0)} P^n$. What is an efficient way to compute $P^n$? **Eigen decomposition!**. Since $P$ is a row stochastic matrix, we have $P \mathbf{1} = \mathbf{1}$, where $\mathbf{1}$ is the all-ones vector. Thus, $λ_1 = 1$ is always an eigenvalue of _any_ transition matrix, with corresponding eigenvector $\mathbf{1}$. 
+The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing $μ^{(0)} P^n$. An efficient way to compute $P^n$ is through an eigendecomposition. Since $P$ is a row-stochastic matrix, we have $P \mathbf{1} = \mathbf{1}$, where $\mathbf{1}$ is the all-ones vector. Thus, $λ_1 = 1$ is always an eigenvalue of _any_ transition matrix, with corresponding eigenvector $\mathbf{1}$.
 
 For @exm-on-off, we can explicitly compute all eigenvalues by finding the roots of the characteristic equation
 \begin{align*}
@@ -348,36 +383,41 @@ To find the eigenvector, we find a vector $v$ such that $(λI - P)v = 0$.
   $$ λ_2I - P = \MATRIX{-b & -a \\ -b & -a}. $$
   Therefore, one possible eigenvector is $[a; -b]$. 
 
-Then, from spectral decomposition, we know that
+Assume that $a+b>0$. Then, from the eigendecomposition, we have
 $$
-  P = V Λ V^{-1}
+P^n=VΛ^nV^{-1},
 $$
-where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
+where
+$$
+V=\MATRIX{1&a\\1&-b},
+\qquad
+Λ=\MATRIX{1&0\\0&1-a-b},
+\qquad
+V^{-1}=\frac1{a+b}\MATRIX{b&a\\1&-1}.
+$$
+Let $μ^{(0)}=\MATRIX{μ^{(0)}_0&1-μ^{(0)}_0}$ and define
+$$
+d=μ^{(0)}_0-\frac{b}{a+b}.
+$$
+Then,
 \begin{align*}
-  μ^{(n)} &= μ^{(0)} P^n = μ^{(0)} V Λ^n V^{-1} \\
-  &= \MATRIX{ μ^{(0)}_0 & 1 - μ^{(0)}_0 }
-     \MATRIX{1 & a \\ 1 & -b }
-     \MATRIX{1 & 0 \\ 0 & 1 - a -b}
-     \frac{1}{a+b} 
-     \MATRIX{b & a \\ 1 & -1 }
-  \\[5pt]
-  &= \MATRIX{\dfrac{1}{a+b} & μ^{(0)}_0 - \dfrac{b}{a+b} }
-     \MATRIX{1 & 0 \\ 0 & 1 - a -b}
-     \MATRIX{b & a \\ 1 & -1 }
-  \\[5pt]
-  &=\MATRIX{\dfrac{1}{a+b} & 0 \\ 0 & \left(μ^{(0)}_0 - \dfrac{b}{a+b}\right)(1-a-b)^n }
-   \MATRIX{b & a \\ 1 & -1 }
-  \\[5pt]
-  &= \frac{b}{a+b} + \left(μ^{(0)}_0 - \dfrac{b}{a+b}\right)(1-a-b)^n 
+μ^{(n)}
+&=μ^{(0)}VΛ^nV^{-1}\\
+&=\MATRIX{1&(a+b)d}
+  \MATRIX{1&0\\0&(1-a-b)^n}
+  \frac1{a+b}\MATRIX{b&a\\1&-1}\\
+&=\MATRIX{\dfrac1{a+b}&d(1-a-b)^n}
+  \MATRIX{b&a\\1&-1}\\
+&=\MATRIX{
+\dfrac{b}{a+b}+d(1-a-b)^n
+&
+\dfrac{a}{a+b}-d(1-a-b)^n
+}.
 \end{align*}
+This gives both components of the occupancy distribution and agrees with the recursion derived above.
 :::
 
-
-**TODO:** Add more examples!
-
 ## Class structure
-
-
 
 1.  We say that a state $j$ is **accessible from** state $i$ (abbreviated as $i \rightsquigarrow j$) if there exists an $m \in \integers_{\ge 0}$ (which may depend on $i$ and $j$) such that $[P^m]_{ij} > 0$. The fact that $P^{(m)}_{ij} > 0$ implies that there exists an ordered sequence of states $(i_0, \dots, i_m)$ such that $i_0 = i$ and $i_m = j$ such that $P_{i_k i_{k+1}} > 0$; thus, there is a path of positive probability from state $i$ to state $j$.
 
@@ -407,21 +447,23 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 3.  The states in a finite-state Markov chain can be partitioned into two sets: **recurrent states** and **transient states**. A state is recurrent if it is accessible from all states that are accessible from it (i.e., $i$ is recurrent if $i \rightsquigarrow j$ implies that $j \rightsquigarrow i$). States that are not recurrent are **transient**.
 
 4.  It can be shown that a state $i$ is recurrent if and only if
-    $$\sum_{m=1}^{\infty} P^{(m)}_{ii} = \infty.$$
-    This is a consequence of the second Borel-Cantelli lemma (@lem-Borel-Cantelli-2) and **strong Markov property** (to be discussed later). 
+    $$
+    \sum_{m=1}^{∞}P^{(m)}_{ii}=∞.
+    $$
+    This follows from the strong Markov property, which is stated in @thm-strong-Markov.
 
 5.  States $i$ and $j$ are said to belong to the same **communicating class** if $i$ and $j$ communicate. Communicating classes form a partition of the state space. Within a communicating class, all states are of the same type, i.e., either all states are recurrent (in which case the class is called a recurrent class) or all states are transient (in which case the class is called a transient class).
 
     For example, in @exm-accessible, there are two communication classes: $\{1,2,3\}$ and $\{4,5,6\}$. The communication class $\{4,5,6\}$ is transient while the communication class $\{1,2,3\}$ is recurrent.
 
 
-6.  A communicating class $C$ is said to be **closed** if 
+6.  A communicating class $C$ is said to be **closed** if
     $$
         i \in C \text{ and } i \rightsquigarrow j \implies j \in C.
     $$
     Thus, there is no escape from a closed class. For finite state spaces, a recurrent class is always closed and a transient class is never closed. But this is not the case for countable state Markov chains. 
 
-7.  A state $i$ is called **absorbing** if $\{i\}$ is a closed class, i.e., if $P_{ii} = 1$. 
+7.  A state $i$ is called **absorbing** if $\{i\}$ is a closed class, i.e., if $P_{ii} = 1$.
 
 8.  A Markov chain with a single communicating class (thus, all states communicate with each other and are, therefore, recurrent) is called **irreducible**.
 
@@ -429,9 +471,12 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
 
 10.  The **period** of a state $i$, denoted by $d(i)$, is defined as $$d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} > 0 \}.$$ If the period is $1$, the state is **aperiodic**, and if the period is $2$ or more, the state is **periodic**. It can be shown that all states in the same class have the same period.
 
-11.  A Markov chain is **aperiodic**, if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state $i$ such that $P_{ii} > 0$. In general, for a finite and aperiodic Markov chain, there exists a positive integer $M$ such that 
-    $$ P^{(m)}_{ii} > 0, 
-            \quad \forall m \ge M, i \in \ALPHABET X.$$
+11.  A Markov chain is **aperiodic** if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state $i$ such that $P_{ii}>0$. For a finite, irreducible, and aperiodic Markov chain, there exists a positive integer $M$ such that
+    $$
+    P^{(m)}_{ij}>0,
+    \qquad
+    \forall m\ge M,\quad i,j\in\ALPHABET X.
+    $$
 
 
 ## Hitting times and absorption probabilities
@@ -441,11 +486,35 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
     - For any event $E$, $\PR_i(E)$ denotes $\PR(E \mid X_0 = i)$ 
     - For any random variable $Y$, $\EXP_i[Y]$ denotes $\EXP[Y \mid X_0 = i]$.
 
-2. Let $A$ be a subset of $\ALPHABET X$. The **hitting time** $H^A$ of $A$ is a random variable $H^A \colon \ALPHABET X \to \{0, 1, \dots \} \cup \{∞\}$ given by
+2. Let $A$ be a subset of $\ALPHABET X$. The **hitting time** $H^A$ of $A$ is the extended-valued random variable $H^A \colon Ω \to \{0,1,\ldots\}\cup\{∞\}$ given by
    $$
-     H^A(ω) = \min\{n \ge 0 : X_n(ω) \in A\}.
+     H^A(ω)=\inf\{n\ge0:X_n(ω)\in A\}.
    $$
-   The standard convention is that $H^A$ is taken to be $∞$ if $X_n \neq A$ for any $n > 0$. For a state $j \in \ALPHABET X$, we use the short-hand $H^j$ to denote $H^{\{j\}}$. 
+   The standard convention is that the infimum of the empty set is $∞$. Thus, $H^A(ω)=∞$ if the sample path never enters $A$. For a state $j \in \ALPHABET X$, we use the shorthand $H^j$ to denote $H^{\{j\}}$.
+
+   To formalize the special role of hitting times, let
+   $$
+   \mathcal F_n=\sigma(X_0,\ldots,X_n)
+   $$
+   denote the information available up to time $n$. A random time $τ$ is called a **stopping time** if
+   $$
+   \{τ\le n\}\in\mathcal F_n,
+   \qquad n\ge0.
+   $$
+   In other words, by time $n$ we can determine whether $τ$ has occurred. A hitting time is a stopping time because
+   $$
+   \{H^A\le n\}=\bigcup_{k=0}^n\{X_k\in A\}\in\mathcal F_n.
+   $$
+
+   :::{#thm-strong-Markov}
+   #### Strong Markov property
+   Let $τ$ be a stopping time. On the event $\{τ<∞\}$, for every $k\ge0$ and $j\in\ALPHABET X$,
+   $$
+   \PR(X_{τ+k}=j\mid\mathcal F_τ)
+   =P^{(k)}_{X_τj},
+   $$
+   where $\mathcal F_τ$ denotes the information available up to time $τ$. Thus, conditional on the state $X_τ$, the process after $τ$ evolves like a fresh copy of the Markov chain started from $X_τ$.
+   :::
 
 3. The probability that starting from state $i$ the Markov chain ever hits $A$ is then given by
    $$
@@ -453,11 +522,12 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
    $$
    This is called **hitting probability**. When $A$ is a closed class, $h^A_i$ is called the **absorption probability**. 
 
-4. The mean-time taken for the Markov chain to reach $A$ is given by 
+4. The mean time taken for the Markov chain to reach $A$ is given by
    $$
-     m^A_i = \EXP_i[H^A] = \sum_{n=0}^{∞} n \PR_i(H^A = n).
+     m^A_i=\EXP_i[H^A]
+     =\sum_{n=0}^{∞}\PR_i(H^A>n),
    $$
-   This is called the **mean hitting time**.
+   where the expectation and the sum are allowed to be infinite. This is called the **mean hitting time**.
 
 
 5. A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix $P$. We start with some examples to illustrate the main idea.
@@ -485,11 +555,13 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
    :::{#exm-two-heads-before-two-tails}
    Two players are playing a game. They repeatedly toss a coin. Player 1 wins if two consecutive heads occur before two consecutive tails. Player 2 wins if two consecutive tails occur before two consecutive heads. What is the probability that Player 1 wins?
    
-   We model this using a Markov chain where the state tracks the pattern of recent coin tosses. Let $p$ denote the probability of heads and $q = 1-p$ denote the probability of tails. The Markov chain has five states:
+   Let $p$ denote the probability of heads and $q = 1-p$ denote the probability of tails. We initialize the Markov chain in state $0$, immediately before the first toss. After the first toss and until the game ends, the state records the most recent toss; once two identical tosses occur consecutively, the chain enters the corresponding absorbing state. Thus, state $0$ is visited only at time $0$. For example, after $HT$ the state is $-1$, and after $TH$ the state is $1$; the chain does not return to state $0$.
+
+   The Markov chain has five states:
    - State $-2$: two consecutive tails (Player 2 wins, absorbing state)
-   - State $-1$: one tail (last toss was a tail)
-   - State $0$: initial state (or after alternating outcomes like HT or TH)
-   - State $1$: one head (last toss was a head)
+   - State $-1$: the last toss was a tail, but two consecutive tails have not occurred
+   - State $0$: the pre-toss state, occupied only at time $0$
+   - State $1$: the last toss was a head, but two consecutive heads have not occurred
    - State $2$: two consecutive heads (Player 1 wins, absorbing state)
    
    ![Markov chain for two heads before two tails](figures/svg/markov-examples5.svg)
@@ -497,20 +569,25 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
    Let $h^2_i$ denote the probability of hitting state $2$ (i.e., Player 1 wins) when starting at state $i$. Then, we have
    \begin{align*}
      h^2_{-2} &= 0, \\
-     h^2_{-1} &= p h^2_0 + q h^2_{-2} = p h^2_0 + q \cdot 0 = p h^2_0, \\
+     h^2_{-1} &= p h^2_1 + q h^2_{-2} = p h^2_1, \\
      h^2_0 &= p h^2_1 + q h^2_{-1}, \\
-     h^2_1 &= p h^2_2 + q h^2_0 = p \cdot 1 + q h^2_0 = p + q h^2_0, \\
+     h^2_1 &= p h^2_2 + q h^2_{-1} = p + q h^2_{-1}, \\
      h^2_2 &= 1.
    \end{align*}
-   From the second equation, we get $h^2_{-1} = p h^2_0$. From the fourth equation, we get $h^2_1 = p + q h^2_0$. Substituting into the third equation:
+   From $h^2_{-1}=p h^2_1$ and $h^2_1=p+q h^2_{-1}$, we obtain
    $$
-     h^2_0 = p h^2_1 + q h^2_{-1} = p(p + q h^2_0) + q(p h^2_0) = p^2 + pq h^2_0 + pq h^2_0 = p^2 + 2pq h^2_0.
+   h^2_1=p+pq h^2_1,
+   \qquad
+   h^2_1=\frac{p}{1-pq},
+   \qquad
+   h^2_{-1}=\frac{p^2}{1-pq}.
    $$
-   Solving for $h^2_0$, we get $h^2_0(1 - 2pq) = p^2$, so
+   Therefore,
    $$
-     h^2_0 = \frac{p^2}{1 - 2pq} = \frac{p^2}{1 - 2p(1-p)} = \frac{p^2}{1 - 2p + 2p^2} = \frac{p^2}{2p^2 - 2p + 1}.
+   h^2_0=p h^2_1+q h^2_{-1}
+   =\frac{p^2(1+q)}{1-pq}.
    $$
-   For a fair coin ($p = q = \frac{1}{2}$), we get $h^2_0 = \frac{(1/2)^2}{1 - 2(1/2)(1/2)} = \frac{1/4}{1 - 1/2} = \frac{1/4}{1/2} = \frac{1}{2}$.
+   For a fair coin, $p=q=\tfrac12$, and hence $h^2_0=\tfrac12$.
    :::
 
 7. We now provide a general formula for computing hitting probabilities.
@@ -569,13 +646,15 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
    $$
      h_i = a λ_1^i + b λ_2^i = a + b\Bigl(\tfrac {q}{p} \Bigr)^i
    $$
-   where we determine the coefficients $a$ and $b$ from the boundary conditions $h_0 = 1$ and $h_K = 0$. Solving for $a$ and $b$, we get that for $p \neq q$, we have
+   where we determine the coefficients $a$ and $b$ from the boundary conditions $h_0 = 1$ and $h_K = 0$. Solving for $a$ and $b$, we get that for $p \neq q$,
    $$
-     h_i = \frac{1 - \Bigl(\frac qp\Bigr)^i}{1 - \Bigl(\frac qp\Bigr)^K}
+     h_i
+     =\frac{\Bigl(\frac qp\Bigr)^i-\Bigl(\frac qp\Bigr)^K}
+            {1-\Bigl(\frac qp\Bigr)^K},
    $$
-   and for $p = q = \frac 12$, we have
+   and for $p = q = \frac 12$,
    $$
-     h_i = \frac{i}{K}.
+     h_i=1-\frac{i}{K}.
    $$
    :::
 
@@ -610,7 +689,15 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
       m^2_1 &= 1 + q m^2_0 + p m^2_2, \\
       m^2_2 &= 0.
     \end{align*}
-    Solving this system of equations, we get $m^2_0 = 1/(1-p)$. 
+    From the second equation, $m^2_1=1+q m^2_0$. Substituting this into the first equation gives
+    $$
+    m^2_0=1+q m^2_0+p(1+q m^2_0)
+    =1+p+q(1+p)m^2_0.
+    $$
+    Since $1-q(1+p)=p^2$, we obtain
+    $$
+    m^2_0=\frac{1+p}{p^2}.
+    $$
     :::
 
 11. We now provide a general formula for computing mean hitting times. 
@@ -665,16 +752,21 @@ where $V = [v_1 v_2] = [1, a; 1, -b]$ and $Λ = \diag(1, 1-a-b)$. Therefore,
   $$
   This follows from the fact that matrix multiplication preserves the block structure, and the lower-left block remains zero while the lower-right block remains $I$ for all powers.
 
-14. **Fundamental Matrix:** The **fundamental matrix** $N$ is defined as
+14. **Fundamental matrix:** Suppose that, starting from any state in $\ALPHABET T$, the chain is eventually absorbed in $\ALPHABET C$ with probability $1$. Then $Q^n \to 0$, or equivalently the spectral radius of $Q$ is less than $1$. Therefore, the **fundamental matrix**
     $$
-      N = (I - Q)^{-1} = I + Q + Q^2 + Q^3 + \cdots.
+      N = (I - Q)^{-1} = I + Q + Q^2 + Q^3 + \cdots
     $$
-     The series expansion is valid because for transient states, the spectral radius of $Q$ is less than 1, ensuring convergence. The fundamental matrix exists and is well-defined for any Markov chain with at least one absorbing state.
+    is well-defined. Merely having an absorbing state is not sufficient: that absorbing state must be reached with probability $1$ from every state included in $\ALPHABET T$.
 
-15. **Interpretation of $N_{ij}$:** The entry $N_{ij}$ represents the **expected number of visits to transient state $j$** before absorption, starting from transient state $i$. This can be seen from the series expansion:
-  $$
-    N_{ij} = \sum_{n=0}^∞ [Q^n]_{ij} = \sum_{n=0}^∞ \PR_i(X_n = j, \text{ chain hasn't been absorbed by time } n).
-  $$
+15. **Interpretation of $N_{ij}$:** The entry $N_{ij}$ represents the **expected number of visits to transient state $j$** before absorption, starting from transient state $i$. This can be seen from the series expansion.
+    Let $H^{\ALPHABET C}$ denote the time of absorption. Then
+    \begin{align*}
+      N_{ij}
+      &= \sum_{n=0}^∞ [Q^n]_{ij}
+       = \sum_{n=0}^∞ \PR_i(X_n=j,\ n<H^{\ALPHABET C}) \\
+      &= \EXP_i\left[\sum_{n=0}^{H^{\ALPHABET C}-1}\IND{X_n=j}\right].
+    \end{align*}
+    Thus, the count includes the visit at time $0$; in particular, a chain starting in state $i$ contributes one visit to state $i$ immediately.
 
 16. **Mean hitting times:** Let $\ONES$ denote a column vector of ones with dimension $|\ALPHABET T|$. Then the mean hitting times (expected time until absorption) starting from each transient state are given by
     $$
@@ -1016,7 +1108,7 @@ $$
   \PR(X_n = x_n \mid X_{n+1:N} = x_{n+1:N})
   = \PR(X_n = x_n \mid X_{n+1} = x_{n+1}).
 $$
-Thus, a time reversed Markov chain is also Markov.
+Thus, a time-reversed Markov chain is also Markov. Explain why the reverse transition probabilities may depend on time even when the forward chain is time-homogeneous.
 :::
 
 :::{#exr-k-step-Markov}
@@ -1043,3 +1135,5 @@ b. If the outcome of the first roll is $1$, what is the probability that the out
 5. [Doyle and Snell, Random Walks and Electrical Networks](https://doi.org/10.5948/UPO9781614440222) shows a facinating relationship between random walks and circuits!
 
 6. [Weber's notes on Markov chains](https://www.statslab.cam.ac.uk//~rrw1/markov/M.pdf)
+
+## References {-}

@@ -123,21 +123,20 @@
 % Coin toss: two heads before two tails
 \startTEXpage[offset=1dk]
 \scale[scale=1500]{\starttikzpicture[line width=1bp]
-   \matrix[matrix of nodes, nodes={state}, column sep=1.5cm, row sep=1.5cm] (m) {
-    \m{-2} & \m{-1} & \m{0} & \m{1} & \m{2} \\
-  };
+  \node[state] (tt) at (-4,0) {$-2$};
+  \node[state] (t) at (-2,0) {$-1$};
+  \node[state] (h) at (2,0) {$1$};
+  \node[state] (hh) at (4,0) {$2$};
+  \node[state] (start) at (0,-1.8) {$0$};
   \draw[every loop]
-       (m-1-1) edge[loop left] node {$1$} (m-1-1)
-       (m-1-5) edge[loop right] node {$1$} (m-1-5)
-
-       (m-1-3) edge[bend left, auto=left] node {$p$} (m-1-4)
-       (m-1-3) edge[bend left, auto=left] node {$q$} (m-1-2)
-
-       (m-1-4) edge[bend left, auto=left] node {$p$} (m-1-5)
-       (m-1-4) edge[bend left, auto=left] node {$q$} (m-1-3)
-
-       (m-1-2) edge[bend left, auto=left] node {$p$} (m-1-3)
-       (m-1-2) edge[bend left, auto=left] node {$q$} (m-1-1)
+       (tt) edge[loop left] node {$1$} (tt)
+       (hh) edge[loop right] node {$1$} (hh)
+       (start) edge[auto=left] node {$p$} (h)
+       (start) edge[auto=right] node {$q$} (t)
+       (t) edge[bend left=25, auto=left] node {$p$} (h)
+       (h) edge[bend left=25, auto=left] node {$q$} (t)
+       (h) edge[auto=left] node {$p$} (hh)
+       (t) edge[auto=left] node {$q$} (tt)
        ;
 
 \stoptikzpicture}
