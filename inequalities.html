@@ -483,7 +483,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#union-bound" id="toc-union-bound" class="nav-link active" data-scroll-target="#union-bound"><span class="header-section-number">8.1</span> Union Bound</a></li>
-  <li><a href="#cauchy-schwartz-inequality" id="toc-cauchy-schwartz-inequality" class="nav-link" data-scroll-target="#cauchy-schwartz-inequality"><span class="header-section-number">8.2</span> Cauchy-Schwartz inequality</a></li>
+  <li><a href="#cauchy-schwarz-inequality" id="toc-cauchy-schwarz-inequality" class="nav-link" data-scroll-target="#cauchy-schwarz-inequality"><span class="header-section-number">8.2</span> Cauchy–Schwarz inequality</a></li>
   <li><a href="#jensens-inequality" id="toc-jensens-inequality" class="nav-link" data-scroll-target="#jensens-inequality"><span class="header-section-number">8.3</span> Jensen’s inequality</a></li>
   <li><a href="#markov-inequality" id="toc-markov-inequality" class="nav-link" data-scroll-target="#markov-inequality"><span class="header-section-number">8.4</span> Markov inequality</a>
   <ul class="collapse">
@@ -491,7 +491,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#chebyshev-inequality" id="toc-chebyshev-inequality" class="nav-link" data-scroll-target="#chebyshev-inequality"><span class="header-section-number">8.5</span> Chebyshev inequality</a></li>
   <li><a href="#chernoff-bound" id="toc-chernoff-bound" class="nav-link" data-scroll-target="#chernoff-bound"><span class="header-section-number">8.6</span> Chernoff bound</a></li>
-  <li><a href="#azuma-hoeffding-inequality" id="toc-azuma-hoeffding-inequality" class="nav-link" data-scroll-target="#azuma-hoeffding-inequality"><span class="header-section-number">8.7</span> Azuma-Hoeffding inequality</a></li>
+  <li><a href="#hoeffdings-inequality" id="toc-hoeffdings-inequality" class="nav-link" data-scroll-target="#hoeffdings-inequality"><span class="header-section-number">8.7</span> Hoeffding’s inequality</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/inequalities.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -554,7 +554,7 @@ window.Quarto = {
 <p>Let <span class="math inline">\(A_1, \dots, A_n\)</span> be a collection of events. Then, <span class="math display">\[
 \PR\biggl( \bigcup_{i=1}^n A_i \biggr)
 \le
-\sum_{i=1}^n \PR(A_n).
+\sum_{i=1}^n \PR(A_i).
 \]</span></p>
 </div>
 </div>
@@ -576,42 +576,82 @@ Z_n = \min(X_1, \dots, X_n).
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>We know that <span class="math display">\[Z_n = \min(X_1, \dots, X_n) \le z\]</span> if and only if <span class="math display">\[ X_i \le Z \quad \forall i \in \{1, \dots, n\}.\]</span> Therefore, <span class="math display">\[\PR(Z_n \le z) = \PR\biggl( \bigcup_{i=1}^n \{X_i \le z \} \biggr)
-\le \sum_{i=1}^n \PR(X_i \le z) = n F_X(z).
+<p>The event <span class="math inline">\(Z_n\le z\)</span> occurs if and only if at least one <span class="math inline">\(X_i\le z\)</span>. Therefore, <span class="math display">\[
+\PR(Z_n\le z)
+=\PR\biggl(\bigcup_{i=1}^n\{X_i\le z\}\biggr)
+\le\sum_{i=1}^n\PR(X_i\le z)
+=nF_X(z).
+\]</span> Since the random variables are independent, the exact CDF is <span class="math display">\[
+F_{Z_n}(z)
+=1-\PR(X_1&gt;z,\ldots,X_n&gt;z)
+=1-\bigl(1-F_X(z)\bigr)^n.
+\]</span> Thus, the union bound gives <span class="math display">\[
+1-\bigl(1-F_X(z)\bigr)^n\le nF_X(z).
 \]</span></p>
 </div>
 </div>
 </div>
+<div id="exm-union-bound-process-maximum" class="theorem example">
+<p><span class="theorem-title"><strong>Example 8.2</strong></span> Let <span class="math inline">\(\{X_k\}_{k\ge1}\)</span> be a sequence of random variables. Show that, for every <span class="math inline">\(a\in\reals\)</span> and <span class="math inline">\(n\ge1\)</span>, <span class="math display">\[
+\PR\left(\max_{1\le k\le n}X_k\ge a\right)
+\le\sum_{k=1}^n\PR(X_k\ge a).
+\]</span> Does this bound require the random variables <span class="math inline">\(X_1,\ldots,X_n\)</span> to be independent?</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The event that at least one of the first <span class="math inline">\(n\)</span> random variables exceeds <span class="math inline">\(a\)</span> is <span class="math display">\[
+\left\{\max_{1\le k\le n}X_k\ge a\right\}
+=\bigcup_{k=1}^n\{X_k\ge a\}.
+\]</span> Therefore, the union bound gives <span class="math display">\[
+\PR\left(\max_{1\le k\le n}X_k\ge a\right)
+\le\sum_{k=1}^n\PR(X_k\ge a).
+\]</span> No independence assumption is needed. In particular, if the <span class="math inline">\(X_k\)</span> have the same marginal distribution, then <span class="math display">\[
+\PR\left(\max_{1\le k\le n}X_k\ge a\right)
+\le n\PR(X_1\ge a).
+\]</span> Thus, the union bound converts individual tail bounds into a bound on the maximum of several random variables.</p>
+</div>
+</div>
+</div>
 <div id="exm-union-bound-infinite-events" class="theorem example">
-<p><span class="theorem-title"><strong>Example 8.2</strong></span> Let <span class="math inline">\(\{A_i\}_{i = 1}^{∞}\)</span> be a countably infinite sequence of events. Show that</p>
+<p><span class="theorem-title"><strong>Example 8.3</strong></span> Let <span class="math inline">\(\{A_i\}_{i = 1}^{∞}\)</span> be a countably infinite sequence of events. Show that</p>
 <ol type="a">
 <li>If <span class="math inline">\(\PR(A_i) = 0\)</span> for all <span class="math inline">\(i \in \naturalnumbers\)</span>, then <span class="math display">\[ \PR\Bigl( \bigcup_{i=1}^{∞} A_i \Bigr) = 0. \]</span></li>
 <li>If <span class="math inline">\(\PR(A_i) = 1\)</span> for all <span class="math inline">\(i \in \naturalnumbers\)</span>, then <span class="math display">\[ \PR\Bigl( \bigcap_{i=1}^{∞} A_i \Bigr) = 1. \]</span></li>
 </ol>
 </div>
 </section>
-<section id="cauchy-schwartz-inequality" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="cauchy-schwartz-inequality"><span class="header-section-number">8.2</span> Cauchy-Schwartz inequality</h2>
-<p>This is a generalization of <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">:Cauchy-Schwartz inequality</a> on inner products to random variables.</p>
+<section id="cauchy-schwarz-inequality" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="cauchy-schwarz-inequality"><span class="header-section-number">8.2</span> Cauchy–Schwarz inequality</h2>
+<p>This is the Cauchy–Schwarz inequality for the inner product <span class="math inline">\(\IP{X}{Y}=\EXP[XY]\)</span> on square-integrable random variables.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Cauchy-Schwartz inequality
+<span class="screen-reader-only">Tip</span>Cauchy–Schwarz inequality
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be real-valued random variables. Then, <span class="math display">\[
-\EXP[XY]^2 \le \EXP[X^2] \EXP[Y^2].
-\]</span> or equivalently, <span class="math display">\[
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be real-valued random variables with finite second moments. Then, <span class="math display">\[
+(\EXP[XY])^2 \le \EXP[X^2] \EXP[Y^2].
+\]</span> Applying this inequality to the centered random variables <span class="math inline">\(X-\EXP[X]\)</span> and <span class="math inline">\(Y-\EXP[Y]\)</span> gives <span class="math display">\[
 \COV(X,Y)^2 \le \VAR(X) \VAR(Y).
 \]</span></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -620,20 +660,26 @@ Z_n = \min(X_1, \dots, X_n).
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse show">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(f(s) = \EXP[ (sX + Y)^2\)</span> for any <span class="math inline">\(s \in \reals\)</span>. Then, by linearity of expectation, we have <span class="math display">\[
+<p>If <span class="math inline">\(\EXP[X^2]=0\)</span>, then <span class="math inline">\(X=0\)</span> almost surely and the result is immediate. Otherwise, define <span class="math display">\[
+f(s)=\EXP[(sX+Y)^2],
+\qquad s\in\reals.
+\]</span> By linearity of expectation, <span class="math display">\[
 f(s) = \EXP[ (sX + Y)^2 ] = s^2 \EXP[X^2] + 2s \EXP[XY] + \EXP[Y^2].
-\]</span> We know that <span class="math inline">\(f(s) \ge 0\)</span>. Recall that a quadratic form <span class="math display">\[
+\]</span> We know that <span class="math inline">\(f(s) \ge 0\)</span>. A quadratic <span class="math display">\[
 A s^2 + B s + C \ge 0
-\]</span> for all values of <span class="math inline">\(s\)</span> if and only it has repeated or complex roots. Thus, the determinant must be non-positive, that is <span class="math display">\[
+\]</span> for every <span class="math inline">\(s\)</span>, with <span class="math inline">\(A&gt;0\)</span>, must have non-positive discriminant: <span class="math display">\[
 Δ = B^2 - 4AC \le 0.
-\]</span> The result follows by taking <span class="math inline">\(A = \EXP[X^2]\)</span>, <span class="math inline">\(B = 2 \EXP[XY]\)</span>, and <span class="math inline">\(C = \EXP[Y^2]\)</span>.</p>
+\]</span> Taking <span class="math inline">\(A = \EXP[X^2]\)</span>, <span class="math inline">\(B = 2 \EXP[XY]\)</span>, and <span class="math inline">\(C = \EXP[Y^2]\)</span> gives <span class="math display">\[
+(\EXP[XY])^2\le\EXP[X^2]\EXP[Y^2].
+\]</span> The covariance inequality follows by applying this result to <span class="math inline">\(X-\EXP[X]\)</span> and <span class="math inline">\(Y-\EXP[Y]\)</span>.</p>
 </div>
 </div>
 </div>
+<p>The following exercise establishes the <strong>Paley–Zygmund inequality</strong>, which gives a lower bound on the probability that a non-negative random variable is not too far below its mean.</p>
 <div id="exm-2025-mid-term-4" class="theorem example">
-<p><span class="theorem-title"><strong>Example 8.3</strong></span> Let <span class="math inline">\(X \ge 0\)</span> be a random variable with mean <span class="math inline">\(μ\)</span> and finite variance <span class="math inline">\(σ^2\)</span>. Given <span class="math inline">\(λ \in (0,1)\)</span>, define <span class="math display">\[A = \{ ω : X(ω) \ge λ μ \}.\]</span></p>
+<p><span class="theorem-title"><strong>Example 8.4</strong></span> Let <span class="math inline">\(X \ge 0\)</span> be a random variable with mean <span class="math inline">\(μ&gt;0\)</span> and finite variance <span class="math inline">\(σ^2\)</span>. Given <span class="math inline">\(λ \in (0,1)\)</span>, define <span class="math display">\[A = \{ ω : X(ω) \ge λ μ \}.\]</span></p>
 <ol type="a">
 <li><p>Show that <span class="math display">\[\EXP[ X \IND_{A} ] \ge (1 -λ) μ. \]</span></p>
 <p><em>Hint:</em> Note that <span class="math inline">\(X = X (\IND_A + \IND_{A^c})\)</span>. What do we know about <span class="math inline">\(X\)</span> when <span class="math inline">\(ω \in A^c\)</span>?</p></li>
@@ -641,13 +687,48 @@ A s^2 + B s + C \ge 0
   \PR(X \ge λ μ) \ge (1-λ)^2 \frac{ \EXP[X]^2 }{\EXP[X^2]}
   = (1-λ)^2 \frac{μ^2}{μ^2 + σ^2}.   
 \]</span></p>
-<p><em>Hint:</em> Use Cauchy Schwartz to bound <span class="math inline">\(\EXP[X \IND_A]\)</span>.</p></li>
+<p><em>Hint:</em> Use Cauchy–Schwarz to bound <span class="math inline">\(\EXP[X \IND_A]\)</span>.</p></li>
 </ol>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>On <span class="math inline">\(A^c\)</span>, we have <span class="math inline">\(X&lt;λμ\)</span>. Therefore, <span class="math display">\[
+X\IND_{A^c}\le λμ\IND_{A^c}\le λμ.
+\]</span> Using <span class="math inline">\(X=X\IND_A+X\IND_{A^c}\)</span> gives <span class="math display">\[
+μ
+=\EXP[X\IND_A]+\EXP[X\IND_{A^c}]
+\le\EXP[X\IND_A]+λμ,
+\]</span> and hence <span class="math display">\[
+\EXP[X\IND_A]\ge(1-λ)μ.
+\]</span></p>
+<p>By the Cauchy–Schwarz inequality, <span class="math display">\[
+(\EXP[X\IND_A])^2
+\le\EXP[X^2]\EXP[\IND_A^2]
+=\EXP[X^2]\PR(A).
+\]</span> Combining this with part (a) yields <span class="math display">\[\begin{align*}
+\PR(X\ge λμ)
+=\PR(A)
+&amp;\ge\frac{(\EXP[X\IND_A])^2}{\EXP[X^2]}\\
+&amp;\ge(1-λ)^2\frac{μ^2}{\EXP[X^2]}\\
+&amp;=(1-λ)^2\frac{μ^2}{μ^2+σ^2}.
+\end{align*}\]</span></p>
+</div>
+</div>
 </div>
 </section>
 <section id="jensens-inequality" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="jensens-inequality"><span class="header-section-number">8.3</span> Jensen’s inequality</h2>
-<p>If we take <span class="math inline">\(Y = 1\)</span> in Cauchy-Schwartz inequality, we get that <span class="math display">\[
+<p>If we take <span class="math inline">\(Y = 1\)</span> in the Cauchy–Schwarz inequality, we get that <span class="math display">\[
 \EXP[X^2] \ge \EXP[X]^2.
 \]</span> This also follows from the fact that <span class="math inline">\(\VAR(X) \ge 0\)</span>. Jensen’s inequality may be thought as a generalization of this to convex functions.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -660,21 +741,21 @@ A s^2 + B s + C \ge 0
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Suppose <span class="math inline">\(X\)</span> is a real-valued random variable. Then for any <strong>convex</strong> <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
+<p>Let <span class="math inline">\(X\)</span> be an integrable random variable taking values in an interval <span class="math inline">\(I\)</span>, and let <span class="math inline">\(g\colon I\to\reals\)</span> be <strong>convex</strong>. If <span class="math inline">\(g(X)\)</span> is integrable, then <span class="math display">\[
 \EXP[ g(X) ] \ge g(\EXP[X]).
 \]</span></p>
-<p>Moreover, for any <strong>concave</strong> <span class="math inline">\(g \colon \reals \to \reals\)</span>, we have <span class="math display">\[
+<p>If <span class="math inline">\(g\colon I\to\reals\)</span> is <strong>concave</strong> and <span class="math inline">\(g(X)\)</span> is integrable, then <span class="math display">\[
 \EXP[ g(X) ] \le g(\EXP[X]).
 \]</span></p>
 </div>
 </div>
-<p>For example, since <span class="math inline">\(g(x) = 1/x\)</span> is convex, we have <span class="math display">\[
-\EXP\left[\frac 1x\right] \ge \frac{1}{\EXP[X]}.
-\]</span> Moreover, since <span class="math inline">\(g(x) = \log(x)\)</span> is concave, we have <span class="math display">\[
-\EXP[ \log(X)] \le \log(\EXP[X]).
+<p>For example, <span class="math inline">\(g(x)=1/x\)</span> is convex on <span class="math inline">\((0,∞)\)</span> and <span class="math inline">\(g(x)=\log x\)</span> is concave on <span class="math inline">\((0,∞)\)</span>. Thus, if <span class="math inline">\(X&gt;0\)</span> almost surely and the relevant expectations are finite, then <span class="math display">\[
+\EXP\left[\frac1X\right]\ge\frac1{\EXP[X]}
+\qquad\text{and}\qquad
+\EXP[\log X]\le\log(\EXP[X]).
 \]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -683,7 +764,7 @@ A s^2 + B s + C \ge 0
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse show">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <div id="fig-tangent" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -691,14 +772,18 @@ A s^2 + B s + C \ge 0
 <img src="figures/svg/inequalities1.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tangent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.1: Tangent at the mean of <span class="math inline">\(X\)</span>
+Figure&nbsp;8.1: A supporting line at the mean of <span class="math inline">\(X\)</span>
 </figcaption>
 </figure>
 </div>
-<p>Let <span class="math inline">\(μ = \EXP[X]\)</span>. Consider the function <span class="math inline">\(L\)</span> defined in <a href="#fig-tangent" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>, which is the tangent at <span class="math inline">\(μ\)</span> on <span class="math inline">\(g(x)\)</span>. By construction, <span class="math inline">\(g(x) \ge L(x)\)</span>. Therefore, <span class="math display">\[
+<p>Let <span class="math inline">\(μ=\EXP[X]\)</span>, and consider an affine supporting line to <span class="math inline">\(g\)</span> at <span class="math inline">\(μ\)</span>, as illustrated in <a href="#fig-tangent" class="quarto-xref">Figure&nbsp;<span>8.1</span></a>. Thus, <span class="math inline">\(L(x)=ax+b\)</span> for some <span class="math inline">\(a,b\in\reals\)</span>, and <span class="math display">\[
+L(μ)=g(μ)
+\qquad\text{and}\qquad
+L(x)\le g(x),\quad x\in I.
+\]</span> Convexity guarantees the existence of such a supporting line, even when <span class="math inline">\(g\)</span> is not differentiable at <span class="math inline">\(μ\)</span>. If <span class="math inline">\(g\)</span> is differentiable at <span class="math inline">\(μ\)</span>, the supporting line is the tangent line; otherwise, its slope <span class="math inline">\(a\)</span> is a subgradient of <span class="math inline">\(g\)</span> at <span class="math inline">\(μ\)</span>. Therefore, <span class="math display">\[
   \EXP[g(X)] \ge \EXP[L(X)]
   = \EXP[aX + b] = a μ + b = L(μ) = g(μ).
-\]</span></p>
+\]</span> The concave case follows by applying the convex result to <span class="math inline">\(-g\)</span>.</p>
 </div>
 </div>
 </div>
@@ -721,7 +806,7 @@ Figure&nbsp;8.1: Tangent at the mean of <span class="math inline">\(X\)</span>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -730,21 +815,21 @@ Figure&nbsp;8.1: Tangent at the mean of <span class="math inline">\(X\)</span>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Define <span class="math inline">\(Z = \IND\{X \ge a\} a\)</span>, which moves all the “mass” of <span class="math inline">\(X\)</span> to the left.</p>
-<!-- TODO: Add figure -->
-<p>Thus, <span class="math display">\[
+<p>Define <span class="math display">\[
+Z=a\IND_{\{X\ge a\}}.
+\]</span> Since <span class="math inline">\(X\)</span> is non-negative, <span class="math inline">\(Z\le X\)</span> pointwise: on <span class="math inline">\(\{X&lt;a\}\)</span>, <span class="math inline">\(Z=0\le X\)</span>, while on <span class="math inline">\(\{X\ge a\}\)</span>, <span class="math inline">\(Z=a\le X\)</span>. Therefore, <span class="math display">\[
 \EXP[X] \ge \EXP[Z] = a \PR(X \ge a).
 \]</span></p>
 </div>
 </div>
 </div>
 <div id="exm-Markov" class="theorem example">
-<p><span class="theorem-title"><strong>Example 8.4</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 8.5</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -753,7 +838,7 @@ Figure&nbsp;8.1: Tangent at the mean of <span class="math inline">\(X\)</span>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>The table below compares the actual tail probability with the bound obtained from Markov inequality.</p>
 <table class="caption-top table">
@@ -785,7 +870,7 @@ Figure&nbsp;8.1: Tangent at the mean of <span class="math inline">\(X\)</span>
 </div>
 </div>
 </div>
-<p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;<span>8.4</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vacuous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, it only makes sense to apply the Markov inequality when <span class="math inline">\(a \ge μ\)</span>.</p>
+<p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;<span>8.5</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vacuous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, the bound is nontrivial only when <span class="math inline">\(a\ge μ\)</span>.</p>
 <section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="8.4.1">
 <h3 data-number="8.4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">8.4.1</span> Union bound as a special case of Markov inequality</h3>
 <p>Note that it is possible to derive the union bound as a corollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
@@ -814,16 +899,16 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable with mean <span class="math inline">\(μ\)</span>. Then for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
+<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable with mean <span class="math inline">\(μ\)</span> and finite variance. Then for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
 \PR( \ABS{X - μ} \ge a) \le \frac{ \VAR(X) }{a^2}.
 \]</span></p>
-<p>An alternative form of is as follows. Let <span class="math inline">\(a = k σ\)</span>. Then, <span class="math display">\[
+<p>If <span class="math inline">\(σ^2=\VAR(X)&gt;0\)</span>, an alternative form is obtained by setting <span class="math inline">\(a=kσ\)</span>, where <span class="math inline">\(k&gt;0\)</span>: <span class="math display">\[
 \PR(\ABS{X - μ} \ge k σ) \le \frac{1}{k^2}.
 \]</span></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -832,22 +917,22 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Observe that <span class="math display">\[\begin{align*}
 \PR( \ABS{X - μ} \ge a) &amp;= \PR((X - μ)^2 \ge a^2)
 \\
 &amp;\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
-\end{align*}\]</span> where <span class="math inline">\((a)\)</span> follows from Markov inequality.</p>
+\end{align*}\]</span> Here, <span class="math inline">\((a)\)</span> follows from Markov inequality.</p>
 </div>
 </div>
 </div>
-<p>In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.</p>
+<p>In the following example, we compare the strengths of the Chebyshev and Markov inequalities.</p>
 <div id="exm-Binomial-comparison" class="theorem example">
-<p><span class="theorem-title"><strong>Example 8.5</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 8.6</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -856,7 +941,7 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Recall that <span class="math inline">\(\EXP[X] = np\)</span> and <span class="math inline">\(\VAR(X) = n p(1-p)\)</span>. Therefore, from Markov inequality we have <span class="math display">\[
 \PR(X \ge nq) \le \frac{np}{nq} = \frac{p}{q}.
@@ -880,14 +965,16 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, X_2, \dots\)</span> be independent random variables with <span class="math inline">\(\EXP[X_n] = μ\)</span> and <span class="math inline">\(\VAR(X_n) = σ^2\)</span>. Let <span class="math display">\[
+<p>Let <span class="math inline">\(X_1, X_2, \dots\)</span> be independent random variables with <span class="math inline">\(\EXP[X_i] = μ\)</span> and <span class="math inline">\(\VAR(X_i) = σ^2\)</span>. Let <span class="math display">\[
 \bar X_n = \frac 1n \sum_{i=1}^n X_i
-\]</span> be the sample mean. Then, <span class="math display">\[\PR(\ABS{X_n - μ} &gt; ε) \le \frac{σ^2}{n ε^2}. \]</span></p>
-<p>Therefore, <span class="math inline">\(X_n \xrightarrow{p} μ\)</span> (which reads as <span class="math inline">\(X_n\)</span> converges in probability to <span class="math inline">\(μ\)</span>; we will study convergence in probability in next lecture).</p>
+\]</span> be the sample mean. Then, for every <span class="math inline">\(ε&gt;0\)</span>, <span class="math display">\[
+\PR(\ABS{\bar X_n - μ} &gt; ε) \le \frac{σ^2}{n ε^2}.
+\]</span></p>
+<p>Therefore, <span class="math inline">\(\bar X_n \xrightarrow{p} μ\)</span>; that is, <span class="math inline">\(\bar X_n\)</span> converges in probability to <span class="math inline">\(μ\)</span>. We study this mode of convergence in <a href="./convergence-of-random-variables.html#convergence-in-probability">a later chapter</a>.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -896,21 +983,21 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse show">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Observe that <span class="math display">\[\begin{align*}
 \EXP[\bar X_n] &amp;= \frac{1}{n} \sum_{i=1}^n \EXP[X_i] = μ \\
 \VAR(\bar X_n) &amp;= \frac{1}{n^2} \sum_{i=1}^n \VAR(X_i) = \frac{σ^2}{n}.
 \end{align*}\]</span></p>
 <p>Then, by Chebyshev inequality, we have <span class="math display">\[
-\PR(\ABS{X_n - μ} &gt; ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
+\PR(\ABS{\bar X_n - μ} &gt; ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
 \]</span></p>
 </div>
 </div>
 </div>
-<p>If we do not know <span class="math inline">\(\VAR(X)\)</span>, we can still use Chebyshev inequality with an upper bound on <span class="math inline">\(\VAR(X)\)</span>. For example, if <span class="math inline">\(X \in [a,b]\)</span>, then we can show that <span class="math display">\[
+<p>If we do not know <span class="math inline">\(\VAR(X)\)</span>, we can still use Chebyshev inequality with an upper bound on <span class="math inline">\(\VAR(X)\)</span>. For example, if <span class="math inline">\(X\in[a,b]\)</span> almost surely, then <span class="math display">\[
 \VAR(X) \le \frac{(b-a)^2}{4}.
-\]</span> So, for any random variable <span class="math inline">\(X \in [a,b]\)</span>, we have that <span class="math display">\[
+\]</span> Thus, for any random variable <span class="math inline">\(X\in[a,b]\)</span> almost surely, <span class="math display">\[
 \PR(\ABS{X - μ} &gt; ε) \le \frac{(b-a)^2}{4 ε^2}.
 \]</span></p>
 </section>
@@ -926,15 +1013,21 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable. Then, for any <span class="math inline">\(a &gt; 0\)</span>, we have <span class="math display">\[
-\PR(X \ge a) \le e^{-φ(a)}
-\]</span> where <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ s a - \log M_X(s) \}
-\]</span> is the <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Legendre-Fenchel transform</a> of <span class="math inline">\(\log M_X(s)\)</span>.</p>
+<p>Let <span class="math inline">\(X\)</span> be a real-valued random variable and let <span class="math inline">\(a\in\reals\)</span>. For every real <span class="math inline">\(s&gt;0\)</span> in the region of convergence <span class="math inline">\(\mathcal R_X\)</span>, <span class="math display">\[
+\PR(X\ge a)
+\le e^{-sa}M_X(s)
+=\exp\bigl(-(sa-K_X(s))\bigr),
+\]</span> where <span class="math inline">\(K_X(s)=\log M_X(s)\)</span> is the <a href="./moment-generating-functions.html#cumulant-generating-functions">cumulant generating function</a>. Consequently, if <span class="math inline">\(\mathcal R_X\)</span> contains positive real numbers, then <span class="math display">\[
+\PR(X\ge a)\le e^{-I_+(a)},
+\qquad
+I_+(a)
+=\sup_{\substack{s&gt;0\\s\in\mathcal R_X}}
+\{sa-K_X(s)\}.
+\]</span> The function <span class="math inline">\(I_+\)</span> is the one-sided <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Legendre–Fenchel transform</a> of <span class="math inline">\(K_X\)</span>.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -943,66 +1036,108 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse show">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>The proof relies on two observations. First, for any <span class="math inline">\(s &gt; 0\)</span>, <span class="math inline">\(e^s x\)</span> is an increasing function of <span class="math inline">\(x\)</span>. Therefore, <span class="math display">\[
-\{ ω : X(ω) &gt; a \} = \{ ω : e^{sX(ω)} &gt; e^{sa} \}.
-\]</span> Hence, <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \frac{\EXP[e^{sX}}{e^{sa}}
-= e^{-( sa - \log M_X(s) ) }
-\]</span> where the inequality follows from Markov inequality</p>
-<p>Second, observe that the above inequality holds for every <span class="math inline">\(s &gt; 0\)</span>. So, to get the tightest bound, we minimize the RHS over all <span class="math inline">\(s &gt; 0\)</span>, i.e., <span class="math display">\[
-\PR(X &gt; a) = \PR(e^{sX} \ge e^{sa})
-\le \min_{s &gt; 0} e^{-( sa - \log M_X(s) ) }
-\]</span> Since <span class="math inline">\(e^x\)</span> is increasing in <span class="math inline">\(x\)</span>, the minimizer above is the same as the maximizer for <span class="math display">\[
-φ(a) = \max_{s &gt; 0} \{ sa - \log M_X(s) \}.
-\]</span></p>
+<p>For any real <span class="math inline">\(s&gt;0\)</span> in <span class="math inline">\(\mathcal R_X\)</span>, the function <span class="math inline">\(x\mapsto e^{sx}\)</span> is increasing. Therefore, <span class="math display">\[
+\{X\ge a\}=\{e^{sX}\ge e^{sa}\}.
+\]</span> Since <span class="math inline">\(e^{sX}\)</span> is non-negative, Markov inequality gives <span class="math display">\[
+\PR(X\ge a)
+=\PR(e^{sX}\ge e^{sa})
+\le\frac{\EXP[e^{sX}]}{e^{sa}}
+=\exp\bigl(-(sa-K_X(s))\bigr).
+\]</span> Taking the infimum of the upper bound over all admissible <span class="math inline">\(s&gt;0\)</span> is equivalent to taking the supremum of <span class="math inline">\(sa-K_X(s)\)</span>, which gives the stated result.</p>
 </div>
 </div>
 </div>
-<p>Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let’s revisit the bound of <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>8.5</span></a>. For a Binomial random variable, <span class="math display">\[
+<p>The Chernoff bound can be much stronger than Markov and Chebyshev inequalities. To see this, revisit <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>8.6</span></a>. For a binomial random variable, <span class="math display">\[
 M_X(s) = (1 - p + p e^s)^n.
-\]</span> Then, <span class="math display">\[\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
-= \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
-\]</span> Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>8.5</span></a>. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero <em>exponentially fast</em>. A bit of algebra shows that the exact bound is <span class="math display">\[
-\PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
+\]</span> Then <span class="math display">\[\begin{align*}
+\PR(X\ge nq)
+&amp;\le
+\exp\left(
+-n\sup_{s\ge0}
+\left[sq-\log(1-p+pe^s)\right]
+\right).
+\end{align*}\]</span> For <span class="math inline">\(q\in(p,1)\)</span>, the supremum is attained at <span class="math display">\[
+s^*=\log\left(\frac{q(1-p)}{p(1-q)}\right)&gt;0.
+\]</span> Substituting <span class="math inline">\(s^*\)</span> gives the optimized Chernoff bound <span class="math display">\[
+\PR(X\ge nq)\le\exp\bigl(-nD(q\|p)\bigr),
 \]</span> where <span class="math display">\[
-D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
-\]</span></p>
+D(q\|p)
+=q\log\left(\frac qp\right)
++(1-q)\log\left(\frac{1-q}{1-p}\right).
+\]</span> Unlike the Chebyshev bound, which decreases as <span class="math inline">\(1/n\)</span>, the Chernoff bound decreases exponentially in <span class="math inline">\(n\)</span>.</p>
 <p>We now present another example to show the tightness of the Chernoff bound.</p>
 <div id="exm-Chernoff-Gaussian" class="theorem example">
-<p><span class="theorem-title"><strong>Example 8.6</strong></span> Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any <span class="math inline">\(ε &gt; 0\)</span>, bound <span class="math inline">\(\PR(X \ge 0)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 8.7</strong></span> Let <span class="math inline">\(X\sim\mathcal N(μ,σ^2)\)</span>. For <span class="math inline">\(ε&gt;0\)</span>, use the Chernoff bound to bound <span class="math display">\[
+\PR(X-μ\ge ε).
+\]</span></p>
 </div>
-<!-- TODO: Write solution -->
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(Y=X-μ\sim\mathcal N(0,σ^2)\)</span>. Its cumulant generating function is <span class="math display">\[
+K_Y(s)=\frac12σ^2s^2.
+\]</span> Therefore, for every <span class="math inline">\(s&gt;0\)</span>, <span class="math display">\[
+\PR(Y\ge ε)
+\le\exp\left(-sε+\frac12σ^2s^2\right).
+\]</span> The exponent is minimized at <span class="math inline">\(s^*=ε/σ^2\)</span>, which gives <span class="math display">\[
+\boxed{
+\PR(X-μ\ge ε)
+\le\exp\left(-\frac{ε^2}{2σ^2}\right).
+}
+\]</span> Applying the same argument to <span class="math inline">\(-Y\)</span> and using the union bound also gives <span class="math display">\[
+\PR(\ABS{X-μ}\ge ε)
+\le2\exp\left(-\frac{ε^2}{2σ^2}\right).
+\]</span></p>
+</div>
+</div>
+</div>
 </section>
-<section id="azuma-hoeffding-inequality" class="level2" data-number="8.7">
-<h2 data-number="8.7" class="anchored" data-anchor-id="azuma-hoeffding-inequality"><span class="header-section-number">8.7</span> Azuma-Hoeffding inequality</h2>
-<p>Although Chernoff bound is fairly tight, one of the drawbacks is that it requires the knowledge of the MGF of <span class="math inline">\(X\)</span>. This is in contrast to Markov and Chebyshev inequalities which only require knowledge of the mean and variance. For sums of i.i.d. random variables, it is possible to get a tight bound that only depends on the mean (and a proxy for variance).</p>
+<section id="hoeffdings-inequality" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="hoeffdings-inequality"><span class="header-section-number">8.7</span> Hoeffding’s inequality</h2>
+<p>Although the Chernoff bound is fairly tight, one of its drawbacks is that it requires knowledge of the MGF. For sums of independent bounded random variables, Hoeffding’s inequality gives an exponential bound that depends only on the mean and the bounded range.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Azuma-Hoeffding inequality
+<span class="screen-reader-only">Tip</span>Hoeffding’s inequality
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables such that <span class="math inline">\(X_i \in [a,b]\)</span> and <span class="math inline">\(\EXP[X_i] = μ\)</span>. Define <span class="math display">\[
+<p>Let <span class="math inline">\(X_1, \dots, X_n\)</span> be i.i.d. random variables such that <span class="math inline">\(X_i\in[a,b]\)</span> almost surely, where <span class="math inline">\(a&lt;b\)</span>, and <span class="math inline">\(\EXP[X_i]=μ\)</span>. Define <span class="math display">\[
 \bar X_n = \frac 1n \sum_{i=1}^n X_i.
-\]</span> Then, <span class="math display">\[ \PR( \bar X_n - μ  &gt; ε ) \le e ^ {- 2 ε^2 n } \]</span> and <span class="math display">\[ \PR( \ABS{\bar X_n - μ}  &gt; ε ) \le 2 e ^ {- 2 ε^2 n } \]</span></p>
-</div>
-</div>
-<p>We will not provide a proof of this inequality. The Azuma-Hoeffding inequality can also be interpreted as follows. For any <span class="math inline">\(δ &gt; 0\)</span>, we have that the true mean lies in the interval <span class="math display">\[
-\left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} },
-       \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
+\]</span> Then, for every <span class="math inline">\(ε&gt;0\)</span>, <span class="math display">\[
+\PR(\bar X_n-μ\ge ε)
+\le\exp\left(-\frac{2nε^2}{(b-a)^2}\right)
+\]</span> and <span class="math display">\[
+\PR(\ABS{\bar X_n-μ}\ge ε)
+\le2\exp\left(-\frac{2nε^2}{(b-a)^2}\right).
 \]</span></p>
-<p>We can revisit <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>8.5</span></a> using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
+</div>
+</div>
+<p>We will not provide a proof of this inequality. Equivalently, for any <span class="math inline">\(δ\in(0,1)\)</span>, the interval <span class="math display">\[
+\left[
+\bar X_n-(b-a)\sqrt{\frac{1}{2n}\log\frac2δ},
+\bar X_n+(b-a)\sqrt{\frac{1}{2n}\log\frac2δ}
+\right]
+\]</span> contains the true mean <span class="math inline">\(μ\)</span> with probability at least <span class="math inline">\(1-δ\)</span>.</p>
+<p>We can revisit <a href="#exm-Binomial-comparison" class="quarto-xref">Example&nbsp;<span>8.6</span></a> using Hoeffding’s inequality. Recall that a binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have <span class="math display">\[
 \PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
 \le e^{-2 (q - p)^2 n}.
 \]</span></p>
-<p>The bound is weaker than what we obtained via Chernoff bound, but it only requires the first moment and the fact that the random variables are bounded.</p>
+<p>The bound is weaker than the optimized Chernoff bound, but it requires only independence, the common mean, and the bounded range of the random variables.</p>
 
 
 </section>
