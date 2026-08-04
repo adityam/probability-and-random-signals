@@ -494,6 +494,7 @@ window.Quarto = {
   <li><a href="#censored-markov-chains" id="toc-censored-markov-chains" class="nav-link" data-scroll-target="#censored-markov-chains"><span class="header-section-number">11.7</span> Censored Markov chains</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -541,19 +542,25 @@ window.Quarto = {
 </header>
 
 
-<p>Let <span class="math inline">\(\ALPHABET X\)</span> be a finite set. A stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span>, <span class="math inline">\(X_n \in \ALPHABET X\)</span>, is called a <strong>Markov chain</strong> if it satisfies the <em>Markov property</em>: for any <span class="math inline">\(n \in \integers_{\ge 0}\)</span> and any <span class="math inline">\(x_{1:n+1} \in \ALPHABET X^{n+1}\)</span>, we have <span class="math display">\[\begin{equation}\tag{Markov property}\label{eq:Markov}
-  \PR(X_{n+1} = x_{n+1} \mid X_{1:n} = x_{1:n})
+<p>Let <span class="math inline">\(\ALPHABET X\)</span> be a finite set. A stochastic process <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span>, <span class="math inline">\(X_n \in \ALPHABET X\)</span>, is called a <strong>Markov chain</strong> if it satisfies the <em>Markov property</em>: for any <span class="math inline">\(n \in \integers_{\ge 0}\)</span> and any <span class="math inline">\(x_{0:n+1} \in \ALPHABET X^{n+2}\)</span> such that <span class="math inline">\(\PR(X_{0:n}=x_{0:n})&gt;0\)</span>, we have <span class="math display">\[\begin{equation}\tag{Markov property}\label{eq:Markov}
+  \PR(X_{n+1} = x_{n+1} \mid X_{0:n} = x_{0:n})
   = \PR(X_{n+1} = x_{n+1} \mid X_n = x_n).
 \end{equation}\]</span></p>
 <p>The variable <span class="math inline">\(X_n\)</span> is called the <strong>state</strong> of the Markov chain at time <span class="math inline">\(n\)</span>; the set <span class="math inline">\(\ALPHABET X\)</span> is called <strong>state space</strong>. The <span class="math inline">\(\eqref{eq:Markov}\)</span> implies that the current state captures all the information from the past that is relevant for the future. Stated differently, <strong>conditioned on the present, the past is independent of the future</strong>.</p>
-<p>Independence is a symmetric relationship. Thus, we expect the Markov property to also hold if time is reversed! <a href="#exr-time-reversal" class="quarto-xref">Exercise&nbsp;<span>11.1</span></a> asks you to formally prove that.</p>
+<p>The Markov property also holds when a chain is viewed backward over a finite time horizon; <a href="#exr-time-reversal" class="quarto-xref">Exercise&nbsp;<span>11.1</span></a> asks you to prove this. However, even if the forward chain is time-homogeneous, its backward transition probabilities may depend on time. If the chain is initialized with an invariant distribution, then the reversed chain is also time-homogeneous.</p>
+<p>A common way to construct a Markov chain is through a state recursion <span class="math display">\[
+X_{n+1}=f_n(X_n,W_n),
+\]</span> where <span class="math inline">\(W_0,W_1,\ldots\)</span> are independent random variables and are independent of <span class="math inline">\(X_0\)</span>. Since <span class="math inline">\(W_n\)</span> is independent of the history up to time <span class="math inline">\(n\)</span>, <span class="math display">\[
+\PR(X_{n+1}=j\mid X_{0:n}=x_{0:n})
+=\PR(f_n(x_n,W_n)=j),
+\]</span> which depends on the past only through the current state <span class="math inline">\(x_n\)</span>. If <span class="math inline">\(f_n=f\)</span> for all <span class="math inline">\(n\)</span> and the random variables <span class="math inline">\(W_n\)</span> are identically distributed, then the resulting Markov chain is time-homogeneous. This construction will reappear when we study stochastic state-space models.</p>
 <p>We now present some examples of Markov chains arising in different applications.</p>
 <div id="exm-Gilbert-Elliot-channel" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.1 (Gilbert Elliot channel model for burst erasures)</strong></span> The Gilbert-Elliot channel model is used to model communication channels with burst errors. The channel can be in one of two states: a “good” state (state 0) with low error probability, or a “bad” state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>11.4</span></a>.</p>
 </div>
 <div id="exm-Ehrenfest-diffusion" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.2 (Ehrenfest model of diffusion)</strong></span> The following simplified model of diffusion through a porous membrane was proposed by <span class="citation" data-cites="Ehrenfest1907">@Ehrenfest1907</span> to describe the exchange of heat between two systems at different temperatures.</p>
-<p>There are <span class="math inline">\(K\)</span> particles that can either be in compartment <span class="math inline">\(A\)</span> or compartment <span class="math inline">\(B\)</span>. At each time, a particle is picked at random and moved from its compartment to the other. Thus, if there are <span class="math inline">\(X_n = i\)</span> particles in compartment <span class="math inline">\(A\)</span> at time <span class="math inline">\(n\)</span>, then the next state <span class="math inline">\(X_{n+1}\)</span> is either <span class="math inline">\(i-1\)</span> (a particle was displaced from compartment <span class="math inline">\(A\)</span> to <span class="math inline">\(B\)</span>) with probability <span class="math inline">\(i/K\)</span>, or <span class="math inline">\(i+1\)</span> (a particle was displaced from compartment <span class="math inline">\(B\)</span> to <span class="math inline">\(A\)</span>) with probability <span class="math inline">\((K-i)/K\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 11.2 (Ehrenfest urn model)</strong></span> The following urn model was introduced by <span class="citation" data-cites="Ehrenfest1907">@Ehrenfest1907</span> to illustrate the probabilistic behavior underlying Boltzmann’s <span class="math inline">\(H\)</span>-theorem.</p>
+<p>There are <span class="math inline">\(K\)</span> labelled particles, each of which is in either compartment <span class="math inline">\(A\)</span> or compartment <span class="math inline">\(B\)</span>. At each time, one particle is chosen uniformly at random and moved to the other compartment. Thus, if there are <span class="math inline">\(X_n=i\)</span> particles in compartment <span class="math inline">\(A\)</span> at time <span class="math inline">\(n\)</span>, then <span class="math inline">\(X_{n+1}=i-1\)</span> with probability <span class="math inline">\(i/K\)</span> and <span class="math inline">\(X_{n+1}=i+1\)</span> with probability <span class="math inline">\((K-i)/K\)</span>.</p>
 </div>
 <div id="exm-gamblers-ruin" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.3 (Gambler’s ruin)</strong></span> Consider a gambler who is playing in a casino. The gambler starts with an initial fortune of $<span class="math inline">\(x_0\)</span>. At each time, the gambler places a bet where he wins $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> and loses $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(1-p\)</span>. Thus, his fortune evolves as <span class="math display">\[
@@ -565,7 +572,22 @@ window.Quarto = {
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/KZeIEiBrT_w" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <section id="time-homogeneous-markov-chains" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="time-homogeneous-markov-chains"><span class="header-section-number">11.1</span> Time-homogeneous Markov chains</h2>
-<p>In this course, we will focus on time-homogeneous Markov chains. The Markov chain is called <strong>time-homogeneous</strong> if the right hand side of <span class="math inline">\(\eqref{eq:Markov}\)</span> does not depend on <span class="math inline">\(n\)</span>. In this case, we describe the Markov chain by a <strong>state transition matrix</strong> <span class="math inline">\(P\)</span>, where <span class="math inline">\(P_{ij} = \PR(X_{n+1} = j | X_n = i)\)</span>. Such Markov chains can also be visualized using <strong>state transition diagrams</strong> as we illustrate in the examples below.</p>
+<p>In this course, we will focus on time-homogeneous Markov chains. The Markov chain is called <strong>time-homogeneous</strong> if the right hand side of <span class="math inline">\(\eqref{eq:Markov}\)</span> does not depend on <span class="math inline">\(n\)</span>. In this case, we describe the Markov chain by a <strong>state transition matrix</strong> <span class="math inline">\(P\)</span>, where <span class="math display">\[
+P_{ij}=\PR(X_{n+1}=j\mid X_n=i).
+\]</span> The matrix <span class="math inline">\(P\)</span> is row stochastic: <span class="math display">\[
+P_{ij}\ge0,
+\qquad
+\sum_{j\in\ALPHABET X}P_{ij}=1
+\quad\text{for every }i\in\ALPHABET X.
+\]</span></p>
+<p>A time-homogeneous Markov chain is completely specified by its initial distribution <span class="math inline">\(μ^{(0)}\)</span>, where <span class="math display">\[
+μ^{(0)}_i=\PR(X_0=i),
+\]</span> and its transition matrix <span class="math inline">\(P\)</span>. Indeed, the chain rule and the Markov property give <span class="math display">\[\begin{align*}
+&amp;\PR(X_0=x_0,X_1=x_1,\ldots,X_n=x_n)\\
+&amp;\quad=μ^{(0)}_{x_0}
+P_{x_0x_1}P_{x_1x_2}\cdots P_{x_{n-1}x_n}.
+\end{align*}\]</span> Thus, <span class="math inline">\(μ^{(0)}\)</span> and <span class="math inline">\(P\)</span> determine all the finite-dimensional distributions of the process. Conversely, any probability distribution <span class="math inline">\(μ^{(0)}\)</span> and row-stochastic matrix <span class="math inline">\(P\)</span> define a time-homogeneous Markov chain.</p>
+<p>Such Markov chains can also be visualized using <strong>state transition diagrams</strong>, as illustrated in the examples below.</p>
 <div id="exm-on-off" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.4 (On-Off Markov chain)</strong></span> The On-Off Markov chain discussed earlier can be modelled with <span class="math inline">\(\ALPHABET X = \{0, 1\}\)</span> and a general transition probability matrix of the form. <span class="math display">\[
   P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
@@ -583,7 +605,7 @@ window.Quarto = {
 <li><p>When <span class="math inline">\(a\)</span> or <span class="math inline">\(b\)</span> are small, the corresponding state is “sticky”, i.e., when the Markov chain enters a sticky state, it stays there for a long time.</p></li>
 </ul>
 <div id="exm-Ehrenfest-diffusion-model" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.5</strong></span> The Ehrenfest model of diffusion presented in <a href="#exm-Ehrenfest-diffusion" class="quarto-xref">Example&nbsp;<span>11.2</span></a> can be modelled as a Markov chain with state space <span class="math inline">\(\{0, 1, \dots, K\}\)</span> and transition probability <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 11.5</strong></span> The Ehrenfest urn model presented in <a href="#exm-Ehrenfest-diffusion" class="quarto-xref">Example&nbsp;<span>11.2</span></a> can be modelled as a Markov chain with state space <span class="math inline">\(\{0, 1, \dots, K\}\)</span> and transition probability <span class="math display">\[
   P_{ij} = \begin{cases}
     i/K     &amp; j = i-1 \\
     (K-i)/K &amp; j = i + 1 \\
@@ -593,7 +615,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/svg/markov-examples2.svg" class="img-fluid figure-img"></p>
-<figcaption>Ehrenfest model of diffusion</figcaption>
+<figcaption>Ehrenfest urn model</figcaption>
 </figure>
 </div>
 </div>
@@ -955,7 +977,7 @@ window.Quarto = {
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing <span class="math inline">\(μ^{(0)} P^n\)</span>. What is an efficient way to compute <span class="math inline">\(P^n\)</span>? <strong>Eigen decomposition!</strong>. Since <span class="math inline">\(P\)</span> is a row stochastic matrix, we have <span class="math inline">\(P \mathbf{1} = \mathbf{1}\)</span>, where <span class="math inline">\(\mathbf{1}\)</span> is the all-ones vector. Thus, <span class="math inline">\(λ_1 = 1\)</span> is always an eigenvalue of <em>any</em> transition matrix, with corresponding eigenvector <span class="math inline">\(\mathbf{1}\)</span>.</p>
+<p>The above analysis appears to be a bit of black magic. To understand what is going on, note that we are interested in computing <span class="math inline">\(μ^{(0)} P^n\)</span>. An efficient way to compute <span class="math inline">\(P^n\)</span> is through an eigendecomposition. Since <span class="math inline">\(P\)</span> is a row-stochastic matrix, we have <span class="math inline">\(P \mathbf{1} = \mathbf{1}\)</span>, where <span class="math inline">\(\mathbf{1}\)</span> is the all-ones vector. Thus, <span class="math inline">\(λ_1 = 1\)</span> is always an eigenvalue of <em>any</em> transition matrix, with corresponding eigenvector <span class="math inline">\(\mathbf{1}\)</span>.</p>
 <p>For <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>11.4</span></a>, we can explicitly compute all eigenvalues by finding the roots of the characteristic equation <span class="math display">\[\begin{align*}
 \det(λI - P) &amp;= \DET{λ - 1 + a &amp; - a \\ -b &amp; λ - 1 + b} \\
 &amp;= (λ-1 +a)(λ-1+b) - ab \\
@@ -967,29 +989,33 @@ window.Quarto = {
 <li>For <span class="math inline">\(λ_1 = 1\)</span>, we already know that <span class="math inline">\(v_1 = [1; 1]\)</span> is an eigenvector.</li>
 <li>For <span class="math inline">\(λ_2 = (1-a-b)\)</span>, we have <span class="math display">\[ λ_2I - P = \MATRIX{-b &amp; -a \\ -b &amp; -a}. \]</span> Therefore, one possible eigenvector is <span class="math inline">\([a; -b]\)</span>.</li>
 </ul>
-<p>Then, from spectral decomposition, we know that <span class="math display">\[
-  P = V Λ V^{-1}
-\]</span> where <span class="math inline">\(V = [v_1 v_2] = [1, a; 1, -b]\)</span> and <span class="math inline">\(Λ = \diag(1, 1-a-b)\)</span>. Therefore, <span class="math display">\[\begin{align*}
-  μ^{(n)} &amp;= μ^{(0)} P^n = μ^{(0)} V Λ^n V^{-1} \\
-  &amp;= \MATRIX{ μ^{(0)}_0 &amp; 1 - μ^{(0)}_0 }
-     \MATRIX{1 &amp; a \\ 1 &amp; -b }
-     \MATRIX{1 &amp; 0 \\ 0 &amp; 1 - a -b}
-     \frac{1}{a+b}
-     \MATRIX{b &amp; a \\ 1 &amp; -1 }
-  \\[5pt]
-  &amp;= \MATRIX{\dfrac{1}{a+b} &amp; μ^{(0)}_0 - \dfrac{b}{a+b} }
-     \MATRIX{1 &amp; 0 \\ 0 &amp; 1 - a -b}
-     \MATRIX{b &amp; a \\ 1 &amp; -1 }
-  \\[5pt]
-  &amp;=\MATRIX{\dfrac{1}{a+b} &amp; 0 \\ 0 &amp; \left(μ^{(0)}_0 - \dfrac{b}{a+b}\right)(1-a-b)^n }
-   \MATRIX{b &amp; a \\ 1 &amp; -1 }
-  \\[5pt]
-  &amp;= \frac{b}{a+b} + \left(μ^{(0)}_0 - \dfrac{b}{a+b}\right)(1-a-b)^n
-\end{align*}\]</span></p>
+<p>Assume that <span class="math inline">\(a+b&gt;0\)</span>. Then, from the eigendecomposition, we have <span class="math display">\[
+P^n=VΛ^nV^{-1},
+\]</span> where <span class="math display">\[
+V=\MATRIX{1&amp;a\\1&amp;-b},
+\qquad
+Λ=\MATRIX{1&amp;0\\0&amp;1-a-b},
+\qquad
+V^{-1}=\frac1{a+b}\MATRIX{b&amp;a\\1&amp;-1}.
+\]</span> Let <span class="math inline">\(μ^{(0)}=\MATRIX{μ^{(0)}_0&amp;1-μ^{(0)}_0}\)</span> and define <span class="math display">\[
+d=μ^{(0)}_0-\frac{b}{a+b}.
+\]</span> Then, <span class="math display">\[\begin{align*}
+μ^{(n)}
+&amp;=μ^{(0)}VΛ^nV^{-1}\\
+&amp;=\MATRIX{1&amp;(a+b)d}
+  \MATRIX{1&amp;0\\0&amp;(1-a-b)^n}
+  \frac1{a+b}\MATRIX{b&amp;a\\1&amp;-1}\\
+&amp;=\MATRIX{\dfrac1{a+b}&amp;d(1-a-b)^n}
+  \MATRIX{b&amp;a\\1&amp;-1}\\
+&amp;=\MATRIX{
+\dfrac{b}{a+b}+d(1-a-b)^n
+&amp;
+\dfrac{a}{a+b}-d(1-a-b)^n
+}.
+\end{align*}\]</span> This gives both components of the occupancy distribution and agrees with the recursion derived above.</p>
 </div>
 </div>
 </div>
-<p><strong>TODO:</strong> Add more examples!</p>
 </section>
 <section id="class-structure" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="class-structure"><span class="header-section-number">11.3</span> Class structure</h2>
@@ -1027,7 +1053,9 @@ window.Quarto = {
 <p>For instance, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>11.9</span></a>, state <span class="math inline">\(1\)</span> communicates with state <span class="math inline">\(2\)</span> but does not communicate with state <span class="math inline">\(5\)</span>.</p>
 <p>Communication is an equivalence relationship, i.e., it is reflexive (<span class="math inline">\(i \leftrightsquigarrow i\)</span>), symmetric (<span class="math inline">\(i \leftrightsquigarrow j\)</span> if and only if <span class="math inline">\(j \leftrightsquigarrow i\)</span>), and transitive (<span class="math inline">\(i \leftrightsquigarrow j\)</span> and <span class="math inline">\(j \leftrightsquigarrow k\)</span> implies <span class="math inline">\(i \leftrightsquigarrow k\)</span>).</p></li>
 <li><p>The states in a finite-state Markov chain can be partitioned into two sets: <strong>recurrent states</strong> and <strong>transient states</strong>. A state is recurrent if it is accessible from all states that are accessible from it (i.e., <span class="math inline">\(i\)</span> is recurrent if <span class="math inline">\(i \rightsquigarrow j\)</span> implies that <span class="math inline">\(j \rightsquigarrow i\)</span>). States that are not recurrent are <strong>transient</strong>.</p></li>
-<li><p>It can be shown that a state <span class="math inline">\(i\)</span> is recurrent if and only if <span class="math display">\[\sum_{m=1}^{\infty} P^{(m)}_{ii} = \infty.\]</span> This is a consequence of the second Borel-Cantelli lemma (<a href="convergence-of-random-variables.html#lem-Borel-Cantelli-2" class="quarto-xref">Lemma&nbsp;<span>9.2</span></a>) and <strong>strong Markov property</strong> (to be discussed later).</p></li>
+<li><p>It can be shown that a state <span class="math inline">\(i\)</span> is recurrent if and only if <span class="math display">\[
+\sum_{m=1}^{∞}P^{(m)}_{ii}=∞.
+\]</span> This follows from the strong Markov property, which is stated in <a href="#thm-strong-Markov" class="quarto-xref">Theorem&nbsp;<span>11.1</span></a>.</p></li>
 <li><p>States <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to belong to the same <strong>communicating class</strong> if <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> communicate. Communicating classes form a partition of the state space. Within a communicating class, all states are of the same type, i.e., either all states are recurrent (in which case the class is called a recurrent class) or all states are transient (in which case the class is called a transient class).</p>
 <p>For example, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>11.9</span></a>, there are two communication classes: <span class="math inline">\(\{1,2,3\}\)</span> and <span class="math inline">\(\{4,5,6\}\)</span>. The communication class <span class="math inline">\(\{4,5,6\}\)</span> is transient while the communication class <span class="math inline">\(\{1,2,3\}\)</span> is recurrent.</p></li>
 <li><p>A communicating class <span class="math inline">\(C\)</span> is said to be <strong>closed</strong> if <span class="math display">\[
@@ -1037,8 +1065,11 @@ window.Quarto = {
 <li><p>A Markov chain with a single communicating class (thus, all states communicate with each other and are, therefore, recurrent) is called <strong>irreducible</strong>.</p></li>
 <li><p>If <span class="math inline">\(C\)</span> is a finite irreducible closed set of states, then every state in <span class="math inline">\(C\)</span> is recurrent. This is an important result for finite-state Markov chains: any finite closed communicating class must be recurrent.</p></li>
 <li><p>The <strong>period</strong> of a state <span class="math inline">\(i\)</span>, denoted by <span class="math inline">\(d(i)\)</span>, is defined as <span class="math display">\[d(i) = \gcd\{ t \in \integers_{\ge 1} : [P^t]_{ii} &gt; 0 \}.\]</span> If the period is <span class="math inline">\(1\)</span>, the state is <strong>aperiodic</strong>, and if the period is <span class="math inline">\(2\)</span> or more, the state is <strong>periodic</strong>. It can be shown that all states in the same class have the same period.</p></li>
-<li><p>A Markov chain is <strong>aperiodic</strong>, if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state <span class="math inline">\(i\)</span> such that <span class="math inline">\(P_{ii} &gt; 0\)</span>. In general, for a finite and aperiodic Markov chain, there exists a positive integer <span class="math inline">\(M\)</span> such that <span class="math display">\[ P^{(m)}_{ii} &gt; 0,
-       \quad \forall m \ge M, i \in \ALPHABET X.\]</span></p></li>
+<li><p>A Markov chain is <strong>aperiodic</strong> if all states are aperiodic. A simple sufficient (but not necessary) condition for an irreducible Markov chain to be aperiodic is that there exists a state <span class="math inline">\(i\)</span> such that <span class="math inline">\(P_{ii}&gt;0\)</span>. For a finite, irreducible, and aperiodic Markov chain, there exists a positive integer <span class="math inline">\(M\)</span> such that <span class="math display">\[
+    P^{(m)}_{ij}&gt;0,
+    \qquad
+    \forall m\ge M,\quad i,j\in\ALPHABET X.
+    \]</span></p></li>
 </ol>
 </section>
 <section id="hitting-times-and-absorption-probabilities" class="level2" data-number="11.4">
@@ -1049,15 +1080,30 @@ window.Quarto = {
 <li>For any event <span class="math inline">\(E\)</span>, <span class="math inline">\(\PR_i(E)\)</span> denotes <span class="math inline">\(\PR(E \mid X_0 = i)\)</span></li>
 <li>For any random variable <span class="math inline">\(Y\)</span>, <span class="math inline">\(\EXP_i[Y]\)</span> denotes <span class="math inline">\(\EXP[Y \mid X_0 = i]\)</span>.</li>
 </ul></li>
-<li><p>Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\ALPHABET X\)</span>. The <strong>hitting time</strong> <span class="math inline">\(H^A\)</span> of <span class="math inline">\(A\)</span> is a random variable <span class="math inline">\(H^A \colon \ALPHABET X \to \{0, 1, \dots \} \cup \{∞\}\)</span> given by <span class="math display">\[
-  H^A(ω) = \min\{n \ge 0 : X_n(ω) \in A\}.
-\]</span> The standard convention is that <span class="math inline">\(H^A\)</span> is taken to be <span class="math inline">\(∞\)</span> if <span class="math inline">\(X_n \neq A\)</span> for any <span class="math inline">\(n &gt; 0\)</span>. For a state <span class="math inline">\(j \in \ALPHABET X\)</span>, we use the short-hand <span class="math inline">\(H^j\)</span> to denote <span class="math inline">\(H^{\{j\}}\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(A\)</span> be a subset of <span class="math inline">\(\ALPHABET X\)</span>. The <strong>hitting time</strong> <span class="math inline">\(H^A\)</span> of <span class="math inline">\(A\)</span> is the extended-valued random variable <span class="math inline">\(H^A \colon Ω \to \{0,1,\ldots\}\cup\{∞\}\)</span> given by <span class="math display">\[
+  H^A(ω)=\inf\{n\ge0:X_n(ω)\in A\}.
+\]</span> The standard convention is that the infimum of the empty set is <span class="math inline">\(∞\)</span>. Thus, <span class="math inline">\(H^A(ω)=∞\)</span> if the sample path never enters <span class="math inline">\(A\)</span>. For a state <span class="math inline">\(j \in \ALPHABET X\)</span>, we use the shorthand <span class="math inline">\(H^j\)</span> to denote <span class="math inline">\(H^{\{j\}}\)</span>.</p>
+<p>To formalize the special role of hitting times, let <span class="math display">\[
+\mathcal F_n=\sigma(X_0,\ldots,X_n)
+\]</span> denote the information available up to time <span class="math inline">\(n\)</span>. A random time <span class="math inline">\(τ\)</span> is called a <strong>stopping time</strong> if <span class="math display">\[
+\{τ\le n\}\in\mathcal F_n,
+\qquad n\ge0.
+\]</span> In other words, by time <span class="math inline">\(n\)</span> we can determine whether <span class="math inline">\(τ\)</span> has occurred. A hitting time is a stopping time because <span class="math display">\[
+\{H^A\le n\}=\bigcup_{k=0}^n\{X_k\in A\}\in\mathcal F_n.
+\]</span></p>
+<div id="thm-strong-Markov" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 11.1 (Strong Markov property)</strong></span> Let <span class="math inline">\(τ\)</span> be a stopping time. On the event <span class="math inline">\(\{τ&lt;∞\}\)</span>, for every <span class="math inline">\(k\ge0\)</span> and <span class="math inline">\(j\in\ALPHABET X\)</span>, <span class="math display">\[
+\PR(X_{τ+k}=j\mid\mathcal F_τ)
+=P^{(k)}_{X_τj},
+\]</span> where <span class="math inline">\(\mathcal F_τ\)</span> denotes the information available up to time <span class="math inline">\(τ\)</span>. Thus, conditional on the state <span class="math inline">\(X_τ\)</span>, the process after <span class="math inline">\(τ\)</span> evolves like a fresh copy of the Markov chain started from <span class="math inline">\(X_τ\)</span>.</p>
+</div></li>
 <li><p>The probability that starting from state <span class="math inline">\(i\)</span> the Markov chain ever hits <span class="math inline">\(A\)</span> is then given by <span class="math display">\[
    h^A_i = \PR_i(H^A &lt; ∞).
 \]</span> This is called <strong>hitting probability</strong>. When <span class="math inline">\(A\)</span> is a closed class, <span class="math inline">\(h^A_i\)</span> is called the <strong>absorption probability</strong>.</p></li>
-<li><p>The mean-time taken for the Markov chain to reach <span class="math inline">\(A\)</span> is given by <span class="math display">\[
-  m^A_i = \EXP_i[H^A] = \sum_{n=0}^{∞} n \PR_i(H^A = n).
-\]</span> This is called the <strong>mean hitting time</strong>.</p></li>
+<li><p>The mean time taken for the Markov chain to reach <span class="math inline">\(A\)</span> is given by <span class="math display">\[
+  m^A_i=\EXP_i[H^A]
+  =\sum_{n=0}^{∞}\PR_i(H^A&gt;n),
+\]</span> where the expectation and the sum are allowed to be infinite. This is called the <strong>mean hitting time</strong>.</p></li>
 <li><p>A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix <span class="math inline">\(P\)</span>. We start with some examples to illustrate the main idea.</p>
 <div id="exm-coin-toss-head-before-tail" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.10</strong></span> Suppose we toss a coin multiple times. What is the probability of getting a head before getting a tail?</p>
@@ -1081,12 +1127,13 @@ We model this using a Markov chain where the state represents the outcome we’r
 </div></li>
 <li><div id="exm-two-heads-before-two-tails" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.11</strong></span> Two players are playing a game. They repeatedly toss a coin. Player 1 wins if two consecutive heads occur before two consecutive tails. Player 2 wins if two consecutive tails occur before two consecutive heads. What is the probability that Player 1 wins?</p>
-We model this using a Markov chain where the state tracks the pattern of recent coin tosses. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. The Markov chain has five states:
+<p>Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. We initialize the Markov chain in state <span class="math inline">\(0\)</span>, immediately before the first toss. After the first toss and until the game ends, the state records the most recent toss; once two identical tosses occur consecutively, the chain enters the corresponding absorbing state. Thus, state <span class="math inline">\(0\)</span> is visited only at time <span class="math inline">\(0\)</span>. For example, after <span class="math inline">\(HT\)</span> the state is <span class="math inline">\(-1\)</span>, and after <span class="math inline">\(TH\)</span> the state is <span class="math inline">\(1\)</span>; the chain does not return to state <span class="math inline">\(0\)</span>.</p>
+The Markov chain has five states:
 <ul>
 <li>State <span class="math inline">\(-2\)</span>: two consecutive tails (Player 2 wins, absorbing state)</li>
-<li>State <span class="math inline">\(-1\)</span>: one tail (last toss was a tail)</li>
-<li>State <span class="math inline">\(0\)</span>: initial state (or after alternating outcomes like HT or TH)</li>
-<li>State <span class="math inline">\(1\)</span>: one head (last toss was a head)</li>
+<li>State <span class="math inline">\(-1\)</span>: the last toss was a tail, but two consecutive tails have not occurred</li>
+<li>State <span class="math inline">\(0\)</span>: the pre-toss state, occupied only at time <span class="math inline">\(0\)</span></li>
+<li>State <span class="math inline">\(1\)</span>: the last toss was a head, but two consecutive heads have not occurred</li>
 <li>State <span class="math inline">\(2\)</span>: two consecutive heads (Player 1 wins, absorbing state)</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
@@ -1097,19 +1144,24 @@ We model this using a Markov chain where the state tracks the pattern of recent 
 </div>
 <p>Let <span class="math inline">\(h^2_i\)</span> denote the probability of hitting state <span class="math inline">\(2\)</span> (i.e., Player 1 wins) when starting at state <span class="math inline">\(i\)</span>. Then, we have <span class="math display">\[\begin{align*}
   h^2_{-2} &amp;= 0, \\
-  h^2_{-1} &amp;= p h^2_0 + q h^2_{-2} = p h^2_0 + q \cdot 0 = p h^2_0, \\
+  h^2_{-1} &amp;= p h^2_1 + q h^2_{-2} = p h^2_1, \\
   h^2_0 &amp;= p h^2_1 + q h^2_{-1}, \\
-  h^2_1 &amp;= p h^2_2 + q h^2_0 = p \cdot 1 + q h^2_0 = p + q h^2_0, \\
+  h^2_1 &amp;= p h^2_2 + q h^2_{-1} = p + q h^2_{-1}, \\
   h^2_2 &amp;= 1.
-\end{align*}\]</span> From the second equation, we get <span class="math inline">\(h^2_{-1} = p h^2_0\)</span>. From the fourth equation, we get <span class="math inline">\(h^2_1 = p + q h^2_0\)</span>. Substituting into the third equation: <span class="math display">\[
-  h^2_0 = p h^2_1 + q h^2_{-1} = p(p + q h^2_0) + q(p h^2_0) = p^2 + pq h^2_0 + pq h^2_0 = p^2 + 2pq h^2_0.
-\]</span> Solving for <span class="math inline">\(h^2_0\)</span>, we get <span class="math inline">\(h^2_0(1 - 2pq) = p^2\)</span>, so <span class="math display">\[
-  h^2_0 = \frac{p^2}{1 - 2pq} = \frac{p^2}{1 - 2p(1-p)} = \frac{p^2}{1 - 2p + 2p^2} = \frac{p^2}{2p^2 - 2p + 1}.
-\]</span> For a fair coin (<span class="math inline">\(p = q = \frac{1}{2}\)</span>), we get <span class="math inline">\(h^2_0 = \frac{(1/2)^2}{1 - 2(1/2)(1/2)} = \frac{1/4}{1 - 1/2} = \frac{1/4}{1/2} = \frac{1}{2}\)</span>.</p>
+\end{align*}\]</span> From <span class="math inline">\(h^2_{-1}=p h^2_1\)</span> and <span class="math inline">\(h^2_1=p+q h^2_{-1}\)</span>, we obtain <span class="math display">\[
+h^2_1=p+pq h^2_1,
+\qquad
+h^2_1=\frac{p}{1-pq},
+\qquad
+h^2_{-1}=\frac{p^2}{1-pq}.
+\]</span> Therefore, <span class="math display">\[
+h^2_0=p h^2_1+q h^2_{-1}
+=\frac{p^2(1+q)}{1-pq}.
+\]</span> For a fair coin, <span class="math inline">\(p=q=\tfrac12\)</span>, and hence <span class="math inline">\(h^2_0=\tfrac12\)</span>.</p>
 </div></li>
 <li><p>We now provide a general formula for computing hitting probabilities.</p>
 <div id="thm-hitting-probabilities" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 11.1 (Hitting probabilities)</strong></span> The hitting probabilities <span class="math inline">\(\{h^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 11.2 (Hitting probabilities)</strong></span> The hitting probabilities <span class="math inline">\(\{h^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
   h^A_i = \begin{cases}
     1, &amp; i \in A \\
     \sum_{j \in \ALPHABET X} P_{ij} h^A_j, &amp; i \not\in A
@@ -1165,10 +1217,12 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
   λ = p λ^2 + q
 \]</span> which has two distinct roots, <span class="math inline">\(λ_1 = 1\)</span> and <span class="math inline">\(λ_2 = q/p\)</span> if <span class="math inline">\(p \neq q\)</span> and a double root at <span class="math inline">\(λ_1 = 1\)</span> if <span class="math inline">\(p = q = \frac 12\)</span>. Therefore, the general solution is of the form <span class="math display">\[
   h_i = a λ_1^i + b λ_2^i = a + b\Bigl(\tfrac {q}{p} \Bigr)^i
-\]</span> where we determine the coefficients <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> from the boundary conditions <span class="math inline">\(h_0 = 1\)</span> and <span class="math inline">\(h_K = 0\)</span>. Solving for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, we get that for <span class="math inline">\(p \neq q\)</span>, we have <span class="math display">\[
-  h_i = \frac{1 - \Bigl(\frac qp\Bigr)^i}{1 - \Bigl(\frac qp\Bigr)^K}
-\]</span> and for <span class="math inline">\(p = q = \frac 12\)</span>, we have <span class="math display">\[
-  h_i = \frac{i}{K}.
+\]</span> where we determine the coefficients <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> from the boundary conditions <span class="math inline">\(h_0 = 1\)</span> and <span class="math inline">\(h_K = 0\)</span>. Solving for <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>, we get that for <span class="math inline">\(p \neq q\)</span>, <span class="math display">\[
+  h_i
+  =\frac{\Bigl(\frac qp\Bigr)^i-\Bigl(\frac qp\Bigr)^K}
+         {1-\Bigl(\frac qp\Bigr)^K},
+\]</span> and for <span class="math inline">\(p = q = \frac 12\)</span>, <span class="math display">\[
+  h_i=1-\frac{i}{K}.
 \]</span></p>
 </div>
 </div>
@@ -1201,11 +1255,16 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
   m^2_0 &amp;= 1 + q m^2_0 + p m^2_1, \\
   m^2_1 &amp;= 1 + q m^2_0 + p m^2_2, \\
   m^2_2 &amp;= 0.
-\end{align*}\]</span> Solving this system of equations, we get <span class="math inline">\(m^2_0 = 1/(1-p)\)</span>.</p>
+\end{align*}\]</span> From the second equation, <span class="math inline">\(m^2_1=1+q m^2_0\)</span>. Substituting this into the first equation gives <span class="math display">\[
+m^2_0=1+q m^2_0+p(1+q m^2_0)
+=1+p+q(1+p)m^2_0.
+\]</span> Since <span class="math inline">\(1-q(1+p)=p^2\)</span>, we obtain <span class="math display">\[
+m^2_0=\frac{1+p}{p^2}.
+\]</span></p>
 </div></li>
 <li><p>We now provide a general formula for computing mean hitting times.</p>
 <div id="thm-mean-hitting-times" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 11.2 (Mean hitting times)</strong></span> The mean hitting times <span class="math inline">\(\{m^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 11.3 (Mean hitting times)</strong></span> The mean hitting times <span class="math inline">\(\{m^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
   m^A_i = \begin{cases}
     0, &amp; i \in A \\
     1 + \sum_{j \not\in A} P_{ij} m^A_j, &amp; i \not\in A
@@ -1224,7 +1283,7 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The proof is similar to the proof of <a href="#thm-hitting-probabilities" class="quarto-xref">Theorem&nbsp;<span>11.1</span></a>. When <span class="math inline">\(X_0 = i \in A\)</span>, the hitting time <span class="math inline">\(H^A = 0\)</span>, so <span class="math inline">\(m^A_i = 0\)</span>. This proves the first part of the formula.</p>
+<p>The proof is similar to the proof of <a href="#thm-hitting-probabilities" class="quarto-xref">Theorem&nbsp;<span>11.2</span></a>. When <span class="math inline">\(X_0 = i \in A\)</span>, the hitting time <span class="math inline">\(H^A = 0\)</span>, so <span class="math inline">\(m^A_i = 0\)</span>. This proves the first part of the formula.</p>
 <p>For the second part, consider <span class="math inline">\(X_0 = i \not\in A\)</span>. Then <span class="math inline">\(H^A_i \ge 1\)</span>. By the Markov property, we have <span class="math display">\[
   \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
 \]</span> Moreover, by the law of total probability, we have <span class="math display">\[\begin{align*}
@@ -1251,12 +1310,15 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 <li><p><strong>Multi-step transitions:</strong> For the canonical form, we can show by induction that <span class="math display">\[
 P^n = \MATRIX{ Q^n &amp; (I + Q + Q^2 + \cdots + Q^{n-1}) R \\ 0 &amp; I}.
   \]</span> This follows from the fact that matrix multiplication preserves the block structure, and the lower-left block remains zero while the lower-right block remains <span class="math inline">\(I\)</span> for all powers.</p></li>
-<li><p><strong>Fundamental Matrix:</strong> The <strong>fundamental matrix</strong> <span class="math inline">\(N\)</span> is defined as <span class="math display">\[
-  N = (I - Q)^{-1} = I + Q + Q^2 + Q^3 + \cdots.
-\]</span> The series expansion is valid because for transient states, the spectral radius of <span class="math inline">\(Q\)</span> is less than 1, ensuring convergence. The fundamental matrix exists and is well-defined for any Markov chain with at least one absorbing state.</p></li>
-<li><p><strong>Interpretation of <span class="math inline">\(N_{ij}\)</span>:</strong> The entry <span class="math inline">\(N_{ij}\)</span> represents the <strong>expected number of visits to transient state <span class="math inline">\(j\)</span></strong> before absorption, starting from transient state <span class="math inline">\(i\)</span>. This can be seen from the series expansion: <span class="math display">\[
-N_{ij} = \sum_{n=0}^∞ [Q^n]_{ij} = \sum_{n=0}^∞ \PR_i(X_n = j, \text{ chain hasn't been absorbed by time } n).
-  \]</span></p></li>
+<li><p><strong>Fundamental matrix:</strong> Suppose that, starting from any state in <span class="math inline">\(\ALPHABET T\)</span>, the chain is eventually absorbed in <span class="math inline">\(\ALPHABET C\)</span> with probability <span class="math inline">\(1\)</span>. Then <span class="math inline">\(Q^n \to 0\)</span>, or equivalently the spectral radius of <span class="math inline">\(Q\)</span> is less than <span class="math inline">\(1\)</span>. Therefore, the <strong>fundamental matrix</strong> <span class="math display">\[
+  N = (I - Q)^{-1} = I + Q + Q^2 + Q^3 + \cdots
+\]</span> is well-defined. Merely having an absorbing state is not sufficient: that absorbing state must be reached with probability <span class="math inline">\(1\)</span> from every state included in <span class="math inline">\(\ALPHABET T\)</span>.</p></li>
+<li><p><strong>Interpretation of <span class="math inline">\(N_{ij}\)</span>:</strong> The entry <span class="math inline">\(N_{ij}\)</span> represents the <strong>expected number of visits to transient state <span class="math inline">\(j\)</span></strong> before absorption, starting from transient state <span class="math inline">\(i\)</span>. This can be seen from the series expansion. Let <span class="math inline">\(H^{\ALPHABET C}\)</span> denote the time of absorption. Then <span class="math display">\[\begin{align*}
+  N_{ij}
+  &amp;= \sum_{n=0}^∞ [Q^n]_{ij}
+   = \sum_{n=0}^∞ \PR_i(X_n=j,\ n&lt;H^{\ALPHABET C}) \\
+  &amp;= \EXP_i\left[\sum_{n=0}^{H^{\ALPHABET C}-1}\IND{X_n=j}\right].
+\end{align*}\]</span> Thus, the count includes the visit at time <span class="math inline">\(0\)</span>; in particular, a chain starting in state <span class="math inline">\(i\)</span> contributes one visit to state <span class="math inline">\(i\)</span> immediately.</p></li>
 <li><p><strong>Mean hitting times:</strong> Let <span class="math inline">\(\ONES\)</span> denote a column vector of ones with dimension <span class="math inline">\(|\ALPHABET T|\)</span>. Then the mean hitting times (expected time until absorption) starting from each transient state are given by <span class="math display">\[
   m = N \ONES,
 \]</span> where <span class="math inline">\(m_i\)</span> is the mean time until absorption starting from transient state <span class="math inline">\(i\)</span>.</p>
@@ -1564,7 +1626,7 @@ P = \left[\begin{array}{cc|ccc} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
 <p><span class="theorem-title"><strong>Exercise 11.1 (Time reversal of Markov chains)</strong></span> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> be a Markov chain. Show that for any <span class="math inline">\(N &gt; n\)</span>, <span class="math display">\[
   \PR(X_n = x_n \mid X_{n+1:N} = x_{n+1:N})
   = \PR(X_n = x_n \mid X_{n+1} = x_{n+1}).
-\]</span> Thus, a time reversed Markov chain is also Markov.</p>
+\]</span> Thus, a time-reversed Markov chain is also Markov. Explain why the reverse transition probabilities may depend on time even when the forward chain is time-homogeneous.</p>
 </div>
 <div id="exr-k-step-Markov" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 11.2</strong></span> Suppose <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P\)</span>. For a fixed positive integer <span class="math inline">\(k\)</span>, define <span class="math inline">\(Y_n = X_{kn}\)</span>. Show that <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P^k\)</span>.</p>
@@ -1587,6 +1649,9 @@ P = \left[\begin{array}{cc|ccc} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
 <li><p><a href="https://doi.org/10.5948/UPO9781614440222">Doyle and Snell, Random Walks and Electrical Networks</a> shows a facinating relationship between random walks and circuits!</p></li>
 <li><p><a href="https://www.statslab.cam.ac.uk//~rrw1/markov/M.pdf">Weber’s notes on Markov chains</a></p></li>
 </ol>
+</section>
+<section id="references" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 
 
 </section>
