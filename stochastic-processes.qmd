@@ -4,109 +4,210 @@ execute:
   echo: false
 ---
 
-1. A stochastic process is a family of random variables, indexed by time. You may think of it as a random signal. 
+## Processes and sample paths
 
-2. A stochastic process may be described in discrete-time, where we have a family of random variables $\{X_n : n \in N\}$ where index set $N$ is either $\{0, 1, \dots, \}$ or $\{1, 2, \dots\}$ or in some cases $\integers$.
+1. A **stochastic process** is a family of random variables indexed by time. It may be viewed as a random signal.
 
-3. Note that all random variables must be defined on a common probability space $(Ω, \ALPHABET F, \PR)$. For a fixed $ω \in Ω$, we get a sequence of real numbers $\{X_n(ω)\}_{n \ge 0}$. Such a sequence is called a **realization** or **sample path**.
+2. A discrete-time stochastic process is a collection $\{X_n\}_{n\in\mathcal T}$, where the time index set $\mathcal T$ is typically $\integers_{\ge0}$, $\naturalnumbers$, or $\integers$. All the random variables are defined on a common probability space $(Ω,\ALPHABET F,\PR)$.
 
-4. As an example, consider an infinite sequence of bits, where each bit is i.i.d. $\text{Bernoulli}(p)$. A sample path is shown below. 
+3. For each fixed time $n$, $X_n$ is a random variable. For each fixed $ω\inΩ$, the sequence
+   $$
+   X_0(ω),X_1(ω),X_2(ω),\ldots
+   $$
+   is called a **realization** or **sample path** of the process. Thus, a process can be viewed either as a sequence of random variables or as a random choice of a signal.
+
+4. A continuous-time stochastic process is a collection $\{X_t\}_{t\in\mathcal T}$, where $\mathcal T$ is typically $[0,∞)$ or $\reals$. Continuous-time processes require some additional technical care. We will focus primarily on discrete-time processes.
+
+## Examples
+
+:::{#exm-bernoulli-process}
+### Bernoulli process and Bernoulli counting process
+
+Let $\{B_n\}_{n\ge1}$ be an i.i.d. sequence with
+$$
+B_n\sim\operatorname{Bernoulli}(p),
+$$
+and define the counting process
+$$
+N_0=0,
+\qquad
+N_n=\sum_{k=1}^n B_k,
+\quad n\ge1.
+$$
+The process $\{B_n\}_{n\ge1}$ is called a **Bernoulli process**, and $\{N_n\}_{n\ge0}$ is called the associated **Bernoulli counting process**. The latter is also sometimes called a binomial process.
+
+The plots below show the Bernoulli process and its counting process for the same realization.
 
 ```{ojs}
-viewof rerun_bits= Inputs.button("Generate sample path")
+viewof p_bernoulli_process = Inputs.range([0, 1], {label: "p", value: 0.3, step: 0.05})
+viewof rerun_bernoulli_process = Inputs.button("Generate sample path")
 
-points_bits = {
+points_bernoulli_process = {
+    rerun_bernoulli_process
 
-    rerun_bits
+    const T = 120
+    const points = new Array(T)
+    let count = 0
 
-    const N = 120
-    const p = 0.5
-    var points = new Array(N)
-
-    for(var n=0; n < N; n++) {
-      var val = (Math.random() <= p) ? 0 : 1
-      points[n-1] = { n: n, X_n: val }
+    for (let n = 1; n <= T; n++) {
+      const B_n = (Math.random() <= p_bernoulli_process) ? 1 : 0
+      count += B_n
+      points[n-1] = {n: n, B_n: B_n, N_n: count}
     }
     return points
 }
- ```
+```
 
 ```{ojs}
 Plot.plot({
   grid: true,
-  y : {ticks: 1 },
-  height: 100,
+  height: 120,
+  y: {domain: [0, 1], ticks: 1, label: "Bₙ"},
   marks: [
-    // Axes
-    Plot.ruleX([0]),
     Plot.ruleY([0]),
-    // Data
-    Plot.ruleX(points_bits, {x: "n", y: "X_n", strokeWidth: 1}),
-    Plot.dot(points_bits, {x: "n", y: "X_n", fill: "currentColor", r: 2}),
+    Plot.ruleX(points_bernoulli_process, {x: "n", y1: 0, y2: "B_n", strokeWidth: 1}),
+    Plot.dot(points_bernoulli_process, {x: "n", y: "B_n", fill: "currentColor", r: 2})
   ]
 })
 ```
 
-5. As an other example, consider a stochastic process $\{Y_n\}_{n \ge 0}$ defined as
-   $$ Y_n = x_n + W_n $$
-   where $\{x_n\}_{n \ge 0}$ is a deterministic discrete-time signal given by $x_n = \sin(2πn/25)$ and $\{W_n\}_{n \ge 0}$ is a Gaussian noise process, where $W_n \sim \mathcal{N}(0,0.2)$. A sample path of $\{Y_n\}_{n \ge 0}$ is shown below.
+```{ojs}
+Plot.plot({
+  grid: true,
+  height: 180,
+  y: {label: "Nₙ"},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(points_bernoulli_process, {x: "n", y: "N_n", curve: "step-after", strokeWidth: 1.5}),
+    Plot.dot(points_bernoulli_process, {x: "n", y: "N_n", fill: "currentColor", r: 2})
+  ]
+})
+```
+:::
+
+Some properties of these processes are as follows:
+
+- At every time $n$, $B_n\sim\operatorname{Bernoulli}(p)$, while
+  $$
+  N_n\sim\operatorname{Binomial}(n,p).
+  $$
+- The random variables $B_1,B_2,\ldots$ are independent, but $N_1,N_2,\ldots$ are not. In fact, $N_{n+1}=N_n+B_{n+1}$.
+- For every $n\ge0$ and $h\ge1$,
+  $$
+  N_{n+h}-N_n=B_{n+1}+\cdots+B_{n+h}
+  \sim\operatorname{Binomial}(h,p).
+  $$
+  Thus, the distribution of an increment depends on its length $h$ but not on its starting time $n$. Moreover, increments over disjoint time intervals are independent.
+
+:::{#exm-signal-plus-noise}
+### Signal plus noise
+
+Consider the process
+$$
+Y_n=x_n+W_n,
+$$
+where $x_n=\sin(2πn/25)$ is a deterministic discrete-time signal and $\{W_n\}_{n\ge0}$ is an i.i.d. Gaussian sequence with $W_n\sim\mathcal N(0,σ^2)$ and $σ=0.2$. A sample path of $\{Y_n\}_{n\ge0}$ is shown below.
 
 ```{ojs}
-// From https://stackoverflow.com/a/36481059/193149
-// Standard Normal variate using Box-Muller transform.
+// Standard Gaussian variate using the Box--Muller transform.
 function gaussianRandom(mean=0, stdev=1) {
-    const u = 1 - Math.random(); // Converting [0,1) to (0,1]
-    const v = Math.random();
-    const z = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
-    // Transform to the desired mean and standard deviation:
-    return z * stdev + mean;
+    const u = 1 - Math.random()
+    const v = Math.random()
+    const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
+    return z * stdev + mean
 }
 
 viewof rerun_noise = Inputs.button("Generate sample path")
 
 points_noise = {
-
     rerun_noise
 
-    const N = 120
+    const T = 120
     const sigma = 0.2
-    const omega = 2*Math.PI*0.04
-    var points = new Array(N)
+    const omega = 2 * Math.PI / 25
+    const points = new Array(T + 1)
 
-    for(var n=0; n < N; n++) {
-      var signal = Math.sin(omega*n)
-      var noise = gaussianRandom(0, sigma)
-
-      points[n-1] = { n: n, X_n: signal,  W_n: noise, Y_n: signal + noise }
+    for (let n = 0; n <= T; n++) {
+      const signal = Math.sin(omega * n)
+      const noise = gaussianRandom(0, sigma)
+      points[n] = {n: n, x_n: signal, Y_n: signal + noise}
     }
     return points
 }
- ```
+```
 
 ```{ojs}
 Plot.plot({
   grid: true,
-  y : {ticks: 1 },
-  height: 100,
+  height: 200,
+  y: {label: "Yₙ"},
   marks: [
-    // Axes
-    Plot.ruleX([0]),
     Plot.ruleY([0]),
-    // Data
-    Plot.ruleX(points_noise, {x: "n", y: "Y_n", strokeWidth: 1}),
-    Plot.dot(points_noise, {x: "n", y: "Y_n", fill: "currentColor", r: 2}),
+    Plot.line(points_noise, {x: "n", y: "Y_n", curve: "step-after", stroke: "currentColor", strokeWidth: 1.5}),
+    Plot.dot(points_noise, {x: "n", y: "Y_n", fill: "currentColor", r: 2})
   ]
 })
 ```
+:::
 
-6. It is also possible for a stochastic process to be continuous time, where we have an uncountable collection of random variables $\{X_t : t \in T \}$, where the index set $T$ is either $(-∞, ∞)$ or $[0, ∞)$. Continuous-time stochastic processes tend to be a bit more technical than discrete-time stochastic processes. 
+At each fixed time,
+$$
+Y_n\sim\mathcal N(x_n,σ^2).
+$$
+A sample path looks like a noisy signal, while the random variable $Y_n$ describes uncertainty at one particular time.
 
-7. As the above examples illustrate, the random variables $\{X_n\}_{n \ge 0}$ need not be independent. So, we need a way to specify the joint distribution of a countable collection of random variables. This means that for any collection of time indices $\{n_1, \dots, n_k\}$, we must be able to specify the joint CDF of the random variables $(X_{n_1}, X_{n_2}, \dots, X_{n_k})$.
+## Finite-dimensional distributions and dependence
 
-8. A discrete time stochastic process $\{X_n\}_{n \ge 0}$ is called **strong-sense stationary** if for any $\{n_1, \dots, n_k\}$ and $m > 0$, the random vectors
+1. The marginal distribution of $X_n$ at each time is not enough to specify a stochastic process. For example, consider the following two processes:
    $$
-     (X_{n_1}, X_{n_2}, \dots, X_{n_k})
-     \quad \text{and}\quad
-     (X_{n_1 + m}, X_{n_2 + m}, \dots, X_{n_k + m})
+   X_n=B_n,
+   \qquad
+   \widetilde X_n=B_1,
+   \quad n\ge1,
    $$
-   have the same joint distributions.
+   where $\{B_n\}_{n\ge1}$ is an i.i.d. Bernoulli process. Both $X_n$ and $\widetilde X_n$ have a $\operatorname{Bernoulli}(p)$ distribution at every time. However, the variables $X_1,X_2,\ldots$ are independent, while $\widetilde X_1=\widetilde X_2=\cdots$.
+
+2. A stochastic process is specified by its **finite-dimensional distributions**: for every finite collection of time indices $n_1,\ldots,n_k$, we specify the joint distribution of
+   $$
+   (X_{n_1},\ldots,X_{n_k}).
+   $$
+
+3. For a discrete-valued process, the general chain rule gives
+   \begin{align*}
+   &\PR(X_0=x_0,X_1=x_1,\ldots,X_n=x_n)\\
+   &\quad=\PR(X_0=x_0)
+   \PR(X_1=x_1\mid X_0=x_0)
+   \PR(X_2=x_2\mid X_0=x_0,X_1=x_1)\\
+   &\qquad\mathrel{\phantom{=}}\cdots
+   \PR(X_n=x_n\mid X_0=x_0,\ldots,X_{n-1}=x_{n-1}).
+   \end{align*}
+   Thus, a process can be described by specifying how the conditional distribution of the next random variable depends on the past.
+
+4. For an i.i.d. process, the past has no influence on the next random variable. A **Markov chain** permits temporal dependence but assumes that the current value summarizes all the relevant information from the past:
+   $$
+   \PR(X_{n+1}=x_{n+1}\mid X_0=x_0,\ldots,X_n=x_n)
+   =\PR(X_{n+1}=x_{n+1}\mid X_n=x_n).
+   $$
+   Markov chains are studied in detail in the next chapter.
+
+## Stationarity
+
+1. A discrete-time stochastic process $\{X_n\}_{n\ge0}$ is **strict-sense stationary** if shifting all time indices by the same amount does not change any finite-dimensional distribution. More precisely, for every $k$, every collection of time indices $n_1,\ldots, n_k$, and every $h\ge0$, the random vectors
+   $$
+   (X_{n_1},\ldots,X_{n_k})
+   \quad\text{and}\quad
+   (X_{n_1+h},\ldots,X_{n_k+h})
+   $$
+   have the same distribution.
+
+2. The Bernoulli process $\{B_n\}_{n\ge1}$ is strictly stationary because it is i.i.d. The Bernoulli counting process $\{N_n\}_{n\ge0}$ is not stationary because $N_n\sim\operatorname{Binomial}(n,p)$ depends on $n$. It does, however, have stationary independent increments.
+
+3. The signal-plus-noise process in @exm-signal-plus-noise is not stationary because
+   $$
+   \EXP[Y_n]=x_n=\sin(2πn/25)
+   $$
+   depends on time.
+
+4. Strict-sense stationarity implies that the marginal distribution of $X_n$ does not depend on $n$. Consequently, if the relevant moments exist, $\EXP[X_n]$ and $\VAR(X_n)$ are constant. The converse is not true: time-invariant marginal distributions, or even constant means and variances, do not by themselves imply stationarity.
+
+5. In later chapters, we will study two complementary ways of describing temporal dependence. Markov chains describe dependence through conditional distributions and a state that summarizes the past. Gaussian and second-order processes describe dependence through means and covariance functions. State-space models combine these viewpoints for stochastic systems with inputs, outputs, and an internal state.
