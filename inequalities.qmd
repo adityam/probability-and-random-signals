@@ -11,7 +11,7 @@ Let $A_1, \dots, A_n$ be a collection of events. Then,
 $$
 \PR\biggl( \bigcup_{i=1}^n A_i \biggr) 
 \le 
-\sum_{i=1}^n \PR(A_n).
+\sum_{i=1}^n \PR(A_i).
 $$
 
 :::
@@ -27,14 +27,53 @@ $$
 
 :::{.callout-note collapse="false"}
 ### Solution
-We know that
-$$Z_n = \min(X_1, \dots, X_n) \le z$$
-if and only if
-$$ X_i \le Z \quad \forall i \in \{1, \dots, n\}.$$
-Therefore,
-$$\PR(Z_n \le z) = \PR\biggl( \bigcup_{i=1}^n \{X_i \le z \} \biggr)
-\le \sum_{i=1}^n \PR(X_i \le z) = n F_X(z).
+The event $Z_n\le z$ occurs if and only if at least one $X_i\le z$. Therefore,
 $$
+\PR(Z_n\le z)
+=\PR\biggl(\bigcup_{i=1}^n\{X_i\le z\}\biggr)
+\le\sum_{i=1}^n\PR(X_i\le z)
+=nF_X(z).
+$$
+Since the random variables are independent, the exact CDF is
+$$
+F_{Z_n}(z)
+=1-\PR(X_1>z,\ldots,X_n>z)
+=1-\bigl(1-F_X(z)\bigr)^n.
+$$
+Thus, the union bound gives
+$$
+1-\bigl(1-F_X(z)\bigr)^n\le nF_X(z).
+$$
+:::
+
+:::{#exm-union-bound-process-maximum}
+Let $\{X_k\}_{k\ge1}$ be a sequence of random variables. Show that, for every $a\in\reals$ and $n\ge1$,
+$$
+\PR\left(\max_{1\le k\le n}X_k\ge a\right)
+\le\sum_{k=1}^n\PR(X_k\ge a).
+$$
+Does this bound require the random variables $X_1,\ldots,X_n$ to be independent?
+:::
+
+:::{.callout-note collapse="true"}
+### Solution
+
+The event that at least one of the first $n$ random variables exceeds $a$ is
+$$
+\left\{\max_{1\le k\le n}X_k\ge a\right\}
+=\bigcup_{k=1}^n\{X_k\ge a\}.
+$$
+Therefore, the union bound gives
+$$
+\PR\left(\max_{1\le k\le n}X_k\ge a\right)
+\le\sum_{k=1}^n\PR(X_k\ge a).
+$$
+No independence assumption is needed. In particular, if the $X_k$ have the same marginal distribution, then
+$$
+\PR\left(\max_{1\le k\le n}X_k\ge a\right)
+\le n\PR(X_1\ge a).
+$$
+Thus, the union bound converts individual tail bounds into a bound on the maximum of several random variables.
 :::
 
 :::{#exm-union-bound-infinite-events}
@@ -42,23 +81,23 @@ Let $\{A_i\}_{i = 1}^{∞}$ be a countably infinite sequence of events. Show tha
 
 a. If $\PR(A_i) = 0$ for all $i \in \naturalnumbers$, then
    $$ \PR\Bigl( \bigcup_{i=1}^{∞} A_i \Bigr) = 0. $$
-a. If $\PR(A_i) = 1$ for all $i \in \naturalnumbers$, then
+b. If $\PR(A_i) = 1$ for all $i \in \naturalnumbers$, then
    $$ \PR\Bigl( \bigcap_{i=1}^{∞} A_i \Bigr) = 1. $$
 
 :::
 
-## Cauchy-Schwartz inequality
+## Cauchy–Schwarz inequality {#cauchy-schwarz-inequality}
 
-This is a generalization of [:Cauchy-Schwartz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality) on inner products to random variables. 
+This is the Cauchy–Schwarz inequality for the inner product $\IP{X}{Y}=\EXP[XY]$ on square-integrable random variables.
 
 :::{.callout-tip}
-### Cauchy-Schwartz inequality
+### Cauchy–Schwarz inequality
 
-Let $X$ and $Y$ be real-valued random variables. Then,
+Let $X$ and $Y$ be real-valued random variables with finite second moments. Then,
 $$
-\EXP[XY]^2 \le \EXP[X^2] \EXP[Y^2].
+(\EXP[XY])^2 \le \EXP[X^2] \EXP[Y^2].
 $$
-or equivalently,
+Applying this inequality to the centered random variables $X-\EXP[X]$ and $Y-\EXP[Y]$ gives
 $$
 \COV(X,Y)^2 \le \VAR(X) \VAR(Y).
 $$
@@ -67,23 +106,34 @@ $$
 :::{.callout-note collapse="false"}
 ### Proof
 
-Define $f(s) = \EXP[ (sX + Y)^2$ for any $s \in \reals$. Then, by linearity of expectation, we have
+If $\EXP[X^2]=0$, then $X=0$ almost surely and the result is immediate. Otherwise, define
+$$
+f(s)=\EXP[(sX+Y)^2],
+\qquad s\in\reals.
+$$
+By linearity of expectation,
 $$
 f(s) = \EXP[ (sX + Y)^2 ] = s^2 \EXP[X^2] + 2s \EXP[XY] + \EXP[Y^2].
 $$
-We know that $f(s) \ge 0$. Recall that a quadratic form 
+We know that $f(s) \ge 0$. A quadratic
 $$
 A s^2 + B s + C \ge 0
 $$ 
-for all values of $s$ if and only it has repeated or complex roots. Thus, the determinant must be non-positive, that is
+for every $s$, with $A>0$, must have non-positive discriminant:
 $$
 Δ = B^2 - 4AC \le 0.
 $$
-The result follows by taking $A = \EXP[X^2]$, $B = 2 \EXP[XY]$, and $C = \EXP[Y^2]$. 
+Taking $A = \EXP[X^2]$, $B = 2 \EXP[XY]$, and $C = \EXP[Y^2]$ gives
+$$
+(\EXP[XY])^2\le\EXP[X^2]\EXP[Y^2].
+$$
+The covariance inequality follows by applying this result to $X-\EXP[X]$ and $Y-\EXP[Y]$.
 :::
 
+The following exercise establishes the **Paley--Zygmund inequality**, which gives a lower bound on the probability that a non-negative random variable is not too far below its mean.
+
 :::{#exm-2025-mid-term-4}
-Let $X \ge 0$ be a random variable with mean $μ$ and finite variance $σ^2$. Given $λ \in (0,1)$, define
+Let $X \ge 0$ be a random variable with mean $μ>0$ and finite variance $σ^2$. Given $λ \in (0,1)$, define
 $$A = \{ ω : X(ω) \ge λ μ \}.$$
 
 a. Show that
@@ -97,12 +147,46 @@ b. Using the result of part (a), show that
      = (1-λ)^2 \frac{μ^2}{μ^2 + σ^2}.   
    $$
 
-      _Hint:_ Use Cauchy Schwartz to bound $\EXP[X \IND_A]$. 
+      _Hint:_ Use Cauchy–Schwarz to bound $\EXP[X \IND_A]$.
+:::
+
+:::{.callout-note collapse="true"}
+### Solution
+
+On $A^c$, we have $X<λμ$. Therefore,
+$$
+X\IND_{A^c}\le λμ\IND_{A^c}\le λμ.
+$$
+Using $X=X\IND_A+X\IND_{A^c}$ gives
+$$
+μ
+=\EXP[X\IND_A]+\EXP[X\IND_{A^c}]
+\le\EXP[X\IND_A]+λμ,
+$$
+and hence
+$$
+\EXP[X\IND_A]\ge(1-λ)μ.
+$$
+
+By the Cauchy–Schwarz inequality,
+$$
+(\EXP[X\IND_A])^2
+\le\EXP[X^2]\EXP[\IND_A^2]
+=\EXP[X^2]\PR(A).
+$$
+Combining this with part (a) yields
+\begin{align*}
+\PR(X\ge λμ)
+=\PR(A)
+&\ge\frac{(\EXP[X\IND_A])^2}{\EXP[X^2]}\\
+&\ge(1-λ)^2\frac{μ^2}{\EXP[X^2]}\\
+&=(1-λ)^2\frac{μ^2}{μ^2+σ^2}.
+\end{align*}
 :::
 
 ## Jensen's inequality
 
-If we take $Y = 1$ in Cauchy-Schwartz inequality, we get that 
+If we take $Y = 1$ in the Cauchy–Schwarz inequality, we get that
 $$
 \EXP[X^2] \ge \EXP[X]^2.
 $$
@@ -111,36 +195,41 @@ This also follows from the fact that $\VAR(X) \ge 0$. Jensen's inequality may be
 :::{.callout-tip}
 ### Jensen's inequality
 
-Suppose $X$ is a real-valued random variable. Then for any **convex** $g \colon \reals \to \reals$, we have
+Let $X$ be an integrable random variable taking values in an interval $I$, and let $g\colon I\to\reals$ be **convex**. If $g(X)$ is integrable, then
 $$
 \EXP[ g(X) ] \ge g(\EXP[X]).
 $$
 
-Moreover, for any **concave** $g \colon \reals \to \reals$, we have
+If $g\colon I\to\reals$ is **concave** and $g(X)$ is integrable, then
 $$
 \EXP[ g(X) ] \le g(\EXP[X]).
 $$
 :::
 
-For example, since $g(x) = 1/x$ is convex, we have
+For example, $g(x)=1/x$ is convex on $(0,∞)$ and $g(x)=\log x$ is concave on $(0,∞)$. Thus, if $X>0$ almost surely and the relevant expectations are finite, then
 $$
-\EXP\left[\frac 1x\right] \ge \frac{1}{\EXP[X]}.
-$$
-Moreover, since $g(x) = \log(x)$ is concave, we have
-$$
-\EXP[ \log(X)] \le \log(\EXP[X]).
+\EXP\left[\frac1X\right]\ge\frac1{\EXP[X]}
+\qquad\text{and}\qquad
+\EXP[\log X]\le\log(\EXP[X]).
 $$
 
 :::{.callout-note collapse="false"}
 #### Proof
 
-![Tangent at the mean of $X$](figures/svg/inequalities1.svg){#fig-tangent}
+![A supporting line at the mean of $X$](figures/svg/inequalities1.svg){#fig-tangent}
 
-Let $μ = \EXP[X]$. Consider the function $L$ defined in @fig-tangent, which is the tangent at $μ$ on $g(x)$. By construction, $g(x) \ge L(x)$. Therefore, 
+Let $μ=\EXP[X]$, and consider an affine supporting line to $g$ at $μ$, as illustrated in @fig-tangent. Thus, $L(x)=ax+b$ for some $a,b\in\reals$, and
+$$
+L(μ)=g(μ)
+\qquad\text{and}\qquad
+L(x)\le g(x),\quad x\in I.
+$$
+Convexity guarantees the existence of such a supporting line, even when $g$ is not differentiable at $μ$. If $g$ is differentiable at $μ$, the supporting line is the tangent line; otherwise, its slope $a$ is a subgradient of $g$ at $μ$. Therefore,
 $$
   \EXP[g(X)] \ge \EXP[L(X)]
   = \EXP[aX + b] = a μ + b = L(μ) = g(μ).
 $$
+The concave case follows by applying the convex result to $-g$.
 :::
 
 
@@ -158,11 +247,11 @@ $$
 :::{.callout-note collapse="false"}
 #### Proof
 
-Define $Z = \IND\{X \ge a\} a$, which moves all the "mass" of $X$ to the left.
-
-<!-- TODO: Add figure --> 
-
-Thus,
+Define
+$$
+Z=a\IND_{\{X\ge a\}}.
+$$
+Since $X$ is non-negative, $Z\le X$ pointwise: on $\{X<a\}$, $Z=0\le X$, while on $\{X\ge a\}$, $Z=a\le X$. Therefore,
 $$
 \EXP[X] \ge \EXP[Z] = a \PR(X \ge a).
 $$
@@ -185,7 +274,7 @@ The table below compares the actual tail probability with the bound obtained fro
 
 :::
 
-@exm-Markov shows that the Markov inequality is not tight. Moreover, it gives a vacuous bound for $a < μ$. Thus, it only makes sense to apply the Markov inequality when $a \ge μ$.  
+@exm-Markov shows that the Markov inequality is not tight. Moreover, it gives a vacuous bound for $a < μ$. Thus, the bound is nontrivial only when $a\ge μ$.
 
 ### Union bound as a special case of Markov inequality
 
@@ -215,12 +304,12 @@ The union bound follows by combining the above equations.
 :::{.callout-tip}
 ### Chebyshev inequality
 
-Let $X$ be a real-valued random variable with mean $μ$. Then for any $a > 0$, we have
+Let $X$ be a real-valued random variable with mean $μ$ and finite variance. Then for any $a > 0$, we have
 $$
 \PR( \ABS{X - μ} \ge a) \le \frac{ \VAR(X) }{a^2}.
 $$
 
-An alternative form of is as follows. Let $a = k σ$. Then,
+If $σ^2=\VAR(X)>0$, an alternative form is obtained by setting $a=kσ$, where $k>0$:
 $$
 \PR(\ABS{X - μ} \ge k σ) \le \frac{1}{k^2}.
 $$
@@ -235,10 +324,10 @@ Observe that
 \\
 &\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
 \end{align*}
-where $(a)$ follows from Markov inequality. 
+Here, $(a)$ follows from Markov inequality.
 :::
 
-In the following example, we compare the strength of Chebyshev inequality compared to that of Markov inequality.
+In the following example, we compare the strengths of the Chebyshev and Markov inequalities.
 
 :::{#exm-Binomial-comparison}
   Let $X \sim \text{Bin}(n,p)$ and consider any $q \in (p,1)$. Use both Markov and Chebyshev inequalities to bound $\PR(X \ge nq)$. 
@@ -267,14 +356,16 @@ We can use Chebyshev inequality to prove the **weak law of large numbers**.
 :::{.callout-tip}
 ### Weak law of large numbers
 
-Let $X_1, X_2, \dots$ be independent random variables with $\EXP[X_n] = μ$ and $\VAR(X_n) = σ^2$. Let
+Let $X_1, X_2, \dots$ be independent random variables with $\EXP[X_i] = μ$ and $\VAR(X_i) = σ^2$. Let
 $$
 \bar X_n = \frac 1n \sum_{i=1}^n X_i
 $$
-be the sample mean. Then,
-$$\PR(\ABS{X_n - μ} > ε) \le \frac{σ^2}{n ε^2}. $$
+be the sample mean. Then, for every $ε>0$,
+$$
+\PR(\ABS{\bar X_n - μ} > ε) \le \frac{σ^2}{n ε^2}.
+$$
 
-Therefore, $X_n \xrightarrow{p} μ$ (which reads as $X_n$ converges in probability to $μ$; we will study convergence in probability in next lecture).
+Therefore, $\bar X_n \xrightarrow{p} μ$; that is, $\bar X_n$ converges in probability to $μ$. We study this mode of convergence in [a later chapter](convergence-of-random-variables.qmd#convergence-in-probability).
 :::
 
 :::{.callout-note collapse="false"}
@@ -288,15 +379,15 @@ Observe that
 
 Then, by Chebyshev inequality, we have
 $$
-\PR(\ABS{X_n - μ} > ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
+\PR(\ABS{\bar X_n - μ} > ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
 $$
 :::
 
-If we do not know $\VAR(X)$, we can still use Chebyshev inequality with an upper bound on $\VAR(X)$. For example, if $X \in [a,b]$, then we can show that
+If we do not know $\VAR(X)$, we can still use Chebyshev inequality with an upper bound on $\VAR(X)$. For example, if $X\in[a,b]$ almost surely, then
 $$
 \VAR(X) \le \frac{(b-a)^2}{4}.
 $$
-So, for any random variable $X \in [a,b]$, we have that
+Thus, for any random variable $X\in[a,b]$ almost surely,
 $$
 \PR(\ABS{X - μ} > ε) \le \frac{(b-a)^2}{4 ε^2}.
 $$
@@ -306,96 +397,140 @@ $$
 :::{.callout-tip}
 ### Chernoff Bound
 
-Let $X$ be a real-valued random variable. Then, for any $a > 0$, we have
+Let $X$ be a real-valued random variable and let $a\in\reals$. For every real $s>0$ in the region of convergence $\mathcal R_X$,
 $$
-\PR(X \ge a) \le e^{-φ(a)}
+\PR(X\ge a)
+\le e^{-sa}M_X(s)
+=\exp\bigl(-(sa-K_X(s))\bigr),
 $$
-where
+where $K_X(s)=\log M_X(s)$ is the [cumulant generating function](moment-generating-functions.qmd#cumulant-generating-functions). Consequently, if $\mathcal R_X$ contains positive real numbers, then
 $$
-φ(a) = \max_{s > 0} \{ s a - \log M_X(s) \}
-$$ 
-is the [Legendre-Fenchel transform](https://adityam.github.io/stochastic-control/convexity/duality.html) of $\log M_X(s)$.
+\PR(X\ge a)\le e^{-I_+(a)},
+\qquad
+I_+(a)
+=\sup_{\substack{s>0\\s\in\mathcal R_X}}
+\{sa-K_X(s)\}.
+$$
+The function $I_+$ is the one-sided [Legendre--Fenchel transform](https://adityam.github.io/stochastic-control/convexity/duality.html) of $K_X$.
 :::
 
 :::{.callout-note collapse="false"}
 ### Proof
 
-The proof relies on two observations. First, for any $s > 0$, $e^s x$ is an increasing function of $x$. Therefore, 
+For any real $s>0$ in $\mathcal R_X$, the function $x\mapsto e^{sx}$ is increasing. Therefore,
 $$
-\{ ω : X(ω) > a \} = \{ ω : e^{sX(ω)} > e^{sa} \}.
+\{X\ge a\}=\{e^{sX}\ge e^{sa}\}.
 $$
-Hence,
+Since $e^{sX}$ is non-negative, Markov inequality gives
 $$
-\PR(X > a) = \PR(e^{sX} \ge e^{sa}) 
-\le \frac{\EXP[e^{sX}}{e^{sa}}
-= e^{-( sa - \log M_X(s) ) }
+\PR(X\ge a)
+=\PR(e^{sX}\ge e^{sa})
+\le\frac{\EXP[e^{sX}]}{e^{sa}}
+=\exp\bigl(-(sa-K_X(s))\bigr).
 $$
-where the inequality follows from Markov inequality
-
-Second, observe that the above inequality holds for every $s > 0$. So, to get the tightest bound, we minimize the RHS over all $s > 0$, i.e.,
-$$
-\PR(X > a) = \PR(e^{sX} \ge e^{sa}) 
-\le \min_{s > 0} e^{-( sa - \log M_X(s) ) }
-$$
-Since $e^x$ is increasing in $x$, the minimizer above is the same as the maximizer for
-$$
-φ(a) = \max_{s > 0} \{ sa - \log M_X(s) \}.
-$$
+Taking the infimum of the upper bound over all admissible $s>0$ is equivalent to taking the supremum of $sa-K_X(s)$, which gives the stated result.
 :::
 
-Chernoff bound is much stronger than Markov and Chebyshev inequalities. To see that, let's revisit the bound of @exm-Binomial-comparison. For a Binomial random variable, 
+The Chernoff bound can be much stronger than Markov and Chebyshev inequalities. To see this, revisit @exm-Binomial-comparison. For a binomial random variable,
 $$ 
 M_X(s) = (1 - p + p e^s)^n.
 $$
-Then,
-$$\PR(X \ge nq) \le \exp\left( - \max_{s \ge 0} \Big[ sn q - n \log(1-p + p e^s) \Big] \right)
-= \exp\left( - n \max_{s \ge 0} \Big[ s q - \log(1 - p + p^s) \Big] \right).
+Then
+\begin{align*}
+\PR(X\ge nq)
+&\le
+\exp\left(
+-n\sup_{s\ge0}
+\left[sq-\log(1-p+pe^s)\right]
+\right).
+\end{align*}
+For $q\in(p,1)$, the supremum is attained at
 $$
-Even before we go ahead and compute the value in maximum of the term in square brackets, we observe that the result here is qualitatively different from that in @exm-Binomial-comparison. As for Chebyshev inequality, we get that the probability is going to zero, but Chernoff bound shows that the probability is going to zero _exponentially fast_. A bit of algebra shows that the exact bound is
+s^*=\log\left(\frac{q(1-p)}{p(1-q)}\right)>0.
 $$
-\PR(X \ge nq) \le \exp\bigl( - n D(p \| q) \bigr),
+Substituting $s^*$ gives the optimized Chernoff bound
+$$
+\PR(X\ge nq)\le\exp\bigl(-nD(q\|p)\bigr),
 $$
 where 
 $$
-D(p \| q) = q \log \left( \frac{q}{p} \right) + (1-q) \log \left( \frac{1-q}{1 - p} \right).
+D(q\|p)
+=q\log\left(\frac qp\right)
++(1-q)\log\left(\frac{1-q}{1-p}\right).
 $$
+Unlike the Chebyshev bound, which decreases as $1/n$, the Chernoff bound decreases exponentially in $n$.
 
 We now present another example to show the tightness of the Chernoff bound.
 
 :::{#exm-Chernoff-Gaussian}
-Use the Chernoff bound to compute a tail bound on Gaussian random variable, i.e., for any $ε > 0$, bound
-$\PR(X \ge 0)$.
+Let $X\sim\mathcal N(μ,σ^2)$. For $ε>0$, use the Chernoff bound to bound
+$$
+\PR(X-μ\ge ε).
+$$
 :::
 
-<!-- TODO: Write solution --> 
+:::{.callout-note collapse="true"}
+### Solution
 
-## Azuma-Hoeffding inequality
+Let $Y=X-μ\sim\mathcal N(0,σ^2)$. Its cumulant generating function is
+$$
+K_Y(s)=\frac12σ^2s^2.
+$$
+Therefore, for every $s>0$,
+$$
+\PR(Y\ge ε)
+\le\exp\left(-sε+\frac12σ^2s^2\right).
+$$
+The exponent is minimized at $s^*=ε/σ^2$, which gives
+$$
+\boxed{
+\PR(X-μ\ge ε)
+\le\exp\left(-\frac{ε^2}{2σ^2}\right).
+}
+$$
+Applying the same argument to $-Y$ and using the union bound also gives
+$$
+\PR(\ABS{X-μ}\ge ε)
+\le2\exp\left(-\frac{ε^2}{2σ^2}\right).
+$$
+:::
 
-Although Chernoff bound is fairly tight, one of the drawbacks is that it requires the knowledge of the MGF of $X$. This is in contrast to Markov and Chebyshev inequalities which only require knowledge of the mean and variance. For sums of i.i.d. random variables, it is possible to get a tight bound that only depends on the mean (and a proxy for variance). 
+## Hoeffding's inequality
+
+Although the Chernoff bound is fairly tight, one of its drawbacks is that it requires knowledge of the MGF. For sums of independent bounded random variables, Hoeffding's inequality gives an exponential bound that depends only on the mean and the bounded range.
 
 :::{.callout-tip}
-### Azuma-Hoeffding inequality
+### Hoeffding's inequality
 
-Let $X_1, \dots, X_n$ be i.i.d. random variables such that $X_i \in [a,b]$ and $\EXP[X_i] = μ$. Define
+Let $X_1, \dots, X_n$ be i.i.d. random variables such that $X_i\in[a,b]$ almost surely, where $a<b$, and $\EXP[X_i]=μ$. Define
 $$
 \bar X_n = \frac 1n \sum_{i=1}^n X_i.
 $$
-Then,
-$$ \PR( \bar X_n - μ  > ε ) \le e ^ {- 2 ε^2 n } $$
+Then, for every $ε>0$,
+$$
+\PR(\bar X_n-μ\ge ε)
+\le\exp\left(-\frac{2nε^2}{(b-a)^2}\right)
+$$
 and
-$$ \PR( \ABS{\bar X_n - μ}  > ε ) \le 2 e ^ {- 2 ε^2 n } $$
+$$
+\PR(\ABS{\bar X_n-μ}\ge ε)
+\le2\exp\left(-\frac{2nε^2}{(b-a)^2}\right).
+$$
 :::
 
-We will not provide a proof of this inequality. The Azuma-Hoeffding inequality can also be interpreted as follows. For any $δ > 0$, we have that the true mean lies in the interval
+We will not provide a proof of this inequality. Equivalently, for any $δ\in(0,1)$, the interval
 $$
-\left[ \bar X_n - \sqrt{ \frac{1}{2n} \log \frac 2 {δ} }, 
-       \bar X_n + \sqrt{ \frac{1}{2n} \log \frac 2 {δ} } \right]
+\left[
+\bar X_n-(b-a)\sqrt{\frac{1}{2n}\log\frac2δ},
+\bar X_n+(b-a)\sqrt{\frac{1}{2n}\log\frac2δ}
+\right]
 $$
+contains the true mean $μ$ with probability at least $1-δ$.
 
-We can revisit @exm-Binomial-comparison using Hoeffding inequality. Recall that a Binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have
+We can revisit @exm-Binomial-comparison using Hoeffding's inequality. Recall that a binomial random variable is the sum of i.i.d. Bernoulli random variables. Therefore, we have
 $$
 \PR( X - np \ge n (q-p) ) = \PR( \bar X_n - p \ge (q - p) )
 \le e^{-2 (q - p)^2 n}.
 $$
 
-The bound is weaker than what we obtained via Chernoff bound, but it only requires the first moment and the fact that the random variables are bounded. 
+The bound is weaker than the optimized Chernoff bound, but it requires only independence, the common mean, and the bounded range of the random variables.

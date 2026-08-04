@@ -28,7 +28,7 @@ An implication is that the variance of $X_n$ does not depend on $n$.
    $$ 
      \MATRIX{X_{\ell}\\ X_n\\ X_m} \sim \mathcal{N}\left( \MATRIX{\mu_X(\ell)\\ \mu_X(n)\\ \mu_X(m)}, \MATRIX{R_X(\ell,\ell) & R_X(\ell,n) & R_X(\ell,m) \\ R_X(n,\ell) & R_X(n,n) & R_X(n,m) \\ R_X(m,\ell) & R_X(m,n) & R_X(m,m)} \right)
    $$
-   The covariance matrix above must be symmetric, non-negative definite, and satisfy the Cauchy-Schwarz inequality, i.e., $\COV(X_m, X_n)^2 \le \COV(X_m, X_m) \COV(X_n, X_n)$. These properties are true in general as well. 
+   The covariance matrix above must be symmetric, non-negative definite, and satisfy the Cauchy–Schwarz inequality, i.e., $\COV(X_m, X_n)^2 \le \COV(X_m, X_m) \COV(X_n, X_n)$. These properties are true in general as well.
 
 2. **Symmetry:** $R_X(m,n) = R_X(n,m)$ for all $m, n \ge 0$.
 
@@ -54,11 +54,11 @@ An implication is that the variance of $X_n$ does not depend on $n$.
    $$
    :::
 
-4. **Cauchy-Schwarz inequality:** $|R_X(m,n)|^2 \le R_X(m,m) R_X(n,n)$.
+4. **Cauchy–Schwarz inequality:** $|R_X(m,n)|^2 \le R_X(m,m) R_X(n,n)$.
 
    :::{.callout-note collapse="false"}
    #### Proof
-   This is a direct consequence of the [Cauchy-Schwarz inequality](inequalities.qmd@cauchy-schwarz-inequality) for random variables:
+   This is a direct consequence of the [Cauchy–Schwarz inequality](inequalities.qmd#cauchy-schwarz-inequality) for random variables:
    $$
    |\COV(X_m, X_n)|^2 \leq \COV(X_m, X_m) \COV(X_n, X_n).
    $$

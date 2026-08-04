@@ -26,7 +26,7 @@ Let $X$ and $Y$ be real-valued random variables defined on the same probability 
   $$
   \PR(Y = aX+b)=1
   $$
-  for some $a \neq 0$ and $b \in \reals$. [The proof follows from the Cauchy--Schwarz inequality, which we will study later.]
+  for some $a \neq 0$ and $b \in \reals$. [The proof follows from the Cauchy–Schwarz inequality, which we will study later.]
 
 - $X$ and $Y$ are said to be **uncorrelated** if
   $$\COV(X,Y)=0,$$
