@@ -586,7 +586,7 @@ For a continuous random variable $Y$, the event $\{Y=y\}$ has probability zero. 
    $$
    This argument gives the right formula, but the limiting interpretation requires regularity assumptions and does not by itself provide a general definition of conditioning on a continuous random variable.
 
-   The difficulty is fundamental: if $\PR(Y=y)=0$, we cannot average on the atoms $\{Y=y\}$ as in the finite-valued case. Item~9 above already points to the workable substitute: for $\ALPHABET G=σ(Y)$, the identity $\EXP[g(Y)\EXP[X \mid Y]] = \EXP[X g(Y)]$ characterizes $\EXP[X \mid Y]$. Equivalently, for a general $σ$-algebra $\ALPHABET G$, it is enough to impose that identity on indicators of sets in $\ALPHABET G$. That is the definition we use next; afterward we recover the familiar conditional density when a joint PDF exists.
+   The difficulty is fundamental: if $\PR(Y=y)=0$, we cannot average on the atoms $\{Y=y\}$ as in the finite-valued case. Point 9 above already points to the workable substitute: for $\ALPHABET G=σ(Y)$, the identity $\EXP[g(Y)\EXP[X \mid Y]] = \EXP[X g(Y)]$ characterizes $\EXP[X \mid Y]$. Equivalently, for a general $σ$-algebra $\ALPHABET G$, it is enough to impose that identity on indicators of sets in $\ALPHABET G$. That is the definition we use next; afterward we recover the familiar conditional density when a joint PDF exists.
 
 2. **The formal definition through conditional expectation.** Let $\ALPHABET G\subset\ALPHABET F$ be a $σ$-algebra. For any non-negative[^non-negative] random variable $X$, $\EXP[X\mid\ALPHABET G]$ is defined to be a $\ALPHABET G$-measurable random variable satisfying
    $$

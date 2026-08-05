@@ -17,7 +17,7 @@ where we may write the right hand side as $\PR(X \le x, Y \le y)$ for short.
 
 - **Regularity properties**
 
-    1. $\lim_{x \to -∞} F_{X,Y}(x,y) = 0$, $\lim_{y \to -∞} F_{X,Y}(x,y) = 0$ and $\lim_{x,y \to +∞} F(x,y) = 1$.
+    1. $\lim_{x \to -∞} F_{X,Y}(x,y) = 0$, $\lim_{y \to -∞} F_{X,Y}(x,y) = 0$ and $\lim_{x,y \to +∞} F_{X,Y}(x,y) = 1$.
 
     2. Joint CDFs are non-decreasing, i.e., if $(x_1,y_1) < (x_2, y_2)$, then $F_{X,Y}(x_1,y_1) \le F_{X,Y}(x_2,y_2)$.
 
@@ -146,7 +146,7 @@ which produces the correct $F_{X,Y}$ but delta functions are generalized functio
       - $\displaystyle \int_{-∞}^{∞} f_{X,Y}(x,y) dy = f_X(x)$.
 :::
 
-The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors $X = [X_1, \dots, X_n]^\TRANS \in \reals^n$. In practice, we often do not make a distinction between random _variables_ and random _vectors_ and refer both of them simply as _random variables_. 
+The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors $X = [X_1, \dots, X_n]^\TRANS \in \reals^n$. In practice, we often do not make a distinction between random _variables_ and random _vectors_ and refer to both of them simply as _random variables_. 
 
 :::{#exm-joint-discrete}
 Consider jointly discrete random variables $X \in \{1,2,3\}$ and $Y \in \{1, 2, 3\}$ with joint PMF
@@ -433,7 +433,7 @@ Suppose $X_1$ and $X_2$ are continuous random variables and $Y = X_1 + X_2$. Fin
 We can write the CDF $F_Y(y)$ as follows:
 $$
 F_Y(y)
-= \int_{-∞}^∞ \int_{-∞}^{y - x_1} f_{X_1,X_2}(x_1, x_2)\, d x_2 d x_1 \\
+= \int_{-∞}^∞ \int_{-∞}^{y - x_1} f_{X_1,X_2}(x_1, x_2)\, d x_2 d x_1
 $$
 Therefore,
 \begin{align*}
@@ -604,7 +604,7 @@ Let $X$ and $Y$ be random variables defined on a common probability space. Defin
 $$
   U = X^2 \quad\text{and}\quad V = X + Y.
 $$
-Find $f_{U,V}$?
+Find $f_{U,V}$.
 :::
 
 :::{.callout-note collapse="false"}

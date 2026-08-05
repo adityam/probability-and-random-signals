@@ -67,7 +67,7 @@ Conditional expectation is not only a way of updating a probability model; it is
      &= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
      &= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
    \end{align*}
-   The first term is zero because $h(Y) - \EXP[X \mid Y]$ is a function of $Y$ and, by the orthogonality property in point~3, $X - \EXP[X \mid Y]$ is orthogonal to all functions of $Y$. Therefore,
+   The first term is zero because $h(Y) - \EXP[X \mid Y]$ is a function of $Y$ and, by the orthogonality property in point 3, $X - \EXP[X \mid Y]$ is orthogonal to all functions of $Y$. Therefore,
    $$
    \EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
    $$

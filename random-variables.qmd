@@ -124,7 +124,7 @@ execute:
 
    :::{#exm-bernoulli}
    ### Bernoulli random variable
-   A Bernoulli random variable takes two possible values: value $0$ with probability $1-p$ and value $1$ with probability $p$. It's CDF is given by
+   A Bernoulli random variable takes two possible values: value $0$ with probability $1-p$ and value $1$ with probability $p$. Its CDF is given by
    $$
    F_X(x) = \begin{cases}
    0, & x < 0 \\
@@ -308,20 +308,20 @@ P_X(k) = (1-p)^{k-1} p, \quad k \in \integers_{> 0}.
 $$
 :::
 
-A geometric random variables have the property of being **memoryless**: the distribution of waiting time does not depend on how much time has already elapsed. 
+Geometric random variables have the property of being **memoryless**: the distribution of waiting time does not depend on how much time has already elapsed. 
 
 
 :::{#exm-Poisson}
 #### Poisson random variable
 
-Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to _Poisson random variable with parameter $λ > 0$_, which is denoted by $\text{Poisson}(λ)$, if
+Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to be a _Poisson random variable with parameter $λ > 0$_, which is denoted by $\text{Poisson}(λ)$, if
 $$
 P_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 $$
 :::
 
 Poisson random variables model rare events. It describes the limit of a Binomial random variable with success probability $p = λ/n$ as the number $n$ of trials increases. 
-Poisson random variables have the **stability** property that sum of Poisson random variables is Poisson
+Poisson random variables are **closed under addition**: the sum of independent Poisson random variables is Poisson.
 
 :::{#exm-Uniform-discrete}
 #### Uniform random variable
@@ -373,7 +373,7 @@ F_X(x)=Φ\Bigl(\frac{x-μ}{σ}\Bigr).
 $$
 :::
 
-The Gaussian distribution is perhaps the most important continuous distribution because of its role in the **Central Limit Theorem**. Gaussian random variables have the **stability** property that sum of Gaussian random variables is Gaussian.
+The Gaussian distribution is perhaps the most important continuous distribution because of its role in the **Central Limit Theorem**. Gaussian random variables are **closed under addition**: the sum of independent Gaussian random variables is Gaussian.
 
 ## Functions of random variables
 
@@ -424,7 +424,7 @@ As an illustration, let's reconsider @exm-coin-toss. In this case, the range of 
 
 The partition corresponding to $Y = g(X)$ is shown in @fig-sigma-Y. Observe that this partition is a coarsening of the partition corresponding to $X$. 
 
-![Illustration of the partition created by $ = g(X)$ for @exm-coin-toss](figures/svg/probability6.svg){#fig-sigma-Y}
+![Illustration of the partition created by $Y = g(X)$ for @exm-coin-toss](figures/svg/probability6.svg){#fig-sigma-Y}
 
 The PMFs of $X$ and $Y$ can be obtained by summing up the masses in each element of their respective partitions. 
 

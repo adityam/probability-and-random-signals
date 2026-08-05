@@ -7,7 +7,7 @@ course:
   lectures:
     - "11:35am–12:55pm Monday, Wednesday (ENGTR 1080)"
   tutorials:
-    - "8:35am-9:25am Friday, (ENGMC 12)"
+    - "8:35am–9:25am Friday (ENGMC 12)"
 format: 
   html: 
     number-sections: false
