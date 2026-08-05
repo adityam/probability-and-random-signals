@@ -356,7 +356,21 @@ $$f_X(x) = \frac 1{\sqrt{2 π}\, σ}
 \exp\left( -\frac {(x-μ)^2}{2 σ^2} \right),
 \quad x \in \reals.$$
 
-A Gaussian distribution is also called a **Normal distribution**. When $μ = 0$ and $σ^2 = 1$, the distribution is called **standard Normal**. 
+A Gaussian distribution is also called a **Normal distribution**. When $μ = 0$ and $σ^2 = 1$, the distribution is called **standard Normal**. We write $ϕ$ for its density and $Φ$ for its CDF:
+\begin{align*}
+ϕ(z)
+&=\frac{1}{\sqrt{2π}}\,e^{-z^2/2},
+\qquad z \in \reals,
+\\
+Φ(z)
+&=\int_{-∞}^{z} ϕ(t)\,dt.
+\end{align*}
+Thus, if $X \sim \mathcal N(μ,σ^2)$, then
+$$
+f_X(x)=\frac{1}{σ}\,ϕ\Bigl(\frac{x-μ}{σ}\Bigr),
+\qquad
+F_X(x)=Φ\Bigl(\frac{x-μ}{σ}\Bigr).
+$$
 :::
 
 The Gaussian distribution is perhaps the most important continuous distribution because of its role in the **Central Limit Theorem**. Gaussian random variables have the **stability** property that sum of Gaussian random variables is Gaussian.
@@ -573,17 +587,14 @@ We can write the CDF $F_Z(z)$ as
 F_Z(z) &= \PR(Z \le z) = \PR\left( \frac{X - μ}{σ} \le z \right)
 = \PR(X \le σ z + μ)
 \\
-&= \int_{-∞}^{σ z + μ} \frac{1}{\sqrt{2 π}\, σ} \exp\left(
-- \frac{(x-μ)^2}{2 σ^2}\, dx \right)
+&= \int_{-∞}^{σ z + μ} \frac{1}{σ}\,ϕ\Bigl(\frac{x-μ}{σ}\Bigr)\, dx
 \\
-&= \int_{-∞}^{z} \frac{1}{\sqrt{2 π}} \exp\left(
-- \frac{y^2}{2}\, dy \right)
+&= \int_{-∞}^{z} ϕ(y)\, dy
+= Φ(z),
 \end{align*}
 where the last step uses the change of variables $y = (x-μ)/σ$. 
 
-Thus, 
-$$f_Z(z) = \frac{d F_Z(z)}{dz} = \frac{1}{\sqrt{2 π}} e^{-z^2/2}.$$
-Thus, $Z \sim \mathcal{N}(0,1)$.
+Thus $f_Z(z)=ϕ(z)$, so $Z \sim \mathcal{N}(0,1)$.
 :::
 
 :::{#exm-generating-random-variables}

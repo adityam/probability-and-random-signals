@@ -559,7 +559,7 @@ $$
 $$
 This calculation is the basic covariance propagation step for linear Gaussian models. A later chapter derives the conditional distribution of $X$ given an observed value of $Y$; see [MMSE estimation](mmse-estimation.qmd#mmse-estimation-for-jointly-gaussian-random-vectors).
 
-### Mixture of Gaussian distributions: BPSK over an AWGN channel
+### Mixture of Gaussian distributions: BPSK over an AWGN channel {#sec-bpsk-awgn}
 
 The preceding model assumes that the input is Gaussian. In a digital communication system, however, the transmitted symbol is discrete. Consider binary phase-shift keying (BPSK). Let
 $$
@@ -581,15 +581,21 @@ Y \mid (B=+1) \sim \mathcal{N}(a,σ^2),
 \qquad
 Y \mid (B=-1) \sim \mathcal{N}(-a,σ^2).
 $$
-Define the zero-mean Gaussian density
+In terms of the [standard normal density](random-variables.qmd#exm-Gaussian) $ϕ$,
 $$
-φ_σ(u)=\frac{1}{\sqrt{2πσ^2}}
-\exp\left(-\frac{u^2}{2σ^2}\right).
+f_{Y\mid B}(y\mid +1)
+=\frac{1}{σ}\,ϕ\Bigl(\frac{y-a}{σ}\Bigr),
+\qquad
+f_{Y\mid B}(y\mid -1)
+=\frac{1}{σ}\,ϕ\Bigl(\frac{y+a}{σ}\Bigr).
 $$
 Marginalizing over the unobserved bit gives
 $$
 f_Y(y)
-=\frac12 φ_σ(y-a)+\frac12 φ_σ(y+a).
+=\frac{1}{2σ}\Biggl[
+ϕ\Bigl(\frac{y-a}{σ}\Bigr)
++ϕ\Bigl(\frac{y+a}{σ}\Bigr)
+\Biggr].
 $$
 Thus, the channel output is a **mixture of two Gaussian distributions** rather than a Gaussian random variable. Its mean and variance are
 $$
@@ -605,20 +611,6 @@ $$
 3(a^2+σ^2)^2,
 $$
 where the expression on the right is the fourth moment of a zero-mean Gaussian random variable with variance $a^2+σ^2$.
-
-The two conditional densities also determine the receiver. For equally likely bits, the log-likelihood ratio is
-$$
-\log\frac{f_{Y\mid B}(y\mid +1)}{f_{Y\mid B}(y\mid -1)}
-=\frac{2ay}{σ^2}.
-$$
-Therefore, the maximum a posteriori decision rule is the threshold detector
-$$
-\widehat B=
-\begin{cases}
-+1, & Y \ge 0, \\
--1, & Y<0.
-\end{cases}
-$$
 
 Only the normalized separation $a/σ$ determines the shape of the standardized mixture. In the following figure, $σ=1$ and the slider changes $a/σ$. At small separation the mixture appears nearly Gaussian and unimodal; at large separation its two components become visible.
 

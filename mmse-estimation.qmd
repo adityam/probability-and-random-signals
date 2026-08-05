@@ -1,8 +1,10 @@
 ---
 title: MMSE estimation
+execute:
+  echo: false
 ---
 
-Conditional expectation is not only a way of updating a probability model; it is also the optimal estimate of an unknown random variable under mean-squared error. This chapter develops that interpretation and then specializes it to jointly Gaussian random vectors.
+Conditional expectation is not only a way of updating a probability model; it is also the optimal estimate of an unknown random variable under mean-squared error. In this lecture, we develop that interpretation, work two non-Gaussian examples (BPSK and Poisson counts), and then specialize the theory to jointly Gaussian random vectors.
 
 ## Conditional expectation as minimum mean square estimator {#MMSE}
 
@@ -109,7 +111,192 @@ Conditional expectation is not only a way of updating a probability model; it is
    \EXP[(X-\EXP[X\mid Y])^\TRANS g(Y)]=0.
    $$
 
+## Soft estimation over a BPSK channel
+
+:::{#exm-bpsk-mmse}
+### MMSE estimation for BPSK over AWGN
+
+Recall the [BPSK over AWGN](gaussian-random-vectors.qmd#sec-bpsk-awgn) model: a random bit $B\in\{+1,-1\}$ with $\PR(B=+1)=\PR(B=-1)=\tfrac12$ is transmitted as the symbol $X=aB$ with $a>0$, and the receiver observes
+$$
+Y=aB+W,
+$$
+where $W\sim\mathcal N(0,σ^2)$ is independent of $B$. Conditioned on the bit, the observation is Gaussian,
+$$
+Y\mid(B=+1)\sim\mathcal N(a,σ^2),
+\qquad
+Y\mid(B=-1)\sim\mathcal N(-a,σ^2),
+$$
+so, with the [standard normal density](random-variables.qmd#exm-Gaussian) $ϕ$,
+$$
+f_{Y\mid B}(y\mid +1)
+=\frac{1}{σ}\,ϕ\Bigl(\frac{y-a}{σ}\Bigr),
+\qquad
+f_{Y\mid B}(y\mid -1)
+=\frac{1}{σ}\,ϕ\Bigl(\frac{y+a}{σ}\Bigr),
+$$
+and the marginal of $Y$ is
+$$
+f_Y(y)
+=\frac{1}{2σ}\Biggl[
+ϕ\Bigl(\frac{y-a}{σ}\Bigr)
++ϕ\Bigl(\frac{y+a}{σ}\Bigr)
+\Biggr].
+$$
+What is the MMSE estimate of the bit given $Y$?
+:::
+
+1. By the general theory above, the MMSE estimator is the conditional expectation $\EXP[B\mid Y]$. Since $B$ is discrete,
+   $$
+   \EXP[B\mid Y=y]
+   =(+1)\,\PR(B=+1\mid Y=y)
+   +(-1)\,\PR(B=-1\mid Y=y).
+   $$
+   Bayes' rule and equal priors give
+   $$
+   \PR(B=+1\mid Y=y)
+   =\frac{ϕ((y-a)/σ)}{ϕ((y-a)/σ)+ϕ((y+a)/σ)},
+   \qquad
+   \PR(B=-1\mid Y=y)
+   =\frac{ϕ((y+a)/σ)}{ϕ((y-a)/σ)+ϕ((y+a)/σ)}.
+   $$
+   Therefore
+   $$
+   \EXP[B\mid Y=y]
+   =\frac{ϕ((y-a)/σ)-ϕ((y+a)/σ)}{ϕ((y-a)/σ)+ϕ((y+a)/σ)}.
+   $$
+
+2. The Gaussian densities simplify the expression. Their ratio is
+   $$
+   \frac{ϕ((y-a)/σ)}{ϕ((y+a)/σ)}
+   =\exp\Bigl(\frac{2ay}{σ^2}\Bigr),
+   $$
+   so
+   $$
+   \EXP[B\mid Y=y]
+   =\frac{\exp(2ay/σ^2)-1}{\exp(2ay/σ^2)+1}
+   =\tanh\Bigl(\frac{ay}{σ^2}\Bigr).
+   $$
+   Thus
+   $$
+   \bbox[5pt,border: 1px solid]{
+   \EXP[B\mid Y]=\tanh\Bigl(\frac{aY}{σ^2}\Bigr).
+   }
+   $$
+   The corresponding MMSE estimate of the transmitted amplitude is
+   $$
+   \EXP[X\mid Y]=a\,\EXP[B\mid Y]=a\tanh\Bigl(\frac{aY}{σ^2}\Bigr).
+   $$
+   The estimate takes values in $(-1,1)$: for large $|Y|$ it saturates near $\pm 1$, while for $Y$ near $0$ it shrinks toward $0$. Because $B$ is discrete, the pair $(B,Y)$ is not jointly Gaussian, and $\EXP[B\mid Y]$ is a nonlinear function of $Y$.
+
+```{ojs}
+//| echo: false
+
+viewof bpsk_mmse_snr = Inputs.range([0.2, 3], {
+  label: "a/σ",
+  value: 1.2,
+  step: 0.1
+})
+```
+
+```{ojs}
+//| echo: false
+//| output: false
+
+bpsk_mmse_curve = {
+  const snr = bpsk_mmse_snr
+  const values = []
+  const points = 500
+  const yMax = 4
+
+  for (let i = 0; i <= points; ++i) {
+    const y = -yMax + 2 * yMax * i / points
+    values.push({y, estimate: Math.tanh(snr * y)})
+  }
+  return values
+}
+```
+
+```{ojs}
+//| echo: false
+//| label: fig-bpsk-mmse-estimators
+//| fig-cap: MMSE estimate of the BPSK bit as a function of the received value $y$, with $σ=1$ and adjustable $a/σ$.
+
+Plot.plot({
+  width: 700,
+  height: 400,
+  x: {domain: [-4, 4], label: "received value y", grid: true},
+  y: {domain: [-1.2, 1.2], label: "estimate of B", grid: true},
+  marks: [
+    Plot.ruleY([0], {stroke: "currentColor", strokeOpacity: 0.35}),
+    Plot.ruleX([0], {stroke: "currentColor", strokeOpacity: 0.35}),
+    Plot.ruleY([1, -1], {
+      stroke: "currentColor",
+      strokeOpacity: 0.25,
+      strokeDasharray: "4,4"
+    }),
+    Plot.line(bpsk_mmse_curve, {
+      x: "y",
+      y: "estimate",
+      stroke: "#4c78a8",
+      strokeWidth: 2.5
+    })
+  ]
+})
+```
+
+## Soft estimation of a Poisson count
+
+:::{#exm-poisson-mmse}
+### MMSE estimation for two Poisson light sources
+
+Poisson random variables are a standard model for photon counts; see @exm-Poisson. Suppose two independent light sources of intensities $λ>0$ and $μ>0$ illuminate the same device, producing independent counts
+$$
+X\sim\text{Poisson}(λ),
+\qquad
+Y\sim\text{Poisson}(μ).
+$$
+The device observes only the total count
+$$
+Z=X+Y.
+$$
+What is the MMSE estimate of $X$ given $Z$?
+:::
+
+1. As shown in @exm-function-sum-Poisson (and again later via moment generating functions),
+   $$
+   Z\sim\text{Poisson}(λ+μ).
+   $$
+   For integers $0\le m\le n$, independence gives
+   \begin{align*}
+   \PR(X=m\mid Z=n)
+   &=\frac{\PR(X=m)\PR(Y=n-m)}{\PR(Z=n)}
+   \\
+   &=\frac{e^{-λ}λ^m/m!\cdot e^{-μ}μ^{n-m}/(n-m)!}
+   {e^{-(λ+μ)}(λ+μ)^n/n!}
+   \\
+   &=\binom{n}{m}
+   \Bigl(\frac{λ}{λ+μ}\Bigr)^{m}
+   \Bigl(\frac{μ}{λ+μ}\Bigr)^{n-m}.
+   \end{align*}
+   Thus, conditioned on $Z=n$, the random variable $X$ is $\text{Binomial}\bigl(n,λ/(λ+μ)\bigr)$.
+
+2. By @tbl-mean-variance, the mean of a $\text{Binomial}(n,p)$ random variable is $np$. Taking $p=λ/(λ+μ)$ gives
+   $$
+   \EXP[X\mid Z=n]
+   =n\,\frac{λ}{λ+μ}.
+   $$
+   Therefore the MMSE estimator is
+   $$
+   \bbox[5pt,border: 1px solid]{
+   \EXP[X\mid Z]
+   =\frac{λ}{λ+μ}\,Z.
+   }
+   $$
+   Observe that the estimate is linear in the observation $Z$.
+
 ## MMSE estimation for jointly Gaussian random vectors
+
+In the BPSK example, the MMSE estimator was a nonlinear function of the observation. We now specialize to the case where the unknown and the observation are jointly Gaussian. Then the MMSE estimator is affine, and there is an explicit formula for it in terms of means and covariances.
 
 Suppose $X\in\reals^n$ and $Y\in\reals^m$ are jointly Gaussian, with
 $$
