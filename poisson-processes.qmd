@@ -272,6 +272,18 @@ Plot.plot({
 
 3. This result is useful for simulation. One can generate a Poisson process on $[0,t]$ by first drawing $N\sim\operatorname{Poisson}(λt)$, then drawing $N$ independent uniform random variables on $[0,t]$, and finally sorting them to obtain the arrival times.
 
+4. We have therefore encountered three equivalent descriptions of a Poisson process:
+
+   - The interarrival times are i.i.d. $\operatorname{Exponential}(λ)$ random variables.
+   - The process has stationary independent increments, with
+     $$
+     N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
+     \qquad 0\le s<t.
+     $$
+   - On any interval $[0,t]$, first draw $N(t)\sim\operatorname{Poisson}(λt)$; conditional on $N(t)=n$, the $n$ arrival times are the order statistics of $n$ independent $\operatorname{Uniform}(0,t)$ random variables.
+
+   The first description is based on waiting times, the second on counts over intervals, and the third provides a finite-interval construction.
+
 ## Competing Poisson processes
 
 1. Let $T_1\sim\operatorname{Exponential}(λ_1)$ and $T_2\sim\operatorname{Exponential}(λ_2)$ be independent waiting times. Then

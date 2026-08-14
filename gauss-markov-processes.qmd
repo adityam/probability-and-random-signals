@@ -522,7 +522,7 @@ The state-space analysis above describes both the transient behavior and the lim
 
 ## Note on non-Gaussian processes
 
-Since all the properties discussed above (mean function, covariance function, linear transformations, etc.) depend only on the first two moments (mean and covariance), they apply to stochastic processes beyond Gaussian processes, as long as we restrict our attention to first and second moments.
+The mean and covariance propagation, Lyapunov equations, and linear-system calculations developed in this chapter depend only on first and second moments. They therefore remain valid for any second-order process, even when the process is not Gaussian. The spectral calculations also remain valid under the corresponding stationarity and summability assumptions.
 
 However, it is important to distinguish between two notions of stationarity:
 
@@ -533,7 +533,7 @@ However, it is important to distinguish between two notions of stationarity:
 
 2. A stochastic process $\{X_n\}_{n\in\integers}$ is called **strict-sense stationary** (or **strongly stationary**) if, for any finite collection of time indices $n_1,\ldots,n_k$ and any integer $h$, the joint distribution of $(X_{n_1},\ldots,X_{n_k})$ is the same as the joint distribution of $(X_{n_1+h},\ldots,X_{n_k+h})$.
 
-For any stochastic process, strict-sense stationarity implies wide-sense stationarity, but the converse is not true in general. For Gaussian processes, the mean and covariance determine all finite-dimensional distributions, so wide-sense stationarity implies strict-sense stationarity. Thus, for Gaussian processes, the two notions are equivalent.
+For any stochastic process, strict-sense stationarity implies wide-sense stationarity, but the converse is not true in general. Thus, for a general second-order process, the calculations in this chapter establish properties of its first and second moments, such as wide-sense stationarity, but do not determine its complete finite-dimensional distributions. For a Gaussian process, the mean and covariance determine all finite-dimensional distributions, so wide-sense stationarity implies strict-sense stationarity. Thus, for Gaussian processes, the two notions are equivalent.
 
 ## Exercises
 

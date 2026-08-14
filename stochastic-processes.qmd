@@ -99,6 +99,13 @@ Some properties of these processes are as follows:
   $$
   Thus, the distribution of an increment depends on its length $h$ but not on its starting time $n$. Moreover, increments over disjoint time intervals are independent.
 
+More generally, a process $\{X_n\}_{n\ge0}$ has **stationary increments** if the distribution of $X_{n+h}-X_n$ depends only on the length $h$ and not on the starting time $n$. It has **independent increments** if, for every $0\le n_0<n_1<\cdots<n_r$, the random variables
+$$
+X_{n_1}-X_{n_0},\ X_{n_2}-X_{n_1},\ldots,
+X_{n_r}-X_{n_{r-1}}
+$$
+are independent. Thus, the Bernoulli counting process has stationary independent increments.
+
 :::{#exm-signal-plus-noise}
 ### Signal plus noise
 
@@ -192,13 +199,26 @@ A sample path looks like a noisy signal, while the random variable $Y_n$ describ
 
 ## Gaussian processes
 
-1. A stochastic process $\{X_n\}_{n\ge0}$ is a **Gaussian process** if, for every finite collection of time indices $n_1,\ldots,n_k$, the random vector
+1. A stochastic process $\{X_n\}_{n\ge0}$ is called a **second-order process** if
+   $$
+   \EXP[|X_n|^2]<∞
+   \qquad\text{for every }n.
+   $$
+   For such a process, the mean function and auto-covariance function
+   $$
+   μ^X_n=\EXP[X_n],
+   \qquad
+   R^X_{n,m}=\COV(X_n,X_m)
+   $$
+   are well-defined. Second-order processes can be studied through these first and second moments even when their complete finite-dimensional distributions are unknown.
+
+2. A stochastic process $\{X_n\}_{n\ge0}$ is a **Gaussian process** if, for every finite collection of time indices $n_1,\ldots,n_k$, the random vector
    $$
    \MATRIX{X_{n_1}&\cdots&X_{n_k}}^\TRANS
    $$
    has a multivariate Gaussian distribution. Equivalently, every finite linear combination of the random variables $X_n$ is Gaussian.
 
-2. A Gaussian process is completely characterized by its **mean function** and **auto-covariance function**:
+3. Every Gaussian process is a second-order process. Moreover, unlike a general second-order process, a Gaussian process is completely characterized by its mean function and auto-covariance function:
    $$
    μ^X_n = \EXP[X_n],
    \qquad
@@ -206,11 +226,11 @@ A sample path looks like a noisy signal, while the random variable $Y_n$ describ
    $$
    In particular, for any $n_1,\ldots,n_k$, these functions specify the mean vector and covariance matrix of the corresponding Gaussian random vector.
 
-3. When two processes $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$ are defined on a common probability space and every finite collection drawn from either process is jointly Gaussian, we say that the processes are **jointly Gaussian**. Their second-order structure is then described by the auto-covariances $R^X_{n,m}$, $R^Y_{n,m}$ and the **cross-covariance**
+4. When two processes $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$ are defined on a common probability space and every finite collection drawn from either process is jointly Gaussian, we say that the processes are **jointly Gaussian**. Their second-order structure is then described by the auto-covariances $R^X_{n,m}$, $R^Y_{n,m}$ and the **cross-covariance**
    $$ R^{XY}_{n,m} = \COV(X_n, Y_m), $$
    which satisfies $R^{XY}_{n,m} = R^{YX}_{m,n}$. 
 
-4. A zero-mean Gaussian process $\{W_n\}_{n\ge0}$ is called **white Gaussian noise** with variance $σ_W^2$ if
+5. A zero-mean Gaussian process $\{W_n\}_{n\ge0}$ is called **white Gaussian noise** with variance $σ_W^2$ if
    $$
    R^W_{n,m} = \COV(W_n,W_m)
    = σ_W^2\IND\{n = m\}.
@@ -305,4 +325,10 @@ Thus every finite collection is Gaussian (as a linear image of $(A,B)$), so $\{X
    $$
    for large $N$. We will not develop the theory of ergodic processes in this course.
 
-7. In later chapters, we will study two complementary ways of describing temporal dependence. Markov chains describe dependence through conditional distributions and a state that summarizes the past. Gaussian and second-order processes describe dependence through means and covariance functions. State-space models combine these viewpoints for stochastic systems with inputs, outputs, and an internal state.
+7. Important classes of stochastic processes use different structures to simplify the description of their finite-dimensional distributions:
+
+   - Processes with independent increments describe temporal evolution through the distributions of their increments.
+   - Markov chains describe dependence through an initial distribution and one-step conditional distributions, with the current state summarizing the relevant past.
+   - Gaussian processes are completely characterized by their mean and auto-covariance functions.
+
+   State-space Gauss--Markov models combine the Markov and Gaussian viewpoints for stochastic systems with inputs, outputs, and an internal state.
