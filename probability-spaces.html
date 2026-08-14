@@ -468,8 +468,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./gaussian-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
+  <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Poisson processes</span></span></a>
   </div>
 </li>
     </ul>
@@ -1001,7 +1007,7 @@ Figure&nbsp;1.3: Computing <span class="math inline">\(\PR(A)\)</span>
 </div></li>
 <li><div id="exm-singleton-probability" class="theorem example">
 <p><span class="theorem-title"><strong>Example 1.7 (Probability of a singleton)</strong></span> Let <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr B([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> be the uniform distribution on <span class="math inline">\(Ω\)</span>. We show that <span class="math inline">\(\PR(\{x\}) = 0\)</span> for every <span class="math inline">\(x \in [0,1]\)</span>.</p>
-<p>Define <span class="math inline">\(B_n = [x, x + \tfrac 1n]\)</span>. Then <span class="math inline">\(\{B_n\}_{n \ge 1}\)</span> is decreasing and <span class="math inline">\(\lim_{n \to ∞} B_n = \{x\}\)</span> (see <span class="citation" data-cites="set-limits">@set-limits</span>). Under the uniform distribution, <span class="math inline">\(\PR(B_n) = \tfrac 1n\)</span>. By continuity (<a href="#lem-probability-properties" class="quarto-xref">Lemma&nbsp;<span>1.1</span></a> d), <span class="math display">\[
+<p>Define <span class="math inline">\(B_n = [x, x + \tfrac 1n]\)</span>. Then <span class="math inline">\(\{B_n\}_{n \ge 1}\)</span> is decreasing and <span class="math inline">\(\lim_{n \to ∞} B_n = \{x\}\)</span> (see <span class="citation" data-cites="set-limits">(<a href="#ref-set-limits" role="doc-biblioref"><strong>set-limits?</strong></a>)</span>). Under the uniform distribution, <span class="math inline">\(\PR(B_n) = \tfrac 1n\)</span>. By continuity (<a href="#lem-probability-properties" class="quarto-xref">Lemma&nbsp;<span>1.1</span></a> d), <span class="math display">\[
   \PR(\{x\}) = \PR\Bigl(\lim_{n \to ∞} B_n\Bigr) = \lim_{n \to ∞} \PR(B_n) = 0.
 \]</span></p>
 </div></li>

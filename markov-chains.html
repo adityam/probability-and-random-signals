@@ -29,7 +29,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -39,7 +58,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./gaussian-processes.html" rel="next">
+<link href="./gauss-markov-processes.html" rel="next">
 <link href="./stochastic-processes.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -468,8 +487,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./gaussian-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
+  <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Poisson processes</span></span></a>
   </div>
 </li>
     </ul>
@@ -559,7 +584,7 @@ X_{n+1}=f_n(X_n,W_n),
 <p><span class="theorem-title"><strong>Example 11.1 (Gilbert Elliot channel model for burst erasures)</strong></span> The Gilbert-Elliot channel model is used to model communication channels with burst errors. The channel can be in one of two states: a “good” state (state 0) with low error probability, or a “bad” state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>11.4</span></a>.</p>
 </div>
 <div id="exm-Ehrenfest-diffusion" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.2 (Ehrenfest urn model)</strong></span> The following urn model was introduced by <span class="citation" data-cites="Ehrenfest1907">@Ehrenfest1907</span> to illustrate the probabilistic behavior underlying Boltzmann’s <span class="math inline">\(H\)</span>-theorem.</p>
+<p><span class="theorem-title"><strong>Example 11.2 (Ehrenfest urn model)</strong></span> The following urn model was introduced by <span class="citation" data-cites="Ehrenfest1907">Ehrenfest and Ehrenfest (<a href="#ref-Ehrenfest1907" role="doc-biblioref">1907</a>)</span> to illustrate the probabilistic behavior underlying Boltzmann’s <span class="math inline">\(H\)</span>-theorem.</p>
 <p>There are <span class="math inline">\(K\)</span> labelled particles, each of which is in either compartment <span class="math inline">\(A\)</span> or compartment <span class="math inline">\(B\)</span>. At each time, one particle is chosen uniformly at random and moved to the other compartment. Thus, if there are <span class="math inline">\(X_n=i\)</span> particles in compartment <span class="math inline">\(A\)</span> at time <span class="math inline">\(n\)</span>, then <span class="math inline">\(X_{n+1}=i-1\)</span> with probability <span class="math inline">\(i/K\)</span> and <span class="math inline">\(X_{n+1}=i+1\)</span> with probability <span class="math inline">\((K-i)/K\)</span>.</p>
 </div>
 <div id="exm-gamblers-ruin" class="theorem example">
@@ -1654,6 +1679,11 @@ P = \left[\begin{array}{cc|ccc} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
 <h2 class="unnumbered anchored" data-anchor-id="references">References</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-Ehrenfest1907" class="csl-entry" role="listitem">
+Ehrenfest, Paul, and Tatiana Ehrenfest. 1907. <span>“<span>Ü</span>ber Zwei Bekannte Einw<span>ä</span>nde Gegen Das <span>B</span>oltzmannsche <span>H</span>-Theorem.”</span> <em>Physikalische Zeitschrift</em> 8 (9): 311–14.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -2077,8 +2107,8 @@ P = \left[\begin{array}{cc|ccc} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./gaussian-processes.html" class="pagination-link" aria-label="Gaussian processes">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./gauss-markov-processes.html" class="pagination-link" aria-label="Gauss–Markov models and spectral analysis">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

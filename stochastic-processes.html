@@ -505,8 +505,14 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./gaussian-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gaussian processes</span></span></a>
+  <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Poisson processes</span></span></a>
   </div>
 </li>
     </ul>
@@ -522,7 +528,8 @@ window.Quarto = {
   <li><a href="#processes-and-sample-paths" id="toc-processes-and-sample-paths" class="nav-link active" data-scroll-target="#processes-and-sample-paths"><span class="header-section-number">10.1</span> Processes and sample paths</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">10.2</span> Examples</a></li>
   <li><a href="#finite-dimensional-distributions-and-dependence" id="toc-finite-dimensional-distributions-and-dependence" class="nav-link" data-scroll-target="#finite-dimensional-distributions-and-dependence"><span class="header-section-number">10.3</span> Finite-dimensional distributions and dependence</a></li>
-  <li><a href="#stationarity" id="toc-stationarity" class="nav-link" data-scroll-target="#stationarity"><span class="header-section-number">10.4</span> Stationarity</a></li>
+  <li><a href="#gaussian-processes" id="toc-gaussian-processes" class="nav-link" data-scroll-target="#gaussian-processes"><span class="header-section-number">10.4</span> Gaussian processes</a></li>
+  <li><a href="#stationarity" id="toc-stationarity" class="nav-link" data-scroll-target="#stationarity"><span class="header-section-number">10.5</span> Stationarity</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/stochastic-processes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -778,8 +785,87 @@ X_n=B_n,
 \]</span> Markov chains are studied in detail in the next chapter.</p></li>
 </ol>
 </section>
-<section id="stationarity" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="stationarity"><span class="header-section-number">10.4</span> Stationarity</h2>
+<section id="gaussian-processes" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="gaussian-processes"><span class="header-section-number">10.4</span> Gaussian processes</h2>
+<ol type="1">
+<li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n\ge0}\)</span> is a <strong>Gaussian process</strong> if, for every finite collection of time indices <span class="math inline">\(n_1,\ldots,n_k\)</span>, the random vector <span class="math display">\[
+\MATRIX{X_{n_1}&amp;\cdots&amp;X_{n_k}}^\TRANS
+\]</span> has a multivariate Gaussian distribution. Equivalently, every finite linear combination of the random variables <span class="math inline">\(X_n\)</span> is Gaussian.</p></li>
+<li><p>A Gaussian process is completely characterized by its <strong>mean function</strong> and <strong>auto-covariance function</strong>: <span class="math display">\[
+μ^X_n = \EXP[X_n],
+\qquad
+R^X_{n,m} = \COV(X_n,X_m).
+\]</span> In particular, for any <span class="math inline">\(n_1,\ldots,n_k\)</span>, these functions specify the mean vector and covariance matrix of the corresponding Gaussian random vector.</p></li>
+<li><p>When two processes <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> are defined on a common probability space and every finite collection drawn from either process is jointly Gaussian, we say that the processes are <strong>jointly Gaussian</strong>. Their second-order structure is then described by the auto-covariances <span class="math inline">\(R^X_{n,m}\)</span>, <span class="math inline">\(R^Y_{n,m}\)</span> and the <strong>cross-covariance</strong> <span class="math display">\[ R^{XY}_{n,m} = \COV(X_n, Y_m), \]</span> which satisfies <span class="math inline">\(R^{XY}_{n,m} = R^{YX}_{m,n}\)</span>.</p></li>
+<li><p>A zero-mean Gaussian process <span class="math inline">\(\{W_n\}_{n\ge0}\)</span> is called <strong>white Gaussian noise</strong> with variance <span class="math inline">\(σ_W^2\)</span> if <span class="math display">\[
+R^W_{n,m} = \COV(W_n,W_m)
+= σ_W^2\IND\{n = m\}.
+\]</span> Equivalently, white Gaussian noise is an i.i.d. sequence of Gaussian random variables with <span class="math display">\[
+W_n \sim \mathcal N(0,σ_W^2).
+\]</span> We call the process <strong>standard white Gaussian noise</strong> when <span class="math inline">\(σ_W^2 = 1\)</span>.</p></li>
+</ol>
+<div id="exm-cosine-gaussian-phase" class="theorem example">
+<p><span class="theorem-title"><strong>Example 10.3 (Cosine with Gaussian amplitude)</strong></span> Let <span class="math display">\[
+X_n = A \cos(Ω n) + B \sin(Ω n),
+\]</span> where <span class="math inline">\(Ω \in \reals\)</span> is fixed and <span class="math inline">\(A,B\)</span> are i.i.d. <span class="math inline">\(\mathcal N(0,σ^2)\)</span>. A sample path is shown below.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="234" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 233;"><span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a>viewof rerun_cosine_gauss <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a>points_cosine_gauss <span class="op">=</span> {</span>
+<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>  rerun_cosine_gauss</span>
+<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> f <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> A <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> B <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a>    points[n] <span class="op">=</span> {</span>
+<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>      n<span class="op">,</span></span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>      <span class="dt">X_n</span><span class="op">:</span> A <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n) <span class="op">+</span> B <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n)</span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="254" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 253;"><span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]}<span class="op">,</span></span>
+<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>The mean is zero. Expanding <span class="math inline">\(\EXP[X_m X_n]\)</span> and using independence of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> gives <span class="math display">\[
+R^X_{m,n} = σ^2 \cos\bigl(Ω(m - n)\bigr) = σ^2 \cos\bigl(Ω|m - n|\bigr).
+\]</span> Thus every finite collection is Gaussian (as a linear image of <span class="math inline">\((A,B)\)</span>), so <span class="math inline">\(\{X_n\}_{n\ge0}\)</span> is a Gaussian process, and the covariance depends only on the lag.</p>
+</div>
+</section>
+<section id="stationarity" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="stationarity"><span class="header-section-number">10.5</span> Stationarity</h2>
 <ol type="1">
 <li><p>A discrete-time stochastic process <span class="math inline">\(\{X_n\}_{n\ge0}\)</span> is <strong>strict-sense stationary</strong> if shifting all time indices by the same amount does not change any finite-dimensional distribution. More precisely, for every <span class="math inline">\(k\)</span>, every collection of time indices <span class="math inline">\(n_1,\ldots, n_k\)</span>, and every <span class="math inline">\(h\ge0\)</span>, the random vectors <span class="math display">\[
 (X_{n_1},\ldots,X_{n_k})
@@ -791,6 +877,14 @@ X_n=B_n,
 \EXP[Y_n]=x_n=\sin(2πn/25)
 \]</span> depends on time.</p></li>
 <li><p>Strict-sense stationarity implies that the marginal distribution of <span class="math inline">\(X_n\)</span> does not depend on <span class="math inline">\(n\)</span>. Consequently, if the relevant moments exist, <span class="math inline">\(\EXP[X_n]\)</span> and <span class="math inline">\(\VAR(X_n)\)</span> are constant. The converse is not true: time-invariant marginal distributions, or even constant means and variances, do not by themselves imply stationarity.</p></li>
+<li><p>For a Gaussian process, strict-sense stationarity is equivalent to the mean being constant and the auto-covariance depending only on the time difference. With the convention <span class="math display">\[
+R^X_k=\COV(X_{n+k},X_n),
+\]</span> stationarity means that <span class="math inline">\(R^X_k\)</span> does not depend on <span class="math inline">\(n\)</span>. The converse holds because the mean and covariance determine every finite-dimensional distribution of a Gaussian process. In particular, <a href="#exm-cosine-gaussian-phase" class="quarto-xref">Example&nbsp;<span>10.3</span></a> is strict-sense stationary.</p></li>
+<li><p>Stationarity is defined in terms of the distribution of the process, which is an ensemble property. In applications, however, we often observe only one sample path. Roughly speaking, a stationary process is <strong>ergodic</strong> if time averages along one sufficiently long sample path converge to the corresponding ensemble averages. For example, for zero-mean jointly stationary ergodic processes <span class="math inline">\(\{X_n\}\)</span> and <span class="math inline">\(\{Y_n\}\)</span>, the cross-covariance can be estimated as <span class="math display">\[
+R^{XY}_k
+=\COV(X_{n+k},Y_n)
+\approx \frac{1}{N}\sum_{n=0}^{N-1}X_{n+k}Y_n
+\]</span> for large <span class="math inline">\(N\)</span>. We will not develop the theory of ergodic processes in this course.</p></li>
 <li><p>In later chapters, we will study two complementary ways of describing temporal dependence. Markov chains describe dependence through conditional distributions and a state that summarizes the past. Gaussian and second-order processes describe dependence through means and covariance functions. State-space models combine these viewpoints for stochastic systems with inputs, outputs, and an internal state.</p></li>
 </ol>
 
@@ -799,7 +893,7 @@ X_n=B_n,
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBwX2Jlcm5vdWxsaV9wcm9jZXNzID0gSW5wdXRzLnJhbmdlKFswLCAxXSwge2xhYmVsOiBcInBcIiwgdmFsdWU6IDAuMywgc3RlcDogMC4wNX0pXG52aWV3b2YgcmVydW5fYmVybm91bGxpX3Byb2Nlc3MgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2Jlcm5vdWxsaV9wcm9jZXNzID0ge1xuICAgIHJlcnVuX2Jlcm5vdWxsaV9wcm9jZXNzXG5cbiAgICBjb25zdCBUID0gMTIwXG4gICAgY29uc3QgcG9pbnRzID0gbmV3IEFycmF5KFQpXG4gICAgbGV0IGNvdW50ID0gMFxuXG4gICAgZm9yIChsZXQgbiA9IDE7IG4gPD0gVDsgbisrKSB7XG4gICAgICBjb25zdCBCX24gPSAoTWF0aC5yYW5kb20oKSA8PSBwX2Jlcm5vdWxsaV9wcm9jZXNzKSA/IDEgOiAwXG4gICAgICBjb3VudCArPSBCX25cbiAgICAgIHBvaW50c1tuLTFdID0ge246IG4sIEJfbjogQl9uLCBOX246IGNvdW50fVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDEyMCxcbiAgeToge2RvbWFpbjogWzAsIDFdLCB0aWNrczogMSwgbGFiZWw6IFwiQuKCmVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5ydWxlWChwb2ludHNfYmVybm91bGxpX3Byb2Nlc3MsIHt4OiBcIm5cIiwgeTE6IDAsIHkyOiBcIkJfblwiLCBzdHJva2VXaWR0aDogMX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19iZXJub3VsbGlfcHJvY2Vzcywge3g6IFwiblwiLCB5OiBcIkJfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTgwLFxuICB5OiB7bGFiZWw6IFwiTuKCmVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19iZXJub3VsbGlfcHJvY2Vzcywge3g6IFwiblwiLCB5OiBcIk5fblwiLCBjdXJ2ZTogXCJzdGVwLWFmdGVyXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfYmVybm91bGxpX3Byb2Nlc3MsIHt4OiBcIm5cIiwgeTogXCJOX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBTdGFuZGFyZCBHYXVzc2lhbiB2YXJpYXRlIHVzaW5nIHRoZSBCb3gtLU11bGxlciB0cmFuc2Zvcm0uXG5mdW5jdGlvbiBnYXVzc2lhblJhbmRvbShtZWFuPTAsIHN0ZGV2PTEpIHtcbiAgICBjb25zdCB1ID0gMSAtIE1hdGgucmFuZG9tKClcbiAgICBjb25zdCB2ID0gTWF0aC5yYW5kb20oKVxuICAgIGNvbnN0IHogPSBNYXRoLnNxcnQoLTIgKiBNYXRoLmxvZyh1KSkgKiBNYXRoLmNvcygyICogTWF0aC5QSSAqIHYpXG4gICAgcmV0dXJuIHogKiBzdGRldiArIG1lYW5cbn1cblxudmlld29mIHJlcnVuX25vaXNlID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIHNhbXBsZSBwYXRoXCIpXG5cbnBvaW50c19ub2lzZSA9IHtcbiAgICByZXJ1bl9ub2lzZVxuXG4gICAgY29uc3QgVCA9IDEyMFxuICAgIGNvbnN0IHNpZ21hID0gMC4yXG4gICAgY29uc3Qgb21lZ2EgPSAyICogTWF0aC5QSSAvIDI1XG4gICAgY29uc3QgcG9pbnRzID0gbmV3IEFycmF5KFQgKyAxKVxuXG4gICAgZm9yIChsZXQgbiA9IDA7IG4gPD0gVDsgbisrKSB7XG4gICAgICBjb25zdCBzaWduYWwgPSBNYXRoLnNpbihvbWVnYSAqIG4pXG4gICAgICBjb25zdCBub2lzZSA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgICAgcG9pbnRzW25dID0ge246IG4sIHhfbjogc2lnbmFsLCBZX246IHNpZ25hbCArIG5vaXNlfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDIwMCxcbiAgeToge2xhYmVsOiBcIlnigplcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIFBsb3QubGluZShwb2ludHNfbm9pc2UsIHt4OiBcIm5cIiwgeTogXCJZX25cIiwgY3VydmU6IFwic3RlcC1hZnRlclwiLCBzdHJva2U6IFwiY3VycmVudENvbG9yXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfbm9pc2UsIHt4OiBcIm5cIiwgeTogXCJZX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3BfYmVybm91bGxpX3Byb2Nlc3MnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fYmVybm91bGxpX3Byb2Nlc3MnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fbm9pc2UnKSJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBwX2Jlcm5vdWxsaV9wcm9jZXNzID0gSW5wdXRzLnJhbmdlKFswLCAxXSwge2xhYmVsOiBcInBcIiwgdmFsdWU6IDAuMywgc3RlcDogMC4wNX0pXG52aWV3b2YgcmVydW5fYmVybm91bGxpX3Byb2Nlc3MgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2Jlcm5vdWxsaV9wcm9jZXNzID0ge1xuICAgIHJlcnVuX2Jlcm5vdWxsaV9wcm9jZXNzXG5cbiAgICBjb25zdCBUID0gMTIwXG4gICAgY29uc3QgcG9pbnRzID0gbmV3IEFycmF5KFQpXG4gICAgbGV0IGNvdW50ID0gMFxuXG4gICAgZm9yIChsZXQgbiA9IDE7IG4gPD0gVDsgbisrKSB7XG4gICAgICBjb25zdCBCX24gPSAoTWF0aC5yYW5kb20oKSA8PSBwX2Jlcm5vdWxsaV9wcm9jZXNzKSA/IDEgOiAwXG4gICAgICBjb3VudCArPSBCX25cbiAgICAgIHBvaW50c1tuLTFdID0ge246IG4sIEJfbjogQl9uLCBOX246IGNvdW50fVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDEyMCxcbiAgeToge2RvbWFpbjogWzAsIDFdLCB0aWNrczogMSwgbGFiZWw6IFwiQuKCmVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5ydWxlWChwb2ludHNfYmVybm91bGxpX3Byb2Nlc3MsIHt4OiBcIm5cIiwgeTE6IDAsIHkyOiBcIkJfblwiLCBzdHJva2VXaWR0aDogMX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19iZXJub3VsbGlfcHJvY2Vzcywge3g6IFwiblwiLCB5OiBcIkJfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTgwLFxuICB5OiB7bGFiZWw6IFwiTuKCmVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19iZXJub3VsbGlfcHJvY2Vzcywge3g6IFwiblwiLCB5OiBcIk5fblwiLCBjdXJ2ZTogXCJzdGVwLWFmdGVyXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfYmVybm91bGxpX3Byb2Nlc3MsIHt4OiBcIm5cIiwgeTogXCJOX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBTdGFuZGFyZCBHYXVzc2lhbiB2YXJpYXRlIHVzaW5nIHRoZSBCb3gtLU11bGxlciB0cmFuc2Zvcm0uXG5mdW5jdGlvbiBnYXVzc2lhblJhbmRvbShtZWFuPTAsIHN0ZGV2PTEpIHtcbiAgICBjb25zdCB1ID0gMSAtIE1hdGgucmFuZG9tKClcbiAgICBjb25zdCB2ID0gTWF0aC5yYW5kb20oKVxuICAgIGNvbnN0IHogPSBNYXRoLnNxcnQoLTIgKiBNYXRoLmxvZyh1KSkgKiBNYXRoLmNvcygyICogTWF0aC5QSSAqIHYpXG4gICAgcmV0dXJuIHogKiBzdGRldiArIG1lYW5cbn1cblxudmlld29mIHJlcnVuX25vaXNlID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIHNhbXBsZSBwYXRoXCIpXG5cbnBvaW50c19ub2lzZSA9IHtcbiAgICByZXJ1bl9ub2lzZVxuXG4gICAgY29uc3QgVCA9IDEyMFxuICAgIGNvbnN0IHNpZ21hID0gMC4yXG4gICAgY29uc3Qgb21lZ2EgPSAyICogTWF0aC5QSSAvIDI1XG4gICAgY29uc3QgcG9pbnRzID0gbmV3IEFycmF5KFQgKyAxKVxuXG4gICAgZm9yIChsZXQgbiA9IDA7IG4gPD0gVDsgbisrKSB7XG4gICAgICBjb25zdCBzaWduYWwgPSBNYXRoLnNpbihvbWVnYSAqIG4pXG4gICAgICBjb25zdCBub2lzZSA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgICAgcG9pbnRzW25dID0ge246IG4sIHhfbjogc2lnbmFsLCBZX246IHNpZ25hbCArIG5vaXNlfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDIwMCxcbiAgeToge2xhYmVsOiBcIlnigplcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIFBsb3QubGluZShwb2ludHNfbm9pc2UsIHt4OiBcIm5cIiwgeTogXCJZX25cIiwgY3VydmU6IFwic3RlcC1hZnRlclwiLCBzdHJva2U6IFwiY3VycmVudENvbG9yXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfbm9pc2UsIHt4OiBcIm5cIiwgeTogXCJZX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgcmVydW5fY29zaW5lX2dhdXNzID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIHNhbXBsZSBwYXRoXCIpXG5cbnBvaW50c19jb3NpbmVfZ2F1c3MgPSB7XG4gIHJlcnVuX2Nvc2luZV9nYXVzc1xuICBjb25zdCBOID0gMTIwXG4gIGNvbnN0IHNpZ21hID0gMS4wXG4gIGNvbnN0IGYgPSAwLjFcbiAgY29uc3QgQSA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICBjb25zdCBCID0gZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gIGNvbnN0IHBvaW50cyA9IG5ldyBBcnJheShOICsgMSlcbiAgZm9yIChsZXQgbiA9IDA7IG4gPD0gTjsgbisrKSB7XG4gICAgcG9pbnRzW25dID0ge1xuICAgICAgbixcbiAgICAgIFhfbjogQSAqIE1hdGguY29zKDIgKiBNYXRoLlBJICogZiAqIG4pICsgQiAqIE1hdGguc2luKDIgKiBNYXRoLlBJICogZiAqIG4pXG4gICAgfVxuICB9XG4gIHJldHVybiBwb2ludHNcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTUwLFxuICB5OiB7ZG9tYWluOiBbLTIsIDJdfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19jb3NpbmVfZ2F1c3MsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgc3Ryb2tlV2lkdGg6IDEuNX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19jb3NpbmVfZ2F1c3MsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3BfYmVybm91bGxpX3Byb2Nlc3MnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fYmVybm91bGxpX3Byb2Nlc3MnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fbm9pc2UnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fY29zaW5lX2dhdXNzJykifV19
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }

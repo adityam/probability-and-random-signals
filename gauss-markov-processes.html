@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aditya Mahajan">
+<meta name="dcterms.date" content="2026-08-14">
+<meta name="description" content="Course Notes for ECSE 509 (McGill University)">
+
+<title>12&nbsp; Gauss–Markov models and spectral analysis – Probability and Random Signals II</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./poisson-processes.html" rel="next">
+<link href="./markov-chains.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4ad2ef6750bdff82c221cf50d218a8aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-bcc1a68f7df079dd3a71af7c28f49a3c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-4ad2ef6750bdff82c221cf50d218a8aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script>
+// https://github.com/mathjax/MathJax/issues/2744#issuecomment-1658624747
+// To fix the bug that uppercase unicode letters are shown in italic
+window.MathJax = {
+  loader: {load: ['[tex]/mathtools']},
+  startup: {
+    ready() {
+      const {RANGES} = MathJax._.core.MmlTree.OperatorDictionary;
+      const {TEXCLASS} = MathJax._.core.MmlTree.MmlNode;
+      RANGES.splice(4, 1,
+        [0x0370, 0x0385, TEXCLASS.ORD, 'mi'],
+        [0x0386, 0x3AB, TEXCLASS.ORD, 'mi', 'normal'],
+        [0x03AC, 0x1A20, TEXCLASS.ORD, 'mi']
+      );
+      MathJax.startup.defaultReady();
+    }
+  },
+  tex: {
+    packages: {'[+]': ['mathtools']},
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    tags: "ams",
+    macros: {
+      PR: "\\mathbb{P}",
+      EXP: "\\mathbb{E}",
+      LEXP: "\\mathbb{L}",
+      "VAR": "\\operatorname{var}",
+      COV: "\\operatorname{cov}",
+      GP: "\\operatorname{GP}",
+      IND: "\\mathbb{1}",
+      ONES: "\\mathbf{1}",
+      reals: "\\mathbb{R}",
+      naturalnumbers: "\\mathbb{N}",
+      integers: "\\mathbb{Z}",
+      BLANK: "\\mathfrak{E}",
+      TRANS: "\\intercal",
+      // independent: "⫫", // Too short
+      independent: "\\mathrel{\\perp \\mkern -10mu \\perp}",
+      BELLMAN: "\\mathcal{B}",
+      RICCATI: "\\mathcal{R}",
+      GAIN: "\\mathcal{G}",
+      GREEDY: "\\mathcal{G}",
+      MISMATCH: "\\mathcal{D}",
+      VEC: "\\operatorname{vec}",
+      diag: "\\operatorname{diag}",
+      ROWS: "\\operatorname{vec}",
+      TR: "\\operatorname{Tr}",   
+      SPAN: "\\operatorname{sp}",   
+      DRE: "\\operatorname{DRE}",   
+      DARE: "\\operatorname{DARE}",   
+      LQR: "\\operatorname{LQR}",   
+      ALPHABET: ["\\mathcal{#1}", 1],
+      MATRIX: ["\\begin{bmatrix} #1 \\end{bmatrix}", 1],
+      DET: ["\\begin{vmatrix} #1 \\end{vmatrix}", 1],
+      NORM: ["\\lVert #1 \\rVert", 1],
+      NORMSCALE: ["\\left\\lVert \\mathstrut #1 \\right\\rVert", 1],
+      ABS: ["\\left\\lvert \\mathstrut #1 \\right\\rvert", 1],
+      GRAD: "\\nabla",
+      IP: ["\\langle #1, #2 \\rangle", 2],
+      IPSCALE: ["\\left\\langle #1, #2 \\right\\rangle", 2]
+    },
+  },
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+};
+</script>
+<script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Probability and Random Signals II</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/adityam/probability-and-random-signals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./gauss-markov-processes.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Course Outline</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./probability-spaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Probability spaces</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Random variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Random vectors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gaussian-random-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Gaussian random vectors</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conditional-expectation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mmse-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./moment-generating-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./inequalities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Probability inequalities</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./convergence-of-random-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Convergence of random variables</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stochastic-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Stochastic processes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./markov-chains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Markov chains</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./poisson-processes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Poisson processes</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#linear-state-space-models" id="toc-linear-state-space-models" class="nav-link active" data-scroll-target="#linear-state-space-models"><span class="header-section-number">12.1</span> Linear state-space models</a></li>
+  <li><a href="#stochastic-state-space-models" id="toc-stochastic-state-space-models" class="nav-link" data-scroll-target="#stochastic-state-space-models"><span class="header-section-number">12.2</span> Stochastic state-space models</a></li>
+  <li><a href="#stability-and-asymptotic-behavior" id="toc-stability-and-asymptotic-behavior" class="nav-link" data-scroll-target="#stability-and-asymptotic-behavior"><span class="header-section-number">12.3</span> Stability and asymptotic behavior</a></li>
+  <li><a href="#stationary-processes-and-power-spectral-densities" id="toc-stationary-processes-and-power-spectral-densities" class="nav-link" data-scroll-target="#stationary-processes-and-power-spectral-densities"><span class="header-section-number">12.4</span> Stationary processes and power spectral densities</a></li>
+  <li><a href="#stationary-processes-through-lti-systems" id="toc-stationary-processes-through-lti-systems" class="nav-link" data-scroll-target="#stationary-processes-through-lti-systems"><span class="header-section-number">12.5</span> Stationary processes through LTI systems</a></li>
+  <li><a href="#note-on-non-gaussian-processes" id="toc-note-on-non-gaussian-processes" class="nav-link" data-scroll-target="#note-on-non-gaussian-processes"><span class="header-section-number">12.6</span> Note on non-Gaussian processes</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">12.7</span> Exercises</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">12.8</span> Further reading</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/gauss-markov-processes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://adityam.github.io">Aditya Mahajan</a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="http://www.mcgill.ca/ece">
+            McGill University
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Updated</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 14, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In this chapter, we study Gaussian processes that arise as the outputs of linear systems with stochastic inputs. When the input is white Gaussian noise, the internal state is both Gaussian and Markov. We begin with deterministic linear state-space models, then pass to the stochastic setting, discuss stability and asymptotic behavior, and finally describe the stationary regime in the <span class="math inline">\(Z\)</span>-transform domain.</p>
+<section id="linear-state-space-models" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="linear-state-space-models"><span class="header-section-number">12.1</span> Linear state-space models</h2>
+<ol type="1">
+<li><p>Recall from an undergraduate control course that any single-input single-output (SISO) linear time-invariant (LTI) system can be written in state-space form as <span class="math display">\[ x_{n+1} = Ax_n + Bu_n, \qquad y_n = Cx_n, \]</span> where <span class="math inline">\(u_n \in \reals\)</span> is the input, <span class="math inline">\(y_n \in \reals\)</span> is the output, and <span class="math inline">\(x_n \in \reals^d\)</span> is the state. The system matrices <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> have appropriate dimensions; thus, <span class="math display">\[ A \in \reals^{d \times d}, \qquad B \in \reals^{d \times 1}, \qquad C \in \reals^{1 \times d}. \]</span></p>
+<p>Suppose the system starts at time <span class="math inline">\(n = 0\)</span> with initial state <span class="math inline">\(x_0\)</span>. Repeated substitution gives <span class="math display">\[\begin{equation}\label{eq:state-solution}
+  x_n = A^nx_0 + \sum_{k=0}^{n-1} A^{n-1-k}Bu_k.
+\end{equation}\]</span> The first term is the zero-input response and the second term is the zero-state response.</p></li>
+<li><p>Consequently, the output is <span class="math display">\[ y_n = CA^nx_0 + \sum_{k=0}^{n-1} CA^{n-1-k}Bu_k. \]</span> Thus, the impulse response from <span class="math inline">\(u\)</span> to <span class="math inline">\(y\)</span> is <span class="math display">\[ g_n = CA^{n-1}B, \qquad n \ge 1, \]</span> while <span class="math inline">\(g_n = 0\)</span> for <span class="math inline">\(n \le 0\)</span>.</p>
+<p>The transfer function (i.e., the <span class="math inline">\(Z\)</span>-transform of the impulse response) is <span class="math display">\[ G(z) = \sum_{n=0}^{\infty} g_nz^{-n} = C(zI - A)^{-1}B. \]</span></p></li>
+</ol>
+</section>
+<section id="stochastic-state-space-models" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="stochastic-state-space-models"><span class="header-section-number">12.2</span> Stochastic state-space models</h2>
+<ol type="1">
+<li><p>Consider an LTI system with state-space model <span class="math inline">\((A,B,C)\)</span>. Suppose that the input is a Gaussian process <span class="math inline">\(\{U_n\}_{n \ge 0}\)</span> and that <span class="math inline">\(X_0\)</span> is jointly Gaussian with the input process. Since the input is a stochastic process, so are the state and the output. In particular, <span class="math display">\[\begin{equation}\label{eq:SSS}
+  X_{n+1} = AX_n + BU_n,
+  \qquad
+  Y_n = CX_n.
+\end{equation}\]</span></p>
+<p>From <span class="math inline">\(\eqref{eq:state-solution}\)</span>, every state and output is a linear combination of <span class="math inline">\(X_0,U_0,U_1,\ldots\)</span>. Consequently, <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a vector-valued Gaussian process (every finite stack of states is jointly Gaussian), and <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is a Gaussian process.</p></li>
+<li><p>Since the output process is Gaussian, it is completely characterized by its mean and auto-covariance functions, <span class="math inline">\(μ^Y_n\)</span> and <span class="math inline">\(R^Y_{n,m}\)</span>. In general, these depend on the statistics of the input and the initial state, including their cross-covariance.</p>
+<p>Taking expectations in <span class="math inline">\(\eqref{eq:SSS}\)</span> gives <span class="math display">\[ μ^X_{n+1} = Aμ^X_n + Bμ^U_n, \qquad μ^Y_n = Cμ^X_n. \]</span></p>
+<p>For a general input, covariance propagation also involves the cross-covariance between <span class="math inline">\(X_n\)</span> and <span class="math inline">\(U_n\)</span>. To obtain a closed recursion, we specialize to zero-mean white Gaussian noise <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> that is independent of the initial state. We write <span class="math inline">\(Σ^W = σ_W^2\mathbb I\)</span> for its covariance, so the same formulas also apply to a vector-valued white-noise input.</p></li>
+<li><p>Under this specialization, <span class="math inline">\(W_n\)</span> is independent of <span class="math inline">\(X_0,\ldots,X_n\)</span>. Therefore, the recursion <span class="math inline">\(X_{n+1} = AX_n + BW_n\)</span> gives <span class="math display">\[ X_{n+1} \mid X_0,\ldots,X_n \sim \mathcal N\bigl(AX_n, BΣ^W B^\TRANS\bigr). \]</span> Such a process is often called a <strong>Gauss–Markov process</strong>.</p></li>
+<li><p><strong>Propagation of covariance.</strong> The same independence gives a closed covariance recursion. Define <span class="math display">\[ Σ^X_n = \COV(X_n,X_n), \qquad Σ^Y_n = \COV(Y_n,Y_n). \]</span> Since <span class="math inline">\(W_n\)</span> is independent of <span class="math inline">\(X_n\)</span>, the covariances propagate according to <span class="math display">\[ Σ^X_{n+1} = AΣ^X_nA^\TRANS + BΣ^W B^\TRANS, \qquad Σ^Y_n = CΣ^X_nC^\TRANS. \]</span> Iterating the state covariance recursion gives <span class="math display">\[\begin{equation}\label{eq:state-covariance-solution}
+  Σ^X_n
+  = A^nΣ^X_0(A^\TRANS)^n
+  + \sum_{k=0}^{n-1} A^k BΣ^W B^\TRANS (A^\TRANS)^k.
+\end{equation}\]</span></p></li>
+<li><div id="exm-gauss-markov-random-walk" class="theorem example">
+<p><span class="theorem-title"><strong>Example 12.1 (Gaussian random walk)</strong></span> Let <span class="math display">\[ X_{n+1} = X_n + W_n, \qquad Y_n = X_n. \]</span> This is a state-space model with <span class="math inline">\(A = B = C = 1\)</span>. If <span class="math inline">\(X_0 = 0\)</span>, then <span class="math display">\[ Σ^X_{n+1} = Σ^X_n + σ_W^2, \qquad Σ^Y_n = Σ^X_n. \]</span> Since <span class="math inline">\(Σ^X_0 = 0\)</span>, it follows that <span class="math display">\[ Σ^Y_n = nσ_W^2. \]</span> Thus, the output is nonstationary and its variance grows without bound. A sample path is shown below.</p>
+</div></li>
+</ol>
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="77" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 76;"><span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> stdev <span class="op">=</span> <span class="dv">1</span>) {</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(u)) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v)</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> z <span class="op">*</span> stdev <span class="op">+</span> mean</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="87" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 86;"><span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>viewof rerun_rw <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>points_rw <span class="op">=</span> {</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  rerun_rw</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> X <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>  points[<span class="dv">0</span>] <span class="op">=</span> {<span class="dt">n</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> X <span class="op">+</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    points[n] <span class="op">=</span> {n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> X}</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="104" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 103;"><span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">20</span><span class="op">,</span> <span class="dv">20</span>]}<span class="op">,</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_rw<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_rw<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<ol start="6" type="1">
+<li><div id="exm-gauss-markov-ar1" class="theorem example">
+<p><span class="theorem-title"><strong>Example 12.2 (AR(1) process)</strong></span> Let <span class="math display">\[ X_{n+1} = aX_n + W_n, \qquad Y_n = X_n. \]</span> This is a state-space model with <span class="math inline">\(A = a\)</span> and <span class="math inline">\(B = C = 1\)</span>. The covariance propagation formulas give <span class="math display">\[ Σ^X_{n+1} = a^2Σ^X_n + σ_W^2, \qquad Σ^Y_n = Σ^X_n. \]</span> Therefore, when <span class="math inline">\(a^2 \ne 1\)</span>, <span class="math display">\[ Σ^Y_n = a^{2n}Σ^X_0 + σ_W^2\sum_{k=0}^{n-1} a^{2k} = a^{2n}Σ^X_0 + σ_W^2\frac{1 - a^{2n}}{1 - a^2}. \]</span> When <span class="math inline">\(|a| &lt; 1\)</span>, the effect of the initial state vanishes and <span class="math display">\[ Σ^Y_n \longrightarrow \frac{σ_W^2}{1 - a^2}. \]</span> When <span class="math inline">\(a = 1\)</span> and <span class="math inline">\(Σ^X_0 = 0\)</span>, the variance reduces to that of the Gaussian random walk. A sample path with stationary initialization is shown below; we explain this initialization after studying stability.</p>
+</div></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="132" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 131;"><span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>viewof rerun_ar1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>points_ar1 <span class="op">=</span> {</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>  rerun_ar1</span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a <span class="op">=</span> <span class="fl">0.8</span></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> var0 <span class="op">=</span> sigma <span class="op">*</span> sigma <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> a <span class="op">*</span> a)</span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> X <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(var0))</span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>  points[<span class="dv">0</span>] <span class="op">=</span> {<span class="dt">n</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> X}</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> a <span class="op">*</span> X <span class="op">+</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>    points[n] <span class="op">=</span> {n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> X}</span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="151" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 150;"><span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]}<span class="op">,</span></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_ar1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_ar1<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<ol start="7" type="1">
+<li><div id="exm-gauss-markov-oscillator" class="theorem example">
+<p><span class="theorem-title"><strong>Example 12.3 (A stochastic oscillator)</strong></span> Let <span class="math inline">\(0 &lt; r &lt; 1\)</span>, let <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> be white Gaussian noise with variance <span class="math inline">\(σ_W^2\)</span>, and suppose <span class="math inline">\(X_0 = 0\)</span>. Consider <span class="math display">\[
+  A = r\MATRIX{
+  \cosθ &amp; -\sinθ \\
+  \sinθ &amp; \cosθ},
+  \qquad
+  B = \MATRIX{1 \\ 0},
+  \qquad
+  C = \MATRIX{1 &amp; 0}.
+\]</span> The state is rotated by <span class="math inline">\(θ\)</span> and attenuated by <span class="math inline">\(r\)</span> at each step, while white noise continually excites its first component. The covariance propagation formulas give <span class="math display">\[ Σ^X_{n+1} = AΣ^X_nA^\TRANS + BΣ^W B^\TRANS, \qquad Σ^Y_n = CΣ^X_nC^\TRANS. \]</span> Since <span class="math inline">\(Σ^X_0 = 0\)</span>, <span class="math display">\[ Σ^Y_n = \sum_{k=0}^{n-1} CA^k BΣ^W B^\TRANS (A^\TRANS)^kC^\TRANS. \]</span> Moreover, <span class="math display">\[ A^kB = r^k\MATRIX{\cos(kθ) \\ \sin(kθ)}, \]</span> and with <span class="math inline">\(Σ^W = σ_W^2\)</span> (scalar input), <span class="math display">\[ Σ^Y_n = σ_W^2\sum_{k=0}^{n-1} r^{2k}\cos^2(kθ). \]</span> Since <span class="math inline">\(0 &lt; r &lt; 1\)</span>, this output variance converges to a finite value. A sample path is shown below.</p>
+</div></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="189" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 188;"><span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>viewof rerun_osc <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a>points_osc <span class="op">=</span> {</span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a>  rerun_osc</span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> r <span class="op">=</span> <span class="fl">0.95</span></span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> theta <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> cos <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(theta)</span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sin <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(theta)</span>
+<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> x0 <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> x1 <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>  points[<span class="dv">0</span>] <span class="op">=</span> {<span class="dt">n</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">Y_n</span><span class="op">:</span> x0}</span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> w <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> next0 <span class="op">=</span> r <span class="op">*</span> (cos <span class="op">*</span> x0 <span class="op">-</span> sin <span class="op">*</span> x1) <span class="op">+</span> w</span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> next1 <span class="op">=</span> r <span class="op">*</span> (sin <span class="op">*</span> x0 <span class="op">+</span> cos <span class="op">*</span> x1)</span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a>    x0 <span class="op">=</span> next0</span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a>    x1 <span class="op">=</span> next1</span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a>    points[n] <span class="op">=</span> {n<span class="op">,</span> <span class="dt">Y_n</span><span class="op">:</span> x0}</span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="215" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 214;"><span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Yₙ"</span>}<span class="op">,</span></span>
+<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_osc<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Y_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_osc<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Y_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<ol start="8" type="1">
+<li><p><strong>Covariance across time.</strong> The variance <span class="math inline">\(Σ^Y_n\)</span> describes the process at one time. To understand its temporal dependence, define <span class="math display">\[ R^X_{n,m} = \COV(X_n,X_m), \qquad R^Y_{n,m} = \COV(Y_n,Y_m). \]</span> For <span class="math inline">\(n \ge m\)</span>, <span class="math display">\[ X_n = A^{n-m}X_m + \sum_{k=m}^{n-1} A^{n-1-k}BW_k. \]</span> Every noise variable in the sum is independent of <span class="math inline">\(X_m\)</span>. Therefore, <span class="math display">\[\begin{equation}\label{eq:state-cross-time-covariance}
+  R^X_{n,m} = A^{n-m}Σ^X_m,
+  \qquad n \ge m,
+\end{equation}\]</span> and, by transposition, <span class="math display">\[ R^X_{m,n} = Σ^X_m(A^\TRANS)^{n-m}. \]</span> The output auto-covariance is <span class="math display">\[\begin{equation}\label{eq:output-covariance}
+  R^Y_{n,m} = CR^X_{n,m}C^\TRANS.
+\end{equation}\]</span> In particular, for <span class="math inline">\(n \ge m\)</span>, <span class="math display">\[ R^Y_{n,m} = CA^{n-m}Σ^X_mC^\TRANS. \]</span> For the Gaussian random walk with <span class="math inline">\(X_0 = 0\)</span>, <span class="math display">\[ R^X_{n,m} = σ_W^2\min(n,m), \]</span> while for the AR(1) process with <span class="math inline">\(X_0 = 0\)</span>, <span class="math inline">\(n \ge m\)</span>, and <span class="math inline">\(a^2 \ne 1\)</span>, <span class="math display">\[ R^X_{n,m} = a^{n-m}σ_W^2\frac{1 - a^{2m}}{1 - a^2}. \]</span></p></li>
+<li><p><strong>Input-output cross-covariance.</strong> We can also relate the input and output processes directly. Define <span class="math display">\[ R^{YW}_{n,m} = \COV(Y_n,W_m). \]</span> Since <span class="math inline">\(X_0\)</span> is independent of the white-noise process, <span class="math inline">\(\eqref{eq:state-solution}\)</span> gives <span class="math display">\[\begin{equation}\label{eq:input-output-cross-covariance}
+  R^{YW}_{n,m}
+  = \begin{cases}
+  CA^{n-m-1}BΣ^W, &amp; 0 \le m &lt; n, \\
+  0, &amp; m \ge n.
+  \end{cases}
+\end{equation}\]</span> Thus, for <span class="math inline">\(\ell \ge 1\)</span>, <span class="math display">\[ R^{YW}_{m+\ell,m} = g_\ell Σ^W. \]</span> For standard white noise (<span class="math inline">\(Σ^W = \mathbb{I}\)</span>, or <span class="math inline">\(σ_W^2 = 1\)</span> in the SISO case), the input-output cross-covariance is exactly the impulse response. This relationship is useful in system identification: the impulse response can be estimated from observations of the input and output.</p></li>
+<li><p>More general Gaussian inputs, including colored noise, can often be generated by passing white Gaussian noise through a linear filter. By augmenting the system state with the state of this filter, such models can again be written in Gauss–Markov form. We return to colored noise after introducing power spectral densities.</p></li>
+</ol>
+</section>
+<section id="stability-and-asymptotic-behavior" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="stability-and-asymptotic-behavior"><span class="header-section-number">12.3</span> Stability and asymptotic behavior</h2>
+<p>The examples above suggest that the long-run behavior is controlled by the matrix <span class="math inline">\(A\)</span>: the random walk has growing variance, while the stable AR(1) process and stochastic oscillator approach limiting covariances. We now make this precise.</p>
+<ol type="1">
+<li><p>The matrix <span class="math inline">\(A\)</span> is called <strong>Schur stable</strong> if all its eigenvalues lie strictly inside the unit circle. Stability implies that <span class="math display">\[ A^n \longrightarrow 0 \qquad\text{as }n \to ∞. \]</span></p></li>
+<li><p>For the white-noise-driven Gauss–Markov model above, if <span class="math inline">\(A\)</span> is Schur stable, then <span class="math display">\[ μ^X_n \longrightarrow 0. \]</span> Furthermore, the contribution of the initial covariance in <span class="math inline">\(\eqref{eq:state-covariance-solution}\)</span> vanishes: <span class="math display">\[ A^nΣ^X_0(A^\TRANS)^n \longrightarrow 0. \]</span> The covariance therefore converges to <span class="math display">\[\begin{equation}\label{eq:steady-state-covariance-series}
+  Σ^X_∞
+  = \sum_{k=0}^{\infty}
+  A^k BΣ^W B^\TRANS (A^\TRANS)^k.
+\end{equation}\]</span> Thus, for every admissible initial state with finite covariance, <span class="math display">\[ Σ^X_n \longrightarrow Σ^X_∞. \]</span> Moreover, for every fixed <span class="math inline">\(k \ge 0\)</span>, <span class="math inline">\(\eqref{eq:state-cross-time-covariance}\)</span> gives <span class="math display">\[\begin{equation}\label{eq:asymptotic-output-covariance}
+  R^Y_{n,n+k}
+  = CΣ^X_n(A^\TRANS)^kC^\TRANS
+  \longrightarrow
+  CΣ^X_∞(A^\TRANS)^kC^\TRANS
+  = CA^kΣ^X_∞C^\TRANS.
+\end{equation}\]</span> The last equality holds because <span class="math inline">\(Y_n\)</span> is scalar. Thus, the limiting output auto-covariance depends only on the lag <span class="math inline">\(k\)</span>.</p>
+<p>Since the output process is Gaussian, convergence of its mean and covariance implies convergence of all its finite-dimensional distributions. Therefore, the shifted output process converges to a zero-mean stationary Gaussian process whose auto-covariance is <span class="math display">\[ R^Y_k = CA^kΣ^X_∞C^\TRANS, \qquad k \ge 0, \]</span> with <span class="math inline">\(R^Y_{-k} = R^Y_k\)</span>.</p></li>
+<li><p>Taking the limit in the covariance recursion <span class="math display">\[ Σ^X_{n+1} = AΣ^X_nA^\TRANS + BΣ^W B^\TRANS \]</span> gives <span class="math display">\[\begin{equation}\label{eq:discrete-Lyapunov}
+  Σ^X_∞
+  = AΣ^X_∞A^\TRANS + BΣ^W B^\TRANS.
+\end{equation}\]</span> This is the <strong>discrete Lyapunov equation</strong> associated with the stochastic state-space model.</p>
+<p>If <span class="math inline">\(A\)</span> is Schur stable, <span class="math inline">\(\eqref{eq:discrete-Lyapunov}\)</span> has a unique symmetric positive-semidefinite solution, given by <span class="math inline">\(\eqref{eq:steady-state-covariance-series}\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Existence and uniqueness
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(Σ^X_∞\)</span> be given by <span class="math inline">\(\eqref{eq:steady-state-covariance-series}\)</span>. Multiplying by <span class="math inline">\(A\)</span> and <span class="math inline">\(A^\TRANS\)</span> shifts the sum, <span class="math display">\[
+  AΣ^X_∞A^\TRANS
+  = \sum_{k=0}^{\infty} A^{k+1} BΣ^W B^\TRANS (A^\TRANS)^{k+1}
+  = \sum_{k=1}^{\infty} A^k BΣ^W B^\TRANS (A^\TRANS)^k.
+\]</span> Adding the <span class="math inline">\(k = 0\)</span> term <span class="math inline">\(BΣ^W B^\TRANS\)</span> therefore recovers the full series: <span class="math display">\[ AΣ^X_∞A^\TRANS + BΣ^W B^\TRANS = Σ^X_∞. \]</span> Thus the infinite sum solves <span class="math inline">\(\eqref{eq:discrete-Lyapunov}\)</span>.</p>
+<p>For uniqueness, suppose <span class="math inline">\(Σ\)</span> and <span class="math inline">\(\widetildeΣ\)</span> both solve <span class="math inline">\(\eqref{eq:discrete-Lyapunov}\)</span>. Their difference <span class="math inline">\(D = Σ - \widetildeΣ\)</span> satisfies <span class="math display">\[ D = ADA^\TRANS. \]</span> Repeated substitution gives <span class="math display">\[ D = A^nD(A^\TRANS)^n. \]</span> If <span class="math inline">\(A\)</span> is Schur stable, the right-hand side converges to zero. Hence <span class="math inline">\(D = 0\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Stationary initialization
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(X_0 \sim \mathcal N(0,Σ^X_∞)\)</span> independently of the noise process, then the covariance recursion and the Lyapunov equation imply that <span class="math inline">\(Σ^X_n = Σ^X_∞\)</span> for every <span class="math inline">\(n\)</span>. Together with <span class="math inline">\(\eqref{eq:state-cross-time-covariance}\)</span>, this shows that the process is stationary from time <span class="math inline">\(0\)</span>. This is the continuous-state analogue of initializing a Markov chain in an invariant distribution.</p>
+</div>
+</div></li>
+<li><p>For the stable AR(1) process, the Lyapunov equation reduces to <span class="math display">\[ Σ^X_∞ = a^2Σ^X_∞ + σ_W^2, \]</span> and therefore <span class="math display">\[ Σ^X_∞ = \frac{σ_W^2}{1 - a^2}. \]</span> This recovers the limiting variance obtained earlier from the covariance recursion.</p></li>
+<li><p>For a vector state, <span class="math inline">\(\eqref{eq:discrete-Lyapunov}\)</span> is a system of linear equations in the entries of <span class="math inline">\(Σ^X_∞\)</span>. It can be solved directly for small systems or using standard numerical routines for larger systems.</p></li>
+</ol>
+<p>The state-space analysis above describes both the transient behavior and the limiting covariance. Once the output has reached its stationary regime, the same input-output relationships can be described more directly using the <span class="math inline">\(Z\)</span>-transform.</p>
+</section>
+<section id="stationary-processes-and-power-spectral-densities" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="stationary-processes-and-power-spectral-densities"><span class="header-section-number">12.4</span> Stationary processes and power spectral densities</h2>
+<ol type="1">
+<li><p>Let <span class="math inline">\(\{U_n\}_{n \in \integers}\)</span> be a real-valued, zero-mean stationary Gaussian process. Its auto-covariance function <span class="math display">\[ R^U_k = \COV(U_{n+k}, U_n) \]</span> depends only on the lag <span class="math inline">\(k\)</span> and satisfies <span class="math inline">\(R^U_{-k} = R^U_k\)</span>. A nonzero constant mean can always be removed before carrying out the analysis below.</p></li>
+<li><p>Let <span class="math inline">\(S_U(z)\)</span> denote the bilateral <span class="math inline">\(Z\)</span>-transform of the auto-covariance function: <span class="math display">\[\begin{equation}\label{eq:covariance-transform}
+  S_U(z)
+  = \sum_{k=-∞}^{∞}R^U_kz^{-k}.
+\end{equation}\]</span> We assume that <span class="math inline">\(R^U_k\)</span> is absolutely summable, so the region of convergence contains the unit circle. The auto-covariance sequence is recovered by taking the inverse <span class="math inline">\(Z\)</span>-transform of <span class="math inline">\(S_U(z)\)</span>.</p></li>
+<li><p>Since <span class="math inline">\(R^U_{-k} = R^U_k\)</span>, <span class="math inline">\(S_U(z)\)</span> satisfies <span class="math display">\[ S_U(z^{-1}) = S_U(z). \]</span> On the unit circle, <span class="math inline">\(z = e^{\mathsf j Ω}\)</span>, <span class="math inline">\(S_U(z)\)</span> reduces to the discrete-time Fourier transform (DTFT) of the auto-covariance, and is called the <strong>power spectral density</strong> (PSD): <span class="math display">\[\begin{equation}\label{eq:psd-definition}
+  S_U(e^{\mathsf j Ω})
+  = \sum_{k=-∞}^{∞}R^U_ke^{-\mathsf j Ω k}.
+\end{equation}\]</span> It is real, nonnegative, and even. (In signals and systems, <span class="math inline">\(ω\)</span> often denotes frequency in radians; in probability the same letter often denotes an outcome. So we use <span class="math inline">\(Ω\)</span> as the frequency variable.)</p></li>
+<li><p>The terminology “power spectral density” comes from the inverse DTFT at lag zero. The average power of the process is <span class="math display">\[ R^U_0 = \VAR(U_n), \]</span> and <span class="math display">\[\begin{equation}\label{eq:power-from-psd}
+  R^U_0
+  = \frac{1}{2π}\int_{-π}^{π} S_U(e^{\mathsf j Ω})\,dΩ.
+\end{equation}\]</span> Thus <span class="math inline">\(S_U(e^{\mathsf j Ω})\)</span> describes how the power of the process is distributed across frequencies. Nonnegativity of the PSD is a general property of such spectra and is a consequence of the <a href="https://en.wikipedia.org/wiki/Wiener%E2%80%93Khinchin_theorem">:Wiener–Khinchin theorem</a>; see also Oppenheim and Verghese, Chapter~10.2.</p></li>
+<li><p>If <span class="math inline">\(\{W_n\}_{n \in \integers}\)</span> is white noise with variance <span class="math inline">\(σ_W^2\)</span>, then <span class="math display">\[ R^W_k = σ_W^2 \IND\{k = 0\}, \]</span> and hence <span class="math display">\[\begin{equation}\label{eq:white-noise-covariance-transform}
+  S_W(z) = σ_W^2.
+\end{equation}\]</span> In particular, its PSD is constant on the unit circle. This is why the process is called <strong>white noise</strong>: its spectrum is flat, in contrast to <strong>colored noise</strong>, whose spectrum is not flat.</p></li>
+</ol>
+</section>
+<section id="stationary-processes-through-lti-systems" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="stationary-processes-through-lti-systems"><span class="header-section-number">12.5</span> Stationary processes through LTI systems</h2>
+<ol type="1">
+<li><p>Suppose <span class="math inline">\(\{U_n\}_{n \in \integers}\)</span> is a stationary Gaussian process that is input to a causal LTI system with impulse response <span class="math inline">\(\{g_ℓ\}_{ℓ \ge 0}\)</span>. Then, the output is given by <span class="math display">\[\begin{equation}\label{eq:stationary-filter-output}
+  Y_n = \sum_{ℓ=0}^{∞} g_ℓ U_{n-ℓ}.
+\end{equation}\]</span> When the system is stable, the output is also a stationary Gaussian process. We establish this by a sequence of steps.</p>
+<p>The mean of the output is <span class="math display">\[ μ^Y = \EXP[Y_n] = \EXP\Bigl[\sum_{ℓ=0}^{∞} g_ℓ U_{n-ℓ}\Bigr] = \sum_{ℓ=0}^{∞} g_ℓ μ^U = μ^U G(1), \]</span> which does not depend on <span class="math inline">\(n\)</span>. This makes intuitive sense: the average of the output is the average of the input times the DC gain of the system. For the zero-mean setting of the previous section, <span class="math inline">\(μ^Y = 0\)</span>.</p></li>
+<li><p>The input-output cross-covariance is <span class="math display">\[ R^{YU}_{n+k,n} = \COV(Y_{n+k}, U_n). \]</span> From <span class="math inline">\(\eqref{eq:stationary-filter-output}\)</span>, <span class="math display">\[
+  R^{YU}_{n+k,n}
+  = \COV\Bigl(\sum_{ℓ=0}^{∞} g_ℓ U_{n+k-ℓ}, U_n\Bigr)
+  = \sum_{ℓ=0}^{∞} g_ℓ \COV(U_{n+k-ℓ}, U_n)
+  = \sum_{ℓ=0}^{∞} g_ℓ R^U_{k-ℓ}.
+\]</span> The right-hand side depends only on the lag <span class="math inline">\(k\)</span>, so we may write <span class="math inline">\(R^{YU}_k\)</span> for this common value. Thus <span class="math display">\[\begin{equation}\label{eq:filter-cross-covariance}
+  R^{YU}_k
+  = \sum_{ℓ=0}^{∞} g_ℓ R^U_{k-ℓ}
+  = (g * R^U)_k.
+\end{equation}\]</span> The cross-covariance between the output and input is the convolution of the impulse response with the auto-covariance of the input.</p>
+<p>We denote its bilateral <span class="math inline">\(Z\)</span>-transform by <span class="math display">\[ S_{YU}(z) = \sum_{k=-∞}^{∞} R^{YU}_k z^{-k}. \]</span> Convolution in the lag domain becomes multiplication in the <span class="math inline">\(Z\)</span>-domain, so <span class="math display">\[\begin{equation}\label{eq:filter-cross-spectral}
+  S_{YU}(z) = G(z) S_U(z).
+\end{equation}\]</span></p></li>
+<li><p>The auto-covariance of the output is <span class="math display">\[
+  R^Y_{n+k,n}
+  = \COV(Y_{n+k}, Y_n)
+  = \COV\Bigl(Y_{n+k}, \sum_{r=0}^{∞} g_r U_{n-r}\Bigr)
+  = \sum_{r=0}^{∞} g_r \COV(Y_{n+k}, U_{n-r})
+  = \sum_{r=0}^{∞} g_r R^{YU}_{n+k,n-r}
+  = \sum_{r=0}^{∞} g_r R^{YU}_{k+r}.
+\]</span> The last expression depends only on <span class="math inline">\(k\)</span>, so we may write <span class="math inline">\(R^Y_k\)</span> for this common value. The sum looks like a convolution but is not quite. Defining <span class="math inline">\(\widetilde g_ℓ = g_{-ℓ}\)</span> (for a real impulse response) converts it into one: <span class="math display">\[ R^Y = \widetilde g * R^{YU} = \widetilde g * g * R^U. \]</span> Expanding the convolutions gives <span class="math display">\[\begin{equation}\label{eq:filter-output-covariance}
+  R^Y_k
+  = \sum_{ℓ=0}^{∞} \sum_{r=0}^{∞}
+  g_ℓ g_r R^U_{k-ℓ+r}.
+\end{equation}\]</span></p></li>
+<li><p>Thus we have shown that <span class="math inline">\(μ^Y\)</span> does not depend on <span class="math inline">\(n\)</span> and that <span class="math inline">\(R^Y_{n+k,n}\)</span> depends only on the lag <span class="math inline">\(k\)</span>. Since the output is Gaussian, it follows that the output is stationary.</p></li>
+<li><p>Taking the bilateral <span class="math inline">\(Z\)</span>-transform of <span class="math inline">\(\eqref{eq:filter-output-covariance}\)</span> likewise converts the remaining convolution into multiplication: <span class="math display">\[\begin{equation}\label{eq:filter-covariance-transform-relations}
+  S_Y(z) = G(z) G(z^{-1}) S_U(z).
+\end{equation}\]</span> On the unit circle, <span class="math inline">\(G(e^{-\mathsf j Ω}) = G(e^{\mathsf j Ω})^*\)</span> for a real system, so <span class="math display">\[\begin{equation}\label{eq:psd-relationships}
+  S_Y(e^{\mathsf j Ω})
+  = \bigl|G(e^{\mathsf j Ω})\bigr|^2 S_U(e^{\mathsf j Ω}).
+\end{equation}\]</span> Thus the <span class="math inline">\(Z\)</span>-domain relationship contains the usual power spectral density relationship as its restriction to the unit circle.</p></li>
+<li><p>For a white-noise input, <span class="math inline">\(\eqref{eq:filter-cross-covariance}\)</span> and <span class="math inline">\(\eqref{eq:filter-cross-spectral}\)</span> reduce to <span class="math display">\[ R^{YW}_k = σ_W^2 g_k, \qquad S_{YW}(z) = σ_W^2 G(z), \]</span> and <span class="math display">\[\begin{equation}\label{eq:white-noise-output-covariance-transform}
+  S_Y(z) = σ_W^2 G(z)G(z^{-1}).
+\end{equation}\]</span> For standard white noise, both the input-output cross-covariance and its <span class="math inline">\(Z\)</span>-transform identify the system.</p></li>
+<li><p>The same formulas connect back to the state-space models above. For <span class="math display">\[ X_{n+1} = AX_n + BW_n, \qquad Y_n = CX_n, \]</span> the transfer function is <span class="math inline">\(G(z) = C(zI - A)^{-1}B\)</span>, so <span class="math inline">\(S_Y(z)\)</span> for the stationary output follows immediately from <span class="math inline">\(\eqref{eq:white-noise-output-covariance-transform}\)</span>. This is the <span class="math inline">\(Z\)</span>-domain counterpart of computing <span class="math inline">\(Σ^X_∞\)</span> from the discrete Lyapunov equation and then forming the output auto-covariance. The next example illustrates this connection for the AR(1) process.</p></li>
+<li><div id="exm-frequency-domain-ar1" class="theorem example">
+<p><span class="theorem-title"><strong>Example 12.4 (Stationary AR(1) process)</strong></span> Consider <span class="math display">\[ X_{n+1} = aX_n + W_n, \qquad |a| &lt; 1, \]</span> in its stationary regime. The transfer function from <span class="math inline">\(W\)</span> to <span class="math inline">\(X\)</span> is <span class="math display">\[ G(z) = \frac{1}{z - a} = \frac{z^{-1}}{1 - a z^{-1}}. \]</span> Therefore, <span class="math display">\[\begin{equation}\label{eq:AR1-covariance-transform}
+  S_X(z)
+  = σ_W^2 G(z)G(z^{-1})
+  = \frac{σ_W^2}{(1 - a z^{-1})(1 - a z)}.
+\end{equation}\]</span> For <span class="math inline">\(a \ne 0\)</span>, the region of convergence is <span class="math inline">\(|a| &lt; |z| &lt; 1/|a|\)</span>, which contains the unit circle because <span class="math inline">\(|a| &lt; 1\)</span>. When <span class="math inline">\(a = 0\)</span>, <span class="math inline">\(X_n = W_{n-1}\)</span> and <span class="math inline">\(S_X(z) = σ_W^2\)</span>. Taking the inverse <span class="math inline">\(Z\)</span>-transform gives <span class="math display">\[ R^X_k = \frac{σ_W^2}{1 - a^2} a^{|k|}. \]</span> In particular, <span class="math inline">\(R^X_0 = σ_W^2/(1 - a^2)\)</span>, which agrees with the steady-state variance obtained from the Lyapunov equation.</p>
+<p>On the unit circle, <span class="math inline">\(G(e^{\mathsf j Ω}) = 1/(e^{\mathsf j Ω} - a)\)</span>, and <span class="math display">\[ |e^{\mathsf j Ω} - a|^2 = |1 - a e^{-\mathsf j Ω}|^2 = |1 - a e^{\mathsf j Ω}|^2, \]</span> so <span class="math display">\[ S_X(e^{\mathsf j Ω}) = \frac{σ_W^2}{|1 - a e^{\mathsf j Ω}|^2}, \]</span> which is exactly <span class="math inline">\(\eqref{eq:psd-relationships}\)</span> applied to white noise.</p>
+</div></li>
+<li><div id="exm-moving-average-colored-noise" class="theorem example">
+<p><span class="theorem-title"><strong>Example 12.5 (Colored noise from a linear filter)</strong></span> Let <span class="math display">\[ U_n = W_n + b W_{n-1}, \]</span> where <span class="math inline">\(\{W_n\}_{n \in \integers}\)</span> is white noise with variance <span class="math inline">\(σ_W^2\)</span>. This is the output of the filter <span class="math display">\[ H(z) = 1 + b z^{-1}. \]</span> Consequently, <span class="math display">\[\begin{equation}\label{eq:MA1-covariance-transform}
+  S_U(z)
+  = σ_W^2 H(z)H(z^{-1})
+  = σ_W^2(1 + b z^{-1})(1 + b z)
+  = σ_W^2\bigl(1 + b^2 + b(z + z^{-1})\bigr).
+\end{equation}\]</span> Equivalently, <span class="math display">\[
+  R^U_k =
+  \begin{cases}
+  σ_W^2(1 + b^2), &amp; k = 0, \\
+  b σ_W^2, &amp; |k| = 1, \\
+  0, &amp; |k| &gt; 1.
+  \end{cases}
+\]</span> On the unit circle, <span class="math display">\[ S_U(e^{\mathsf j Ω}) = σ_W^2(1 + b^2 + 2b\cos Ω) = σ_W^2\bigl|1 + b e^{-\mathsf j Ω}\bigr|^2, \]</span> which is not constant. The power of this process is therefore not distributed uniformly across frequencies, and it is called <strong>colored noise</strong>.</p>
+<p>The same formula suggests a <strong>whitening</strong> filter. If <span class="math display">\[ G(z) = \frac{1}{1 + b z^{-1}}, \]</span> then on the unit circle <span class="math inline">\(|G(e^{\mathsf j Ω})|^2 S_U(e^{\mathsf j Ω}) = σ_W^2\)</span>, so the filtered process is white. In the time domain the recursion is <span class="math display">\[ V_n + b V_{n-1} = U_n. \]</span> Starting from rest and substituting <span class="math inline">\(U_n = W_n + b W_{n-1}\)</span> gives <span class="math inline">\(V_n = W_n\)</span> for every <span class="math inline">\(n\)</span>, so the whitening filter recovers the original driving noise.</p>
+</div></li>
+</ol>
+</section>
+<section id="note-on-non-gaussian-processes" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="note-on-non-gaussian-processes"><span class="header-section-number">12.6</span> Note on non-Gaussian processes</h2>
+<p>Since all the properties discussed above (mean function, covariance function, linear transformations, etc.) depend only on the first two moments (mean and covariance), they apply to stochastic processes beyond Gaussian processes, as long as we restrict our attention to first and second moments.</p>
+<p>However, it is important to distinguish between two notions of stationarity:</p>
+<ol type="1">
+<li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n\in\integers}\)</span> is called <strong>wide-sense stationary</strong> (or <strong>weakly stationary</strong>) if:</p>
+<ul>
+<li>The mean function is constant: <span class="math inline">\(μ^X_n=μ^X\)</span> for all <span class="math inline">\(n\)</span>.</li>
+<li>The covariance function depends only on the time difference: <span class="math inline">\(R^X_{n,m}=R^X_{n-m}\)</span>.</li>
+</ul></li>
+<li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n\in\integers}\)</span> is called <strong>strict-sense stationary</strong> (or <strong>strongly stationary</strong>) if, for any finite collection of time indices <span class="math inline">\(n_1,\ldots,n_k\)</span> and any integer <span class="math inline">\(h\)</span>, the joint distribution of <span class="math inline">\((X_{n_1},\ldots,X_{n_k})\)</span> is the same as the joint distribution of <span class="math inline">\((X_{n_1+h},\ldots,X_{n_k+h})\)</span>.</p></li>
+</ol>
+<p>For any stochastic process, strict-sense stationarity implies wide-sense stationarity, but the converse is not true in general. For Gaussian processes, the mean and covariance determine all finite-dimensional distributions, so wide-sense stationarity implies strict-sense stationarity. Thus, for Gaussian processes, the two notions are equivalent.</p>
+</section>
+<section id="exercises" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">12.7</span> Exercises</h2>
+<ol type="1">
+<li><p>Consider <span class="math display">\[
+  A = \MATRIX{0.8 &amp; 0 \\ 0 &amp; 0.5},
+  \qquad
+  B = \MATRIX{1 \\ 1},
+  \qquad
+  C = \MATRIX{1 &amp; -1}.
+\]</span> Use your favorite programming language to solve the discrete Lyapunov equation for <span class="math inline">\(Σ^X_∞\)</span> when <span class="math inline">\(σ_W^2 = 1\)</span>.</p></li>
+<li><p>For the stochastic oscillator in <a href="#exm-gauss-markov-oscillator" class="quarto-xref">Example&nbsp;<span>12.3</span></a>, show that <span class="math inline">\(A^k = r^k\MATRIX{\cos(kθ) &amp; -\sin(kθ) \\ \sin(kθ) &amp; \cos(kθ)}\)</span>. Use <span class="math inline">\(\eqref{eq:asymptotic-output-covariance}\)</span> to explain why the limiting output auto-covariance is a damped oscillation.</p></li>
+<li><p>Show that the input-output cross-covariance in <span class="math inline">\(\eqref{eq:input-output-cross-covariance}\)</span> equals the impulse response when the input is standard white noise.</p></li>
+<li><p>Suppose <span class="math inline">\(A\)</span> has an eigenvalue outside the unit circle but the corresponding mode is not excited by <span class="math inline">\(B\)</span>. Does the covariance necessarily diverge? Compare this observation with the sufficient condition that <span class="math inline">\(A\)</span> is Schur stable.</p></li>
+</ol>
+</section>
+<section id="further-reading" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">12.8</span> Further reading</h2>
+<ul>
+<li>Gubner, Chapter 10.</li>
+<li>Grimmett and Stirzaker, Chapters 8 and 9.</li>
+<li>Hajek, <a href="https://hajek.ece.illinois.edu/Papers/randomprocJuly14.pdf">Random Processes for Engineering</a>, Chapters 7 and 8 (mostly continuous time, but the same ideas).</li>
+<li>Oppenheim and Verghese, Chapter 10 (power spectral density and the Wiener–Khinchin viewpoint).</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZ1bmN0aW9uIGdhdXNzaWFuUmFuZG9tKG1lYW4gPSAwLCBzdGRldiA9IDEpIHtcbiAgY29uc3QgdSA9IDEgLSBNYXRoLnJhbmRvbSgpXG4gIGNvbnN0IHYgPSBNYXRoLnJhbmRvbSgpXG4gIGNvbnN0IHogPSBNYXRoLnNxcnQoLTIgKiBNYXRoLmxvZyh1KSkgKiBNYXRoLmNvcygyICogTWF0aC5QSSAqIHYpXG4gIHJldHVybiB6ICogc3RkZXYgKyBtZWFuXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgcmVydW5fcncgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX3J3ID0ge1xuICByZXJ1bl9yd1xuICBjb25zdCBOID0gMTIwXG4gIGNvbnN0IHNpZ21hID0gMS4wXG4gIGNvbnN0IHBvaW50cyA9IG5ldyBBcnJheShOICsgMSlcbiAgbGV0IFggPSAwXG4gIHBvaW50c1swXSA9IHtuOiAwLCBYX246IDB9XG4gIGZvciAobGV0IG4gPSAxOyBuIDw9IE47IG4rKykge1xuICAgIFggPSBYICsgZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gICAgcG9pbnRzW25dID0ge24sIFhfbjogWH1cbiAgfVxuICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDE1MCxcbiAgeToge2RvbWFpbjogWy0yMCwgMjBdfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19ydywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX3J3LCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHJlcnVuX2FyMSA9IElucHV0cy5idXR0b24oXCJHZW5lcmF0ZSBzYW1wbGUgcGF0aFwiKVxuXG5wb2ludHNfYXIxID0ge1xuICByZXJ1bl9hcjFcbiAgY29uc3QgTiA9IDEyMFxuICBjb25zdCBzaWdtYSA9IDEuMFxuICBjb25zdCBhID0gMC44XG4gIGNvbnN0IHZhcjAgPSBzaWdtYSAqIHNpZ21hIC8gKDEgLSBhICogYSlcbiAgY29uc3QgcG9pbnRzID0gbmV3IEFycmF5KE4gKyAxKVxuICBsZXQgWCA9IGdhdXNzaWFuUmFuZG9tKDAsIE1hdGguc3FydCh2YXIwKSlcbiAgcG9pbnRzWzBdID0ge246IDAsIFhfbjogWH1cbiAgZm9yIChsZXQgbiA9IDE7IG4gPD0gTjsgbisrKSB7XG4gICAgWCA9IGEgKiBYICsgZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gICAgcG9pbnRzW25dID0ge24sIFhfbjogWH1cbiAgfVxuICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDE1MCxcbiAgeToge2RvbWFpbjogWy01LCA1XX0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIFBsb3QubGluZShwb2ludHNfYXIxLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfYXIxLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHJlcnVuX29zYyA9IElucHV0cy5idXR0b24oXCJHZW5lcmF0ZSBzYW1wbGUgcGF0aFwiKVxuXG5wb2ludHNfb3NjID0ge1xuICByZXJ1bl9vc2NcbiAgY29uc3QgTiA9IDEyMFxuICBjb25zdCBzaWdtYSA9IDEuMFxuICBjb25zdCByID0gMC45NVxuICBjb25zdCB0aGV0YSA9IDAuM1xuICBjb25zdCBjb3MgPSBNYXRoLmNvcyh0aGV0YSlcbiAgY29uc3Qgc2luID0gTWF0aC5zaW4odGhldGEpXG4gIGNvbnN0IHBvaW50cyA9IG5ldyBBcnJheShOICsgMSlcbiAgbGV0IHgwID0gMFxuICBsZXQgeDEgPSAwXG4gIHBvaW50c1swXSA9IHtuOiAwLCBZX246IHgwfVxuICBmb3IgKGxldCBuID0gMTsgbiA8PSBOOyBuKyspIHtcbiAgICBjb25zdCB3ID0gZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gICAgY29uc3QgbmV4dDAgPSByICogKGNvcyAqIHgwIC0gc2luICogeDEpICsgd1xuICAgIGNvbnN0IG5leHQxID0gciAqIChzaW4gKiB4MCArIGNvcyAqIHgxKVxuICAgIHgwID0gbmV4dDBcbiAgICB4MSA9IG5leHQxXG4gICAgcG9pbnRzW25dID0ge24sIFlfbjogeDB9XG4gIH1cbiAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC03IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIHk6IHtkb21haW46IFstNSwgNV0sIGxhYmVsOiBcIlnigplcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIFBsb3QubGluZShwb2ludHNfb3NjLCB7eDogXCJuXCIsIHk6IFwiWV9uXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfb3NjLCB7eDogXCJuXCIsIHk6IFwiWV9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXJ1bl9ydycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXJ1bl9hcjEnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fb3NjJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/adityam\.github\.io\/probability-and-random-signals\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./markov-chains.html" class="pagination-link" aria-label="Markov chains">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Markov chains</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./poisson-processes.html" class="pagination-link" aria-label="Poisson processes">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Poisson processes</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/gauss-markov-processes.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
