@@ -1,0 +1,561 @@
+---
+title: Gauss–Markov models and spectral analysis
+execute:
+  echo: false
+---
+
+In this chapter, we study Gaussian processes that arise as the outputs of linear systems with stochastic inputs. When the input is white Gaussian noise, the internal state is both Gaussian and Markov. We begin with deterministic linear state-space models, then pass to the stochastic setting, discuss stability and asymptotic behavior, and finally describe the stationary regime in the $Z$-transform domain.
+
+## Linear state-space models
+
+1. Recall from an undergraduate control course that any single-input single-output (SISO) linear time-invariant (LTI) system can be written in state-space form as
+   $$ x_{n+1} = Ax_n + Bu_n, \qquad y_n = Cx_n, $$
+   where $u_n \in \reals$ is the input, $y_n \in \reals$ is the output, and $x_n \in \reals^d$ is the state. The system matrices $A$, $B$, and $C$ have appropriate dimensions; thus,
+   $$ A \in \reals^{d \times d}, \qquad B \in \reals^{d \times 1}, \qquad C \in \reals^{1 \times d}. $$
+
+   Suppose the system starts at time $n = 0$ with initial state $x_0$. Repeated substitution gives
+   \begin{equation}\label{eq:state-solution}
+     x_n = A^nx_0 + \sum_{k=0}^{n-1} A^{n-1-k}Bu_k.
+   \end{equation}
+   The first term is the zero-input response and the second term is the zero-state response.
+
+2. Consequently, the output is
+   $$ y_n = CA^nx_0 + \sum_{k=0}^{n-1} CA^{n-1-k}Bu_k. $$
+   Thus, the impulse response from $u$ to $y$ is
+   $$ g_n = CA^{n-1}B, \qquad n \ge 1, $$
+   while $g_n = 0$ for $n \le 0$.
+
+   The transfer function (i.e., the $Z$-transform of the impulse response) is
+   $$ G(z) = \sum_{n=0}^{\infty} g_nz^{-n} = C(zI - A)^{-1}B. $$
+
+## Stochastic state-space models
+
+1. Consider an LTI system with state-space model $(A,B,C)$. Suppose that the input is a Gaussian process $\{U_n\}_{n \ge 0}$ and that $X_0$ is jointly Gaussian with the input process. Since the input is a stochastic process, so are the state and the output. In particular,
+   \begin{equation}\label{eq:SSS}
+     X_{n+1} = AX_n + BU_n,
+     \qquad
+     Y_n = CX_n.
+   \end{equation}
+
+   From \eqref{eq:state-solution}, every state and output is a linear combination of $X_0,U_0,U_1,\ldots$. Consequently, $\{X_n\}_{n \ge 0}$ is a vector-valued Gaussian process (every finite stack of states is jointly Gaussian), and $\{Y_n\}_{n \ge 0}$ is a Gaussian process.
+
+2. Since the output process is Gaussian, it is completely characterized by its mean and auto-covariance functions, $μ^Y_n$ and $R^Y_{n,m}$. In general, these depend on the statistics of the input and the initial state, including their cross-covariance.
+
+   Taking expectations in \eqref{eq:SSS} gives
+   $$ μ^X_{n+1} = Aμ^X_n + Bμ^U_n, \qquad μ^Y_n = Cμ^X_n. $$
+
+   For a general input, covariance propagation also involves the cross-covariance between $X_n$ and $U_n$. To obtain a closed recursion, we specialize to zero-mean white Gaussian noise $\{W_n\}_{n \ge 0}$ that is independent of the initial state. We write $Σ^W = σ_W^2\mathbb I$ for its covariance, so the same formulas also apply to a vector-valued white-noise input.
+
+3. Under this specialization, $W_n$ is independent of $X_0,\ldots,X_n$. Therefore, the recursion $X_{n+1} = AX_n + BW_n$ gives
+   $$ X_{n+1} \mid X_0,\ldots,X_n \sim \mathcal N\bigl(AX_n, BΣ^W B^\TRANS\bigr). $$
+   Such a process is often called a **Gauss–Markov process**.
+
+4. **Propagation of covariance.** The same independence gives a closed covariance recursion. Define
+   $$ Σ^X_n = \COV(X_n,X_n), \qquad Σ^Y_n = \COV(Y_n,Y_n). $$
+   Since $W_n$ is independent of $X_n$, the covariances propagate according to
+   $$ Σ^X_{n+1} = AΣ^X_nA^\TRANS + BΣ^W B^\TRANS, \qquad Σ^Y_n = CΣ^X_nC^\TRANS. $$
+   Iterating the state covariance recursion gives
+   \begin{equation}\label{eq:state-covariance-solution}
+     Σ^X_n
+     = A^nΣ^X_0(A^\TRANS)^n
+     + \sum_{k=0}^{n-1} A^k BΣ^W B^\TRANS (A^\TRANS)^k.
+   \end{equation}
+
+5. :::{#exm-gauss-markov-random-walk}
+   #### Gaussian random walk
+
+   Let
+   $$ X_{n+1} = X_n + W_n, \qquad Y_n = X_n. $$
+   This is a state-space model with $A = B = C = 1$. If $X_0 = 0$, then
+   $$ Σ^X_{n+1} = Σ^X_n + σ_W^2, \qquad Σ^Y_n = Σ^X_n. $$
+   Since $Σ^X_0 = 0$, it follows that
+   $$ Σ^Y_n = nσ_W^2. $$
+   Thus, the output is nonstationary and its variance grows without bound. A sample path is shown below.
+   :::
+
+```{ojs}
+//| output: false
+function gaussianRandom(mean = 0, stdev = 1) {
+  const u = 1 - Math.random()
+  const v = Math.random()
+  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)
+  return z * stdev + mean
+}
+```
+
+```{ojs}
+viewof rerun_rw = Inputs.button("Generate sample path")
+
+points_rw = {
+  rerun_rw
+  const N = 120
+  const sigma = 1.0
+  const points = new Array(N + 1)
+  let X = 0
+  points[0] = {n: 0, X_n: 0}
+  for (let n = 1; n <= N; n++) {
+    X = X + gaussianRandom(0, sigma)
+    points[n] = {n, X_n: X}
+  }
+  return points
+}
+```
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  height: 150,
+  y: {domain: [-20, 20]},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(points_rw, {x: "n", y: "X_n", strokeWidth: 1.5}),
+    Plot.dot(points_rw, {x: "n", y: "X_n", fill: "currentColor", r: 2})
+  ]
+})
+```
+
+6. :::{#exm-gauss-markov-ar1}
+   #### AR(1) process
+
+   Let
+   $$ X_{n+1} = aX_n + W_n, \qquad Y_n = X_n. $$
+   This is a state-space model with $A = a$ and $B = C = 1$. The covariance propagation formulas give
+   $$ Σ^X_{n+1} = a^2Σ^X_n + σ_W^2, \qquad Σ^Y_n = Σ^X_n. $$
+   Therefore, when $a^2 \ne 1$,
+   $$ Σ^Y_n = a^{2n}Σ^X_0 + σ_W^2\sum_{k=0}^{n-1} a^{2k} = a^{2n}Σ^X_0 + σ_W^2\frac{1 - a^{2n}}{1 - a^2}. $$
+   When $|a| < 1$, the effect of the initial state vanishes and
+   $$ Σ^Y_n \longrightarrow \frac{σ_W^2}{1 - a^2}. $$
+   When $a = 1$ and $Σ^X_0 = 0$, the variance reduces to that of the Gaussian random walk. A sample path with stationary initialization is shown below; we explain this initialization after studying stability.
+   :::
+
+```{ojs}
+viewof rerun_ar1 = Inputs.button("Generate sample path")
+
+points_ar1 = {
+  rerun_ar1
+  const N = 120
+  const sigma = 1.0
+  const a = 0.8
+  const var0 = sigma * sigma / (1 - a * a)
+  const points = new Array(N + 1)
+  let X = gaussianRandom(0, Math.sqrt(var0))
+  points[0] = {n: 0, X_n: X}
+  for (let n = 1; n <= N; n++) {
+    X = a * X + gaussianRandom(0, sigma)
+    points[n] = {n, X_n: X}
+  }
+  return points
+}
+```
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  height: 150,
+  y: {domain: [-5, 5]},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(points_ar1, {x: "n", y: "X_n", strokeWidth: 1.5}),
+    Plot.dot(points_ar1, {x: "n", y: "X_n", fill: "currentColor", r: 2})
+  ]
+})
+```
+
+7. :::{#exm-gauss-markov-oscillator}
+   #### A stochastic oscillator
+
+   Let $0 < r < 1$, let $\{W_n\}_{n \ge 0}$ be white Gaussian noise with variance $σ_W^2$, and suppose $X_0 = 0$. Consider
+   $$
+     A = r\MATRIX{
+     \cosθ & -\sinθ \\
+     \sinθ & \cosθ},
+     \qquad
+     B = \MATRIX{1 \\ 0},
+     \qquad
+     C = \MATRIX{1 & 0}.
+   $$
+   The state is rotated by $θ$ and attenuated by $r$ at each step, while white noise continually excites its first component. The covariance propagation formulas give
+   $$ Σ^X_{n+1} = AΣ^X_nA^\TRANS + BΣ^W B^\TRANS, \qquad Σ^Y_n = CΣ^X_nC^\TRANS. $$
+   Since $Σ^X_0 = 0$,
+   $$ Σ^Y_n = \sum_{k=0}^{n-1} CA^k BΣ^W B^\TRANS (A^\TRANS)^kC^\TRANS. $$
+   Moreover,
+   $$ A^kB = r^k\MATRIX{\cos(kθ) \\ \sin(kθ)}, $$
+   and with $Σ^W = σ_W^2$ (scalar input),
+   $$ Σ^Y_n = σ_W^2\sum_{k=0}^{n-1} r^{2k}\cos^2(kθ). $$
+   Since $0 < r < 1$, this output variance converges to a finite value. A sample path is shown below.
+   :::
+
+```{ojs}
+viewof rerun_osc = Inputs.button("Generate sample path")
+
+points_osc = {
+  rerun_osc
+  const N = 120
+  const sigma = 1.0
+  const r = 0.95
+  const theta = 0.3
+  const cos = Math.cos(theta)
+  const sin = Math.sin(theta)
+  const points = new Array(N + 1)
+  let x0 = 0
+  let x1 = 0
+  points[0] = {n: 0, Y_n: x0}
+  for (let n = 1; n <= N; n++) {
+    const w = gaussianRandom(0, sigma)
+    const next0 = r * (cos * x0 - sin * x1) + w
+    const next1 = r * (sin * x0 + cos * x1)
+    x0 = next0
+    x1 = next1
+    points[n] = {n, Y_n: x0}
+  }
+  return points
+}
+```
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  height: 150,
+  y: {domain: [-5, 5], label: "Yₙ"},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(points_osc, {x: "n", y: "Y_n", strokeWidth: 1.5}),
+    Plot.dot(points_osc, {x: "n", y: "Y_n", fill: "currentColor", r: 2})
+  ]
+})
+```
+
+8. **Covariance across time.** The variance $Σ^Y_n$ describes the process at one time. To understand its temporal dependence, define
+   $$ R^X_{n,m} = \COV(X_n,X_m), \qquad R^Y_{n,m} = \COV(Y_n,Y_m). $$
+   For $n \ge m$,
+   $$ X_n = A^{n-m}X_m + \sum_{k=m}^{n-1} A^{n-1-k}BW_k. $$
+   Every noise variable in the sum is independent of $X_m$. Therefore,
+   \begin{equation}\label{eq:state-cross-time-covariance}
+     R^X_{n,m} = A^{n-m}Σ^X_m,
+     \qquad n \ge m,
+   \end{equation}
+   and, by transposition,
+   $$ R^X_{m,n} = Σ^X_m(A^\TRANS)^{n-m}. $$
+   The output auto-covariance is
+   \begin{equation}\label{eq:output-covariance}
+     R^Y_{n,m} = CR^X_{n,m}C^\TRANS.
+   \end{equation}
+   In particular, for $n \ge m$,
+   $$ R^Y_{n,m} = CA^{n-m}Σ^X_mC^\TRANS. $$
+   For the Gaussian random walk with $X_0 = 0$,
+   $$ R^X_{n,m} = σ_W^2\min(n,m), $$
+   while for the AR(1) process with $X_0 = 0$, $n \ge m$, and $a^2 \ne 1$,
+   $$ R^X_{n,m} = a^{n-m}σ_W^2\frac{1 - a^{2m}}{1 - a^2}. $$
+
+9. **Input-output cross-covariance.** We can also relate the input and output processes directly. Define
+   $$ R^{YW}_{n,m} = \COV(Y_n,W_m). $$
+   Since $X_0$ is independent of the white-noise process, \eqref{eq:state-solution} gives
+   \begin{equation}\label{eq:input-output-cross-covariance}
+     R^{YW}_{n,m}
+     = \begin{cases}
+     CA^{n-m-1}BΣ^W, & 0 \le m < n, \\
+     0, & m \ge n.
+     \end{cases}
+   \end{equation}
+   Thus, for $\ell \ge 1$,
+   $$ R^{YW}_{m+\ell,m} = g_\ell Σ^W. $$
+   For standard white noise ($Σ^W = \mathbb{I}$, or $σ_W^2 = 1$ in the SISO case), the input-output cross-covariance is exactly the impulse response. This relationship is useful in system identification: the impulse response can be estimated from observations of the input and output.
+
+10. More general Gaussian inputs, including colored noise, can often be generated by passing white Gaussian noise through a linear filter. By augmenting the system state with the state of this filter, such models can again be written in Gauss–Markov form. We return to colored noise after introducing power spectral densities.
+
+## Stability and asymptotic behavior
+
+The examples above suggest that the long-run behavior is controlled by the matrix $A$: the random walk has growing variance, while the stable AR(1) process and stochastic oscillator approach limiting covariances. We now make this precise.
+
+1. The matrix $A$ is called **Schur stable** if all its eigenvalues lie strictly inside the unit circle. Stability implies that
+   $$ A^n \longrightarrow 0 \qquad\text{as }n \to ∞. $$
+
+2. For the white-noise-driven Gauss–Markov model above, if $A$ is Schur stable, then
+   $$ μ^X_n \longrightarrow 0. $$
+   Furthermore, the contribution of the initial covariance in \eqref{eq:state-covariance-solution} vanishes:
+   $$ A^nΣ^X_0(A^\TRANS)^n \longrightarrow 0. $$
+   The covariance therefore converges to
+   \begin{equation}\label{eq:steady-state-covariance-series}
+     Σ^X_∞
+     = \sum_{k=0}^{\infty}
+     A^k BΣ^W B^\TRANS (A^\TRANS)^k.
+   \end{equation}
+   Thus, for every admissible initial state with finite covariance,
+   $$ Σ^X_n \longrightarrow Σ^X_∞. $$
+   Moreover, for every fixed $k \ge 0$, \eqref{eq:state-cross-time-covariance} gives
+   \begin{equation}\label{eq:asymptotic-output-covariance}
+     R^Y_{n,n+k}
+     = CΣ^X_n(A^\TRANS)^kC^\TRANS
+     \longrightarrow
+     CΣ^X_∞(A^\TRANS)^kC^\TRANS
+     = CA^kΣ^X_∞C^\TRANS.
+   \end{equation}
+   The last equality holds because $Y_n$ is scalar. Thus, the limiting output auto-covariance depends only on the lag $k$.
+
+   Since the output process is Gaussian, convergence of its mean and covariance implies convergence of all its finite-dimensional distributions. Therefore, the shifted output process converges to a zero-mean stationary Gaussian process whose auto-covariance is
+   $$ R^Y_k = CA^kΣ^X_∞C^\TRANS, \qquad k \ge 0, $$
+   with $R^Y_{-k} = R^Y_k$.
+
+3. Taking the limit in the covariance recursion
+   $$ Σ^X_{n+1} = AΣ^X_nA^\TRANS + BΣ^W B^\TRANS $$
+   gives
+   \begin{equation}\label{eq:discrete-Lyapunov}
+     Σ^X_∞
+     = AΣ^X_∞A^\TRANS + BΣ^W B^\TRANS.
+   \end{equation}
+   This is the **discrete Lyapunov equation** associated with the stochastic state-space model.
+
+   If $A$ is Schur stable, \eqref{eq:discrete-Lyapunov} has a unique symmetric positive-semidefinite solution, given by \eqref{eq:steady-state-covariance-series}.
+
+   :::{.callout-note collapse="true"}
+   #### Existence and uniqueness
+
+   Let $Σ^X_∞$ be given by \eqref{eq:steady-state-covariance-series}. Multiplying by $A$ and $A^\TRANS$ shifts the sum,
+   $$
+     AΣ^X_∞A^\TRANS
+     = \sum_{k=0}^{\infty} A^{k+1} BΣ^W B^\TRANS (A^\TRANS)^{k+1}
+     = \sum_{k=1}^{\infty} A^k BΣ^W B^\TRANS (A^\TRANS)^k.
+   $$
+   Adding the $k = 0$ term $BΣ^W B^\TRANS$ therefore recovers the full series:
+   $$ AΣ^X_∞A^\TRANS + BΣ^W B^\TRANS = Σ^X_∞. $$
+   Thus the infinite sum solves \eqref{eq:discrete-Lyapunov}.
+
+   For uniqueness, suppose $Σ$ and $\widetildeΣ$ both solve \eqref{eq:discrete-Lyapunov}. Their difference $D = Σ - \widetildeΣ$ satisfies
+   $$ D = ADA^\TRANS. $$
+   Repeated substitution gives
+   $$ D = A^nD(A^\TRANS)^n. $$
+   If $A$ is Schur stable, the right-hand side converges to zero. Hence $D = 0$.
+   :::
+
+   :::{.callout-tip}
+   #### Stationary initialization
+
+   If $X_0 \sim \mathcal N(0,Σ^X_∞)$ independently of the noise process, then the covariance recursion and the Lyapunov equation imply that $Σ^X_n = Σ^X_∞$ for every $n$. Together with \eqref{eq:state-cross-time-covariance}, this shows that the process is stationary from time $0$. This is the continuous-state analogue of initializing a Markov chain in an invariant distribution.
+   :::
+
+4. For the stable AR(1) process, the Lyapunov equation reduces to
+   $$ Σ^X_∞ = a^2Σ^X_∞ + σ_W^2, $$
+   and therefore
+   $$ Σ^X_∞ = \frac{σ_W^2}{1 - a^2}. $$
+   This recovers the limiting variance obtained earlier from the covariance recursion.
+
+5. For a vector state, \eqref{eq:discrete-Lyapunov} is a system of linear equations in the entries of $Σ^X_∞$. It can be solved directly for small systems or using standard numerical routines for larger systems.
+
+The state-space analysis above describes both the transient behavior and the limiting covariance. Once the output has reached its stationary regime, the same input-output relationships can be described more directly using the $Z$-transform.
+
+## Stationary processes and power spectral densities
+
+1. Let $\{U_n\}_{n \in \integers}$ be a real-valued, zero-mean stationary Gaussian process. Its auto-covariance function
+   $$ R^U_k = \COV(U_{n+k}, U_n) $$
+   depends only on the lag $k$ and satisfies $R^U_{-k} = R^U_k$. A nonzero constant mean can always be removed before carrying out the analysis below.
+
+2. Let $S_U(z)$ denote the bilateral $Z$-transform of the auto-covariance function:
+   \begin{equation}\label{eq:covariance-transform}
+     S_U(z)
+     = \sum_{k=-∞}^{∞}R^U_kz^{-k}.
+   \end{equation}
+   We assume that $R^U_k$ is absolutely summable, so the region of convergence contains the unit circle. The auto-covariance sequence is recovered by taking the inverse $Z$-transform of $S_U(z)$.
+
+3. Since $R^U_{-k} = R^U_k$, $S_U(z)$ satisfies
+   $$ S_U(z^{-1}) = S_U(z). $$
+   On the unit circle, $z = e^{\mathsf j Ω}$, $S_U(z)$ reduces to the discrete-time Fourier transform (DTFT) of the auto-covariance, and is called the **power spectral density** (PSD):
+   \begin{equation}\label{eq:psd-definition}
+     S_U(e^{\mathsf j Ω})
+     = \sum_{k=-∞}^{∞}R^U_ke^{-\mathsf j Ω k}.
+   \end{equation}
+   It is real, nonnegative, and even. (In signals and systems, $ω$ often denotes frequency in radians; in probability the same letter often denotes an outcome. So we use $Ω$ as the frequency variable.)
+
+4. The terminology "power spectral density" comes from the inverse DTFT at lag zero. The average power of the process is
+   $$ R^U_0 = \VAR(U_n), $$
+   and
+   \begin{equation}\label{eq:power-from-psd}
+     R^U_0
+     = \frac{1}{2π}\int_{-π}^{π} S_U(e^{\mathsf j Ω})\,dΩ.
+   \end{equation}
+  Thus $S_U(e^{\mathsf j Ω})$ describes how the power of the process is distributed across frequencies. Nonnegativity of the PSD is a general property of such spectra and is a consequence of the [:Wiener–Khinchin theorem](https://en.wikipedia.org/wiki/Wiener%E2%80%93Khinchin_theorem); see also Oppenheim and Verghese, Chapter~10.2.
+
+5. If $\{W_n\}_{n \in \integers}$ is white noise with variance $σ_W^2$, then
+   $$ R^W_k = σ_W^2 \IND\{k = 0\}, $$
+   and hence
+   \begin{equation}\label{eq:white-noise-covariance-transform}
+     S_W(z) = σ_W^2.
+   \end{equation}
+   In particular, its PSD is constant on the unit circle. This is why the process is called **white noise**: its spectrum is flat, in contrast to **colored noise**, whose spectrum is not flat.
+
+## Stationary processes through LTI systems
+
+1. Suppose $\{U_n\}_{n \in \integers}$ is a stationary Gaussian process that is input to a causal LTI system with impulse response $\{g_ℓ\}_{ℓ \ge 0}$. Then, the output is given by
+   \begin{equation}\label{eq:stationary-filter-output}
+     Y_n = \sum_{ℓ=0}^{∞} g_ℓ U_{n-ℓ}.
+   \end{equation}
+   When the system is stable, the output is also a stationary Gaussian process. We establish this by a sequence of steps.
+
+   The mean of the output is
+   $$ μ^Y = \EXP[Y_n] = \EXP\Bigl[\sum_{ℓ=0}^{∞} g_ℓ U_{n-ℓ}\Bigr] = \sum_{ℓ=0}^{∞} g_ℓ μ^U = μ^U G(1), $$
+   which does not depend on $n$. This makes intuitive sense: the average of the output is the average of the input times the DC gain of the system. For the zero-mean setting of the previous section, $μ^Y = 0$.
+
+2. The input-output cross-covariance is
+   $$ R^{YU}_{n+k,n} = \COV(Y_{n+k}, U_n). $$
+   From \eqref{eq:stationary-filter-output},
+   $$
+     R^{YU}_{n+k,n}
+     = \COV\Bigl(\sum_{ℓ=0}^{∞} g_ℓ U_{n+k-ℓ}, U_n\Bigr)
+     = \sum_{ℓ=0}^{∞} g_ℓ \COV(U_{n+k-ℓ}, U_n)
+     = \sum_{ℓ=0}^{∞} g_ℓ R^U_{k-ℓ}.
+   $$
+   The right-hand side depends only on the lag $k$, so we may write $R^{YU}_k$ for this common value. Thus
+   \begin{equation}\label{eq:filter-cross-covariance}
+     R^{YU}_k
+     = \sum_{ℓ=0}^{∞} g_ℓ R^U_{k-ℓ}
+     = (g * R^U)_k.
+   \end{equation}
+   The cross-covariance between the output and input is the convolution of the impulse response with the auto-covariance of the input.
+
+   We denote its bilateral $Z$-transform by
+   $$ S_{YU}(z) = \sum_{k=-∞}^{∞} R^{YU}_k z^{-k}. $$
+   Convolution in the lag domain becomes multiplication in the $Z$-domain, so
+   \begin{equation}\label{eq:filter-cross-spectral}
+     S_{YU}(z) = G(z) S_U(z).
+   \end{equation}
+
+3. The auto-covariance of the output is
+   $$
+     R^Y_{n+k,n}
+     = \COV(Y_{n+k}, Y_n)
+     = \COV\Bigl(Y_{n+k}, \sum_{r=0}^{∞} g_r U_{n-r}\Bigr)
+     = \sum_{r=0}^{∞} g_r \COV(Y_{n+k}, U_{n-r})
+     = \sum_{r=0}^{∞} g_r R^{YU}_{n+k,n-r}
+     = \sum_{r=0}^{∞} g_r R^{YU}_{k+r}.
+   $$
+   The last expression depends only on $k$, so we may write $R^Y_k$ for this common value. The sum looks like a convolution but is not quite. Defining $\widetilde g_ℓ = g_{-ℓ}$ (for a real impulse response) converts it into one:
+   $$ R^Y = \widetilde g * R^{YU} = \widetilde g * g * R^U. $$
+   Expanding the convolutions gives
+   \begin{equation}\label{eq:filter-output-covariance}
+     R^Y_k
+     = \sum_{ℓ=0}^{∞} \sum_{r=0}^{∞}
+     g_ℓ g_r R^U_{k-ℓ+r}.
+   \end{equation}
+
+4. Thus we have shown that $μ^Y$ does not depend on $n$ and that $R^Y_{n+k,n}$ depends only on the lag $k$. Since the output is Gaussian, it follows that the output is stationary.
+
+5. Taking the bilateral $Z$-transform of \eqref{eq:filter-output-covariance} likewise converts the remaining convolution into multiplication:
+   \begin{equation}\label{eq:filter-covariance-transform-relations}
+     S_Y(z) = G(z) G(z^{-1}) S_U(z).
+   \end{equation}
+   On the unit circle, $G(e^{-\mathsf j Ω}) = G(e^{\mathsf j Ω})^*$ for a real system, so
+   \begin{equation}\label{eq:psd-relationships}
+     S_Y(e^{\mathsf j Ω})
+     = \bigl|G(e^{\mathsf j Ω})\bigr|^2 S_U(e^{\mathsf j Ω}).
+   \end{equation}
+   Thus the $Z$-domain relationship contains the usual power spectral density relationship as its restriction to the unit circle.
+
+6. For a white-noise input, \eqref{eq:filter-cross-covariance} and \eqref{eq:filter-cross-spectral} reduce to
+   $$ R^{YW}_k = σ_W^2 g_k, \qquad S_{YW}(z) = σ_W^2 G(z), $$
+   and
+   \begin{equation}\label{eq:white-noise-output-covariance-transform}
+     S_Y(z) = σ_W^2 G(z)G(z^{-1}).
+   \end{equation}
+   For standard white noise, both the input-output cross-covariance and its $Z$-transform identify the system.
+
+7. The same formulas connect back to the state-space models above. For
+   $$ X_{n+1} = AX_n + BW_n, \qquad Y_n = CX_n, $$
+   the transfer function is $G(z) = C(zI - A)^{-1}B$, so $S_Y(z)$ for the stationary output follows immediately from \eqref{eq:white-noise-output-covariance-transform}. This is the $Z$-domain counterpart of computing $Σ^X_∞$ from the discrete Lyapunov equation and then forming the output auto-covariance. The next example illustrates this connection for the AR(1) process.
+
+8. :::{#exm-frequency-domain-ar1}
+   #### Stationary AR(1) process
+
+   Consider
+   $$ X_{n+1} = aX_n + W_n, \qquad |a| < 1, $$
+   in its stationary regime. The transfer function from $W$ to $X$ is
+   $$ G(z) = \frac{1}{z - a} = \frac{z^{-1}}{1 - a z^{-1}}. $$
+   Therefore,
+   \begin{equation}\label{eq:AR1-covariance-transform}
+     S_X(z)
+     = σ_W^2 G(z)G(z^{-1})
+     = \frac{σ_W^2}{(1 - a z^{-1})(1 - a z)}.
+   \end{equation}
+   For $a \ne 0$, the region of convergence is $|a| < |z| < 1/|a|$, which contains the unit circle because $|a| < 1$. When $a = 0$, $X_n = W_{n-1}$ and $S_X(z) = σ_W^2$.
+   Taking the inverse $Z$-transform gives
+   $$ R^X_k = \frac{σ_W^2}{1 - a^2} a^{|k|}. $$
+   In particular, $R^X_0 = σ_W^2/(1 - a^2)$, which agrees with the steady-state variance obtained from the Lyapunov equation.
+
+   On the unit circle, $G(e^{\mathsf j Ω}) = 1/(e^{\mathsf j Ω} - a)$, and
+   $$ |e^{\mathsf j Ω} - a|^2 = |1 - a e^{-\mathsf j Ω}|^2 = |1 - a e^{\mathsf j Ω}|^2, $$
+   so
+   $$ S_X(e^{\mathsf j Ω}) = \frac{σ_W^2}{|1 - a e^{\mathsf j Ω}|^2}, $$
+   which is exactly \eqref{eq:psd-relationships} applied to white noise.
+   :::
+
+9. :::{#exm-moving-average-colored-noise}
+   #### Colored noise from a linear filter
+
+   Let
+   $$ U_n = W_n + b W_{n-1}, $$
+   where $\{W_n\}_{n \in \integers}$ is white noise with variance $σ_W^2$. This is the output of the filter
+   $$ H(z) = 1 + b z^{-1}. $$
+   Consequently,
+   \begin{equation}\label{eq:MA1-covariance-transform}
+     S_U(z)
+     = σ_W^2 H(z)H(z^{-1})
+     = σ_W^2(1 + b z^{-1})(1 + b z)
+     = σ_W^2\bigl(1 + b^2 + b(z + z^{-1})\bigr).
+   \end{equation}
+   Equivalently,
+   $$
+     R^U_k =
+     \begin{cases}
+     σ_W^2(1 + b^2), & k = 0, \\
+     b σ_W^2, & |k| = 1, \\
+     0, & |k| > 1.
+     \end{cases}
+   $$
+   On the unit circle,
+   $$ S_U(e^{\mathsf j Ω}) = σ_W^2(1 + b^2 + 2b\cos Ω) = σ_W^2\bigl|1 + b e^{-\mathsf j Ω}\bigr|^2, $$
+   which is not constant. The power of this process is therefore not distributed uniformly across frequencies, and it is called **colored noise**.
+
+   The same formula suggests a **whitening** filter. If
+   $$ G(z) = \frac{1}{1 + b z^{-1}}, $$
+   then on the unit circle $|G(e^{\mathsf j Ω})|^2 S_U(e^{\mathsf j Ω}) = σ_W^2$, so the filtered process is white. In the time domain the recursion is
+   $$ V_n + b V_{n-1} = U_n. $$
+   Starting from rest and substituting $U_n = W_n + b W_{n-1}$ gives $V_n = W_n$ for every $n$, so the whitening filter recovers the original driving noise.
+   :::
+
+## Note on non-Gaussian processes
+
+Since all the properties discussed above (mean function, covariance function, linear transformations, etc.) depend only on the first two moments (mean and covariance), they apply to stochastic processes beyond Gaussian processes, as long as we restrict our attention to first and second moments.
+
+However, it is important to distinguish between two notions of stationarity:
+
+1. A stochastic process $\{X_n\}_{n\in\integers}$ is called **wide-sense stationary** (or **weakly stationary**) if:
+
+   - The mean function is constant: $μ^X_n=μ^X$ for all $n$.
+   - The covariance function depends only on the time difference: $R^X_{n,m}=R^X_{n-m}$.
+
+2. A stochastic process $\{X_n\}_{n\in\integers}$ is called **strict-sense stationary** (or **strongly stationary**) if, for any finite collection of time indices $n_1,\ldots,n_k$ and any integer $h$, the joint distribution of $(X_{n_1},\ldots,X_{n_k})$ is the same as the joint distribution of $(X_{n_1+h},\ldots,X_{n_k+h})$.
+
+For any stochastic process, strict-sense stationarity implies wide-sense stationarity, but the converse is not true in general. For Gaussian processes, the mean and covariance determine all finite-dimensional distributions, so wide-sense stationarity implies strict-sense stationarity. Thus, for Gaussian processes, the two notions are equivalent.
+
+## Exercises
+
+1. Consider
+   $$
+     A = \MATRIX{0.8 & 0 \\ 0 & 0.5},
+     \qquad
+     B = \MATRIX{1 \\ 1},
+     \qquad
+     C = \MATRIX{1 & -1}.
+   $$
+   Use your favorite programming language to solve the discrete Lyapunov equation for $Σ^X_∞$ when $σ_W^2 = 1$.
+
+2. For the stochastic oscillator in @exm-gauss-markov-oscillator, show that $A^k = r^k\MATRIX{\cos(kθ) & -\sin(kθ) \\ \sin(kθ) & \cos(kθ)}$. Use \eqref{eq:asymptotic-output-covariance} to explain why the limiting output auto-covariance is a damped oscillation.
+
+3. Show that the input-output cross-covariance in \eqref{eq:input-output-cross-covariance} equals the impulse response when the input is standard white noise.
+
+4. Suppose $A$ has an eigenvalue outside the unit circle but the corresponding mode is not excited by $B$. Does the covariance necessarily diverge? Compare this observation with the sufficient condition that $A$ is Schur stable.
+
+## Further reading
+
+- Gubner, Chapter 10.
+- Grimmett and Stirzaker, Chapters 8 and 9.
+- Hajek, [Random Processes for Engineering](https://hajek.ece.illinois.edu/Papers/randomprocJuly14.pdf), Chapters 7 and 8 (mostly continuous time, but the same ideas).
+- Oppenheim and Verghese, Chapter 10 (power spectral density and the Wiener–Khinchin viewpoint).

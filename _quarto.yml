@@ -2,6 +2,8 @@ project:
   type: book
   # resources:
 
+bibliography: references.bib
+
 book:
   title: Probability and Random Signals II
   description: "Course Notes for ECSE 509 (McGill University)"
@@ -34,7 +36,8 @@ book:
       - convergence-of-random-variables.qmd
       - stochastic-processes.qmd
       - markov-chains.qmd
-      - gaussian-processes.qmd
+      - gauss-markov-processes.qmd
+      - poisson-processes.qmd
 
 format:
   html:

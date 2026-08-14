@@ -190,6 +190,87 @@ A sample path looks like a noisy signal, while the random variable $Y_n$ describ
    $$
    Markov chains are studied in detail in the next chapter.
 
+## Gaussian processes
+
+1. A stochastic process $\{X_n\}_{n\ge0}$ is a **Gaussian process** if, for every finite collection of time indices $n_1,\ldots,n_k$, the random vector
+   $$
+   \MATRIX{X_{n_1}&\cdots&X_{n_k}}^\TRANS
+   $$
+   has a multivariate Gaussian distribution. Equivalently, every finite linear combination of the random variables $X_n$ is Gaussian.
+
+2. A Gaussian process is completely characterized by its **mean function** and **auto-covariance function**:
+   $$
+   μ^X_n = \EXP[X_n],
+   \qquad
+   R^X_{n,m} = \COV(X_n,X_m).
+   $$
+   In particular, for any $n_1,\ldots,n_k$, these functions specify the mean vector and covariance matrix of the corresponding Gaussian random vector.
+
+3. When two processes $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$ are defined on a common probability space and every finite collection drawn from either process is jointly Gaussian, we say that the processes are **jointly Gaussian**. Their second-order structure is then described by the auto-covariances $R^X_{n,m}$, $R^Y_{n,m}$ and the **cross-covariance**
+   $$ R^{XY}_{n,m} = \COV(X_n, Y_m), $$
+   which satisfies $R^{XY}_{n,m} = R^{YX}_{m,n}$. 
+
+4. A zero-mean Gaussian process $\{W_n\}_{n\ge0}$ is called **white Gaussian noise** with variance $σ_W^2$ if
+   $$
+   R^W_{n,m} = \COV(W_n,W_m)
+   = σ_W^2\IND\{n = m\}.
+   $$
+   Equivalently, white Gaussian noise is an i.i.d. sequence of Gaussian random variables with
+   $$
+   W_n \sim \mathcal N(0,σ_W^2).
+   $$
+   We call the process **standard white Gaussian noise** when $σ_W^2 = 1$.
+
+:::{#exm-cosine-gaussian-phase}
+#### Cosine with Gaussian amplitude
+
+Let
+$$
+X_n = A \cos(Ω n) + B \sin(Ω n),
+$$
+where $Ω \in \reals$ is fixed and $A,B$ are i.i.d. $\mathcal N(0,σ^2)$. A sample path is shown below.
+
+```{ojs}
+viewof rerun_cosine_gauss = Inputs.button("Generate sample path")
+
+points_cosine_gauss = {
+  rerun_cosine_gauss
+  const N = 120
+  const sigma = 1.0
+  const f = 0.1
+  const A = gaussianRandom(0, sigma)
+  const B = gaussianRandom(0, sigma)
+  const points = new Array(N + 1)
+  for (let n = 0; n <= N; n++) {
+    points[n] = {
+      n,
+      X_n: A * Math.cos(2 * Math.PI * f * n) + B * Math.sin(2 * Math.PI * f * n)
+    }
+  }
+  return points
+}
+```
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  height: 150,
+  y: {domain: [-2, 2]},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(points_cosine_gauss, {x: "n", y: "X_n", strokeWidth: 1.5}),
+    Plot.dot(points_cosine_gauss, {x: "n", y: "X_n", fill: "currentColor", r: 2})
+  ]
+})
+```
+
+The mean is zero. Expanding $\EXP[X_m X_n]$ and using independence of $A$ and $B$ gives
+$$
+R^X_{m,n} = σ^2 \cos\bigl(Ω(m - n)\bigr) = σ^2 \cos\bigl(Ω|m - n|\bigr).
+$$
+Thus every finite collection is Gaussian (as a linear image of $(A,B)$), so $\{X_n\}_{n\ge0}$ is a Gaussian process, and the covariance depends only on the lag.
+:::
+
 ## Stationarity
 
 1. A discrete-time stochastic process $\{X_n\}_{n\ge0}$ is **strict-sense stationary** if shifting all time indices by the same amount does not change any finite-dimensional distribution. More precisely, for every $k$, every collection of time indices $n_1,\ldots, n_k$, and every $h\ge0$, the random vectors
@@ -210,4 +291,18 @@ A sample path looks like a noisy signal, while the random variable $Y_n$ describ
 
 4. Strict-sense stationarity implies that the marginal distribution of $X_n$ does not depend on $n$. Consequently, if the relevant moments exist, $\EXP[X_n]$ and $\VAR(X_n)$ are constant. The converse is not true: time-invariant marginal distributions, or even constant means and variances, do not by themselves imply stationarity.
 
-5. In later chapters, we will study two complementary ways of describing temporal dependence. Markov chains describe dependence through conditional distributions and a state that summarizes the past. Gaussian and second-order processes describe dependence through means and covariance functions. State-space models combine these viewpoints for stochastic systems with inputs, outputs, and an internal state.
+5. For a Gaussian process, strict-sense stationarity is equivalent to the mean being constant and the auto-covariance depending only on the time difference. With the convention
+   $$
+   R^X_k=\COV(X_{n+k},X_n),
+   $$
+   stationarity means that $R^X_k$ does not depend on $n$. The converse holds because the mean and covariance determine every finite-dimensional distribution of a Gaussian process. In particular, @exm-cosine-gaussian-phase is strict-sense stationary.
+
+6. Stationarity is defined in terms of the distribution of the process, which is an ensemble property. In applications, however, we often observe only one sample path. Roughly speaking, a stationary process is **ergodic** if time averages along one sufficiently long sample path converge to the corresponding ensemble averages. For example, for zero-mean jointly stationary ergodic processes $\{X_n\}$ and $\{Y_n\}$, the cross-covariance can be estimated as
+   $$
+   R^{XY}_k
+   =\COV(X_{n+k},Y_n)
+   \approx \frac{1}{N}\sum_{n=0}^{N-1}X_{n+k}Y_n
+   $$
+   for large $N$. We will not develop the theory of ergodic processes in this course.
+
+7. In later chapters, we will study two complementary ways of describing temporal dependence. Markov chains describe dependence through conditional distributions and a state that summarizes the past. Gaussian and second-order processes describe dependence through means and covariance functions. State-space models combine these viewpoints for stochastic systems with inputs, outputs, and an internal state.

@@ -50,11 +50,11 @@ Communication
 | 6    | [Moment generating functions and sums of random variables](moment-generating-functions.qmd); [probability inequalities](inequalities.qmd) |
 | 7    | Review and Mid-Term | 
 | 8    | [Convergence of random variables and the strong law of large numbers](convergence-of-random-variables.qmd) | 
-| 9   | [Stochastic processes](stochastic-processes.qmd) and [Markov chains](markov-chains.qmd) |
+| 9    | [Stochastic processes](stochastic-processes.qmd) and [Markov chains](markov-chains.qmd) |
 | 10   | [Hitting times and limiting distributions of Markov chains](markov-chains.qmd) |
-| 11   | Markov chains (continued) | 
-| 12   | [Gaussian processes](gaussian-processes.qmd) |
-| 13   | Wide sense stationary processes | 
+| 11   | [Gauss–Markov models and spectral analysis](gauss-markov-processes.qmd) |
+| 12   | Poisson processes |
+| 13   | continuous-time Markov chains |
 
 : {tbl-colwidths="[10,90]" .striped}
 
