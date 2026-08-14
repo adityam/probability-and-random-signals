@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-04">
+<meta name="dcterms.date" content="2026-08-14">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>6&nbsp; MMSE estimation – Probability and Random Signals II</title>
@@ -28,6 +28,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -52,9 +87,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-0183313eb70119bc43db73366798b6f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4ad2ef6750bdff82c221cf50d218a8aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-bcc1a68f7df079dd3a71af7c28f49a3c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-4ad2ef6750bdff82c221cf50d218a8aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -154,6 +189,8 @@ window.MathJax = {
 };
 </script>
 <script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -483,7 +520,9 @@ window.Quarto = {
    
   <ul>
   <li><a href="#MMSE" id="toc-MMSE" class="nav-link active" data-scroll-target="#MMSE"><span class="header-section-number">6.1</span> Conditional expectation as minimum mean square estimator</a></li>
-  <li><a href="#mmse-estimation-for-jointly-gaussian-random-vectors" id="toc-mmse-estimation-for-jointly-gaussian-random-vectors" class="nav-link" data-scroll-target="#mmse-estimation-for-jointly-gaussian-random-vectors"><span class="header-section-number">6.2</span> MMSE estimation for jointly Gaussian random vectors</a></li>
+  <li><a href="#soft-estimation-over-a-bpsk-channel" id="toc-soft-estimation-over-a-bpsk-channel" class="nav-link" data-scroll-target="#soft-estimation-over-a-bpsk-channel"><span class="header-section-number">6.2</span> Soft estimation over a BPSK channel</a></li>
+  <li><a href="#soft-estimation-of-a-poisson-count" id="toc-soft-estimation-of-a-poisson-count" class="nav-link" data-scroll-target="#soft-estimation-of-a-poisson-count"><span class="header-section-number">6.3</span> Soft estimation of a Poisson count</a></li>
+  <li><a href="#mmse-estimation-for-jointly-gaussian-random-vectors" id="toc-mmse-estimation-for-jointly-gaussian-random-vectors" class="nav-link" data-scroll-target="#mmse-estimation-for-jointly-gaussian-random-vectors"><span class="header-section-number">6.4</span> MMSE estimation for jointly Gaussian random vectors</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/mmse-estimation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -519,7 +558,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 4, 2026</p>
+      <p class="date">August 14, 2026</p>
     </div>
   </div>
   
@@ -531,7 +570,7 @@ window.Quarto = {
 </header>
 
 
-<p>Conditional expectation is not only a way of updating a probability model; it is also the optimal estimate of an unknown random variable under mean-squared error. This chapter develops that interpretation and then specializes it to jointly Gaussian random vectors.</p>
+<p>Conditional expectation is not only a way of updating a probability model; it is also the optimal estimate of an unknown random variable under mean-squared error. In this lecture, we develop that interpretation, work two non-Gaussian examples (BPSK and Poisson counts), and then specialize the theory to jointly Gaussian random vectors.</p>
 <section id="MMSE" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="MMSE"><span class="header-section-number">6.1</span> Conditional expectation as minimum mean square estimator</h2>
 <ol type="1">
@@ -595,7 +634,7 @@ window.Quarto = {
 0 &amp;= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
   &amp;= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
   &amp;= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
-\end{align*}\]</span> The first term is zero because <span class="math inline">\(h(Y) - \EXP[X \mid Y]\)</span> is a function of <span class="math inline">\(Y\)</span> and, by the orthogonality property in point~3, <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>. Therefore, <span class="math display">\[
+\end{align*}\]</span> The first term is zero because <span class="math inline">\(h(Y) - \EXP[X \mid Y]\)</span> is a function of <span class="math inline">\(Y\)</span> and, by the orthogonality property in point 3, <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>. Therefore, <span class="math display">\[
 \EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
 \]</span> which implies <span class="math inline">\(h(Y) = \EXP[X \mid Y]\)</span> almost surely. By point 2, this means <span class="math inline">\(h(Y)\)</span> is the MMSE estimator.</p>
 </div>
@@ -623,8 +662,165 @@ window.Quarto = {
 \]</span></p></li>
 </ol>
 </section>
-<section id="mmse-estimation-for-jointly-gaussian-random-vectors" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="mmse-estimation-for-jointly-gaussian-random-vectors"><span class="header-section-number">6.2</span> MMSE estimation for jointly Gaussian random vectors</h2>
+<section id="soft-estimation-over-a-bpsk-channel" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="soft-estimation-over-a-bpsk-channel"><span class="header-section-number">6.2</span> Soft estimation over a BPSK channel</h2>
+<div id="exm-bpsk-mmse" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.1 (MMSE estimation for BPSK over AWGN)</strong></span> Recall the <a href="./gaussian-random-vectors.html#sec-bpsk-awgn">BPSK over AWGN</a> model: a random bit <span class="math inline">\(B\in\{+1,-1\}\)</span> with <span class="math inline">\(\PR(B=+1)=\PR(B=-1)=\tfrac12\)</span> is transmitted as the symbol <span class="math inline">\(X=aB\)</span> with <span class="math inline">\(a&gt;0\)</span>, and the receiver observes <span class="math display">\[
+Y=aB+W,
+\]</span> where <span class="math inline">\(W\sim\mathcal N(0,σ^2)\)</span> is independent of <span class="math inline">\(B\)</span>. Conditioned on the bit, the observation is Gaussian, <span class="math display">\[
+Y\mid(B=+1)\sim\mathcal N(a,σ^2),
+\qquad
+Y\mid(B=-1)\sim\mathcal N(-a,σ^2),
+\]</span> so, with the <a href="./random-variables.html#exm-Gaussian">standard normal density</a> <span class="math inline">\(ϕ\)</span>, <span class="math display">\[
+f_{Y\mid B}(y\mid +1)
+=\frac{1}{σ}\,ϕ\Bigl(\frac{y-a}{σ}\Bigr),
+\qquad
+f_{Y\mid B}(y\mid -1)
+=\frac{1}{σ}\,ϕ\Bigl(\frac{y+a}{σ}\Bigr),
+\]</span> and the marginal of <span class="math inline">\(Y\)</span> is <span class="math display">\[
+f_Y(y)
+=\frac{1}{2σ}\Biggl[
+ϕ\Bigl(\frac{y-a}{σ}\Bigr)
++ϕ\Bigl(\frac{y+a}{σ}\Bigr)
+\Biggr].
+\]</span> What is the MMSE estimate of the bit given <span class="math inline">\(Y\)</span>?</p>
+</div>
+<ol type="1">
+<li><p>By the general theory above, the MMSE estimator is the conditional expectation <span class="math inline">\(\EXP[B\mid Y]\)</span>. Since <span class="math inline">\(B\)</span> is discrete, <span class="math display">\[
+\EXP[B\mid Y=y]
+=(+1)\,\PR(B=+1\mid Y=y)
++(-1)\,\PR(B=-1\mid Y=y).
+\]</span> Bayes’ rule and equal priors give <span class="math display">\[
+\PR(B=+1\mid Y=y)
+=\frac{ϕ((y-a)/σ)}{ϕ((y-a)/σ)+ϕ((y+a)/σ)},
+\qquad
+\PR(B=-1\mid Y=y)
+=\frac{ϕ((y+a)/σ)}{ϕ((y-a)/σ)+ϕ((y+a)/σ)}.
+\]</span> Therefore <span class="math display">\[
+\EXP[B\mid Y=y]
+=\frac{ϕ((y-a)/σ)-ϕ((y+a)/σ)}{ϕ((y-a)/σ)+ϕ((y+a)/σ)}.
+\]</span></p></li>
+<li><p>The Gaussian densities simplify the expression. Their ratio is <span class="math display">\[
+\frac{ϕ((y-a)/σ)}{ϕ((y+a)/σ)}
+=\exp\Bigl(\frac{2ay}{σ^2}\Bigr),
+\]</span> so <span class="math display">\[
+\EXP[B\mid Y=y]
+=\frac{\exp(2ay/σ^2)-1}{\exp(2ay/σ^2)+1}
+=\tanh\Bigl(\frac{ay}{σ^2}\Bigr).
+\]</span> Thus <span class="math display">\[
+\bbox[5pt,border: 1px solid]{
+\EXP[B\mid Y]=\tanh\Bigl(\frac{aY}{σ^2}\Bigr).
+}
+\]</span> The corresponding MMSE estimate of the transmitted amplitude is <span class="math display">\[
+\EXP[X\mid Y]=a\,\EXP[B\mid Y]=a\tanh\Bigl(\frac{aY}{σ^2}\Bigr).
+\]</span> The estimate takes values in <span class="math inline">\((-1,1)\)</span>: for large <span class="math inline">\(|Y|\)</span> it saturates near <span class="math inline">\(\pm 1\)</span>, while for <span class="math inline">\(Y\)</span> near <span class="math inline">\(0\)</span> it shrinks toward <span class="math inline">\(0\)</span>. Because <span class="math inline">\(B\)</span> is discrete, the pair <span class="math inline">\((B,Y)\)</span> is not jointly Gaussian, and <span class="math inline">\(\EXP[B\mid Y]\)</span> is a nonlinear function of <span class="math inline">\(Y\)</span>.</p></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="192" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 191;"><span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>viewof bpsk_mmse_snr <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.2</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">,</span> {</span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"a/σ"</span><span class="op">,</span></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">1.2</span><span class="op">,</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="203" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 202;"><span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>bpsk_mmse_curve <span class="op">=</span> {</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> snr <span class="op">=</span> bpsk_mmse_snr</span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> values <span class="op">=</span> []</span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yMax <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> points<span class="op">;</span> <span class="op">++</span>i) {</span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> y <span class="op">=</span> <span class="op">-</span>yMax <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> yMax <span class="op">*</span> i <span class="op">/</span> points</span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>    values<span class="op">.</span><span class="fu">push</span>({y<span class="op">,</span> <span class="dt">estimate</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">tanh</span>(snr <span class="op">*</span> y)})</span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> values</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="222" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 221;"><span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">700</span><span class="op">,</span></span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">400</span><span class="op">,</span></span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">4</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"received value y"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="fl">1.2</span><span class="op">,</span> <span class="fl">1.2</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"estimate of B"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.35</span>})<span class="op">,</span></span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.35</span>})<span class="op">,</span></span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">1</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>]<span class="op">,</span> {</span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span></span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a>      <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.25</span><span class="op">,</span></span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>      <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,4"</span></span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(bpsk_mmse_curve<span class="op">,</span> {</span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"estimate"</span><span class="op">,</span></span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#4c78a8"</span><span class="op">,</span></span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a>      <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.5</span></span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-bpsk-mmse-estimators" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bpsk-mmse-estimators-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bpsk-mmse-estimators-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.1: MMSE estimate of the BPSK bit as a function of the received value <span class="math inline">\(y\)</span>, with <span class="math inline">\(σ=1\)</span> and adjustable <span class="math inline">\(a/σ\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="soft-estimation-of-a-poisson-count" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="soft-estimation-of-a-poisson-count"><span class="header-section-number">6.3</span> Soft estimation of a Poisson count</h2>
+<div id="exm-poisson-mmse" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.2 (MMSE estimation for two Poisson light sources)</strong></span> Poisson random variables are a standard model for photon counts; see <a href="random-variables.html#exm-Poisson" class="quarto-xref">Example&nbsp;<span>2.8</span></a>. Suppose two independent light sources of intensities <span class="math inline">\(λ&gt;0\)</span> and <span class="math inline">\(μ&gt;0\)</span> illuminate the same device, producing independent counts <span class="math display">\[
+X\sim\text{Poisson}(λ),
+\qquad
+Y\sim\text{Poisson}(μ).
+\]</span> The device observes only the total count <span class="math display">\[
+Z=X+Y.
+\]</span> What is the MMSE estimate of <span class="math inline">\(X\)</span> given <span class="math inline">\(Z\)</span>?</p>
+</div>
+<ol type="1">
+<li><p>As shown in <a href="random-vectors.html#exm-function-sum-Poisson" class="quarto-xref">Example&nbsp;<span>3.15</span></a> (and again later via moment generating functions), <span class="math display">\[
+Z\sim\text{Poisson}(λ+μ).
+\]</span> For integers <span class="math inline">\(0\le m\le n\)</span>, independence gives <span class="math display">\[\begin{align*}
+\PR(X=m\mid Z=n)
+&amp;=\frac{\PR(X=m)\PR(Y=n-m)}{\PR(Z=n)}
+\\
+&amp;=\frac{e^{-λ}λ^m/m!\cdot e^{-μ}μ^{n-m}/(n-m)!}
+{e^{-(λ+μ)}(λ+μ)^n/n!}
+\\
+&amp;=\binom{n}{m}
+\Bigl(\frac{λ}{λ+μ}\Bigr)^{m}
+\Bigl(\frac{μ}{λ+μ}\Bigr)^{n-m}.
+\end{align*}\]</span> Thus, conditioned on <span class="math inline">\(Z=n\)</span>, the random variable <span class="math inline">\(X\)</span> is <span class="math inline">\(\text{Binomial}\bigl(n,λ/(λ+μ)\bigr)\)</span>.</p></li>
+<li><p>By <a href="random-variables.html#tbl-mean-variance" class="quarto-xref">Table&nbsp;<span>2.1</span></a>, the mean of a <span class="math inline">\(\text{Binomial}(n,p)\)</span> random variable is <span class="math inline">\(np\)</span>. Taking <span class="math inline">\(p=λ/(λ+μ)\)</span> gives <span class="math display">\[
+\EXP[X\mid Z=n]
+=n\,\frac{λ}{λ+μ}.
+\]</span> Therefore the MMSE estimator is <span class="math display">\[
+\bbox[5pt,border: 1px solid]{
+\EXP[X\mid Z]
+=\frac{λ}{λ+μ}\,Z.
+}
+\]</span> Observe that the estimate is linear in the observation <span class="math inline">\(Z\)</span>.</p></li>
+</ol>
+</section>
+<section id="mmse-estimation-for-jointly-gaussian-random-vectors" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="mmse-estimation-for-jointly-gaussian-random-vectors"><span class="header-section-number">6.4</span> MMSE estimation for jointly Gaussian random vectors</h2>
+<p>In the BPSK example, the MMSE estimator was a nonlinear function of the observation. We now specialize to the case where the unknown and the observation are jointly Gaussian. Then the MMSE estimator is affine, and there is an explicit formula for it in terms of means and covariances.</p>
 <p>Suppose <span class="math inline">\(X\in\reals^n\)</span> and <span class="math inline">\(Y\in\reals^m\)</span> are jointly Gaussian, with <span class="math display">\[
 \MATRIX{X\\Y}
 \sim
@@ -679,7 +875,7 @@ X\mid(Y=y)
 \end{align*}\]</span></p></li>
 </ol>
 <div id="exm-sensor-network" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.1 (Estimation using a sensor network)</strong></span> Let the unknown state be <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 6.3 (Estimation using a sensor network)</strong></span> Let the unknown state be <span class="math display">\[
 X\sim\mathcal N(\mu_X,\Sigma_X).
 \]</span> Sensor <span class="math inline">\(i\)</span> observes <span class="math display">\[
 Y_i=C_iX+W_i,
@@ -742,6 +938,17 @@ P_N^{-1}
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIGJwc2tfbW1zZV9zbnIgPSBJbnB1dHMucmFuZ2UoWzAuMiwgM10sIHtcbiAgbGFiZWw6IFwiYS/Pg1wiLFxuICB2YWx1ZTogMS4yLFxuICBzdGVwOiAwLjFcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbmJwc2tfbW1zZV9jdXJ2ZSA9IHtcbiAgY29uc3Qgc25yID0gYnBza19tbXNlX3NuclxuICBjb25zdCB2YWx1ZXMgPSBbXVxuICBjb25zdCBwb2ludHMgPSA1MDBcbiAgY29uc3QgeU1heCA9IDRcblxuICBmb3IgKGxldCBpID0gMDsgaSA8PSBwb2ludHM7ICsraSkge1xuICAgIGNvbnN0IHkgPSAteU1heCArIDIgKiB5TWF4ICogaSAvIHBvaW50c1xuICAgIHZhbHVlcy5wdXNoKHt5LCBlc3RpbWF0ZTogTWF0aC50YW5oKHNuciAqIHkpfSlcbiAgfVxuICByZXR1cm4gdmFsdWVzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcblBsb3QucGxvdCh7XG4gIHdpZHRoOiA3MDAsXG4gIGhlaWdodDogNDAwLFxuICB4OiB7ZG9tYWluOiBbLTQsIDRdLCBsYWJlbDogXCJyZWNlaXZlZCB2YWx1ZSB5XCIsIGdyaWQ6IHRydWV9LFxuICB5OiB7ZG9tYWluOiBbLTEuMiwgMS4yXSwgbGFiZWw6IFwiZXN0aW1hdGUgb2YgQlwiLCBncmlkOiB0cnVlfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSwge3N0cm9rZTogXCJjdXJyZW50Q29sb3JcIiwgc3Ryb2tlT3BhY2l0eTogMC4zNX0pLFxuICAgIFBsb3QucnVsZVgoWzBdLCB7c3Ryb2tlOiBcImN1cnJlbnRDb2xvclwiLCBzdHJva2VPcGFjaXR5OiAwLjM1fSksXG4gICAgUGxvdC5ydWxlWShbMSwgLTFdLCB7XG4gICAgICBzdHJva2U6IFwiY3VycmVudENvbG9yXCIsXG4gICAgICBzdHJva2VPcGFjaXR5OiAwLjI1LFxuICAgICAgc3Ryb2tlRGFzaGFycmF5OiBcIjQsNFwiXG4gICAgfSksXG4gICAgUGxvdC5saW5lKGJwc2tfbW1zZV9jdXJ2ZSwge1xuICAgICAgeDogXCJ5XCIsXG4gICAgICB5OiBcImVzdGltYXRlXCIsXG4gICAgICBzdHJva2U6IFwiIzRjNzhhOFwiLFxuICAgICAgc3Ryb2tlV2lkdGg6IDIuNVxuICAgIH0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2Jwc2tfbW1zZV9zbnInKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

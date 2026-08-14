@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-04">
+<meta name="dcterms.date" content="2026-08-14">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>5&nbsp; Conditional probability and conditional expectation – Probability and Random Signals II</title>
@@ -87,9 +87,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-0183313eb70119bc43db73366798b6f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4ad2ef6750bdff82c221cf50d218a8aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-bcc1a68f7df079dd3a71af7c28f49a3c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-4ad2ef6750bdff82c221cf50d218a8aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -558,7 +558,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 4, 2026</p>
+      <p class="date">August 14, 2026</p>
     </div>
   </div>
   
@@ -1115,7 +1115,7 @@ F_{X|Y}(x\mid y)
 f_{X|Y}(x\mid y)=\frac{f_{X,Y}(x,y)}{f_Y(y)},
 \qquad f_Y(y)&gt;0.
 \]</span> This argument gives the right formula, but the limiting interpretation requires regularity assumptions and does not by itself provide a general definition of conditioning on a continuous random variable.</p>
-<p>The difficulty is fundamental: if <span class="math inline">\(\PR(Y=y)=0\)</span>, we cannot average on the atoms <span class="math inline">\(\{Y=y\}\)</span> as in the finite-valued case. Item~9 above already points to the workable substitute: for <span class="math inline">\(\ALPHABET G=σ(Y)\)</span>, the identity <span class="math inline">\(\EXP[g(Y)\EXP[X \mid Y]] = \EXP[X g(Y)]\)</span> characterizes <span class="math inline">\(\EXP[X \mid Y]\)</span>. Equivalently, for a general <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET G\)</span>, it is enough to impose that identity on indicators of sets in <span class="math inline">\(\ALPHABET G\)</span>. That is the definition we use next; afterward we recover the familiar conditional density when a joint PDF exists.</p></li>
+<p>The difficulty is fundamental: if <span class="math inline">\(\PR(Y=y)=0\)</span>, we cannot average on the atoms <span class="math inline">\(\{Y=y\}\)</span> as in the finite-valued case. Point 9 above already points to the workable substitute: for <span class="math inline">\(\ALPHABET G=σ(Y)\)</span>, the identity <span class="math inline">\(\EXP[g(Y)\EXP[X \mid Y]] = \EXP[X g(Y)]\)</span> characterizes <span class="math inline">\(\EXP[X \mid Y]\)</span>. Equivalently, for a general <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET G\)</span>, it is enough to impose that identity on indicators of sets in <span class="math inline">\(\ALPHABET G\)</span>. That is the definition we use next; afterward we recover the familiar conditional density when a joint PDF exists.</p></li>
 <li><p><strong>The formal definition through conditional expectation.</strong> Let <span class="math inline">\(\ALPHABET G\subset\ALPHABET F\)</span> be a <span class="math inline">\(σ\)</span>-algebra. For any non-negative<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(\EXP[X\mid\ALPHABET G]\)</span> is defined to be a <span class="math inline">\(\ALPHABET G\)</span>-measurable random variable satisfying <span class="math display">\[
 \EXP[\IND_A\EXP[X\mid\ALPHABET G]]
 =\EXP[X\IND_A],

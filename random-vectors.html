@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-04">
+<meta name="dcterms.date" content="2026-08-14">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>3&nbsp; Random vectors – Probability and Random Signals II</title>
@@ -52,9 +52,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-0183313eb70119bc43db73366798b6f0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-fc0a531aff14dd5eda9f94c44fd0e500.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4ad2ef6750bdff82c221cf50d218a8aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-bcc1a68f7df079dd3a71af7c28f49a3c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-4ad2ef6750bdff82c221cf50d218a8aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -523,7 +523,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 4, 2026</p>
+      <p class="date">August 14, 2026</p>
     </div>
   </div>
   
@@ -545,7 +545,7 @@ F_{X,Y}(x,y) = \PR(\{ ω \in Ω : X(ω) \le x, Y(ω) \le y \})
 <ul>
 <li><p><strong>Regularity properties</strong></p>
 <ol type="1">
-<li><p><span class="math inline">\(\lim_{x \to -∞} F_{X,Y}(x,y) = 0\)</span>, <span class="math inline">\(\lim_{y \to -∞} F_{X,Y}(x,y) = 0\)</span> and <span class="math inline">\(\lim_{x,y \to +∞} F(x,y) = 1\)</span>.</p></li>
+<li><p><span class="math inline">\(\lim_{x \to -∞} F_{X,Y}(x,y) = 0\)</span>, <span class="math inline">\(\lim_{y \to -∞} F_{X,Y}(x,y) = 0\)</span> and <span class="math inline">\(\lim_{x,y \to +∞} F_{X,Y}(x,y) = 1\)</span>.</p></li>
 <li><p>Joint CDFs are non-decreasing, i.e., if <span class="math inline">\((x_1,y_1) &lt; (x_2, y_2)\)</span>, then <span class="math inline">\(F_{X,Y}(x_1,y_1) \le F_{X,Y}(x_2,y_2)\)</span>.</p></li>
 <li><p>Joint CDFs are continuous from above, i.e., <span class="math display">\[\lim_{u,v \downarrow 0}F_{X,Y}(x+u,y+v) = F_{X,Y}(x,y).\]</span></p></li>
 <li><p><span class="math inline">\(\PR(X = x, Y = y) = F_{X,Y}(x,y) - F_{X,Y}(x^{-},y) - F_{X,Y}(x,y^{-}) + F_{X,Y}(x^{-},y^{-})\)</span>.</p></li>
@@ -661,7 +661,7 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 </ol></li>
 </ul>
 </div>
-<p>The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors <span class="math inline">\(X = [X_1, \dots, X_n]^\TRANS \in \reals^n\)</span>. In practice, we often do not make a distinction between random <em>variables</em> and random <em>vectors</em> and refer both of them simply as <em>random variables</em>.</p>
+<p>The above discussion generalizes in the obvious manner to more than two random variables. Thus, we can talk about random vectors <span class="math inline">\(X = [X_1, \dots, X_n]^\TRANS \in \reals^n\)</span>. In practice, we often do not make a distinction between random <em>variables</em> and random <em>vectors</em> and refer to both of them simply as <em>random variables</em>.</p>
 <div id="exm-joint-discrete" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.3</strong></span> Consider jointly discrete random variables <span class="math inline">\(X \in \{1,2,3\}\)</span> and <span class="math inline">\(Y \in \{1, 2, 3\}\)</span> with joint PMF <span class="math display">\[
   P_{X,Y} = \MATRIX{
@@ -965,7 +965,7 @@ V = \min(X,Y).
 <div class="callout-body-container callout-body">
 <p>We can write the CDF <span class="math inline">\(F_Y(y)\)</span> as follows: <span class="math display">\[
 F_Y(y)
-= \int_{-∞}^∞ \int_{-∞}^{y - x_1} f_{X_1,X_2}(x_1, x_2)\, d x_2 d x_1 \\
+= \int_{-∞}^∞ \int_{-∞}^{y - x_1} f_{X_1,X_2}(x_1, x_2)\, d x_2 d x_1
 \]</span> Therefore, <span class="math display">\[\begin{align*}
 f_Y(y) &amp;= \frac{d F_Y(y)}{dy} \\
 &amp;= \int_{-∞}^∞ \frac{d}{dy} \int_{-∞}^{y-x_1} f_{X_1, X_2}(x_1, x_2) \, dx_2\, dx_1 \\
@@ -1116,7 +1116,7 @@ F_U(u)
 <div id="exm-function-multiple" class="theorem example">
 <p><span class="theorem-title"><strong>Example 3.17</strong></span> Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables defined on a common probability space. Define <span class="math display">\[
   U = X^2 \quad\text{and}\quad V = X + Y.
-\]</span> Find <span class="math inline">\(f_{U,V}\)</span>?</p>
+\]</span> Find <span class="math inline">\(f_{U,V}\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
