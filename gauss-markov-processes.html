@@ -970,7 +970,7 @@ window.Quarto = {
 </section>
 <section id="note-on-non-gaussian-processes" class="level2" data-number="12.6">
 <h2 data-number="12.6" class="anchored" data-anchor-id="note-on-non-gaussian-processes"><span class="header-section-number">12.6</span> Note on non-Gaussian processes</h2>
-<p>Since all the properties discussed above (mean function, covariance function, linear transformations, etc.) depend only on the first two moments (mean and covariance), they apply to stochastic processes beyond Gaussian processes, as long as we restrict our attention to first and second moments.</p>
+<p>The mean and covariance propagation, Lyapunov equations, and linear-system calculations developed in this chapter depend only on first and second moments. They therefore remain valid for any second-order process, even when the process is not Gaussian. The spectral calculations also remain valid under the corresponding stationarity and summability assumptions.</p>
 <p>However, it is important to distinguish between two notions of stationarity:</p>
 <ol type="1">
 <li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n\in\integers}\)</span> is called <strong>wide-sense stationary</strong> (or <strong>weakly stationary</strong>) if:</p>
@@ -980,7 +980,7 @@ window.Quarto = {
 </ul></li>
 <li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n\in\integers}\)</span> is called <strong>strict-sense stationary</strong> (or <strong>strongly stationary</strong>) if, for any finite collection of time indices <span class="math inline">\(n_1,\ldots,n_k\)</span> and any integer <span class="math inline">\(h\)</span>, the joint distribution of <span class="math inline">\((X_{n_1},\ldots,X_{n_k})\)</span> is the same as the joint distribution of <span class="math inline">\((X_{n_1+h},\ldots,X_{n_k+h})\)</span>.</p></li>
 </ol>
-<p>For any stochastic process, strict-sense stationarity implies wide-sense stationarity, but the converse is not true in general. For Gaussian processes, the mean and covariance determine all finite-dimensional distributions, so wide-sense stationarity implies strict-sense stationarity. Thus, for Gaussian processes, the two notions are equivalent.</p>
+<p>For any stochastic process, strict-sense stationarity implies wide-sense stationarity, but the converse is not true in general. Thus, for a general second-order process, the calculations in this chapter establish properties of its first and second moments, such as wide-sense stationarity, but do not determine its complete finite-dimensional distributions. For a Gaussian process, the mean and covariance determine all finite-dimensional distributions, so wide-sense stationarity implies strict-sense stationarity. Thus, for Gaussian processes, the two notions are equivalent.</p>
 </section>
 <section id="exercises" class="level2" data-number="12.7">
 <h2 data-number="12.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">12.7</span> Exercises</h2>

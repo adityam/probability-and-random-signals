@@ -686,35 +686,39 @@ N_{n+h}-N_n=B_{n+1}+\cdots+B_{n+h}
 \sim\operatorname{Binomial}(h,p).
 \]</span> Thus, the distribution of an increment depends on its length <span class="math inline">\(h\)</span> but not on its starting time <span class="math inline">\(n\)</span>. Moreover, increments over disjoint time intervals are independent.</li>
 </ul>
+<p>More generally, a process <span class="math inline">\(\{X_n\}_{n\ge0}\)</span> has <strong>stationary increments</strong> if the distribution of <span class="math inline">\(X_{n+h}-X_n\)</span> depends only on the length <span class="math inline">\(h\)</span> and not on the starting time <span class="math inline">\(n\)</span>. It has <strong>independent increments</strong> if, for every <span class="math inline">\(0\le n_0&lt;n_1&lt;\cdots&lt;n_r\)</span>, the random variables <span class="math display">\[
+X_{n_1}-X_{n_0},\ X_{n_2}-X_{n_1},\ldots,
+X_{n_r}-X_{n_{r-1}}
+\]</span> are independent. Thus, the Bernoulli counting process has stationary independent increments.</p>
 <div id="exm-signal-plus-noise" class="theorem example">
 <p><span class="theorem-title"><strong>Example 10.2 (Signal plus noise)</strong></span> Consider the process <span class="math display">\[
 Y_n=x_n+W_n,
 \]</span> where <span class="math inline">\(x_n=\sin(2πn/25)\)</span> is a deterministic discrete-time signal and <span class="math inline">\(\{W_n\}_{n\ge0}\)</span> is an i.i.d. Gaussian sequence with <span class="math inline">\(W_n\sim\mathcal N(0,σ^2)\)</span> and <span class="math inline">\(σ=0.2\)</span>. A sample path of <span class="math inline">\(\{Y_n\}_{n\ge0}\)</span> is shown below.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="113" data-source-offset="-62"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 112;"><span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean<span class="op">=</span><span class="dv">0</span><span class="op">,</span> stdev<span class="op">=</span><span class="dv">1</span>) {</span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(u)) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v)</span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z <span class="op">*</span> stdev <span class="op">+</span> mean</span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>viewof rerun_noise <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>points_noise <span class="op">=</span> {</span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>    rerun_noise</span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> T <span class="op">=</span> <span class="dv">120</span></span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">0.2</span></span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> omega <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">25</span></span>
-<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(T <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;=</span> T<span class="op">;</span> n<span class="op">++</span>) {</span>
-<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> signal <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(omega <span class="op">*</span> n)</span>
-<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> noise <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> {<span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">x_n</span><span class="op">:</span> signal<span class="op">,</span> <span class="dt">Y_n</span><span class="op">:</span> signal <span class="op">+</span> noise}</span>
-<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
-<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="120" data-source-offset="-62"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 119;"><span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean<span class="op">=</span><span class="dv">0</span><span class="op">,</span> stdev<span class="op">=</span><span class="dv">1</span>) {</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(u)) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v)</span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> z <span class="op">*</span> stdev <span class="op">+</span> mean</span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>viewof rerun_noise <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>points_noise <span class="op">=</span> {</span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>    rerun_noise</span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> T <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> omega <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">/</span> <span class="dv">25</span></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(T <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;=</span> T<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> signal <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(omega <span class="op">*</span> n)</span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> noise <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>      points[n] <span class="op">=</span> {<span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">x_n</span><span class="op">:</span> signal<span class="op">,</span> <span class="dt">Y_n</span><span class="op">:</span> signal <span class="op">+</span> noise}</span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -738,16 +742,16 @@ Y_n=x_n+W_n,
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="139" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 138;"><span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">200</span><span class="op">,</span></span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Yₙ"</span>}<span class="op">,</span></span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_noise<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Y_n"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"step-after"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_noise<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Y_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="146" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 145;"><span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">200</span><span class="op">,</span></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Yₙ"</span>}<span class="op">,</span></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_noise<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Y_n"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"step-after"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_noise<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Y_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-5" data-nodetype="expression">
 
@@ -788,10 +792,18 @@ X_n=B_n,
 <section id="gaussian-processes" class="level2" data-number="10.4">
 <h2 data-number="10.4" class="anchored" data-anchor-id="gaussian-processes"><span class="header-section-number">10.4</span> Gaussian processes</h2>
 <ol type="1">
+<li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n\ge0}\)</span> is called a <strong>second-order process</strong> if <span class="math display">\[
+\EXP[|X_n|^2]&lt;∞
+\qquad\text{for every }n.
+\]</span> For such a process, the mean function and auto-covariance function <span class="math display">\[
+μ^X_n=\EXP[X_n],
+\qquad
+R^X_{n,m}=\COV(X_n,X_m)
+\]</span> are well-defined. Second-order processes can be studied through these first and second moments even when their complete finite-dimensional distributions are unknown.</p></li>
 <li><p>A stochastic process <span class="math inline">\(\{X_n\}_{n\ge0}\)</span> is a <strong>Gaussian process</strong> if, for every finite collection of time indices <span class="math inline">\(n_1,\ldots,n_k\)</span>, the random vector <span class="math display">\[
 \MATRIX{X_{n_1}&amp;\cdots&amp;X_{n_k}}^\TRANS
 \]</span> has a multivariate Gaussian distribution. Equivalently, every finite linear combination of the random variables <span class="math inline">\(X_n\)</span> is Gaussian.</p></li>
-<li><p>A Gaussian process is completely characterized by its <strong>mean function</strong> and <strong>auto-covariance function</strong>: <span class="math display">\[
+<li><p>Every Gaussian process is a second-order process. Moreover, unlike a general second-order process, a Gaussian process is completely characterized by its mean function and auto-covariance function: <span class="math display">\[
 μ^X_n = \EXP[X_n],
 \qquad
 R^X_{n,m} = \COV(X_n,X_m).
@@ -809,24 +821,24 @@ W_n \sim \mathcal N(0,σ_W^2).
 X_n = A \cos(Ω n) + B \sin(Ω n),
 \]</span> where <span class="math inline">\(Ω \in \reals\)</span> is fixed and <span class="math inline">\(A,B\)</span> are i.i.d. <span class="math inline">\(\mathcal N(0,σ^2)\)</span>. A sample path is shown below.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="234" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 233;"><span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a>viewof rerun_cosine_gauss <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
-<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a>points_cosine_gauss <span class="op">=</span> {</span>
-<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>  rerun_cosine_gauss</span>
-<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
-<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> f <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> A <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
-<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> B <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
-<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
-<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a>    points[n] <span class="op">=</span> {</span>
-<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>      n<span class="op">,</span></span>
-<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>      <span class="dt">X_n</span><span class="op">:</span> A <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n) <span class="op">+</span> B <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n)</span>
-<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
-<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="254" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 253;"><span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a>viewof rerun_cosine_gauss <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a>points_cosine_gauss <span class="op">=</span> {</span>
+<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a>  rerun_cosine_gauss</span>
+<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
+<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sigma <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> f <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> A <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> B <span class="op">=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> sigma)</span>
+<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a>    points[n] <span class="op">=</span> {</span>
+<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a>      n<span class="op">,</span></span>
+<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a>      <span class="dt">X_n</span><span class="op">:</span> A <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n) <span class="op">+</span> B <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> f <span class="op">*</span> n)</span>
+<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
+<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-6-1" data-nodetype="declaration">
@@ -843,16 +855,16 @@ X_n = A \cos(Ω n) + B \sin(Ω n),
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="254" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 253;"><span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
-<span id="cb7-257"><a href="#cb7-257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]}<span class="op">,</span></span>
-<span id="cb7-258"><a href="#cb7-258" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
-<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
-<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="274" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 273;"><span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb7-275"><a href="#cb7-275" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb7-276"><a href="#cb7-276" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">150</span><span class="op">,</span></span>
+<span id="cb7-277"><a href="#cb7-277" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">2</span><span class="op">,</span> <span class="dv">2</span>]}<span class="op">,</span></span>
+<span id="cb7-278"><a href="#cb7-278" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb7-279"><a href="#cb7-279" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb7-281"><a href="#cb7-281" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(points_cosine_gauss<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb7-282"><a href="#cb7-282" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb7-283"><a href="#cb7-283" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-7" data-nodetype="expression">
 
@@ -885,7 +897,13 @@ R^{XY}_k
 =\COV(X_{n+k},Y_n)
 \approx \frac{1}{N}\sum_{n=0}^{N-1}X_{n+k}Y_n
 \]</span> for large <span class="math inline">\(N\)</span>. We will not develop the theory of ergodic processes in this course.</p></li>
-<li><p>In later chapters, we will study two complementary ways of describing temporal dependence. Markov chains describe dependence through conditional distributions and a state that summarizes the past. Gaussian and second-order processes describe dependence through means and covariance functions. State-space models combine these viewpoints for stochastic systems with inputs, outputs, and an internal state.</p></li>
+<li><p>Important classes of stochastic processes use different structures to simplify the description of their finite-dimensional distributions:</p>
+<ul>
+<li>Processes with independent increments describe temporal evolution through the distributions of their increments.</li>
+<li>Markov chains describe dependence through an initial distribution and one-step conditional distributions, with the current state summarizing the relevant past.</li>
+<li>Gaussian processes are completely characterized by their mean and auto-covariance functions.</li>
+</ul>
+<p>State-space Gauss–Markov models combine the Markov and Gaussian viewpoints for stochastic systems with inputs, outputs, and an internal state.</p></li>
 </ol>
 
 
