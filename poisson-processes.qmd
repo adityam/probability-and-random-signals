@@ -1,306 +1,364 @@
 ---
 title: Poisson processes
+execute:
+  echo: false
 ---
 
-Last time
+The Bernoulli process describes arrivals in discrete time. We now develop its continuous-time analogue, the Poisson process. We first introduce the process through exponential interarrival times and derive its counting properties. We then study superposition, splitting, and conditional arrival times, and connect the construction to continuous-time Markov chains.
 
-# Prelude: Bernoulli process
+## From Bernoulli processes to Poisson processes
 
-A Bernoulli process is a sequence $\{Z_n\}_{n \ge 1}$ of i.i.d. binary random variables. Let $p = \PR(Z_n = 1)$ and $q = 1 - p = \PR(Z_n = 0)$. 
+1. Recall the Bernoulli process from @exm-bernoulli-process. Let $\{B_n\}_{n\ge1}$ be i.i.d. $\operatorname{Bernoulli}(p)$ random variables, where $B_n=1$ indicates an arrival at time $n$. The number of arrivals by time $n$ is
+   $$
+   N_n=\sum_{k=1}^nB_k,
+   $$
+   so $N_n\sim\operatorname{Binomial}(n,p)$.
 
-An example would be i.i.d. coin tosses where we can think of $\{Z_n = 1\}$ as the event that the $h$-th outcome is a head and $\{Z_n = 0\}$ to be the event that the $n$-th outcome is a tail.
+2. There are two equivalent ways to describe the arrivals. Let
 
-Given a Bernoulli process, define $U_1$ to be the first time $n$ such that $Z_n = 1$; $U_2$ to be the first time $n$ after $U_1$ such that $Z_n = 1$, etc. The sequence $\{U_n\}_{n \ge 1}$ is called _inter-arrival times_. It is easy to see that $$ P_{U_1}(k) = (1 - p)^{k-1} p. $$ Due to the independence of the outcomes, we can also argue that $$ P_{U_2}(k) = (1-p)^{k-1} p, $$ and so on for all $U_n$. Thus, $U_n \sim \text{Geo}(p)$. 
+   - $T_k$ be the time between the $(k-1)$-st and $k$-th arrivals;
+   - $S_k=T_1+\cdots+T_k$ be the time of the $k$-th arrival.
 
-Now consider the partial sums 
-$$
-  N(n) = \sum_{i=1}^n Z_i
-$$
-which denote the number of arrivals up to and including time $n$. From
-elementary probability, we know that $N(n) \sim \text{Binomial}(n,p)$. 
+   For a Bernoulli process, the interarrival times $T_1,T_2,\ldots$ are i.i.d. geometric random variables. The counting process and arrival times contain the same information:
+   $$
+   \{N_n\ge k\}=\{S_k\le n\}.
+   $$
 
+3. To pass to continuous time, divide an interval of length $t$ into $m$ short intervals and suppose that an arrival occurs in each interval with probability $λt/m$. The number of arrivals is binomial, and for every fixed $n$,
+   $$ \binom mn\left(\frac{λt}{m}\right)^n
+     \left(1-\frac{λt}{m}\right)^{m-n}
+     \longrightarrow
+     e^{-λt}\frac{(λt)^n}{n!}
+     \qquad\text{as }m\to\infty.
+   $$
+   This rare-event limit suggests that the number of continuous-time arrivals in an interval of length $t$ should have a $\operatorname{Poisson}(λt)$ distribution.
 
-An alternative way to view the Bernoulli process is as follows. Define
-$$
-  N_n = \sum_{i=1}^n U_i
-$$
-to be the time of the $n$-th arrival. Note that the process $\{N_n\}_{n \ge 1}$ is a sequence of increasing random variables. Such a sequence is called an _arrival process_. Given an arrival process, we can construct inter-arrival times as $U_n = N_n - N_{n-1}$. Then, the Bernoulli process is an arrival process with geometric (or, equivalently, memoryless) interarrival times.
+## Exponential interarrival times
 
-Note that the arrival times $\{N_n\}_{n \ge 1}$ take integer values. If we allow the arrival times to take continuous values, we get a Poisson process.
+1. The geometric distribution is the only memoryless distribution on the nonnegative integers. Its continuous-time analogue is the exponential distribution. If $T\sim\operatorname{Exponential}(λ)$, then
+   $$
+   \PR(T>t)=e^{-λt},
+   \qquad
+   f_T(t)=λe^{-λt},
+   \qquad t\ge0,
+   $$
+   and
+   $$
+   \EXP[T]=\frac1λ.
+   $$
+   The parameter $λ$ is called the **rate**.
 
-# Poisson Processes
+2. The exponential distribution is memoryless: for $s,t\ge0$,
+   $$
+   \PR(T>s+t\mid T>s)
+   =\frac{e^{-λ(s+t)}}{e^{-λs}}
+   =e^{-λt}
+   =\PR(T>t).
+   $$
+   Thus, given that no arrival has occurred by time $s$, the remaining waiting time has the same distribution as the original waiting time.
 
-A Poisson process is an arrival process $\{N_n\}_{n \ge 1}$ (i.e., an
-increasing sequence of random variables) such that the inter-arrival times
-$\{U_n\}_{n \ge 1}$, where $U_n = N_n - N_{n-1}$, are independent and
-memoryless. Since a non-negative continuous time random variable which is
-memoryless must have an exponential distribution (see @exr-poisson below), we
-can equivalently say that a Poisson process is an arrival process where the
-inter-arrival times are independent and have an exponential distribution.
+3. The converse is also true.
 
-:::{#exr-poisson}
+   :::{#exm-memoryless-exponential}
+   #### Continuous memoryless distributions
 
-Let $X$ be a non-negative and continous random variable which is
-memoryless, i.e., for any $t, τ > 0$, 
-$$
-    \PR(X > t + τ \mid X > τ) = \PR(X > t).
-$$
-Then, $X$ has an exponential distribution.
+   Let $T$ be a nonnegative continuous random variable such that
+   $$
+   \PR(T>s+t\mid T>s)=\PR(T>t)
+   $$
+   for every $s,t\ge0$. Then $T$ has an exponential distribution.
+   :::
 
-:::
+   :::{.callout-note collapse="true"}
+   #### Solution
 
-:::{.callout-note collapse="true"}
-#### Solution 
+   Let $\overline F(t)=\PR(T>t)$. The memoryless property gives
+   $$
+   \overline F(s+t)=\overline F(s)\overline F(t).
+   $$
+   Therefore, $g(t)=-\log\overline F(t)$ satisfies
+   $$
+   g(s+t)=g(s)+g(t).
+   $$
+   Since $\overline F$ is continuous, $g$ is continuous, and the continuous solutions of this equation are $g(t)=λt$ for some $λ\ge0$. For a proper nondegenerate distribution, $λ>0$. Hence
+   $$
+   \overline F(t)=e^{-λt}.
+   $$
+   :::
 
-The definition of memoryless random variable implies that
-$$    
-    \PR(X > t + τ) = \PR(X > t) \PR(X > τ).
-$$
-Let $\bar F_X(t)$ denote the complementary CDF of $X$, i.e., $\bar F_X(t) = 1
-- F_X(t)$. Then, the above equation says that
-$$
-  \bar F_X(t + τ) = \bar F_X(t) \bar F_X(τ).
-$$
-Taking logs of both sides, we have
-$$ 
-  \log (\bar F_X(t + τ)) = \log(\bar F_X(t)) + \log(\bar F_X(τ)).
-$$
-Thus, $\log(\bar F_X(t))$ is linear function of $t$, say $-λt$ (we use $-λ$
-instead of $λ$ because we know that $\log(\bar F_X(t)) < 0$). Thus,
-$$
-  \bar F_X(t) = e^{-λt}
-  \quad\text{or}\quad
-  F_X(t) = 1 - e^{-λt}.
-$$
-Thus, $X$ is an exponential random variable. 
-:::
+## Construction of the Poisson process
 
-Thus, we say that a Poisson process $\{S_n\}_{n \ge 1}$ has a _rate_ $λ$ to
-mean that the inter-arrival times $\{X_n\}_{n \ge 1}$ have
-$\text{Exponential}(λ)$ distribution.
+1. Let $T_1,T_2,\ldots$ be i.i.d. $\operatorname{Exponential}(λ)$ random variables and define
+   $$
+   S_0=0,
+   \qquad
+   S_n=T_1+\cdots+T_n,
+   \quad n\ge1.
+   $$
+   The random variable $S_n$ is the time of the $n$-th arrival. The associated counting process is
+   \begin{equation}\label{eq:poisson-counting-process}
+   N(t)=\max\{n\ge0:S_n\le t\},
+   \qquad t\ge0.
+   \end{equation}
+   The process $\{N(t)\}_{t\ge0}$ is called a **Poisson process with rate $λ$**.
 
-As for the Bernoulli process, we define the counting process $N(t)$ as the
-total number of arrivals until time $t$, i.e., the event $\{N(t) \ge n \}$ is
-the same as the event $\{S_n \le t\}$. It can be shown that $N(t)$ is has a
-$\text{Poisson}(λt)$ distribution, i.e.,
-$$
-    P_{N(t)}(n) = \frac{ (λt)^n \exp(-λ t)}{n!}.
-$$
+2. The sample paths of $N(t)$ are nondecreasing, right-continuous staircase functions. They start at zero and increase by one at each arrival time $S_n$.
 
-# Adding and splitting of Poisson processes
+```{ojs}
+viewof poisson_rate = Inputs.range([0.5, 5], {label: "rate λ", value: 2, step: 0.5})
+viewof rerun_poisson = Inputs.button("Generate sample path")
 
-Suppose we have two poisson processes, process 1 with rate $λ_1$ and process 2
-with rate $λ_2$. Consider a new process formed by adding the two processes.
-This means that the new process has an arrival whenever either of process 1 or
-process 2 has an arrival, i.e., $N(t) = N_1(t) + N_2(t)$. Then, the combined
-process is Poisson with rate $λ_1 + λ_2$.
+poisson_path = {
+  rerun_poisson
+  const horizon = 10
+  const points = [{t: 0, N_t: 0}]
+  let t = 0
+  let count = 0
+  while (true) {
+    t += -Math.log(1 - Math.random()) / poisson_rate
+    if (t > horizon) break
+    count += 1
+    points.push({t, N_t: count})
+  }
+  points.push({t: horizon, N_t: count})
+  return points
+}
+```
 
-To prove this property recall that $N_1(t)$ and
-$N_2(t)$ are Poisson and the sum of two Poisson random variables is Poisson.
-Therefore, $N(t)$ is also Poisson. 
+```{ojs}
+Plot.plot({
+  grid: true,
+  height: 180,
+  x: {domain: [0, 10], label: "t"},
+  y: {domain: [0, Math.max(1, ...poisson_path.map(d => d.N_t))], label: "N(t)", ticks: 1},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(poisson_path, {x: "t", y: "N_t", curve: "step-after", strokeWidth: 1.5}),
+    Plot.dot(poisson_path.slice(0, -1), {x: "t", y: "N_t", fill: "currentColor", r: 2})
+  ]
+})
+```
 
-Now, consider a Poisson process. Suppose, we split the arrival into $k$
-streams as follows. When an arrival comes, it goes into streams $i$ with
-probability $p_i$. Then, each of the streams are also Poisson, with stream $i$
-being Poisson with rate $p_i λ$. 
+3. Since $S_n$ is a sum of $n$ independent exponential random variables, it has an Erlang distribution:
+   \begin{equation}\label{eq:erlang-density}
+   f_{S_n}(s)
+   =\frac{λ^n s^{n-1}e^{-λs}}{(n-1)!},
+   \qquad s\ge0.
+   \end{equation}
+   In particular,
+   $$
+   \EXP[S_n]=\frac nλ,
+   \qquad
+   \VAR(S_n)=\frac n{λ^2}.
+   $$
 
-We provide a proof of this when $k=2$, and each arrival is split into stream 1
-with probability $p$ and stream 2 with probability $1-p$. Let $N(t)$ denote
-the number of arrivals in the original process and $N_1(t)$ and $N_2(t)$
-denote the number of arrivals in output processes 1 and 2. 
-
-Suppose $N(t) = m + k$ and during the splitting processes $m$ arrivals are
-sent to steam 1 and $k$ are sent to stream 2. From a basic counting argument,
-we should have
-$$
-  \PR(N_1(t) = m, N_2(t) = k \mid N(t) = m + k) 
-  = 
-  \frac{(m+k)!}{m!k!} p^m (1-p)^k.
-$$
-Thus,
-\begin{align*}
-  \PR(N_1(t) = m, N_2(t) = k) 
-  &=
-  \PR(N_1(t) = m, N_2(t) = k \mid N(t) = m + k) 
-  \PR(N(t) = m + k)
-  \\
-  &= 
-  \frac{(m+k)!}{m!k!} p^m (1-p)^k
-  \frac{(λt)^{m+k} e^{-λt}}{(m+k)!}
-  \\
-  &=
-  \frac{(pλt)^m}{m!} e^{-λpt} \,
-  \frac{((1-p)λt)^m}{m!} e^{-λ(1-p)t}.
-\end{align*}
-Separately marginalizing over $N_1(t)$ and $N_2(t)$, we get that
-$$
-  \PR(N_1(t) = m) 
-  =
-  \frac{(pλt)^m}{m!} e^{-λpt} 
-  \quad\text{and}\quad
-  \PR(N_2(t) = k)
-  = 
-  \frac{((1-p)λt)^m}{m!} e^{-λ(1-p)t}
-$$
-Thus, $N_1(t)$ has $\text{Poisson}(λp)$ distribution and $N_2(t)$ has
-$\text{Poisson}(λ(1-p))$ distribition. Moreover, 
-$$
-  \PR(N_1(t) = m, N_2(t) = k) = \PR(N_1(t) = m) \PR(N_2(t) = k),
-$$
-so the two processes are independent. 
-
-# Exercises {-}
-
-1. Suppose requests arrive at a web-server at rate $λ = 10$ per minute. 
-
-   (a) What is the expected time at which the 100-th request arrives?
-
-   (b) What is the probability that the time elapsed between the 100-th and
-   the 101-st request exceeds 1 minute?
-
-   (c) If each request is from Canada with probability $\tfrac 15$, what is
-   the probability that there is no request from Canada in the next two
-   minutes?
-
-   <details><!--{{{ Solution -->
-   <summary>
-   #### Solution {-}
-   </summary>
-   <div>
-   (a) The expected time for the 100-th request is given by 
+4. The events $\{N(t)=n\}$ and $\{S_n\le t<S_{n+1}\}$ are the same. For $n\ge1$, conditioning on $S_n=s$ gives
    \begin{align*}
-   \EXP[X_1 + \cdots + X_{100}] 
-   &= \EXP[X_1] + \cdots + \EXP[X_{100}]
-   \\
-   &= \frac{100}{λ} = 10~\text{minutes}.
+   \PR(N(t)=n)
+   &=\int_0^t f_{S_n}(s)\PR(T_{n+1}>t-s)\,ds\\
+   &=\int_0^t
+   \frac{λ^n s^{n-1}e^{-λs}}{(n-1)!}
+   e^{-λ(t-s)}\,ds\\
+   &=e^{-λt}\frac{(λt)^n}{n!}.
+   \end{align*}
+   The same formula holds for $n=0$ because $\PR(N(t)=0)=\PR(T_1>t)=e^{-λt}$. Therefore,
+   \begin{equation}\label{eq:poisson-count-distribution}
+   \boxed{
+   N(t)\sim\operatorname{Poisson}(λt).
+   }
+   \end{equation}
+
+5. It follows that
+   $$
+   \EXP[N(t)]=λt,
+   \qquad
+   \VAR(N(t))=λt.
+   $$
+   The process itself is not stationary because the distribution of $N(t)$ depends on $t$.
+
+## Increments and covariance
+
+1. The memoryless property implies that, at any deterministic time $s$, the waiting time until the next arrival is again $\operatorname{Exponential}(λ)$ and is independent of the arrivals before time $s$. Consequently,
+   \begin{equation}\label{eq:poisson-increment-distribution}
+   N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
+   \qquad 0\le s<t.
+   \end{equation}
+   Thus, the Poisson process has **stationary increments**.
+
+2. Counts over disjoint time intervals are independent. Therefore, the Poisson process has **independent increments**. Equivalently, for
+   $$
+   0\le t_0<t_1<\cdots<t_m,
+   $$
+   the random variables
+   $$
+   N(t_1)-N(t_0),\ldots,N(t_m)-N(t_{m-1})
+   $$
+   are independent.
+
+3. For $0\le s\le t$,
+   $$
+   N(t)=N(s)+[N(t)-N(s)],
+   $$
+   where the two terms on the right are independent. Hence
+   \begin{equation}\label{eq:poisson-covariance}
+   \COV(N(s),N(t))=λs,
+   \end{equation}
+   or, for arbitrary $s,t\ge0$,
+   $$
+   \COV(N(s),N(t))=λ\min(s,t).
+   $$
+   This is the continuous-time analogue of the covariance of the Bernoulli counting process and the discrete-time random walk.
+
+## Superposition of Poisson processes
+
+1. Let $\{N_1(t)\}$ and $\{N_2(t)\}$ be independent Poisson processes with rates $λ_1$ and $λ_2$, and define
+   $$
+   N(t)=N_1(t)+N_2(t).
+   $$
+   Then $\{N(t)\}$ is a Poisson process with rate $λ_1+λ_2$.
+
+2. To see this, consider any interval $(s,t]$. The increment
+   $$
+   N(t)-N(s)
+   =[N_1(t)-N_1(s)]+[N_2(t)-N_2(s)]
+   $$
+   is the sum of independent Poisson random variables and therefore has a $\operatorname{Poisson}((λ_1+λ_2)(t-s))$ distribution. Increments over disjoint intervals remain independent, so this is a process-level statement, not just a statement about $N(t)$ at one time.
+
+3. More generally, the superposition of independent Poisson processes with rates $λ_1,\ldots,λ_m$ is a Poisson process with rate
+   $$
+   λ_1+\cdots+λ_m.
+   $$
+
+## Splitting a Poisson process
+
+1. Suppose each arrival of a rate-$λ$ Poisson process is independently labeled type 1 with probability $p$ and type 2 with probability $1-p$. Let $N_1(t)$ and $N_2(t)$ count the two types. Then $\{N_1(t)\}$ and $\{N_2(t)\}$ are independent Poisson processes with rates $pλ$ and $(1-p)λ$, respectively.
+
+2. For fixed $t$, conditional on $N(t)=m+k$, the pair $(N_1(t),N_2(t))$ has a binomial splitting distribution:
+   $$
+   \PR(N_1(t)=m,N_2(t)=k\mid N(t)=m+k)
+   =\frac{(m+k)!}{m!k!}p^m(1-p)^k.
+   $$
+   Therefore,
+   \begin{align*}
+   &\PR(N_1(t)=m,N_2(t)=k)\\
+   &\quad=
+   \frac{(pλt)^m e^{-pλt}}{m!}
+   \frac{((1-p)λt)^k e^{-(1-p)λt}}{k!}.
+   \end{align*}
+   The factorization shows both the marginal Poisson distributions and their independence. Applying the same argument on disjoint intervals gives independence of the two processes.
+
+3. The same result holds for $r$ types. If an arrival is independently assigned type $i$ with probability $p_i$, where $p_1+\cdots+p_r=1$, then the type processes are independent Poisson processes with rates $p_iλ$.
+
+## Conditional arrival times
+
+1. Suppose that $N(t)=1$. Conditional on this event, the single arrival time $S_1$ is uniformly distributed on $[0,t]$. Indeed, for $0\le s\le t$,
+   \begin{align*}
+   \PR(S_1\le s\mid N(t)=1)
+   &=\frac{\PR(N(s)=1,N(t)-N(s)=0)}{\PR(N(t)=1)}\\
+   &=\frac{(λs)e^{-λs}e^{-λ(t-s)}}{(λt)e^{-λt}}\\
+   &=\frac st.
    \end{align*}
 
-   (b) We know that $X_{101}$ has a $\text{Goemetric}(λ)$ distribution.
+2. More generally, conditional on $N(t)=n$, the arrival times
+   $$
+   0<S_1<\cdots<S_n<t
+   $$
+   have the same joint distribution as the order statistics of $n$ independent $\operatorname{Uniform}(0,t)$ random variables. Their conditional joint density is
+   $$
+   f_{S_1,\ldots,S_n\mid N(t)}(s_1,\ldots,s_n\mid n)
+   =\frac{n!}{t^n},
+   $$
+   on the region $0<s_1<\cdots<s_n<t$.
+
+3. This result is useful for simulation. One can generate a Poisson process on $[0,t]$ by first drawing $N\sim\operatorname{Poisson}(λt)$, then drawing $N$ independent uniform random variables on $[0,t]$, and finally sorting them to obtain the arrival times.
+
+## Competing Poisson processes
+
+1. Let $T_1\sim\operatorname{Exponential}(λ_1)$ and $T_2\sim\operatorname{Exponential}(λ_2)$ be independent waiting times. Then
+   $$
+   \PR(\min(T_1,T_2)>t)
+   =e^{-λ_1t}e^{-λ_2t}
+   =e^{-(λ_1+λ_2)t},
+   $$
+   so
+   $$
+   \min(T_1,T_2)\sim\operatorname{Exponential}(λ_1+λ_2).
+   $$
+
+2. The probability that process 1 produces the first arrival is
+   \begin{align*}
+   \PR(T_1<T_2)
+   &=\int_0^\infty \PR(T_2>t)f_{T_1}(t)\,dt\\
+   &=\int_0^\infty e^{-λ_2t}λ_1e^{-λ_1t}\,dt\\
+   &=\frac{λ_1}{λ_1+λ_2}.
+   \end{align*}
+   This is another way to see the superposition and splitting results: the combined clock rings at rate $λ_1+λ_2$, and each ring comes from process $i$ with probability proportional to $λ_i$.
+
+## Connection with continuous-time Markov chains
+
+1. A Poisson process is a continuous-time Markov process on $\integers_{\ge0}$. From state $n$, it waits an $\operatorname{Exponential}(λ)$ amount of time and then jumps to state $n+1$.
+
+2. A continuous-time Markov chain generalizes this construction in two ways:
+
+   - the exponential holding-time rate may depend on the current state;
+   - when the clock rings, the process may jump to different states with different probabilities.
+
+   Thus, the Poisson process provides the basic random-clock mechanism underlying continuous-time Markov chains.
+
+## Exercises {-}
+
+1. Suppose requests arrive at a web server according to a Poisson process with rate $λ=10$ per minute.
+
+   (a) What is the expected time of the 100th request?
+
+   (b) What is the probability that the time between the 100th and 101st requests exceeds one minute?
+
+   (c) Each request is from Canada independently with probability $1/5$. What is the probability that no request from Canada arrives during the next two minutes?
+
+   :::{.callout-note collapse="true"}
+   #### Solution
+
+   (a) The 100th arrival time is $S_{100}=T_1+\cdots+T_{100}$, so
+   $$
+   \EXP[S_{100}]=\frac{100}{10}=10\text{ minutes}.
+   $$
+
+   (b) The waiting time $T_{101}$ is $\operatorname{Exponential}(10)$, so
+   $$
+   \PR(T_{101}>1)=e^{-10}.
+   $$
+
+   (c) Thinning gives a Poisson process of Canadian requests with rate $2$ per minute. Thus,
+   $$
+   \PR(N_C(2)=0)=e^{-4}.
+   $$
+   :::
+
+2. Suppose $N(t)=2$. Find the conditional joint density of $(S_1,S_2)$ and the conditional marginal density of $S_1$.
+
+   :::{.callout-note collapse="true"}
+   #### Solution
+
+   The joint density is
+   $$
+   f_{S_1,S_2\mid N(t)}(s_1,s_2\mid2)
+   =\frac{2}{t^2},
+   \qquad 0<s_1<s_2<t.
+   $$
    Therefore,
    $$
-     \PR(X_{101} > 1) = e^{-λ} = e^{-10} \approx 4.54 × 10^{-5}.
+   f_{S_1\mid N(t)}(s\mid2)
+   =\int_s^t\frac{2}{t^2}\,du
+   =\frac{2(t-s)}{t^2},
+   \qquad 0<s<t.
    $$
+   :::
 
-   (c) Let $N_c(t)$ denote the number of arrivals from Canada. We know that $N_c$
-   is a Poisson process with rate $λ/5 = 2$ per minute. Therefore,
-   $$  
-     \PR(N(2) = 0) = e^{2 \cdot 2} \approx 0.0183.
-   $$
-   </div>
-   </details><!--}}}-->
+3. Independent requests arrive from two sources according to Poisson processes with rates $λ_1$ and $λ_2$. Find the distribution of the time until the first request and the probability that the first request comes from source 1.
 
-2. Suppose there is only one arrival in a Poisson process in the interval
-   $[0,t]$. Conditioned on this event, what is the conditional distribution of
-   $X_1$ (the time of the first arrival)?
+4. Let $\{N(t)\}$ be a Poisson process with rate $λ$. Independently assign every arrival to one of three streams with probabilities $p_1,p_2,p_3$. Show that the three output processes are independent, find their rates, and verify that their superposition recovers the original process.
 
-   <details><!--{{{ Solution -->
-   <summary>
-   #### Solution {-}
-   </summary>
-   <div>
-   We will compute the CDF of $X_1$. We know that $X_1 \le t$. So, for any
-   $τ < t$, consider $\PR(X_1 < τ \mid N(t) = 1)$. We have
-   \begin{align*}
-     \PR(X_1 < τ \mid N(t) = 1) &= 
-     \frac{\PR(X_1 < τ, N(t) = 1)}{\PR(N(t) = 1)}
-     \\
-     &=
-     \frac{ \PR(N(s) = 1, N(t) - N(s) = 0) }{ \PR(N(t) = 1) }
-     \\
-     &\stackrel{(a)}=
-     \frac{ \PR(N(s) = 1)\PR(N(t) - N(s) = 0) }{ \PR(N(t) = 1) }
-     \\
-     &= \frac{ (λs) e^{-λs}}{1!} \cdot e^{λ(t-s)} \cdot \frac{1}{(λt)e^{-λt}}
-     \\
-     &= \frac{s}{t},
-   \end{align*}
-   where $(a)$ uses the fact that a Poisson process has independent increments.
-   Thus, the conditional density of $X_1$ given $N(t)$ is given by
-   $$
-     f_{X_1 | N(t)}(s|1) = \frac{1}{t}, \quad 0 \le s \le t.
-   $$
-   Thus, $X_1$ given $N(t) = 1$ is uniform in $[0,t]$.
-   </div>
-   </details><!--}}}-->
+## Further reading {-}
 
-
-3. Consider two independent poisson processes with rates $λ_1$ and $λ_2$. What
-   is the probability of having an arrival from process 1 before an arrival
-   from process 2?
-
-   <details><!--{{{ Solution -->
-   <summary>
-   #### Solution {-}
-   </summary>
-   <div>
-   The probability that there is an arrival from process 1 before an arrival from
-   process 2 is given by $\PR(X_1 < X_2)$. We have
-   \begin{align*}
-   \PR(X_1 < X_2) &= \int_{0}^∞ \PR(X_1 < X_2 \mid X_2 = t) f_{X_2}(t) dt 
-   \\
-   &= \int_{0}^∞ \PR(X_1 < t \mid X_2 = t) f_{X_2}(t) dt 
-   \\
-   &\stackrel{(a)}= \int_{0}^∞ \PR(X_1 < t) f_{X_2}(t) dt
-   \\
-   &= \int_0^∞ (1 - e^{-λ_1t}) λ_2 e^{-λ_2 t} dt
-   \\
-   &= λ_2 \biggl[ \frac{e^{-λ_2 t}}{λ_2} - \frac{e^{-(λ_1 + λ_2) t} }{λ_1 + λ_2}
-   \biggr] \biggr|_{0}^∞
-   \\
-   &= \frac{λ_1}{λ_1 + λ_2},
-   \end{align*}
-   where $(a)$ follows from the fact that the two processes are independent.
-   </div>
-   </details><!--}}}-->
-
-4. Consider the following network where the inputs are indepedent Poisson
-   processes. Show that the outputs are also Poisson processes and find their
-   rates.
-
-
-   <figure style='max-width:20em;' id="fig1">
-   <img src="splitting.png" />
-   </figure>
-
-
-   <details><!--{{{ Solution -->
-   <summary>
-   #### Solution {-}
-   </summary>
-   <div>
-   We know that splitting a Poisson process gives independent Poisson
-   processes and adding independent Poisson processes gives a Poisson process.
-   Therefore, the output processes are Poisson. We can find their rates as
-   follows:
-   \begin{align*}
-      μ_1 &= 0.25 λ_1 + 0.75 λ_2, \\
-      μ_2 &= 0.75 λ_1 + 0.25 λ_2.
-   \end{align*}
-   </div>
-   </details><!--}}}-->
-
-5. Consider the following network where the input is a Poisson process. 
-   Find the rate of the output process.
-
-   <figure style='max-width:20em;' id="fig2">
-   <img src="feedback.png" />
-   </figure>
-
-
-   <details><!--{{{ Solution -->
-   <summary>
-   #### Solution {-}
-   </summary>
-   <div>
-   Let $\tilde λ$ denote the rate of the process between the two nodes. Then,
-   \begin{align*}
-      \tilde λ &= λ + 0.25 \tilde λ, \\
-      μ &= 0.75 \tilde λ.
-   \end{align*}
-   Thus, $\tilde λ = λ/0.75$. Hence, $μ = 0.75 \tilde λ = λ$. 
-
-   This makes sense since all the input arrival must depart the system, so the
-   output rate has to be the same as the input rate. 
-   </div>
-   </details><!--}}}-->
-
+- Gubner, Chapter 8.
+- Grimmett and Stirzaker, Chapter 6.
