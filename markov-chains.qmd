@@ -1027,18 +1027,18 @@ This gives both components of the occupancy distribution and agrees with the rec
     $$
     where each row of the limiting matrix is the invariant distribution $π$. That is, for large $n$, every row of $P^n$ approaches $π$.
  
-3. In fact, we have a stronger result: the **Strong Law of Large Numbers (SLLN) for (finite) Markov chains.** Let $\{X_n\}_{n \ge 0}$ be an irreducible and aperiodic (i.e., ergodic) Markov chain. Then, for any initial distribution,
+3. In fact, we have a stronger result: the **Strong Law of Large Numbers (SLLN) for finite Markov chains.** Let $\{X_n\}_{n \ge 0}$ be an irreducible Markov chain. Then, for any initial distribution,
    $$
-   \lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} \pi_j, \quad \forall j \in \ALPHABET X.
+   \frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} \pi_j, \quad \forall j \in \ALPHABET X.
    $$
-  This is known as **ergodic property**: sample average equals ensemble average. 
+   This is known as the **ergodic property**: sample average equals ensemble average. Notice that aperiodicity is not required for this result.
 
-4. An immediate consequence of the ergodic property is that given an ergodic Markov chain $\{X_n\}_{n \ge 0}$ and any function $f \colon \ALPHABET X \to \reals$, we have
+4. An immediate consequence of the ergodic property is that given an irreducible finite Markov chain $\{X_n\}_{n \ge 0}$ and any function $f \colon \ALPHABET X \to \reals$, we have
    $$
-   \lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j). 
+   \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j).
    $$
  
-5. If the chain is periodic with period $d > 1$ (i.e., not aperiodic), the limiting distribution $\lim_{n \to \infty} P^n$ does not exist in the usual sense, as the transition probabilities continue to oscillate. However, if the chain is irreducible, it still possesses a unique invariant distribution $π$. In the periodic case, results like ergodicity and the law of large numbers still hold if we consider time averages over subsequences that are integer multiples of the period $d$, i.e., convergence happens along these subsequences, not along every $n$.
+5. If the chain is periodic with period $d > 1$ (i.e., not aperiodic), the limiting distribution $\lim_{n \to \infty} P^n$ does not exist in the usual sense, as the transition probabilities continue to oscillate. However, if the chain is irreducible, it still possesses a unique invariant distribution $π$, and the time averages in the previous two bullets converge along the full sequence $N \to \infty$. Thus, aperiodicity is needed for the convergence of $P^n$ to a matrix whose rows are $π$, but not for the Markov-chain law of large numbers.
 
 ## Censored Markov chains
 

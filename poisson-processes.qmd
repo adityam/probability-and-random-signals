@@ -102,6 +102,14 @@ The Bernoulli process describes arrivals in discrete time. We now develop its co
    \end{equation}
    The process $\{N(t)\}_{t\ge0}$ is called a **Poisson process with rate $λ$**.
 
+   The counting process and the arrival times contain the same information. In particular,
+   $$
+   N(t)=\sum_{n=1}^{∞}\IND\{S_n\le t\},
+   \qquad
+   S_n=\inf\{t\ge0:N(t)\ge n\}.
+   $$
+   The first identity counts the arrivals that have occurred by time $t$, while the second recovers the time of the $n$-th arrival from the counting process.
+
 2. The sample paths of $N(t)$ are nondecreasing, right-continuous staircase functions. They start at zero and increase by one at each arrival time $S_n$.
 
 ```{ojs}
@@ -175,6 +183,12 @@ Plot.plot({
    \VAR(N(t))=λt.
    $$
    The process itself is not stationary because the distribution of $N(t)$ depends on $t$.
+
+6. However, knowing that
+   $$
+   N(t)\sim\operatorname{Poisson}(λt)
+   $$
+   for every $t$ specifies only the one-dimensional marginal distributions of the process. It does not specify the dependence between counts at different times. In the next section, we show that the Poisson process has stationary independent increments, which supplies this temporal dependence.
 
 ## Increments and covariance
 
@@ -306,6 +320,29 @@ Plot.plot({
    \end{align*}
    This is another way to see the superposition and splitting results: the combined clock rings at rate $λ_1+λ_2$, and each ring comes from process $i$ with probability proportional to $λ_i$.
 
+## Renewal processes
+
+1. The Poisson process is a special case of a broader class of counting processes. Let $T_1,T_2,\ldots$ be arbitrary positive i.i.d. interarrival times, and define
+   $$
+   S_n=T_1+\cdots+T_n,
+   \qquad
+   N(t)=\max\{n:S_n\le t\}.
+   $$
+   Then $\{N(t)\}_{t\ge0}$ is called a **renewal process**. The Poisson process is the special case in which the interarrival times are exponential.
+
+2. If $\EXP[T_1]<\infty$, then
+   $$
+   \frac{N(t)}{t}\xrightarrow{\text{a.s.}}\frac{1}{\EXP[T_1]}
+   \qquad\text{as }t\to\infty.
+   $$
+   This follows intuitively by applying the strong law to $S_n/n$ and viewing $N(t)$ as the inverse of the arrival-time sequence. Thus, the reciprocal of the mean interarrival time is the long-run arrival rate.
+
+3. The counting processes encountered so far fit into one common picture:
+
+   - geometric interarrival times give the discrete-time Bernoulli counting process;
+   - exponential interarrival times give the Poisson process;
+   - general positive i.i.d. interarrival times give a renewal process.
+
 ## Connection with continuous-time Markov chains
 
 1. A Poisson process is a continuous-time Markov process on $\integers_{\ge0}$. From state $n$, it waits an $\operatorname{Exponential}(λ)$ amount of time and then jumps to state $n+1$.
@@ -374,3 +411,4 @@ Plot.plot({
 
 - Gubner, Chapter 8.
 - Grimmett and Stirzaker, Chapter 6.
+- R. G. Gallager, *Discrete Stochastic Processes*, Chapters 2 and 3.

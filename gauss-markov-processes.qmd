@@ -356,6 +356,8 @@ The state-space analysis above describes both the transient behavior and the lim
    \end{equation}
    We assume that $R^U_k$ is absolutely summable, so the region of convergence contains the unit circle. The auto-covariance sequence is recovered by taking the inverse $Z$-transform of $S_U(z)$.
 
+   This assumption excludes stationary processes with persistent periodic components. For example, the random sinusoid in @exm-cosine-gaussian-phase has auto-covariance $R^X_k=σ^2\cos(Ω_0k)$, which is not absolutely summable. Its spectrum is concentrated at the frequencies $Ω_0$ and $-Ω_0$; these concentrations are called **spectral lines**. They require a generalized spectral representation rather than an ordinary PSD function, which we do not discuss here.
+
 3. Since $R^U_{-k} = R^U_k$, $S_U(z)$ satisfies
    $$ S_U(z^{-1}) = S_U(z). $$
    On the unit circle, $z = e^{\mathsf j Ω}$, $S_U(z)$ reduces to the discrete-time Fourier transform (DTFT) of the auto-covariance, and is called the **power spectral density** (PSD):
@@ -388,7 +390,11 @@ The state-space analysis above describes both the transient behavior and the lim
    \begin{equation}\label{eq:stationary-filter-output}
      Y_n = \sum_{ℓ=0}^{∞} g_ℓ U_{n-ℓ}.
    \end{equation}
-   When the system is stable, the output is also a stationary Gaussian process. We establish this by a sequence of steps.
+   The system is **bounded-input bounded-output (BIBO) stable** if every bounded deterministic input produces a bounded output. For an LTI system, this is equivalent to absolute summability of the impulse response:
+   $$
+   \sum_{ℓ=0}^{∞}|g_ℓ|<∞.
+   $$
+   When the system is BIBO stable, the output is also a stationary Gaussian process. We establish this by a sequence of steps.
 
    The mean of the output is
    $$ μ^Y = \EXP[Y_n] = \EXP\Bigl[\sum_{ℓ=0}^{∞} g_ℓ U_{n-ℓ}\Bigr] = \sum_{ℓ=0}^{∞} g_ℓ μ^U = μ^U G(1), $$
@@ -419,14 +425,16 @@ The state-space analysis above describes both the transient behavior and the lim
    \end{equation}
 
 3. The auto-covariance of the output is
-   $$
+   \begin{align*}
      R^Y_{n+k,n}
-     = \COV(Y_{n+k}, Y_n)
-     = \COV\Bigl(Y_{n+k}, \sum_{r=0}^{∞} g_r U_{n-r}\Bigr)
-     = \sum_{r=0}^{∞} g_r \COV(Y_{n+k}, U_{n-r})
-     = \sum_{r=0}^{∞} g_r R^{YU}_{n+k,n-r}
-     = \sum_{r=0}^{∞} g_r R^{YU}_{k+r}.
-   $$
+     &= \COV(Y_{n+k}, Y_n) 
+     = \COV\Bigl(Y_{n+k}, \sum_{r=0}^{∞} g_r U_{n-r}\Bigr)  
+     \\
+     & = \sum_{r=0}^{∞} g_r \COV(Y_{n+k}, U_{n-r}) 
+     = \sum_{r=0}^{∞} g_r R^{YU}_{n+k,n-r} 
+     \\
+     &= \sum_{r=0}^{∞} g_r R^{YU}_{k+r}.
+   \end{align*}
    The last expression depends only on $k$, so we may write $R^Y_k$ for this common value. The sum looks like a convolution but is not quite. Defining $\widetilde g_ℓ = g_{-ℓ}$ (for a real impulse response) converts it into one:
    $$ R^Y = \widetilde g * R^{YU} = \widetilde g * g * R^U. $$
    Expanding the convolutions gives
