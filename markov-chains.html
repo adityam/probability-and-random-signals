@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-14">
+<meta name="dcterms.date" content="2026-08-15">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>11&nbsp; Markov chains – Probability and Random Signals II</title>
@@ -497,6 +497,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Poisson processes</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./continuous-time-markov-chains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Continuous-time Markov chains</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -555,7 +561,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 14, 2026</p>
+      <p class="date">August 15, 2026</p>
     </div>
   </div>
   
@@ -579,6 +585,9 @@ X_{n+1}=f_n(X_n,W_n),
 \PR(X_{n+1}=j\mid X_{0:n}=x_{0:n})
 =\PR(f_n(x_n,W_n)=j),
 \]</span> which depends on the past only through the current state <span class="math inline">\(x_n\)</span>. If <span class="math inline">\(f_n=f\)</span> for all <span class="math inline">\(n\)</span> and the random variables <span class="math inline">\(W_n\)</span> are identically distributed, then the resulting Markov chain is time-homogeneous. This construction will reappear when we study stochastic state-space models.</p>
+<p>Conversely, every finite-state time-homogeneous Markov chain can be constructed in this way. Order the state space as <span class="math inline">\(\ALPHABET X=\{0,1,\ldots,K\}\)</span>, let <span class="math inline">\(W_n\)</span> be i.i.d.&nbsp;uniform random variables on <span class="math inline">\([0,1)\)</span>, and, when <span class="math inline">\(X_n=i\)</span>, choose the unique state <span class="math inline">\(j\)</span> such that <span class="math display">\[
+  \sum_{k&lt;j}P_{ik}\le W_n&lt;\sum_{k\le j}P_{ik}.
+\]</span> This is the inverse-transform construction: it realizes any finite transition matrix as a state recursion driven by i.i.d.&nbsp;noise.</p>
 <p>We now present some examples of Markov chains arising in different applications.</p>
 <div id="exm-Gilbert-Elliot-channel" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.1 (Gilbert Elliot channel model for burst erasures)</strong></span> The Gilbert-Elliot channel model is used to model communication channels with burst errors. The channel can be in one of two states: a “good” state (state 0) with low error probability, or a “bad” state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>11.4</span></a>.</p>
@@ -1186,12 +1195,12 @@ h^2_0=p h^2_1+q h^2_{-1}
 </div></li>
 <li><p>We now provide a general formula for computing hitting probabilities.</p>
 <div id="thm-hitting-probabilities" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 11.2 (Hitting probabilities)</strong></span> The hitting probabilities <span class="math inline">\(\{h^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 11.2 (Hitting probabilities)</strong></span> The hitting probabilities <span class="math inline">\(\{h^A_i\}_{i \in \ALPHABET X}\)</span> satisfy the following system of linear equations: <span class="math display">\[
   h^A_i = \begin{cases}
     1, &amp; i \in A \\
     \sum_{j \in \ALPHABET X} P_{ij} h^A_j, &amp; i \not\in A
   \end{cases}
-\]</span> When <span class="math inline">\(\ALPHABET X\)</span> is finite, the above system has a unique solution; when <span class="math inline">\(\ALPHABET X\)</span> is countable, the above system may have multiple solutions and the hitting probabilities correspond to the <em>minimal</em> non-negative solution.</p>
+\]</span> The hitting probabilities are the <em>minimal</em> non-negative solution of this system. The solution is unique if <span class="math inline">\(A\)</span> is reached almost surely from every state under consideration.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
@@ -1215,7 +1224,11 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 \end{align*}\]</span></p>
 </div>
 </div>
-</div></li>
+</div>
+<p>Finiteness of the state space alone does not imply uniqueness. For example, let <span class="math display">\[
+  P=\MATRIX{1&amp;0\\0&amp;1},
+  \qquad A=\{0\}.
+\]</span> The equations are <span class="math inline">\(h^A_0=1\)</span> and <span class="math inline">\(h^A_1=h^A_1\)</span>, so every vector <span class="math inline">\((1,c)\)</span> with <span class="math inline">\(0\le c\le1\)</span> is a solution. The actual hitting probabilities are <span class="math inline">\((1,0)\)</span>, the minimal non-negative solution.</p></li>
 <li><div id="exm-gambler-ruin-instance" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.12</strong></span> Consider a gambler’s ruin problem, where the gambler starts with $<span class="math inline">\(1\)</span> and stops either when he is ruined or when his fortune reaches $<span class="math inline">\(K\)</span>.</p>
 <p>Find the probability of ruin (i.e., the fortune gets absorbed in state <span class="math inline">\(0\)</span> rather than state <span class="math inline">\(K\)</span>).</p>
@@ -1289,12 +1302,12 @@ m^2_0=\frac{1+p}{p^2}.
 </div></li>
 <li><p>We now provide a general formula for computing mean hitting times.</p>
 <div id="thm-mean-hitting-times" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 11.3 (Mean hitting times)</strong></span> The mean hitting times <span class="math inline">\(\{m^A_i\}_{i \in \ALPHABET X}\)</span> satisfies the following system of linear equations: <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 11.3 (Mean hitting times)</strong></span> The mean hitting times <span class="math inline">\(\{m^A_i\}_{i \in \ALPHABET X}\)</span> satisfy the following system of linear equations: <span class="math display">\[
   m^A_i = \begin{cases}
     0, &amp; i \in A \\
     1 + \sum_{j \not\in A} P_{ij} m^A_j, &amp; i \not\in A
   \end{cases}
-\]</span> When <span class="math inline">\(\ALPHABET X\)</span> is finite, the above system has a unique solution; when <span class="math inline">\(\ALPHABET X\)</span> is countable, the above system may have multiple solutions and the mean hitting times correspond to the <em>minimal</em> non-negative solution.</p>
+\]</span> If <span class="math inline">\(\ALPHABET X\)</span> is finite and <span class="math inline">\(A\)</span> is reached almost surely from every state under consideration, then the mean hitting times are finite and form the unique finite solution of this system. Otherwise, some mean hitting times may be infinite, and the finite system need not have a solution.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
@@ -1321,7 +1334,8 @@ m^2_0=\frac{1+p}{p^2}.
 \end{align*}\]</span></p>
 </div>
 </div>
-</div></li>
+</div>
+<p>In the two-absorbing-state example above, the equation for state <span class="math inline">\(1\)</span> would be <span class="math inline">\(m^A_1=1+m^A_1\)</span>, which has no finite solution. Indeed, the actual mean hitting time is <span class="math inline">\(m^A_1=∞\)</span>.</p></li>
 <li><p>For absorbing Markov chains, we can use matrix methods to efficiently compute hitting probabilities and mean hitting times. The key idea is to rearrange the transition matrix into a <strong>canonical form</strong> where absorbing states are grouped together.</p>
 <p>Suppose the state space <span class="math inline">\(\ALPHABET X\)</span> can be partitioned into transient states <span class="math inline">\(\ALPHABET T\)</span> and absorbing states <span class="math inline">\(\ALPHABET C\)</span>. By reordering the states so that all transient states come first, followed by all absorbing states, the transition matrix <span class="math inline">\(P\)</span> can be written in the <strong>canonical form</strong>: <span class="math display">\[
   P = \MATRIX{ Q &amp; R \\ 0 &amp; I}.
@@ -1467,6 +1481,10 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <p>More generally, if a Markov chain has multiple irreducible communicating (closed) classes, each class can have its own invariant distribution (supported only on that class). Any convex combination of these distributions is also an invariant distribution for the whole chain.</p></li>
 <li><p>A Markov chain that is irreducible and <strong>aperiodic</strong> has a special prorperty: for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span></p>
 <p>Irreducible and aperiodic Markov chains are also called <strong>ergodic</strong>. Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the <strong>limiting distribution</strong> or the <strong>steady-state</strong> distribution.</p></li>
+<li><p><strong>PageRank.</strong> Suppose that there are <span class="math inline">\(N\)</span> webpages with links between them, and that every page has at least one outgoing link. Let <span class="math inline">\(\widehat P_{ij}\)</span> denote the fraction of the outgoing links from page <span class="math inline">\(i\)</span> that point to page <span class="math inline">\(j\)</span>. A user behaves as follows: with probability <span class="math inline">\(α\)</span>, the user chooses one of the outgoing links on the current page, and with probability <span class="math inline">\(1-α\)</span>, the user chooses one of the <span class="math inline">\(N\)</span> pages uniformly at random. The transition matrix of the webpages visited by the user is <span class="math display">\[
+P=α\widehat P+(1-α)\frac{1}{N}\ONES\ONES^{\mathsf T},
+\qquad 0\le α&lt;1.
+\]</span> Since every entry of <span class="math inline">\(P\)</span> is positive, this Markov chain is irreducible and aperiodic. Therefore, it has a unique limiting distribution <span class="math inline">\(π\)</span>. The rank <span class="math inline">\(π_j\)</span> of page <span class="math inline">\(j\)</span> is the long-run fraction of time that the user spends on that page.</p></li>
 <li><p><strong>Computing invariant distributions.</strong> The equation <span class="math inline">\(π = π P\)</span> can be written component-wise as <span class="math display">\[
   π_j = \sum_{i \in \ALPHABET X} π_i P_{ij}, \quad \forall j \in \ALPHABET X.
 \]</span> These equations are called <strong>balance equations</strong> and can be used to find invariant distributions. Together with the constraint that <span class="math inline">\(π\)</span> is a probability distribution (i.e., <span class="math inline">\(\sum_{j \in \ALPHABET X} π_j = 1\)</span> and <span class="math inline">\(π_j \ge 0\)</span> for all <span class="math inline">\(j\)</span>), they form a system of linear equations that can be solved to determine the invariant distribution.</p></li>
@@ -1478,24 +1496,30 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 \end{align*}\]</span> From the first equation, we get <span class="math inline">\(π_0 = π_0 (1-a) + π_1 b\)</span>, which simplifies to <span class="math inline">\(π_0 a = π_1 b\)</span>, or equivalently <span class="math inline">\(π_1 = (a/b) π_0\)</span> (assuming <span class="math inline">\(b &gt; 0\)</span>). Using the normalization constraint <span class="math inline">\(π_0 + π_1 = 1\)</span>, we have <span class="math display">\[
   π_0 + \frac{a}{b} π_0 = 1 \quad \Rightarrow \quad π_0 \left(1 + \frac{a}{b}\right) = 1 \quad \Rightarrow \quad π_0 = \frac{b}{a+b}.
 \]</span> Therefore, <span class="math inline">\(π_1 = 1 - π_0 = \frac{a}{a+b}\)</span>. The invariant distribution is <span class="math inline">\(π = [b/(a+b), a/(a+b)]\)</span>, which matches the result mentioned in point 3.</p></li>
+<li><p>For the Ehrenfest urn model in <a href="#exm-Ehrenfest-diffusion-model" class="quarto-xref">Example&nbsp;<span>11.5</span></a>, the invariant distribution is <span class="math display">\[
+π_i=2^{-K}\binom Ki,
+\qquad i\in\{0,1,\ldots,K\}.
+   \]</span> Indeed, the probability flows between every pair of adjacent states agree: <span class="math display">\[
+π_i\frac{K-i}{K}=π_{i+1}\frac{i+1}{K}.
+   \]</span> These equalities, for <span class="math inline">\(i=0,1,\ldots,K-1\)</span>, imply the balance equations <span class="math inline">\(π=πP\)</span>.</p></li>
 <li><p>We can write balance equations directly from the state transition diagram. For each state <span class="math inline">\(j\)</span>, the balance equation states that the probability flow into state <span class="math inline">\(j\)</span> equals the probability flow out of state <span class="math inline">\(j\)</span>. Consider the three-state Markov chain with transition matrix <span class="math display">\[
-  P = \MATRIX{ 0.3 &amp; 0.7 &amp; 0 \\
-               0 &amp; 0.3 &amp; 0.7 \\
-               0.7 &amp; 0 &amp; 0.3 }.
-\]</span></p>
+P = \MATRIX{ 0.3 &amp; 0.7 &amp; 0 \\
+              0 &amp; 0.3 &amp; 0.7 \\
+              0.7 &amp; 0 &amp; 0.3 }.
+   \]</span></p></li>
+</ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/svg/markov-examples9.svg" class="img-fluid figure-img"></p>
 <figcaption>Three-state aperiodic Markov chain</figcaption>
 </figure>
 </div>
-<p>The balance equations, equating the flow into and out of each state, can be written as:</p>
-<ul>
-<li><p><strong>State 0:</strong><br>
+<p>The balance equations, equating the flow into and out of each state, can be written as: - <strong>State 0:</strong><br>
 <span class="math display">\[\begin{align*}
-\text{Inflow} &amp;= \pi_2 \cdot 0.7 \\
-\text{Outflow} &amp;= \pi_0 \cdot 0.7
-\end{align*}\]</span></p></li>
+     \text{Inflow} &amp;= \pi_2 \cdot 0.7 \\
+     \text{Outflow} &amp;= \pi_0 \cdot 0.7
+     \end{align*}\]</span></p>
+<ul>
 <li><p><strong>State 1:</strong><br>
 <span class="math display">\[\begin{align*}
 \text{Inflow} &amp;= \pi_0 \cdot 0.7 \\
@@ -1508,10 +1532,11 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 \end{align*}\]</span></p></li>
 </ul>
 <p>Thus, the balance equations are given by <span class="math display">\[\begin{align*}
-  \pi_0 \cdot 0.7 = \pi_2 \cdot 0.7 \\
-  \pi_1 \cdot 0.7 = \pi_0 \cdot 0.7 \\
-  \pi_2 \cdot 0.7 = \pi_1 \cdot 0.7
-\end{align*}\]</span> Together with the normalization constraint <span class="math inline">\(π_0 + π_1 + π_2 = 1\)</span>, we get <span class="math inline">\(π_0 = π_1 = π_2 = 1/3\)</span>. This illustrates how balance equations can be derived directly from the state diagram by considering probability flows.</p></li>
+     \pi_0 \cdot 0.7 = \pi_2 \cdot 0.7 \\
+     \pi_1 \cdot 0.7 = \pi_0 \cdot 0.7 \\
+     \pi_2 \cdot 0.7 = \pi_1 \cdot 0.7
+   \end{align*}\]</span> Together with the normalization constraint <span class="math inline">\(π_0 + π_1 + π_2 = 1\)</span>, we get <span class="math inline">\(π_0 = π_1 = π_2 = 1/3\)</span>. This illustrates how balance equations can be derived directly from the state diagram by considering probability flows.</p>
+<ol start="12" type="1">
 <li><p>The above example is an illustration of a more general principle. If <span class="math inline">\(P\)</span> is doubly stochastic (i.e., both row sum and column sums are <span class="math inline">\(1\)</span>), then the invariant distribution is a uniform distribution.</p></li>
 <li><p><strong>Exercises: Computing Invariant Distributions</strong></p>
 <div id="exm-invariant-transient-closed" class="theorem example">
@@ -1589,13 +1614,13 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
    \pi
 }
 \]</span> where each row of the limiting matrix is the invariant distribution <span class="math inline">\(π\)</span>. That is, for large <span class="math inline">\(n\)</span>, every row of <span class="math inline">\(P^n\)</span> approaches <span class="math inline">\(π\)</span>.</p></li>
-<li><p>In fact, we have a stronger result: the <strong>Strong Law of Large Numbers (SLLN) for (finite) Markov chains.</strong> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> be an irreducible and aperiodic (i.e., ergodic) Markov chain. Then, for any initial distribution, <span class="math display">\[
-\lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} \pi_j, \quad \forall j \in \ALPHABET X.
-\]</span> This is known as <strong>ergodic property</strong>: sample average equals ensemble average.</p></li>
-<li><p>An immediate consequence of the ergodic property is that given an ergodic Markov chain <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and any function <span class="math inline">\(f \colon \ALPHABET X \to \reals\)</span>, we have <span class="math display">\[
-\lim_{N \to \infty} \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j).
+<li><p>In fact, we have a stronger result: the <strong>Strong Law of Large Numbers (SLLN) for finite Markov chains.</strong> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> be an irreducible Markov chain. Then, for any initial distribution, <span class="math display">\[
+\frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} \pi_j, \quad \forall j \in \ALPHABET X.
+\]</span> This is known as the <strong>ergodic property</strong>: sample average equals ensemble average. Notice that aperiodicity is not required for this result.</p></li>
+<li><p>An immediate consequence of the ergodic property is that given an irreducible finite Markov chain <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and any function <span class="math inline">\(f \colon \ALPHABET X \to \reals\)</span>, we have <span class="math display">\[
+\frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j).
 \]</span></p></li>
-<li><p>If the chain is periodic with period <span class="math inline">\(d &gt; 1\)</span> (i.e., not aperiodic), the limiting distribution <span class="math inline">\(\lim_{n \to \infty} P^n\)</span> does not exist in the usual sense, as the transition probabilities continue to oscillate. However, if the chain is irreducible, it still possesses a unique invariant distribution <span class="math inline">\(π\)</span>. In the periodic case, results like ergodicity and the law of large numbers still hold if we consider time averages over subsequences that are integer multiples of the period <span class="math inline">\(d\)</span>, i.e., convergence happens along these subsequences, not along every <span class="math inline">\(n\)</span>.</p></li>
+<li><p>If the chain is periodic with period <span class="math inline">\(d &gt; 1\)</span> (i.e., not aperiodic), the limiting distribution <span class="math inline">\(\lim_{n \to \infty} P^n\)</span> does not exist in the usual sense, as the transition probabilities continue to oscillate. The Ehrenfest chain illustrates this distinction: every transition changes the parity of the state, so the chain has period two. It has the invariant distribution computed earlier, but <span class="math inline">\(P^n\)</span> starting from a fixed state does not converge to this distribution. Nevertheless, since the chain is irreducible, the time averages in the previous two bullets converge along the full sequence <span class="math inline">\(N \to \infty\)</span>. Thus, aperiodicity is needed for the convergence of <span class="math inline">\(P^n\)</span> to a matrix whose rows are <span class="math inline">\(π\)</span>, but not for the Markov-chain law of large numbers.</p></li>
 </ol>
 </section>
 <section id="censored-markov-chains" class="level2" data-number="11.7">

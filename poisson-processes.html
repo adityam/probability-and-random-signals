@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-14">
+<meta name="dcterms.date" content="2026-08-15">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>13&nbsp; Poisson processes – Probability and Random Signals II</title>
@@ -74,6 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./continuous-time-markov-chains.html" rel="next">
 <link href="./gauss-markov-processes.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -514,6 +515,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Poisson processes</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./continuous-time-markov-chains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Continuous-time Markov chains</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -532,7 +539,8 @@ window.Quarto = {
   <li><a href="#splitting-a-poisson-process" id="toc-splitting-a-poisson-process" class="nav-link" data-scroll-target="#splitting-a-poisson-process"><span class="header-section-number">13.6</span> Splitting a Poisson process</a></li>
   <li><a href="#conditional-arrival-times" id="toc-conditional-arrival-times" class="nav-link" data-scroll-target="#conditional-arrival-times"><span class="header-section-number">13.7</span> Conditional arrival times</a></li>
   <li><a href="#competing-poisson-processes" id="toc-competing-poisson-processes" class="nav-link" data-scroll-target="#competing-poisson-processes"><span class="header-section-number">13.8</span> Competing Poisson processes</a></li>
-  <li><a href="#connection-with-continuous-time-markov-chains" id="toc-connection-with-continuous-time-markov-chains" class="nav-link" data-scroll-target="#connection-with-continuous-time-markov-chains"><span class="header-section-number">13.9</span> Connection with continuous-time Markov chains</a></li>
+  <li><a href="#renewal-processes" id="toc-renewal-processes" class="nav-link" data-scroll-target="#renewal-processes"><span class="header-section-number">13.9</span> Renewal processes</a></li>
+  <li><a href="#connection-with-continuous-time-markov-chains" id="toc-connection-with-continuous-time-markov-chains" class="nav-link" data-scroll-target="#connection-with-continuous-time-markov-chains"><span class="header-section-number">13.10</span> Connection with continuous-time Markov chains</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul>
@@ -570,7 +578,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 14, 2026</p>
+      <p class="date">August 15, 2026</p>
     </div>
   </div>
   
@@ -663,28 +671,33 @@ S_n=T_1+\cdots+T_n,
 \]</span> The random variable <span class="math inline">\(S_n\)</span> is the time of the <span class="math inline">\(n\)</span>-th arrival. The associated counting process is <span class="math display">\[\begin{equation}\label{eq:poisson-counting-process}
 N(t)=\max\{n\ge0:S_n\le t\},
 \qquad t\ge0.
-\end{equation}\]</span> The process <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> is called a <strong>Poisson process with rate <span class="math inline">\(λ\)</span></strong>.</p></li>
+\end{equation}\]</span> The process <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> is called a <strong>Poisson process with rate <span class="math inline">\(λ\)</span></strong>.</p>
+<p>The counting process and the arrival times contain the same information. In particular, <span class="math display">\[
+N(t)=\sum_{n=1}^{∞}\IND\{S_n\le t\},
+\qquad
+S_n=\inf\{t\ge0:N(t)\ge n\}.
+\]</span> The first identity counts the arrivals that have occurred by time <span class="math inline">\(t\)</span>, while the second recovers the time of the <span class="math inline">\(n\)</span>-th arrival from the counting process.</p></li>
 <li><p>The sample paths of <span class="math inline">\(N(t)\)</span> are nondecreasing, right-continuous staircase functions. They start at zero and increase by one at each arrival time <span class="math inline">\(S_n\)</span>.</p></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="108" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 107;"><span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>viewof poisson_rate <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"rate λ"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span>})</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>viewof rerun_poisson <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>poisson_path <span class="op">=</span> {</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>  rerun_poisson</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> horizon <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> [{<span class="dt">t</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> <span class="dv">0</span>}]</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> t <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (<span class="kw">true</span>) {</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> <span class="op">-</span><span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()) <span class="op">/</span> poisson_rate</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (t <span class="op">&gt;</span> horizon) <span class="cf">break</span></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>    points<span class="op">.</span><span class="fu">push</span>({t<span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> count})</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>  points<span class="op">.</span><span class="fu">push</span>({<span class="dt">t</span><span class="op">:</span> horizon<span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> count})</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="116" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 115;"><span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>viewof poisson_rate <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"rate λ"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span>})</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>viewof rerun_poisson <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>poisson_path <span class="op">=</span> {</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>  rerun_poisson</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> horizon <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> [{<span class="dt">t</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> <span class="dv">0</span>}]</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (<span class="kw">true</span>) {</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> <span class="op">-</span><span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()) <span class="op">/</span> poisson_rate</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (t <span class="op">&gt;</span> horizon) <span class="cf">break</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>    points<span class="op">.</span><span class="fu">push</span>({t<span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> count})</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>  points<span class="op">.</span><span class="fu">push</span>({<span class="dt">t</span><span class="op">:</span> horizon<span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> count})</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -708,17 +721,17 @@ N(t)=\max\{n\ge0:S_n\le t\},
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="128" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 127;"><span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">180</span><span class="op">,</span></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"t"</span>}<span class="op">,</span></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">1</span><span class="op">,</span> <span class="op">...</span>poisson_path<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">N_t</span>))]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"N(t)"</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> <span class="dv">1</span>}<span class="op">,</span></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(poisson_path<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"N_t"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"step-after"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(poisson_path<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"N_t"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="136" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 135;"><span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">180</span><span class="op">,</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"t"</span>}<span class="op">,</span></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">1</span><span class="op">,</span> <span class="op">...</span>poisson_path<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">N_t</span>))]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"N(t)"</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> <span class="dv">1</span>}<span class="op">,</span></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(poisson_path<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"N_t"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"step-after"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(poisson_path<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"N_t"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="expression">
 
@@ -752,6 +765,9 @@ N(t)\sim\operatorname{Poisson}(λt).
 \qquad
 \VAR(N(t))=λt.
 \]</span> The process itself is not stationary because the distribution of <span class="math inline">\(N(t)\)</span> depends on <span class="math inline">\(t\)</span>.</p></li>
+<li><p>However, knowing that <span class="math display">\[
+N(t)\sim\operatorname{Poisson}(λt)
+\]</span> for every <span class="math inline">\(t\)</span> specifies only the one-dimensional marginal distributions of the process. It does not specify the dependence between counts at different times. In the next section, we show that the Poisson process has stationary independent increments, which supplies this temporal dependence.</p></li>
 </ol>
 </section>
 <section id="increments-and-covariance" class="level2" data-number="13.4">
@@ -852,8 +868,28 @@ N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
 \end{align*}\]</span> This is another way to see the superposition and splitting results: the combined clock rings at rate <span class="math inline">\(λ_1+λ_2\)</span>, and each ring comes from process <span class="math inline">\(i\)</span> with probability proportional to <span class="math inline">\(λ_i\)</span>.</p></li>
 </ol>
 </section>
-<section id="connection-with-continuous-time-markov-chains" class="level2" data-number="13.9">
-<h2 data-number="13.9" class="anchored" data-anchor-id="connection-with-continuous-time-markov-chains"><span class="header-section-number">13.9</span> Connection with continuous-time Markov chains</h2>
+<section id="renewal-processes" class="level2" data-number="13.9">
+<h2 data-number="13.9" class="anchored" data-anchor-id="renewal-processes"><span class="header-section-number">13.9</span> Renewal processes</h2>
+<ol type="1">
+<li><p>The Poisson process is a special case of a broader class of counting processes. Let <span class="math inline">\(T_1,T_2,\ldots\)</span> be arbitrary positive i.i.d. interarrival times, and define <span class="math display">\[
+S_n=T_1+\cdots+T_n,
+\qquad
+N(t)=\max\{n:S_n\le t\}.
+\]</span> Then <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> is called a <strong>renewal process</strong>. The Poisson process is the special case in which the interarrival times are exponential.</p></li>
+<li><p>If <span class="math inline">\(\EXP[T_1]&lt;\infty\)</span>, then <span class="math display">\[
+\frac{N(t)}{t}\xrightarrow{\text{a.s.}}\frac{1}{\EXP[T_1]}
+\qquad\text{as }t\to\infty.
+\]</span> This follows intuitively by applying the strong law to <span class="math inline">\(S_n/n\)</span> and viewing <span class="math inline">\(N(t)\)</span> as the inverse of the arrival-time sequence. Thus, the reciprocal of the mean interarrival time is the long-run arrival rate.</p></li>
+<li><p>The counting processes encountered so far fit into one common picture:</p>
+<ul>
+<li>geometric interarrival times give the discrete-time Bernoulli counting process;</li>
+<li>exponential interarrival times give the Poisson process;</li>
+<li>general positive i.i.d. interarrival times give a renewal process.</li>
+</ul></li>
+</ol>
+</section>
+<section id="connection-with-continuous-time-markov-chains" class="level2" data-number="13.10">
+<h2 data-number="13.10" class="anchored" data-anchor-id="connection-with-continuous-time-markov-chains"><span class="header-section-number">13.10</span> Connection with continuous-time Markov chains</h2>
 <ol type="1">
 <li><p>A Poisson process is a continuous-time Markov process on <span class="math inline">\(\integers_{\ge0}\)</span>. From state <span class="math inline">\(n\)</span>, it waits an <span class="math inline">\(\operatorname{Exponential}(λ)\)</span> amount of time and then jumps to state <span class="math inline">\(n+1\)</span>.</p></li>
 <li><p>A continuous-time Markov chain generalizes this construction in two ways:</p>
@@ -927,6 +963,19 @@ f_{S_1\mid N(t)}(s\mid2)
 </div></li>
 <li><p>Independent requests arrive from two sources according to Poisson processes with rates <span class="math inline">\(λ_1\)</span> and <span class="math inline">\(λ_2\)</span>. Find the distribution of the time until the first request and the probability that the first request comes from source 1.</p></li>
 <li><p>Let <span class="math inline">\(\{N(t)\}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span>. Independently assign every arrival to one of three streams with probabilities <span class="math inline">\(p_1,p_2,p_3\)</span>. Show that the three output processes are independent, find their rates, and verify that their superposition recovers the original process.</p></li>
+<li><p>Let <span class="math inline">\(S_n=T_1+\cdots+T_n\)</span> be the time of the <span class="math inline">\(n\)</span>-th arrival in a Poisson process with rate <span class="math inline">\(λ\)</span>.</p>
+<ol type="a">
+<li><p>Use the central limit theorem to show that, for large <span class="math inline">\(n\)</span>, <span class="math display">\[
+\frac{S_n-n/λ}{\sqrt n/λ}
+\]</span> is approximately a standard normal random variable.</p></li>
+<li><p>Suppose arrivals occur at rate <span class="math inline">\(4\)</span> per minute. Use the normal approximation to estimate the probability that the 100th arrival occurs after 27 minutes.</p></li>
+</ol></li>
+<li><p>Independent type-1 and type-2 arrivals form Poisson processes with rates <span class="math inline">\(λ_1\)</span> and <span class="math inline">\(λ_2\)</span>, respectively. Let <span class="math inline">\(M\)</span> be the number of type-2 arrivals before the first type-1 arrival. Use superposition and labeling of the combined process to show that <span class="math display">\[
+\PR(M=k)
+=\left(\frac{λ_2}{λ_1+λ_2}\right)^k
+\frac{λ_1}{λ_1+λ_2},
+\qquad k=0,1,\ldots.
+\]</span> Hence, identify the distribution of <span class="math inline">\(M\)</span>.</p></li>
 </ol>
 </section>
 <section id="further-reading" class="level2 unnumbered">
@@ -934,6 +983,7 @@ f_{S_1\mid N(t)}(s\mid2)
 <ul>
 <li>Gubner, Chapter 8.</li>
 <li>Grimmett and Stirzaker, Chapter 6.</li>
+<li>R. G. Gallager, <em>Discrete Stochastic Processes</em>, Chapters 2 and 3.</li>
 </ul>
 
 
@@ -1371,6 +1421,9 @@ window._ojs.runtime.interpretFromScriptTags();
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./continuous-time-markov-chains.html" class="pagination-link" aria-label="Continuous-time Markov chains">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Continuous-time Markov chains</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

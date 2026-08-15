@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-14">
+<meta name="dcterms.date" content="2026-08-15">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>12&nbsp; Gauss–Markov models and spectral analysis – Probability and Random Signals II</title>
@@ -515,6 +515,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Poisson processes</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./continuous-time-markov-chains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Continuous-time Markov chains</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -568,7 +574,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 14, 2026</p>
+      <p class="date">August 15, 2026</p>
     </div>
   </div>
   
@@ -885,7 +891,8 @@ window.Quarto = {
 <li><p>Let <span class="math inline">\(S_U(z)\)</span> denote the bilateral <span class="math inline">\(Z\)</span>-transform of the auto-covariance function: <span class="math display">\[\begin{equation}\label{eq:covariance-transform}
   S_U(z)
   = \sum_{k=-∞}^{∞}R^U_kz^{-k}.
-\end{equation}\]</span> We assume that <span class="math inline">\(R^U_k\)</span> is absolutely summable, so the region of convergence contains the unit circle. The auto-covariance sequence is recovered by taking the inverse <span class="math inline">\(Z\)</span>-transform of <span class="math inline">\(S_U(z)\)</span>.</p></li>
+\end{equation}\]</span> We assume that <span class="math inline">\(R^U_k\)</span> is absolutely summable, so the region of convergence contains the unit circle. The auto-covariance sequence is recovered by taking the inverse <span class="math inline">\(Z\)</span>-transform of <span class="math inline">\(S_U(z)\)</span>.</p>
+<p>This assumption excludes stationary processes with persistent periodic components. For example, the random sinusoid in <a href="stochastic-processes.html#exm-cosine-gaussian-phase" class="quarto-xref">Example&nbsp;<span>10.3</span></a> has auto-covariance <span class="math inline">\(R^X_k=σ^2\cos(Ω_0k)\)</span>, which is not absolutely summable. Its spectrum is concentrated at the frequencies <span class="math inline">\(Ω_0\)</span> and <span class="math inline">\(-Ω_0\)</span>; these concentrations are called <strong>spectral lines</strong>. They require a generalized spectral representation rather than an ordinary PSD function, which we do not discuss here.</p></li>
 <li><p>Since <span class="math inline">\(R^U_{-k} = R^U_k\)</span>, <span class="math inline">\(S_U(z)\)</span> satisfies <span class="math display">\[ S_U(z^{-1}) = S_U(z). \]</span> On the unit circle, <span class="math inline">\(z = e^{\mathsf j Ω}\)</span>, <span class="math inline">\(S_U(z)\)</span> reduces to the discrete-time Fourier transform (DTFT) of the auto-covariance, and is called the <strong>power spectral density</strong> (PSD): <span class="math display">\[\begin{equation}\label{eq:psd-definition}
   S_U(e^{\mathsf j Ω})
   = \sum_{k=-∞}^{∞}R^U_ke^{-\mathsf j Ω k}.
@@ -904,7 +911,9 @@ window.Quarto = {
 <ol type="1">
 <li><p>Suppose <span class="math inline">\(\{U_n\}_{n \in \integers}\)</span> is a stationary Gaussian process that is input to a causal LTI system with impulse response <span class="math inline">\(\{g_ℓ\}_{ℓ \ge 0}\)</span>. Then, the output is given by <span class="math display">\[\begin{equation}\label{eq:stationary-filter-output}
   Y_n = \sum_{ℓ=0}^{∞} g_ℓ U_{n-ℓ}.
-\end{equation}\]</span> When the system is stable, the output is also a stationary Gaussian process. We establish this by a sequence of steps.</p>
+\end{equation}\]</span> The system is <strong>bounded-input bounded-output (BIBO) stable</strong> if every bounded deterministic input produces a bounded output. For an LTI system, this is equivalent to absolute summability of the impulse response: <span class="math display">\[
+\sum_{ℓ=0}^{∞}|g_ℓ|&lt;∞.
+\]</span> When the system is BIBO stable, the output is also a stationary Gaussian process. We establish this by a sequence of steps.</p>
 <p>The mean of the output is <span class="math display">\[ μ^Y = \EXP[Y_n] = \EXP\Bigl[\sum_{ℓ=0}^{∞} g_ℓ U_{n-ℓ}\Bigr] = \sum_{ℓ=0}^{∞} g_ℓ μ^U = μ^U G(1), \]</span> which does not depend on <span class="math inline">\(n\)</span>. This makes intuitive sense: the average of the output is the average of the input times the DC gain of the system. For the zero-mean setting of the previous section, <span class="math inline">\(μ^Y = 0\)</span>.</p></li>
 <li><p>The input-output cross-covariance is <span class="math display">\[ R^{YU}_{n+k,n} = \COV(Y_{n+k}, U_n). \]</span> From <span class="math inline">\(\eqref{eq:stationary-filter-output}\)</span>, <span class="math display">\[
   R^{YU}_{n+k,n}
@@ -919,14 +928,16 @@ window.Quarto = {
 <p>We denote its bilateral <span class="math inline">\(Z\)</span>-transform by <span class="math display">\[ S_{YU}(z) = \sum_{k=-∞}^{∞} R^{YU}_k z^{-k}. \]</span> Convolution in the lag domain becomes multiplication in the <span class="math inline">\(Z\)</span>-domain, so <span class="math display">\[\begin{equation}\label{eq:filter-cross-spectral}
   S_{YU}(z) = G(z) S_U(z).
 \end{equation}\]</span></p></li>
-<li><p>The auto-covariance of the output is <span class="math display">\[
+<li><p>The auto-covariance of the output is <span class="math display">\[\begin{align*}
   R^Y_{n+k,n}
-  = \COV(Y_{n+k}, Y_n)
-  = \COV\Bigl(Y_{n+k}, \sum_{r=0}^{∞} g_r U_{n-r}\Bigr)
-  = \sum_{r=0}^{∞} g_r \COV(Y_{n+k}, U_{n-r})
+  &amp;= \COV(Y_{n+k}, Y_n)
+  = \COV\Bigl(Y_{n+k}, \sum_{r=0}^{∞} g_r U_{n-r}\Bigr)  
+  \\
+  &amp; = \sum_{r=0}^{∞} g_r \COV(Y_{n+k}, U_{n-r})
   = \sum_{r=0}^{∞} g_r R^{YU}_{n+k,n-r}
-  = \sum_{r=0}^{∞} g_r R^{YU}_{k+r}.
-\]</span> The last expression depends only on <span class="math inline">\(k\)</span>, so we may write <span class="math inline">\(R^Y_k\)</span> for this common value. The sum looks like a convolution but is not quite. Defining <span class="math inline">\(\widetilde g_ℓ = g_{-ℓ}\)</span> (for a real impulse response) converts it into one: <span class="math display">\[ R^Y = \widetilde g * R^{YU} = \widetilde g * g * R^U. \]</span> Expanding the convolutions gives <span class="math display">\[\begin{equation}\label{eq:filter-output-covariance}
+  \\
+  &amp;= \sum_{r=0}^{∞} g_r R^{YU}_{k+r}.
+\end{align*}\]</span> The last expression depends only on <span class="math inline">\(k\)</span>, so we may write <span class="math inline">\(R^Y_k\)</span> for this common value. The sum looks like a convolution but is not quite. Defining <span class="math inline">\(\widetilde g_ℓ = g_{-ℓ}\)</span> (for a real impulse response) converts it into one: <span class="math display">\[ R^Y = \widetilde g * R^{YU} = \widetilde g * g * R^U. \]</span> Expanding the convolutions gives <span class="math display">\[\begin{equation}\label{eq:filter-output-covariance}
   R^Y_k
   = \sum_{ℓ=0}^{∞} \sum_{r=0}^{∞}
   g_ℓ g_r R^U_{k-ℓ+r}.

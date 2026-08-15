@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2026-08-15">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>6&nbsp; MMSE estimation – Probability and Random Signals II</title>
+<title>14&nbsp; Continuous-time Markov chains – Probability and Random Signals II</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,41 +29,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -74,8 +39,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./moment-generating-functions.html" rel="next">
-<link href="./conditional-expectation.html" rel="prev">
+<link href="./poisson-processes.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -189,8 +153,6 @@ window.MathJax = {
 };
 </script>
 <script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
-<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
-<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -419,7 +381,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mmse-estimation.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./continuous-time-markov-chains.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Continuous-time Markov chains</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -469,7 +431,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mmse-estimation.html" class="sidebar-item-text sidebar-link active">
+  <a href="./mmse-estimation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></span></a>
   </div>
 </li>
@@ -517,7 +479,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./continuous-time-markov-chains.html" class="sidebar-item-text sidebar-link">
+  <a href="./continuous-time-markov-chains.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Continuous-time Markov chains</span></span></a>
   </div>
 </li>
@@ -531,12 +493,15 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#MMSE" id="toc-MMSE" class="nav-link active" data-scroll-target="#MMSE"><span class="header-section-number">6.1</span> Conditional expectation as minimum mean square estimator</a></li>
-  <li><a href="#soft-estimation-over-a-bpsk-channel" id="toc-soft-estimation-over-a-bpsk-channel" class="nav-link" data-scroll-target="#soft-estimation-over-a-bpsk-channel"><span class="header-section-number">6.2</span> Soft estimation over a BPSK channel</a></li>
-  <li><a href="#soft-estimation-of-a-poisson-count" id="toc-soft-estimation-of-a-poisson-count" class="nav-link" data-scroll-target="#soft-estimation-of-a-poisson-count"><span class="header-section-number">6.3</span> Soft estimation of a Poisson count</a></li>
-  <li><a href="#mmse-estimation-for-jointly-gaussian-random-vectors" id="toc-mmse-estimation-for-jointly-gaussian-random-vectors" class="nav-link" data-scroll-target="#mmse-estimation-for-jointly-gaussian-random-vectors"><span class="header-section-number">6.4</span> MMSE estimation for jointly Gaussian random vectors</a></li>
+  <li><a href="#holding-times-and-the-embedded-chain" id="toc-holding-times-and-the-embedded-chain" class="nav-link active" data-scroll-target="#holding-times-and-the-embedded-chain"><span class="header-section-number">14.1</span> Holding times and the embedded chain</a></li>
+  <li><a href="#local-transition-rates-and-the-generator" id="toc-local-transition-rates-and-the-generator" class="nav-link" data-scroll-target="#local-transition-rates-and-the-generator"><span class="header-section-number">14.2</span> Local transition rates and the generator</a></li>
+  <li><a href="#state-transition-diagrams" id="toc-state-transition-diagrams" class="nav-link" data-scroll-target="#state-transition-diagrams"><span class="header-section-number">14.3</span> State transition diagrams</a></li>
+  <li><a href="#class-structure-and-hitting-times" id="toc-class-structure-and-hitting-times" class="nav-link" data-scroll-target="#class-structure-and-hitting-times"><span class="header-section-number">14.4</span> Class structure and hitting times</a></li>
+  <li><a href="#transition-probabilities" id="toc-transition-probabilities" class="nav-link" data-scroll-target="#transition-probabilities"><span class="header-section-number">14.5</span> Transition probabilities</a></li>
+  <li><a href="#invariant-distributions" id="toc-invariant-distributions" class="nav-link" data-scroll-target="#invariant-distributions"><span class="header-section-number">14.6</span> Invariant distributions</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/mmse-estimation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/continuous-time-markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -544,7 +509,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MMSE estimation</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Continuous-time Markov chains</span></h1>
 </div>
 
 
@@ -582,320 +547,65 @@ window.Quarto = {
 </header>
 
 
-<p>Conditional expectation is not only a way of updating a probability model; it is also the optimal estimate of an unknown random variable under mean-squared error. In this lecture, we develop that interpretation, work two non-Gaussian examples (BPSK and Poisson counts), and then specialize the theory to jointly Gaussian random vectors.</p>
-<section id="MMSE" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="MMSE"><span class="header-section-number">6.1</span> Conditional expectation as minimum mean square estimator</h2>
+<p>In this lecture, we pass from discrete-time Markov chains to continuous time. In discrete time, the process can change state only at integer times. A <strong>continuous-time Markov chain</strong> <span class="math inline">\(\{X(t)\}_{t \ge 0}\)</span> can change state at any time. As before, the state summarizes all the information from the past that is relevant for the future: conditioned on <span class="math inline">\(X(t)\)</span>, the evolution after time <span class="math inline">\(t\)</span> is independent of the evolution before time <span class="math inline">\(t\)</span>. We focus on time-homogeneous chains on a finite state space <span class="math inline">\(\ALPHABET X\)</span>.</p>
+<section id="holding-times-and-the-embedded-chain" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="holding-times-and-the-embedded-chain"><span class="header-section-number">14.1</span> Holding times and the embedded chain</h2>
 <ol type="1">
-<li><p>Suppose we observe a random variable <span class="math inline">\(Y\)</span> and wish to estimate a square-integrable random variable <span class="math inline">\(X\)</span>. Among all square-integrable functions <span class="math inline">\(h(Y)\)</span>, we seek one that minimizes the mean-squared error: <span class="math display">\[
-\EXP[(X - h(Y))^2].
-\]</span> The function <span class="math inline">\(h\)</span> that minimizes this quantity is called the <strong>minimum mean-squared error (MMSE) estimator</strong> of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span>.</p></li>
-<li><p>The conditional expectation <span class="math inline">\(\EXP[X \mid Y]\)</span> is the MMSE estimator of <span class="math inline">\(X\)</span> given <span class="math inline">\(Y\)</span>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Recall that in <a href="random-variables.html#exm-streaming-variance" class="quarto-xref">Example&nbsp;<span>2.23</span></a>, we had shown that <span class="math display">\[
-   \EXP[ (X-t)^2 ] = \EXP[ (X - μ)^2] + (t - μ)^2.
-\]</span></p>
-<p>By the same argument, we have <span class="math display">\[
-   \EXP[ (X - h(Y))^2 \mid Y ] = \EXP[ (X - \EXP[X\mid Y])^2 \mid Y] + (h(Y) - \EXP[X\mid Y])^2
-\]</span> since <span class="math inline">\(h(Y)\)</span> is <span class="math inline">\(Y\)</span>-measurable.</p>
-<p>By smoothing property of conditional expectation, we have <span class="math display">\[\begin{equation}\label{eq:MMSE-error}
-\EXP[(X - h(Y))^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(h(Y) - \EXP[X \mid Y])^2].
-\end{equation}\]</span> This is minimized when <span class="math inline">\(h(Y) = \EXP[X\mid Y]\)</span>.</p>
-</div>
-</div></li>
-<li><p>The error <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is <strong>orthogonal</strong> to every square-integrable function of <span class="math inline">\(Y\)</span>: for any square-integrable <span class="math inline">\(g(Y)\)</span>, <span class="math display">\[ \EXP[(X - \EXP[X \mid Y]) g(Y)] = 0. \]</span></p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>By the smoothing property of conditional expectation, we have <span class="math display">\[\begin{align*}
-\EXP[(X - \EXP[X \mid Y]) g(Y)] &amp;= \EXP[\EXP[(X - \EXP[X \mid Y]) g(Y) \mid Y]] \\
-&amp;= \EXP[g(Y) \EXP[X - \EXP[X \mid Y] \mid Y]] \\
-&amp;= \EXP[g(Y) \cdot 0] = 0
-\end{align*}\]</span> where we used the fact that <span class="math inline">\(\EXP[X - \EXP[X \mid Y] \mid Y] = 0\)</span>.</p>
-</div>
-</div></li>
-<li><p>Conversely, if <span class="math inline">\(h(Y)\)</span> is square-integrable and the error <span class="math inline">\(X-h(Y)\)</span> is orthogonal to every square-integrable function of <span class="math inline">\(Y\)</span>, i.e., <span class="math inline">\(\EXP[(X - h(Y)) g(Y)] = 0\)</span> for every square-integrable <span class="math inline">\(g(Y)\)</span>, then <span class="math inline">\(h(Y) = \EXP[X \mid Y]\)</span> (almost surely), and hence <span class="math inline">\(h(Y)\)</span> is the MMSE estimator.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Proof
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Suppose <span class="math inline">\(\EXP[(X - h(Y)) g(Y)] = 0\)</span> for every square-integrable function <span class="math inline">\(g(Y)\)</span>. In particular, taking <span class="math inline">\(g(Y) = h(Y) - \EXP[X \mid Y]\)</span>, we have: <span class="math display">\[
-\EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] = 0.
-\]</span> Expanding this, we get <span class="math display">\[\begin{align*}
-0 &amp;= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
-  &amp;= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
-  &amp;= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
-\end{align*}\]</span> The first term is zero because <span class="math inline">\(h(Y) - \EXP[X \mid Y]\)</span> is a function of <span class="math inline">\(Y\)</span> and, by the orthogonality property in point 3, <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>. Therefore, <span class="math display">\[
-\EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
-\]</span> which implies <span class="math inline">\(h(Y) = \EXP[X \mid Y]\)</span> almost surely. By point 2, this means <span class="math inline">\(h(Y)\)</span> is the MMSE estimator.</p>
-</div>
-</div></li>
-<li><p>The estimation error has zero mean: <span class="math display">\[
-\EXP[X - \EXP[X \mid Y]]
-= \EXP[X] - \EXP[\EXP[X \mid Y]] = 0,
-\]</span> by the smoothing property.</p></li>
-<li><p>The total variance of <span class="math inline">\(X\)</span> can be decomposed as: <span class="math display">\[
-\VAR(X) = \EXP[(X - \EXP[X])^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(\EXP[X \mid Y] - \EXP[X])^2].
-\]</span> This follows by taking <span class="math inline">\(h(Y) = \EXP[X]\)</span> (a constant function) in <span class="math inline">\(\eqref{eq:MMSE-error}\)</span>. The first term is the <strong>estimation error</strong> (the variance that cannot be reduced by observing <span class="math inline">\(Y\)</span>), and the second term is the variance of the estimator itself.</p>
-<p>Define the conditional variance by <span class="math display">\[
-\VAR(X \mid Y)
-:= \EXP[(X-\EXP[X\mid Y])^2 \mid Y].
-\]</span> the smoothing property gives <span class="math display">\[
-\EXP[(X-\EXP[X\mid Y])^2] = \EXP[\VAR(X\mid Y)].
-\]</span> Therefore, the decomposition can also be written in its standard form: <span class="math display">\[
-\bbox[5pt,border: 1px solid]
-{\VAR(X) = \EXP[\VAR(X \mid Y)] + \VAR(\EXP[X \mid Y]).}
-\]</span></p></li>
-<li><p>The same interpretation applies to random vectors. If <span class="math inline">\(X\in\reals^n\)</span> is square-integrable, then <span class="math inline">\(\EXP[X\mid Y]\)</span> minimizes <span class="math display">\[
-\EXP[\|X-h(Y)\|^2]
-\]</span> over all square-integrable vector-valued functions <span class="math inline">\(h(Y)\)</span>. The error is orthogonal to every square-integrable vector-valued function <span class="math inline">\(g(Y)\)</span> in the sense that <span class="math display">\[
-\EXP[(X-\EXP[X\mid Y])^\TRANS g(Y)]=0.
-\]</span></p></li>
+<li><p>We construct a continuous-time Markov chain as follows. Whenever the chain enters state <span class="math inline">\(i\)</span>, it remains there for an exponentially distributed <strong>holding time</strong> with rate <span class="math inline">\(ν_i\)</span>. At the end of the holding time, it jumps to state <span class="math inline">\(j\)</span> with probability <span class="math inline">\(P_{ij}\)</span>, where <span class="math display">\[ P_{ii} = 0, \quad \sum_{j \ne i} P_{ij} = 1. \]</span> The successive states visited by the process form a discrete-time Markov chain with transition matrix <span class="math inline">\(P\)</span>, called the <strong>embedded jump chain</strong>. The rates <span class="math inline">\(ν_i\)</span> determine when the process jumps; <span class="math inline">\(P\)</span> determines where it jumps.</p>
+<p>If <span class="math inline">\(ν_i = 0\)</span>, state <span class="math inline">\(i\)</span> is absorbing and its holding time is infinite. In that case, the corresponding row of <span class="math inline">\(P\)</span> is irrelevant.</p></li>
+<li><p>The <strong>transition rate</strong> from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span> is <span class="math display">\[ q_{ij} = ν_i P_{ij}, \qquad j \ne i. \]</span> Hence <span class="math display">\[ ν_i = \sum_{j \ne i} q_{ij}, \qquad P_{ij} = \frac{q_{ij}}{ν_i} \]</span> whenever <span class="math inline">\(ν_i &gt; 0\)</span>. Specifying the holding rates and the embedded jump probabilities is equivalent to specifying the transition rates <span class="math inline">\(q_{ij}\)</span>.</p></li>
+<li><p>There is a useful equivalent picture. While the process is in state <span class="math inline">\(i\)</span>, imagine an independent exponential clock of rate <span class="math inline">\(q_{ij}\)</span> for every <span class="math inline">\(j \ne i\)</span>. The first clock to ring determines the next state. The minimum of these clocks is exponential with rate <span class="math display">\[ \sum_{j \ne i} q_{ij} = ν_i, \]</span> and clock <span class="math inline">\(j\)</span> rings first with probability <span class="math display">\[ \frac{q_{ij}}{ν_i} = P_{ij}. \]</span> This is the <strong>competing exponential clocks</strong> construction. It is the same mechanism we used for competing Poisson processes.</p></li>
 </ol>
 </section>
-<section id="soft-estimation-over-a-bpsk-channel" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="soft-estimation-over-a-bpsk-channel"><span class="header-section-number">6.2</span> Soft estimation over a BPSK channel</h2>
-<div id="exm-bpsk-mmse" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.1 (MMSE estimation for BPSK over AWGN)</strong></span> Recall the <a href="./gaussian-random-vectors.html#sec-bpsk-awgn">BPSK over AWGN</a> model: a random bit <span class="math inline">\(B\in\{+1,-1\}\)</span> with <span class="math inline">\(\PR(B=+1)=\PR(B=-1)=\tfrac12\)</span> is transmitted as the symbol <span class="math inline">\(X=aB\)</span> with <span class="math inline">\(a&gt;0\)</span>, and the receiver observes <span class="math display">\[
-Y=aB+W,
-\]</span> where <span class="math inline">\(W\sim\mathcal N(0,σ^2)\)</span> is independent of <span class="math inline">\(B\)</span>. Conditioned on the bit, the observation is Gaussian, <span class="math display">\[
-Y\mid(B=+1)\sim\mathcal N(a,σ^2),
-\qquad
-Y\mid(B=-1)\sim\mathcal N(-a,σ^2),
-\]</span> so, with the <a href="./random-variables.html#exm-Gaussian">standard normal density</a> <span class="math inline">\(ϕ\)</span>, <span class="math display">\[
-f_{Y\mid B}(y\mid +1)
-=\frac{1}{σ}\,ϕ\Bigl(\frac{y-a}{σ}\Bigr),
-\qquad
-f_{Y\mid B}(y\mid -1)
-=\frac{1}{σ}\,ϕ\Bigl(\frac{y+a}{σ}\Bigr),
-\]</span> and the marginal of <span class="math inline">\(Y\)</span> is <span class="math display">\[
-f_Y(y)
-=\frac{1}{2σ}\Biggl[
-ϕ\Bigl(\frac{y-a}{σ}\Bigr)
-+ϕ\Bigl(\frac{y+a}{σ}\Bigr)
-\Biggr].
-\]</span> What is the MMSE estimate of the bit given <span class="math inline">\(Y\)</span>?</p>
-</div>
+<section id="local-transition-rates-and-the-generator" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="local-transition-rates-and-the-generator"><span class="header-section-number">14.2</span> Local transition rates and the generator</h2>
 <ol type="1">
-<li><p>By the general theory above, the MMSE estimator is the conditional expectation <span class="math inline">\(\EXP[B\mid Y]\)</span>. Since <span class="math inline">\(B\)</span> is discrete, <span class="math display">\[
-\EXP[B\mid Y=y]
-=(+1)\,\PR(B=+1\mid Y=y)
-+(-1)\,\PR(B=-1\mid Y=y).
-\]</span> Bayes’ rule and equal priors give <span class="math display">\[
-\PR(B=+1\mid Y=y)
-=\frac{ϕ((y-a)/σ)}{ϕ((y-a)/σ)+ϕ((y+a)/σ)},
-\qquad
-\PR(B=-1\mid Y=y)
-=\frac{ϕ((y+a)/σ)}{ϕ((y-a)/σ)+ϕ((y+a)/σ)}.
-\]</span> Therefore <span class="math display">\[
-\EXP[B\mid Y=y]
-=\frac{ϕ((y-a)/σ)-ϕ((y+a)/σ)}{ϕ((y-a)/σ)+ϕ((y+a)/σ)}.
-\]</span></p></li>
-<li><p>The Gaussian densities simplify the expression. Their ratio is <span class="math display">\[
-\frac{ϕ((y-a)/σ)}{ϕ((y+a)/σ)}
-=\exp\Bigl(\frac{2ay}{σ^2}\Bigr),
-\]</span> so <span class="math display">\[
-\EXP[B\mid Y=y]
-=\frac{\exp(2ay/σ^2)-1}{\exp(2ay/σ^2)+1}
-=\tanh\Bigl(\frac{ay}{σ^2}\Bigr).
-\]</span> Thus <span class="math display">\[
-\bbox[5pt,border: 1px solid]{
-\EXP[B\mid Y]=\tanh\Bigl(\frac{aY}{σ^2}\Bigr).
-}
-\]</span> The corresponding MMSE estimate of the transmitted amplitude is <span class="math display">\[
-\EXP[X\mid Y]=a\,\EXP[B\mid Y]=a\tanh\Bigl(\frac{aY}{σ^2}\Bigr).
-\]</span> The estimate takes values in <span class="math inline">\((-1,1)\)</span>: for large <span class="math inline">\(|Y|\)</span> it saturates near <span class="math inline">\(\pm 1\)</span>, while for <span class="math inline">\(Y\)</span> near <span class="math inline">\(0\)</span> it shrinks toward <span class="math inline">\(0\)</span>. Because <span class="math inline">\(B\)</span> is discrete, the pair <span class="math inline">\((B,Y)\)</span> is not jointly Gaussian, and <span class="math inline">\(\EXP[B\mid Y]\)</span> is a nonlinear function of <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Recall that a Poisson process with rate <span class="math inline">\(λ\)</span> satisfies, over a short interval of length <span class="math inline">\(h\)</span>, <span class="math display">\[\begin{align*}
+  \PR(N(t + h) - N(t) = 0) &amp;= 1 - λh + o(h), \\
+  \PR(N(t + h) - N(t) = 1) &amp;= λh + o(h), \\
+  \PR(N(t + h) - N(t) \ge 2) &amp;= o(h).
+\end{align*}\]</span> Here <span class="math inline">\(o(h)\)</span> denotes a term negligible compared with <span class="math inline">\(h\)</span>, i.e., <span class="math display">\[ \frac{o(h)}{h} \longrightarrow 0 \quad\text{as }h \to 0. \]</span></p></li>
+<li><p>Continuous-time Markov chains have the same local description. The probability of leaving state <span class="math inline">\(i\)</span> in an interval of length <span class="math inline">\(h\)</span> is <span class="math inline">\(ν_i h + o(h)\)</span>. For <span class="math inline">\(j \ne i\)</span>, <span class="math display">\[ \PR(X(t + h) = j \mid X(t) = i) = q_{ij} h + o(h). \]</span> Likewise, <span class="math display">\[ \PR(X(t + h) = i \mid X(t) = i) = 1 - ν_i h + o(h). \]</span> To first order in <span class="math inline">\(h\)</span>, remaining in <span class="math inline">\(i\)</span> means that no jump occurs in the interval. Leaving <span class="math inline">\(i\)</span> and returning requires at least two jumps, which has probability <span class="math inline">\(o(h)\)</span>. Our convention <span class="math inline">\(P_{ii} = 0\)</span> for the embedded chain does not prevent <span class="math inline">\(X(t + h) = i\)</span>.</p></li>
+<li><p>We collect the transition rates in the <strong>generator matrix</strong> <span class="math inline">\(Q\)</span>, where <span class="math display">\[ Q_{ij} = q_{ij} \quad (j \ne i), \qquad Q_{ii} = -\sum_{j \ne i} q_{ij} = -ν_i. \]</span> The off-diagonal entries of <span class="math inline">\(Q\)</span> are nonnegative and every row sums to zero: <span class="math display">\[ Q\mathbf 1 = \mathbf 0. \]</span> If <span class="math inline">\(P(h)\)</span> denotes the matrix of transition probabilities over an interval of length <span class="math inline">\(h\)</span>, then <span class="math display">\[ P(h) = I + hQ + o(h). \]</span></p></li>
+<li><div id="exm-two-state-ctmc" class="theorem example">
+<p><span class="theorem-title"><strong>Example 14.1 (Two-state continuous-time Markov chain)</strong></span> Suppose a system switches from state <span class="math inline">\(0\)</span> to state <span class="math inline">\(1\)</span> at rate <span class="math inline">\(α &gt; 0\)</span> and from state <span class="math inline">\(1\)</span> to state <span class="math inline">\(0\)</span> at rate <span class="math inline">\(β &gt; 0\)</span>. The holding times in <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span> are exponential with rates <span class="math inline">\(α\)</span> and <span class="math inline">\(β\)</span>. The embedded jump chain alternates between the two states, and the generator is <span class="math display">\[ Q = \MATRIX{-α &amp; α \\ β &amp; -β}. \]</span> For example, this can model a component that fails at rate <span class="math inline">\(α\)</span> and is repaired at rate <span class="math inline">\(β\)</span>.</p>
+</div></li>
 </ol>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="192" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 191;"><span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>viewof bpsk_mmse_snr <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.2</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">,</span> {</span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"a/σ"</span><span class="op">,</span></span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="fl">1.2</span><span class="op">,</span></span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span></span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="ojs-cell-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell hidden">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="203" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 202;"><span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>bpsk_mmse_curve <span class="op">=</span> {</span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> snr <span class="op">=</span> bpsk_mmse_snr</span>
-<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> values <span class="op">=</span> []</span>
-<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> yMax <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> points<span class="op">;</span> <span class="op">++</span>i) {</span>
-<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> y <span class="op">=</span> <span class="op">-</span>yMax <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> yMax <span class="op">*</span> i <span class="op">/</span> points</span>
-<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>    values<span class="op">.</span><span class="fu">push</span>({y<span class="op">,</span> <span class="dt">estimate</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">tanh</span>(snr <span class="op">*</span> y)})</span>
-<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> values</span>
-<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display hidden">
-<div id="ojs-cell-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="222" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 221;"><span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">700</span><span class="op">,</span></span>
-<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">400</span><span class="op">,</span></span>
-<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="dv">4</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"received value y"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
-<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="fl">1.2</span><span class="op">,</span> <span class="fl">1.2</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"estimate of B"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
-<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.35</span>})<span class="op">,</span></span>
-<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.35</span>})<span class="op">,</span></span>
-<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">1</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>]<span class="op">,</span> {</span>
-<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span></span>
-<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a>      <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.25</span><span class="op">,</span></span>
-<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>      <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4,4"</span></span>
-<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
-<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(bpsk_mmse_curve<span class="op">,</span> {</span>
-<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
-<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"estimate"</span><span class="op">,</span></span>
-<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#4c78a8"</span><span class="op">,</span></span>
-<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a>      <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.5</span></span>
-<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="fig-bpsk-mmse-estimators" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-bpsk-mmse-estimators-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="ojs-cell-3" data-nodetype="expression">
-
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bpsk-mmse-estimators-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6.1: MMSE estimate of the BPSK bit as a function of the received value <span class="math inline">\(y\)</span>, with <span class="math inline">\(σ=1\)</span> and adjustable <span class="math inline">\(a/σ\)</span>.
-</figcaption>
+</section>
+<section id="state-transition-diagrams" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="state-transition-diagrams"><span class="header-section-number">14.3</span> State transition diagrams</h2>
+<ol type="1">
+<li><p>As in discrete time, we visualize continuous-time Markov chains by <strong>state transition diagrams</strong>. The drawing convention is the same, with one difference: the edge labels are the off-diagonal rates <span class="math inline">\(q_{ij}\)</span> from <span class="math inline">\(Q\)</span>, and we <strong>do not draw self-loops</strong>. In discrete time, a self-loop at <span class="math inline">\(i\)</span> records <span class="math inline">\(P_{ii}\)</span>. In continuous time, remaining in <span class="math inline">\(i\)</span> for a short interval is already encoded by the holding rate <span class="math inline">\(ν_i = -Q_{ii}\)</span>, so a self-loop is redundant.</p>
+<p>Given a diagram, we recover the generator by reading <span class="math inline">\(Q_{ij} = q_{ij}\)</span> from the directed edge <span class="math inline">\(i \to j\)</span> (for <span class="math inline">\(j \ne i\)</span>) and setting <span class="math display">\[ Q_{ii} = -\sum_{j \ne i} q_{ij}. \]</span> The holding rates and embedded jump probabilities then follow from <span class="math display">\[ ν_i = -Q_{ii}, \qquad P_{ij} = \frac{q_{ij}}{ν_i} \quad (j \ne i), \qquad P_{ii} = 0, \]</span> whenever <span class="math inline">\(ν_i &gt; 0\)</span>.</p></li>
+<li><div id="exm-ctmc-diagram-two-state" class="theorem example">
+<p><span class="theorem-title"><strong>Example 14.2 (From <span class="math inline">\(Q\)</span> to a diagram: two states)</strong></span> The two-state chain of <a href="#exm-two-state-ctmc" class="quarto-xref">Example&nbsp;<span>14.1</span></a> has generator <span class="math display">\[ Q = \MATRIX{-α &amp; α \\ β &amp; -β}. \]</span> Its diagram has an edge <span class="math inline">\(0 \to 1\)</span> labeled <span class="math inline">\(α\)</span> and an edge <span class="math inline">\(1 \to 0\)</span> labeled <span class="math inline">\(β\)</span>. There are no self-loops.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/ctmc-examples1.svg" class="img-fluid figure-img"></p>
+<figcaption>Two-state continuous-time Markov chain</figcaption>
 </figure>
 </div>
+</div></li>
+<li><div id="exm-ctmc-diagram-three-state" class="theorem example">
+<p><span class="theorem-title"><strong>Example 14.3 (From <span class="math inline">\(Q\)</span> to a diagram: three states)</strong></span> Consider <span class="math display">\[ Q = \MATRIX{-2 &amp; 1 &amp; 1 \\ 2 &amp; -3 &amp; 1 \\ 0 &amp; 2 &amp; -2}. \]</span> The off-diagonal entries become edge labels: <span class="math inline">\(0 \to 1\)</span> and <span class="math inline">\(0 \to 2\)</span> at rate <span class="math inline">\(1\)</span>, <span class="math inline">\(1 \to 0\)</span> at rate <span class="math inline">\(2\)</span>, <span class="math inline">\(1 \to 2\)</span> at rate <span class="math inline">\(1\)</span>, and <span class="math inline">\(2 \to 1\)</span> at rate <span class="math inline">\(2\)</span>. There is no edge <span class="math inline">\(2 \to 0\)</span>, since <span class="math inline">\(Q_{20} = 0\)</span>. There are no self-loops; the diagonal entries <span class="math inline">\(-2\)</span>, <span class="math inline">\(-3\)</span>, and <span class="math inline">\(-2\)</span> are minus the total outgoing rate from each state.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/ctmc-examples2.svg" class="img-fluid figure-img"></p>
+<figcaption>Three-state continuous-time Markov chain</figcaption>
+</figure>
 </div>
-</section>
-<section id="soft-estimation-of-a-poisson-count" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="soft-estimation-of-a-poisson-count"><span class="header-section-number">6.3</span> Soft estimation of a Poisson count</h2>
-<div id="exm-poisson-mmse" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.2 (MMSE estimation for two Poisson light sources)</strong></span> Poisson random variables are a standard model for photon counts; see <a href="random-variables.html#exm-Poisson" class="quarto-xref">Example&nbsp;<span>2.8</span></a>. Suppose two independent light sources of intensities <span class="math inline">\(λ&gt;0\)</span> and <span class="math inline">\(μ&gt;0\)</span> illuminate the same device, producing independent counts <span class="math display">\[
-X\sim\text{Poisson}(λ),
-\qquad
-Y\sim\text{Poisson}(μ).
-\]</span> The device observes only the total count <span class="math display">\[
-Z=X+Y.
-\]</span> What is the MMSE estimate of <span class="math inline">\(X\)</span> given <span class="math inline">\(Z\)</span>?</p>
+</div></li>
+<li><div id="exm-finite-buffer-queue" class="theorem example">
+<p><span class="theorem-title"><strong>Example 14.4 (A finite-buffer packet queue)</strong></span> Packets arrive at a buffer according to a Poisson process with rate <span class="math inline">\(λ\)</span>, and their service times are independent exponential random variables with rate <span class="math inline">\(μ\)</span>. The buffer can hold at most two packets, including the packet in service. Let <span class="math inline">\(X(t)\)</span> be the number of packets in the buffer at time <span class="math inline">\(t\)</span>. An arrival in state <span class="math inline">\(2\)</span> is discarded and does not change the state.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/svg/ctmc-examples3.svg" class="img-fluid figure-img"></p>
+<figcaption>Birth–death continuous-time Markov chain on three states</figcaption>
+</figure>
 </div>
-<ol type="1">
-<li><p>As shown in <a href="random-vectors.html#exm-function-sum-Poisson" class="quarto-xref">Example&nbsp;<span>3.15</span></a> (and again later via moment generating functions), <span class="math display">\[
-Z\sim\text{Poisson}(λ+μ).
-\]</span> For integers <span class="math inline">\(0\le m\le n\)</span>, independence gives <span class="math display">\[\begin{align*}
-\PR(X=m\mid Z=n)
-&amp;=\frac{\PR(X=m)\PR(Y=n-m)}{\PR(Z=n)}
-\\
-&amp;=\frac{e^{-λ}λ^m/m!\cdot e^{-μ}μ^{n-m}/(n-m)!}
-{e^{-(λ+μ)}(λ+μ)^n/n!}
-\\
-&amp;=\binom{n}{m}
-\Bigl(\frac{λ}{λ+μ}\Bigr)^{m}
-\Bigl(\frac{μ}{λ+μ}\Bigr)^{n-m}.
-\end{align*}\]</span> Thus, conditioned on <span class="math inline">\(Z=n\)</span>, the random variable <span class="math inline">\(X\)</span> is <span class="math inline">\(\text{Binomial}\bigl(n,λ/(λ+μ)\bigr)\)</span>.</p></li>
-<li><p>By <a href="random-variables.html#tbl-mean-variance" class="quarto-xref">Table&nbsp;<span>2.1</span></a>, the mean of a <span class="math inline">\(\text{Binomial}(n,p)\)</span> random variable is <span class="math inline">\(np\)</span>. Taking <span class="math inline">\(p=λ/(λ+μ)\)</span> gives <span class="math display">\[
-\EXP[X\mid Z=n]
-=n\,\frac{λ}{λ+μ}.
-\]</span> Therefore the MMSE estimator is <span class="math display">\[
-\bbox[5pt,border: 1px solid]{
-\EXP[X\mid Z]
-=\frac{λ}{λ+μ}\,Z.
-}
-\]</span> Observe that the estimate is linear in the observation <span class="math inline">\(Z\)</span>.</p></li>
-</ol>
-</section>
-<section id="mmse-estimation-for-jointly-gaussian-random-vectors" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="mmse-estimation-for-jointly-gaussian-random-vectors"><span class="header-section-number">6.4</span> MMSE estimation for jointly Gaussian random vectors</h2>
-<p>In the BPSK example, the MMSE estimator was a nonlinear function of the observation. We now specialize to the case where the unknown and the observation are jointly Gaussian. Then the MMSE estimator is affine, and there is an explicit formula for it in terms of means and covariances.</p>
-<p>Suppose <span class="math inline">\(X\in\reals^n\)</span> and <span class="math inline">\(Y\in\reals^m\)</span> are jointly Gaussian, with <span class="math display">\[
-\MATRIX{X\\Y}
-\sim
-\mathcal N\left(
-\MATRIX{\mu_X\\\mu_Y},
-\MATRIX{
-\Sigma_{XX} &amp; \Sigma_{XY}\\
-\Sigma_{YX} &amp; \Sigma_{YY}
-}
-\right),
-\]</span> where <span class="math inline">\(\Sigma_{YX}=\Sigma_{XY}^\TRANS\)</span> and <span class="math inline">\(\Sigma_{YY}\)</span> is positive definite.</p>
-<ol type="1">
-<li><p>Define the affine estimate <span class="math display">\[
-\widehat X
-=\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y)
-\]</span> and the corresponding error <span class="math inline">\(E=X-\widehat X\)</span>. Its mean and its cross-covariance with <span class="math inline">\(Y\)</span> are <span class="math display">\[\begin{align*}
-\EXP[E]&amp;=0,\\
-\COV(E,Y)
-&amp;=\Sigma_{XY}
-  -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YY}
-  =0.
-\end{align*}\]</span></p></li>
-<li><p>Since <span class="math inline">\((E,Y)\)</span> is an affine transformation of the jointly Gaussian vector <span class="math inline">\((X,Y)\)</span>, it is jointly Gaussian. For jointly Gaussian vectors, zero cross-covariance implies independence. Hence <span class="math inline">\(E\independent Y\)</span>, and therefore <span class="math display">\[
-\EXP[E\mid Y]=\EXP[E]=0.
-\]</span> Using <span class="math inline">\(X=\widehat X+E\)</span> gives <span class="math display">\[
-\bbox[5pt,border: 1px solid]{
-\EXP[X\mid Y]
-=\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y).
-}
-\]</span></p></li>
-<li><p>The covariance of the estimation error is <span class="math display">\[\begin{align*}
-\Sigma_E
-&amp;=\COV\left(X-\Sigma_{XY}\Sigma_{YY}^{-1}Y\right)\\
-&amp;=\Sigma_{XX}
-  -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}.
-\end{align*}\]</span> Because <span class="math inline">\(E\)</span> is Gaussian and independent of <span class="math inline">\(Y\)</span>, conditioning on <span class="math inline">\(Y=y\)</span> gives the complete conditional distribution: <span class="math display">\[
-\bbox[5pt,border: 1px solid]{
-X\mid(Y=y)
-\sim
-\mathcal N\left(
-\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(y-\mu_Y),
-\Sigma_{XX}-\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}
-\right).
-}
-\]</span></p></li>
-<li><p>For scalar jointly Gaussian random variables with <span class="math display">\[
-\COV(X,Y)=\rho\sigma_X\sigma_Y,
-\]</span> the formulas reduce to <span class="math display">\[\begin{align*}
-\EXP[X\mid Y]
-&amp;=\mu_X+\rho\frac{\sigma_X}{\sigma_Y}(Y-\mu_Y),\\
-\VAR(X\mid Y)&amp;=\sigma_X^2(1-\rho^2).
-\end{align*}\]</span></p></li>
-</ol>
-<div id="exm-sensor-network" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.3 (Estimation using a sensor network)</strong></span> Let the unknown state be <span class="math display">\[
-X\sim\mathcal N(\mu_X,\Sigma_X).
-\]</span> Sensor <span class="math inline">\(i\)</span> observes <span class="math display">\[
-Y_i=C_iX+W_i,
-\qquad i=1,\ldots,N,
-\]</span> where <span class="math inline">\(W_i\sim\mathcal N(0,R_i)\)</span>. Assume that the noises are mutually independent and independent of <span class="math inline">\(X\)</span>, and that <span class="math inline">\(\Sigma_X\)</span> and every <span class="math inline">\(R_i\)</span> are positive definite. Find the MMSE estimate of <span class="math inline">\(X\)</span> using all the sensor measurements.</p>
-</div>
+<p>Read the diagram to determine the generator <span class="math inline">\(Q\)</span>, the holding rates <span class="math inline">\(ν\)</span>, and the embedded jump matrix <span class="math inline">\(P\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -904,63 +614,75 @@ Y_i=C_iX+W_i,
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Stack the measurements and noises as <span class="math display">\[
-Y=\MATRIX{Y_1\\\vdots\\Y_N},
-\qquad
-W=\MATRIX{W_1\\\vdots\\W_N},
-\qquad
-C=\MATRIX{C_1\\\vdots\\C_N}.
-\]</span> Then <span class="math display">\[
-Y=CX+W,
-\qquad
-R=\COV(W)=\operatorname{diag}(R_1,\ldots,R_N).
-\]</span> Consequently, <span class="math display">\[
-\mu_Y=C\mu_X,
-\qquad
-\Sigma_{XY}=\Sigma_XC^\TRANS,
-\qquad
-\Sigma_{YY}=C\Sigma_XC^\TRANS+R.
-\]</span> The MMSE estimate and its error covariance are therefore <span class="math display">\[
-\widehat X
-=\EXP[X\mid Y]
-=\mu_X+\Sigma_XC^\TRANS
-(C\Sigma_XC^\TRANS+R)^{-1}(Y-C\mu_X)
-\]</span> and <span class="math display">\[
-P_N
-=\COV(X\mid Y)
-=\Sigma_X-\Sigma_XC^\TRANS
-(C\Sigma_XC^\TRANS+R)^{-1}C\Sigma_X.
-\]</span></p>
-<p>Equivalently, these expressions can be written in information form as <span class="math display">\[\begin{align*}
-P_N^{-1}
-&amp;=\Sigma_X^{-1}+\sum_{i=1}^N C_i^\TRANS R_i^{-1}C_i,\\
-\widehat X
-&amp;=P_N\left(
-\Sigma_X^{-1}\mu_X
-+\sum_{i=1}^N C_i^\TRANS R_i^{-1}Y_i
-\right).
-\end{align*}\]</span> Each additional sensor contributes the positive-semidefinite term <span class="math inline">\(C_i^\TRANS R_i^{-1}C_i\)</span> to the information matrix. Thus, adding a sensor cannot increase the conditional covariance: <span class="math inline">\(P_N\preceq P_{N-1}\)</span>.</p>
+<p>The edges give <span class="math inline">\(q_{01} = λ\)</span>, <span class="math inline">\(q_{10} = μ\)</span>, <span class="math inline">\(q_{12} = λ\)</span>, and <span class="math inline">\(q_{21} = μ\)</span>, with all other off-diagonal rates equal to zero. Completing the diagonal yields <span class="math display">\[ Q = \MATRIX{-λ &amp; λ &amp; 0 \\ μ &amp; -(λ + μ) &amp; λ \\ 0 &amp; μ &amp; -μ}. \]</span> The holding rates are the negatives of the diagonal, <span class="math display">\[ ν = \MATRIX{λ &amp; λ + μ &amp; μ}, \]</span> and normalizing each nonzero row of off-diagonal rates gives <span class="math display">\[ P = \MATRIX{0 &amp; 1 &amp; 0 \\ \frac{μ}{λ + μ} &amp; 0 &amp; \frac{λ}{λ + μ} \\ 0 &amp; 1 &amp; 0}. \]</span> Thus state <span class="math inline">\(0\)</span> always jumps to <span class="math inline">\(1\)</span>, state <span class="math inline">\(2\)</span> always jumps to <span class="math inline">\(1\)</span>, and from state <span class="math inline">\(1\)</span> the chain jumps to <span class="math inline">\(0\)</span> or <span class="math inline">\(2\)</span> with probabilities proportional to <span class="math inline">\(μ\)</span> and <span class="math inline">\(λ\)</span>.</p>
 </div>
 </div>
 </div>
+</div></li>
+</ol>
+</section>
+<section id="class-structure-and-hitting-times" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="class-structure-and-hitting-times"><span class="header-section-number">14.4</span> Class structure and hitting times</h2>
+<ol type="1">
+<li><p>For a nonabsorbing state <span class="math inline">\(i\)</span>, there is a directed edge <span class="math inline">\(i \to j\)</span> in the continuous-time chain whenever <span class="math inline">\(q_{ij} &gt; 0\)</span>, equivalently whenever <span class="math inline">\(P_{ij} &gt; 0\)</span> in the embedded chain. Thus the continuous-time chain and its embedded chain have the same accessibility relations, communicating classes, closed classes, and irreducibility. A state with <span class="math inline">\(ν_i = 0\)</span> is an absorbing singleton class; its row in <span class="math inline">\(P\)</span> remains irrelevant. We can therefore read the class structure from the embedded chain, using the results for discrete-time Markov chains. Periodicity, however, is not a condition that we carry over to continuous time.</p></li>
+<li><p>For a set of states <span class="math inline">\(A\)</span>, define the <strong>hitting time</strong> <span class="math display">\[ H_A = \inf\{t \ge 0 : X(t) \in A\}. \]</span> Whether the chain reaches <span class="math inline">\(A\)</span> depends on the sequence of states visited, not on the time spent in those states. Consequently, the hitting probabilities <span class="math display">\[ h_i = \PR_i(H_A &lt; \infty) \]</span> are the same as for the embedded chain. They satisfy <span class="math display">\[ h_i = 1, \quad i \in A, \qquad h_i = \sum_j P_{ij} h_j, \quad i \notin A,\ ν_i &gt; 0. \]</span> Equivalently, <span class="math display">\[ \sum_j q_{ij} h_j = 0, \qquad i \notin A,\ ν_i &gt; 0. \]</span> An absorbing state outside <span class="math inline">\(A\)</span> has hitting probability zero. Absorption probabilities are obtained in the same way. As in discrete time, the desired probabilities are the minimal nonnegative solution when the equations do not have a unique solution.</p></li>
+<li><p>The <strong>mean hitting time</strong> does depend on the holding rates. Let <span class="math display">\[ m_i = \EXP_i[H_A]. \]</span> Starting from <span class="math inline">\(i \notin A\)</span>, the process first spends a mean time <span class="math inline">\(1/ν_i\)</span> in state <span class="math inline">\(i\)</span> and then moves according to <span class="math inline">\(P\)</span>. Hence <span class="math display">\[ m_i = 0, \quad i \in A, \qquad m_i = \frac{1}{ν_i} + \sum_j P_{ij} m_j, \quad i \notin A,\ ν_i &gt; 0. \]</span> Equivalently, <span class="math display">\[ \sum_j q_{ij} m_j = -1, \qquad i \notin A,\ ν_i &gt; 0. \]</span> An absorbing state outside <span class="math inline">\(A\)</span> has infinite mean hitting time. The embedded path determines whether a set is reached; the holding rates determine how much time elapses before it is reached. The number of jumps alone determines the continuous-time mean only when all relevant holding rates are the same.</p></li>
+</ol>
+</section>
+<section id="transition-probabilities" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="transition-probabilities"><span class="header-section-number">14.5</span> Transition probabilities</h2>
+<ol type="1">
+<li><p>Define the transition probabilities <span class="math display">\[ P_{ij}(t) = \PR(X(t) = j \mid X(0) = i). \]</span> By time homogeneity, this is also <span class="math inline">\(\PR(X(s + t) = j \mid X(s) = i)\)</span> for any starting time <span class="math inline">\(s\)</span>. Let <span class="math inline">\(P(t)\)</span> denote the matrix with entries <span class="math inline">\(P_{ij}(t)\)</span>. Each <span class="math inline">\(P(t)\)</span> is row stochastic, and <span class="math display">\[ P(0) = I. \]</span> The notation <span class="math inline">\(P(t)\)</span> should not be confused with the matrix <span class="math inline">\(P\)</span> of the embedded jump chain.</p></li>
+<li><p>Conditioning on the state after time <span class="math inline">\(s\)</span> gives the <strong>Chapman–Kolmogorov equations</strong> <span class="math display">\[ P_{ij}(s + t) = \sum_{k \in \ALPHABET X} P_{ik}(s) P_{kj}(t), \]</span> or, in matrix notation, <span class="math display">\[ P(s + t) = P(s) P(t). \]</span></p></li>
+<li><p>Combining the Chapman–Kolmogorov equations with <span class="math display">\[ P(h) = I + hQ + o(h) \]</span> gives the <strong>forward equation</strong>. Writing <span class="math display">\[ P(t + h) = P(t) P(h) \]</span> and taking <span class="math inline">\(h \to 0\)</span> yields <span class="math display">\[ \frac{d}{dt} P(t) = P(t) Q. \]</span> With <span class="math inline">\(P(0) = I\)</span>, the solution is <span class="math display">\[ P(t) = \exp(tQ) = I + tQ + \frac{t^2 Q^2}{2!} + \cdots. \]</span></p></li>
+<li><p>Let <span class="math inline">\(μ(t)\)</span> be the row vector of state occupancy probabilities, <span class="math display">\[ μ_i(t) = \PR(X(t) = i). \]</span> Then <span class="math display">\[ μ(t) = μ(0) P(t), \]</span> and the forward equation implies <span class="math display">\[ \frac{d}{dt} μ(t) = μ(t) Q. \]</span> Component-wise, <span class="math display">\[ \frac{d}{dt} μ_j(t) = \sum_{i \ne j} μ_i(t) q_{ij} - μ_j(t) \sum_{k \ne j} q_{jk}. \]</span> The rate of change of the probability of state <span class="math inline">\(j\)</span> is the probability flow into <span class="math inline">\(j\)</span> minus the probability flow out of <span class="math inline">\(j\)</span>.</p></li>
+<li><p>For the two-state chain in <a href="#exm-two-state-ctmc" class="quarto-xref">Example&nbsp;<span>14.1</span></a>, <span class="math display">\[
+  P(t) = \frac{1}{α + β}
+  \MATRIX{
+  β + α e^{-(α + β)t} &amp; α\bigl(1 - e^{-(α + β)t}\bigr) \\
+  β\bigl(1 - e^{-(α + β)t}\bigr) &amp; α + β e^{-(α + β)t}
+  }.
+\]</span> As <span class="math inline">\(t \to \infty\)</span>, both rows converge to <span class="math display">\[ π = \frac{1}{α + β} \MATRIX{β &amp; α}. \]</span></p></li>
+</ol>
+</section>
+<section id="invariant-distributions" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="invariant-distributions"><span class="header-section-number">14.6</span> Invariant distributions</h2>
+<ol type="1">
+<li><p>A probability row vector <span class="math inline">\(π\)</span> is an <strong>invariant distribution</strong> if initializing the chain with <span class="math inline">\(X(0) \sim π\)</span> gives <span class="math inline">\(X(t) \sim π\)</span> for every <span class="math inline">\(t \ge 0\)</span>. Equivalently, <span class="math display">\[ π P(t) = π \qquad\text{for every }t \ge 0. \]</span></p></li>
+<li><p>Since <span class="math inline">\(P(t) = \exp(tQ)\)</span>, invariance is equivalent to <span class="math display">\[ π Q = \mathbf 0, \qquad π \mathbf 1 = 1. \]</span> These are the continuous-time balance equations. As in discrete time, they say that under <span class="math inline">\(π\)</span> the total probability flow into each state equals the total probability flow out of that state.</p></li>
+<li><p>The invariant distribution of the embedded jump chain is related to that of the continuous-time chain. Suppose the chain is finite and irreducible, with <span class="math inline">\(ν_i &gt; 0\)</span> for every state, and let <span class="math inline">\(π^{\mathrm{embed}}\)</span> denote the invariant distribution of the embedded chain: <span class="math display">\[ π^{\mathrm{embed}} = π^{\mathrm{embed}} P. \]</span> If <span class="math inline">\(D_ν = \operatorname{diag}(ν_i)\)</span>, then <span class="math display">\[ Q = D_ν(P - I). \]</span> Consequently, <span class="math inline">\(π Q = \mathbf 0\)</span> implies that <span class="math inline">\(π D_ν\)</span> is invariant for <span class="math inline">\(P\)</span>. After normalization, <span class="math display">\[\begin{equation}\label{eq:embedded-ctmc-invariant-relation}
+  π_i^{\mathrm{embed}}
+  = \frac{π_i ν_i}{\sum_k π_k ν_k},
+  \qquad
+  π_i
+  = \frac{π_i^{\mathrm{embed}} / ν_i}
+         {\sum_k π_k^{\mathrm{embed}} / ν_k}.
+\end{equation}\]</span> The embedded chain records the fraction of jumps into each state. The continuous-time chain weights each visit by its mean holding time <span class="math inline">\(1/ν_i\)</span>, so states with longer holding times receive more probability under <span class="math inline">\(π\)</span>.</p></li>
+<li><p>For the two-state chain, the embedded chain alternates between the two states, so <span class="math display">\[ π^{\mathrm{embed}} = \MATRIX{1/2 &amp; 1/2}. \]</span> Since <span class="math inline">\(ν_0 = α\)</span> and <span class="math inline">\(ν_1 = β\)</span>, <span class="math inline">\(\eqref{eq:embedded-ctmc-invariant-relation}\)</span> gives <span class="math display">\[ π = \frac{1}{α + β} \MATRIX{β &amp; α}, \]</span> which satisfies <span class="math inline">\(π Q = \mathbf 0\)</span>. This agrees with the limiting distribution found above.</p></li>
+<li><p>For a finite irreducible continuous-time Markov chain, the invariant distribution is unique and <span class="math display">\[ \lim_{t \to \infty} P_{ij}(t) = π_j. \]</span> Unlike a discrete-time chain, no separate aperiodicity assumption is needed. For any fixed <span class="math inline">\(Δ &gt; 0\)</span>, the sampled chain with transition matrix <span class="math inline">\(P(Δ)\)</span> is irreducible and has a positive probability of remaining in its current state during an interval of length <span class="math inline">\(Δ\)</span>. It is therefore aperiodic, and the discrete-time convergence result applies to the sampled chain. The continuous-time semigroup property then gives convergence for all <span class="math inline">\(t \to \infty\)</span>.</p></li>
+<li><p>More generally, suppose the packet buffer in <a href="#exm-finite-buffer-queue" class="quarto-xref">Example&nbsp;<span>14.4</span></a> can hold <span class="math inline">\(m\)</span> packets. Its state space is <span class="math inline">\(\{0, 1, \ldots, m\}\)</span>, and its transition rates are <span class="math display">\[ q_{i,i+1} = λ, \quad i &lt; m, \qquad q_{i,i-1} = μ, \quad i &gt; 0. \]</span> Arrivals in state <span class="math inline">\(m\)</span> are discarded and do not change the state. The balance equations give, with <span class="math inline">\(ρ = λ/μ\)</span>, <span class="math display">\[ π_i = ρ^i π_0, \qquad i = 0, 1, \ldots, m. \]</span> Therefore, <span class="math display">\[
+  π_i =
+  \begin{cases}
+  \displaystyle\frac{(1 - ρ)ρ^i}{1 - ρ^{m+1}}, &amp; ρ \ne 1, \\
+  \displaystyle\frac{1}{m+1}, &amp; ρ = 1.
+  \end{cases}
+\]</span> Since packets arrive according to a Poisson process at a rate that does not depend on the state, an arriving packet finds the buffer full with probability <span class="math inline">\(π_m\)</span>. Thus <span class="math inline">\(π_m\)</span> is the <strong>blocking probability</strong>, and <span class="math display">\[ λ(1 - π_m) \]</span> is the rate at which packets are admitted to the buffer.</p></li>
+</ol>
+</section>
+<section id="exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li><p>Let <span class="math inline">\(\{N(t)\}_{t \ge 0}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span>, and write <span class="math display">\[ p_n(t) = \PR(N(t) = n). \]</span> Use the short-interval probabilities above to show that <span class="math display">\[ p_0'(t) = -λ p_0(t), \qquad p_n'(t) = λ p_{n-1}(t) - λ p_n(t), \quad n \ge 1. \]</span> Solve these equations using <span class="math inline">\(p_0(0) = 1\)</span> and <span class="math inline">\(p_n(0) = 0\)</span> for <span class="math inline">\(n \ge 1\)</span>. These are the simplest examples of the forward equations for a continuous-time Markov chain.</p></li>
+<li><p>Consider the two-state continuous-time Markov chain in <a href="#exm-two-state-ctmc" class="quarto-xref">Example&nbsp;<span>14.1</span></a>. Verify directly that its transition matrix satisfies <span class="math display">\[ P'(t) = P(t) Q. \]</span></p></li>
+<li><p>Consider a three-state continuous-time Markov chain with generator <span class="math display">\[ Q = \MATRIX{-2 &amp; 1 &amp; 1 \\ 2 &amp; -3 &amp; 1 \\ 0 &amp; 2 &amp; -2}. \]</span> Find its holding rates, embedded jump transition matrix, and invariant distribution.</p></li>
+</ol>
 
 
 </section>
 
 </main> <!-- /main -->
-<script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ilxudmlld29mIGJwc2tfbW1zZV9zbnIgPSBJbnB1dHMucmFuZ2UoWzAuMiwgM10sIHtcbiAgbGFiZWw6IFwiYS/Pg1wiLFxuICB2YWx1ZTogMS4yLFxuICBzdGVwOiAwLjFcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbmJwc2tfbW1zZV9jdXJ2ZSA9IHtcbiAgY29uc3Qgc25yID0gYnBza19tbXNlX3NuclxuICBjb25zdCB2YWx1ZXMgPSBbXVxuICBjb25zdCBwb2ludHMgPSA1MDBcbiAgY29uc3QgeU1heCA9IDRcblxuICBmb3IgKGxldCBpID0gMDsgaSA8PSBwb2ludHM7ICsraSkge1xuICAgIGNvbnN0IHkgPSAteU1heCArIDIgKiB5TWF4ICogaSAvIHBvaW50c1xuICAgIHZhbHVlcy5wdXNoKHt5LCBlc3RpbWF0ZTogTWF0aC50YW5oKHNuciAqIHkpfSlcbiAgfVxuICByZXR1cm4gdmFsdWVzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcblBsb3QucGxvdCh7XG4gIHdpZHRoOiA3MDAsXG4gIGhlaWdodDogNDAwLFxuICB4OiB7ZG9tYWluOiBbLTQsIDRdLCBsYWJlbDogXCJyZWNlaXZlZCB2YWx1ZSB5XCIsIGdyaWQ6IHRydWV9LFxuICB5OiB7ZG9tYWluOiBbLTEuMiwgMS4yXSwgbGFiZWw6IFwiZXN0aW1hdGUgb2YgQlwiLCBncmlkOiB0cnVlfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSwge3N0cm9rZTogXCJjdXJyZW50Q29sb3JcIiwgc3Ryb2tlT3BhY2l0eTogMC4zNX0pLFxuICAgIFBsb3QucnVsZVgoWzBdLCB7c3Ryb2tlOiBcImN1cnJlbnRDb2xvclwiLCBzdHJva2VPcGFjaXR5OiAwLjM1fSksXG4gICAgUGxvdC5ydWxlWShbMSwgLTFdLCB7XG4gICAgICBzdHJva2U6IFwiY3VycmVudENvbG9yXCIsXG4gICAgICBzdHJva2VPcGFjaXR5OiAwLjI1LFxuICAgICAgc3Ryb2tlRGFzaGFycmF5OiBcIjQsNFwiXG4gICAgfSksXG4gICAgUGxvdC5saW5lKGJwc2tfbW1zZV9jdXJ2ZSwge1xuICAgICAgeDogXCJ5XCIsXG4gICAgICB5OiBcImVzdGltYXRlXCIsXG4gICAgICBzdHJva2U6IFwiIzRjNzhhOFwiLFxuICAgICAgc3Ryb2tlV2lkdGg6IDIuNVxuICAgIH0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2Jwc2tfbW1zZV9zbnInKSJ9XX0=
-</script>
-<script type="module">
-if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../..";
-window._ojs.paths.runtimeToRoot = "../..";
-window._ojs.paths.docToRoot = "";
-window._ojs.selfContained = false;
-window._ojs.runtime.interpretFromScriptTags();
-</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1376,14 +1098,11 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./conditional-expectation.html" class="pagination-link" aria-label="Conditional probability and conditional expectation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional probability and conditional expectation</span></span>
+      <a href="./poisson-processes.html" class="pagination-link" aria-label="Poisson processes">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Poisson processes</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./moment-generating-functions.html" class="pagination-link" aria-label="Moment Generating Functions">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Moment Generating Functions</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -1391,5 +1110,5 @@ window._ojs.runtime.interpretFromScriptTags();
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/mmse-estimation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/continuous-time-markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
