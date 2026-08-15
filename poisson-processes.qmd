@@ -407,6 +407,25 @@ Plot.plot({
 
 4. Let $\{N(t)\}$ be a Poisson process with rate $λ$. Independently assign every arrival to one of three streams with probabilities $p_1,p_2,p_3$. Show that the three output processes are independent, find their rates, and verify that their superposition recovers the original process.
 
+5. Let $S_n=T_1+\cdots+T_n$ be the time of the $n$-th arrival in a Poisson process with rate $λ$.
+
+   (a) Use the central limit theorem to show that, for large $n$,
+   $$
+   \frac{S_n-n/λ}{\sqrt n/λ}
+   $$
+   is approximately a standard normal random variable.
+
+   (b) Suppose arrivals occur at rate $4$ per minute. Use the normal approximation to estimate the probability that the 100th arrival occurs after 27 minutes.
+
+6. Independent type-1 and type-2 arrivals form Poisson processes with rates $λ_1$ and $λ_2$, respectively. Let $M$ be the number of type-2 arrivals before the first type-1 arrival. Use superposition and labeling of the combined process to show that
+   $$
+   \PR(M=k)
+   =\left(\frac{λ_2}{λ_1+λ_2}\right)^k
+   \frac{λ_1}{λ_1+λ_2},
+   \qquad k=0,1,\ldots.
+   $$
+   Hence, identify the distribution of $M$.
+
 ## Further reading {-}
 
 - Gubner, Chapter 8.

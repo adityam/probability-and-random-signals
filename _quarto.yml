@@ -38,6 +38,7 @@ book:
       - markov-chains.qmd
       - gauss-markov-processes.qmd
       - poisson-processes.qmd
+      - continuous-time-markov-chains.qmd
 
 format:
   html:

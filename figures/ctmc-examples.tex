@@ -1,0 +1,75 @@
+\usepath[/home/adityam/Projects/presentations]
+
+\enablemode[lucida]
+\environment env-fonts.tex
+\setupbodyfont[slidefont,12pt]
+
+\usemodule[tikz]
+\usetikzlibrary[matrix,positioning]
+
+\tikzset{state/.style={circle, draw,
+                line width=1.5bp,
+                inner sep=0.6em,
+                draw=blue!75!black,
+                minimum width=3em,
+                fill=blue!15!white,
+                font=\bold,
+                text=blue!90!black,
+                }}
+
+
+\starttext
+
+% Two-state CTMC (no self-loops): rates α, β
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+   \matrix[matrix of nodes, nodes={state}, column sep=1.5cm, row sep=1.5cm] (m) {
+    \m{0} & \m{1} \\
+  };
+  \draw[every loop]
+       (m-1-1) edge[bend left, auto=left] node {$α$} (m-1-2)
+       (m-1-2) edge[bend left, auto=left] node {$β$} (m-1-1)
+       ;
+
+\stoptikzpicture}
+\stopTEXpage
+
+% Three-state CTMC from Q = [[-2,1,1],[2,-3,1],[0,2,-2]]
+% Triangle: state 1 on top, states 0 and 2 on the base
+% Wide base, moderate height (not equilateral) so interior labels do not collide
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+   \node[state] (s0) at (0,0) {$0$};
+   \node[state] (s2) at (6,0) {$2$};
+   \node[state] (s1) at (3,3) {$1$};
+   \draw[every loop]
+       (s0) edge[bend left, auto=left] node {$1$} (s1)
+       (s1) edge[bend left, auto=left] node {$2$} (s0)
+
+       (s1) edge[bend left, auto=left] node {$1$} (s2)
+       (s2) edge[bend left, auto=left] node {$2$} (s1)
+
+       (s0) edge[bend right, auto=right] node {$1$} (s2)
+       ;
+
+\stoptikzpicture}
+\stopTEXpage
+
+% Birth--death CTMC on three states: λ forward, μ backward
+\startTEXpage[offset=1dk]
+\scale[scale=1500]{\starttikzpicture[line width=1bp]
+   \matrix[matrix of nodes, nodes={state}, column sep=1.5cm, row sep=1.5cm] (m) {
+    \m{0} & \m{1} & \m{2} \\
+  };
+  \draw[every loop]
+       (m-1-1) edge[bend left, auto=left] node {$λ$} (m-1-2)
+       (m-1-2) edge[bend left, auto=left] node {$μ$} (m-1-1)
+
+       (m-1-2) edge[bend left, auto=left] node {$λ$} (m-1-3)
+       (m-1-3) edge[bend left, auto=left] node {$μ$} (m-1-2)
+       ;
+
+\stoptikzpicture}
+\stopTEXpage
+
+\stoptext

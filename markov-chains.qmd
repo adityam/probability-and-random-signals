@@ -29,6 +29,12 @@ $$
 $$
 which depends on the past only through the current state $x_n$. If $f_n=f$ for all $n$ and the random variables $W_n$ are identically distributed, then the resulting Markov chain is time-homogeneous. This construction will reappear when we study stochastic state-space models.
 
+Conversely, every finite-state time-homogeneous Markov chain can be constructed in this way. Order the state space as $\ALPHABET X=\{0,1,\ldots,K\}$, let $W_n$ be i.i.d.\ uniform random variables on $[0,1)$, and, when $X_n=i$, choose the unique state $j$ such that
+$$
+  \sum_{k<j}P_{ik}\le W_n<\sum_{k\le j}P_{ik}.
+$$
+This is the inverse-transform construction: it realizes any finite transition matrix as a state recursion driven by i.i.d.\ noise.
+
 We now present some examples of Markov chains arising in different applications.
 
 :::{#exm-Gilbert-Elliot-channel}
@@ -594,14 +600,14 @@ This gives both components of the occupancy distribution and agrees with the rec
 
    :::{#thm-hitting-probabilities}
    #### Hitting probabilities
-   The hitting probabilities $\{h^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
+   The hitting probabilities $\{h^A_i\}_{i \in \ALPHABET X}$ satisfy the following system of linear equations:
    $$
      h^A_i = \begin{cases}
        1, & i \in A \\
        \sum_{j \in \ALPHABET X} P_{ij} h^A_j, & i \not\in A
      \end{cases}
    $$
-   When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the hitting probabilities correspond to the *minimal* non-negative solution.
+   The hitting probabilities are the *minimal* non-negative solution of this system. The solution is unique if $A$ is reached almost surely from every state under consideration.
    :::
    
    :::{.callout-note collapse="true"}
@@ -619,6 +625,13 @@ This gives both components of the occupancy distribution and agrees with the rec
    &= \sum_{j \in \ALPHABET X} P_{ij} h^A_j.
    \end{align*}
    :::
+
+   Finiteness of the state space alone does not imply uniqueness. For example, let
+   $$
+     P=\MATRIX{1&0\\0&1},
+     \qquad A=\{0\}.
+   $$
+   The equations are $h^A_0=1$ and $h^A_1=h^A_1$, so every vector $(1,c)$ with $0\le c\le1$ is a solution. The actual hitting probabilities are $(1,0)$, the minimal non-negative solution.
 
 8. 
    :::{#exm-gambler-ruin-instance}
@@ -704,14 +717,14 @@ This gives both components of the occupancy distribution and agrees with the rec
 
     :::{#thm-mean-hitting-times}
     #### Mean hitting times
-    The mean hitting times $\{m^A_i\}_{i \in \ALPHABET X}$ satisfies the following system of linear equations:
+    The mean hitting times $\{m^A_i\}_{i \in \ALPHABET X}$ satisfy the following system of linear equations:
     $$
       m^A_i = \begin{cases}
         0, & i \in A \\
         1 + \sum_{j \not\in A} P_{ij} m^A_j, & i \not\in A
       \end{cases}
     $$
-    When $\ALPHABET X$ is finite, the above system has a unique solution; when $\ALPHABET X$ is countable, the above system may have multiple solutions and the mean hitting times correspond to the *minimal* non-negative solution.
+    If $\ALPHABET X$ is finite and $A$ is reached almost surely from every state under consideration, then the mean hitting times are finite and form the unique finite solution of this system. Otherwise, some mean hitting times may be infinite, and the finite system need not have a solution.
     :::
     
     :::{.callout-note collapse="true"}
@@ -733,6 +746,8 @@ This gives both components of the occupancy distribution and agrees with the rec
       &= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
     \end{align*}
     :::
+
+    In the two-absorbing-state example above, the equation for state $1$ would be $m^A_1=1+m^A_1$, which has no finite solution. Indeed, the actual mean hitting time is $m^A_1=∞$.
 
 12. For absorbing Markov chains, we can use matrix methods to efficiently compute hitting probabilities and mean hitting times. The key idea is to rearrange the transition matrix into a **canonical form** where absorbing states are grouped together.
 
@@ -893,14 +908,21 @@ This gives both components of the occupancy distribution and agrees with the rec
 
      Irreducible and aperiodic Markov chains are also called **ergodic**. Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the **limiting distribution** or the **steady-state** distribution.
 
-7. **Computing invariant distributions.** 
+7. **PageRank.** Suppose that there are $N$ webpages with links between them, and that every page has at least one outgoing link. Let $\widehat P_{ij}$ denote the fraction of the outgoing links from page $i$ that point to page $j$. A user behaves as follows: with probability $α$, the user chooses one of the outgoing links on the current page, and with probability $1-α$, the user chooses one of the $N$ pages uniformly at random. The transition matrix of the webpages visited by the user is
+   $$
+   P=α\widehat P+(1-α)\frac{1}{N}\ONES\ONES^{\mathsf T},
+   \qquad 0\le α<1.
+   $$
+   Since every entry of $P$ is positive, this Markov chain is irreducible and aperiodic. Therefore, it has a unique limiting distribution $π$. The rank $π_j$ of page $j$ is the long-run fraction of time that the user spends on that page.
+
+8. **Computing invariant distributions.** 
   The equation $π = π P$ can be written component-wise as
    $$
      π_j = \sum_{i \in \ALPHABET X} π_i P_{ij}, \quad \forall j \in \ALPHABET X.
    $$
    These equations are called **balance equations** and can be used to find invariant distributions. Together with the constraint that $π$ is a probability distribution (i.e., $\sum_{j \in \ALPHABET X} π_j = 1$ and $π_j \ge 0$ for all $j$), they form a system of linear equations that can be solved to determine the invariant distribution.
 
-8. As an example, let's compute the invariant distribution of the on-off Markov chain from @exm-on-off. The transition matrix is
+9. As an example, let's compute the invariant distribution of the on-off Markov chain from @exm-on-off. The transition matrix is
    $$
      P = \MATRIX{ 1 - a & a \\ b & 1 - b }.
    $$
@@ -915,7 +937,18 @@ This gives both components of the occupancy distribution and agrees with the rec
    $$
    Therefore, $π_1 = 1 - π_0 = \frac{a}{a+b}$. The invariant distribution is $π = [b/(a+b), a/(a+b)]$, which matches the result mentioned in point 3.
 
-9. We can write balance equations directly from the state transition diagram. For each state $j$, the balance equation states that the probability flow into state $j$ equals the probability flow out of state $j$. Consider the three-state Markov chain with transition matrix
+10. For the Ehrenfest urn model in @exm-Ehrenfest-diffusion-model, the invariant distribution is
+   $$
+     π_i=2^{-K}\binom Ki,
+     \qquad i\in\{0,1,\ldots,K\}.
+   $$
+   Indeed, the probability flows between every pair of adjacent states agree:
+   $$
+     π_i\frac{K-i}{K}=π_{i+1}\frac{i+1}{K}.
+   $$
+   These equalities, for $i=0,1,\ldots,K-1$, imply the balance equations $π=πP$.
+
+11. We can write balance equations directly from the state transition diagram. For each state $j$, the balance equation states that the probability flow into state $j$ equals the probability flow out of state $j$. Consider the three-state Markov chain with transition matrix
    $$
      P = \MATRIX{ 0.3 & 0.7 & 0 \\
                   0 & 0.3 & 0.7 \\
@@ -951,9 +984,9 @@ This gives both components of the occupancy distribution and agrees with the rec
    \end{align*}
    Together with the normalization constraint $π_0 + π_1 + π_2 = 1$, we get $π_0 = π_1 = π_2 = 1/3$. This illustrates how balance equations can be derived directly from the state diagram by considering probability flows.
 
-10. The above example is an illustration of a more general principle. If $P$ is doubly stochastic (i.e., both row sum and column sums are $1$), then the invariant distribution is a uniform distribution. 
+12. The above example is an illustration of a more general principle. If $P$ is doubly stochastic (i.e., both row sum and column sums are $1$), then the invariant distribution is a uniform distribution.
 
-10. **Exercises: Computing Invariant Distributions**
+13. **Exercises: Computing Invariant Distributions**
 
     :::{#exm-invariant-transient-closed}
     Consider the Markov chain with transition matrix  
@@ -1038,7 +1071,7 @@ This gives both components of the occupancy distribution and agrees with the rec
    \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j).
    $$
  
-5. If the chain is periodic with period $d > 1$ (i.e., not aperiodic), the limiting distribution $\lim_{n \to \infty} P^n$ does not exist in the usual sense, as the transition probabilities continue to oscillate. However, if the chain is irreducible, it still possesses a unique invariant distribution $π$, and the time averages in the previous two bullets converge along the full sequence $N \to \infty$. Thus, aperiodicity is needed for the convergence of $P^n$ to a matrix whose rows are $π$, but not for the Markov-chain law of large numbers.
+5. If the chain is periodic with period $d > 1$ (i.e., not aperiodic), the limiting distribution $\lim_{n \to \infty} P^n$ does not exist in the usual sense, as the transition probabilities continue to oscillate. The Ehrenfest chain illustrates this distinction: every transition changes the parity of the state, so the chain has period two. It has the invariant distribution computed earlier, but $P^n$ starting from a fixed state does not converge to this distribution. Nevertheless, since the chain is irreducible, the time averages in the previous two bullets converge along the full sequence $N \to \infty$. Thus, aperiodicity is needed for the convergence of $P^n$ to a matrix whose rows are $π$, but not for the Markov-chain law of large numbers.
 
 ## Censored Markov chains
 
