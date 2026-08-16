@@ -217,6 +217,7 @@ Plot.plot({
      2 m_0 - 2 m_2 &= -1.
    \end{align*}
    With $m_0 = 0$, the second equation gives $m_2 = 1/2$, and then the first gives $m_1 = 3/4$.
+
    :::
 
 ## Invariant distributions
@@ -251,7 +252,7 @@ Plot.plot({
 
 5. For a finite irreducible continuous-time Markov chain, the invariant distribution is unique and
    $$ \lim_{t \to \infty} P_{ij}(t) = π_j. $$
-   Unlike a discrete-time chain, no separate aperiodicity assumption is needed. For any fixed $Δ > 0$, the sampled chain with transition matrix $P(Δ)$ is irreducible and has a positive probability of remaining in its current state during an interval of length $Δ$. It is therefore aperiodic, and the discrete-time convergence result applies to the sampled chain. The continuous-time semigroup property then gives convergence for all $t \to \infty$.
+   Unlike a discrete-time chain, no separate aperiodicity assumption is needed. The uniformization construction in the next section derives this result from the discrete-time convergence theorem.
 
 6. More generally, suppose the packet buffer in @exm-finite-buffer-queue can hold $m$ packets. Its state space is $\{0, 1, \ldots, m\}$, and its transition rates are
    $$ q_{i,i+1} = λ, \quad i < m, \qquad q_{i,i-1} = μ, \quad i > 0. $$
@@ -268,6 +269,109 @@ Plot.plot({
    Since packets arrive according to a Poisson process at a rate that does not depend on the state, an arriving packet finds the buffer full with probability $π_m$. Thus $π_m$ is the **blocking probability**, and
    $$ λ(1 - π_m) $$
    is the rate at which packets are admitted to the buffer.
+
+## Uniformization
+
+1. In the embedded jump chain, the time between successive steps depends on the current state. **Uniformization** places all states on a common time scale by introducing a Poisson clock with a constant rate. Choose
+   $$
+   \bar ν\ge\max_{i\in\ALPHABET X}ν_i
+   $$
+   and define
+   $$
+   \bar P=I+\frac{Q}{\bar ν}.
+   $$
+   Since the rows of $Q$ sum to zero, $\bar P$ is a transition matrix. Its entries are
+   $$
+   \bar P_{ij}=\frac{q_{ij}}{\bar ν},\quad j\ne i,
+   \qquad
+   \bar P_{ii}=1-\frac{ν_i}{\bar ν}\ge0.
+   $$
+   Choosing $\bar ν$ strictly larger than every holding rate $ν_i$ guarantees a positive dummy self-transition at every state.
+
+2. Let $\{Z_n\}_{n\ge0}$ be a discrete-time Markov chain with transition matrix $\bar P$, and let $\{N_{\bar ν}(t)\}_{t\ge0}$ be an independent Poisson process with rate $\bar ν$. Then
+   $$
+   X(t)=Z_{N_{\bar ν}(t)}
+   $$
+   is a continuous-time Markov chain with generator $Q$. Thus, $Z_n$ is the state immediately after the $n$-th tick of the common Poisson clock. At a clock tick, the chain may remain in state $i$ with probability $\bar P_{ii}$. Such a self-transition is a **dummy transition** of the auxiliary discrete-time chain; it is not an actual jump of the continuous-time process.
+
+3. For the two-state chain in @exm-two-state-ctmc, choose $\bar ν$ strictly larger than both $α$ and $β$. Its uniformized transition matrix is
+   $$
+   \bar P
+   =I+\frac{Q}{\bar ν}
+   =\MATRIX{
+      1-\frac{α}{\bar ν} & \frac{α}{\bar ν} \\
+      \frac{β}{\bar ν} & 1-\frac{β}{\bar ν}
+   }.
+   $$
+   Thus, the common clock ticks at rate $\bar ν$. In state $0$, a tick produces an actual transition with probability $α/\bar ν$ and a dummy self-transition otherwise; the corresponding probabilities in state $1$ are $β/\bar ν$ and $1-β/\bar ν$.
+
+4. For the three-state chain in @exm-ctmc-diagram-three-state, the largest holding rate is $3$. Choosing the minimal uniformization rate $\bar ν=3$ gives
+   $$
+   \bar P
+   =I+\frac{Q}{3}
+   =\MATRIX{
+      0 & \frac23 & \frac13 \\
+      \frac13 & \frac13 & \frac13 \\
+      \frac23 & 0 & \frac13
+   }.
+   $$
+   The diagonal entries are the probabilities of dummy self-transitions at the ticks of the rate-$3$ Poisson clock. There is no dummy self-transition in state $0$, whose holding rate is already $3$.
+
+5. Conditioning on the number of clock ticks by time $t$ gives
+   $$
+   P(t)
+   =\EXP\left[\bar P^{N_{\bar ν}(t)}\right]
+   =e^{-\bar νt}\sum_{n=0}^{∞}\frac{(\bar νt)^n}{n!}\bar P^n
+   =e^{-\bar νt}\exp(\bar νt\bar P).
+   $$
+   Since $I$ and $\bar P$ commute and $Q=\bar ν(\bar P-I)$,
+   $$
+   e^{-\bar νt}\exp(\bar νt\bar P)
+   =\exp\bigl(\bar νt(\bar P-I)\bigr)
+   =\exp(tQ).
+   $$
+   Uniformization therefore represents the continuous-time transition probabilities as a Poisson-weighted average of discrete-time transition probabilities.
+
+6. Many discrete-time results can now be transferred directly. Ignoring dummy self-transitions, $\bar P$ has the same class structure and hitting probabilities as the continuous-time chain. Moreover,
+   $$
+   π\bar P=π
+   \quad\Longleftrightarrow\quad
+   πQ=\mathbf 0,
+   $$
+   so the uniformized chain and the continuous-time chain have exactly the same invariant distributions; no scaling is needed. This differs from the embedded jump chain, whose invariant distribution must be adjusted for the state-dependent holding rates.
+
+   If the continuous-time chain is finite and irreducible, choose $\bar ν$ strictly larger than every holding rate $ν_i$. Then $\bar P$ is irreducible and has a positive self-transition probability at every state, so it is aperiodic. The discrete-time convergence theorem gives
+   $$
+   \lim_{n\to∞}[\bar P^n]_{ij}=π_j.
+   $$
+   Since $N_{\bar ν}(t)\to∞$ as $t\to∞$, the representation $X(t)=Z_{N_{\bar ν}(t)}$ gives
+   $$
+   \lim_{t\to∞}P_{ij}(t)=π_j.
+   $$
+
+7. Time quantities do require scaling. Let
+   $$
+   K_A=\inf\{n\ge0:Z_n\in A\}
+   $$
+   be the number of uniformization steps needed to reach $A$. Since the times between clock ticks have mean $1/\bar ν$,
+   $$
+   \EXP_i[H_A]=\frac{\EXP_i[K_A]}{\bar ν},
+   $$
+   whenever these expectations are finite.
+
+   For example, consider the three-state chain in @exm-ctmc-mean-hitting and use the uniformized chain computed above with $\bar ν=3$. Let $k_i=\EXP_i[K_A]$ be the mean number of uniformization steps needed to reach state $0$. The discrete-time mean hitting-time equations are
+   \begin{align*}
+     k_0 &= 0, \\
+     k_1 &= 1+\frac13 k_0+\frac13 k_1+\frac13 k_2, \\
+     k_2 &= 1+\frac23 k_0+\frac13 k_2.
+   \end{align*}
+   Solving gives $k_1=9/4$ and $k_2=3/2$. Dividing by the common clock rate gives
+   $$
+   m_1=\frac{k_1}{\bar ν}=\frac34,
+   \qquad
+   m_2=\frac{k_2}{\bar ν}=\frac12,
+   $$
+   in agreement with the direct continuous-time calculation.
 
 ## Exercises {-}
 
