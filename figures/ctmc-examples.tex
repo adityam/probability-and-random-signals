@@ -34,22 +34,22 @@
 \stoptikzpicture}
 \stopTEXpage
 
-% Three-state CTMC from Q = [[-2,1,1],[2,-3,1],[0,2,-2]]
-% Triangle: state 1 on top, states 0 and 2 on the base
+% Three-state CTMC from Q = [[-3,2,1],[1,-2,1],[2,0,-2]]
+% Triangle: state 0 on top, states 1 and 2 on the base
 % Wide base, moderate height (not equilateral) so interior labels do not collide
 \startTEXpage[offset=1dk]
 \scale[scale=1500]{\starttikzpicture[line width=1bp]
-   \node[state] (s0) at (0,0) {$0$};
+   \node[state] (s0) at (3,3) {$0$};
+   \node[state] (s1) at (0,0) {$1$};
    \node[state] (s2) at (6,0) {$2$};
-   \node[state] (s1) at (3,3) {$1$};
    \draw[every loop]
-       (s0) edge[bend left, auto=left] node {$1$} (s1)
-       (s1) edge[bend left, auto=left] node {$2$} (s0)
+       (s0) edge[bend left, auto=left] node {$2$} (s1)
+       (s1) edge[bend left, auto=left] node {$1$} (s0)
 
-       (s1) edge[bend left, auto=left] node {$1$} (s2)
-       (s2) edge[bend left, auto=left] node {$2$} (s1)
+       (s0) edge[bend left, auto=left] node {$1$} (s2)
+       (s2) edge[bend left, auto=left] node {$2$} (s0)
 
-       (s0) edge[bend right, auto=right] node {$1$} (s2)
+       (s1) edge[bend right, auto=right] node {$1$} (s2)
        ;
 
 \stoptikzpicture}

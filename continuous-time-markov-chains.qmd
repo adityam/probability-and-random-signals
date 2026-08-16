@@ -6,7 +6,7 @@ In this lecture, we pass from discrete-time Markov chains to continuous time. In
 
 ## Holding times and the embedded chain
 
-1. We construct a continuous-time Markov chain as follows. Whenever the chain enters state $i$, it remains there for an exponentially distributed **holding time** with rate $ν_i$. At the end of the holding time, it jumps to state $j$ with probability $P_{ij}$, where
+1. Continuous-time Markov chains are constructed as follows. Whenever the chain enters state $i$, it remains there for an exponentially distributed **holding time** with rate $ν_i$. At the end of the holding time, it jumps to state $j$ with probability $P_{ij}$, where
    $$ P_{ii} = 0, \quad \sum_{j \ne i} P_{ij} = 1. $$
    The successive states visited by the process form a discrete-time Markov chain with transition matrix $P$, called the **embedded jump chain**. The rates $ν_i$ determine when the process jumps; $P$ determines where it jumps.
 
@@ -24,69 +24,41 @@ In this lecture, we pass from discrete-time Markov chains to continuous time. In
    $$ \frac{q_{ij}}{ν_i} = P_{ij}. $$
    This is the **competing exponential clocks** construction. It is the same mechanism we used for competing Poisson processes.
 
-## Local transition rates and the generator
-
-1. Recall that a Poisson process with rate $λ$ satisfies, over a short interval of length $h$,
-   \begin{align*}
-     \PR(N(t + h) - N(t) = 0) &= 1 - λh + o(h), \\
-     \PR(N(t + h) - N(t) = 1) &= λh + o(h), \\
-     \PR(N(t + h) - N(t) \ge 2) &= o(h).
-   \end{align*}
-   Here $o(h)$ denotes a term negligible compared with $h$, i.e.,
-   $$ \frac{o(h)}{h} \longrightarrow 0 \quad\text{as }h \to 0. $$
-
-2. Continuous-time Markov chains have the same local description. The probability of leaving state $i$ in an interval of length $h$ is $ν_i h + o(h)$. For $j \ne i$,
-   $$ \PR(X(t + h) = j \mid X(t) = i) = q_{ij} h + o(h). $$
-   Likewise,
-   $$ \PR(X(t + h) = i \mid X(t) = i) = 1 - ν_i h + o(h). $$
-   To first order in $h$, remaining in $i$ means that no jump occurs in the interval. Leaving $i$ and returning requires at least two jumps, which has probability $o(h)$. Our convention $P_{ii} = 0$ for the embedded chain does not prevent $X(t + h) = i$.
-
-3. We collect the transition rates in the **generator matrix** $Q$, where
+4. The transition rates are collected in the **generator matrix** $Q$, where
    $$ Q_{ij} = q_{ij} \quad (j \ne i), \qquad Q_{ii} = -\sum_{j \ne i} q_{ij} = -ν_i. $$
    The off-diagonal entries of $Q$ are nonnegative and every row sums to zero:
    $$ Q\mathbf 1 = \mathbf 0. $$
-   If $P(h)$ denotes the matrix of transition probabilities over an interval of length $h$, then
-   $$ P(h) = I + hQ + o(h). $$
+   As in discrete time, a time-homogeneous continuous-time Markov chain is completely specified by its initial distribution and $Q$.
 
-4. :::{#exm-two-state-ctmc}
-   #### Two-state continuous-time Markov chain
+5. Such Markov chains can also be visualized using **state transition diagrams**. The drawing convention is the same as in discrete time, with one difference: the edge labels are the off-diagonal rates $q_{ij}$ from $Q$, and self-loops are **not** drawn. In discrete time, a self-loop at $i$ records $P_{ii}$. In continuous time, remaining in $i$ for a short interval is already encoded by the holding rate $ν_i = -Q_{ii}$, so a self-loop is redundant.
 
-   Suppose a system switches from state $0$ to state $1$ at rate $α > 0$ and from state $1$ to state $0$ at rate $β > 0$. The holding times in $0$ and $1$ are exponential with rates $α$ and $β$. The embedded jump chain alternates between the two states, and the generator is
-   $$ Q = \MATRIX{-α & α \\ β & -β}. $$
-   For example, this can model a component that fails at rate $α$ and is repaired at rate $β$.
-   :::
-
-## State transition diagrams
-
-1. As in discrete time, we visualize continuous-time Markov chains by **state transition diagrams**. The drawing convention is the same, with one difference: the edge labels are the off-diagonal rates $q_{ij}$ from $Q$, and we **do not draw self-loops**. In discrete time, a self-loop at $i$ records $P_{ii}$. In continuous time, remaining in $i$ for a short interval is already encoded by the holding rate $ν_i = -Q_{ii}$, so a self-loop is redundant.
-
-   Given a diagram, we recover the generator by reading $Q_{ij} = q_{ij}$ from the directed edge $i \to j$ (for $j \ne i$) and setting
+   Given a diagram, the generator is recovered by reading $Q_{ij} = q_{ij}$ from the directed edge $i \to j$ (for $j \ne i$) and setting
    $$ Q_{ii} = -\sum_{j \ne i} q_{ij}. $$
    The holding rates and embedded jump probabilities then follow from
    $$ ν_i = -Q_{ii}, \qquad P_{ij} = \frac{q_{ij}}{ν_i} \quad (j \ne i), \qquad P_{ii} = 0, $$
    whenever $ν_i > 0$.
 
-2. :::{#exm-ctmc-diagram-two-state}
-   #### From $Q$ to a diagram: two states
+6. :::{#exm-two-state-ctmc}
+   #### Two-state continuous-time Markov chain
 
-   The two-state chain of @exm-two-state-ctmc has generator
+   Suppose a system switches from state $0$ to state $1$ at rate $α > 0$ and from state $1$ to state $0$ at rate $β > 0$. The holding times in $0$ and $1$ are exponential with rates $α$ and $β$. The embedded jump chain alternates between the two states, and the generator is
    $$ Q = \MATRIX{-α & α \\ β & -β}. $$
-   Its diagram has an edge $0 \to 1$ labeled $α$ and an edge $1 \to 0$ labeled $β$. There are no self-loops.
+   For example, this can model a component that fails at rate $α$ and is repaired at rate $β$. The corresponding diagram has an edge $0 \to 1$ labeled $α$ and an edge $1 \to 0$ labeled $β$, with no self-loops.
 
    ![Two-state continuous-time Markov chain](figures/svg/ctmc-examples1.svg)
    :::
 
-3. :::{#exm-ctmc-diagram-three-state}
+7. :::{#exm-ctmc-diagram-three-state}
    #### From $Q$ to a diagram: three states
 
    Consider
-   $$ Q = \MATRIX{-2 & 1 & 1 \\ 2 & -3 & 1 \\ 0 & 2 & -2}. $$
-   The off-diagonal entries become edge labels: $0 \to 1$ and $0 \to 2$ at rate $1$, $1 \to 0$ at rate $2$, $1 \to 2$ at rate $1$, and $2 \to 1$ at rate $2$. There is no edge $2 \to 0$, since $Q_{20} = 0$. There are no self-loops; the diagonal entries $-2$, $-3$, and $-2$ are minus the total outgoing rate from each state.
+   $$ Q = \MATRIX{-3 & 2 & 1 \\ 1 & -2 & 1 \\ 2 & 0 & -2}. $$
+   The off-diagonal entries become edge labels: $0 \to 1$ at rate $2$, $0 \to 2$ at rate $1$, $1 \to 0$ and $1 \to 2$ at rate $1$, and $2 \to 0$ at rate $2$. There is no edge $2 \to 1$, since $Q_{21} = 0$. There are no self-loops; the diagonal entries $-3$, $-2$, and $-2$ are minus the total outgoing rate from each state.
 
    ![Three-state continuous-time Markov chain](figures/svg/ctmc-examples2.svg)
    :::
 
-4. :::{#exm-finite-buffer-queue}
+8. :::{#exm-finite-buffer-queue}
    #### A finite-buffer packet queue
 
    Packets arrive at a buffer according to a Poisson process with rate $λ$, and their service times are independent exponential random variables with rate $μ$. The buffer can hold at most two packets, including the packet in service. Let $X(t)$ be the number of packets in the buffer at time $t$. An arrival in state $2$ is discarded and does not change the state.
@@ -108,9 +80,68 @@ In this lecture, we pass from discrete-time Markov chains to continuous time. In
    :::
    :::
 
+## Transition probabilities
+
+1. Recall that a Poisson process with rate $λ$ satisfies, over a short interval of length $h$,
+   \begin{align*}
+     \PR(N(t + h) - N(t) = 0) &= 1 - λh + o(h), \\
+     \PR(N(t + h) - N(t) = 1) &= λh + o(h), \\
+     \PR(N(t + h) - N(t) \ge 2) &= o(h).
+   \end{align*}
+   Here $o(h)$ denotes a term negligible compared with $h$, i.e.,
+   $$ \frac{o(h)}{h} \longrightarrow 0 \quad\text{as }h \to 0. $$
+
+2. Continuous-time Markov chains have the same local description. The probability of leaving state $i$ in an interval of length $h$ is $ν_i h + o(h)$. For $j \ne i$,
+   $$ \PR(X(t + h) = j \mid X(t) = i) = q_{ij} h + o(h). $$
+   Likewise,
+   $$ \PR(X(t + h) = i \mid X(t) = i) = 1 - ν_i h + o(h). $$
+   To first order in $h$, remaining in $i$ means that no jump occurs in the interval. Leaving $i$ and returning requires at least two jumps, which has probability $o(h)$. Our convention $P_{ii} = 0$ for the embedded chain does not prevent $X(t + h) = i$.
+
+3. Define the transition probabilities
+   $$ P_{ij}(t) = \PR(X(t) = j \mid X(0) = i). $$
+   By time homogeneity, this is also $\PR(X(s + t) = j \mid X(s) = i)$ for any starting time $s$. Let $P(t)$ denote the matrix with entries $P_{ij}(t)$. Each $P(t)$ is row stochastic, and
+   $$ P(0) = I. $$
+   The notation $P(t)$ should not be confused with the matrix $P$ of the embedded jump chain. The local description above is equivalent to
+   $$ P(h) = I + hQ + o(h). $$
+
+4. Conditioning on the state after time $s$ gives the **Chapman--Kolmogorov equations**
+   $$ P_{ij}(s + t) = \sum_{k \in \ALPHABET X} P_{ik}(s) P_{kj}(t), $$
+   or, in matrix notation,
+   $$ P(s + t) = P(s) P(t). $$
+
+5. Combining the Chapman--Kolmogorov equations with
+   $$ P(h) = I + hQ + o(h) $$
+   gives the **forward equation**. Writing
+   $$ P(t + h) = P(t) P(h) $$
+   and taking $h \to 0$ yields
+   $$ \frac{d}{dt} P(t) = P(t) Q. $$
+   With $P(0) = I$, the solution is
+   $$ P(t) = \exp(tQ) = I + tQ + \frac{t^2 Q^2}{2!} + \cdots. $$
+
+6. Let $μ(t)$ be the row vector of state occupancy probabilities,
+   $$ μ_i(t) = \PR(X(t) = i). $$
+   Then
+   $$ μ(t) = μ(0) P(t), $$
+   and the forward equation implies
+   $$ \frac{d}{dt} μ(t) = μ(t) Q. $$
+   Component-wise,
+   $$ \frac{d}{dt} μ_j(t) = \sum_{i \ne j} μ_i(t) q_{ij} - μ_j(t) \sum_{k \ne j} q_{jk}. $$
+   The rate of change of the probability of state $j$ is the probability flow into $j$ minus the probability flow out of $j$.
+
+7. For the two-state chain in @exm-two-state-ctmc,
+   $$
+     P(t) = \frac{1}{α + β}
+     \MATRIX{
+     β + α e^{-(α + β)t} & α\bigl(1 - e^{-(α + β)t}\bigr) \\
+     β\bigl(1 - e^{-(α + β)t}\bigr) & α + β e^{-(α + β)t}
+     }.
+   $$
+   As $t \to \infty$, both rows converge to
+   $$ π = \frac{1}{α + β} \MATRIX{β & α}. $$
+
 ## Class structure and hitting times
 
-1. For a nonabsorbing state $i$, there is a directed edge $i \to j$ in the continuous-time chain whenever $q_{ij} > 0$, equivalently whenever $P_{ij} > 0$ in the embedded chain. Thus the continuous-time chain and its embedded chain have the same accessibility relations, communicating classes, closed classes, and irreducibility. A state with $ν_i = 0$ is an absorbing singleton class; its row in $P$ remains irrelevant. We can therefore read the class structure from the embedded chain, using the results for discrete-time Markov chains. Periodicity, however, is not a condition that we carry over to continuous time.
+1. For a nonabsorbing state $i$, there is a directed edge $i \to j$ in the continuous-time chain whenever $q_{ij} > 0$, equivalently whenever $P_{ij} > 0$ in the embedded chain. Thus the continuous-time chain and its embedded chain have the same accessibility relations, communicating classes, closed classes, and irreducibility. A state with $ν_i = 0$ is an absorbing singleton class; its row in $P$ remains irrelevant. The class structure can therefore be read from the embedded chain, using the results for discrete-time Markov chains. Periodicity, however, is not a condition that carries over to continuous time.
 
 2. For a set of states $A$, define the **hitting time**
    $$ H_A = \inf\{t \ge 0 : X(t) \in A\}. $$
@@ -130,48 +161,22 @@ In this lecture, we pass from discrete-time Markov chains to continuous time. In
    $$ \sum_j q_{ij} m_j = -1, \qquad i \notin A,\ ν_i > 0. $$
    An absorbing state outside $A$ has infinite mean hitting time. The embedded path determines whether a set is reached; the holding rates determine how much time elapses before it is reached. The number of jumps alone determines the continuous-time mean only when all relevant holding rates are the same.
 
-## Transition probabilities
+4. :::{#exm-ctmc-mean-hitting}
+   #### Mean hitting times for the three-state chain
 
-1. Define the transition probabilities
-   $$ P_{ij}(t) = \PR(X(t) = j \mid X(0) = i). $$
-   By time homogeneity, this is also $\PR(X(s + t) = j \mid X(s) = i)$ for any starting time $s$. Let $P(t)$ denote the matrix with entries $P_{ij}(t)$. Each $P(t)$ is row stochastic, and
-   $$ P(0) = I. $$
-   The notation $P(t)$ should not be confused with the matrix $P$ of the embedded jump chain.
+   Consider the three-state chain in @exm-ctmc-diagram-three-state, and let $A = \{0\}$. The chain is irreducible, so $H_A$ is almost surely finite from every state. Write $m_i = \EXP_i[H_A]$ for the mean time to reach state $0$. Then $m_0 = 0$.
 
-2. Conditioning on the state after time $s$ gives the **Chapman--Kolmogorov equations**
-   $$ P_{ij}(s + t) = \sum_{k \in \ALPHABET X} P_{ik}(s) P_{kj}(t), $$
-   or, in matrix notation,
-   $$ P(s + t) = P(s) P(t). $$
-
-3. Combining the Chapman--Kolmogorov equations with
-   $$ P(h) = I + hQ + o(h) $$
-   gives the **forward equation**. Writing
-   $$ P(t + h) = P(t) P(h) $$
-   and taking $h \to 0$ yields
-   $$ \frac{d}{dt} P(t) = P(t) Q. $$
-   With $P(0) = I$, the solution is
-   $$ P(t) = \exp(tQ) = I + tQ + \frac{t^2 Q^2}{2!} + \cdots. $$
-
-4. Let $μ(t)$ be the row vector of state occupancy probabilities,
-   $$ μ_i(t) = \PR(X(t) = i). $$
-   Then
-   $$ μ(t) = μ(0) P(t), $$
-   and the forward equation implies
-   $$ \frac{d}{dt} μ(t) = μ(t) Q. $$
-   Component-wise,
-   $$ \frac{d}{dt} μ_j(t) = \sum_{i \ne j} μ_i(t) q_{ij} - μ_j(t) \sum_{k \ne j} q_{jk}. $$
-   The rate of change of the probability of state $j$ is the probability flow into $j$ minus the probability flow out of $j$.
-
-5. For the two-state chain in @exm-two-state-ctmc,
-   $$
-     P(t) = \frac{1}{α + β}
-     \MATRIX{
-     β + α e^{-(α + β)t} & α\bigl(1 - e^{-(α + β)t}\bigr) \\
-     β\bigl(1 - e^{-(α + β)t}\bigr) & α + β e^{-(α + β)t}
-     }.
-   $$
-   As $t \to \infty$, both rows converge to
-   $$ π = \frac{1}{α + β} \MATRIX{β & α}. $$
+   From state $2$, the chain can jump only to $0$, at rate $2$. Hence
+   $$ m_2 = \frac{1}{2}. $$
+   From state $1$, the holding rate is $ν_1 = 2$ and the embedded chain jumps to $0$ or $2$ with equal probability. Therefore
+   $$ m_1 = \frac{1}{2} + \frac{1}{2} m_0 + \frac{1}{2} m_2 = \frac{1}{2} + \frac{1}{2} \cdot \frac{1}{2} = \frac{3}{4}. $$
+   Equivalently, the generator equations $\sum_j q_{ij} m_j = -1$ for $i \notin A$ are
+   \begin{align*}
+     m_0 - 2 m_1 + m_2 &= -1, \\
+     2 m_0 - 2 m_2 &= -1.
+   \end{align*}
+   With $m_0 = 0$, the second equation gives $m_2 = 1/2$, and then the first gives $m_1 = 3/4$.
+   :::
 
 ## Invariant distributions
 
@@ -235,5 +240,5 @@ In this lecture, we pass from discrete-time Markov chains to continuous time. In
    $$ P'(t) = P(t) Q. $$
 
 3. Consider a three-state continuous-time Markov chain with generator
-   $$ Q = \MATRIX{-2 & 1 & 1 \\ 2 & -3 & 1 \\ 0 & 2 & -2}. $$
+   $$ Q = \MATRIX{-3 & 2 & 1 \\ 1 & -2 & 1 \\ 2 & 0 & -2}. $$
    Find its holding rates, embedded jump transition matrix, and invariant distribution.
