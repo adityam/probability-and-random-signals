@@ -265,7 +265,7 @@ Plot.plot({
 
 ## Conditional arrival times
 
-1. Suppose that $N(t)=1$. Conditional on this event, the single arrival time $S_1$ is uniformly distributed on $[0,t]$. Indeed, for $0\le s\le t$,
+1. Suppose that $N(t)=1$. Conditional on this event, the single arrival time $S_1$ is uniformly distributed on $[0,t]$. For $0 \le s \le t$,
    \begin{align*}
    \PR(S_1\le s\mid N(t)=1)
    &=\frac{\PR(N(s)=1,N(t)-N(s)=0)}{\PR(N(t)=1)}\\

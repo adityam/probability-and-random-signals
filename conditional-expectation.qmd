@@ -390,7 +390,7 @@ Conditioning on an event $C$ updates the model when we learn that $C$ occurred. 
    \EXP[XY \mid \ALPHABET G] = Y \EXP[X \mid \ALPHABET G].
    $$
 
-   Indeed, on each atom $D_i$ the random variable $Y$ is constant, say equal to $y_i$, so
+   On each atom $D_i$ the random variable $Y$ is constant, say equal to $y_i$, so
    $$
    \EXP[XY \mid D_i] = y_i \EXP[X \mid D_i],
    $$

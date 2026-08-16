@@ -288,6 +288,41 @@ M_Z(s)
       σ^2 = \sum_{i=1}^n σ_i^2.
     $$
 
+### Sum of a random number of random variables
+
+Let $N$ be a nonnegative integer-valued random variable that is independent of the i.i.d.\ random variables $X_1, X_2, \ldots$, and define
+$$
+S_N = \sum_{i=1}^N X_i,
+\qquad S_0 = 0.
+$$
+Assume that the moments and transforms below exist.
+
+1. Conditional on $N = n$, @thm-sum-of-independent gives
+   $$ \EXP[e^{s S_N} \mid N = n] = (M_X(s))^n. $$
+   Therefore, conditioning on $N$ gives
+   $$ M_{S_N}(s) = \EXP\bigl[(M_X(s))^N\bigr]. $$
+
+2. The same conditioning gives the mean. Given $N = n$,
+   $$ \EXP[S_N \mid N = n] = \EXP[X_1 + \cdots + X_n] = n \EXP[X]. $$
+   Hence
+   $$ \EXP[S_N \mid N] = N \EXP[X], $$
+   and taking expectation of both sides yields
+   $$ \EXP[S_N] = \EXP[N] \EXP[X]. $$
+
+3. If $N \sim \operatorname{Pois}(λ)$ and $X_i \sim \text{Ber}(p)$, then $M_X(s) = 1 - p + p e^s$. Since $\EXP[r^N] = \exp\bigl(λ(r - 1)\bigr)$, we obtain
+   $$ M_{S_N}(s) = \exp\bigl(λ p (e^s - 1)\bigr). $$
+   Thus $S_N \sim \operatorname{Pois}(λ p)$. Independently keeping each of a Poisson number of items with probability $p$ again yields a Poisson count.
+
+4. Let $N \sim \text{Geo}(p)$. Then
+   $$ \EXP[r^N] = \frac{p r}{1 - (1 - p) r}, $$
+   so
+   $$ M_{S_N}(s) = \frac{p M_X(s)}{1 - (1 - p) M_X(s)}. $$
+   If $X_i \sim \text{Exponential}(λ)$, this simplifies to
+   $$ M_{S_N}(s) = \frac{p λ}{p λ - s}, $$
+   hence $S_N \sim \text{Exponential}(p λ)$. If instead $X_i \sim \text{Geo}(α)$, the same substitution yields
+   $$ M_{S_N}(s) = \frac{p α e^s}{1 - (1 - p α) e^s}, $$
+   hence $S_N \sim \text{Geo}(p α)$. A geometric number of exponential waiting times is exponential; a geometric number of geometric counts is geometric.
+
 ## The Central Limit Theorem
 
 One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sums of i.i.d.\ random variables.

@@ -63,6 +63,32 @@ where $\{Z_n\}_{n \ge 0}$ is an i.i.d.\ sequence which takes values $+1$ with pr
 The gambler stops when his fortune is ruined, i.e., $X_n = 0$. In some variations, the gambler may also stop when his fortune reaches a pre-specified amount of \$$K$.
 :::
 
+:::{#exm-state-augmentation}
+#### State augmentation
+
+Sometimes a process $\{X_n\}_{n\geq 0}$ is not Markov but can be made Markov by including additional information in the state. This is called **state augmentation**.
+
+For instance, consider a wireless communication channel whose observed state is $X_n\in\{0,1\}$, where $0$ denotes a bad channel and $1$ denotes a good channel. From the good state, the channel transitions to the bad state with probability $p$ and otherwise remains good. Once the channel enters the bad state, it remains bad for exactly two time steps and then returns to the good state. This is a simple model of burst erasures.
+
+The process $\{X_n\}_{n\geq 0}$ is not Markov:
+$$
+\PR(X_{n+1}=1\mid X_n=0,X_{n-1}=1)=0,
+\qquad
+\PR(X_{n+1}=1\mid X_n=0,X_{n-1}=0)=1.
+$$
+Thus, knowing only that the channel is currently bad is not sufficient to determine its next-state distribution; we must also know whether this is the first or second bad time step.
+
+We can make the process Markov by augmenting the state space to
+$$
+\ALPHABET X=\{(0,0),(0,1),1\},
+$$
+where $(0,0)$ denotes the first bad time step and $(0,1)$ denotes the second bad time step. The augmented Markov chain is shown below.
+
+![State augmentation for a burst-erasure channel](figures/svg/markov-examples12.svg)
+
+In general, identifying an appropriate state is an important component of stochastic modeling.
+:::
+
 See the following video from [Veritasium](https://www.youtube.com/@veritasium) for an excellent history of Markov chains and its applications
 
 {{< video https://www.youtube.com/watch?v=KZeIEiBrT_w >}}
@@ -87,7 +113,7 @@ A time-homogeneous Markov chain is completely specified by its initial distribut
 $$
 μ^{(0)}_i=\PR(X_0=i),
 $$
-and its transition matrix $P$. Indeed, the chain rule and the Markov property give
+and its transition matrix $P$. The chain rule and the Markov property give
 \begin{align*}
 &\PR(X_0=x_0,X_1=x_1,\ldots,X_n=x_n)\\
 &\quad=μ^{(0)}_{x_0}
@@ -747,7 +773,7 @@ This gives both components of the occupancy distribution and agrees with the rec
     \end{align*}
     :::
 
-    In the two-absorbing-state example above, the equation for state $1$ would be $m^A_1=1+m^A_1$, which has no finite solution. Indeed, the actual mean hitting time is $m^A_1=∞$.
+    In the two-absorbing-state example above, the equation for state $1$ would be $m^A_1=1+m^A_1$, which has no finite solution: the actual mean hitting time is $m^A_1 = ∞$.
 
 12. For absorbing Markov chains, we can use matrix methods to efficiently compute hitting probabilities and mean hitting times. The key idea is to rearrange the transition matrix into a **canonical form** where absorbing states are grouped together.
 
@@ -942,7 +968,7 @@ This gives both components of the occupancy distribution and agrees with the rec
      π_i=2^{-K}\binom Ki,
      \qquad i\in\{0,1,\ldots,K\}.
    $$
-   Indeed, the probability flows between every pair of adjacent states agree:
+   The probability flows between every pair of adjacent states agree:
    $$
      π_i\frac{K-i}{K}=π_{i+1}\frac{i+1}{K}.
    $$

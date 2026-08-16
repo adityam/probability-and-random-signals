@@ -8,7 +8,7 @@
 <path id="font_1_3" d="M.10798645 .2979889H.7589874V.35198976H.10798645V.2979889Z"/>
 <g id="font_2_1">
 <clipPath id="clip_3">
-<path transform="matrix(.100375007,0,0,.100375007,0,-.042216496)" d="M-1-1H11V2H-1Z"/>
+<path transform="matrix(.100375007,0,0,.100375007,0,-.042216496)" d="M-1-1H10.606675V1.8411754H-1Z"/>
 </clipPath>
 <g clip-path="url(#clip_3)">
 <use data-text="&#x2212;" xlink:href="#font_1_3" transform="matrix(1.2000002,0,0,1.2000002,-.12477938,-.39050544)"/>
