@@ -29,6 +29,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -153,6 +188,8 @@ window.MathJax = {
 };
 </script>
 <script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -497,6 +534,7 @@ window.Quarto = {
   <li><a href="#transition-probabilities" id="toc-transition-probabilities" class="nav-link" data-scroll-target="#transition-probabilities"><span class="header-section-number">14.2</span> Transition probabilities</a></li>
   <li><a href="#class-structure-and-hitting-times" id="toc-class-structure-and-hitting-times" class="nav-link" data-scroll-target="#class-structure-and-hitting-times"><span class="header-section-number">14.3</span> Class structure and hitting times</a></li>
   <li><a href="#invariant-distributions" id="toc-invariant-distributions" class="nav-link" data-scroll-target="#invariant-distributions"><span class="header-section-number">14.4</span> Invariant distributions</a></li>
+  <li><a href="#uniformization" id="toc-uniformization" class="nav-link" data-scroll-target="#uniformization"><span class="header-section-number">14.5</span> Uniformization</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/continuous-time-markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -564,7 +602,78 @@ window.Quarto = {
 <figcaption>Two-state continuous-time Markov chain</figcaption>
 </figure>
 </div>
+<p>The sample paths of <span class="math inline">\(X(t)\)</span> are piecewise constant and right-continuous. The process sits in a state for an exponential holding time and then jumps. Increasing <span class="math inline">\(α\)</span> shortens the sojourns in state <span class="math inline">\(0\)</span>; increasing <span class="math inline">\(β\)</span> shortens the sojourns in state <span class="math inline">\(1\)</span>. A sample path starting from state <span class="math inline">\(0\)</span> is shown below.</p>
 </div></li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="56" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 55;"><span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>viewof ctmc_alpha <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"rate α"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span>})</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>viewof ctmc_beta <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"rate β"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span>})</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>viewof rerun_ctmc <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>ctmc_path <span class="op">=</span> {</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>  rerun_ctmc</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> horizon <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> [{<span class="dt">t</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">X_t</span><span class="op">:</span> <span class="dv">0</span>}]</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> x <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (<span class="kw">true</span>) {</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> rate <span class="op">=</span> x <span class="op">===</span> <span class="dv">0</span> <span class="op">?</span> ctmc_alpha <span class="op">:</span> ctmc_beta</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> <span class="op">-</span><span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()) <span class="op">/</span> rate</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (t <span class="op">&gt;</span> horizon) <span class="cf">break</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> x</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    points<span class="op">.</span><span class="fu">push</span>({t<span class="op">,</span> <span class="dt">X_t</span><span class="op">:</span> x})</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>  points<span class="op">.</span><span class="fu">push</span>({<span class="dt">t</span><span class="op">:</span> horizon<span class="op">,</span> <span class="dt">X_t</span><span class="op">:</span> x})</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="78" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 77;"><span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">180</span><span class="op">,</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"t"</span>}<span class="op">,</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="fl">0.15</span><span class="op">,</span> <span class="fl">1.15</span>]<span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"X(t)"</span>}<span class="op">,</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(ctmc_path<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_t"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"step-after"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(ctmc_path<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"X_t"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<ol start="7" type="1">
 <li><div id="exm-ctmc-diagram-three-state" class="theorem example">
 <p><span class="theorem-title"><strong>Example 14.2 (From <span class="math inline">\(Q\)</span> to a diagram: three states)</strong></span> Consider <span class="math display">\[ Q = \MATRIX{-3 &amp; 2 &amp; 1 \\ 1 &amp; -2 &amp; 1 \\ 2 &amp; 0 &amp; -2}. \]</span> The off-diagonal entries become edge labels: <span class="math inline">\(0 \to 1\)</span> at rate <span class="math inline">\(2\)</span>, <span class="math inline">\(0 \to 2\)</span> at rate <span class="math inline">\(1\)</span>, <span class="math inline">\(1 \to 0\)</span> and <span class="math inline">\(1 \to 2\)</span> at rate <span class="math inline">\(1\)</span>, and <span class="math inline">\(2 \to 0\)</span> at rate <span class="math inline">\(2\)</span>. There is no edge <span class="math inline">\(2 \to 1\)</span>, since <span class="math inline">\(Q_{21} = 0\)</span>. There are no self-loops; the diagonal entries <span class="math inline">\(-3\)</span>, <span class="math inline">\(-2\)</span>, and <span class="math inline">\(-2\)</span> are minus the total outgoing rate from each state.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -653,7 +762,7 @@ window.Quarto = {
          {\sum_k π_k^{\mathrm{embed}} / ν_k}.
 \end{equation}\]</span> The embedded chain records the fraction of jumps into each state. The continuous-time chain weights each visit by its mean holding time <span class="math inline">\(1/ν_i\)</span>, so states with longer holding times receive more probability under <span class="math inline">\(π\)</span>.</p></li>
 <li><p>For the two-state chain, the embedded chain alternates between the two states, so <span class="math display">\[ π^{\mathrm{embed}} = \MATRIX{1/2 &amp; 1/2}. \]</span> Since <span class="math inline">\(ν_0 = α\)</span> and <span class="math inline">\(ν_1 = β\)</span>, <span class="math inline">\(\eqref{eq:embedded-ctmc-invariant-relation}\)</span> gives <span class="math display">\[ π = \frac{1}{α + β} \MATRIX{β &amp; α}, \]</span> which satisfies <span class="math inline">\(π Q = \mathbf 0\)</span>. This agrees with the limiting distribution found above.</p></li>
-<li><p>For a finite irreducible continuous-time Markov chain, the invariant distribution is unique and <span class="math display">\[ \lim_{t \to \infty} P_{ij}(t) = π_j. \]</span> Unlike a discrete-time chain, no separate aperiodicity assumption is needed. For any fixed <span class="math inline">\(Δ &gt; 0\)</span>, the sampled chain with transition matrix <span class="math inline">\(P(Δ)\)</span> is irreducible and has a positive probability of remaining in its current state during an interval of length <span class="math inline">\(Δ\)</span>. It is therefore aperiodic, and the discrete-time convergence result applies to the sampled chain. The continuous-time semigroup property then gives convergence for all <span class="math inline">\(t \to \infty\)</span>.</p></li>
+<li><p>For a finite irreducible continuous-time Markov chain, the invariant distribution is unique and <span class="math display">\[ \lim_{t \to \infty} P_{ij}(t) = π_j. \]</span> Unlike a discrete-time chain, no separate aperiodicity assumption is needed. The uniformization construction in the next section derives this result from the discrete-time convergence theorem.</p></li>
 <li><p>More generally, suppose the packet buffer in <a href="#exm-finite-buffer-queue" class="quarto-xref">Example&nbsp;<span>14.3</span></a> can hold <span class="math inline">\(m\)</span> packets. Its state space is <span class="math inline">\(\{0, 1, \ldots, m\}\)</span>, and its transition rates are <span class="math display">\[ q_{i,i+1} = λ, \quad i &lt; m, \qquad q_{i,i-1} = μ, \quad i &gt; 0. \]</span> Arrivals in state <span class="math inline">\(m\)</span> are discarded and do not change the state. The balance equations give, with <span class="math inline">\(ρ = λ/μ\)</span>, <span class="math display">\[ π_i = ρ^i π_0, \qquad i = 0, 1, \ldots, m. \]</span> Therefore, <span class="math display">\[
   π_i =
   \begin{cases}
@@ -661,6 +770,74 @@ window.Quarto = {
   \displaystyle\frac{1}{m+1}, &amp; ρ = 1.
   \end{cases}
 \]</span> Since packets arrive according to a Poisson process at a rate that does not depend on the state, an arriving packet finds the buffer full with probability <span class="math inline">\(π_m\)</span>. Thus <span class="math inline">\(π_m\)</span> is the <strong>blocking probability</strong>, and <span class="math display">\[ λ(1 - π_m) \]</span> is the rate at which packets are admitted to the buffer.</p></li>
+</ol>
+</section>
+<section id="uniformization" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="uniformization"><span class="header-section-number">14.5</span> Uniformization</h2>
+<ol type="1">
+<li><p>In the embedded jump chain, the time between successive steps depends on the current state. <strong>Uniformization</strong> places all states on a common time scale by introducing a Poisson clock with a constant rate. Choose <span class="math display">\[
+\bar ν\ge\max_{i\in\ALPHABET X}ν_i
+\]</span> and define <span class="math display">\[
+\bar P=I+\frac{Q}{\bar ν}.
+\]</span> Since the rows of <span class="math inline">\(Q\)</span> sum to zero, <span class="math inline">\(\bar P\)</span> is a transition matrix. Its entries are <span class="math display">\[
+\bar P_{ij}=\frac{q_{ij}}{\bar ν},\quad j\ne i,
+\qquad
+\bar P_{ii}=1-\frac{ν_i}{\bar ν}\ge0.
+\]</span> Choosing <span class="math inline">\(\bar ν\)</span> strictly larger than every holding rate <span class="math inline">\(ν_i\)</span> guarantees a positive dummy self-transition at every state.</p></li>
+<li><p>Let <span class="math inline">\(\{Z_n\}_{n\ge0}\)</span> be a discrete-time Markov chain with transition matrix <span class="math inline">\(\bar P\)</span>, and let <span class="math inline">\(\{N_{\bar ν}(t)\}_{t\ge0}\)</span> be an independent Poisson process with rate <span class="math inline">\(\bar ν\)</span>. Then <span class="math display">\[
+X(t)=Z_{N_{\bar ν}(t)}
+\]</span> is a continuous-time Markov chain with generator <span class="math inline">\(Q\)</span>. Thus, <span class="math inline">\(Z_n\)</span> is the state immediately after the <span class="math inline">\(n\)</span>-th tick of the common Poisson clock. At a clock tick, the chain may remain in state <span class="math inline">\(i\)</span> with probability <span class="math inline">\(\bar P_{ii}\)</span>. Such a self-transition is a <strong>dummy transition</strong> of the auxiliary discrete-time chain; it is not an actual jump of the continuous-time process.</p></li>
+<li><p>For the two-state chain in <a href="#exm-two-state-ctmc" class="quarto-xref">Example&nbsp;<span>14.1</span></a>, choose <span class="math inline">\(\bar ν\)</span> strictly larger than both <span class="math inline">\(α\)</span> and <span class="math inline">\(β\)</span>. Its uniformized transition matrix is <span class="math display">\[
+\bar P
+=I+\frac{Q}{\bar ν}
+=\MATRIX{
+   1-\frac{α}{\bar ν} &amp; \frac{α}{\bar ν} \\
+   \frac{β}{\bar ν} &amp; 1-\frac{β}{\bar ν}
+}.
+\]</span> Thus, the common clock ticks at rate <span class="math inline">\(\bar ν\)</span>. In state <span class="math inline">\(0\)</span>, a tick produces an actual transition with probability <span class="math inline">\(α/\bar ν\)</span> and a dummy self-transition otherwise; the corresponding probabilities in state <span class="math inline">\(1\)</span> are <span class="math inline">\(β/\bar ν\)</span> and <span class="math inline">\(1-β/\bar ν\)</span>.</p></li>
+<li><p>For the three-state chain in <a href="#exm-ctmc-diagram-three-state" class="quarto-xref">Example&nbsp;<span>14.2</span></a>, the largest holding rate is <span class="math inline">\(3\)</span>. Choosing the minimal uniformization rate <span class="math inline">\(\bar ν=3\)</span> gives <span class="math display">\[
+\bar P
+=I+\frac{Q}{3}
+=\MATRIX{
+   0 &amp; \frac23 &amp; \frac13 \\
+   \frac13 &amp; \frac13 &amp; \frac13 \\
+   \frac23 &amp; 0 &amp; \frac13
+}.
+\]</span> The diagonal entries are the probabilities of dummy self-transitions at the ticks of the rate-<span class="math inline">\(3\)</span> Poisson clock. There is no dummy self-transition in state <span class="math inline">\(0\)</span>, whose holding rate is already <span class="math inline">\(3\)</span>.</p></li>
+<li><p>Conditioning on the number of clock ticks by time <span class="math inline">\(t\)</span> gives <span class="math display">\[
+P(t)
+=\EXP\left[\bar P^{N_{\bar ν}(t)}\right]
+=e^{-\bar νt}\sum_{n=0}^{∞}\frac{(\bar νt)^n}{n!}\bar P^n
+=e^{-\bar νt}\exp(\bar νt\bar P).
+\]</span> Since <span class="math inline">\(I\)</span> and <span class="math inline">\(\bar P\)</span> commute and <span class="math inline">\(Q=\bar ν(\bar P-I)\)</span>, <span class="math display">\[
+e^{-\bar νt}\exp(\bar νt\bar P)
+=\exp\bigl(\bar νt(\bar P-I)\bigr)
+=\exp(tQ).
+\]</span> Uniformization therefore represents the continuous-time transition probabilities as a Poisson-weighted average of discrete-time transition probabilities.</p></li>
+<li><p>Many discrete-time results can now be transferred directly. Ignoring dummy self-transitions, <span class="math inline">\(\bar P\)</span> has the same class structure and hitting probabilities as the continuous-time chain. Moreover, <span class="math display">\[
+π\bar P=π
+\quad\Longleftrightarrow\quad
+πQ=\mathbf 0,
+\]</span> so the uniformized chain and the continuous-time chain have exactly the same invariant distributions; no scaling is needed. This differs from the embedded jump chain, whose invariant distribution must be adjusted for the state-dependent holding rates.</p>
+<p>If the continuous-time chain is finite and irreducible, choose <span class="math inline">\(\bar ν\)</span> strictly larger than every holding rate <span class="math inline">\(ν_i\)</span>. Then <span class="math inline">\(\bar P\)</span> is irreducible and has a positive self-transition probability at every state, so it is aperiodic. The discrete-time convergence theorem gives <span class="math display">\[
+\lim_{n\to∞}[\bar P^n]_{ij}=π_j.
+\]</span> Since <span class="math inline">\(N_{\bar ν}(t)\to∞\)</span> as <span class="math inline">\(t\to∞\)</span>, the representation <span class="math inline">\(X(t)=Z_{N_{\bar ν}(t)}\)</span> gives <span class="math display">\[
+\lim_{t\to∞}P_{ij}(t)=π_j.
+\]</span></p></li>
+<li><p>Time quantities do require scaling. Let <span class="math display">\[
+K_A=\inf\{n\ge0:Z_n\in A\}
+\]</span> be the number of uniformization steps needed to reach <span class="math inline">\(A\)</span>. Since the times between clock ticks have mean <span class="math inline">\(1/\bar ν\)</span>, <span class="math display">\[
+\EXP_i[H_A]=\frac{\EXP_i[K_A]}{\bar ν},
+\]</span> whenever these expectations are finite.</p>
+<p>For example, consider the three-state chain in <a href="#exm-ctmc-mean-hitting" class="quarto-xref">Example&nbsp;<span>14.4</span></a> and use the uniformized chain computed above with <span class="math inline">\(\bar ν=3\)</span>. Let <span class="math inline">\(k_i=\EXP_i[K_A]\)</span> be the mean number of uniformization steps needed to reach state <span class="math inline">\(0\)</span>. The discrete-time mean hitting-time equations are <span class="math display">\[\begin{align*}
+  k_0 &amp;= 0, \\
+  k_1 &amp;= 1+\frac13 k_0+\frac13 k_1+\frac13 k_2, \\
+  k_2 &amp;= 1+\frac23 k_0+\frac13 k_2.
+\end{align*}\]</span> Solving gives <span class="math inline">\(k_1=9/4\)</span> and <span class="math inline">\(k_2=3/2\)</span>. Dividing by the common clock rate gives <span class="math display">\[
+m_1=\frac{k_1}{\bar ν}=\frac34,
+\qquad
+m_2=\frac{k_2}{\bar ν}=\frac12,
+\]</span> in agreement with the direct continuous-time calculation.</p></li>
 </ol>
 </section>
 <section id="exercises" class="level2 unnumbered">
@@ -675,6 +852,17 @@ window.Quarto = {
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBjdG1jX2FscGhhID0gSW5wdXRzLnJhbmdlKFswLjUsIDVdLCB7bGFiZWw6IFwicmF0ZSDOsVwiLCB2YWx1ZTogMSwgc3RlcDogMC41fSlcbnZpZXdvZiBjdG1jX2JldGEgPSBJbnB1dHMucmFuZ2UoWzAuNSwgNV0sIHtsYWJlbDogXCJyYXRlIM6yXCIsIHZhbHVlOiAyLCBzdGVwOiAwLjV9KVxudmlld29mIHJlcnVuX2N0bWMgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxuY3RtY19wYXRoID0ge1xuICByZXJ1bl9jdG1jXG4gIGNvbnN0IGhvcml6b24gPSAxMFxuICBjb25zdCBwb2ludHMgPSBbe3Q6IDAsIFhfdDogMH1dXG4gIGxldCB0ID0gMFxuICBsZXQgeCA9IDBcbiAgd2hpbGUgKHRydWUpIHtcbiAgICBjb25zdCByYXRlID0geCA9PT0gMCA/IGN0bWNfYWxwaGEgOiBjdG1jX2JldGFcbiAgICB0ICs9IC1NYXRoLmxvZygxIC0gTWF0aC5yYW5kb20oKSkgLyByYXRlXG4gICAgaWYgKHQgPiBob3Jpem9uKSBicmVha1xuICAgIHggPSAxIC0geFxuICAgIHBvaW50cy5wdXNoKHt0LCBYX3Q6IHh9KVxuICB9XG4gIHBvaW50cy5wdXNoKHt0OiBob3Jpem9uLCBYX3Q6IHh9KVxuICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDE4MCxcbiAgeDoge2RvbWFpbjogWzAsIDEwXSwgbGFiZWw6IFwidFwifSxcbiAgeToge2RvbWFpbjogWy0wLjE1LCAxLjE1XSwgdGlja3M6IFswLCAxXSwgbGFiZWw6IFwiWCh0KVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKGN0bWNfcGF0aCwge3g6IFwidFwiLCB5OiBcIlhfdFwiLCBjdXJ2ZTogXCJzdGVwLWFmdGVyXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChjdG1jX3BhdGguc2xpY2UoMCwgLTEpLCB7eDogXCJ0XCIsIHk6IFwiWF90XCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjdG1jX2FscGhhJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2N0bWNfYmV0YScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXJ1bl9jdG1jJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

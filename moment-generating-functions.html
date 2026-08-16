@@ -498,6 +498,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#cumulant-generating-functions" id="toc-cumulant-generating-functions" class="nav-link" data-scroll-target="#cumulant-generating-functions"><span class="header-section-number">7.1.1</span> Cumulant generating functions</a></li>
   <li><a href="#moment-generating-functions-and-sums-of-independent-random-variables" id="toc-moment-generating-functions-and-sums-of-independent-random-variables" class="nav-link" data-scroll-target="#moment-generating-functions-and-sums-of-independent-random-variables"><span class="header-section-number">7.1.2</span> Moment generating functions and sums of independent random variables</a></li>
+  <li><a href="#sum-of-a-random-number-of-random-variables" id="toc-sum-of-a-random-number-of-random-variables" class="nav-link" data-scroll-target="#sum-of-a-random-number-of-random-variables"><span class="header-section-number">7.1.3</span> Sum of a random number of random variables</a></li>
   </ul></li>
   <li><a href="#the-central-limit-theorem" id="toc-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-central-limit-theorem"><span class="header-section-number">7.2</span> The Central Limit Theorem</a>
   <ul class="collapse">
@@ -869,6 +870,19 @@ M_Z(s)
    \quad\text{and}\quad
    σ^2 = \sum_{i=1}^n σ_i^2.
 \]</span></p></li>
+</ol>
+</section>
+<section id="sum-of-a-random-number-of-random-variables" class="level3" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="sum-of-a-random-number-of-random-variables"><span class="header-section-number">7.1.3</span> Sum of a random number of random variables</h3>
+<p>Let <span class="math inline">\(N\)</span> be a nonnegative integer-valued random variable that is independent of the i.i.d.&nbsp;random variables <span class="math inline">\(X_1, X_2, \ldots\)</span>, and define <span class="math display">\[
+S_N = \sum_{i=1}^N X_i,
+\qquad S_0 = 0.
+\]</span> Assume that the moments and transforms below exist.</p>
+<ol type="1">
+<li><p>Conditional on <span class="math inline">\(N = n\)</span>, <a href="#thm-sum-of-independent" class="quarto-xref">Theorem&nbsp;<span>7.1</span></a> gives <span class="math display">\[ \EXP[e^{s S_N} \mid N = n] = (M_X(s))^n. \]</span> Therefore, conditioning on <span class="math inline">\(N\)</span> gives <span class="math display">\[ M_{S_N}(s) = \EXP\bigl[(M_X(s))^N\bigr]. \]</span></p></li>
+<li><p>The same conditioning gives the mean. Given <span class="math inline">\(N = n\)</span>, <span class="math display">\[ \EXP[S_N \mid N = n] = \EXP[X_1 + \cdots + X_n] = n \EXP[X]. \]</span> Hence <span class="math display">\[ \EXP[S_N \mid N] = N \EXP[X], \]</span> and taking expectation of both sides yields <span class="math display">\[ \EXP[S_N] = \EXP[N] \EXP[X]. \]</span></p></li>
+<li><p>If <span class="math inline">\(N \sim \operatorname{Pois}(λ)\)</span> and <span class="math inline">\(X_i \sim \text{Ber}(p)\)</span>, then <span class="math inline">\(M_X(s) = 1 - p + p e^s\)</span>. Since <span class="math inline">\(\EXP[r^N] = \exp\bigl(λ(r - 1)\bigr)\)</span>, we obtain <span class="math display">\[ M_{S_N}(s) = \exp\bigl(λ p (e^s - 1)\bigr). \]</span> Thus <span class="math inline">\(S_N \sim \operatorname{Pois}(λ p)\)</span>. Independently keeping each of a Poisson number of items with probability <span class="math inline">\(p\)</span> again yields a Poisson count.</p></li>
+<li><p>Let <span class="math inline">\(N \sim \text{Geo}(p)\)</span>. Then <span class="math display">\[ \EXP[r^N] = \frac{p r}{1 - (1 - p) r}, \]</span> so <span class="math display">\[ M_{S_N}(s) = \frac{p M_X(s)}{1 - (1 - p) M_X(s)}. \]</span> If <span class="math inline">\(X_i \sim \text{Exponential}(λ)\)</span>, this simplifies to <span class="math display">\[ M_{S_N}(s) = \frac{p λ}{p λ - s}, \]</span> hence <span class="math inline">\(S_N \sim \text{Exponential}(p λ)\)</span>. If instead <span class="math inline">\(X_i \sim \text{Geo}(α)\)</span>, the same substitution yields <span class="math display">\[ M_{S_N}(s) = \frac{p α e^s}{1 - (1 - p α) e^s}, \]</span> hence <span class="math inline">\(S_N \sim \text{Geo}(p α)\)</span>. A geometric number of exponential waiting times is exponential; a geometric number of geometric counts is geometric.</p></li>
 </ol>
 </section>
 </section>
