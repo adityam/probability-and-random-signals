@@ -54,7 +54,7 @@ Communication
 | 10   | [Hitting times and limiting distributions of Markov chains](markov-chains.qmd) |
 | 11   | [Gauss–Markov models and spectral analysis](gauss-markov-processes.qmd) |
 | 12   | [Poisson processes](poisson-processes.qmd) |
-| 13   | [Continuous-time Markov chains](continuous-time-markov-chains.qmd) |
+| 13   | [Continuous-time Markov chains](continuous-time-markov-chains.qmd); [Brownian motion](brownian-motion.qmd) |
 
 : {tbl-colwidths="[10,90]" .striped}
 

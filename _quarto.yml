@@ -39,6 +39,7 @@ book:
       - gauss-markov-processes.qmd
       - poisson-processes.qmd
       - continuous-time-markov-chains.qmd
+      - brownian-motion.qmd
 
 format:
   html:
