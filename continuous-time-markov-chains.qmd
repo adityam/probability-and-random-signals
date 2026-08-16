@@ -1,5 +1,7 @@
 ---
 title: Continuous-time Markov chains
+execute:
+  echo: false
 ---
 
 In this lecture, we pass from discrete-time Markov chains to continuous time. In discrete time, the process can change state only at integer times. A **continuous-time Markov chain** $\{X(t)\}_{t \ge 0}$ can change state at any time. As before, the state summarizes all the information from the past that is relevant for the future: conditioned on $X(t)$, the evolution after time $t$ is independent of the evolution before time $t$. We focus on time-homogeneous chains on a finite state space $\ALPHABET X$.
@@ -46,7 +48,46 @@ In this lecture, we pass from discrete-time Markov chains to continuous time. In
    For example, this can model a component that fails at rate $α$ and is repaired at rate $β$. The corresponding diagram has an edge $0 \to 1$ labeled $α$ and an edge $1 \to 0$ labeled $β$, with no self-loops.
 
    ![Two-state continuous-time Markov chain](figures/svg/ctmc-examples1.svg)
+
+   The sample paths of $X(t)$ are piecewise constant and right-continuous. The process sits in a state for an exponential holding time and then jumps. Increasing $α$ shortens the sojourns in state $0$; increasing $β$ shortens the sojourns in state $1$. A sample path starting from state $0$ is shown below.
    :::
+
+```{ojs}
+viewof ctmc_alpha = Inputs.range([0.5, 5], {label: "rate α", value: 1, step: 0.5})
+viewof ctmc_beta = Inputs.range([0.5, 5], {label: "rate β", value: 2, step: 0.5})
+viewof rerun_ctmc = Inputs.button("Generate sample path")
+
+ctmc_path = {
+  rerun_ctmc
+  const horizon = 10
+  const points = [{t: 0, X_t: 0}]
+  let t = 0
+  let x = 0
+  while (true) {
+    const rate = x === 0 ? ctmc_alpha : ctmc_beta
+    t += -Math.log(1 - Math.random()) / rate
+    if (t > horizon) break
+    x = 1 - x
+    points.push({t, X_t: x})
+  }
+  points.push({t: horizon, X_t: x})
+  return points
+}
+```
+
+```{ojs}
+Plot.plot({
+  grid: true,
+  height: 180,
+  x: {domain: [0, 10], label: "t"},
+  y: {domain: [-0.15, 1.15], ticks: [0, 1], label: "X(t)"},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.line(ctmc_path, {x: "t", y: "X_t", curve: "step-after", strokeWidth: 1.5}),
+    Plot.dot(ctmc_path.slice(0, -1), {x: "t", y: "X_t", fill: "currentColor", r: 2})
+  ]
+})
+```
 
 7. :::{#exm-ctmc-diagram-three-state}
    #### From $Q$ to a diagram: three states
