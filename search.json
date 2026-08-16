@@ -26,7 +26,7 @@
     "href": "index.html#course-content",
     "title": "Probability and Random Signals II",
     "section": "Course Content",
-    "text": "Course Content\n\n\n\n\n\n\n\nWeek\nMaterial Covered\n\n\n\n\n1\nProbability spaces, algebra of events, axioms of probability\n\n\n2\nRandom variables\n\n\n3\nRandom vectors\n\n\n4\nGaussian random vectors; conditional probability and conditional expectation\n\n\n5\nMMSE estimation\n\n\n6\nMoment generating functions and sums of random variables; probability inequalities\n\n\n7\nReview and Mid-Term\n\n\n8\nConvergence of random variables and the strong law of large numbers\n\n\n9\nStochastic processes and Markov chains\n\n\n10\nHitting times and limiting distributions of Markov chains\n\n\n11\nGauss–Markov models and spectral analysis\n\n\n12\nPoisson processes\n\n\n13\nContinuous-time Markov chains\n\n\n\nThe material for the lecture notes is taken from various sources including the textbook and the reference book, as well as the lecture notes of Prof. Ioannis Psaromiglikos (McGill) and Prof. Ashutosh Nayyar (USC).",
+    "text": "Course Content\n\n\n\n\n\n\n\nWeek\nMaterial Covered\n\n\n\n\n1\nProbability spaces, algebra of events, axioms of probability\n\n\n2\nRandom variables\n\n\n3\nRandom vectors\n\n\n4\nGaussian random vectors; conditional probability and conditional expectation\n\n\n5\nMMSE estimation\n\n\n6\nMoment generating functions and sums of random variables; probability inequalities\n\n\n7\nReview and Mid-Term\n\n\n8\nConvergence of random variables and the strong law of large numbers\n\n\n9\nStochastic processes and Markov chains\n\n\n10\nHitting times and limiting distributions of Markov chains\n\n\n11\nGauss–Markov models and spectral analysis\n\n\n12\nPoisson processes\n\n\n13\nContinuous-time Markov chains; Brownian motion\n\n\n\nThe material for the lecture notes is taken from various sources including the textbook and the reference book, as well as the lecture notes of Prof. Ioannis Psaromiglikos (McGill) and Prof. Ashutosh Nayyar (USC).",
     "crumbs": [
       "Probability and Random Signals II",
       "Course Outline"
@@ -1185,6 +1185,61 @@
     "crumbs": [
       "Probability and Random Signals II",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Continuous-time Markov chains</span>"
+    ]
+  },
+  {
+    "objectID": "brownian-motion.html",
+    "href": "brownian-motion.html",
+    "title": "15  Brownian motion",
+    "section": "",
+    "text": "15.1 Gaussian increments and Brownian motion\nIn this lecture, we introduce Brownian motion, the continuous-time analogue of the Gaussian random walk. It is the fundamental continuous-time Gaussian process with stationary independent increments. As with the Poisson process, a process with independent increments can be described through the distributions of those increments.\nfunction gaussianRandom(mean = 0, stdev = 1) {\n  const u = 1 - Math.random()\n  const v = Math.random()\n  const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v)\n  return mean + stdev * z\n}\nviewof rerun_brownian = Inputs.button(\"Generate sample path\")\n\nbrownian_path = {\n  rerun_brownian\n  const T = 1\n  const N = 1000\n  const dt = T / N\n  const points = new Array(N + 1)\n  let W = 0\n  points[0] = {t: 0, W_t: 0}\n  for (let n = 1; n &lt;= N; n++) {\n    W += gaussianRandom(0, Math.sqrt(dt))\n    points[n] = {t: n * dt, W_t: W}\n  }\n  return points\n}\nPlot.plot({\n  grid: true,\n  height: 180,\n  x: {domain: [0, 1], label: \"t\"},\n  y: {label: \"W(t)\"},\n  marks: [\n    Plot.ruleY([0]),\n    Plot.line(brownian_path, {x: \"t\", y: \"W_t\", strokeWidth: 1.5})\n  ]\n})",
+    "crumbs": [
+      "Probability and Random Signals II",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Brownian motion</span>"
+    ]
+  },
+  {
+    "objectID": "brownian-motion.html#gaussian-increments-and-brownian-motion",
+    "href": "brownian-motion.html#gaussian-increments-and-brownian-motion",
+    "title": "15  Brownian motion",
+    "section": "",
+    "text": "In 1827, the botanist Robert Brown observed that small particles suspended in a fluid undergo a highly irregular motion. In 1905, Einstein explained this motion as the cumulative effect of many collisions with the molecules of the fluid. His model related observable particle displacements to molecular parameters and provided a way to estimate Avogadro’s number. Wiener gave the first rigorous mathematical construction of the process in 1923; for this reason, Brownian motion is also called a Wiener process.\nThe probabilistic model is motivated by the following considerations. The displacement over a sufficiently long interval is the cumulative effect of many small collisions, so the central limit theorem suggests a Gaussian distribution. It is also reasonable to assume that\n\ndisplacements over intervals of the same length have the same distribution;\ndisplacements over disjoint intervals are independent;\nthere is no systematic drift; and\nthe particle position changes continuously.\n\nA standard Brownian motion is a stochastic process \\(\\{W(t)\\}_{t \\ge 0}\\) satisfying\n\n\\(W(0) = 0\\);\nfor \\(0 \\le s &lt; t\\), \\[ W(t) - W(s) \\sim \\mathcal N(0, t - s); \\]\nincrements over disjoint time intervals are independent; and\nthe sample paths \\(t \\mapsto W(t)\\) are continuous.\n\nThus, Brownian motion has stationary independent increments. The variance \\(t - s\\) fixes the time scale; more generally, \\(σ W(t)\\) has increment variance \\(σ^2(t - s)\\).\nThe plot below shows one approximate sample path. It is obtained by using many short independent Gaussian increments and joining the resulting points. Brownian sample paths are continuous, but they remain irregular at every time scale.\n\n\n\n\n\nFor any \\(0 = t_0 &lt; t_1 &lt; \\cdots &lt; t_k\\), the vector \\[ \\MATRIX{W(t_1) & W(t_2) & \\cdots & W(t_k)} \\] is a linear transformation of the independent Gaussian increments \\[ W(t_1), \\quad W(t_2) - W(t_1), \\quad \\ldots, \\quad W(t_k) - W(t_{k-1}). \\] It is therefore jointly Gaussian. Hence \\(\\{W(t)\\}_{t \\ge 0}\\) is a Gaussian process.",
+    "crumbs": [
+      "Probability and Random Signals II",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Brownian motion</span>"
+    ]
+  },
+  {
+    "objectID": "brownian-motion.html#mean-auto-covariance-and-stationarity",
+    "href": "brownian-motion.html#mean-auto-covariance-and-stationarity",
+    "title": "15  Brownian motion",
+    "section": "15.2 Mean, auto-covariance, and stationarity",
+    "text": "15.2 Mean, auto-covariance, and stationarity\n\nSince each increment has zero mean, \\[ μ^W(t) = \\EXP[W(t)] = 0. \\]\nSuppose \\(0 \\le s \\le t\\). Write \\[ W(t) = W(s) + \\bigl(W(t) - W(s)\\bigr). \\] The two terms on the right are independent, and the second has zero mean. Therefore, \\[\\begin{align*}\n  R^W(s, t)\n  &= \\COV(W(s), W(t)) \\\\\n  &= \\VAR(W(s)) \\\\\n  &= s.\n\\end{align*}\\] By symmetry, \\[ R^W(s, t) = \\min\\{s, t\\}. \\] Since the mean is zero, the auto-correlation and auto-covariance are the same.\nBrownian motion is not stationary: its variance \\[ \\VAR(W(t)) = t \\] depends on time. What is stationary is its increment law. For every \\(h \\ge 0\\), \\[ W(t + h) - W(t) \\sim \\mathcal N(0, h), \\] independently of \\(t\\). For a fixed \\(h\\), the Gaussian process \\(\\{V_h(t)\\}_{t \\ge 0}\\) given by \\[ V_h(t) = W(t + h) - W(t) \\] is stationary, with auto-covariance \\[ R^{V_h}(s, t) = \\bigl(h - |t - s|\\bigr)^+, \\quad (x)^+ = \\max\\{x, 0\\}. \\]",
+    "crumbs": [
+      "Probability and Random Signals II",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Brownian motion</span>"
+    ]
+  },
+  {
+    "objectID": "brownian-motion.html#white-noise-and-the-frequency-domain-view",
+    "href": "brownian-motion.html#white-noise-and-the-frequency-domain-view",
+    "title": "15  Brownian motion",
+    "section": "15.3 White noise and the frequency-domain view",
+    "text": "15.3 White noise and the frequency-domain view\n\nBrownian motion is not white noise. Its formal derivative \\[ w(t) = \\frac{dW(t)}{dt} \\] is called continuous-time white Gaussian noise. This derivative does not exist as an ordinary random process. It is interpreted through integrals: \\[ \\int_a^b w(t) \\, dt = W(b) - W(a). \\] Since Brownian increments over disjoint intervals are independent, integrals of \\(w(t)\\) over disjoint intervals are independent.\nFormally, standard white noise has auto-covariance \\[ R^w(τ) = δ(τ), \\] where \\(δ\\) is the Dirac delta. Its power spectral density is therefore \\[ S_w(Ω) = \\int_{-∞}^{∞} δ(τ) e^{-\\mathsf j Ω τ} \\, dτ = 1. \\] Thus, white noise has equal power at all frequencies. More generally, white noise of intensity \\(q\\) has \\(R^w(τ) = q δ(τ)\\) and \\(S_w(Ω) = q\\).\nThe discrete-time frequency-domain analysis extends formally to continuous time. If a continuous-time LTI system with frequency response \\(H(\\mathsf j Ω)\\) is driven by a stationary input with power spectral density \\(S_U(Ω)\\), then the output has \\[ S_Y(Ω) = |H(\\mathsf j Ω)|^2 S_U(Ω). \\] In particular, for white-noise input of intensity \\(q\\), \\[ S_Y(Ω) = q |H(\\mathsf j Ω)|^2. \\] These relations apply to general wide-sense stationary processes under the usual stability and integrability assumptions. They do not give an ordinary power spectral density for Brownian motion itself, since Brownian motion is not stationary.",
+    "crumbs": [
+      "Probability and Random Signals II",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Brownian motion</span>"
+    ]
+  },
+  {
+    "objectID": "brownian-motion.html#continuous-time-state-space-models",
+    "href": "brownian-motion.html#continuous-time-state-space-models",
+    "title": "15  Brownian motion",
+    "section": "15.4 Continuous-time state-space models",
+    "text": "15.4 Continuous-time state-space models\n\nBy analogy with the discrete-time state-space model, a first attempt is to write \\[ \\frac{dX(t)}{dt} = A X(t) + B w(t), \\] where \\(w(t)\\) is white noise. This is not an ordinary differential equation: white noise is not an ordinary function of time, and the resulting state process generally has no derivative in the conventional sense.\nInstead, the model is written as a stochastic differential equation \\[ dX(t) = A X(t) \\, dt + B \\, dW(t). \\] Its integral interpretation is \\[ X(t) = X(0) + \\int_0^t A X(s) \\, ds + \\int_0^t B \\, dW(s). \\] The last term is a stochastic integral and cannot be defined using ordinary Riemann integration. The systematic theory used to define such integrals and manipulate stochastic differential equations is called Itô calculus.\nOne reason ordinary calculus does not apply is the scale of Brownian increments: \\[ W(t + h) - W(t) = O(\\sqrt h). \\] Consequently, the square of an increment is of order \\(h\\), rather than a higher-order negligible term. More precisely, the quadratic variation of Brownian motion satisfies \\[ \\sum_k \\bigl(W(t_{k+1}) - W(t_k)\\bigr)^2 \\longrightarrow t \\] as the partition of \\([0, t]\\) becomes finer. Thus, second-order terms in a Taylor expansion contribute to the stochastic chain rule. This is the source of the additional second-derivative term in Itô’s formula.\nStochastic integration and Itô calculus are not developed here. Continuous-time Gaussian state-space models extend the discrete-time Gauss–Markov models studied earlier, but that extension requires new mathematical tools.",
+    "crumbs": [
+      "Probability and Random Signals II",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Brownian motion</span>"
     ]
   }
 ]

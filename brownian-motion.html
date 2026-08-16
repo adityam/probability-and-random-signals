@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2026-08-16">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>Probability and Random Signals II</title>
+<title>15&nbsp; Brownian motion – Probability and Random Signals II</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,6 +29,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -39,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./probability-spaces.html" rel="next">
+<link href="./continuous-time-markov-chains.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -153,7 +188,38 @@ window.MathJax = {
 };
 </script>
 <script async="" data-id="101261731" src="//static.getclicky.com/js"></script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -352,7 +418,7 @@ window.MathJax = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Course Outline</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./brownian-motion.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Brownian motion</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -366,7 +432,7 @@ window.MathJax = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Course Outline</span></a>
   </div>
 </li>
@@ -456,7 +522,7 @@ window.MathJax = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./brownian-motion.html" class="sidebar-item-text sidebar-link">
+  <a href="./brownian-motion.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Brownian motion</span></span></a>
   </div>
 </li>
@@ -470,18 +536,12 @@ window.MathJax = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-outline" id="toc-course-outline" class="nav-link active" data-scroll-target="#course-outline">Course Outline</a>
-  <ul class="collapse">
-  <li><a href="#general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d" id="toc-general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d" class="nav-link" data-scroll-target="#general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d">General Information (Fall 2026)</a></li>
-  <li><a href="#course-content" id="toc-course-content" class="nav-link" data-scroll-target="#course-content">Course Content</a></li>
-  <li><a href="#course-material" id="toc-course-material" class="nav-link" data-scroll-target="#course-material">Course Material</a></li>
-  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
-  <li><a href="#marking-policy" id="toc-marking-policy" class="nav-link" data-scroll-target="#marking-policy">Marking policy</a></li>
-  <li><a href="#course-delivery" id="toc-course-delivery" class="nav-link" data-scroll-target="#course-delivery">Course delivery</a></li>
-  <li><a href="#additional-notes" id="toc-additional-notes" class="nav-link" data-scroll-target="#additional-notes">Additional Notes</a></li>
-  </ul></li>
+  <li><a href="#gaussian-increments-and-brownian-motion" id="toc-gaussian-increments-and-brownian-motion" class="nav-link active" data-scroll-target="#gaussian-increments-and-brownian-motion"><span class="header-section-number">15.1</span> Gaussian increments and Brownian motion</a></li>
+  <li><a href="#mean-auto-covariance-and-stationarity" id="toc-mean-auto-covariance-and-stationarity" class="nav-link" data-scroll-target="#mean-auto-covariance-and-stationarity"><span class="header-section-number">15.2</span> Mean, auto-covariance, and stationarity</a></li>
+  <li><a href="#white-noise-and-the-frequency-domain-view" id="toc-white-noise-and-the-frequency-domain-view" class="nav-link" data-scroll-target="#white-noise-and-the-frequency-domain-view"><span class="header-section-number">15.3</span> White noise and the frequency-domain view</a></li>
+  <li><a href="#continuous-time-state-space-models" id="toc-continuous-time-state-space-models" class="nav-link" data-scroll-target="#continuous-time-state-space-models"><span class="header-section-number">15.4</span> Continuous-time state-space models</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/brownian-motion.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -489,14 +549,9 @@ window.MathJax = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Probability and Random Signals II</h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Brownian motion</span></h1>
 </div>
 
-<div>
-  <div class="description">
-    Course Notes for ECSE 509 (McGill University)
-  </div>
-</div>
 
 <div class="quarto-title-meta-author">
   <div class="quarto-title-meta-heading">Author</div>
@@ -532,209 +587,139 @@ window.MathJax = {
 </header>
 
 
-<section id="course-outline" class="level1 unnumbered">
-<h1 class="unnumbered">Course Outline</h1>
-<section id="general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d" class="level2">
-<h2 class="anchored" data-anchor-id="general-information-b58fc729-690b-4000-b19f-365a4093b2ff7b7b3c206d65746120636f757273652e7465726d203e7d7d">General Information (Fall 2026)</h2>
-<dl>
-<dt>Instructor</dt>
-<dd>
+<p>In this lecture, we introduce Brownian motion, the continuous-time analogue of the Gaussian random walk. It is the fundamental continuous-time Gaussian process with stationary independent increments. As with the Poisson process, a process with independent increments can be described through the distributions of those increments.</p>
+<section id="gaussian-increments-and-brownian-motion" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="gaussian-increments-and-brownian-motion"><span class="header-section-number">15.1</span> Gaussian increments and Brownian motion</h2>
+<ol type="1">
+<li><p>In 1827, the botanist Robert Brown observed that small particles suspended in a fluid undergo a highly irregular motion. In 1905, Einstein explained this motion as the cumulative effect of many collisions with the molecules of the fluid. His model related observable particle displacements to molecular parameters and provided a way to estimate Avogadro’s number. Wiener gave the first rigorous mathematical construction of the process in 1923; for this reason, Brownian motion is also called a <strong>Wiener process</strong>.</p></li>
+<li><p>The probabilistic model is motivated by the following considerations. The displacement over a sufficiently long interval is the cumulative effect of many small collisions, so the central limit theorem suggests a Gaussian distribution. It is also reasonable to assume that</p>
 <ul>
-<li>Aditya Mahajan</li>
-</ul>
-</dd>
-</dl>
-<ul>
-<li><em>Office Hours</em>: TBD</li>
-</ul>
-<dl>
-<dt>Teaching Assistant</dt>
-<dd>
-<ul>
-<li><p>Tao Zhang</p></li>
-</ul>
-</dd>
-<dt>Lectures</dt>
-<dd>
-<ul>
-<li><p>11:35am–12:55pm Monday, Wednesday (ENGTR 1080)</p></li>
-</ul>
-</dd>
-<dt>Tutorials</dt>
-<dd>
-<ul>
-<li><p>8:35am–9:25am Friday (ENGMC 12)</p></li>
-</ul>
-</dd>
-<dt>Prerequisites</dt>
-<dd>
-<ul>
-<li>ECSE 205 (Probability and Random Signals I)</li>
-</ul>
-</dd>
-</dl>
-<ul>
-<li>ECSE 206 or ECSE 316 (Signals and Systems)</li>
-</ul>
-<dl>
-<dt>Communication</dt>
-<dd>
-<span class="text-info">Use the discussion board on myCourses</span> for all questions related to the course. Only personal emails related to medical exceptions for missing a deliverable will be answered.
-</dd>
-</dl>
-</section>
-<section id="course-content" class="level2">
-<h2 class="anchored" data-anchor-id="course-content">Course Content</h2>
-<table class="table-striped caption-top table">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 90%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Week</th>
-<th style="text-align: left;">Material Covered</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td style="text-align: left;"><a href="./probability-spaces.html">Probability spaces, algebra of events, axioms of probability</a></td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td style="text-align: left;"><a href="./random-variables.html">Random variables</a></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td style="text-align: left;"><a href="./random-vectors.html">Random vectors</a></td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td style="text-align: left;"><a href="./gaussian-random-vectors.html">Gaussian random vectors</a>; <a href="./conditional-expectation.html">conditional probability and conditional expectation</a></td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td style="text-align: left;"><a href="./mmse-estimation.html">MMSE estimation</a></td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td style="text-align: left;"><a href="./moment-generating-functions.html">Moment generating functions and sums of random variables</a>; <a href="./inequalities.html">probability inequalities</a></td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td style="text-align: left;">Review and Mid-Term</td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td style="text-align: left;"><a href="./convergence-of-random-variables.html">Convergence of random variables and the strong law of large numbers</a></td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td style="text-align: left;"><a href="./stochastic-processes.html">Stochastic processes</a> and <a href="./markov-chains.html">Markov chains</a></td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td style="text-align: left;"><a href="./markov-chains.html">Hitting times and limiting distributions of Markov chains</a></td>
-</tr>
-<tr class="odd">
-<td>11</td>
-<td style="text-align: left;"><a href="./gauss-markov-processes.html">Gauss–Markov models and spectral analysis</a></td>
-</tr>
-<tr class="even">
-<td>12</td>
-<td style="text-align: left;"><a href="./poisson-processes.html">Poisson processes</a></td>
-</tr>
-<tr class="odd">
-<td>13</td>
-<td style="text-align: left;"><a href="./continuous-time-markov-chains.html">Continuous-time Markov chains</a>; <a href="./brownian-motion.html">Brownian motion</a></td>
-</tr>
-</tbody>
-</table>
-<p><small><span class="text-muted">The material for the lecture notes is taken from various sources including the textbook and the reference book, as well as the lecture notes of Prof.&nbsp;Ioannis Psaromiglikos (McGill) and Prof.&nbsp;Ashutosh Nayyar (USC).</span></small></p>
-</section>
-<section id="course-material" class="level2">
-<h2 class="anchored" data-anchor-id="course-material">Course Material</h2>
-<dl>
-<dt>Textbook</dt>
-<dd>
-<ul>
-<li>Grimmett and Stirzaker, <em>Probability and Random Processes,</em> 4th edition, Oxford University Press, 2020.</li>
-</ul>
-</dd>
-<dt>“Engineering” Graduate Probability textbooks</dt>
-<dd>
-<ul>
-<li>J.A. Gubner, <em>Probability and Random Processes for Electrical and Computer Engineers,</em> Cambridge University Press, 2006.</li>
-</ul>
-</dd>
-</dl>
-<ul>
-<li>S.H. Chan, <em>Introduction to Probability for Data Science,</em> Michigan Publishing, 2021.</li>
-<li>H. Hsu, <em>Probability, Random Variables, and Random Processes,</em> McGraw Hill, 1997.</li>
-</ul>
-<dl>
-<dt>Exercise Books</dt>
-<dd>
-<ul>
-<li>F. Mosteller, <em>Fifty challenging problems in probability with solutions,</em> Courier Corporation, 1987. <a href="https://archive.org/details/fiftychallenging00most">Available online</a></li>
-</ul>
-</dd>
-</dl>
-<ul>
-<li>Grimmett and Stirzaker, <em>One Thousand Exercises in Probability,</em> Oxford University Press, 2000.</li>
-</ul>
-</section>
-<section id="evaluation" class="level2">
-<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
-<ul>
-<li><p><strong>Assignments (25%)</strong> Weekly homework assignments. Typically, each assignment will consist of four or five questions, out of which <span class="text-danger">one or two randomly selected questions will be graded</span>.</p></li>
-<li><p><strong>Mid-Term (25%)</strong> Closed book in-class exam. <span class="text-danger"><strong>Oct 19</strong></span> (during class time)</p></li>
-<li><p><strong>Final Exam (50%)</strong> Closed book, in-person exam. Will be scheduled by the exam office and the dates will be announced later.</p>
-<p>The final exam will cover <strong>all</strong> the material seen in the class during the term.</p></li>
-</ul>
-</section>
-<section id="marking-policy" class="level2">
-<h2 class="anchored" data-anchor-id="marking-policy">Marking policy</h2>
-<ul>
-<li><p>Assignments must be submitted electronically on myCourses as a PDF. You may write the assignments on paper and then scan them as a PDF (there are several such apps available for all phone platforms), or write on a tablet and convert to PDF, or type using a word processor.</p></li>
-<li><p><strong>There will be no make-up examination</strong> for students who miss a mid-term.</p>
-<ul>
-<li><p>Students who miss the exam due to a valid reason (see <a href="https://www.mcgill.ca/engineering/students/undergraduate/courses-registration/exams-assessment/midterms-and-class-tests/adjustments-missed-midterms-and-class-tests">Faculty of Engineering policy</a>) should <strong>notify the instructor within a week</strong> of the exam and provide <strong>necessary documentation</strong>.</p></li>
-<li><p>If, and only if, proper documentation for a missed exam is presented, the marks for the missed exam will be shifted to the final exam.</p></li>
-<li><p>Students who miss the mid-term exam for any other reason (e.g., no medical note, going to the exam at the wrong time, or on the wrong day, etc.) will get zero marks on the exam.</p></li>
+<li>displacements over intervals of the same length have the same distribution;</li>
+<li>displacements over disjoint intervals are independent;</li>
+<li>there is no systematic drift; and</li>
+<li>the particle position changes continuously.</li>
 </ul></li>
-<li><p>Any request for re-evaluation of a mid-term or an assignment must be made <strong>in writing within a week of its return</strong>. Note that requesting a re-evaluation will mean that your <strong>whole</strong> assignment or exam will be re-evaluated.</p></li>
-</ul>
-<dl>
-<dt>Right to submit in English or French written work that is to be graded.</dt>
-<dd>
-In accord with McGill University’s <a href="https://www.mcgill.ca/secretariat/files/secretariat/charter_of_student_rights_last_approved_october_262017.pdf">Charter of Students’ Rights</a>, students in this course have the right to submit in English or in French any written work that is to be graded.
-</dd>
-<dt>Academic Integrity</dt>
-<dd>
-McGill University values academic integrity. Therefore all students must understand the meaning and consequences of cheating, plagiarism and other academic offences under the <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code of Student Conduct and Disciplinary Procedures</a> (see McGill’s <a href="https://www.mcgill.ca/deanofstudents/student-rights-and-conduct/academic-integrity">guide to academic honesty</a> for more information).
-L’université McGill attache une haute importance à l’honnêteté académique. Il incombe par conséquent à tous les étudiants de comprendre ce que l’on entend par tricherie, plagiat et autres infractions académiques, ainsi que les conséquences que peuvent avoir de telles actions, selon le <a href="https://www.mcgill.ca/secretariat/files/secretariat/code_of_student_conduct_and_disciplinary_procedures.pdf">Code de conduite de l’étudiant et des procédures disciplinaires</a> (pour de plus amples renseignements, veuillez consulter le <a href="https://www.mcgill.ca/deanofstudents/student-rights-and-conduct/academic-integrity">guide pour l’honnêteté académique</a> de McGill.)
-</dd>
-</dl>
-</section>
-<section id="course-delivery" class="level2">
-<h2 class="anchored" data-anchor-id="course-delivery">Course delivery</h2>
-<p>The course is taught in a “chalk and board” style; there will be no PowerPoint presentations. All students are expected to attend lectures and take notes. Partial notes on some of the material will be provided, but are not a substitute for the material covered in class.</p>
-<p>© Instructor-generated course materials (e.g., handouts, notes, summaries, exam questions) are protected by law and may not be copied or distributed in any form or in any medium without explicit permission of the instructor. Note that infringements of copyright can be subject to follow up by the University under the Code of Student Conduct and Disciplinary Procedures.</p>
-</section>
-<section id="additional-notes" class="level2">
-<h2 class="anchored" data-anchor-id="additional-notes">Additional Notes</h2>
+<li><p>A <strong>standard Brownian motion</strong> is a stochastic process <span class="math inline">\(\{W(t)\}_{t \ge 0}\)</span> satisfying</p>
 <ul>
-<li><p>As the instructor of this course I endeavor to provide an inclusive learning environment. However, if you experience barriers to learning in this course, do not hesitate to discuss them with me or contact the office of <a href="https://www.mcgill.ca/access-achieve/">Student Accessibility and Achievement</a>.</p></li>
-<li><p><a href="https://www.mcgill.ca/mercury/">End-of-course evaluations</a> are one of the ways that McGill works towards maintaining and improving the quality of courses and the student’s learning experience. You will be notified by e-mail when the evaluations are available. Please note that a minimum number of responses must be received for results to be available to students.</p></li>
+<li><span class="math inline">\(W(0) = 0\)</span>;</li>
+<li>for <span class="math inline">\(0 \le s &lt; t\)</span>, <span class="math display">\[ W(t) - W(s) \sim \mathcal N(0, t - s); \]</span></li>
+<li>increments over disjoint time intervals are independent; and</li>
+<li>the sample paths <span class="math inline">\(t \mapsto W(t)\)</span> are continuous.</li>
 </ul>
+<p>Thus, Brownian motion has stationary independent increments. The variance <span class="math inline">\(t - s\)</span> fixes the time scale; more generally, <span class="math inline">\(σ W(t)\)</span> has increment variance <span class="math inline">\(σ^2(t - s)\)</span>.</p></li>
+<li><p>The plot below shows one approximate sample path. It is obtained by using many short independent Gaussian increments and joining the resulting points. Brownian sample paths are continuous, but they remain irregular at every time scale.</p></li>
+</ol>
+<div class="cell hidden">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="33" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> stdev <span class="op">=</span> <span class="dv">1</span>) {</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(u)) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> mean <span class="op">+</span> stdev <span class="op">*</span> z</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-1" data-nodetype="declaration">
 
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="43" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 42;"><span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>viewof rerun_brownian <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>brownian_path <span class="op">=</span> {</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  rerun_brownian</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> T <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> N <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> dt <span class="op">=</span> T <span class="op">/</span> N</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> W <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  points[<span class="dv">0</span>] <span class="op">=</span> {<span class="dt">t</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">W_t</span><span class="op">:</span> <span class="dv">0</span>}</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    W <span class="op">+=</span> <span class="fu">gaussianRandom</span>(<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(dt))</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    points[n] <span class="op">=</span> {<span class="dt">t</span><span class="op">:</span> n <span class="op">*</span> dt<span class="op">,</span> <span class="dt">W_t</span><span class="op">:</span> W}</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
 
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="61" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 60;"><span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">180</span><span class="op">,</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"t"</span>}<span class="op">,</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"W(t)"</span>}<span class="op">,</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(brownian_path<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"W_t"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<ol start="5" type="1">
+<li>For any <span class="math inline">\(0 = t_0 &lt; t_1 &lt; \cdots &lt; t_k\)</span>, the vector <span class="math display">\[ \MATRIX{W(t_1) &amp; W(t_2) &amp; \cdots &amp; W(t_k)} \]</span> is a linear transformation of the independent Gaussian increments <span class="math display">\[ W(t_1), \quad W(t_2) - W(t_1), \quad \ldots, \quad W(t_k) - W(t_{k-1}). \]</span> It is therefore jointly Gaussian. Hence <span class="math inline">\(\{W(t)\}_{t \ge 0}\)</span> is a Gaussian process.</li>
+</ol>
 </section>
+<section id="mean-auto-covariance-and-stationarity" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="mean-auto-covariance-and-stationarity"><span class="header-section-number">15.2</span> Mean, auto-covariance, and stationarity</h2>
+<ol type="1">
+<li><p>Since each increment has zero mean, <span class="math display">\[ μ^W(t) = \EXP[W(t)] = 0. \]</span></p></li>
+<li><p>Suppose <span class="math inline">\(0 \le s \le t\)</span>. Write <span class="math display">\[ W(t) = W(s) + \bigl(W(t) - W(s)\bigr). \]</span> The two terms on the right are independent, and the second has zero mean. Therefore, <span class="math display">\[\begin{align*}
+  R^W(s, t)
+  &amp;= \COV(W(s), W(t)) \\
+  &amp;= \VAR(W(s)) \\
+  &amp;= s.
+\end{align*}\]</span> By symmetry, <span class="math display">\[ R^W(s, t) = \min\{s, t\}. \]</span> Since the mean is zero, the auto-correlation and auto-covariance are the same.</p></li>
+<li><p>Brownian motion is <strong>not stationary</strong>: its variance <span class="math display">\[ \VAR(W(t)) = t \]</span> depends on time. What is stationary is its increment law. For every <span class="math inline">\(h \ge 0\)</span>, <span class="math display">\[ W(t + h) - W(t) \sim \mathcal N(0, h), \]</span> independently of <span class="math inline">\(t\)</span>. For a fixed <span class="math inline">\(h\)</span>, the Gaussian process <span class="math inline">\(\{V_h(t)\}_{t \ge 0}\)</span> given by <span class="math display">\[ V_h(t) = W(t + h) - W(t) \]</span> is stationary, with auto-covariance <span class="math display">\[ R^{V_h}(s, t) = \bigl(h - |t - s|\bigr)^+, \quad (x)^+ = \max\{x, 0\}. \]</span></p></li>
+</ol>
+</section>
+<section id="white-noise-and-the-frequency-domain-view" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="white-noise-and-the-frequency-domain-view"><span class="header-section-number">15.3</span> White noise and the frequency-domain view</h2>
+<ol type="1">
+<li><p>Brownian motion is not white noise. Its formal derivative <span class="math display">\[ w(t) = \frac{dW(t)}{dt} \]</span> is called <strong>continuous-time white Gaussian noise</strong>. This derivative does not exist as an ordinary random process. It is interpreted through integrals: <span class="math display">\[ \int_a^b w(t) \, dt = W(b) - W(a). \]</span> Since Brownian increments over disjoint intervals are independent, integrals of <span class="math inline">\(w(t)\)</span> over disjoint intervals are independent.</p></li>
+<li><p>Formally, standard white noise has auto-covariance <span class="math display">\[ R^w(τ) = δ(τ), \]</span> where <span class="math inline">\(δ\)</span> is the Dirac delta. Its power spectral density is therefore <span class="math display">\[ S_w(Ω) = \int_{-∞}^{∞} δ(τ) e^{-\mathsf j Ω τ} \, dτ = 1. \]</span> Thus, white noise has equal power at all frequencies. More generally, white noise of intensity <span class="math inline">\(q\)</span> has <span class="math inline">\(R^w(τ) = q δ(τ)\)</span> and <span class="math inline">\(S_w(Ω) = q\)</span>.</p></li>
+<li><p>The discrete-time frequency-domain analysis extends formally to continuous time. If a continuous-time LTI system with frequency response <span class="math inline">\(H(\mathsf j Ω)\)</span> is driven by a stationary input with power spectral density <span class="math inline">\(S_U(Ω)\)</span>, then the output has <span class="math display">\[ S_Y(Ω) = |H(\mathsf j Ω)|^2 S_U(Ω). \]</span> In particular, for white-noise input of intensity <span class="math inline">\(q\)</span>, <span class="math display">\[ S_Y(Ω) = q |H(\mathsf j Ω)|^2. \]</span> These relations apply to general wide-sense stationary processes under the usual stability and integrability assumptions. They do not give an ordinary power spectral density for Brownian motion itself, since Brownian motion is not stationary.</p></li>
+</ol>
+</section>
+<section id="continuous-time-state-space-models" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="continuous-time-state-space-models"><span class="header-section-number">15.4</span> Continuous-time state-space models</h2>
+<ol type="1">
+<li><p>By analogy with the discrete-time state-space model, a first attempt is to write <span class="math display">\[ \frac{dX(t)}{dt} = A X(t) + B w(t), \]</span> where <span class="math inline">\(w(t)\)</span> is white noise. This is not an ordinary differential equation: white noise is not an ordinary function of time, and the resulting state process generally has no derivative in the conventional sense.</p></li>
+<li><p>Instead, the model is written as a <strong>stochastic differential equation</strong> <span class="math display">\[ dX(t) = A X(t) \, dt + B \, dW(t). \]</span> Its integral interpretation is <span class="math display">\[ X(t) = X(0) + \int_0^t A X(s) \, ds + \int_0^t B \, dW(s). \]</span> The last term is a stochastic integral and cannot be defined using ordinary Riemann integration. The systematic theory used to define such integrals and manipulate stochastic differential equations is called <strong>Itô calculus</strong>.</p></li>
+<li><p>One reason ordinary calculus does not apply is the scale of Brownian increments: <span class="math display">\[ W(t + h) - W(t) = O(\sqrt h). \]</span> Consequently, the square of an increment is of order <span class="math inline">\(h\)</span>, rather than a higher-order negligible term. More precisely, the quadratic variation of Brownian motion satisfies <span class="math display">\[ \sum_k \bigl(W(t_{k+1}) - W(t_k)\bigr)^2 \longrightarrow t \]</span> as the partition of <span class="math inline">\([0, t]\)</span> becomes finer. Thus, second-order terms in a Taylor expansion contribute to the stochastic chain rule. This is the source of the additional second-derivative term in Itô’s formula.</p></li>
+<li><p>Stochastic integration and Itô calculus are not developed here. Continuous-time Gaussian state-space models extend the discrete-time Gauss–Markov models studied earlier, but that extension requires new mathematical tools.</p></li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZ1bmN0aW9uIGdhdXNzaWFuUmFuZG9tKG1lYW4gPSAwLCBzdGRldiA9IDEpIHtcbiAgY29uc3QgdSA9IDEgLSBNYXRoLnJhbmRvbSgpXG4gIGNvbnN0IHYgPSBNYXRoLnJhbmRvbSgpXG4gIGNvbnN0IHogPSBNYXRoLnNxcnQoLTIgKiBNYXRoLmxvZyh1KSkgKiBNYXRoLmNvcygyICogTWF0aC5QSSAqIHYpXG4gIHJldHVybiBtZWFuICsgc3RkZXYgKiB6XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgcmVydW5fYnJvd25pYW4gPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxuYnJvd25pYW5fcGF0aCA9IHtcbiAgcmVydW5fYnJvd25pYW5cbiAgY29uc3QgVCA9IDFcbiAgY29uc3QgTiA9IDEwMDBcbiAgY29uc3QgZHQgPSBUIC8gTlxuICBjb25zdCBwb2ludHMgPSBuZXcgQXJyYXkoTiArIDEpXG4gIGxldCBXID0gMFxuICBwb2ludHNbMF0gPSB7dDogMCwgV190OiAwfVxuICBmb3IgKGxldCBuID0gMTsgbiA8PSBOOyBuKyspIHtcbiAgICBXICs9IGdhdXNzaWFuUmFuZG9tKDAsIE1hdGguc3FydChkdCkpXG4gICAgcG9pbnRzW25dID0ge3Q6IG4gKiBkdCwgV190OiBXfVxuICB9XG4gIHJldHVybiBwb2ludHNcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTgwLFxuICB4OiB7ZG9tYWluOiBbMCwgMV0sIGxhYmVsOiBcInRcIn0sXG4gIHk6IHtsYWJlbDogXCJXKHQpXCJ9LFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUoYnJvd25pYW5fcGF0aCwge3g6IFwidFwiLCB5OiBcIldfdFwiLCBzdHJva2VXaWR0aDogMS41fSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fYnJvd25pYW4nKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1150,11 +1135,11 @@ L’université McGill attache une haute importance à l’honnêteté académiq
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./continuous-time-markov-chains.html" class="pagination-link" aria-label="Continuous-time Markov chains">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Continuous-time Markov chains</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./probability-spaces.html" class="pagination-link" aria-label="Probability spaces">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Probability spaces</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -1162,5 +1147,5 @@ L’université McGill attache une haute importance à l’honnêteté académiq
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/brownian-motion.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer><script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
