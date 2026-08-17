@@ -117,11 +117,14 @@ Plot.plot({
      &= \int_a^b \int_c^d \EXP\bigl[w(t)w(s)\bigr]\,dt\,ds \\
      &= \int_a^b \int_c^d R^w(t - s)\,dt\,ds,
    \end{align*}
-   where $R^w(τ) = \COV(w(t + τ), w(t))$. Independent increments force the left-hand side to vanish whenever $(a, b]$ and $(c, d]$ are disjoint, so $R^w(τ) = 0$ for $τ \ne 0$. When $(c, d] = (a, b]$, the covariance is the variance of the increment $W(b) - W(a)$, so
+   where $R^w(τ) = \COV(w(t + τ), w(t))$. Independent increments force the left-hand side to vanish whenever $(a, b]$ and $(c, d]$ are disjoint, so $R^w(τ) = 0$ for $τ \ne 0$. When $(c, d] = (a, b]$, the two terms on the left-hand-side are the same, so the covariance is the variance of the increment $W(b) - W(a)$. Thus,
    $$ \VAR(W(b) - W(a)) = \int_a^b \int_a^b R^w(t - s)\,dt\,ds. $$
-   An ordinary function that vanishes off $τ = 0$ cannot produce this: the diagonal $(t = s)$ has area zero in the $(t, s)$-plane. Both constraints are satisfied by the Dirac delta,
+   An ordinary function that vanishes off $τ = 0$ cannot produce this: the diagonal $(t = s)$ has area zero in the $(t, s)$-plane. However, both constraints are satisfied by the Dirac delta,
    $$ R^w(τ) = δ(τ), $$
-   because $\int_a^b δ(t - s)\,ds$ equals $1$ if $t \in (a, b]$ and equals $0$ otherwise. The corresponding power spectral density is
+   because $\int_a^b δ(t - s)\,ds$ equals $1$ if $t \in (a, b]$ and equals $0$ otherwise.
+
+
+   The corresponding power spectral density is
    $$ S_w(Ω) = \int_{-∞}^{∞} δ(τ) e^{-\mathsf j Ω τ} \, dτ = 1. $$
    Thus $w$ has equal power at all frequencies. As in discrete time, a flat spectrum is why the process is called **white noise**. White noise of intensity $q$ is the same object with
    $$ R^w(τ) = q δ(τ), \quad S_w(Ω) = q. $$
