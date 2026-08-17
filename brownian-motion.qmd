@@ -106,19 +106,27 @@ Plot.plot({
 
 ## White noise and the frequency-domain view
 
-1. Brownian motion is not white noise. Its formal derivative
-   $$ w(t) = \frac{dW(t)}{dt} $$
-   is called **continuous-time white Gaussian noise**. This derivative does not exist as an ordinary random process. It is interpreted through integrals:
+1. The derivative of Brownian motion does not exist as an ordinary random process. Nonetheless, write formally
+   $$ w(t) = \frac{dW(t)}{dt}, $$
+   meaning that integrals of $w$ recover Brownian increments:
    $$ \int_a^b w(t) \, dt = W(b) - W(a). $$
-   Since Brownian increments over disjoint intervals are independent, integrals of $w(t)$ over disjoint intervals are independent.
-
-2. Formally, standard white noise has auto-covariance
+   Treat $w$ as zero-mean, so that a covariance of integrals is an expectation of a product. Expanding the product and passing the expectation inside (formally) gives
+   \begin{align*}
+     \COV\biggl(\int_a^b w(t)\,dt, \int_c^d w(s)\,ds\biggr)
+     &= \EXP\Biggl[\biggl(\int_a^b w(t)\,dt\biggr)\biggl(\int_c^d w(s)\,ds\biggr)\Biggr] \\
+     &= \int_a^b \int_c^d \EXP\bigl[w(t)w(s)\bigr]\,dt\,ds \\
+     &= \int_a^b \int_c^d R^w(t - s)\,dt\,ds,
+   \end{align*}
+   where $R^w(τ) = \COV(w(t + τ), w(t))$. Independent increments force the left-hand side to vanish whenever $(a, b]$ and $(c, d]$ are disjoint, so $R^w(τ) = 0$ for $τ \ne 0$. When $(c, d] = (a, b]$, the covariance is the variance of the increment $W(b) - W(a)$, so
+   $$ \VAR(W(b) - W(a)) = \int_a^b \int_a^b R^w(t - s)\,dt\,ds. $$
+   An ordinary function that vanishes off $τ = 0$ cannot produce this: the diagonal $(t = s)$ has area zero in the $(t, s)$-plane. Both constraints are satisfied by the Dirac delta,
    $$ R^w(τ) = δ(τ), $$
-   where $δ$ is the Dirac delta. Its power spectral density is therefore
+   because $\int_a^b δ(t - s)\,ds$ equals $1$ if $t \in (a, b]$ and equals $0$ otherwise. The corresponding power spectral density is
    $$ S_w(Ω) = \int_{-∞}^{∞} δ(τ) e^{-\mathsf j Ω τ} \, dτ = 1. $$
-   Thus, white noise has equal power at all frequencies. More generally, white noise of intensity $q$ has $R^w(τ) = q δ(τ)$ and $S_w(Ω) = q$.
+   Thus $w$ has equal power at all frequencies. As in discrete time, a flat spectrum is why the process is called **white noise**. White noise of intensity $q$ is the same object with
+   $$ R^w(τ) = q δ(τ), \quad S_w(Ω) = q. $$
 
-3. The discrete-time frequency-domain analysis extends formally to continuous time. If a continuous-time LTI system with frequency response $H(\mathsf j Ω)$ is driven by a stationary input with power spectral density $S_U(Ω)$, then the output has
+2. The discrete-time frequency-domain analysis extends formally to continuous time. If a continuous-time LTI system with frequency response $H(\mathsf j Ω)$ is driven by a stationary input with power spectral density $S_U(Ω)$, then the output has
    $$ S_Y(Ω) = |H(\mathsf j Ω)|^2 S_U(Ω). $$
    In particular, for white-noise input of intensity $q$,
    $$ S_Y(Ω) = q |H(\mathsf j Ω)|^2. $$
