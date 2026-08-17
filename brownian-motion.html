@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-16">
+<meta name="dcterms.date" content="2026-08-17">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>15&nbsp; Brownian motion – Probability and Random Signals II</title>
@@ -575,7 +575,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 16, 2026</p>
+      <p class="date">August 17, 2026</p>
     </div>
   </div>
   
@@ -691,8 +691,13 @@ window.Quarto = {
 <section id="white-noise-and-the-frequency-domain-view" class="level2" data-number="15.3">
 <h2 data-number="15.3" class="anchored" data-anchor-id="white-noise-and-the-frequency-domain-view"><span class="header-section-number">15.3</span> White noise and the frequency-domain view</h2>
 <ol type="1">
-<li><p>Brownian motion is not white noise. Its formal derivative <span class="math display">\[ w(t) = \frac{dW(t)}{dt} \]</span> is called <strong>continuous-time white Gaussian noise</strong>. This derivative does not exist as an ordinary random process. It is interpreted through integrals: <span class="math display">\[ \int_a^b w(t) \, dt = W(b) - W(a). \]</span> Since Brownian increments over disjoint intervals are independent, integrals of <span class="math inline">\(w(t)\)</span> over disjoint intervals are independent.</p></li>
-<li><p>Formally, standard white noise has auto-covariance <span class="math display">\[ R^w(τ) = δ(τ), \]</span> where <span class="math inline">\(δ\)</span> is the Dirac delta. Its power spectral density is therefore <span class="math display">\[ S_w(Ω) = \int_{-∞}^{∞} δ(τ) e^{-\mathsf j Ω τ} \, dτ = 1. \]</span> Thus, white noise has equal power at all frequencies. More generally, white noise of intensity <span class="math inline">\(q\)</span> has <span class="math inline">\(R^w(τ) = q δ(τ)\)</span> and <span class="math inline">\(S_w(Ω) = q\)</span>.</p></li>
+<li><p>The derivative of Brownian motion does not exist as an ordinary random process. Nonetheless, write formally <span class="math display">\[ w(t) = \frac{dW(t)}{dt}, \]</span> meaning that integrals of <span class="math inline">\(w\)</span> recover Brownian increments: <span class="math display">\[ \int_a^b w(t) \, dt = W(b) - W(a). \]</span> Treat <span class="math inline">\(w\)</span> as zero-mean, so that a covariance of integrals is an expectation of a product. Expanding the product and passing the expectation inside (formally) gives <span class="math display">\[\begin{align*}
+  \COV\biggl(\int_a^b w(t)\,dt, \int_c^d w(s)\,ds\biggr)
+  &amp;= \EXP\Biggl[\biggl(\int_a^b w(t)\,dt\biggr)\biggl(\int_c^d w(s)\,ds\biggr)\Biggr] \\
+  &amp;= \int_a^b \int_c^d \EXP\bigl[w(t)w(s)\bigr]\,dt\,ds \\
+  &amp;= \int_a^b \int_c^d R^w(t - s)\,dt\,ds,
+\end{align*}\]</span> where <span class="math inline">\(R^w(τ) = \COV(w(t + τ), w(t))\)</span>. Independent increments force the left-hand side to vanish whenever <span class="math inline">\((a, b]\)</span> and <span class="math inline">\((c, d]\)</span> are disjoint, so <span class="math inline">\(R^w(τ) = 0\)</span> for <span class="math inline">\(τ \ne 0\)</span>. When <span class="math inline">\((c, d] = (a, b]\)</span>, the two terms on the left-hand-side are the same, so the covariance is the variance of the increment <span class="math inline">\(W(b) - W(a)\)</span>. Thus, <span class="math display">\[ \VAR(W(b) - W(a)) = \int_a^b \int_a^b R^w(t - s)\,dt\,ds. \]</span> An ordinary function that vanishes off <span class="math inline">\(τ = 0\)</span> cannot produce this: the diagonal <span class="math inline">\((t = s)\)</span> has area zero in the <span class="math inline">\((t, s)\)</span>-plane. However, both constraints are satisfied by the Dirac delta, <span class="math display">\[ R^w(τ) = δ(τ), \]</span> because <span class="math inline">\(\int_a^b δ(t - s)\,ds\)</span> equals <span class="math inline">\(1\)</span> if <span class="math inline">\(t \in (a, b]\)</span> and equals <span class="math inline">\(0\)</span> otherwise.</p>
+<p>The corresponding power spectral density is <span class="math display">\[ S_w(Ω) = \int_{-∞}^{∞} δ(τ) e^{-\mathsf j Ω τ} \, dτ = 1. \]</span> Thus <span class="math inline">\(w\)</span> has equal power at all frequencies. As in discrete time, a flat spectrum is why the process is called <strong>white noise</strong>. White noise of intensity <span class="math inline">\(q\)</span> is the same object with <span class="math display">\[ R^w(τ) = q δ(τ), \quad S_w(Ω) = q. \]</span></p></li>
 <li><p>The discrete-time frequency-domain analysis extends formally to continuous time. If a continuous-time LTI system with frequency response <span class="math inline">\(H(\mathsf j Ω)\)</span> is driven by a stationary input with power spectral density <span class="math inline">\(S_U(Ω)\)</span>, then the output has <span class="math display">\[ S_Y(Ω) = |H(\mathsf j Ω)|^2 S_U(Ω). \]</span> In particular, for white-noise input of intensity <span class="math inline">\(q\)</span>, <span class="math display">\[ S_Y(Ω) = q |H(\mathsf j Ω)|^2. \]</span> These relations apply to general wide-sense stationary processes under the usual stability and integrability assumptions. They do not give an ordinary power spectral density for Brownian motion itself, since Brownian motion is not stationary.</p></li>
 </ol>
 </section>
