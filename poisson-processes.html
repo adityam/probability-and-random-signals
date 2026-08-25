@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-08-17">
+<meta name="dcterms.date" content="2026-08-25">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>13&nbsp; Poisson processes – Probability and Random Signals II</title>
@@ -584,7 +584,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 17, 2026</p>
+      <p class="date">August 25, 2026</p>
     </div>
   </div>
   
@@ -731,7 +731,7 @@ S_n=\inf\{t\ge0:N(t)\ge n\}.
 <span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
 <span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">180</span><span class="op">,</span></span>
 <span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"t"</span>}<span class="op">,</span></span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">1</span><span class="op">,</span> <span class="op">...</span>poisson_path<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">N_t</span>))]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"N(t)"</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> <span class="dv">1</span>}<span class="op">,</span></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"N(t)"</span>}<span class="op">,</span></span>
 <span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
 <span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
 <span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(poisson_path<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"N_t"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"step-after"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
@@ -997,7 +997,7 @@ f_{S_1\mid N(t)}(s\mid2)
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBwb2lzc29uX3JhdGUgPSBJbnB1dHMucmFuZ2UoWzAuNSwgNV0sIHtsYWJlbDogXCJyYXRlIM67XCIsIHZhbHVlOiAyLCBzdGVwOiAwLjV9KVxudmlld29mIHJlcnVuX3BvaXNzb24gPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pc3Nvbl9wYXRoID0ge1xuICByZXJ1bl9wb2lzc29uXG4gIGNvbnN0IGhvcml6b24gPSAxMFxuICBjb25zdCBwb2ludHMgPSBbe3Q6IDAsIE5fdDogMH1dXG4gIGxldCB0ID0gMFxuICBsZXQgY291bnQgPSAwXG4gIHdoaWxlICh0cnVlKSB7XG4gICAgdCArPSAtTWF0aC5sb2coMSAtIE1hdGgucmFuZG9tKCkpIC8gcG9pc3Nvbl9yYXRlXG4gICAgaWYgKHQgPiBob3Jpem9uKSBicmVha1xuICAgIGNvdW50ICs9IDFcbiAgICBwb2ludHMucHVzaCh7dCwgTl90OiBjb3VudH0pXG4gIH1cbiAgcG9pbnRzLnB1c2goe3Q6IGhvcml6b24sIE5fdDogY291bnR9KVxuICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDE4MCxcbiAgeDoge2RvbWFpbjogWzAsIDEwXSwgbGFiZWw6IFwidFwifSxcbiAgeToge2RvbWFpbjogWzAsIE1hdGgubWF4KDEsIC4uLnBvaXNzb25fcGF0aC5tYXAoZCA9PiBkLk5fdCkpXSwgbGFiZWw6IFwiTih0KVwiLCB0aWNrczogMX0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIFBsb3QubGluZShwb2lzc29uX3BhdGgsIHt4OiBcInRcIiwgeTogXCJOX3RcIiwgY3VydmU6IFwic3RlcC1hZnRlclwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pc3Nvbl9wYXRoLnNsaWNlKDAsIC0xKSwge3g6IFwidFwiLCB5OiBcIk5fdFwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncG9pc3Nvbl9yYXRlJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3JlcnVuX3BvaXNzb24nKSJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBwb2lzc29uX3JhdGUgPSBJbnB1dHMucmFuZ2UoWzAuNSwgNV0sIHtsYWJlbDogXCJyYXRlIM67XCIsIHZhbHVlOiAyLCBzdGVwOiAwLjV9KVxudmlld29mIHJlcnVuX3BvaXNzb24gPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pc3Nvbl9wYXRoID0ge1xuICByZXJ1bl9wb2lzc29uXG4gIGNvbnN0IGhvcml6b24gPSAxMFxuICBjb25zdCBwb2ludHMgPSBbe3Q6IDAsIE5fdDogMH1dXG4gIGxldCB0ID0gMFxuICBsZXQgY291bnQgPSAwXG4gIHdoaWxlICh0cnVlKSB7XG4gICAgdCArPSAtTWF0aC5sb2coMSAtIE1hdGgucmFuZG9tKCkpIC8gcG9pc3Nvbl9yYXRlXG4gICAgaWYgKHQgPiBob3Jpem9uKSBicmVha1xuICAgIGNvdW50ICs9IDFcbiAgICBwb2ludHMucHVzaCh7dCwgTl90OiBjb3VudH0pXG4gIH1cbiAgcG9pbnRzLnB1c2goe3Q6IGhvcml6b24sIE5fdDogY291bnR9KVxuICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDE4MCxcbiAgeDoge2RvbWFpbjogWzAsIDEwXSwgbGFiZWw6IFwidFwifSxcbiAgeToge2RvbWFpbjogWzAsIDUwXSwgbGFiZWw6IFwiTih0KVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaXNzb25fcGF0aCwge3g6IFwidFwiLCB5OiBcIk5fdFwiLCBjdXJ2ZTogXCJzdGVwLWFmdGVyXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2lzc29uX3BhdGguc2xpY2UoMCwgLTEpLCB7eDogXCJ0XCIsIHk6IFwiTl90XCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdwb2lzc29uX3JhdGUnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fcG9pc3NvbicpIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
