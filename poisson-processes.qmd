@@ -138,7 +138,7 @@ Plot.plot({
   grid: true,
   height: 180,
   x: {domain: [0, 10], label: "t"},
-  y: {domain: [0, Math.max(1, ...poisson_path.map(d => d.N_t))], label: "N(t)", ticks: 1},
+  y: {domain: [0, 50], label: "N(t)"},
   marks: [
     Plot.ruleY([0]),
     Plot.line(poisson_path, {x: "t", y: "N_t", curve: "step-after", strokeWidth: 1.5}),
