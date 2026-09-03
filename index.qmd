@@ -3,7 +3,7 @@ course:
   term: "Fall 2026"
   office-hours: "TBD"
   teaching-assistants: "Tao Zhang"
-  mid-term: "Oct 19"
+  mid-term: "Oct 16"
   lectures:
     - "11:35am–12:55pm Wednesday and Friday (ENGTR 1080)"
   tutorials:
