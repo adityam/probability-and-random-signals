@@ -1,7 +1,7 @@
 ---
 course:
   term: "Fall 2026"
-  office-hours: "TBD"
+  office-hours: "Wednesday 2pm–3pm at MC 533"
   teaching-assistants: "Tao Zhang"
   mid-term: "Oct 16"
   lectures:
