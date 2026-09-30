@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-14">
+<meta name="dcterms.date" content="2026-09-30">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>4&nbsp; Gaussian random vectors – Probability and Random Signals II</title>
@@ -87,9 +87,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-cc1094704021696b8fab6808409ff43b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-011be467b325f71c644fcae1ef5ca990.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-cc1094704021696b8fab6808409ff43b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-25f225e738ffd9a3c2659db7ae28c42c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -587,7 +587,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 14, 2026</p>
+      <p class="date">September 30, 2026</p>
     </div>
   </div>
   
@@ -1131,17 +1131,17 @@ f_Y(y)
 ϕ\Bigl(\frac{y-a}{σ}\Bigr)
 +ϕ\Bigl(\frac{y+a}{σ}\Bigr)
 \Biggr].
-\]</span> Thus, the channel output is a <strong>mixture of two Gaussian distributions</strong> rather than a Gaussian random variable. Its mean and variance are <span class="math display">\[
+\]</span> Thus, the channel output is a <strong>mixture of two Gaussian distributions</strong>. Its mean and variance are <span class="math display">\[
 \EXP[Y]=0,
 \qquad
 \VAR(Y)=a^2+σ^2.
-\]</span> Nevertheless, these two moments do not make <span class="math inline">\(Y\)</span> Gaussian. For <span class="math inline">\(a \neq 0\)</span>, <span class="math display">\[
+\]</span> Note that <span class="math inline">\(Y\)</span> Gaussian. In particular, for <span class="math inline">\(a \neq 0\)</span>, <span class="math display">\[
 \EXP[Y^4]
 =a^4+6a^2σ^2+3σ^4
 \neq
 3(a^2+σ^2)^2,
 \]</span> where the expression on the right is the fourth moment of a zero-mean Gaussian random variable with variance <span class="math inline">\(a^2+σ^2\)</span>.</p>
-<p>Only the normalized separation <span class="math inline">\(a/σ\)</span> determines the shape of the standardized mixture. In the following figure, <span class="math inline">\(σ=1\)</span> and the slider changes <span class="math inline">\(a/σ\)</span>. At small separation the mixture appears nearly Gaussian and unimodal; at large separation its two components become visible.</p>
+<p>The shape of the mixture is determined by the normalized separation <span class="math inline">\(a/σ\)</span>. The variation of the shape of the distribution as a function of <span class="math inline">\(a/σ\)</span> is shown in the figure below. At small separation the mixture appears nearly Gaussian and unimodal; at large separation it is bimodal and the two components are clearly visible.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="618" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 617;"><span id="cb4-618"><a href="#cb4-618" aria-hidden="true" tabindex="-1"></a>viewof bpsk_separation <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">,</span> {</span>
 <span id="cb4-619"><a href="#cb4-619" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"a/σ"</span><span class="op">,</span></span>
