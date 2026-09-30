@@ -85,7 +85,7 @@ Conditional expectation is not only a way of updating a probability model; it is
    $$
    \VAR(X) = \EXP[(X - \EXP[X])^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(\EXP[X \mid Y] - \EXP[X])^2].
    $$
-   This follows by taking $h(Y) = \EXP[X]$ (a constant function) in \eqref{eq:MMSE-error}. The first term is the **estimation error** (the variance that cannot be reduced by observing $Y$), and the second term is the variance of the estimator itself.
+   This follows by taking $h(Y) = \EXP[X]$ (a constant function) in \eqref{eq:MMSE-error}. 
 
    Define the conditional variance by
    $$
@@ -101,6 +101,7 @@ Conditional expectation is not only a way of updating a probability model; it is
    \bbox[5pt,border: 1px solid]
    {\VAR(X) = \EXP[\VAR(X \mid Y)] + \VAR(\EXP[X \mid Y]).}
    $$
+   The first term is the **estimation error** and the second term is the variance of the estimator. 
 
 7. The same interpretation applies to random vectors. If $X\in\reals^n$ is square-integrable, then $\EXP[X\mid Y]$ minimizes
    $$
