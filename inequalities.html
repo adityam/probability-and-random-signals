@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>8&nbsp; Probability inequalities – Probability and Random Signals II</title>
@@ -47,9 +47,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -469,7 +469,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -500,8 +500,8 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#union-bound" id="toc-union-bound" class="nav-link active" data-scroll-target="#union-bound"><span class="header-section-number">8.1</span> Union Bound</a></li>
-  <li><a href="#cauchy-schwarz-inequality" id="toc-cauchy-schwarz-inequality" class="nav-link" data-scroll-target="#cauchy-schwarz-inequality"><span class="header-section-number">8.2</span> Cauchy–Schwarz inequality</a></li>
+  <li><a href="#union-bound" id="toc-union-bound" class="nav-link active" data-scroll-target="#union-bound"><span class="header-section-number">8.1</span> Union bound</a></li>
+  <li><a href="#cauchy-schwarz-inequality" id="toc-cauchy-schwarz-inequality" class="nav-link" data-scroll-target="#cauchy-schwarz-inequality"><span class="header-section-number">8.2</span> Cauchy-Schwarz inequality</a></li>
   <li><a href="#jensens-inequality" id="toc-jensens-inequality" class="nav-link" data-scroll-target="#jensens-inequality"><span class="header-section-number">8.3</span> Jensen’s inequality</a></li>
   <li><a href="#markov-inequality" id="toc-markov-inequality" class="nav-link" data-scroll-target="#markov-inequality"><span class="header-section-number">8.4</span> Markov inequality</a>
   <ul class="collapse">
@@ -545,7 +545,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -558,7 +558,7 @@ window.Quarto = {
 
 
 <section id="union-bound" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="union-bound"><span class="header-section-number">8.1</span> Union Bound</h2>
+<h2 data-number="8.1" class="anchored" data-anchor-id="union-bound"><span class="header-section-number">8.1</span> Union bound</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -649,15 +649,15 @@ F_{Z_n}(z)
 </div>
 </section>
 <section id="cauchy-schwarz-inequality" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="cauchy-schwarz-inequality"><span class="header-section-number">8.2</span> Cauchy–Schwarz inequality</h2>
-<p>This is the Cauchy–Schwarz inequality for the inner product <span class="math inline">\(\IP{X}{Y}=\EXP[XY]\)</span> on square-integrable random variables.</p>
+<h2 data-number="8.2" class="anchored" data-anchor-id="cauchy-schwarz-inequality"><span class="header-section-number">8.2</span> Cauchy-Schwarz inequality</h2>
+<p>The following is the Cauchy-Schwarz inequality for the inner product <span class="math inline">\(\IP{X}{Y}=\EXP[XY]\)</span> on square-integrable random variables.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Cauchy–Schwarz inequality
+<span class="screen-reader-only">Tip</span>Cauchy-Schwarz inequality
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -695,7 +695,7 @@ A s^2 + B s + C \ge 0
 </div>
 </div>
 </div>
-<p>The following exercise establishes the <strong>Paley–Zygmund inequality</strong>, which gives a lower bound on the probability that a non-negative random variable is not too far below its mean.</p>
+<p>The following exercise establishes the <strong>Paley-Zygmund inequality</strong>, which gives a lower bound on the probability that a non-negative random variable is not too far below its mean.</p>
 <div id="exm-2025-mid-term-4" class="theorem example">
 <p><span class="theorem-title"><strong>Example 8.4</strong></span> Let <span class="math inline">\(X \ge 0\)</span> be a random variable with mean <span class="math inline">\(μ&gt;0\)</span> and finite variance <span class="math inline">\(σ^2\)</span>. Given <span class="math inline">\(λ \in (0,1)\)</span>, define <span class="math display">\[A = \{ ω : X(ω) \ge λ μ \}.\]</span></p>
 <ol type="a">
@@ -705,7 +705,7 @@ A s^2 + B s + C \ge 0
   \PR(X \ge λ μ) \ge (1-λ)^2 \frac{ \EXP[X]^2 }{\EXP[X^2]}
   = (1-λ)^2 \frac{μ^2}{μ^2 + σ^2}.   
 \]</span></p>
-<p><em>Hint:</em> Use Cauchy–Schwarz to bound <span class="math inline">\(\EXP[X \IND_A]\)</span>.</p></li>
+<p><em>Hint:</em> Use Cauchy-Schwarz to bound <span class="math inline">\(\EXP[X \IND_A]\)</span>.</p></li>
 </ol>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -729,7 +729,7 @@ X\IND_{A^c}\le λμ\IND_{A^c}\le λμ.
 \]</span> and hence <span class="math display">\[
 \EXP[X\IND_A]\ge(1-λ)μ.
 \]</span></p>
-<p>By the Cauchy–Schwarz inequality, <span class="math display">\[
+<p>By the Cauchy-Schwarz inequality, <span class="math display">\[
 (\EXP[X\IND_A])^2
 \le\EXP[X^2]\EXP[\IND_A^2]
 =\EXP[X^2]\PR(A).
@@ -746,9 +746,9 @@ X\IND_{A^c}\le λμ\IND_{A^c}\le λμ.
 </section>
 <section id="jensens-inequality" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="jensens-inequality"><span class="header-section-number">8.3</span> Jensen’s inequality</h2>
-<p>If we take <span class="math inline">\(Y = 1\)</span> in the Cauchy–Schwarz inequality, we get that <span class="math display">\[
+<p>If we take <span class="math inline">\(Y = 1\)</span> in the Cauchy-Schwarz inequality, we get that <span class="math display">\[
 \EXP[X^2] \ge \EXP[X]^2.
-\]</span> This also follows from the fact that <span class="math inline">\(\VAR(X) \ge 0\)</span>. Jensen’s inequality may be thought as a generalization of this to convex functions.</p>
+\]</span> This also follows from the fact that <span class="math inline">\(\VAR(X) \ge 0\)</span>. Jensen’s inequality may be thought of as a generalization of this to convex functions.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -844,7 +844,7 @@ Z=a\IND_{\{X\ge a\}}.
 </div>
 </div>
 <div id="exm-Markov" class="theorem example">
-<p><span class="theorem-title"><strong>Example 8.5</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 8.5</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Verify the Markov inequality for <span class="math inline">\(\PR(X \ge 0.2)\)</span>, <span class="math inline">\(\PR(X \ge 0.5)\)</span>, and <span class="math inline">\(\PR(X \ge 0.8)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
@@ -858,7 +858,7 @@ Z=a\IND_{\{X\ge a\}}.
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>The table below compares the actual tail probability with the bound obtained from Markov inequality.</p>
+<p>The table below compares the actual tail probability with the bound obtained from the Markov inequality.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -881,7 +881,7 @@ Z=a\IND_{\{X\ge a\}}.
 <tr class="odd">
 <td style="text-align: center;"><span class="math inline">\(0.8\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(0.2\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0.5/0.8 = .625\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0.5/0.8 = 0.625\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -891,7 +891,7 @@ Z=a\IND_{\{X\ge a\}}.
 <p><a href="#exm-Markov" class="quarto-xref">Example&nbsp;<span>8.5</span></a> shows that the Markov inequality is not tight. Moreover, it gives a vacuous bound for <span class="math inline">\(a &lt; μ\)</span>. Thus, the bound is nontrivial only when <span class="math inline">\(a\ge μ\)</span>.</p>
 <section id="union-bound-as-a-special-case-of-markov-inequality" class="level3" data-number="8.4.1">
 <h3 data-number="8.4.1" class="anchored" data-anchor-id="union-bound-as-a-special-case-of-markov-inequality"><span class="header-section-number">8.4.1</span> Union bound as a special case of Markov inequality</h3>
-<p>Note that it is possible to derive the union bound as a corollary of Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
+<p>Note that it is possible to derive the union bound as a corollary of the Markov inequality. Given events <span class="math inline">\(A_1, \dots, A_n\)</span>, define the random variables <span class="math inline">\(X_1, \dots, X_n\)</span> as <span class="math display">\[
 X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 1, &amp; ω \in A_i \\
 0, &amp; ω \not\in A_i
@@ -899,14 +899,13 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 \]</span> Let <span class="math display">\[ X = X_1 + \dots + X_n. \]</span> <span class="math inline">\(X_i\)</span> takes the value <span class="math inline">\(1\)</span> when event <span class="math inline">\(A_i\)</span> occurs. Therefore, the event <span class="math inline">\(\bigcup_{i=1}^n A_i\)</span> is equal to the event <span class="math inline">\(X \ge 1\)</span>, i.e., <span class="math display">\[
 \PR\left(\bigcup_{i=1}^n A_i \right)
 = \PR(X \ge 1).
-\]</span> Now, by Markov inequality, we have <span class="math display">\[
+\]</span> Now, by the Markov inequality, we have <span class="math display">\[
 \PR(X \ge 1) \le \EXP[X] = \PR(A_1) + \cdots + \PR(A_n).
 \]</span> The union bound follows by combining the above equations.</p>
 </section>
 </section>
 <section id="chebyshev-inequality" class="level2" data-number="8.5">
 <h2 data-number="8.5" class="anchored" data-anchor-id="chebyshev-inequality"><span class="header-section-number">8.5</span> Chebyshev inequality</h2>
-<!-- TODO: AN Lec 15 -->
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -941,13 +940,13 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 \PR( \ABS{X - μ} \ge a) &amp;= \PR((X - μ)^2 \ge a^2)
 \\
 &amp;\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
-\end{align*}\]</span> Here, <span class="math inline">\((a)\)</span> follows from Markov inequality.</p>
+\end{align*}\]</span> Here, <span class="math inline">\((a)\)</span> follows from the Markov inequality.</p>
 </div>
 </div>
 </div>
 <p>In the following example, we compare the strengths of the Chebyshev and Markov inequalities.</p>
 <div id="exm-Binomial-comparison" class="theorem example">
-<p><span class="theorem-title"><strong>Example 8.6</strong></span> Let <span class="math inline">\(X \sim \text{Bin}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 8.6</strong></span> Let <span class="math inline">\(X \sim \text{Binom}(n,p)\)</span> and consider any <span class="math inline">\(q \in (p,1)\)</span>. Use both Markov and Chebyshev inequalities to bound <span class="math inline">\(\PR(X \ge nq)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
@@ -961,10 +960,10 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 <div id="callout-14" class="callout-14-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Recall that <span class="math inline">\(\EXP[X] = np\)</span> and <span class="math inline">\(\VAR(X) = n p(1-p)\)</span>. Therefore, from Markov inequality we have <span class="math display">\[
+<p>Recall that <span class="math inline">\(\EXP[X] = np\)</span> and <span class="math inline">\(\VAR(X) = n p(1-p)\)</span>. Therefore, from the Markov inequality we have <span class="math display">\[
 \PR(X \ge nq) \le \frac{np}{nq} = \frac{p}{q}.
-\]</span> Therefore, Markov inequality does not suggest any form of concentration with <span class="math inline">\(n\)</span>.</p>
-<p>We now consider Chebyshev inequality. To do so, we first massage the expression a bit <span class="math display">\[\begin{align*}
+\]</span> Therefore, the Markov inequality does not suggest any form of concentration with <span class="math inline">\(n\)</span>.</p>
+<p>We now consider the Chebyshev inequality. To do so, we first massage the expression a bit <span class="math display">\[\begin{align*}
 \PR(X \ge nq) &amp;= \PR( X - np \ge n(q-p) ) \\
 &amp;\le \PR( \ABS{X - np} \ge n(q-p) )
 \le \frac{np(1-p)}{n^2(q-p)^2} = \frac{1}{n} \cdot \frac{p(1-p)}{(q-p)^2}
@@ -972,7 +971,7 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 </div>
 </div>
 </div>
-<p>We can use Chebyshev inequality to prove the <strong>weak law of large numbers</strong>.</p>
+<p>We can use the Chebyshev inequality to prove the <strong>weak law of large numbers</strong>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1007,13 +1006,13 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 \EXP[\bar X_n] &amp;= \frac{1}{n} \sum_{i=1}^n \EXP[X_i] = μ \\
 \VAR(\bar X_n) &amp;= \frac{1}{n^2} \sum_{i=1}^n \VAR(X_i) = \frac{σ^2}{n}.
 \end{align*}\]</span></p>
-<p>Then, by Chebyshev inequality, we have <span class="math display">\[
+<p>Then, by the Chebyshev inequality, we have <span class="math display">\[
 \PR(\ABS{\bar X_n - μ} &gt; ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
 \]</span></p>
 </div>
 </div>
 </div>
-<p>If we do not know <span class="math inline">\(\VAR(X)\)</span>, we can still use Chebyshev inequality with an upper bound on <span class="math inline">\(\VAR(X)\)</span>. For example, if <span class="math inline">\(X\in[a,b]\)</span> almost surely, then <span class="math display">\[
+<p>If we do not know <span class="math inline">\(\VAR(X)\)</span>, we can still use the Chebyshev inequality with an upper bound on <span class="math inline">\(\VAR(X)\)</span>. For example, if <span class="math inline">\(X\in[a,b]\)</span> almost surely, then <span class="math display">\[
 \VAR(X) \le \frac{(b-a)^2}{4}.
 \]</span> Thus, for any random variable <span class="math inline">\(X\in[a,b]\)</span> almost surely, <span class="math display">\[
 \PR(\ABS{X - μ} &gt; ε) \le \frac{(b-a)^2}{4 ε^2}.
@@ -1027,7 +1026,7 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Chernoff Bound
+<span class="screen-reader-only">Tip</span>Chernoff bound
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1041,7 +1040,7 @@ X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 I_+(a)
 =\sup_{\substack{s&gt;0\\s\in\mathcal R_X}}
 \{sa-K_X(s)\}.
-\]</span> The function <span class="math inline">\(I_+\)</span> is the one-sided <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Legendre–Fenchel transform</a> of <span class="math inline">\(K_X\)</span>.</p>
+\]</span> The function <span class="math inline">\(I_+\)</span> is the one-sided <a href="https://adityam.github.io/stochastic-control/convexity/duality.html">Legendre-Fenchel transform</a> of <span class="math inline">\(K_X\)</span>.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -1058,7 +1057,7 @@ I_+(a)
 <div class="callout-body-container callout-body">
 <p>For any real <span class="math inline">\(s&gt;0\)</span> in <span class="math inline">\(\mathcal R_X\)</span>, the function <span class="math inline">\(x\mapsto e^{sx}\)</span> is increasing. Therefore, <span class="math display">\[
 \{X\ge a\}=\{e^{sX}\ge e^{sa}\}.
-\]</span> Since <span class="math inline">\(e^{sX}\)</span> is non-negative, Markov inequality gives <span class="math display">\[
+\]</span> Since <span class="math inline">\(e^{sX}\)</span> is non-negative, the Markov inequality gives <span class="math display">\[
 \PR(X\ge a)
 =\PR(e^{sX}\ge e^{sa})
 \le\frac{\EXP[e^{sX}]}{e^{sa}}
@@ -1085,7 +1084,7 @@ D(q\|p)
 =q\log\left(\frac qp\right)
 +(1-q)\log\left(\frac{1-q}{1-p}\right).
 \]</span> Unlike the Chebyshev bound, which decreases as <span class="math inline">\(1/n\)</span>, the Chernoff bound decreases exponentially in <span class="math inline">\(n\)</span>.</p>
-<p>We now present another example to show the tightness of the Chernoff bound.</p>
+<p>We now present another example to illustrate the Chernoff bound.</p>
 <div id="exm-Chernoff-Gaussian" class="theorem example">
 <p><span class="theorem-title"><strong>Example 8.7</strong></span> Let <span class="math inline">\(X\sim\mathcal N(μ,σ^2)\)</span>. For <span class="math inline">\(ε&gt;0\)</span>, use the Chernoff bound to bound <span class="math display">\[
 \PR(X-μ\ge ε).
@@ -1145,7 +1144,7 @@ K_Y(s)=\frac12σ^2s^2.
 \]</span></p>
 </div>
 </div>
-<p>We will not provide a proof of this inequality. Equivalently, for any <span class="math inline">\(δ\in(0,1)\)</span>, the interval <span class="math display">\[
+<p>We will not prove this inequality. It implies that, for any <span class="math inline">\(δ\in(0,1)\)</span>, the interval <span class="math display">\[
 \left[
 \bar X_n-(b-a)\sqrt{\frac{1}{2n}\log\frac2δ},
 \bar X_n+(b-a)\sqrt{\frac{1}{2n}\log\frac2δ}

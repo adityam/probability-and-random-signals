@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>4&nbsp; Gaussian random vectors – Probability and Random Signals II</title>
@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -506,7 +506,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -587,7 +587,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -599,7 +599,7 @@ window.Quarto = {
 </header>
 
 
-<p>This chapter introduces covariance as a description of second-order dependence and then develops multivariate Gaussian random vectors. Together, these ideas provide the basic language for linear Gaussian models.</p>
+<p>In this lecture, we introduce covariance as a description of second-order dependence and then develop multivariate Gaussian random vectors.</p>
 <section id="covariance-of-random-vectors" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="covariance-of-random-vectors"><span class="header-section-number">4.1</span> Covariance of random vectors</h2>
 <p>We start with the definition of covariance of two real-valued random variables. We will then generalize the notion to random vectors.</p>
@@ -613,7 +613,7 @@ window.Quarto = {
 <li><p>If <span class="math inline">\(\VAR(X)&gt;0\)</span> and <span class="math inline">\(\VAR(Y)&gt;0\)</span>, the <strong>correlation coefficient</strong> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as <span class="math display">\[ρ_{XY} = \frac{\COV(X,Y)}{\sqrt{\VAR(X) \VAR(Y)}}.\]</span></p></li>
 <li><p>The correlation coefficient satisfies <span class="math inline">\(\ABS{ρ_{XY}} \le 1\)</span>, with equality if and only if <span class="math display">\[
 \PR(Y = aX+b)=1
-\]</span> for some <span class="math inline">\(a \neq 0\)</span> and <span class="math inline">\(b \in \reals\)</span>. [The proof follows from the Cauchy–Schwarz inequality, which we will study later.]</p></li>
+\]</span> for some <span class="math inline">\(a \neq 0\)</span> and <span class="math inline">\(b \in \reals\)</span>. [The proof follows from the Cauchy-Schwarz inequality, which we will study later.]</p></li>
 <li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are said to be <strong>uncorrelated</strong> if <span class="math display">\[\COV(X,Y)=0,\]</span> or, equivalently, if <span class="math inline">\(\EXP[XY] = \EXP[X] \EXP[Y]\)</span>. This definition also applies when one of the random variables is constant.</p></li>
 <li><p>Note that <span class="math display">\[\begin{align*}
   \VAR(X + Y) &amp;= \EXP[ ((X - \EXP[X]) + (Y - \EXP[Y]) )^2 ]
@@ -667,7 +667,7 @@ B = \{Y &gt; \tfrac12\}.
 <li><p>For a random vector <span class="math inline">\(X = [X_1, \dots, X_n]^\TRANS \in \reals^n\)</span>, we have <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_1] \\ \vdots \\ \EXP[X_n] }. \]</span></p></li>
 <li><p>For a random matrix <span class="math inline">\(X = \MATRIX{ X_{1,1} &amp; \cdots &amp; X_{1,n} \\ X_{2,1} &amp; \cdots &amp; X_{2,n} \\
 \vdots &amp; \vdots &amp; \vdots \\
-X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span>, we have <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] &amp; \cdots &amp; \EXP[X_{1,n}] \\ \EXP[X_{2,1}] &amp; \cdots &amp; \EXP[X_{2,n}] \\
+X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m × n}\)</span>, we have <span class="math display">\[ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] &amp; \cdots &amp; \EXP[X_{1,n}] \\ \EXP[X_{2,1}] &amp; \cdots &amp; \EXP[X_{2,n}] \\
 \vdots &amp; \vdots &amp; \vdots \\
 \EXP[X_{m,1}] &amp; \cdots &amp; \EXP[X_{m,n}] }.
 \]</span></p></li>
@@ -690,11 +690,11 @@ X_{m,1} &amp; \cdots &amp; X_{m,n} } \in \reals^{m \times n}\)</span>, we have <
   &amp;= \EXP[ v^\TRANS (X - μ_X) (X - μ_X)^\TRANS v ]  \\
   &amp;= \EXP[ w^2 ] \ge 0.
 \end{align*}\]</span> where <span class="math inline">\(w = (X - μ_X)^\TRANS v\)</span> is a scalar random variable.</p></li>
-<li><p>The <strong>cross covariance matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is an <span class="math inline">\(n × m\)</span> matrix given by <span class="math display">\[
+<li><p>The <strong>cross-covariance matrix</strong> of random vectors <span class="math inline">\(X \in \reals^n\)</span> and <span class="math inline">\(Y \in \reals^m\)</span> is an <span class="math inline">\(n × m\)</span> matrix given by <span class="math display">\[
 Σ_{XY} = \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
   \]</span></p></li>
-<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math inline">\(Σ_{XY} = 0_{n \times m}\)</span>. Equivalently, <span class="math display">\[ \EXP[XY^\TRANS] = \EXP[X] \EXP[Y]^\TRANS. \]</span></p></li>
-<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>orthogonal</strong> if <span class="math display">\[\EXP[X Y^\TRANS] = 0_{n \times m}. \]</span></p></li>
+<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math inline">\(Σ_{XY} = 0_{n × m}\)</span>. Equivalently, <span class="math display">\[ \EXP[XY^\TRANS] = \EXP[X] \EXP[Y]^\TRANS. \]</span></p></li>
+<li><p>Two random vectors <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>orthogonal</strong> if <span class="math display">\[\EXP[X Y^\TRANS] = 0_{n × m}. \]</span></p></li>
 <li><p>Let <span class="math inline">\(Z\)</span> be the random vector obtained by stacking <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>: <span class="math display">\[
 Z = \MATRIX{X \\ Y} \in \reals^{n+m}.
 \]</span> Its mean and covariance have the block structure <span class="math display">\[
@@ -715,7 +715,7 @@ Z = \MATRIX{X \\ Y} \in \reals^{n+m}.
 <ol type="1">
 <li><p><strong>Mean and covariance.</strong> Let <span class="math inline">\(X \in \reals^n\)</span> have mean <span class="math inline">\(μ_X\)</span> and covariance <span class="math inline">\(Σ_X\)</span>. If <span class="math display">\[
   Y=AX+b \in \reals^m,
-  \]</span> where <span class="math inline">\(A \in \reals^{m \times n}\)</span> and <span class="math inline">\(b \in \reals^m\)</span> are deterministic, then <span class="math display">\[
+  \]</span> where <span class="math inline">\(A \in \reals^{m × n}\)</span> and <span class="math inline">\(b \in \reals^m\)</span> are deterministic, then <span class="math display">\[
   μ_Y=Aμ_X+b
   \quad\text{and}\quad
   Σ_Y=AΣ_XA^\TRANS.
@@ -724,7 +724,7 @@ Z = \MATRIX{X \\ Y} \in \reals^{n+m}.
   U=AX+b \in \reals^m
   \quad\text{and}\quad
   V=CY+d \in \reals^q,
-  \]</span> where <span class="math inline">\(A \in \reals^{m \times n}\)</span>, <span class="math inline">\(C \in \reals^{q \times p}\)</span>, <span class="math inline">\(b \in \reals^m\)</span>, and <span class="math inline">\(d \in \reals^q\)</span> are deterministic, then <span class="math display">\[
+  \]</span> where <span class="math inline">\(A \in \reals^{m × n}\)</span>, <span class="math inline">\(C \in \reals^{q × p}\)</span>, <span class="math inline">\(b \in \reals^m\)</span>, and <span class="math inline">\(d \in \reals^q\)</span> are deterministic, then <span class="math display">\[
   Σ_{UV}=\COV(U,V)=AΣ_{XY}C^\TRANS.
   \]</span></p></li>
 </ol>
@@ -802,7 +802,7 @@ a^\TRANS X \sim \mathcal{N}(a^\TRANS μ,a^\TRANS Σa),
 </section>
 <section id="construction-density-and-singularity" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="construction-density-and-singularity"><span class="header-section-number">4.2.2</span> Construction, density, and singularity</h3>
-<p>Let <span class="math inline">\(Z \sim \mathcal{N}(0,I_r)\)</span>, let <span class="math inline">\(L \in \reals^{n \times r}\)</span> be deterministic, and define <span class="math display">\[
+<p>Let <span class="math inline">\(Z \sim \mathcal{N}(0,I_r)\)</span>, let <span class="math inline">\(L \in \reals^{n × r}\)</span> be deterministic, and define <span class="math display">\[
 X=μ+LZ.
 \]</span> Then <span class="math display">\[
 X \sim \mathcal{N}(μ,LL^\TRANS).
@@ -822,7 +822,7 @@ f_X(x)
 <section id="properties-of-gaussian-vectors" class="level3" data-number="4.2.3">
 <h3 data-number="4.2.3" class="anchored" data-anchor-id="properties-of-gaussian-vectors"><span class="header-section-number">4.2.3</span> Properties of Gaussian vectors</h3>
 <ol type="1">
-<li><p><strong>Affine transformations.</strong> If <span class="math inline">\(X \sim \mathcal{N}(μ_X,Σ_X)\)</span>, <span class="math inline">\(A \in \reals^{m \times n}\)</span>, and <span class="math inline">\(b \in \reals^m\)</span>, then <span class="math display">\[
+<li><p><strong>Affine transformations.</strong> If <span class="math inline">\(X \sim \mathcal{N}(μ_X,Σ_X)\)</span>, <span class="math inline">\(A \in \reals^{m × n}\)</span>, and <span class="math inline">\(b \in \reals^m\)</span>, then <span class="math display">\[
 AX+b \sim \mathcal{N}(Aμ_X+b,AΣ_XA^\TRANS).
 \]</span> This remains true when <span class="math inline">\(AΣ_XA^\TRANS\)</span> is singular.</p></li>
 <li><p><strong>Marginals.</strong> Every subvector of a Gaussian random vector is Gaussian. Its mean and covariance are obtained by selecting the corresponding entries and blocks of the original mean and covariance.</p></li>
@@ -1135,13 +1135,13 @@ f_Y(y)
 \EXP[Y]=0,
 \qquad
 \VAR(Y)=a^2+σ^2.
-\]</span> Note that <span class="math inline">\(Y\)</span> Gaussian. In particular, for <span class="math inline">\(a \neq 0\)</span>, <span class="math display">\[
+\]</span> Note that <span class="math inline">\(Y\)</span> is not Gaussian. In particular, for <span class="math inline">\(a \neq 0\)</span>, <span class="math display">\[
 \EXP[Y^4]
 =a^4+6a^2σ^2+3σ^4
 \neq
 3(a^2+σ^2)^2,
 \]</span> where the expression on the right is the fourth moment of a zero-mean Gaussian random variable with variance <span class="math inline">\(a^2+σ^2\)</span>.</p>
-<p>The shape of the mixture is determined by the normalized separation <span class="math inline">\(a/σ\)</span>. The variation of the shape of the distribution as a function of <span class="math inline">\(a/σ\)</span> is shown in the figure below. At small separation the mixture appears nearly Gaussian and unimodal; at large separation it is bimodal and the two components are clearly visible.</p>
+<p>The figure below shows how the mixture changes with <span class="math inline">\(a/σ\)</span>. At small separation the mixture appears nearly Gaussian and unimodal; at large separation it is bimodal and the two components are clearly visible.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="618" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 617;"><span id="cb4-618"><a href="#cb4-618" aria-hidden="true" tabindex="-1"></a>viewof bpsk_separation <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">,</span> {</span>
 <span id="cb4-619"><a href="#cb4-619" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"a/σ"</span><span class="op">,</span></span>

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>5&nbsp; Conditional probability and conditional expectation – Probability and Random Signals II</title>
@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -506,7 +506,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -576,7 +576,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -616,7 +616,7 @@ f_{X|C}(x\mid C) = \frac{d}{dx} F_{X|C}(x \mid C).
 \]</span></p></li>
 <li><p>If the conditional distribution has both discrete and continuous components, then it is a mixed distribution.</p></li>
 </ul>
-<p>Therefore, a random variable conditioned on an event behaves exactly like a regular random variable. We can define conditional expectation <span class="math inline">\(\EXP[X \mid C]\)</span>, conditional variance <span class="math inline">\(\VAR(X \mid C)\)</span> in the obvious manner.</p></li>
+<p>Therefore, a random variable conditioned on an event behaves exactly like a regular random variable. We can define conditional expectation <span class="math inline">\(\EXP[X \mid C]\)</span> and conditional variance <span class="math inline">\(\VAR(X \mid C)\)</span> in the obvious manner.</p></li>
 <li><p>If <span class="math inline">\(X\)</span> is a random variable with <span class="math inline">\(\EXP[\ABS{X}] &lt; ∞\)</span> and <span class="math inline">\(C\)</span> is an event with <span class="math inline">\(\PR(C) &gt; 0\)</span>, then <span class="math inline">\(\EXP[X | C]\)</span> is defined as the expectation with respect to the conditional CDF <span class="math inline">\(F_{X|C}\)</span>. In particular, <span class="math display">\[
    \EXP[ X \mid C] = \frac{\EXP[ X \IND_{C}]}{\PR(C)}.
 \]</span></p></li>
@@ -651,7 +651,7 @@ P_X(x) = \sum_{i=1}^n P_{X|C_i}(x \mid C_i) \PR(C_i).
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">\(C_H\)</span> denote the event that the coin shows heads and <span class="math inline">\(C_T\)</span> the event that it shows tails. The coin is fair, so <span class="math inline">\(\PR(C_H) = \PR(C_T) = \frac{1}{2}\)</span>.</p>
 <ul>
-<li>If heads (<span class="math inline">\(C_H\)</span>): <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span>, so the conditional CDF is <span class="math display">\[
+<li>If heads (<span class="math inline">\(C_H\)</span>): <span class="math inline">\(X \sim \text{Unif}[0,1]\)</span>, so the conditional CDF is <span class="math display">\[
 F_{X|C_H}(x) =
 \begin{cases}
   0, &amp; x &lt; 0 \\
@@ -675,8 +675,8 @@ F_X(x) &amp;= F_{X|C_H}(x)\, \PR(C_H) + F_{X|C_T}(x)\, \PR(C_T) \\
 <p>So, <span class="math display">\[
 F_X(x) =
 \begin{cases}
-0, &amp; x &lt; 0 \\\\
-\frac{1}{2}x + \frac{1}{2}(1-p), &amp; 0 \leq x &lt; 1 \\\\
+0, &amp; x &lt; 0 \\
+\frac{1}{2}x + \frac{1}{2}(1-p), &amp; 0 \leq x &lt; 1 \\
 \frac{1}{2} \cdot 1 + \frac{1}{2} \cdot 1 = 1, &amp; x \geq 1
 \end{cases}
 =
@@ -723,7 +723,7 @@ P_X(k) = p (1-p)^{k-1}, \quad k \in \naturalnumbers.
 </div>
 </div>
 <div id="exm-exponential-memoryless" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.3 (Memoryless property of exponential random variable)</strong></span> Let <span class="math inline">\(X \sim \text{Exponential}(λ)\)</span> and <span class="math inline">\(t,s\)</span> be positive reals. Compute <span class="math display">\[ \PR(X &gt; t + s \mid X &gt; t). \]</span></p>
+<p><span class="theorem-title"><strong>Example 5.3 (Memoryless property of exponential random variable)</strong></span> Let <span class="math inline">\(X \sim \text{Exp}(λ)\)</span> and <span class="math inline">\(t,s\)</span> be positive reals. Compute <span class="math display">\[ \PR(X &gt; t + s \mid X &gt; t). \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
@@ -954,7 +954,7 @@ Figure&nbsp;5.2: The events <span class="math inline">\(A\)</span> and <span cla
 \EXP[X \mid \ALPHABET G](ω)
 = \sum_{i=1}^m \EXP[X \mid D_i] \IND_{D_i}(ω).
 \]</span> Thus, on each <span class="math inline">\(ω \in D_i\)</span>, the value of <span class="math inline">\(\EXP[X \mid \ALPHABET G]\)</span> is <span class="math inline">\(\EXP[X \mid D_i]\)</span>.</p>
-<p>As an illustration, let <span class="math inline">\(Ω\)</span> consist of <span class="math inline">\(16\)</span> equally likely outcomes, arranged as a <span class="math inline">\(4\times4\)</span> grid. The shaded regions in <a href="#fig-finite-sigma-algebra-information" class="quarto-xref">Figure&nbsp;<span>5.3</span></a> partition <span class="math inline">\(Ω\)</span> into four atoms <span class="math inline">\(D_1,D_2,D_3,D_4\)</span>, each containing four outcomes. Let <span class="math inline">\(\ALPHABET G\)</span> be the <span class="math inline">\(σ\)</span>-algebra generated by this partition.</p>
+<p>As an illustration, let <span class="math inline">\(Ω\)</span> consist of <span class="math inline">\(16\)</span> equally likely outcomes, arranged as a <span class="math inline">\(4×4\)</span> grid. The shaded regions in <a href="#fig-finite-sigma-algebra-information" class="quarto-xref">Figure&nbsp;<span>5.3</span></a> partition <span class="math inline">\(Ω\)</span> into four atoms <span class="math inline">\(D_1,D_2,D_3,D_4\)</span>, each containing four outcomes. Let <span class="math inline">\(\ALPHABET G\)</span> be the <span class="math inline">\(σ\)</span>-algebra generated by this partition.</p>
 <p>Knowing <span class="math inline">\(\ALPHABET G\)</span> means knowing which shaded atom contains the outcome, but not knowing which of its four cells occurred. Suppose the random variable <span class="math inline">\(X\)</span> takes the values shown in the left panel of <a href="#fig-finite-sigma-algebra-information" class="quarto-xref">Figure&nbsp;<span>5.3</span></a>.</p>
 <div id="fig-finite-sigma-algebra-information" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1109,31 +1109,31 @@ h(Y) = \EXP[g(X,Y) \mid Y],
 <ol type="1">
 <li><p><strong>The familiar density-based definition.</strong> In undergraduate probability, conditioning on <span class="math inline">\(Y=y\)</span> is usually motivated by replacing the zero-probability event <span class="math inline">\(\{Y=y\}\)</span> with a short interval: <span class="math display">\[
 F_{X|Y}(x\mid y)
-\approx \PR(X\le x\mid y\le Y\le y+\Delta y).
+\approx \PR(X\le x\mid y\le Y\le y+Δ y).
 \]</span> This suggests the heuristic definition <span class="math display">\[
 F_{X|Y}(x\mid y)
-=\lim_{\Delta y\downarrow0}
-  \PR(X\le x\mid y\le Y\le y+\Delta y).
+=\lim_{Δ y\downarrow0}
+  \PR(X\le x\mid y\le Y\le y+Δ y).
 \]</span> If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have a joint density, then <span class="math display">\[\begin{align*}
-&amp;\PR(X\le x\mid y\le Y\le y+\Delta y)\\
+&amp;\PR(X\le x\mid y\le Y\le y+Δ y)\\
 &amp;\qquad =
 \frac{\displaystyle\int_{-\infty}^{x}
-      \int_y^{y+\Delta y}f_{X,Y}(u,v)\,dv\,du}
-     {\displaystyle\int_y^{y+\Delta y}f_Y(v)\,dv}.
-\end{align*}\]</span> For small <span class="math inline">\(\Delta y\)</span>, <span class="math display">\[
-\int_y^{y+\Delta y}f_{X,Y}(u,v)\,dv
-\approx f_{X,Y}(u,y)\Delta y,
+      \int_y^{y+Δ y}f_{X,Y}(u,v)\,dv\,du}
+     {\displaystyle\int_y^{y+Δ y}f_Y(v)\,dv}.
+\end{align*}\]</span> For small <span class="math inline">\(Δ y\)</span>, <span class="math display">\[
+\int_y^{y+Δ y}f_{X,Y}(u,v)\,dv
+\approx f_{X,Y}(u,y)Δ y,
 \qquad
-\int_y^{y+\Delta y}f_Y(v)\,dv
-\approx f_Y(y)\Delta y.
-\]</span> Cancelling <span class="math inline">\(\Delta y\)</span> gives <span class="math display">\[
+\int_y^{y+Δ y}f_Y(v)\,dv
+\approx f_Y(y)Δ y.
+\]</span> Cancelling <span class="math inline">\(Δ y\)</span> gives <span class="math display">\[
 F_{X|Y}(x\mid y)
 =\int_{-\infty}^{x}\frac{f_{X,Y}(u,y)}{f_Y(y)}\,du,
 \]</span> and hence the familiar formula <span class="math display">\[
 f_{X|Y}(x\mid y)=\frac{f_{X,Y}(x,y)}{f_Y(y)},
 \qquad f_Y(y)&gt;0.
 \]</span> This argument gives the right formula, but the limiting interpretation requires regularity assumptions and does not by itself provide a general definition of conditioning on a continuous random variable.</p>
-<p>The main conceptual difficulity is that <span class="math inline">\(\PR(Y = y) = 0\)</span> for all <span class="math inline">\(y\)</span>, so we cannot follow the same approach as the finite-valued case and average on the atoms of <span class="math inline">\(\{Y = y\}\)</span>. An alternative approach is to use the property of conditional expectation shown above: for <span class="math inline">\(\ALPHABET G=σ(Y)\)</span>, the identity <span class="math inline">\(\EXP[g(Y)\EXP[X \mid Y]] = \EXP[X g(Y)]\)</span> characterizes <span class="math inline">\(\EXP[X \mid Y]\)</span>. Equivalently, for a general <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET G\)</span>, it is enough to impose that identity on indicators of sets in <span class="math inline">\(\ALPHABET G\)</span>. That is the definition we use next; afterward we recover the familiar conditional density when a joint PDF exists.</p></li>
+<p>The main conceptual difficulty is that <span class="math inline">\(\PR(Y = y) = 0\)</span> for all <span class="math inline">\(y\)</span>, so we cannot follow the same approach as the finite-valued case and average on the atoms of <span class="math inline">\(\{Y = y\}\)</span>. An alternative approach is to use the property of conditional expectation shown above: for <span class="math inline">\(\ALPHABET G=σ(Y)\)</span>, the identity <span class="math inline">\(\EXP[g(Y)\EXP[X \mid Y]] = \EXP[X g(Y)]\)</span> characterizes <span class="math inline">\(\EXP[X \mid Y]\)</span>. Equivalently, for a general <span class="math inline">\(σ\)</span>-algebra <span class="math inline">\(\ALPHABET G\)</span>, it is enough to impose that identity on indicators of sets in <span class="math inline">\(\ALPHABET G\)</span>. That is the definition we use next; afterward we recover the familiar conditional density when a joint PDF exists.</p></li>
 <li><p><strong>The formal definition through conditional expectation.</strong> Let <span class="math inline">\(\ALPHABET G\subset\ALPHABET F\)</span> be a <span class="math inline">\(σ\)</span>-algebra. For any non-negative<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(\EXP[X\mid\ALPHABET G]\)</span> is defined to be a <span class="math inline">\(\ALPHABET G\)</span>-measurable random variable satisfying <span class="math display">\[
 \EXP[\IND_A\EXP[X\mid\ALPHABET G]]
 =\EXP[X\IND_A],
@@ -1246,7 +1246,7 @@ f_Y(y) &amp;= \int_{-∞}^{∞} f_{X,Y}(x,y) \, dx \\
 </div>
 </div>
 <div id="exm-conditional-uniform" class="theorem example">
-<p><span class="theorem-title"><strong>Example 5.7</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}[0,1]\)</span> and given <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y\)</span> is uniformly distributed on <span class="math inline">\((0,x)\)</span>. Find the PDF of <span class="math inline">\(Y\)</span>.</p>
+<p><span class="theorem-title"><strong>Example 5.7</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}[0,1]\)</span> and given <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y\)</span> is uniformly distributed on <span class="math inline">\((0,x)\)</span>. Find the PDF of <span class="math inline">\(Y\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
@@ -1295,7 +1295,7 @@ f_Y(y) = \frac{d F_{Y}(y)}{dy} = - \ln y, \quad 0 &lt; y &lt; 1.
 <div id="exm-bivariate-Gaussian" class="theorem example">
 <p><span class="theorem-title"><strong>Example 5.8</strong></span> Let <span class="math inline">\(X = [X_1, X_2]\)</span> be a bivariate Gaussian random variable with <span class="math inline">\(μ_X = 0\)</span> and <span class="math display">\[
 Σ_X = \MATRIX{ σ_1^2 &amp; ρ σ_1 σ_2 \\ ρ σ_1 σ_2 &amp; σ_2^2 }
-\]</span> where <span class="math inline">\(\ABS{ρ} &lt; 1\)</span>. Compute the conditional PDF <span class="math inline">\(f_{X_1 | X_2}\)</span>?</p>
+\]</span> where <span class="math inline">\(\ABS{ρ} &lt; 1\)</span>. Compute the conditional PDF <span class="math inline">\(f_{X_1 | X_2}\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">

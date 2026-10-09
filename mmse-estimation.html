@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>6&nbsp; MMSE estimation – Probability and Random Signals II</title>
@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -506,7 +506,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -576,7 +576,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -588,7 +588,7 @@ window.Quarto = {
 </header>
 
 
-<p>Conditional expectation is not only a way of updating a probability model; it is also the optimal estimate of an unknown random variable under mean-squared error. In this lecture, we develop that interpretation, work two non-Gaussian examples (BPSK and Poisson counts), and then specialize the theory to jointly Gaussian random vectors.</p>
+<p>Conditional expectation also gives the optimal estimate of an unknown random variable under mean-squared error. In this lecture, we develop that interpretation, work two non-Gaussian examples (BPSK and Poisson counts), and then specialize the theory to jointly Gaussian random vectors.</p>
 <section id="MMSE" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="MMSE"><span class="header-section-number">6.1</span> Conditional expectation as minimum mean square estimator</h2>
 <ol type="1">
@@ -606,13 +606,13 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recall that in <a href="random-variables.html#exm-streaming-variance" class="quarto-xref">Example&nbsp;<span>2.23</span></a>, we had shown that <span class="math display">\[
+<p>Recall that in <a href="random-variables.html#exm-streaming-variance" class="quarto-xref">Example&nbsp;<span>2.23</span></a>, we showed that <span class="math display">\[
    \EXP[ (X-t)^2 ] = \EXP[ (X - μ)^2] + (t - μ)^2.
 \]</span></p>
 <p>By the same argument, we have <span class="math display">\[
    \EXP[ (X - h(Y))^2 \mid Y ] = \EXP[ (X - \EXP[X\mid Y])^2 \mid Y] + (h(Y) - \EXP[X\mid Y])^2
 \]</span> since <span class="math inline">\(h(Y)\)</span> is <span class="math inline">\(Y\)</span>-measurable.</p>
-<p>By smoothing property of conditional expectation, we have <span class="math display">\[\begin{equation}\label{eq:MMSE-error}
+<p>By the smoothing property of conditional expectation, we have <span class="math display">\[\begin{equation}\label{eq:MMSE-error}
 \EXP[(X - h(Y))^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(h(Y) - \EXP[X \mid Y])^2].
 \end{equation}\]</span> This is minimized when <span class="math inline">\(h(Y) = \EXP[X\mid Y]\)</span>.</p>
 </div>
@@ -650,7 +650,7 @@ window.Quarto = {
 \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] = 0.
 \]</span> Expanding this, we get <span class="math display">\[\begin{align*}
 0 &amp;= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
-  &amp;= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
+  &amp;= \EXP[ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) ] \\
   &amp;= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
 \end{align*}\]</span> The first term is zero because <span class="math inline">\(h(Y) - \EXP[X \mid Y]\)</span> is a function of <span class="math inline">\(Y\)</span> and, by the orthogonality property in point 3, <span class="math inline">\(X - \EXP[X \mid Y]\)</span> is orthogonal to all functions of <span class="math inline">\(Y\)</span>. Therefore, <span class="math display">\[
 \EXP[(h(Y) - \EXP[X \mid Y])^2] = 0,
@@ -667,7 +667,7 @@ window.Quarto = {
 <p>Define the conditional variance by <span class="math display">\[
 \VAR(X \mid Y)
 := \EXP[(X-\EXP[X\mid Y])^2 \mid Y].
-\]</span> the smoothing property gives <span class="math display">\[
+\]</span> The smoothing property gives <span class="math display">\[
 \EXP[(X-\EXP[X\mid Y])^2] = \EXP[\VAR(X\mid Y)].
 \]</span> Therefore, the decomposition can also be written in its standard form: <span class="math display">\[
 \bbox[5pt,border: 1px solid]
@@ -824,8 +824,8 @@ Z\sim\text{Poisson}(λ+μ).
 &amp;=\binom{n}{m}
 \Bigl(\frac{λ}{λ+μ}\Bigr)^{m}
 \Bigl(\frac{μ}{λ+μ}\Bigr)^{n-m}.
-\end{align*}\]</span> Thus, conditioned on <span class="math inline">\(Z=n\)</span>, the random variable <span class="math inline">\(X\)</span> is <span class="math inline">\(\text{Binomial}\bigl(n,λ/(λ+μ)\bigr)\)</span>.</p></li>
-<li><p>By <a href="random-variables.html#tbl-mean-variance" class="quarto-xref">Table&nbsp;<span>2.1</span></a>, the mean of a <span class="math inline">\(\text{Binomial}(n,p)\)</span> random variable is <span class="math inline">\(np\)</span>. Taking <span class="math inline">\(p=λ/(λ+μ)\)</span> gives <span class="math display">\[
+\end{align*}\]</span> Thus, conditioned on <span class="math inline">\(Z=n\)</span>, the random variable <span class="math inline">\(X\)</span> is <span class="math inline">\(\text{Binom}\bigl(n,λ/(λ+μ)\bigr)\)</span>.</p></li>
+<li><p>By <a href="random-variables.html#tbl-mean-variance" class="quarto-xref">Table&nbsp;<span>2.1</span></a>, the mean of a <span class="math inline">\(\text{Binom}(n,p)\)</span> random variable is <span class="math inline">\(np\)</span>. Taking <span class="math inline">\(p=λ/(λ+μ)\)</span> gives <span class="math display">\[
 \EXP[X\mid Z=n]
 =n\,\frac{λ}{λ+μ}.
 \]</span> Therefore the MMSE estimator is <span class="math display">\[
@@ -843,22 +843,22 @@ Z\sim\text{Poisson}(λ+μ).
 \MATRIX{X\\Y}
 \sim
 \mathcal N\left(
-\MATRIX{\mu_X\\\mu_Y},
+\MATRIX{μ_X\\μ_Y},
 \MATRIX{
-\Sigma_{XX} &amp; \Sigma_{XY}\\
-\Sigma_{YX} &amp; \Sigma_{YY}
+Σ_{XX} &amp; Σ_{XY}\\
+Σ_{YX} &amp; Σ_{YY}
 }
 \right),
-\]</span> where <span class="math inline">\(\Sigma_{YX}=\Sigma_{XY}^\TRANS\)</span> and <span class="math inline">\(\Sigma_{YY}\)</span> is positive definite.</p>
+\]</span> where <span class="math inline">\(Σ_{YX}=Σ_{XY}^\TRANS\)</span> and <span class="math inline">\(Σ_{YY}\)</span> is positive definite.</p>
 <ol type="1">
 <li><p>Define the affine estimate <span class="math display">\[
 \widehat X
-=\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y)
+=μ_X+Σ_{XY}Σ_{YY}^{-1}(Y-μ_Y)
 \]</span> and the corresponding error <span class="math inline">\(E=X-\widehat X\)</span>. Its mean and its cross-covariance with <span class="math inline">\(Y\)</span> are <span class="math display">\[\begin{align*}
 \EXP[E]&amp;=0,\\
 \COV(E,Y)
-&amp;=\Sigma_{XY}
-  -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YY}
+&amp;=Σ_{XY}
+  -Σ_{XY}Σ_{YY}^{-1}Σ_{YY}
   =0.
 \end{align*}\]</span></p></li>
 <li><p>Since <span class="math inline">\((E,Y)\)</span> is an affine transformation of the jointly Gaussian vector <span class="math inline">\((X,Y)\)</span>, it is jointly Gaussian. For jointly Gaussian vectors, zero cross-covariance implies independence. Hence <span class="math inline">\(E\independent Y\)</span>, and therefore <span class="math display">\[
@@ -866,39 +866,39 @@ Z\sim\text{Poisson}(λ+μ).
 \]</span> Using <span class="math inline">\(X=\widehat X+E\)</span> gives <span class="math display">\[
 \bbox[5pt,border: 1px solid]{
 \EXP[X\mid Y]
-=\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y).
+=μ_X+Σ_{XY}Σ_{YY}^{-1}(Y-μ_Y).
 }
 \]</span></p></li>
 <li><p>The covariance of the estimation error is <span class="math display">\[\begin{align*}
-\Sigma_E
-&amp;=\COV\left(X-\Sigma_{XY}\Sigma_{YY}^{-1}Y\right)\\
-&amp;=\Sigma_{XX}
-  -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}.
+Σ_E
+&amp;=\COV\left(X-Σ_{XY}Σ_{YY}^{-1}Y\right)\\
+&amp;=Σ_{XX}
+  -Σ_{XY}Σ_{YY}^{-1}Σ_{YX}.
 \end{align*}\]</span> Because <span class="math inline">\(E\)</span> is Gaussian and independent of <span class="math inline">\(Y\)</span>, conditioning on <span class="math inline">\(Y=y\)</span> gives the complete conditional distribution: <span class="math display">\[
 \bbox[5pt,border: 1px solid]{
 X\mid(Y=y)
 \sim
 \mathcal N\left(
-\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(y-\mu_Y),
-\Sigma_{XX}-\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}
+μ_X+Σ_{XY}Σ_{YY}^{-1}(y-μ_Y),
+Σ_{XX}-Σ_{XY}Σ_{YY}^{-1}Σ_{YX}
 \right).
 }
 \]</span></p></li>
 <li><p>For scalar jointly Gaussian random variables with <span class="math display">\[
-\COV(X,Y)=\rho\sigma_X\sigma_Y,
+\COV(X,Y)=ρσ_Xσ_Y,
 \]</span> the formulas reduce to <span class="math display">\[\begin{align*}
 \EXP[X\mid Y]
-&amp;=\mu_X+\rho\frac{\sigma_X}{\sigma_Y}(Y-\mu_Y),\\
-\VAR(X\mid Y)&amp;=\sigma_X^2(1-\rho^2).
+&amp;=μ_X+ρ\frac{σ_X}{σ_Y}(Y-μ_Y),\\
+\VAR(X\mid Y)&amp;=σ_X^2(1-ρ^2).
 \end{align*}\]</span></p></li>
 </ol>
 <div id="exm-sensor-network" class="theorem example">
 <p><span class="theorem-title"><strong>Example 6.3 (Estimation using a sensor network)</strong></span> Let the unknown state be <span class="math display">\[
-X\sim\mathcal N(\mu_X,\Sigma_X).
+X\sim\mathcal N(μ_X,Σ_X).
 \]</span> Sensor <span class="math inline">\(i\)</span> observes <span class="math display">\[
 Y_i=C_iX+W_i,
 \qquad i=1,\ldots,N,
-\]</span> where <span class="math inline">\(W_i\sim\mathcal N(0,R_i)\)</span>. Assume that the noises are mutually independent and independent of <span class="math inline">\(X\)</span>, and that <span class="math inline">\(\Sigma_X\)</span> and every <span class="math inline">\(R_i\)</span> are positive definite. Find the MMSE estimate of <span class="math inline">\(X\)</span> using all the sensor measurements.</p>
+\]</span> where <span class="math inline">\(W_i\sim\mathcal N(0,R_i)\)</span>. Assume that the noises are mutually independent and independent of <span class="math inline">\(X\)</span>, and that <span class="math inline">\(Σ_X\)</span> and every <span class="math inline">\(R_i\)</span> are positive definite. Find the MMSE estimate of <span class="math inline">\(X\)</span> using all the sensor measurements.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -923,28 +923,28 @@ Y=CX+W,
 \qquad
 R=\COV(W)=\operatorname{diag}(R_1,\ldots,R_N).
 \]</span> Consequently, <span class="math display">\[
-\mu_Y=C\mu_X,
+μ_Y=Cμ_X,
 \qquad
-\Sigma_{XY}=\Sigma_XC^\TRANS,
+Σ_{XY}=Σ_XC^\TRANS,
 \qquad
-\Sigma_{YY}=C\Sigma_XC^\TRANS+R.
+Σ_{YY}=CΣ_XC^\TRANS+R.
 \]</span> The MMSE estimate and its error covariance are therefore <span class="math display">\[
 \widehat X
 =\EXP[X\mid Y]
-=\mu_X+\Sigma_XC^\TRANS
-(C\Sigma_XC^\TRANS+R)^{-1}(Y-C\mu_X)
+=μ_X+Σ_XC^\TRANS
+(CΣ_XC^\TRANS+R)^{-1}(Y-Cμ_X)
 \]</span> and <span class="math display">\[
 P_N
 =\COV(X\mid Y)
-=\Sigma_X-\Sigma_XC^\TRANS
-(C\Sigma_XC^\TRANS+R)^{-1}C\Sigma_X.
+=Σ_X-Σ_XC^\TRANS
+(CΣ_XC^\TRANS+R)^{-1}CΣ_X.
 \]</span></p>
 <p>Equivalently, these expressions can be written in information form as <span class="math display">\[\begin{align*}
 P_N^{-1}
-&amp;=\Sigma_X^{-1}+\sum_{i=1}^N C_i^\TRANS R_i^{-1}C_i,\\
+&amp;=Σ_X^{-1}+\sum_{i=1}^N C_i^\TRANS R_i^{-1}C_i,\\
 \widehat X
 &amp;=P_N\left(
-\Sigma_X^{-1}\mu_X
+Σ_X^{-1}μ_X
 +\sum_{i=1}^N C_i^\TRANS R_i^{-1}Y_i
 \right).
 \end{align*}\]</span> Each additional sensor contributes the positive-semidefinite term <span class="math inline">\(C_i^\TRANS R_i^{-1}C_i\)</span> to the information matrix. Thus, adding a sensor cannot increase the conditional covariance: <span class="math inline">\(P_N\preceq P_{N-1}\)</span>.</p>

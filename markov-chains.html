@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>11&nbsp; Markov chains – Probability and Random Signals II</title>
@@ -66,9 +66,9 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -488,7 +488,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -526,11 +526,11 @@ window.Quarto = {
   <li><a href="#state-occupancy-probabilities" id="toc-state-occupancy-probabilities" class="nav-link" data-scroll-target="#state-occupancy-probabilities"><span class="header-section-number">11.2</span> State occupancy probabilities</a></li>
   <li><a href="#class-structure" id="toc-class-structure" class="nav-link" data-scroll-target="#class-structure"><span class="header-section-number">11.3</span> Class structure</a></li>
   <li><a href="#hitting-times-and-absorption-probabilities" id="toc-hitting-times-and-absorption-probabilities" class="nav-link" data-scroll-target="#hitting-times-and-absorption-probabilities"><span class="header-section-number">11.4</span> Hitting times and absorption probabilities</a></li>
-  <li><a href="#invariant-distribution" id="toc-invariant-distribution" class="nav-link" data-scroll-target="#invariant-distribution"><span class="header-section-number">11.5</span> Invariant Distribution</a></li>
-  <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">11.6</span> Limiting Distribution</a></li>
+  <li><a href="#invariant-distribution" id="toc-invariant-distribution" class="nav-link" data-scroll-target="#invariant-distribution"><span class="header-section-number">11.5</span> Invariant distribution</a></li>
+  <li><a href="#limiting-distribution" id="toc-limiting-distribution" class="nav-link" data-scroll-target="#limiting-distribution"><span class="header-section-number">11.6</span> Limiting distribution</a></li>
   <li><a href="#censored-markov-chains" id="toc-censored-markov-chains" class="nav-link" data-scroll-target="#censored-markov-chains"><span class="header-section-number">11.7</span> Censored Markov chains</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/adityam/probability-and-random-signals/edit/quarto/markov-chains.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -567,7 +567,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -583,7 +583,7 @@ window.Quarto = {
   \PR(X_{n+1} = x_{n+1} \mid X_{0:n} = x_{0:n})
   = \PR(X_{n+1} = x_{n+1} \mid X_n = x_n).
 \end{equation}\]</span></p>
-<p>The variable <span class="math inline">\(X_n\)</span> is called the <strong>state</strong> of the Markov chain at time <span class="math inline">\(n\)</span>; the set <span class="math inline">\(\ALPHABET X\)</span> is called <strong>state space</strong>. The <span class="math inline">\(\eqref{eq:Markov}\)</span> implies that the current state captures all the information from the past that is relevant for the future. Stated differently, <strong>conditioned on the present, the past is independent of the future</strong>.</p>
+<p>The variable <span class="math inline">\(X_n\)</span> is called the <strong>state</strong> of the Markov chain at time <span class="math inline">\(n\)</span>; the set <span class="math inline">\(\ALPHABET X\)</span> is called the <strong>state space</strong>. The <span class="math inline">\(\eqref{eq:Markov}\)</span> implies that the current state captures all the information from the past that is relevant for the future. Stated differently, <strong>conditioned on the present, the past is independent of the future</strong>.</p>
 <p>The Markov property also holds when a chain is viewed backward over a finite time horizon; <a href="#exr-time-reversal" class="quarto-xref">Exercise&nbsp;<span>11.1</span></a> asks you to prove this. However, even if the forward chain is time-homogeneous, its backward transition probabilities may depend on time. If the chain is initialized with an invariant distribution, then the reversed chain is also time-homogeneous.</p>
 <p>A common way to construct a Markov chain is through a state recursion <span class="math display">\[
 X_{n+1}=f_n(X_n,W_n),
@@ -596,11 +596,11 @@ X_{n+1}=f_n(X_n,W_n),
 \]</span> This is the inverse-transform construction: it realizes any finite transition matrix as a state recursion driven by i.i.d.&nbsp;noise.</p>
 <p>We now present some examples of Markov chains arising in different applications.</p>
 <div id="exm-Gilbert-Elliot-channel" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.1 (Gilbert Elliot channel model for burst erasures)</strong></span> The Gilbert-Elliot channel model is used to model communication channels with burst errors. The channel can be in one of two states: a “good” state (state 0) with low error probability, or a “bad” state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>11.5</span></a>.</p>
+<p><span class="theorem-title"><strong>Example 11.1 (Gilbert-Elliott channel model for burst erasures)</strong></span> The Gilbert-Elliott channel model is used to model communication channels with burst errors. The channel can be in one of two states: a “good” state (state 0) with low error probability, or a “bad” state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>11.5</span></a>.</p>
 </div>
 <div id="exm-Ehrenfest-diffusion" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.2 (Ehrenfest urn model)</strong></span> The following urn model was introduced by <span class="citation" data-cites="Ehrenfest1907">Ehrenfest and Ehrenfest (<a href="#ref-Ehrenfest1907" role="doc-biblioref">1907</a>)</span> to illustrate the probabilistic behavior underlying Boltzmann’s <span class="math inline">\(H\)</span>-theorem.</p>
-<p>There are <span class="math inline">\(K\)</span> labelled particles, each of which is in either compartment <span class="math inline">\(A\)</span> or compartment <span class="math inline">\(B\)</span>. At each time, one particle is chosen uniformly at random and moved to the other compartment. Thus, if there are <span class="math inline">\(X_n=i\)</span> particles in compartment <span class="math inline">\(A\)</span> at time <span class="math inline">\(n\)</span>, then <span class="math inline">\(X_{n+1}=i-1\)</span> with probability <span class="math inline">\(i/K\)</span> and <span class="math inline">\(X_{n+1}=i+1\)</span> with probability <span class="math inline">\((K-i)/K\)</span>.</p>
+<p>There are <span class="math inline">\(K\)</span> labeled particles, each of which is in either compartment <span class="math inline">\(A\)</span> or compartment <span class="math inline">\(B\)</span>. At each time, one particle is chosen uniformly at random and moved to the other compartment. Thus, if there are <span class="math inline">\(X_n=i\)</span> particles in compartment <span class="math inline">\(A\)</span> at time <span class="math inline">\(n\)</span>, then <span class="math inline">\(X_{n+1}=i-1\)</span> with probability <span class="math inline">\(i/K\)</span> and <span class="math inline">\(X_{n+1}=i+1\)</span> with probability <span class="math inline">\((K-i)/K\)</span>.</p>
 </div>
 <div id="exm-gamblers-ruin" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.3 (Gambler’s ruin)</strong></span> Consider a gambler who is playing in a casino. The gambler starts with an initial fortune of $<span class="math inline">\(x_0\)</span>. At each time, the gambler places a bet where he wins $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(p\)</span> and loses $<span class="math inline">\(1\)</span> with probability <span class="math inline">\(1-p\)</span>. Thus, his fortune evolves as <span class="math display">\[
@@ -627,7 +627,7 @@ X_{n+1}=f_n(X_n,W_n),
 </div>
 <p>In general, identifying an appropriate state is an important component of stochastic modeling.</p>
 </div>
-<p>See the following video from <a href="https://www.youtube.com/@veritasium">Veritasium</a> for an excellent history of Markov chains and its applications</p>
+<p>See the following video from <a href="https://www.youtube.com/@veritasium">Veritasium</a> for a history of Markov chains and their applications.</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/KZeIEiBrT_w" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <section id="time-homogeneous-markov-chains" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="time-homogeneous-markov-chains"><span class="header-section-number">11.1</span> Time-homogeneous Markov chains</h2>
@@ -641,14 +641,14 @@ P_{ij}\ge0,
 \]</span></p>
 <p>A time-homogeneous Markov chain is completely specified by its initial distribution <span class="math inline">\(μ^{(0)}\)</span>, where <span class="math display">\[
 μ^{(0)}_i=\PR(X_0=i),
-\]</span> and its transition matrix <span class="math inline">\(P\)</span>. Indeed, the chain rule and the Markov property give <span class="math display">\[\begin{align*}
+\]</span> and its transition matrix <span class="math inline">\(P\)</span>. The chain rule and the Markov property give <span class="math display">\[\begin{align*}
 &amp;\PR(X_0=x_0,X_1=x_1,\ldots,X_n=x_n)\\
 &amp;\quad=μ^{(0)}_{x_0}
 P_{x_0x_1}P_{x_1x_2}\cdots P_{x_{n-1}x_n}.
 \end{align*}\]</span> Thus, <span class="math inline">\(μ^{(0)}\)</span> and <span class="math inline">\(P\)</span> determine all the finite-dimensional distributions of the process. Conversely, any probability distribution <span class="math inline">\(μ^{(0)}\)</span> and row-stochastic matrix <span class="math inline">\(P\)</span> define a time-homogeneous Markov chain.</p>
 <p>Such Markov chains can also be visualized using <strong>state transition diagrams</strong>, as illustrated in the examples below.</p>
 <div id="exm-on-off" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.5 (On-Off Markov chain)</strong></span> The On-Off Markov chain discussed earlier can be modelled with <span class="math inline">\(\ALPHABET X = \{0, 1\}\)</span> and a general transition probability matrix of the form. <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 11.5 (On-off Markov chain)</strong></span> The on-off Markov chain can be modeled with <span class="math inline">\(\ALPHABET X = \{0, 1\}\)</span> and a general transition probability matrix of the form <span class="math display">\[
   P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
 \]</span> The transition matrix can be visualized as follows.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -658,13 +658,13 @@ P_{x_0x_1}P_{x_1x_2}\cdots P_{x_{n-1}x_n}.
 </figure>
 </div>
 </div>
-<p>In spite of its simplicity, such simple on-off Markov chains are used in various applications including telecommunication systems, network traffic modeling, machine failure-repair models, gene activation, and others. Some properties of the on-off Markov chain are as follows:</p>
+<p>Despite their simplicity, on-off Markov chains are used in various applications including telecommunication systems, network traffic modeling, machine failure-repair models, gene activation, and others. Some properties of the on-off Markov chain are as follows:</p>
 <ul>
 <li><p>If <span class="math inline">\(a + b = 1\)</span>, then both rows of the transition matrix are identical. Therefore, the Markov chain <em>has no memory</em> and is equivalent to a Bernoulli process with success probability <span class="math inline">\(a = 1-b\)</span>.</p></li>
-<li><p>When <span class="math inline">\(a\)</span> or <span class="math inline">\(b\)</span> are small, the corresponding state is “sticky”, i.e., when the Markov chain enters a sticky state, it stays there for a long time.</p></li>
+<li><p>When <span class="math inline">\(a\)</span> or <span class="math inline">\(b\)</span> is small, the corresponding state is “sticky”, i.e., when the Markov chain enters a sticky state, it stays there for a long time.</p></li>
 </ul>
 <div id="exm-Ehrenfest-diffusion-model" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.6</strong></span> The Ehrenfest urn model presented in <a href="#exm-Ehrenfest-diffusion" class="quarto-xref">Example&nbsp;<span>11.2</span></a> can be modelled as a Markov chain with state space <span class="math inline">\(\{0, 1, \dots, K\}\)</span> and transition probability <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 11.6</strong></span> The Ehrenfest urn model presented in <a href="#exm-Ehrenfest-diffusion" class="quarto-xref">Example&nbsp;<span>11.2</span></a> can be modeled as a Markov chain with state space <span class="math inline">\(\{0, 1, \dots, K\}\)</span> and transition probability <span class="math display">\[
   P_{ij} = \begin{cases}
     i/K     &amp; j = i-1 \\
     (K-i)/K &amp; j = i + 1 \\
@@ -696,7 +696,7 @@ P_{x_0x_1}P_{x_1x_2}\cdots P_{x_{n-1}x_n}.
                 0 &amp; 0 &amp; q &amp; 0 &amp; p \\
                 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1}.
 \]</span></p></li>
-<li><p><strong>Reflected random walk:</strong> Assume that when the particle reaches a boundary states, it is <em>reflected</em> and returns to the point it came from. We may visualize the Markov chain as follows.</p>
+<li><p><strong>Reflected random walk:</strong> Assume that when the particle reaches a boundary state, it is <em>reflected</em> and returns to the point it came from. We may visualize the Markov chain as follows.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/svg/random-walk2.svg" class="img-fluid figure-img"></p>
@@ -758,7 +758,7 @@ P_{x_0x_1}P_{x_1x_2}\cdots P_{x_{n-1}x_n}.
 <ol type="1">
 <li><p>Let <span class="math inline">\(μ^{(n)}\)</span> denote the PMF of the state of the Markov chain at time <span class="math inline">\(n\)</span>. This is also called the <strong>state occupancy probabilities</strong>. We will think of <span class="math inline">\(μ^{(n)}\)</span> as a row vector.</p></li>
 <li><p>By the law of total probability, we have <span class="math display">\[
-  \PR(X_n = j) = \sum_{i \in \ALPHABET X} \PR(X_{n-1} = i) \PR(X_n = j | X_{n-1} = i)
+  \PR(X_n = j) = \sum_{i \in \ALPHABET X} \PR(X_{n-1} = i) \PR(X_n = j \mid X_{n-1} = i)
 \]</span> or, equivalently, <span class="math display">\[
   μ^{(n)}_j = \sum_{i \in \ALPHABET X} μ^{(n-1)}_i P_{ij}
 \]</span> which can be written in matrix form as <span class="math display">\[ μ^{(n)} = μ^{(n-1)} P \]</span> and, by recursively expanding the right hand side, we have <span class="math display">\[ μ^{(n)} = μ^{(0)} P^n. \]</span></p></li>
@@ -770,7 +770,7 @@ P_{x_0x_1}P_{x_1x_2}\cdots P_{x_{n-1}x_n}.
 \]</span> Thus, the probability of going from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> in <span class="math inline">\(n+m\)</span> steps equals the probability of going from <span class="math inline">\(i\)</span> to <em>somewhere</em> in <span class="math inline">\(n\)</span> steps and then from there to <span class="math inline">\(j\)</span> in <span class="math inline">\(m\)</span> steps.</p></li>
 </ol>
 <div id="exm-random-walk-occupancy" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.8</strong></span> Numerically compute the state occupancy probabilities for the different examples of random walk presented in <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>11.7</span></a> when <span class="math inline">\(p = q = \tfrac 12\)</span> for <span class="math inline">\(n \in \{1, \dots, 8\}\)</span>. In all cases, the initial probability <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 11.8</strong></span> Numerically compute the state occupancy probabilities for the different examples of random walk presented in <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>11.7</span></a> when <span class="math inline">\(p = q = \tfrac 12\)</span> for <span class="math inline">\(n \in \{1, \dots, 8\}\)</span>. In all cases, the initial distribution <span class="math display">\[
   μ^{(0)} = \MATRIX{0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 }.
 \]</span></p>
 </div>
@@ -1079,7 +1079,7 @@ d=μ^{(0)}_0-\frac{b}{a+b}.
 <section id="class-structure" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="class-structure"><span class="header-section-number">11.3</span> Class structure</h2>
 <ol type="1">
-<li><p>We say that a state <span class="math inline">\(j\)</span> is <strong>accessible from</strong> state <span class="math inline">\(i\)</span> (abbreviated as <span class="math inline">\(i \rightsquigarrow j\)</span>) if there exists an <span class="math inline">\(m \in \integers_{\ge 0}\)</span> (which may depend on <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>) such that <span class="math inline">\([P^m]_{ij} &gt; 0\)</span>. The fact that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span> implies that there exists an ordered sequence of states <span class="math inline">\((i_0, \dots, i_m)\)</span> such that <span class="math inline">\(i_0 = i\)</span> and <span class="math inline">\(i_m = j\)</span> such that <span class="math inline">\(P_{i_k i_{k+1}} &gt; 0\)</span>; thus, there is a path of positive probability from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span>.</p>
+<li><p>We say that a state <span class="math inline">\(j\)</span> is <strong>accessible from</strong> state <span class="math inline">\(i\)</span> (abbreviated as <span class="math inline">\(i \rightsquigarrow j\)</span>) if there exists an <span class="math inline">\(m \in \integers_{\ge 0}\)</span> (which may depend on <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>) such that <span class="math inline">\([P^m]_{ij} &gt; 0\)</span>. The fact that <span class="math inline">\(P^{(m)}_{ij} &gt; 0\)</span> implies that there exists an ordered sequence of states <span class="math inline">\((i_0, \dots, i_m)\)</span> such that <span class="math inline">\(i_0 = i\)</span> and <span class="math inline">\(i_m = j\)</span> and <span class="math inline">\(P_{i_k i_{k+1}} &gt; 0\)</span> for all <span class="math inline">\(k\)</span>; thus, there is a path of positive probability from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span>.</p>
 <p>Accessibility is a transitive relationship, i.e., if <span class="math inline">\(i \rightsquigarrow j\)</span> and <span class="math inline">\(j \rightsquigarrow k\)</span>, then <span class="math inline">\(i \rightsquigarrow k\)</span>.</p>
 <div id="exm-accessible" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.10</strong></span> Consider the Markov chain shown below.</p>
@@ -1116,7 +1116,7 @@ d=μ^{(0)}_0-\frac{b}{a+b}.
 \sum_{m=1}^{∞}P^{(m)}_{ii}=∞.
 \]</span> This follows from the strong Markov property, which is stated in <a href="#thm-strong-Markov" class="quarto-xref">Theorem&nbsp;<span>11.1</span></a>.</p></li>
 <li><p>States <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are said to belong to the same <strong>communicating class</strong> if <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> communicate. Communicating classes form a partition of the state space. Within a communicating class, all states are of the same type, i.e., either all states are recurrent (in which case the class is called a recurrent class) or all states are transient (in which case the class is called a transient class).</p>
-<p>For example, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>11.10</span></a>, there are two communication classes: <span class="math inline">\(\{1,2,3\}\)</span> and <span class="math inline">\(\{4,5,6\}\)</span>. The communication class <span class="math inline">\(\{4,5,6\}\)</span> is transient while the communication class <span class="math inline">\(\{1,2,3\}\)</span> is recurrent.</p></li>
+<p>For example, in <a href="#exm-accessible" class="quarto-xref">Example&nbsp;<span>11.10</span></a>, there are two communicating classes: <span class="math inline">\(\{1,2,3\}\)</span> and <span class="math inline">\(\{4,5,6\}\)</span>. The communicating class <span class="math inline">\(\{4,5,6\}\)</span> is transient while the communicating class <span class="math inline">\(\{1,2,3\}\)</span> is recurrent.</p></li>
 <li><p>A communicating class <span class="math inline">\(C\)</span> is said to be <strong>closed</strong> if <span class="math display">\[
     i \in C \text{ and } i \rightsquigarrow j \implies j \in C.
 \]</span> Thus, there is no escape from a closed class. For finite state spaces, a recurrent class is always closed and a transient class is never closed. But this is not the case for countable state Markov chains.</p></li>
@@ -1143,7 +1143,7 @@ d=μ^{(0)}_0-\frac{b}{a+b}.
   H^A(ω)=\inf\{n\ge0:X_n(ω)\in A\}.
 \]</span> The standard convention is that the infimum of the empty set is <span class="math inline">\(∞\)</span>. Thus, <span class="math inline">\(H^A(ω)=∞\)</span> if the sample path never enters <span class="math inline">\(A\)</span>. For a state <span class="math inline">\(j \in \ALPHABET X\)</span>, we use the shorthand <span class="math inline">\(H^j\)</span> to denote <span class="math inline">\(H^{\{j\}}\)</span>.</p>
 <p>To formalize the special role of hitting times, let <span class="math display">\[
-\mathcal F_n=\sigma(X_0,\ldots,X_n)
+\mathcal F_n=σ(X_0,\ldots,X_n)
 \]</span> denote the information available up to time <span class="math inline">\(n\)</span>. A random time <span class="math inline">\(τ\)</span> is called a <strong>stopping time</strong> if <span class="math display">\[
 \{τ\le n\}\in\mathcal F_n,
 \qquad n\ge0.
@@ -1166,7 +1166,7 @@ d=μ^{(0)}_0-\frac{b}{a+b}.
 <li><p>A remarkable property of Markov chain is that these quantities can be computed by solving a system of linear equations associated with the transition probability matrix <span class="math inline">\(P\)</span>. We start with some examples to illustrate the main idea.</p>
 <div id="exm-coin-toss-head-before-tail" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.11</strong></span> Suppose we toss a coin multiple times. What is the probability of getting a head before getting a tail?</p>
-We model this using a Markov chain where the state represents the outcome we’re waiting for. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. The Markov chain has three states:
+<p>We model this using a Markov chain where the state represents the outcome we’re waiting for. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. The Markov chain has three states:</p>
 <ul>
 <li>State <span class="math inline">\(-1\)</span>: tail has occurred (absorbing state, we lose)</li>
 <li>State <span class="math inline">\(0\)</span>: initial state (no outcome yet)</li>
@@ -1187,7 +1187,7 @@ We model this using a Markov chain where the state represents the outcome we’r
 <li><div id="exm-two-heads-before-two-tails" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.12</strong></span> Two players are playing a game. They repeatedly toss a coin. Player 1 wins if two consecutive heads occur before two consecutive tails. Player 2 wins if two consecutive tails occur before two consecutive heads. What is the probability that Player 1 wins?</p>
 <p>Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. We initialize the Markov chain in state <span class="math inline">\(0\)</span>, immediately before the first toss. After the first toss and until the game ends, the state records the most recent toss; once two identical tosses occur consecutively, the chain enters the corresponding absorbing state. Thus, state <span class="math inline">\(0\)</span> is visited only at time <span class="math inline">\(0\)</span>. For example, after <span class="math inline">\(HT\)</span> the state is <span class="math inline">\(-1\)</span>, and after <span class="math inline">\(TH\)</span> the state is <span class="math inline">\(1\)</span>; the chain does not return to state <span class="math inline">\(0\)</span>.</p>
-The Markov chain has five states:
+<p>The Markov chain has five states:</p>
 <ul>
 <li>State <span class="math inline">\(-2\)</span>: two consecutive tails (Player 2 wins, absorbing state)</li>
 <li>State <span class="math inline">\(-1\)</span>: the last toss was a tail, but two consecutive tails have not occurred</li>
@@ -1240,7 +1240,7 @@ h^2_0=p h^2_1+q h^2_{-1}
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>When <span class="math inline">\(X_0 = i \in A\)</span>, the hitting time <span class="math inline">\(H^A = 0\)</span>, so <span class="math inline">\(h^A_i = 1\)</span>. This proves the first part of the formula.</p>
-<p>For the second part, consider <span class="math inline">\(X_0 = i \not\in A\)</span>. Then <span class="math inline">\(H^A_i \ge 1\)</span>. By the Markov property, we have <span class="math display">\[
+<p>For the second part, consider <span class="math inline">\(X_0 = i \not\in A\)</span>. Then <span class="math inline">\(H^A \ge 1\)</span> under <span class="math inline">\(\PR_i\)</span>. By the Markov property, we have <span class="math display">\[
 \PR_i(H^A &lt; ∞ \mid X_1 = j) = \PR_j(H^A &lt; ∞) = h^A_j.
 \]</span> Moreover, by the law of total probability, we have <span class="math display">\[\begin{align*}
 h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, X_1 = j) \\
@@ -1270,7 +1270,7 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>For the ease of notation, we use <span class="math inline">\(h_i\)</span> as a short-form for <span class="math inline">\(h^{\{0\}}_i\)</span>. The hitting probabilities satisy the linear system of equations:</p>
+<p>For ease of notation, we write <span class="math inline">\(h_i\)</span> for <span class="math inline">\(h^{\{0\}}_i\)</span>. The hitting probabilities satisfy the linear system of equations:</p>
 <p><span class="math display">\[\begin{align*}
   h_0 &amp;= 1 \\
   h_i &amp;= ph_{i+1} + q h_{i-1}, \quad i \in \{1,\dots,K-1\} \\
@@ -1290,7 +1290,7 @@ h^A_i &amp;= \PR_i(H^A &lt; ∞) = \sum_{j \in \ALPHABET X} \PR_i(H^A &lt; ∞, 
 </div>
 </div>
 </div></li>
-<li><p>Similarly as above, we can derive a formula for computing mean hitting times. We start with a couple of examples to illustrate the main idea.</p>
+<li><p>As above, we can derive a formula for computing mean hitting times. We start with a couple of examples to illustrate the main idea.</p>
 <div id="exm-no-of-tosses-1" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.14</strong></span> Suppose we toss a coin multiple times and stop at the first head. What is the expected number of coin tosses until stopping?</p>
 <p>From elementary probability we know that the number of tosses until stopping is a geometric random variable. However, we will model this using a Markov chain where the state denotes the number of consecutive heads so far. Let <span class="math inline">\(p\)</span> denote the probability of heads and <span class="math inline">\(q = 1-p\)</span> denote the probability of tails. Then, the Markov chain model is as follows.</p>
@@ -1347,12 +1347,11 @@ m^2_0=\frac{1+p}{p^2}.
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The proof is similar to the proof of <a href="#thm-hitting-probabilities" class="quarto-xref">Theorem&nbsp;<span>11.2</span></a>. When <span class="math inline">\(X_0 = i \in A\)</span>, the hitting time <span class="math inline">\(H^A = 0\)</span>, so <span class="math inline">\(m^A_i = 0\)</span>. This proves the first part of the formula.</p>
-<p>For the second part, consider <span class="math inline">\(X_0 = i \not\in A\)</span>. Then <span class="math inline">\(H^A_i \ge 1\)</span>. By the Markov property, we have <span class="math display">\[
+<p>For the second part, consider <span class="math inline">\(X_0 = i \not\in A\)</span>. Then <span class="math inline">\(H^A \ge 1\)</span> under <span class="math inline">\(\PR_i\)</span>. By the Markov property, we have <span class="math display">\[
   \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
 \]</span> Moreover, by the law of total probability, we have <span class="math display">\[\begin{align*}
   m^A_i &amp;= \EXP_i[ H^A ]
   = \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
-  &amp;= \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
   &amp;= \sum_{j \in \ALPHABET X} P_{ij} \bigl[ 1 + m^A_j \bigr]
   \\
   &amp;= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
@@ -1360,16 +1359,16 @@ m^2_0=\frac{1+p}{p^2}.
 </div>
 </div>
 </div>
-<p>In the two-absorbing-state example above, the equation for state <span class="math inline">\(1\)</span> would be <span class="math inline">\(m^A_1=1+m^A_1\)</span>, which has no finite solution. Indeed, the actual mean hitting time is <span class="math inline">\(m^A_1=∞\)</span>.</p></li>
+<p>In the two-absorbing-state example above, the equation for state <span class="math inline">\(1\)</span> would be <span class="math inline">\(m^A_1=1+m^A_1\)</span>, which has no finite solution: the actual mean hitting time is <span class="math inline">\(m^A_1 = ∞\)</span>.</p></li>
 <li><p>For absorbing Markov chains, we can use matrix methods to efficiently compute hitting probabilities and mean hitting times. The key idea is to rearrange the transition matrix into a <strong>canonical form</strong> where absorbing states are grouped together.</p>
 <p>Suppose the state space <span class="math inline">\(\ALPHABET X\)</span> can be partitioned into transient states <span class="math inline">\(\ALPHABET T\)</span> and absorbing states <span class="math inline">\(\ALPHABET C\)</span>. By reordering the states so that all transient states come first, followed by all absorbing states, the transition matrix <span class="math inline">\(P\)</span> can be written in the <strong>canonical form</strong>: <span class="math display">\[
   P = \MATRIX{ Q &amp; R \\ 0 &amp; I}.
 \]</span> where:</p>
 <ul>
-<li><span class="math inline">\(Q\)</span> is a <span class="math inline">\(|\ALPHABET T| \times |\ALPHABET T|\)</span> matrix containing transition probabilities between transient states,</li>
-<li><span class="math inline">\(R\)</span> is a <span class="math inline">\(|\ALPHABET T| \times |\ALPHABET C|\)</span> matrix containing transition probabilities from transient states to absorbing states,</li>
-<li><span class="math inline">\(0\)</span> is a <span class="math inline">\(|\ALPHABET C| \times |\ALPHABET T|\)</span> zero matrix (since absorbing states cannot transition to transient states),</li>
-<li><span class="math inline">\(I\)</span> is a <span class="math inline">\(|\ALPHABET C| \times |\ALPHABET C|\)</span> identity matrix (since absorbing states stay in themselves).</li>
+<li><span class="math inline">\(Q\)</span> is a <span class="math inline">\(|\ALPHABET T| × |\ALPHABET T|\)</span> matrix containing transition probabilities between transient states,</li>
+<li><span class="math inline">\(R\)</span> is a <span class="math inline">\(|\ALPHABET T| × |\ALPHABET C|\)</span> matrix containing transition probabilities from transient states to absorbing states,</li>
+<li><span class="math inline">\(0\)</span> is a <span class="math inline">\(|\ALPHABET C| × |\ALPHABET T|\)</span> zero matrix (since absorbing states cannot transition to transient states),</li>
+<li><span class="math inline">\(I\)</span> is a <span class="math inline">\(|\ALPHABET C| × |\ALPHABET C|\)</span> identity matrix (since absorbing states stay in themselves).</li>
 </ul></li>
 <li><p><strong>Multi-step transitions:</strong> For the canonical form, we can show by induction that <span class="math display">\[
 P^n = \MATRIX{ Q^n &amp; (I + Q + Q^2 + \cdots + Q^{n-1}) R \\ 0 &amp; I}.
@@ -1479,7 +1478,7 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 </ol>
 </section>
 <section id="invariant-distribution" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="invariant-distribution"><span class="header-section-number">11.5</span> Invariant Distribution</h2>
+<h2 data-number="11.5" class="anchored" data-anchor-id="invariant-distribution"><span class="header-section-number">11.5</span> Invariant distribution</h2>
 <ol type="1">
 <li><p>A probability distribution <span class="math inline">\(π\)</span> on the state space <span class="math inline">\(\ALPHABET X\)</span> is called an <strong>invariant distribution</strong> if it satisfies the equation <span class="math display">\[
   π = π P.
@@ -1488,7 +1487,7 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 <li><p>Consider the on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>11.5</span></a> with transition matrix <span class="math display">\[
   P = \MATRIX{ 1 - a &amp; a \\ b &amp; 1 - b }.
 \]</span> This chain has an invariant distribution given by <span class="math inline">\(π = [b/(a+b), a/(a+b)]\)</span> (assuming <span class="math inline">\(a+b &gt; 0\)</span>). One can verify that <span class="math inline">\(π = π P\)</span>, which shows that an invariant distribution exists for this chain.</p></li>
-<li><p>A finite Markov chain with only one communication class has a <strong>unique</strong> invariant distribution. Thus, irreducible Markov chains have a unique invariant distribution. Note that aperiodicity is not required. For instance, consider on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>11.5</span></a> with <span class="math inline">\(a = b = 1\)</span>. This chain is periodic, but has a unique invariant distribution <span class="math inline">\(π = [\frac 12, \frac 12]\)</span>.</p></li>
+<li><p>A finite Markov chain with only one communicating class has a <strong>unique</strong> invariant distribution. Thus, irreducible Markov chains have a unique invariant distribution. Note that aperiodicity is not required. For instance, consider the on-off Markov chain from <a href="#exm-on-off" class="quarto-xref">Example&nbsp;<span>11.5</span></a> with <span class="math inline">\(a = b = 1\)</span>. This chain is periodic, but has a unique invariant distribution <span class="math inline">\(π = [\frac 12, \frac 12]\)</span>.</p></li>
 <li><p>A Markov chain with more than one closed communicating class has multiple invariant distributions. For example, consider a Markov chain with two absorbing states <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. The transition matrix is <span class="math display">\[
   P = \MATRIX{ 1 &amp; 0 \\ 0 &amp; 1 }.
 \]</span></p>
@@ -1504,7 +1503,7 @@ m = N \ONES = \frac{1}{1-pq} \MATRIX{ 1 &amp; p \\ q &amp; 1 } \MATRIX{ 1 \\ 1 }
 = [α, 1-α] = π.
 \]</span> Thus, there are uncountably many invariant distributions. This happens because the chain consists of two disjoint recurrent classes (the absorbing states <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>), and any probability mass can be put on either class and be preserved.</p>
 <p>More generally, if a Markov chain has multiple irreducible communicating (closed) classes, each class can have its own invariant distribution (supported only on that class). Any convex combination of these distributions is also an invariant distribution for the whole chain.</p></li>
-<li><p>A Markov chain that is irreducible and <strong>aperiodic</strong> has a special prorperty: for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span></p>
+<li><p>A Markov chain that is irreducible and <strong>aperiodic</strong> has a special property: for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span></p>
 <p>Irreducible and aperiodic Markov chains are also called <strong>ergodic</strong>. Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the <strong>limiting distribution</strong> or the <strong>steady-state</strong> distribution.</p></li>
 <li><p><strong>PageRank.</strong> Suppose that there are <span class="math inline">\(N\)</span> webpages with links between them, and that every page has at least one outgoing link. Let <span class="math inline">\(\widehat P_{ij}\)</span> denote the fraction of the outgoing links from page <span class="math inline">\(i\)</span> that point to page <span class="math inline">\(j\)</span>. A user behaves as follows: with probability <span class="math inline">\(α\)</span>, the user chooses one of the outgoing links on the current page, and with probability <span class="math inline">\(1-α\)</span>, the user chooses one of the <span class="math inline">\(N\)</span> pages uniformly at random. The transition matrix of the webpages visited by the user is <span class="math display">\[
 P=α\widehat P+(1-α)\frac{1}{N}\ONES\ONES^{\mathsf T},
@@ -1524,7 +1523,7 @@ P=α\widehat P+(1-α)\frac{1}{N}\ONES\ONES^{\mathsf T},
 <li><p>For the Ehrenfest urn model in <a href="#exm-Ehrenfest-diffusion-model" class="quarto-xref">Example&nbsp;<span>11.6</span></a>, the invariant distribution is <span class="math display">\[
 π_i=2^{-K}\binom Ki,
 \qquad i\in\{0,1,\ldots,K\}.
-   \]</span> Indeed, the probability flows between every pair of adjacent states agree: <span class="math display">\[
+   \]</span> The probability flows between every pair of adjacent states agree: <span class="math display">\[
 π_i\frac{K-i}{K}=π_{i+1}\frac{i+1}{K}.
    \]</span> These equalities, for <span class="math inline">\(i=0,1,\ldots,K-1\)</span>, imply the balance equations <span class="math inline">\(π=πP\)</span>.</p></li>
 <li><p>We can write balance equations directly from the state transition diagram. For each state <span class="math inline">\(j\)</span>, the balance equation states that the probability flow into state <span class="math inline">\(j\)</span> equals the probability flow out of state <span class="math inline">\(j\)</span>. Consider the three-state Markov chain with transition matrix <span class="math display">\[
@@ -1539,30 +1538,31 @@ P = \MATRIX{ 0.3 &amp; 0.7 &amp; 0 \\
 <figcaption>Three-state aperiodic Markov chain</figcaption>
 </figure>
 </div>
-<p>The balance equations, equating the flow into and out of each state, can be written as: - <strong>State 0:</strong><br>
-<span class="math display">\[\begin{align*}
-     \text{Inflow} &amp;= \pi_2 \cdot 0.7 \\
-     \text{Outflow} &amp;= \pi_0 \cdot 0.7
-     \end{align*}\]</span></p>
+<p>The balance equations, equating the flow into and out of each state, can be written as:</p>
 <ul>
+<li><p><strong>State 0:</strong><br>
+<span class="math display">\[\begin{align*}
+\text{Inflow} &amp;= π_2 \cdot 0.7 \\
+\text{Outflow} &amp;= π_0 \cdot 0.7
+\end{align*}\]</span></p></li>
 <li><p><strong>State 1:</strong><br>
 <span class="math display">\[\begin{align*}
-\text{Inflow} &amp;= \pi_0 \cdot 0.7 \\
-\text{Outflow} &amp;= \pi_1 \cdot 0.7
+\text{Inflow} &amp;= π_0 \cdot 0.7 \\
+\text{Outflow} &amp;= π_1 \cdot 0.7
 \end{align*}\]</span></p></li>
 <li><p><strong>State 2:</strong><br>
 <span class="math display">\[\begin{align*}
-\text{Inflow} &amp;= \pi_1 \cdot 0.7 \\
-\text{Outflow} &amp;= \pi_2 \cdot 0.7
+\text{Inflow} &amp;= π_1 \cdot 0.7 \\
+\text{Outflow} &amp;= π_2 \cdot 0.7
 \end{align*}\]</span></p></li>
 </ul>
 <p>Thus, the balance equations are given by <span class="math display">\[\begin{align*}
-     \pi_0 \cdot 0.7 = \pi_2 \cdot 0.7 \\
-     \pi_1 \cdot 0.7 = \pi_0 \cdot 0.7 \\
-     \pi_2 \cdot 0.7 = \pi_1 \cdot 0.7
+     π_0 \cdot 0.7 = π_2 \cdot 0.7 \\
+     π_1 \cdot 0.7 = π_0 \cdot 0.7 \\
+     π_2 \cdot 0.7 = π_1 \cdot 0.7
    \end{align*}\]</span> Together with the normalization constraint <span class="math inline">\(π_0 + π_1 + π_2 = 1\)</span>, we get <span class="math inline">\(π_0 = π_1 = π_2 = 1/3\)</span>. This illustrates how balance equations can be derived directly from the state diagram by considering probability flows.</p>
 <ol start="12" type="1">
-<li><p>The above example is an illustration of a more general principle. If <span class="math inline">\(P\)</span> is doubly stochastic (i.e., both row sum and column sums are <span class="math inline">\(1\)</span>), then the invariant distribution is a uniform distribution.</p></li>
+<li><p>The above example is an illustration of a more general principle. If <span class="math inline">\(P\)</span> is doubly stochastic (i.e., both row sums and column sums are <span class="math inline">\(1\)</span>), then the invariant distribution is a uniform distribution.</p></li>
 <li><p><strong>Exercises: Computing Invariant Distributions</strong></p>
 <div id="exm-invariant-transient-closed" class="theorem example">
 <p><span class="theorem-title"><strong>Example 11.17</strong></span> Consider the Markov chain with transition matrix<br>
@@ -1598,11 +1598,11 @@ P = \MATRIX{ 0.3 &amp; 0.7 &amp; 0 \\
 </ol>
 </section>
 <section id="limiting-distribution" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="limiting-distribution"><span class="header-section-number">11.6</span> Limiting Distribution</h2>
+<h2 data-number="11.6" class="anchored" data-anchor-id="limiting-distribution"><span class="header-section-number">11.6</span> Limiting distribution</h2>
 <ol type="1">
-<li><p>Suppose a finite Markov chain has the property that starting from any initial distribution, the distribution of <span class="math inline">\(X_n\)</span> converges to some distribution <span class="math inline">\(\pi\)</span> as <span class="math inline">\(n \to \infty\)</span>: <span class="math display">\[
-\lim_{n \to \infty} P^{(n)}_{i, j} = \pi_j \qquad \text{for all } i, j \in \ALPHABET X.
-\]</span> Then, <span class="math inline">\(\pi\)</span> is an invariant distribution.</p>
+<li><p>Suppose a finite Markov chain has the property that starting from any initial distribution, the distribution of <span class="math inline">\(X_n\)</span> converges to some distribution <span class="math inline">\(π\)</span> as <span class="math inline">\(n \to \infty\)</span>: <span class="math display">\[
+\lim_{n \to \infty} P^{(n)}_{i, j} = π_j \qquad \text{for all } i, j \in \ALPHABET X.
+\]</span> Then, <span class="math inline">\(π\)</span> is an invariant distribution.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1630,30 +1630,30 @@ P = \MATRIX{ 0.3 &amp; 0.7 &amp; 0 \\
 </div>
 </div></li>
 <li><p>As discussed above, limiting distributions exist for ergodic Markov chains (i.e., irreducible and aperiodic Markov chains): for any initial distribution <span class="math inline">\(μ^{(0)}\)</span>, we have <span class="math display">\[\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.\]</span></p>
-<p>This is equivalent to the statement that for all <span class="math inline">\(i, j \in \ALPHABET X\)</span>, <span class="math display">\[\lim_{n \to \infty} P^{(n)}_{ij} = π_j.\]</span> This is an consequence of <a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem">:Perron Frobenius Theorem</a>. In matrix form, we have <span class="math display">\[
+<p>This is equivalent to the statement that for all <span class="math inline">\(i, j \in \ALPHABET X\)</span>, <span class="math display">\[\lim_{n \to \infty} P^{(n)}_{ij} = π_j.\]</span> This is a consequence of the <a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem">:Perron-Frobenius theorem</a>. In matrix form, we have <span class="math display">\[
 \lim_{n \to \infty} P^n =
 \MATRIX{
-   \pi \\
-   \pi \\
+   π \\
+   π \\
    \vdots \\
-   \pi
+   π
 }
 \]</span> where each row of the limiting matrix is the invariant distribution <span class="math inline">\(π\)</span>. That is, for large <span class="math inline">\(n\)</span>, every row of <span class="math inline">\(P^n\)</span> approaches <span class="math inline">\(π\)</span>.</p></li>
 <li><p>In fact, we have a stronger result: the <strong>Strong Law of Large Numbers (SLLN) for finite Markov chains.</strong> Let <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> be an irreducible Markov chain. Then, for any initial distribution, <span class="math display">\[
-\frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} \pi_j, \quad \forall j \in \ALPHABET X.
+\frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} π_j, \quad \forall j \in \ALPHABET X.
 \]</span> This is known as the <strong>ergodic property</strong>: sample average equals ensemble average. Notice that aperiodicity is not required for this result.</p></li>
 <li><p>An immediate consequence of the ergodic property is that given an irreducible finite Markov chain <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> and any function <span class="math inline">\(f \colon \ALPHABET X \to \reals\)</span>, we have <span class="math display">\[
-\frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j).
+\frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} π_j f(j).
 \]</span></p></li>
-<li><p>If the chain is periodic with period <span class="math inline">\(d &gt; 1\)</span> (i.e., not aperiodic), the limiting distribution <span class="math inline">\(\lim_{n \to \infty} P^n\)</span> does not exist in the usual sense, as the transition probabilities continue to oscillate. The Ehrenfest chain illustrates this distinction: every transition changes the parity of the state, so the chain has period two. It has the invariant distribution computed earlier, but <span class="math inline">\(P^n\)</span> starting from a fixed state does not converge to this distribution. Nevertheless, since the chain is irreducible, the time averages in the previous two bullets converge along the full sequence <span class="math inline">\(N \to \infty\)</span>. Thus, aperiodicity is needed for the convergence of <span class="math inline">\(P^n\)</span> to a matrix whose rows are <span class="math inline">\(π\)</span>, but not for the Markov-chain law of large numbers.</p></li>
+<li><p>If the chain is periodic with period <span class="math inline">\(d &gt; 1\)</span> (i.e., not aperiodic), the limiting distribution <span class="math inline">\(\lim_{n \to \infty} P^n\)</span> does not exist in the usual sense, as the transition probabilities continue to oscillate. The Ehrenfest chain illustrates this distinction: every transition changes the parity of the state, so the chain has period two. It has the invariant distribution computed earlier, but <span class="math inline">\(P^n\)</span> starting from a fixed state does not converge to this distribution. Nevertheless, since the chain is irreducible, the time averages in the previous two items converge along the full sequence <span class="math inline">\(N \to \infty\)</span>. Thus, aperiodicity is needed for the convergence of <span class="math inline">\(P^n\)</span> to a matrix whose rows are <span class="math inline">\(π\)</span>, but not for the Markov-chain law of large numbers.</p></li>
 </ol>
 </section>
 <section id="censored-markov-chains" class="level2" data-number="11.7">
 <h2 data-number="11.7" class="anchored" data-anchor-id="censored-markov-chains"><span class="header-section-number">11.7</span> Censored Markov chains</h2>
 <ol type="1">
-<li><p>Suppose a Markov chain is only observed when the state lies in a subset <span class="math inline">\(\ALPHABET O \subset \ALPHABET X\)</span>. Let <span class="math inline">\(\{τ_k\}_{k \ge 1}\)</span> denote the when the Markov chain returns to the set <span class="math inline">\(\ALPHABET O\)</span>, i.e., <span class="math inline">\(τ_1\)</span> is the first time when the Markov chain <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> hits <span class="math inline">\(\ALPHABET O\)</span>; <span class="math inline">\(τ_2\)</span> denotes the second time when the Markov chain hits <span class="math inline">\(\ALPHABET O\)</span>; and so on.</p></li>
+<li><p>Suppose a Markov chain is only observed when the state lies in a subset <span class="math inline">\(\ALPHABET O \subset \ALPHABET X\)</span>. Let <span class="math inline">\(\{τ_k\}_{k \ge 1}\)</span> denote the <strong>stopping times</strong> when the Markov chain returns to the set <span class="math inline">\(\ALPHABET O\)</span>, i.e., <span class="math inline">\(τ_1\)</span> is the first time when the Markov chain <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> hits <span class="math inline">\(\ALPHABET O\)</span>; <span class="math inline">\(τ_2\)</span> denotes the second time when the Markov chain hits <span class="math inline">\(\ALPHABET O\)</span>; and so on.</p></li>
 <li><p>Define the process <span class="math inline">\(\{O_k\}_{k \ge 1}\)</span> by <span class="math inline">\(O_k = X_{τ_k}\)</span>. The <strong>strong Markov property</strong> implies that <span class="math inline">\(\{O_k\}_{k \ge 1}\)</span> is a Markov chain. What is the transition probability matrix <span class="math inline">\(\tilde P\)</span> of this chain?</p></li>
-<li><p>As we did for the absorbing Markov chains, we re-order states so that the unobservable states <span class="math inline">\(\ALPHABET O^c\)</span> come first, followed by all observable state <span class="math inline">\(\ALPHABET O\)</span>. Then the transition matrix <span class="math inline">\(P\)</span> can be written as <span class="math display">\[
+<li><p>As we did for the absorbing Markov chains, we re-order states so that the unobservable states <span class="math inline">\(\ALPHABET O^c\)</span> come first, followed by all observable states <span class="math inline">\(\ALPHABET O\)</span>. Then the transition matrix <span class="math inline">\(P\)</span> can be written as <span class="math display">\[
    P = \MATRIX{
    Q &amp; R \\
    S &amp; P_O
@@ -1665,10 +1665,10 @@ P = \MATRIX{ 0.3 &amp; 0.7 &amp; 0 \\
 <li><span class="math inline">\(S\)</span> is the <span class="math inline">\(\ABS{\ALPHABET O} × \ABS{\ALPHABET O^c}\)</span> matrix containing the transition probabilities from observed to unobserved states</li>
 <li><span class="math inline">\(P_O\)</span> is the <span class="math inline">\(\ABS{\ALPHABET O} × \ABS{\ALPHABET O}\)</span> matrix containing the transitions from observed to observed states.</li>
 </ul></li>
-<li><p>Suppose we start with a state <span class="math inline">\(O_1 = X_1 \in \ALPHABET O\)</span>. Then the probability of going to each of the states in <span class="math inline">\(\ALPHABET O\)</span> in one step is given by <span class="math inline">\(P_O\)</span>. To take more than one step, the chain must enter a state in <span class="math inline">\(\ALPHABET O^c\)</span> with probability <span class="math inline">\(S\)</span>. We will assume that the set <span class="math inline">\(\ALPHABET O^c\)</span> does not have any obsorbing subsets. Then, as we showed in the analysis for absorbing Markov chains, starting from a given state in <span class="math inline">\(\ALPHABET O^c\)</span>, the Markov chain enters <span class="math inline">\(\ALPHABET O\)</span> for the first time with probability <span class="math inline">\(NR = (I - Q)^{-1} R\)</span>. Thus, we have that <span class="math display">\[
+<li><p>Suppose we start with a state <span class="math inline">\(O_1 = X_1 \in \ALPHABET O\)</span>. Then the probability of going to each of the states in <span class="math inline">\(\ALPHABET O\)</span> in one step is given by <span class="math inline">\(P_O\)</span>. To take more than one step, the chain must enter a state in <span class="math inline">\(\ALPHABET O^c\)</span> with probability <span class="math inline">\(S\)</span>. We will assume that the set <span class="math inline">\(\ALPHABET O^c\)</span> does not have any absorbing subsets. Then, as we showed in the analysis for absorbing Markov chains, starting from a given state in <span class="math inline">\(\ALPHABET O^c\)</span>, the Markov chain enters <span class="math inline">\(\ALPHABET O\)</span> for the first time with probability <span class="math inline">\(NR = (I - Q)^{-1} R\)</span>. Thus, we have that <span class="math display">\[
    \tilde P = P_O + S(I - Q)^{-1}R.
 \]</span></p></li>
-<li><p>If <span class="math inline">\(P\)</span> has only one communicating class, then <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> has a unique invariant distribution, which we denote by <span class="math inline">\(π\)</span>. Then <span class="math inline">\((π_k)_{k \in \ALPHABET O}\)</span> normalized to have sum <span class="math inline">\(1\)</span> is the unique invariant distribution of <span class="math inline">\(\{O_n\}_{n \ge 1}\)</span>.</p></li>
+<li><p>If <span class="math inline">\(P\)</span> has only one communicating class, then <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> has a unique invariant distribution, which we denote by <span class="math inline">\(π\)</span>. Then <span class="math inline">\((π_k)_{k \in \ALPHABET O}\)</span> normalized to have sum <span class="math inline">\(1\)</span> is the unique invariant distribution of <span class="math inline">\(\{O_n\}_{n \ge 1}\)</span>.</p></li>
 <li><p>As an example, consider the reflected random walk from <a href="#exm-random-walk" class="quarto-xref">Example&nbsp;<span>11.7</span></a> (point 2) with state space <span class="math inline">\(\{-2, -1, 0, 1, 2\}\)</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1690,7 +1690,7 @@ P = \left[\begin{array}{cc|ccc} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
 &amp;= \MATRIX{ 0 &amp; \tfrac{1}{4} &amp; 0 \\ \tfrac{3}{4} &amp; 0 &amp; \tfrac{1}{4} \\ 0 &amp; 1 &amp; 0 } + \MATRIX{ 0 &amp; \tfrac{3}{4} \\ 0 &amp; 0 \\ 0 &amp; 0 } \MATRIX{ 1 &amp; -1 \\ -\tfrac{3}{4} &amp; 1 }^{-1} \MATRIX{ 0 &amp; 0 &amp; 0 \\ \tfrac{1}{4} &amp; 0 &amp; 0 } \\
 &amp;= \MATRIX{ \tfrac{3}{4} &amp; \tfrac{1}{4} &amp; 0 \\ \tfrac{3}{4} &amp; 0 &amp; \tfrac{1}{4} \\ 0 &amp; 1 &amp; 0 }.
 \end{align*}\]</span></p>
-<p>This intuitively makes sense. The chain <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> can only go to unobserved states at state <span class="math inline">\(X_n = 0\)</span>. When it does to go <span class="math inline">\(\ALPHABET O^c\)</span>, the first observed state it visits must be <span class="math inline">\(0\)</span>. Then <span class="math inline">\(\tilde P_{00} = P_{0,-1} = \frac 34\)</span>. The rest of the entries of <span class="math inline">\(\tilde P\)</span> are the same as <span class="math inline">\(P\)</span>.</p>
+<p>This intuitively makes sense. The chain <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> can only go to unobserved states at state <span class="math inline">\(X_n = 0\)</span>. When it does go <span class="math inline">\(\ALPHABET O^c\)</span>, the first observed state it visits must be <span class="math inline">\(0\)</span>. Then <span class="math inline">\(\tilde P_{00} = P_{0,-1} = \frac 34\)</span>. The rest of the entries of <span class="math inline">\(\tilde P\)</span> are the same as <span class="math inline">\(P\)</span>.</p>
 <p>The invariant distribution of <span class="math inline">\(\tilde P\)</span> is <span class="math display">\[\MATRIX{ \tfrac{12}{17} &amp; \tfrac{4}{17} &amp; \tfrac{1}{17} }\]</span> while the invariant distribution of <span class="math inline">\(P\)</span> is <span class="math display">\[\MATRIX{ \tfrac{27}{80} &amp; \tfrac{36}{80} &amp; \tfrac{12}{80} &amp; \tfrac{4}{80} &amp; \tfrac{1}{80} }.\]</span></p>
 <p>Observe that if we take the last three elements of the latter and normalize it, we get the former.</p></li>
 </ol>
@@ -1707,7 +1707,7 @@ P = \left[\begin{array}{cc|ccc} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
 <p><span class="theorem-title"><strong>Exercise 11.2</strong></span> Suppose <span class="math inline">\(\{X_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P\)</span>. For a fixed positive integer <span class="math inline">\(k\)</span>, define <span class="math inline">\(Y_n = X_{kn}\)</span>. Show that <span class="math inline">\(\{Y_n\}_{n \ge 0}\)</span> is a Markov chain with transition matrix <span class="math inline">\(P^k\)</span>.</p>
 </div>
 <div id="exr-biased-die" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 11.3</strong></span> Suppose a (6-sided) die is ‘fixed’ so that two consecutive rolls cannot have the same outcome. In particular, if the outcome of a roll is <span class="math inline">\(i\)</span>, then the next roll cannot be <span class="math inline">\(i\)</span>; all <span class="math inline">\(5\)</span> other outcomes are equally likely.</p>
+<p><span class="theorem-title"><strong>Exercise 11.3</strong></span> Suppose a (6-sided) die is “fixed” so that two consecutive rolls cannot have the same outcome. In particular, if the outcome of a roll is <span class="math inline">\(i\)</span>, then the next roll cannot be <span class="math inline">\(i\)</span>; all <span class="math inline">\(5\)</span> other outcomes are equally likely.</p>
 <ol type="a">
 <li>Model the above as a Markov chain.</li>
 <li>If the outcome of the first roll is <span class="math inline">\(1\)</span>, what is the probability that the outcome of the <span class="math inline">\(n\)</span>th roll is also <span class="math inline">\(1\)</span>?</li>
@@ -1715,13 +1715,13 @@ P = \left[\begin{array}{cc|ccc} 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
 </div>
 </section>
 <section id="further-reading" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="further-reading">Further Reading</h2>
+<h2 class="unnumbered anchored" data-anchor-id="further-reading">Further reading</h2>
 <ol type="1">
 <li><p>Gubner, Chapter 12.</p></li>
 <li><p><a href="https://stats.libretexts.org/Bookshelves/Probability_Theory/Introductory_Probability_(Grinstead_and_Snell)/11%3A_Markov_Chains/11.01%3A_Introduction">Grinstead and Snell, Introduction to Probability</a>, Chapter 11 has an excellent treatment of finite Markov chains. Has interesting exercises.</p></li>
 <li><p><a href="https://catalog.hathitrust.org/api/volumes/oclc/528648.html">Kemeny and Snell, Finite Markov Chains</a>, Chapter 2–4.</p></li>
 <li><p><a href="https://archive.org/details/springer_10.1007-978-1-4684-9455-6">Kemeny, Snell, and Knapp, Denumerable Markov Chains</a>, a slightly advanced version of the previous book.</p></li>
-<li><p><a href="https://doi.org/10.5948/UPO9781614440222">Doyle and Snell, Random Walks and Electrical Networks</a> shows a facinating relationship between random walks and circuits!</p></li>
+<li><p><a href="https://doi.org/10.5948/UPO9781614440222">Doyle and Snell, Random Walks and Electrical Networks</a> shows a fascinating relationship between random walks and circuits!</p></li>
 <li><p><a href="https://www.statslab.cam.ac.uk//~rrw1/markov/M.pdf">Weber’s notes on Markov chains</a></p></li>
 </ol>
 </section>
@@ -2157,8 +2157,8 @@ Ehrenfest, Paul, and Tatiana Ehrenfest. 1907. <span>“<span>Ü</span>ber Zwei B
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./gauss-markov-processes.html" class="pagination-link" aria-label="Gauss–Markov models and spectral analysis">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./gauss-markov-processes.html" class="pagination-link" aria-label="Gauss-Markov models and spectral analysis">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>10&nbsp; Stochastic processes – Probability and Random Signals II</title>
@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -506,7 +506,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -577,7 +577,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -687,15 +687,15 @@ N_n=\sum_{k=1}^n B_k,
 </div>
 </div>
 </div>
-<p>Some properties of these processes are as follows:</p>
+<p>These processes have the following properties:</p>
 <ul>
 <li>At every time <span class="math inline">\(n\)</span>, <span class="math inline">\(B_n\sim\operatorname{Bernoulli}(p)\)</span>, while <span class="math display">\[
-N_n\sim\operatorname{Binomial}(n,p).
+N_n\sim\operatorname{Binom}(n,p).
 \]</span></li>
 <li>The random variables <span class="math inline">\(B_1,B_2,\ldots\)</span> are independent, but <span class="math inline">\(N_1,N_2,\ldots\)</span> are not. In fact, <span class="math inline">\(N_{n+1}=N_n+B_{n+1}\)</span>.</li>
 <li>For every <span class="math inline">\(n\ge0\)</span> and <span class="math inline">\(h\ge1\)</span>, <span class="math display">\[
 N_{n+h}-N_n=B_{n+1}+\cdots+B_{n+h}
-\sim\operatorname{Binomial}(h,p).
+\sim\operatorname{Binom}(h,p).
 \]</span> Thus, the distribution of an increment depends on its length <span class="math inline">\(h\)</span> but not on its starting time <span class="math inline">\(n\)</span>. Moreover, increments over disjoint time intervals are independent.</li>
 </ul>
 <p>More generally, a process <span class="math inline">\(\{X_n\}_{n\ge0}\)</span> has <strong>stationary increments</strong> if the distribution of <span class="math inline">\(X_{n+h}-X_n\)</span> depends only on the length <span class="math inline">\(h\)</span> and not on the starting time <span class="math inline">\(n\)</span>. It has <strong>independent increments</strong> if, for every <span class="math inline">\(0\le n_0&lt;n_1&lt;\cdots&lt;n_r\)</span>, the random variables <span class="math display">\[
@@ -707,7 +707,7 @@ X_{n_r}-X_{n_{r-1}}
 Y_n=x_n+W_n,
 \]</span> where <span class="math inline">\(x_n=\sin(2πn/25)\)</span> is a deterministic discrete-time signal and <span class="math inline">\(\{W_n\}_{n\ge0}\)</span> is an i.i.d. Gaussian sequence with <span class="math inline">\(W_n\sim\mathcal N(0,σ^2)\)</span> and <span class="math inline">\(σ=0.2\)</span>. A sample path of <span class="math inline">\(\{Y_n\}_{n\ge0}\)</span> is shown below.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="120" data-source-offset="-62"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 119;"><span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean<span class="op">=</span><span class="dv">0</span><span class="op">,</span> stdev<span class="op">=</span><span class="dv">1</span>) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="120" data-source-offset="-61"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 119;"><span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">gaussianRandom</span>(mean<span class="op">=</span><span class="dv">0</span><span class="op">,</span> stdev<span class="op">=</span><span class="dv">1</span>) {</span>
 <span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> u <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
 <span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> v <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()</span>
 <span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> z <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(u)) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">cos</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span> <span class="op">*</span> v)</span>
@@ -828,7 +828,7 @@ R^W_{n,m} = \COV(W_n,W_m)
 W_n \sim \mathcal N(0,σ_W^2).
 \]</span> We call the process <strong>standard white Gaussian noise</strong> when <span class="math inline">\(σ_W^2 = 1\)</span>.</p></li>
 </ol>
-<div id="exm-cosine-gaussian-phase" class="theorem example">
+<div id="exm-cosine-gaussian-amplitude" class="theorem example">
 <p><span class="theorem-title"><strong>Example 10.3 (Cosine with Gaussian amplitude)</strong></span> Let <span class="math display">\[
 X_n = A \cos(Ω n) + B \sin(Ω n),
 \]</span> where <span class="math inline">\(Ω \in \reals\)</span> is fixed and <span class="math inline">\(A,B\)</span> are i.i.d. <span class="math inline">\(\mathcal N(0,σ^2)\)</span>. A sample path is shown below.</p>
@@ -896,26 +896,26 @@ R^X_{m,n} = σ^2 \cos\bigl(Ω(m - n)\bigr) = σ^2 \cos\bigl(Ω|m - n|\bigr).
 \quad\text{and}\quad
 (X_{n_1+h},\ldots,X_{n_k+h})
 \]</span> have the same distribution.</p></li>
-<li><p>The Bernoulli process <span class="math inline">\(\{B_n\}_{n\ge1}\)</span> is strictly stationary because it is i.i.d. The Bernoulli counting process <span class="math inline">\(\{N_n\}_{n\ge0}\)</span> is not stationary because <span class="math inline">\(N_n\sim\operatorname{Binomial}(n,p)\)</span> depends on <span class="math inline">\(n\)</span>. It does, however, have stationary independent increments.</p></li>
+<li><p>The Bernoulli process <span class="math inline">\(\{B_n\}_{n\ge1}\)</span> is strictly stationary because it is i.i.d. The Bernoulli counting process <span class="math inline">\(\{N_n\}_{n\ge0}\)</span> is not stationary because <span class="math inline">\(N_n\sim\operatorname{Binom}(n,p)\)</span> depends on <span class="math inline">\(n\)</span>. It does, however, have stationary independent increments.</p></li>
 <li><p>The signal-plus-noise process in <a href="#exm-signal-plus-noise" class="quarto-xref">Example&nbsp;<span>10.2</span></a> is not stationary because <span class="math display">\[
 \EXP[Y_n]=x_n=\sin(2πn/25)
 \]</span> depends on time.</p></li>
 <li><p>Strict-sense stationarity implies that the marginal distribution of <span class="math inline">\(X_n\)</span> does not depend on <span class="math inline">\(n\)</span>. Consequently, if the relevant moments exist, <span class="math inline">\(\EXP[X_n]\)</span> and <span class="math inline">\(\VAR(X_n)\)</span> are constant. The converse is not true: time-invariant marginal distributions, or even constant means and variances, do not by themselves imply stationarity.</p></li>
 <li><p>For a Gaussian process, strict-sense stationarity is equivalent to the mean being constant and the auto-covariance depending only on the time difference. With the convention <span class="math display">\[
 R^X_k=\COV(X_{n+k},X_n),
-\]</span> stationarity means that <span class="math inline">\(R^X_k\)</span> does not depend on <span class="math inline">\(n\)</span>. The converse holds because the mean and covariance determine every finite-dimensional distribution of a Gaussian process. In particular, <a href="#exm-cosine-gaussian-phase" class="quarto-xref">Example&nbsp;<span>10.3</span></a> is strict-sense stationary.</p></li>
+\]</span> stationarity means that <span class="math inline">\(R^X_k\)</span> does not depend on <span class="math inline">\(n\)</span>. The converse holds because the mean and covariance determine every finite-dimensional distribution of a Gaussian process. In particular, <a href="#exm-cosine-gaussian-amplitude" class="quarto-xref">Example&nbsp;<span>10.3</span></a> is strict-sense stationary.</p></li>
 <li><p>Stationarity is defined in terms of the distribution of the process, which is an ensemble property. In applications, however, we often observe only one sample path. Roughly speaking, a stationary process is <strong>ergodic</strong> if time averages along one sufficiently long sample path converge to the corresponding ensemble averages. For example, for zero-mean jointly stationary ergodic processes <span class="math inline">\(\{X_n\}\)</span> and <span class="math inline">\(\{Y_n\}\)</span>, the cross-covariance can be estimated as <span class="math display">\[
 R^{XY}_k
 =\COV(X_{n+k},Y_n)
 \approx \frac{1}{N}\sum_{n=0}^{N-1}X_{n+k}Y_n
 \]</span> for large <span class="math inline">\(N\)</span>. We will not develop the theory of ergodic processes in this course.</p></li>
-<li><p>Important classes of stochastic processes use different structures to simplify the description of their finite-dimensional distributions:</p>
+<li><p>The finite-dimensional distributions of a process are easier to specify when the process has additional structure:</p>
 <ul>
-<li>Processes with independent increments describe temporal evolution through the distributions of their increments.</li>
-<li>Markov chains describe dependence through an initial distribution and one-step conditional distributions, with the current state summarizing the relevant past.</li>
-<li>Gaussian processes are completely characterized by their mean and auto-covariance functions.</li>
+<li>For a process with independent increments, the distributions of the increments suffice.</li>
+<li>For a Markov chain, the initial distribution and the one-step conditional distributions suffice, because the current state summarizes the relevant past.</li>
+<li>For a Gaussian process, the mean and auto-covariance functions suffice.</li>
 </ul>
-<p>State-space Gauss–Markov models combine the Markov and Gaussian viewpoints for stochastic systems with inputs, outputs, and an internal state.</p></li>
+<p>State-space Gauss-Markov models combine the Markov and Gaussian structures in systems with inputs, outputs, and an internal state.</p></li>
 </ol>
 
 
@@ -923,7 +923,7 @@ R^{XY}_k
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBwX2Jlcm5vdWxsaV9wcm9jZXNzID0gSW5wdXRzLnJhbmdlKFswLCAxXSwge2xhYmVsOiBcInBcIiwgdmFsdWU6IDAuMywgc3RlcDogMC4wNX0pXG52aWV3b2YgcmVydW5fYmVybm91bGxpX3Byb2Nlc3MgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2Jlcm5vdWxsaV9wcm9jZXNzID0ge1xuICAgIHJlcnVuX2Jlcm5vdWxsaV9wcm9jZXNzXG5cbiAgICBjb25zdCBUID0gMTIwXG4gICAgY29uc3QgcG9pbnRzID0gbmV3IEFycmF5KFQpXG4gICAgbGV0IGNvdW50ID0gMFxuXG4gICAgZm9yIChsZXQgbiA9IDE7IG4gPD0gVDsgbisrKSB7XG4gICAgICBjb25zdCBCX24gPSAoTWF0aC5yYW5kb20oKSA8PSBwX2Jlcm5vdWxsaV9wcm9jZXNzKSA/IDEgOiAwXG4gICAgICBjb3VudCArPSBCX25cbiAgICAgIHBvaW50c1tuLTFdID0ge246IG4sIEJfbjogQl9uLCBOX246IGNvdW50fVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDEyMCxcbiAgeToge2RvbWFpbjogWzAsIDFdLCB0aWNrczogMSwgbGFiZWw6IFwiQuKCmVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5ydWxlWChwb2ludHNfYmVybm91bGxpX3Byb2Nlc3MsIHt4OiBcIm5cIiwgeTE6IDAsIHkyOiBcIkJfblwiLCBzdHJva2VXaWR0aDogMX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19iZXJub3VsbGlfcHJvY2Vzcywge3g6IFwiblwiLCB5OiBcIkJfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTgwLFxuICB5OiB7bGFiZWw6IFwiTuKCmVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19iZXJub3VsbGlfcHJvY2Vzcywge3g6IFwiblwiLCB5OiBcIk5fblwiLCBjdXJ2ZTogXCJzdGVwLWFmdGVyXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfYmVybm91bGxpX3Byb2Nlc3MsIHt4OiBcIm5cIiwgeTogXCJOX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBTdGFuZGFyZCBHYXVzc2lhbiB2YXJpYXRlIHVzaW5nIHRoZSBCb3gtLU11bGxlciB0cmFuc2Zvcm0uXG5mdW5jdGlvbiBnYXVzc2lhblJhbmRvbShtZWFuPTAsIHN0ZGV2PTEpIHtcbiAgICBjb25zdCB1ID0gMSAtIE1hdGgucmFuZG9tKClcbiAgICBjb25zdCB2ID0gTWF0aC5yYW5kb20oKVxuICAgIGNvbnN0IHogPSBNYXRoLnNxcnQoLTIgKiBNYXRoLmxvZyh1KSkgKiBNYXRoLmNvcygyICogTWF0aC5QSSAqIHYpXG4gICAgcmV0dXJuIHogKiBzdGRldiArIG1lYW5cbn1cblxudmlld29mIHJlcnVuX25vaXNlID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIHNhbXBsZSBwYXRoXCIpXG5cbnBvaW50c19ub2lzZSA9IHtcbiAgICByZXJ1bl9ub2lzZVxuXG4gICAgY29uc3QgVCA9IDEyMFxuICAgIGNvbnN0IHNpZ21hID0gMC4yXG4gICAgY29uc3Qgb21lZ2EgPSAyICogTWF0aC5QSSAvIDI1XG4gICAgY29uc3QgcG9pbnRzID0gbmV3IEFycmF5KFQgKyAxKVxuXG4gICAgZm9yIChsZXQgbiA9IDA7IG4gPD0gVDsgbisrKSB7XG4gICAgICBjb25zdCBzaWduYWwgPSBNYXRoLnNpbihvbWVnYSAqIG4pXG4gICAgICBjb25zdCBub2lzZSA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICAgICAgcG9pbnRzW25dID0ge246IG4sIHhfbjogc2lnbmFsLCBZX246IHNpZ25hbCArIG5vaXNlfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDIwMCxcbiAgeToge2xhYmVsOiBcIlnigplcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIFBsb3QubGluZShwb2ludHNfbm9pc2UsIHt4OiBcIm5cIiwgeTogXCJZX25cIiwgY3VydmU6IFwic3RlcC1hZnRlclwiLCBzdHJva2U6IFwiY3VycmVudENvbG9yXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfbm9pc2UsIHt4OiBcIm5cIiwgeTogXCJZX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgcmVydW5fY29zaW5lX2dhdXNzID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIHNhbXBsZSBwYXRoXCIpXG5cbnBvaW50c19jb3NpbmVfZ2F1c3MgPSB7XG4gIHJlcnVuX2Nvc2luZV9nYXVzc1xuICBjb25zdCBOID0gMTIwXG4gIGNvbnN0IHNpZ21hID0gMS4wXG4gIGNvbnN0IGYgPSAwLjFcbiAgY29uc3QgQSA9IGdhdXNzaWFuUmFuZG9tKDAsIHNpZ21hKVxuICBjb25zdCBCID0gZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gIGNvbnN0IHBvaW50cyA9IG5ldyBBcnJheShOICsgMSlcbiAgZm9yIChsZXQgbiA9IDA7IG4gPD0gTjsgbisrKSB7XG4gICAgcG9pbnRzW25dID0ge1xuICAgICAgbixcbiAgICAgIFhfbjogQSAqIE1hdGguY29zKDIgKiBNYXRoLlBJICogZiAqIG4pICsgQiAqIE1hdGguc2luKDIgKiBNYXRoLlBJICogZiAqIG4pXG4gICAgfVxuICB9XG4gIHJldHVybiBwb2ludHNcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTUwLFxuICB5OiB7ZG9tYWluOiBbLTIsIDJdfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19jb3NpbmVfZ2F1c3MsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgc3Ryb2tlV2lkdGg6IDEuNX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19jb3NpbmVfZ2F1c3MsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3BfYmVybm91bGxpX3Byb2Nlc3MnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fYmVybm91bGxpX3Byb2Nlc3MnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fbm9pc2UnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmVydW5fY29zaW5lX2dhdXNzJykifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBwX2Jlcm5vdWxsaV9wcm9jZXNzID0gSW5wdXRzLnJhbmdlKFswLCAxXSwge2xhYmVsOiBcInBcIiwgdmFsdWU6IDAuMywgc3RlcDogMC4wNX0pXG52aWV3b2YgcmVydW5fYmVybm91bGxpX3Byb2Nlc3MgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2Jlcm5vdWxsaV9wcm9jZXNzID0ge1xuICAgIHJlcnVuX2Jlcm5vdWxsaV9wcm9jZXNzXG5cbiAgICBjb25zdCBUID0gMTIwXG4gICAgY29uc3QgcG9pbnRzID0gbmV3IEFycmF5KFQpXG4gICAgbGV0IGNvdW50ID0gMFxuXG4gICAgZm9yIChsZXQgbiA9IDE7IG4gPD0gVDsgbisrKSB7XG4gICAgICBjb25zdCBCX24gPSAoTWF0aC5yYW5kb20oKSA8PSBwX2Jlcm5vdWxsaV9wcm9jZXNzKSA/IDEgOiAwXG4gICAgICBjb3VudCArPSBCX25cbiAgICAgIHBvaW50c1tuLTFdID0ge246IG4sIEJfbjogQl9uLCBOX246IGNvdW50fVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICBoZWlnaHQ6IDEyMCxcbiAgeToge2RvbWFpbjogWzAsIDFdLCB0aWNrczogMSwgbGFiZWw6IFwiQuKCmVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5ydWxlWChwb2ludHNfYmVybm91bGxpX3Byb2Nlc3MsIHt4OiBcIm5cIiwgeTE6IDAsIHkyOiBcIkJfblwiLCBzdHJva2VXaWR0aDogMX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19iZXJub3VsbGlfcHJvY2Vzcywge3g6IFwiblwiLCB5OiBcIkJfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMTgwLFxuICB5OiB7bGFiZWw6IFwiTuKCmVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19iZXJub3VsbGlfcHJvY2Vzcywge3g6IFwiblwiLCB5OiBcIk5fblwiLCBjdXJ2ZTogXCJzdGVwLWFmdGVyXCIsIHN0cm9rZVdpZHRoOiAxLjV9KSxcbiAgICBQbG90LmRvdChwb2ludHNfYmVybm91bGxpX3Byb2Nlc3MsIHt4OiBcIm5cIiwgeTogXCJOX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBTdGFuZGFyZCBHYXVzc2lhbiB2YXJpYXRlIHVzaW5nIHRoZSBCb3gtTXVsbGVyIHRyYW5zZm9ybS5cbmZ1bmN0aW9uIGdhdXNzaWFuUmFuZG9tKG1lYW49MCwgc3RkZXY9MSkge1xuICAgIGNvbnN0IHUgPSAxIC0gTWF0aC5yYW5kb20oKVxuICAgIGNvbnN0IHYgPSBNYXRoLnJhbmRvbSgpXG4gICAgY29uc3QgeiA9IE1hdGguc3FydCgtMiAqIE1hdGgubG9nKHUpKSAqIE1hdGguY29zKDIgKiBNYXRoLlBJICogdilcbiAgICByZXR1cm4geiAqIHN0ZGV2ICsgbWVhblxufVxuXG52aWV3b2YgcmVydW5fbm9pc2UgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX25vaXNlID0ge1xuICAgIHJlcnVuX25vaXNlXG5cbiAgICBjb25zdCBUID0gMTIwXG4gICAgY29uc3Qgc2lnbWEgPSAwLjJcbiAgICBjb25zdCBvbWVnYSA9IDIgKiBNYXRoLlBJIC8gMjVcbiAgICBjb25zdCBwb2ludHMgPSBuZXcgQXJyYXkoVCArIDEpXG5cbiAgICBmb3IgKGxldCBuID0gMDsgbiA8PSBUOyBuKyspIHtcbiAgICAgIGNvbnN0IHNpZ25hbCA9IE1hdGguc2luKG9tZWdhICogbilcbiAgICAgIGNvbnN0IG5vaXNlID0gZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gICAgICBwb2ludHNbbl0gPSB7bjogbiwgeF9uOiBzaWduYWwsIFlfbjogc2lnbmFsICsgbm9pc2V9XG4gICAgfVxuICAgIHJldHVybiBwb2ludHNcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIGdyaWQ6IHRydWUsXG4gIGhlaWdodDogMjAwLFxuICB5OiB7bGFiZWw6IFwiWeKCmVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5saW5lKHBvaW50c19ub2lzZSwge3g6IFwiblwiLCB5OiBcIllfblwiLCBjdXJ2ZTogXCJzdGVwLWFmdGVyXCIsIHN0cm9rZTogXCJjdXJyZW50Q29sb3JcIiwgc3Ryb2tlV2lkdGg6IDEuNX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19ub2lzZSwge3g6IFwiblwiLCB5OiBcIllfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiByZXJ1bl9jb3NpbmVfZ2F1c3MgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgc2FtcGxlIHBhdGhcIilcblxucG9pbnRzX2Nvc2luZV9nYXVzcyA9IHtcbiAgcmVydW5fY29zaW5lX2dhdXNzXG4gIGNvbnN0IE4gPSAxMjBcbiAgY29uc3Qgc2lnbWEgPSAxLjBcbiAgY29uc3QgZiA9IDAuMVxuICBjb25zdCBBID0gZ2F1c3NpYW5SYW5kb20oMCwgc2lnbWEpXG4gIGNvbnN0IEIgPSBnYXVzc2lhblJhbmRvbSgwLCBzaWdtYSlcbiAgY29uc3QgcG9pbnRzID0gbmV3IEFycmF5KE4gKyAxKVxuICBmb3IgKGxldCBuID0gMDsgbiA8PSBOOyBuKyspIHtcbiAgICBwb2ludHNbbl0gPSB7XG4gICAgICBuLFxuICAgICAgWF9uOiBBICogTWF0aC5jb3MoMiAqIE1hdGguUEkgKiBmICogbikgKyBCICogTWF0aC5zaW4oMiAqIE1hdGguUEkgKiBmICogbilcbiAgICB9XG4gIH1cbiAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC03IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgaGVpZ2h0OiAxNTAsXG4gIHk6IHtkb21haW46IFstMiwgMl19LFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICBQbG90LmxpbmUocG9pbnRzX2Nvc2luZV9nYXVzcywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocG9pbnRzX2Nvc2luZV9nYXVzcywge3g6IFwiblwiLCB5OiBcIlhfblwiLCBmaWxsOiBcImN1cnJlbnRDb2xvclwiLCByOiAyfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncF9iZXJub3VsbGlfcHJvY2VzcycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXJ1bl9iZXJub3VsbGlfcHJvY2VzcycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXJ1bl9ub2lzZScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXJ1bl9jb3NpbmVfZ2F1c3MnKSJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }

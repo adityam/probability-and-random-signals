@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>15&nbsp; Brownian motion – Probability and Random Signals II</title>
@@ -81,9 +81,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -505,7 +505,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -575,7 +575,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -587,7 +587,7 @@ window.Quarto = {
 </header>
 
 
-<p>In this lecture, we introduce Brownian motion, the continuous-time analogue of the Gaussian random walk. It is the fundamental continuous-time Gaussian process with stationary independent increments. As with the Poisson process, a process with independent increments can be described through the distributions of those increments.</p>
+<p>In this lecture, we introduce Brownian motion, the continuous-time analogue of the Gaussian random walk. It is the continuous-time Gaussian process with stationary independent increments. As with the Poisson process, a process with independent increments can be described through the distributions of those increments.</p>
 <section id="gaussian-increments-and-brownian-motion" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="gaussian-increments-and-brownian-motion"><span class="header-section-number">15.1</span> Gaussian increments and Brownian motion</h2>
 <ol type="1">
@@ -696,7 +696,7 @@ window.Quarto = {
   &amp;= \EXP\Biggl[\biggl(\int_a^b w(t)\,dt\biggr)\biggl(\int_c^d w(s)\,ds\biggr)\Biggr] \\
   &amp;= \int_a^b \int_c^d \EXP\bigl[w(t)w(s)\bigr]\,dt\,ds \\
   &amp;= \int_a^b \int_c^d R^w(t - s)\,dt\,ds,
-\end{align*}\]</span> where <span class="math inline">\(R^w(τ) = \COV(w(t + τ), w(t))\)</span>. Independent increments force the left-hand side to vanish whenever <span class="math inline">\((a, b]\)</span> and <span class="math inline">\((c, d]\)</span> are disjoint, so <span class="math inline">\(R^w(τ) = 0\)</span> for <span class="math inline">\(τ \ne 0\)</span>. When <span class="math inline">\((c, d] = (a, b]\)</span>, the two terms on the left-hand-side are the same, so the covariance is the variance of the increment <span class="math inline">\(W(b) - W(a)\)</span>. Thus, <span class="math display">\[ \VAR(W(b) - W(a)) = \int_a^b \int_a^b R^w(t - s)\,dt\,ds. \]</span> An ordinary function that vanishes off <span class="math inline">\(τ = 0\)</span> cannot produce this: the diagonal <span class="math inline">\((t = s)\)</span> has area zero in the <span class="math inline">\((t, s)\)</span>-plane. However, both constraints are satisfied by the Dirac delta, <span class="math display">\[ R^w(τ) = δ(τ), \]</span> because <span class="math inline">\(\int_a^b δ(t - s)\,ds\)</span> equals <span class="math inline">\(1\)</span> if <span class="math inline">\(t \in (a, b]\)</span> and equals <span class="math inline">\(0\)</span> otherwise.</p>
+\end{align*}\]</span> where <span class="math inline">\(R^w(τ) = \COV(w(t + τ), w(t))\)</span>. Independent increments force the left-hand side to vanish whenever <span class="math inline">\((a, b]\)</span> and <span class="math inline">\((c, d]\)</span> are disjoint, so <span class="math inline">\(R^w(τ) = 0\)</span> for <span class="math inline">\(τ \ne 0\)</span>. When <span class="math inline">\((c, d] = (a, b]\)</span>, the two terms on the left-hand side are the same, so the covariance is the variance of the increment <span class="math inline">\(W(b) - W(a)\)</span>. Thus, <span class="math display">\[ \VAR(W(b) - W(a)) = \int_a^b \int_a^b R^w(t - s)\,dt\,ds. \]</span> An ordinary function that vanishes off <span class="math inline">\(τ = 0\)</span> cannot produce this: the diagonal <span class="math inline">\((t = s)\)</span> has area zero in the <span class="math inline">\((t, s)\)</span>-plane. However, both constraints are satisfied by the Dirac delta, <span class="math display">\[ R^w(τ) = δ(τ), \]</span> because <span class="math inline">\(\int_a^b δ(t - s)\,ds\)</span> equals <span class="math inline">\(1\)</span> if <span class="math inline">\(t \in (a, b]\)</span> and equals <span class="math inline">\(0\)</span> otherwise.</p>
 <p>The corresponding power spectral density is <span class="math display">\[ S_w(Ω) = \int_{-∞}^{∞} δ(τ) e^{-\mathsf j Ω τ} \, dτ = 1. \]</span> Thus <span class="math inline">\(w\)</span> has equal power at all frequencies. As in discrete time, a flat spectrum is why the process is called <strong>white noise</strong>. White noise of intensity <span class="math inline">\(q\)</span> is the same object with <span class="math display">\[ R^w(τ) = q δ(τ), \quad S_w(Ω) = q. \]</span></p></li>
 <li><p>The discrete-time frequency-domain analysis extends formally to continuous time. If a continuous-time LTI system with frequency response <span class="math inline">\(H(\mathsf j Ω)\)</span> is driven by a stationary input with power spectral density <span class="math inline">\(S_U(Ω)\)</span>, then the output has <span class="math display">\[ S_Y(Ω) = |H(\mathsf j Ω)|^2 S_U(Ω). \]</span> In particular, for white-noise input of intensity <span class="math inline">\(q\)</span>, <span class="math display">\[ S_Y(Ω) = q |H(\mathsf j Ω)|^2. \]</span> These relations apply to general wide-sense stationary processes under the usual stability and integrability assumptions. They do not give an ordinary power spectral density for Brownian motion itself, since Brownian motion is not stationary.</p></li>
 </ol>
@@ -707,7 +707,7 @@ window.Quarto = {
 <li><p>By analogy with the discrete-time state-space model, a first attempt is to write <span class="math display">\[ \frac{dX(t)}{dt} = A X(t) + B w(t), \]</span> where <span class="math inline">\(w(t)\)</span> is white noise. This is not an ordinary differential equation: white noise is not an ordinary function of time, and the resulting state process generally has no derivative in the conventional sense.</p></li>
 <li><p>Instead, the model is written as a <strong>stochastic differential equation</strong> <span class="math display">\[ dX(t) = A X(t) \, dt + B \, dW(t). \]</span> Its integral interpretation is <span class="math display">\[ X(t) = X(0) + \int_0^t A X(s) \, ds + \int_0^t B \, dW(s). \]</span> The last term is a stochastic integral and cannot be defined using ordinary Riemann integration. The systematic theory used to define such integrals and manipulate stochastic differential equations is called <strong>Itô calculus</strong>.</p></li>
 <li><p>One reason ordinary calculus does not apply is the scale of Brownian increments: <span class="math display">\[ W(t + h) - W(t) = O(\sqrt h). \]</span> Consequently, the square of an increment is of order <span class="math inline">\(h\)</span>, rather than a higher-order negligible term. More precisely, the quadratic variation of Brownian motion satisfies <span class="math display">\[ \sum_k \bigl(W(t_{k+1}) - W(t_k)\bigr)^2 \longrightarrow t \]</span> as the partition of <span class="math inline">\([0, t]\)</span> becomes finer. Thus, second-order terms in a Taylor expansion contribute to the stochastic chain rule. This is the source of the additional second-derivative term in Itô’s formula.</p></li>
-<li><p>Stochastic integration and Itô calculus are not developed here. Continuous-time Gaussian state-space models extend the discrete-time Gauss–Markov models studied earlier, but that extension requires new mathematical tools.</p></li>
+<li><p>Stochastic integration and Itô calculus are not developed here. Continuous-time Gaussian state-space models extend the discrete-time Gauss-Markov models studied earlier, but that extension requires new mathematical tools.</p></li>
 </ol>
 
 

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>3&nbsp; Random vectors – Probability and Random Signals II</title>
@@ -47,9 +47,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -469,7 +469,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -541,7 +541,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -633,7 +633,7 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Can we always define a density if CDF is continuous?
+<span class="screen-reader-only">Tip</span>Can we always define a density if the CDF is continuous?
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -767,7 +767,7 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 <section id="independence-of-random-vectors" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="independence-of-random-vectors"><span class="header-section-number">3.2</span> Independence of random vectors</h2>
 <div id="def-independence-RVs" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1</strong></span> Two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> are said to be independent if the sigma algebras <span class="math inline">\(σ(X)\)</span> and <span class="math inline">\(σ(Y)\)</span> are independent.</p>
+<p><span class="theorem-title"><strong>Definition 3.1</strong></span> Two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> defined on a common probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> are said to be independent if the <span class="math inline">\(σ\)</span>-algebras <span class="math inline">\(σ(X)\)</span> and <span class="math inline">\(σ(Y)\)</span> are independent.</p>
 </div>
 <p>The above definition means that if we take any (Borel) subsets <span class="math inline">\(B_1\)</span> and <span class="math inline">\(B_2\)</span> of <span class="math inline">\(\reals\)</span>, then the events <span class="math inline">\(\{X \in B_1\}\)</span> and <span class="math inline">\(\{Y \in B_2\}\)</span> are independent, i.e., <span class="math display">\[
 \PR(X \in B_1, Y \in B_2) = \PR(X \in B_1) \PR(Y \in B_2).
@@ -827,7 +827,7 @@ x,y \in \reals \]</span> <span class="math inline">\(f_{X,Y}\)</span> is called 
 </ol>
 <p>Unlike independence of events, we do not need to separately check for independence of subsets of random variables because that is automatically implied due to the marginalization property.</p>
 <div id="exm-independence-multiple-RVs" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.10</strong></span> Suppose (X, Y, Z) are independent with joint PDF: <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 3.10</strong></span> Suppose <span class="math inline">\(X, Y, Z\)</span> are independent with joint PDF: <span class="math display">\[
   f_{X,Y,Z}(x,y,z) = f_X(x)\, f_Y(y)\, f_Z(z).
 \]</span></p>
 <p>Show that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent.</p>

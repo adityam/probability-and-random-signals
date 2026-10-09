@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>2&nbsp; Random variables – Probability and Random Signals II</title>
@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -506,7 +506,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -588,7 +588,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -646,12 +646,12 @@ Figure&nbsp;2.2: Probability space for number of heads in two independent coin t
 <li><p>For the above probability calculations to make sense, we require that <span class="math inline">\(X^{-1}(B) \in \ALPHABET F\)</span> whenever <span class="math inline">\(B \in \ALPHABET G\)</span>. This property is called <strong>measurability</strong> and a function with this property is called <strong><span class="math inline">\(\ALPHABET F/\ALPHABET G\)</span>-measurable</strong>.</p></li>
 <li><div id="def-random-variable" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 2.1</strong></span> A <strong>random variable</strong> <span class="math inline">\(X\)</span> is a measurable function from a measurable space <span class="math inline">\((Ω, \ALPHABET F)\)</span> to another measurable space <span class="math inline">\((\ALPHABET X, \ALPHABET G)\)</span>, which means that for any <span class="math inline">\(B \in \ALPHABET G\)</span>, <span class="math inline">\(X^{-1}(B) \in \ALPHABET F\)</span>.</p>
-<p>If <span class="math inline">\(P\)</span> is a probability measure on <span class="math inline">\((Ω, \ALPHABET F)\)</span> (i.e., <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> is a probability space), then <span class="math display">\[
+<p>If <span class="math inline">\(\PR\)</span> is a probability measure on <span class="math inline">\((Ω, \ALPHABET F)\)</span> (i.e., <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> is a probability space), then <span class="math display">\[
     \PR_X(B) = \PR(X^{-1}(B)), \quad \forall B \in \ALPHABET G.
 \]</span> is a probability measure on <span class="math inline">\((\ALPHABET X, \ALPHABET G)\)</span>.</p>
 </div></li>
 <li><p>In this lecture, we focus on <strong>real-valued random variables</strong>, i.e., <span class="math inline">\((\ALPHABET X, \ALPHABET G) = (\reals, \mathscr{B}(\reals))\)</span>, where <span class="math inline">\(\mathscr{B}(\reals)\)</span> denotes the Borel <span class="math inline">\(σ\)</span>-algebra (see the <a href="./probability-spaces.html#Borel-algebra">last lecture</a>).</p></li>
-<li><p>In fact, introductory probability textbooks often define random variable as a measurable map from <span class="math inline">\((Ω, \ALPHABET F)\)</span> to <span class="math inline">\((\reals, \mathscr{B}(\reals))\)</span>. The more general definition that we have used (a measurable mapping from a measurable space to <em>any other</em> measurable space) is often reserved for a follow up course on measure theory. I think that it is conceptually simpler to start with the measure-theoretic definition.</p></li>
+<li><p>In fact, introductory probability textbooks often define random variable as a measurable map from <span class="math inline">\((Ω, \ALPHABET F)\)</span> to <span class="math inline">\((\reals, \mathscr{B}(\reals))\)</span>. The more general definition that we have used (a measurable mapping from a measurable space to <em>any other</em> measurable space) is often reserved for a follow-up course on measure theory. I think that it is conceptually simpler to start with the measure-theoretic definition.</p></li>
 </ol>
 <section id="real-valued-random-variables" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="real-valued-random-variables"><span class="header-section-number">2.1</span> Real-valued random variables</h2>
@@ -804,12 +804,12 @@ Figure&nbsp;2.5: CDF of a Bernoulli random variable
 </section>
 <section id="classification-of-random-variables" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="classification-of-random-variables"><span class="header-section-number">2.2</span> Classification of random variables</h2>
-<p>There are three types of random variables</p>
+<p>There are three types of random variables:</p>
 <ol type="1">
-<li><p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>discrete</strong> if it takes values in a finite or countable subset <span class="math inline">\(\ALPHABET X \coloneqq \{x_1, x_2, \dots\}\)</span> of <span class="math inline">\(\reals\)</span>. A discrete random variable has a <strong>probability mass function (PMF)</strong> <span class="math inline">\(p \colon \reals \to [0,1]\)</span> which satisfies the following properties:</p>
+<li><p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>discrete</strong> if it takes values in a finite or countable subset <span class="math inline">\(\ALPHABET X \coloneqq \{x_1, x_2, \dots\}\)</span> of <span class="math inline">\(\reals\)</span>. A discrete random variable has a <strong>probability mass function (PMF)</strong> <span class="math inline">\(P_X \colon \reals \to [0,1]\)</span> which satisfies the following properties:</p>
 <ul>
-<li><span class="math inline">\(p(x) = \PR(X = x) = F_X(x) - F_X(x^{-})\)</span>.</li>
-<li><span class="math inline">\(F_X(x) = \sum_{x_n : x_n \le x} p(x_n).\)</span></li>
+<li><span class="math inline">\(P_X(x) = \PR(X = x) = F_X(x) - F_X(x^{-})\)</span>.</li>
+<li><span class="math inline">\(F_X(x) = \sum_{x_n : x_n \le x} P_X(x_n).\)</span></li>
 </ul>
 <p><span class="text-primary">Thus, for a discrete random variable, the CDF is a piecewise constant function</span></p>
 <p><a href="#fig-coin-toss-cdf" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>, <a href="#fig-const-cdf" class="quarto-xref">Figure&nbsp;<span>2.4</span></a>, <a href="#fig-bernoulli-cdf" class="quarto-xref">Figure&nbsp;<span>2.5</span></a> are all examples of discrete random variables.</p></li>
@@ -838,7 +838,7 @@ Figure&nbsp;2.7: CDF of a mixed random variable
 </figcaption>
 </figure>
 </div>
-<p>As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then <span class="math inline">\(X \sim \text{Bernoulli}(0.5)\)</span>; if the outcome is tails; then <span class="math inline">\(X \sim \text{Uniform}(0,1)\)</span>. Thus (from the law of total probability), the CDF of <span class="math inline">\(X\)</span> is given by <span class="math display">\[
+<p>As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then <span class="math inline">\(X \sim \text{Bernoulli}(0.5)\)</span>; if the outcome is tails, then <span class="math inline">\(X \sim \text{Unif}(0,1)\)</span>. Thus (from the law of total probability), the CDF of <span class="math inline">\(X\)</span> is given by <span class="math display">\[
    F_X(x) = \begin{cases}
    0, &amp; \hbox{if } x &lt; 0 \\
    \frac 14 &amp; \hbox{if } x = 0 \\
@@ -864,22 +864,22 @@ Figure&nbsp;2.7: CDF of a mixed random variable
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="examples-of-discrete-random-variables"><span class="header-section-number">2.2.1</span> Examples of discrete random variables</h3>
 <p>We now consider some other examples of discrete random variables, which are typically described by specifying their PMF.</p>
 <div id="exm-Binomial" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.6 (Binomial random variable)</strong></span> A Binomial random variable is the sum of independent and identically distributed Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binomial}(n,p)\)</span>. For such a random variable, <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.6 (Binomial random variable)</strong></span> A Binomial random variable is the sum of independent and identically distributed Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed <span class="math inline">\(n\)</span> times, then the number of heads is a <em>binomial random variable with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span></em>, which is denoted by <span class="math inline">\(\text{Binom}(n,p)\)</span>. For such a random variable, <span class="math display">\[
 P_X(k) = \binom n k p^k (1-p)^{n-k}, \quad 0 \le k \le n.
 \]</span></p>
 </div>
 <div id="exm-Geometric" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.7 (Geometric random variable)</strong></span> A geometric random variable is the number of trials in i.i.d.&nbsp;Bernoulli random variables. For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed repeatedly, the number of tosses needed for the first head is a geometric random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>, which is denoted by <span class="math inline">\(\text{Geo}(p)\)</span>. For such a random variable, <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.7 (Geometric random variable)</strong></span> A geometric random variable is the number of trials up to and including the first success in a sequence of i.i.d.&nbsp;Bernoulli trials. For example, if a biased coin (with <span class="math inline">\(\PR(H) = p\)</span>) is tossed repeatedly, the number of tosses needed for the first head is a geometric random variable with parameter <span class="math inline">\(p \in (0,1)\)</span>, which is denoted by <span class="math inline">\(\text{Geom}(p)\)</span>. For such a random variable, <span class="math display">\[
 P_X(k) = (1-p)^{k-1} p, \quad k \in \integers_{&gt; 0}.
 \]</span></p>
 </div>
 <p>Geometric random variables have the property of being <strong>memoryless</strong>: the distribution of waiting time does not depend on how much time has already elapsed.</p>
 <div id="exm-Poisson" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.8 (Poisson random variable)</strong></span> Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to be a <em>Poisson random variable with parameter <span class="math inline">\(λ &gt; 0\)</span></em>, which is denoted by <span class="math inline">\(\text{Poisson}(λ)\)</span>, if <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.8 (Poisson random variable)</strong></span> Poisson random variables model many different phenomena ranging from the photoelectric effect in photonics to packet arrivals in computer networks. A random variable is said to be a <em>Poisson random variable with parameter <span class="math inline">\(λ &gt; 0\)</span></em>, which is denoted by <span class="math inline">\(\text{Poisson}(λ)\)</span>, if <span class="math display">\[
 P_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 \]</span></p>
 </div>
-<p>Poisson random variables model rare events. It describes the limit of a Binomial random variable with success probability <span class="math inline">\(p = λ/n\)</span> as the number <span class="math inline">\(n\)</span> of trials increases. Poisson random variables are <strong>closed under addition</strong>: the sum of independent Poisson random variables is Poisson.</p>
+<p>Poisson random variables model rare events. They describe the limit of a Binomial random variable with success probability <span class="math inline">\(p = λ/n\)</span> as the number <span class="math inline">\(n\)</span> of trials increases. Poisson random variables are <strong>closed under addition</strong>: the sum of independent Poisson random variables is Poisson.</p>
 <div id="exm-Uniform-discrete" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2.9 (Uniform random variable)</strong></span> A random variable is said to have a (discrete) uniform distribution over a discrete set <span class="math inline">\(\ALPHABET S\)</span> if <span class="math display">\[P_X(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.\]</span></p>
 </div>
@@ -887,10 +887,10 @@ P_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 <section id="some-examples-of-continuous-random-variables" class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="some-examples-of-continuous-random-variables"><span class="header-section-number">2.2.2</span> Some examples of continuous random variables</h3>
 <div id="exm-Uniform-continuous" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.10 (Uniform random variable)</strong></span> A random variable is said to have a (continuous) uniform distribution over an interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(a &lt; b\)</span> if <span class="math display">\[f_X(x) = \frac 1{b - a}, \quad x \in [a,b].\]</span></p>
+<p><span class="theorem-title"><strong>Example 2.10 (Uniform random variable)</strong></span> A random variable is said to have a (continuous) uniform distribution over an interval <span class="math inline">\([a, b]\)</span>, where <span class="math inline">\(a &lt; b\)</span>, if <span class="math display">\[f_X(x) = \frac 1{b - a}, \quad x \in [a,b].\]</span></p>
 </div>
 <div id="exm-exponential" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.11 (Exponential random variable)</strong></span> A random variable is said to have an exponential distribution with parameter <span class="math inline">\(λ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\text{exp}(λ)\)</span> if <span class="math display">\[f_X(x) = λ e^{-λ x}, \quad x \ge 0.\]</span></p>
+<p><span class="theorem-title"><strong>Example 2.11 (Exponential random variable)</strong></span> A random variable is said to have an exponential distribution with parameter <span class="math inline">\(λ &gt; 0\)</span>, which is denoted by <span class="math inline">\(\text{Exp}(λ)\)</span> if <span class="math display">\[f_X(x) = λ e^{-λ x}, \quad x \ge 0.\]</span></p>
 </div>
 <p>Exponential random variables arise in queueing theory, network traffic, and photonics. They have the property of being <strong>memoryless</strong>: the distribution of the waiting time does not depend on how much time has already elapsed.</p>
 <div id="exm-Gaussian" class="theorem example">
@@ -917,13 +917,13 @@ F_X(x)=Φ\Bigl(\frac{x-μ}{σ}\Bigr).
 <h2 data-number="2.3" class="anchored" data-anchor-id="functions-of-random-variables"><span class="header-section-number">2.3</span> Functions of random variables</h2>
 <p>We often encounter situations where we are interested in functions of random variables. Functions of random variables are random variables.</p>
 <p>In particular, suppose <span class="math display">\[
-  X \colon (\ALPHABET Ω, \ALPHABET F) \to (\reals, \mathscr{B}(\reals))
+  X \colon (Ω, \ALPHABET F) \to (\reals, \mathscr{B}(\reals))
 \]</span> is a random variable and <span class="math inline">\(g \colon \reals \to \reals\)</span> is a measurable function.</p>
-<p>Since <span class="math inline">\(g\)</span> is measurable, for any (Borel) subset <span class="math inline">\(B\)</span> of <span class="math inline">\(\reals\)</span>, we have that <span class="math inline">\(C = g^{-1}(B) \in \mathscr B(\reals)\)</span>. Therefore, <span class="math inline">\(X^{-1}(C) \in \ALPHABET F\)</span>. Thus, we can think of <span class="math inline">\(Y\)</span> as a random variable.</p>
+<p>Since <span class="math inline">\(g\)</span> is measurable, for any (Borel) subset <span class="math inline">\(B\)</span> of <span class="math inline">\(\reals\)</span>, we have that <span class="math inline">\(C = g^{-1}(B) \in \mathscr B(\reals)\)</span>. Therefore, <span class="math inline">\(X^{-1}(C) \in \ALPHABET F\)</span>. Thus, <span class="math inline">\(Y = g(X)\)</span> is a random variable.</p>
 <p>Since <span class="math inline">\(Y\)</span> is a random variable, it is possible to compute its CDF and PMF/PDF as appropriate. We discuss the details separately for discrete and continuous random variables.</p>
 <section id="functions-of-discrete-random-variables" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="functions-of-discrete-random-variables"><span class="header-section-number">2.3.1</span> Functions of discrete random variables</h3>
-<p>In the discrete time, it is trivial to find the PMF of <span class="math inline">\(Y\)</span> in terms of PMF of <span class="math inline">\(X\)</span>. For example, consider the random variable <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>. Let <span class="math inline">\(g \colon \{0, 1, 2\} \to \{0, 1\}\)</span> be given by <span class="math display">\[
+<p>For discrete random variables, it is easy to find the PMF of <span class="math inline">\(Y\)</span> in terms of PMF of <span class="math inline">\(X\)</span>. For example, consider the random variable <span class="math inline">\(X\)</span> defined in <a href="#exm-coin-toss" class="quarto-xref">Example&nbsp;<span>2.1</span></a>. Let <span class="math inline">\(g \colon \{0, 1, 2\} \to \{0, 1\}\)</span> be given by <span class="math display">\[
   g(0) = 0, \quad g(1) = 0, \quad g(2) = 1.
 \]</span> Then, <span class="math display">\[
   P_Y(0) = P_X(0) + P_X(1)
@@ -933,7 +933,7 @@ F_X(x)=Φ\Bigl(\frac{x-μ}{σ}\Bigr).
 <p>However, it will be useful to visualize this slightly differently. We start with revisiting measurability for discrete random variables. The main point is that</p>
 <ul>
 <li><p>A discrete random variable creates a partition on the sample space (we expand on this point below).</p></li>
-<li><p>The <span class="math inline">\(σ\)</span>-algebra generated by this partition is called the <strong><span class="math inline">\(σ\)</span>-algebra generated by <span class="math inline">\(X\)</span></strong> and denoted by <span class="math inline">\(σ(X)\)</span>. This <span class="math inline">\(σ\)</span>-algebra captures the crux of measurability.</p></li>
+<li><p>The <span class="math inline">\(σ\)</span>-algebra generated by this partition is called the <strong><span class="math inline">\(σ\)</span>-algebra generated by <span class="math inline">\(X\)</span></strong> and denoted by <span class="math inline">\(σ(X)\)</span>.</p></li>
 </ul>
 <p>We now discuss the partition generated by a discrete random variable. Let <span class="math inline">\(X\)</span> be a random variable and <span class="math inline">\(\ALPHABET X = \{x_1, x_2, \dots, x_n\}\)</span> be the range of <span class="math inline">\(X\)</span>. Define <span class="math display">\[A_i = \{ω \in Ω : X(ω) = x_i \} = X^{-1}(\{x_i\}).\]</span> Then, <span class="math inline">\(X\)</span> can be written as <span class="math display">\[
   X(ω) = \sum_{i=1}^{n} x_i \IND_{A_i}(ω).
@@ -967,7 +967,7 @@ Figure&nbsp;2.9: Illustration of the partition created by <span class="math inli
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="functions-of-continuous-random-variables"><span class="header-section-number">2.3.2</span> Functions of continuous random variables</h3>
 <p>For continuous random variables, computing the PDF of a function of a random variable is more involved. We first illustrate the main idea via some examples.</p>
 <div id="exm-function-uniform-1" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.13</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}(0,2)\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.13</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,2)\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
 g(x) = \begin{cases}
   x &amp; x \in (0,1] \\
   2 - x &amp; x \in (1,2] \\
@@ -1037,13 +1037,13 @@ Figure&nbsp;2.10: The function <span class="math inline">\(g(x)\)</span> for <a 
 F_Y(y) = F_X(y) + 1 -  F_X(2-y) = \frac {y}{2} + 1 - \frac{2-y}{2} = y.
 \]</span> Thus, <span class="math display">\[
    f_Y(y) = \dfrac{d}{dy} F_Y(y) = 1, \quad y \in [0,1].
-\]</span> Thus, <span class="math inline">\(Y\)</span> is <span class="math inline">\(\text{Uniform}(0,1)\)</span>.</p></li>
+\]</span> Thus, <span class="math inline">\(Y\)</span> is <span class="math inline">\(\text{Unif}(0,1)\)</span>.</p></li>
 </ol>
 </div>
 </div>
 </div>
 <div id="exm-function-uniform-2" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.14</strong></span> Suppose <span class="math inline">\(X \sim \text{Uniform}(0,4)\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 2.14</strong></span> Suppose <span class="math inline">\(X \sim \text{Unif}(0,4)\)</span>. Consider a function <span class="math inline">\(g\)</span> given by <span class="math display">\[
 g(x) = \begin{cases}
   x &amp; x \in (0,1] \\
   1 &amp; x \in (1, 3) \\
@@ -1156,14 +1156,14 @@ F_Z(z) &amp;= \PR(Z \le z) = \PR\left( \frac{X - μ}{σ} \le z \right)
 </div>
 </div>
 <div id="exm-generating-random-variables" class="theorem example">
-<p><span class="theorem-title"><strong>Example 2.16 (Generating non-uniform random variables by inverting the CDF)</strong></span> Suppose <span class="math inline">\(F \colon \reals \to [0,1]\)</span> is a function that satisfies the following properties: there exist a pair <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a &lt; b\)</span> (we allow <span class="math inline">\(a\)</span> to be <span class="math inline">\(-∞\)</span> and <span class="math inline">\(b\)</span> to be <span class="math inline">\(∞\)</span>) such that</p>
+<p><span class="theorem-title"><strong>Example 2.16 (Generating non-uniform random variables by inverting the CDF)</strong></span> Suppose <span class="math inline">\(F \colon \reals \to [0,1]\)</span> is a function for which there exists a pair <span class="math inline">\((a,b)\)</span> with <span class="math inline">\(a &lt; b\)</span> (we allow <span class="math inline">\(a = -∞\)</span> and <span class="math inline">\(b = ∞\)</span>) such that</p>
 <ul>
 <li><span class="math inline">\(F(x) = 0\)</span> for <span class="math inline">\(x \le a\)</span></li>
 <li><span class="math inline">\(F(x) = 1\)</span> for <span class="math inline">\(x \ge b\)</span></li>
 <li><span class="math inline">\(F(x)\)</span> is strictly increasing in <span class="math inline">\((a,b)\)</span>.</li>
 </ul>
 <p>Thus, <span class="math inline">\(F\)</span> satisfies the properties of the CDF of a continuous random variable and <span class="math inline">\(F\)</span> is invertible in the interval <span class="math inline">\((a,b)\)</span>.</p>
-<p>Suppose <span class="math inline">\(U \sim \text{Uniform}(0,1)\)</span> and <span class="math inline">\(X = F^{-1}(U)\)</span>. Show that <span class="math inline">\(F_X(x) = F(x)\)</span>.</p>
+<p>Suppose <span class="math inline">\(U \sim \text{Unif}(0,1)\)</span> and <span class="math inline">\(X = F^{-1}(U)\)</span>. Show that <span class="math inline">\(F_X(x) = F(x)\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="true" aria-label="Toggle callout">
@@ -1207,13 +1207,13 @@ F_X(x) = \PR(U \le F(x)) = F_U(F(x)) = F(x)
 </div></li>
 <li><p>The change of variables formula can be used to verify some common ways of generating non-uniform random variables from uniform random variables. For example:</p>
 <ul>
-<li>Suppose <span class="math inline">\(U \sim \text{Uniform}(0,1)\)</span> and <span class="math inline">\(λ &gt; 0\)</span>. Then, <span class="math inline">\(X = - \ln(1 - U)/λ\)</span> has <span class="math inline">\(\text{exp}(λ)\)</span> distribution.</li>
+<li>Suppose <span class="math inline">\(U \sim \text{Unif}(0,1)\)</span> and <span class="math inline">\(λ &gt; 0\)</span>. Then, <span class="math inline">\(X = - \ln(1 - U)/λ\)</span> has <span class="math inline">\(\text{Exp}(λ)\)</span> distribution.</li>
 </ul>
-<p>Note that the change of variable formula only works for continuous function. For non-continuous functions, we need to use first principles (or the idea in <a href="#exm-generating-random-variables" class="quarto-xref">Example&nbsp;<span>2.16</span></a>). For example:</p>
+<p>Note that the change of variable formula only works for piecewise monotone, differentiable functions. For other functions, we need to use first principles (or the idea in <a href="#exm-generating-random-variables" class="quarto-xref">Example&nbsp;<span>2.16</span></a>). For example:</p>
 <ul>
-<li>Suppose <span class="math inline">\(U \sim \text{Uniform}(0,1)\)</span> and <span class="math inline">\(p \in (0,1)\)</span>. Then <span class="math inline">\(X = \IND_{\{U \le p\}}\)</span> has <span class="math inline">\(\text{Bernoulli}(p)\)</span> distribution.</li>
+<li>Suppose <span class="math inline">\(U \sim \text{Unif}(0,1)\)</span> and <span class="math inline">\(p \in (0,1)\)</span>. Then <span class="math inline">\(X = \IND_{\{U \le p\}}\)</span> has <span class="math inline">\(\text{Bernoulli}(p)\)</span> distribution.</li>
 </ul>
-<p>See <a href="https://doi.org/10.1007/978-1-4613-8643-8">Devroye (1986)</a> for a general discussion on generating non-uniform random variables,</p></li>
+<p>See <a href="https://doi.org/10.1007/978-1-4613-8643-8">Devroye (1986)</a> for a general discussion on generating non-uniform random variables.</p></li>
 </ol>
 </section>
 </section>
@@ -1239,7 +1239,7 @@ F_X(x) = \PR(U \le F(x)) = F_U(F(x)) = F(x)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When <span class="math inline">\(X\)</span> takes countably or uncountably infinite values, we need to be a bit more precise by what we mean by the summation (or the integration) formula above. In particular, we do not want the answer to depend on the order in which we do the summation or the integration (i.e., we do not want <span class="math inline">\(∞ - ∞\)</span> situation). This means that the sum or the integral should be <a href="https://en.wikipedia.org/wiki/Absolute_convergence">:<em>absolutely convergent</em></a>. Such random variables are called <strong>integrable random variables</strong>.</p>
+<p>When <span class="math inline">\(X\)</span> takes countably or uncountably infinite values, we need to be a bit more precise about what we mean by the summation (or the integration) formula above. In particular, we do not want the answer to depend on the order in which we do the summation or the integration (i.e., we do not want an <span class="math inline">\(∞ - ∞\)</span> situation). This means that the sum or the integral should be <a href="https://en.wikipedia.org/wiki/Absolute_convergence">:<em>absolutely convergent</em></a>. Such random variables are called <strong>integrable random variables</strong>.</p>
 <p>Formally, expectation is defined only for integrable random variables.</p>
 <p>To illustrate why this is important, consider a discrete random variable defined over <span class="math inline">\(\integers\setminus\{0\}\)</span> where <span class="math display">\[
 P_X(n) = P_X(-n) = \frac {1}{2C n^2}, \quad n \in \naturalnumbers
@@ -1254,7 +1254,7 @@ C = \sum_{n=1}^∞ \frac 1{n^2} = \frac{π^2}{6}.
 \end{align*}\]</span> which is undefined.</p>
 <p>The concern here is that the summation is <strong>undefined</strong>. Mathematically, we are okay when the summation is infinity. For example, consider another random variable <span class="math inline">\(Y\)</span> defined over <span class="math inline">\(\naturalnumbers\)</span> for which <span class="math display">\[
 P_Y(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
-\]</span> where <span class="math inline">\(C\)</span> is as defined above. This is called the <strong>Zipf</strong> distribution. By following an argument same as above, we see that <span class="math display">\[\EXP[Y] = ∞.\]</span></p>
+\]</span> where <span class="math inline">\(C\)</span> is as defined above. This is called the <strong>Zipf</strong> distribution. By following the same argument as above, we see that <span class="math display">\[\EXP[Y] = ∞.\]</span></p>
 </div>
 </div>
 <div id="exm-coin-toss-mean" class="theorem example">
@@ -1282,10 +1282,10 @@ P_Y(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 <p><span class="theorem-title"><strong>Example 2.20</strong></span> Find the expected value of the random variables with the following distributions:</p>
 <ul>
 <li><span class="math inline">\(\text{Bernoulli}(p)\)</span>.</li>
-<li><span class="math inline">\(\text{Binomial}(n,p)\)</span>.</li>
-<li><span class="math inline">\(\text{Geo}(p)\)</span>.</li>
+<li><span class="math inline">\(\text{Binom}(n,p)\)</span>.</li>
+<li><span class="math inline">\(\text{Geom}(p)\)</span>.</li>
 <li><span class="math inline">\(\text{Poisson}(λ)\)</span>.</li>
-<li><span class="math inline">\(\text{Uniform}(a,b)\)</span>.</li>
+<li><span class="math inline">\(\text{Unif}(a,b)\)</span>.</li>
 <li><span class="math inline">\(\text{Exp}(λ)\)</span>.</li>
 </ul>
 </div>
@@ -1309,7 +1309,7 @@ P_Y(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>This result is sometimes called *<strong>the law of the unconscious statistician (LOTUS).</strong> One typically shows this result by defining a new random variable <span class="math inline">\(Y = g(X)\)</span>, computing its PMF/PDF <span class="math inline">\(f_Y\)</span> and then using the definition in <a href="#def-expectation" class="quarto-xref">Definition&nbsp;<span>2.2</span></a>.</p>
+<p>This result is sometimes called <strong>the law of the unconscious statistician (LOTUS)</strong>. One typically shows this result by defining a new random variable <span class="math inline">\(Y = g(X)\)</span>, computing its PMF/PDF <span class="math inline">\(f_Y\)</span> and then using the definition in <a href="#def-expectation" class="quarto-xref">Definition&nbsp;<span>2.2</span></a>.</p>
 <p>A simpler proof is to define expectation by <a href="#lem-expectation" class="quarto-xref">Lemma&nbsp;<span>2.3</span></a> for any (measurable) function <span class="math inline">\(g\)</span>. Then the definition of <a href="#def-expectation" class="quarto-xref">Definition&nbsp;<span>2.2</span></a> is a special case for <span class="math inline">\(g(x) = x\)</span>. No proofs needed!</p>
 </div>
 </div>
@@ -1328,14 +1328,14 @@ P_Y(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 </div>
 <ol type="1">
 <li><p>A continuous random variable is said to be symmetric if <span class="math inline">\(f_X(-x) = f_X(x)\)</span> for all <span class="math inline">\(x \in \reals\)</span>. A symmetric random variable has mean <span class="math inline">\(0\)</span>.</p></li>
-<li><p>A continuous random variable is said to be symmetric around <span class="math inline">\(m\)</span> if <span class="math inline">\(f(m - x) = f(m + x)\)</span>, for all <span class="math inline">\(x \in \reals\)</span>. The mean of such a random variable is <span class="math inline">\(m\)</span>.</p></li>
+<li><p>A continuous random variable is said to be symmetric around <span class="math inline">\(m\)</span> if <span class="math inline">\(f_X(m - x) = f_X(m + x)\)</span>, for all <span class="math inline">\(x \in \reals\)</span>. The mean of such a random variable is <span class="math inline">\(m\)</span>.</p></li>
 </ol>
 <section id="higher-moments" class="level3" data-number="2.4.1">
 <h3 data-number="2.4.1" class="anchored" data-anchor-id="higher-moments"><span class="header-section-number">2.4.1</span> Higher moments</h3>
 <ol type="1">
-<li><p>The <span class="math inline">\(m\)</span>-th <strong>moment</strong>, <span class="math inline">\(m \ge 1\)</span> of a random variable <span class="math inline">\(X\)</span> is defined as <span class="math inline">\(\EXP[X^m]\)</span>.</p></li>
+<li><p>The <span class="math inline">\(m\)</span>-th <strong>moment</strong> (<span class="math inline">\(m \ge 1\)</span>) of a random variable <span class="math inline">\(X\)</span> is defined as <span class="math inline">\(\EXP[X^m]\)</span>.</p></li>
 <li><p>The <span class="math inline">\(m\)</span>-th <strong>central moment</strong> is defined as <span class="math inline">\(\EXP[(X - μ)^m]\)</span>, where <span class="math inline">\(μ = \EXP[X]\)</span>.</p></li>
-<li><p>For second central moment (i.e., <span class="math inline">\(m=2\)</span>) is called <strong>variance</strong>. The variance satisfies the following: <span class="math display">\[\VAR(X) = \EXP[X^2] - (\EXP[X])^2.\]</span></p></li>
+<li><p>The second central moment (i.e., <span class="math inline">\(m=2\)</span>) is called the <strong>variance</strong>. The variance satisfies the following: <span class="math display">\[\VAR(X) = \EXP[X^2] - (\EXP[X])^2.\]</span></p></li>
 <li><p>The positive square root of variance is called the <strong>standard deviation.</strong> Variance is often denoted by <span class="math inline">\(σ^2\)</span> and the standard deviation by <span class="math inline">\(σ\)</span>.</p></li>
 </ol>
 <div id="exm-coin-toss-variance" class="theorem example">
@@ -1368,7 +1368,7 @@ P_Y(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers
 <li><p><strong>Shift invariance.</strong> For any constant <span class="math inline">\(c\)</span>, <span class="math display">\[\VAR(X + c) = \VAR(X).\]</span></p></li>
 </ol>
 </div>
-<p>The mean and variance of common random variables is show in <a href="#tbl-mean-variance" class="quarto-xref">Table&nbsp;<span>2.1</span></a></p>
+<p>The mean and variance of common random variables are shown in <a href="#tbl-mean-variance" class="quarto-xref">Table&nbsp;<span>2.1</span></a></p>
 <div id="tbl-mean-variance" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mean-variance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1429,7 +1429,7 @@ Table&nbsp;2.1: Mean and variance of common random variables
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Gaussian</td>
-<td style="text-align: center;"><span class="math inline">\((μ,σ)\)</span></td>
+<td style="text-align: center;"><span class="math inline">\((μ,σ^2)\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(μ\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(σ^2\)</span></td>
 </tr>

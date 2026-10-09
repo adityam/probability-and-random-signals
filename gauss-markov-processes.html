@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
-<title>12&nbsp; Gauss–Markov models and spectral analysis – Probability and Random Signals II</title>
+<title>12&nbsp; Gauss-Markov models and spectral analysis – Probability and Random Signals II</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -419,7 +419,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./gauss-markov-processes.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./gauss-markov-processes.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -506,7 +506,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -554,7 +554,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></h1>
 </div>
 
 
@@ -580,7 +580,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -596,7 +596,7 @@ window.Quarto = {
 <section id="linear-state-space-models" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="linear-state-space-models"><span class="header-section-number">12.1</span> Linear state-space models</h2>
 <ol type="1">
-<li><p>Recall from an undergraduate control course that any single-input single-output (SISO) linear time-invariant (LTI) system can be written in state-space form as <span class="math display">\[ x_{n+1} = Ax_n + Bu_n, \qquad y_n = Cx_n, \]</span> where <span class="math inline">\(u_n \in \reals\)</span> is the input, <span class="math inline">\(y_n \in \reals\)</span> is the output, and <span class="math inline">\(x_n \in \reals^d\)</span> is the state. The system matrices <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> have appropriate dimensions; thus, <span class="math display">\[ A \in \reals^{d \times d}, \qquad B \in \reals^{d \times 1}, \qquad C \in \reals^{1 \times d}. \]</span></p>
+<li><p>Recall from an undergraduate control course that any single-input single-output (SISO) linear time-invariant (LTI) system can be written in state-space form as <span class="math display">\[ x_{n+1} = Ax_n + Bu_n, \qquad y_n = Cx_n, \]</span> where <span class="math inline">\(u_n \in \reals\)</span> is the input, <span class="math inline">\(y_n \in \reals\)</span> is the output, and <span class="math inline">\(x_n \in \reals^d\)</span> is the state. The system matrices <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> have appropriate dimensions; thus, <span class="math display">\[ A \in \reals^{d × d}, \qquad B \in \reals^{d × 1}, \qquad C \in \reals^{1 × d}. \]</span></p>
 <p>Suppose the system starts at time <span class="math inline">\(n = 0\)</span> with initial state <span class="math inline">\(x_0\)</span>. Repeated substitution gives <span class="math display">\[\begin{equation}\label{eq:state-solution}
   x_n = A^nx_0 + \sum_{k=0}^{n-1} A^{n-1-k}Bu_k.
 \end{equation}\]</span> The first term is the zero-input response and the second term is the zero-state response.</p></li>
@@ -616,7 +616,7 @@ window.Quarto = {
 <li><p>Since the output process is Gaussian, it is completely characterized by its mean and auto-covariance functions, <span class="math inline">\(μ^Y_n\)</span> and <span class="math inline">\(R^Y_{n,m}\)</span>. In general, these depend on the statistics of the input and the initial state, including their cross-covariance.</p>
 <p>Taking expectations in <span class="math inline">\(\eqref{eq:SSS}\)</span> gives <span class="math display">\[ μ^X_{n+1} = Aμ^X_n + Bμ^U_n, \qquad μ^Y_n = Cμ^X_n. \]</span></p>
 <p>For a general input, covariance propagation also involves the cross-covariance between <span class="math inline">\(X_n\)</span> and <span class="math inline">\(U_n\)</span>. To obtain a closed recursion, we specialize to zero-mean white Gaussian noise <span class="math inline">\(\{W_n\}_{n \ge 0}\)</span> that is independent of the initial state. We write <span class="math inline">\(Σ^W = σ_W^2\mathbb I\)</span> for its covariance, so the same formulas also apply to a vector-valued white-noise input.</p></li>
-<li><p>Under this specialization, <span class="math inline">\(W_n\)</span> is independent of <span class="math inline">\(X_0,\ldots,X_n\)</span>. Therefore, the recursion <span class="math inline">\(X_{n+1} = AX_n + BW_n\)</span> gives <span class="math display">\[ X_{n+1} \mid X_0,\ldots,X_n \sim \mathcal N\bigl(AX_n, BΣ^W B^\TRANS\bigr). \]</span> Such a process is often called a <strong>Gauss–Markov process</strong>.</p></li>
+<li><p>Under this specialization, <span class="math inline">\(W_n\)</span> is independent of <span class="math inline">\(X_0,\ldots,X_n\)</span>. Therefore, the recursion <span class="math inline">\(X_{n+1} = AX_n + BW_n\)</span> gives <span class="math display">\[ X_{n+1} \mid X_0,\ldots,X_n \sim \mathcal N\bigl(AX_n, BΣ^W B^\TRANS\bigr). \]</span> Such a process is often called a <strong>Gauss-Markov process</strong>.</p></li>
 <li><p><strong>Propagation of covariance.</strong> The same independence gives a closed covariance recursion. Define <span class="math display">\[ Σ^X_n = \COV(X_n,X_n), \qquad Σ^Y_n = \COV(Y_n,Y_n). \]</span> Since <span class="math inline">\(W_n\)</span> is independent of <span class="math inline">\(X_n\)</span>, the covariances propagate according to <span class="math display">\[ Σ^X_{n+1} = AΣ^X_nA^\TRANS + BΣ^W B^\TRANS, \qquad Σ^Y_n = CΣ^X_nC^\TRANS. \]</span> Iterating the state covariance recursion gives <span class="math display">\[\begin{equation}\label{eq:state-covariance-solution}
   Σ^X_n
   = A^nΣ^X_0(A^\TRANS)^n
@@ -826,7 +826,7 @@ window.Quarto = {
   0, &amp; m \ge n.
   \end{cases}
 \end{equation}\]</span> Thus, for <span class="math inline">\(\ell \ge 1\)</span>, <span class="math display">\[ R^{YW}_{m+\ell,m} = g_\ell Σ^W. \]</span> For standard white noise (<span class="math inline">\(Σ^W = \mathbb{I}\)</span>, or <span class="math inline">\(σ_W^2 = 1\)</span> in the SISO case), the input-output cross-covariance is exactly the impulse response. This relationship is useful in system identification: the impulse response can be estimated from observations of the input and output.</p></li>
-<li><p>More general Gaussian inputs, including colored noise, can often be generated by passing white Gaussian noise through a linear filter. By augmenting the system state with the state of this filter, such models can again be written in Gauss–Markov form. We return to colored noise after introducing power spectral densities.</p></li>
+<li><p>More general Gaussian inputs, including colored noise, can often be generated by passing white Gaussian noise through a linear filter. By augmenting the system state with the state of this filter, such models can again be written in Gauss-Markov form. We return to colored noise after introducing power spectral densities.</p></li>
 </ol>
 </section>
 <section id="stability-and-asymptotic-behavior" class="level2" data-number="12.3">
@@ -834,7 +834,7 @@ window.Quarto = {
 <p>The examples above suggest that the long-run behavior is controlled by the matrix <span class="math inline">\(A\)</span>: the random walk has growing variance, while the stable AR(1) process and stochastic oscillator approach limiting covariances. We now make this precise.</p>
 <ol type="1">
 <li><p>The matrix <span class="math inline">\(A\)</span> is called <strong>Schur stable</strong> if all its eigenvalues lie strictly inside the unit circle. Stability implies that <span class="math display">\[ A^n \longrightarrow 0 \qquad\text{as }n \to ∞. \]</span></p></li>
-<li><p>For the white-noise-driven Gauss–Markov model above, if <span class="math inline">\(A\)</span> is Schur stable, then <span class="math display">\[ μ^X_n \longrightarrow 0. \]</span> Furthermore, the contribution of the initial covariance in <span class="math inline">\(\eqref{eq:state-covariance-solution}\)</span> vanishes: <span class="math display">\[ A^nΣ^X_0(A^\TRANS)^n \longrightarrow 0. \]</span> The covariance therefore converges to <span class="math display">\[\begin{equation}\label{eq:steady-state-covariance-series}
+<li><p>For the white-noise-driven Gauss-Markov model above, if <span class="math inline">\(A\)</span> is Schur stable, then <span class="math display">\[ μ^X_n \longrightarrow 0. \]</span> Furthermore, the contribution of the initial covariance in <span class="math inline">\(\eqref{eq:state-covariance-solution}\)</span> vanishes: <span class="math display">\[ A^nΣ^X_0(A^\TRANS)^n \longrightarrow 0. \]</span> The covariance therefore converges to <span class="math display">\[\begin{equation}\label{eq:steady-state-covariance-series}
   Σ^X_∞
   = \sum_{k=0}^{\infty}
   A^k BΣ^W B^\TRANS (A^\TRANS)^k.
@@ -898,7 +898,7 @@ window.Quarto = {
   S_U(z)
   = \sum_{k=-∞}^{∞}R^U_kz^{-k}.
 \end{equation}\]</span> We assume that <span class="math inline">\(R^U_k\)</span> is absolutely summable, so the region of convergence contains the unit circle. The auto-covariance sequence is recovered by taking the inverse <span class="math inline">\(Z\)</span>-transform of <span class="math inline">\(S_U(z)\)</span>.</p>
-<p>This assumption excludes stationary processes with persistent periodic components. For example, the random sinusoid in <a href="stochastic-processes.html#exm-cosine-gaussian-phase" class="quarto-xref">Example&nbsp;<span>10.3</span></a> has auto-covariance <span class="math inline">\(R^X_k=σ^2\cos(Ω_0k)\)</span>, which is not absolutely summable. Its spectrum is concentrated at the frequencies <span class="math inline">\(Ω_0\)</span> and <span class="math inline">\(-Ω_0\)</span>; these concentrations are called <strong>spectral lines</strong>. They require a generalized spectral representation rather than an ordinary PSD function, which we do not discuss here.</p></li>
+<p>This assumption excludes stationary processes with persistent periodic components. For example, the random sinusoid in <a href="stochastic-processes.html#exm-cosine-gaussian-amplitude" class="quarto-xref">Example&nbsp;<span>10.3</span></a> has auto-covariance <span class="math inline">\(R^X_k=σ^2\cos(Ω_0k)\)</span>, which is not absolutely summable. Its spectrum is concentrated at the frequencies <span class="math inline">\(Ω_0\)</span> and <span class="math inline">\(-Ω_0\)</span>; these concentrations are called <strong>spectral lines</strong>. They require a generalized spectral representation rather than an ordinary PSD function, which we do not discuss here.</p></li>
 <li><p>Since <span class="math inline">\(R^U_{-k} = R^U_k\)</span>, <span class="math inline">\(S_U(z)\)</span> satisfies <span class="math display">\[ S_U(z^{-1}) = S_U(z). \]</span> On the unit circle, <span class="math inline">\(z = e^{\mathsf j Ω}\)</span>, <span class="math inline">\(S_U(z)\)</span> reduces to the discrete-time Fourier transform (DTFT) of the auto-covariance, and is called the <strong>power spectral density</strong> (PSD): <span class="math display">\[\begin{equation}\label{eq:psd-definition}
   S_U(e^{\mathsf j Ω})
   = \sum_{k=-∞}^{∞}R^U_ke^{-\mathsf j Ω k}.
@@ -906,7 +906,7 @@ window.Quarto = {
 <li><p>The terminology “power spectral density” comes from the inverse DTFT at lag zero. The average power of the process is <span class="math display">\[ R^U_0 = \VAR(U_n), \]</span> and <span class="math display">\[\begin{equation}\label{eq:power-from-psd}
   R^U_0
   = \frac{1}{2π}\int_{-π}^{π} S_U(e^{\mathsf j Ω})\,dΩ.
-\end{equation}\]</span> Thus <span class="math inline">\(S_U(e^{\mathsf j Ω})\)</span> describes how the power of the process is distributed across frequencies. Nonnegativity of the PSD is a general property of such spectra and is a consequence of the <a href="https://en.wikipedia.org/wiki/Wiener%E2%80%93Khinchin_theorem">:Wiener–Khinchin theorem</a>; see also Oppenheim and Verghese, Chapter~10.2.</p></li>
+\end{equation}\]</span> Thus <span class="math inline">\(S_U(e^{\mathsf j Ω})\)</span> describes how the power of the process is distributed across frequencies. Nonnegativity of the PSD is a general property of such spectra and is a consequence of the <a href="https://en.wikipedia.org/wiki/Wiener%E2%80%93Khinchin_theorem">:Wiener-Khinchin theorem</a>; see also Oppenheim and Verghese, Chapter 10.2.</p></li>
 <li><p>If <span class="math inline">\(\{W_n\}_{n \in \integers}\)</span> is white noise with variance <span class="math inline">\(σ_W^2\)</span>, then <span class="math display">\[ R^W_k = σ_W^2 \IND\{k = 0\}, \]</span> and hence <span class="math display">\[\begin{equation}\label{eq:white-noise-covariance-transform}
   S_W(z) = σ_W^2.
 \end{equation}\]</span> In particular, its PSD is constant on the unit circle. This is why the process is called <strong>white noise</strong>: its spectrum is flat, in contrast to <strong>colored noise</strong>, whose spectrum is not flat.</p></li>
@@ -1020,7 +1020,7 @@ window.Quarto = {
 <li>Gubner, Chapter 10.</li>
 <li>Grimmett and Stirzaker, Chapters 8 and 9.</li>
 <li>Hajek, <a href="https://hajek.ece.illinois.edu/Papers/randomprocJuly14.pdf">Random Processes for Engineering</a>, Chapters 7 and 8 (mostly continuous time, but the same ideas).</li>
-<li>Oppenheim and Verghese, Chapter 10 (power spectral density and the Wiener–Khinchin viewpoint).</li>
+<li>Oppenheim and Verghese, Chapter 10 (power spectral density and the Wiener-Khinchin viewpoint).</li>
 </ul>
 
 

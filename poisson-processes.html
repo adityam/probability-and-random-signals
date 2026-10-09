@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>13&nbsp; Poisson processes – Probability and Random Signals II</title>
@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -506,7 +506,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -584,7 +584,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -602,7 +602,7 @@ window.Quarto = {
 <ol type="1">
 <li><p>Recall the Bernoulli process from <a href="stochastic-processes.html#exm-bernoulli-process" class="quarto-xref">Example&nbsp;<span>10.1</span></a>. Let <span class="math inline">\(\{B_n\}_{n\ge1}\)</span> be i.i.d. <span class="math inline">\(\operatorname{Bernoulli}(p)\)</span> random variables, where <span class="math inline">\(B_n=1\)</span> indicates an arrival at time <span class="math inline">\(n\)</span>. The number of arrivals by time <span class="math inline">\(n\)</span> is <span class="math display">\[
 N_n=\sum_{k=1}^nB_k,
-\]</span> so <span class="math inline">\(N_n\sim\operatorname{Binomial}(n,p)\)</span>.</p></li>
+\]</span> so <span class="math inline">\(N_n\sim\operatorname{Binom}(n,p)\)</span>.</p></li>
 <li><p>There are two equivalent ways to describe the arrivals. Let</p>
 <ul>
 <li><span class="math inline">\(T_k\)</span> be the time between the <span class="math inline">\((k-1)\)</span>-st and <span class="math inline">\(k\)</span>-th arrivals;</li>
@@ -622,7 +622,7 @@ N_n=\sum_{k=1}^nB_k,
 <section id="exponential-interarrival-times" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="exponential-interarrival-times"><span class="header-section-number">13.2</span> Exponential interarrival times</h2>
 <ol type="1">
-<li><p>The geometric distribution is the only memoryless distribution on the nonnegative integers. Its continuous-time analogue is the exponential distribution. If <span class="math inline">\(T\sim\operatorname{Exponential}(λ)\)</span>, then <span class="math display">\[
+<li><p>The geometric distribution is the only memoryless distribution on the nonnegative integers. Its continuous-time analogue is the exponential distribution. If <span class="math inline">\(T\sim\operatorname{Exp}(λ)\)</span>, then <span class="math display">\[
 \PR(T&gt;t)=e^{-λt},
 \qquad
 f_T(t)=λe^{-λt},
@@ -669,7 +669,7 @@ g(s+t)=g(s)+g(t).
 <section id="construction-of-the-poisson-process" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="construction-of-the-poisson-process"><span class="header-section-number">13.3</span> Construction of the Poisson process</h2>
 <ol type="1">
-<li><p>Let <span class="math inline">\(T_1,T_2,\ldots\)</span> be i.i.d. <span class="math inline">\(\operatorname{Exponential}(λ)\)</span> random variables and define <span class="math display">\[
+<li><p>Let <span class="math inline">\(T_1,T_2,\ldots\)</span> be i.i.d. <span class="math inline">\(\operatorname{Exp}(λ)\)</span> random variables and define <span class="math display">\[
 S_0=0,
 \qquad
 S_n=T_1+\cdots+T_n,
@@ -779,7 +779,7 @@ N(t)\sim\operatorname{Poisson}(λt)
 <section id="increments-and-covariance" class="level2" data-number="13.4">
 <h2 data-number="13.4" class="anchored" data-anchor-id="increments-and-covariance"><span class="header-section-number">13.4</span> Increments and covariance</h2>
 <ol type="1">
-<li><p>The memoryless property implies that, at any deterministic time <span class="math inline">\(s\)</span>, the waiting time until the next arrival is again <span class="math inline">\(\operatorname{Exponential}(λ)\)</span> and is independent of the arrivals before time <span class="math inline">\(s\)</span>. Consequently, <span class="math display">\[\begin{equation}\label{eq:poisson-increment-distribution}
+<li><p>The memoryless property implies that, at any deterministic time <span class="math inline">\(s\)</span>, the waiting time until the next arrival is again <span class="math inline">\(\operatorname{Exp}(λ)\)</span> and is independent of the arrivals before time <span class="math inline">\(s\)</span>. Consequently, <span class="math display">\[\begin{equation}\label{eq:poisson-increment-distribution}
 N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
 \qquad 0\le s&lt;t.
 \end{equation}\]</span> Thus, the Poisson process has <strong>stationary increments</strong>.</p></li>
@@ -794,7 +794,7 @@ N(t)=N(s)+[N(t)-N(s)],
 \COV(N(s),N(t))=λs,
 \end{equation}\]</span> or, for arbitrary <span class="math inline">\(s,t\ge0\)</span>, <span class="math display">\[
 \COV(N(s),N(t))=λ\min(s,t).
-\]</span> This is the continuous-time analogue of the covariance of the Bernoulli counting process and the discrete-time random walk.</p></li>
+\]</span> This parallels the covariance <span class="math inline">\(p(1-p)\min(m,n)\)</span> of the Bernoulli counting process.</p></li>
 </ol>
 </section>
 <section id="superposition-of-poisson-processes" class="level2" data-number="13.5">
@@ -806,7 +806,7 @@ N(t)=N_1(t)+N_2(t).
 <li><p>To see this, consider any interval <span class="math inline">\((s,t]\)</span>. The increment <span class="math display">\[
 N(t)-N(s)
 =[N_1(t)-N_1(s)]+[N_2(t)-N_2(s)]
-\]</span> is the sum of independent Poisson random variables and therefore has a <span class="math inline">\(\operatorname{Poisson}((λ_1+λ_2)(t-s))\)</span> distribution. Increments over disjoint intervals remain independent, so this is a process-level statement, not just a statement about <span class="math inline">\(N(t)\)</span> at one time.</p></li>
+\]</span> is the sum of independent Poisson random variables and therefore has a <span class="math inline">\(\operatorname{Poisson}((λ_1+λ_2)(t-s))\)</span> distribution. Increments over disjoint intervals remain independent, so this is a statement about the whole process, not about <span class="math inline">\(N(t)\)</span> at a single time.</p></li>
 <li><p>More generally, the superposition of independent Poisson processes with rates <span class="math inline">\(λ_1,\ldots,λ_m\)</span> is a Poisson process with rate <span class="math display">\[
 λ_1+\cdots+λ_m.
 \]</span></p></li>
@@ -839,32 +839,31 @@ N(t)-N(s)
 \end{align*}\]</span></p></li>
 <li><p>More generally, conditional on <span class="math inline">\(N(t)=n\)</span>, the arrival times <span class="math display">\[
 0&lt;S_1&lt;\cdots&lt;S_n&lt;t
-\]</span> have the same joint distribution as the order statistics of <span class="math inline">\(n\)</span> independent <span class="math inline">\(\operatorname{Uniform}(0,t)\)</span> random variables. Their conditional joint density is <span class="math display">\[
+\]</span> have the same joint distribution as the order statistics of <span class="math inline">\(n\)</span> independent <span class="math inline">\(\operatorname{Unif}(0,t)\)</span> random variables. Their conditional joint density is <span class="math display">\[
 f_{S_1,\ldots,S_n\mid N(t)}(s_1,\ldots,s_n\mid n)
 =\frac{n!}{t^n},
 \]</span> on the region <span class="math inline">\(0&lt;s_1&lt;\cdots&lt;s_n&lt;t\)</span>.</p></li>
 <li><p>This result is useful for simulation. One can generate a Poisson process on <span class="math inline">\([0,t]\)</span> by first drawing <span class="math inline">\(N\sim\operatorname{Poisson}(λt)\)</span>, then drawing <span class="math inline">\(N\)</span> independent uniform random variables on <span class="math inline">\([0,t]\)</span>, and finally sorting them to obtain the arrival times.</p></li>
 <li><p>We have therefore encountered three equivalent descriptions of a Poisson process:</p>
 <ul>
-<li>The interarrival times are i.i.d. <span class="math inline">\(\operatorname{Exponential}(λ)\)</span> random variables.</li>
+<li>The interarrival times are i.i.d. <span class="math inline">\(\operatorname{Exp}(λ)\)</span> random variables.</li>
 <li>The process has stationary independent increments, with <span class="math display">\[
 N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
 \qquad 0\le s&lt;t.
 \]</span></li>
-<li>On any interval <span class="math inline">\([0,t]\)</span>, first draw <span class="math inline">\(N(t)\sim\operatorname{Poisson}(λt)\)</span>; conditional on <span class="math inline">\(N(t)=n\)</span>, the <span class="math inline">\(n\)</span> arrival times are the order statistics of <span class="math inline">\(n\)</span> independent <span class="math inline">\(\operatorname{Uniform}(0,t)\)</span> random variables.</li>
-</ul>
-<p>The first description is based on waiting times, the second on counts over intervals, and the third provides a finite-interval construction.</p></li>
+<li>On any interval <span class="math inline">\([0,t]\)</span>, first draw <span class="math inline">\(N(t)\sim\operatorname{Poisson}(λt)\)</span>; conditional on <span class="math inline">\(N(t)=n\)</span>, the <span class="math inline">\(n\)</span> arrival times are the order statistics of <span class="math inline">\(n\)</span> independent <span class="math inline">\(\operatorname{Unif}(0,t)\)</span> random variables.</li>
+</ul></li>
 </ol>
 </section>
 <section id="competing-poisson-processes" class="level2" data-number="13.8">
 <h2 data-number="13.8" class="anchored" data-anchor-id="competing-poisson-processes"><span class="header-section-number">13.8</span> Competing Poisson processes</h2>
 <ol type="1">
-<li><p>Let <span class="math inline">\(T_1\sim\operatorname{Exponential}(λ_1)\)</span> and <span class="math inline">\(T_2\sim\operatorname{Exponential}(λ_2)\)</span> be independent waiting times. Then <span class="math display">\[
+<li><p>Let <span class="math inline">\(T_1\sim\operatorname{Exp}(λ_1)\)</span> and <span class="math inline">\(T_2\sim\operatorname{Exp}(λ_2)\)</span> be independent waiting times. Then <span class="math display">\[
 \PR(\min(T_1,T_2)&gt;t)
 =e^{-λ_1t}e^{-λ_2t}
 =e^{-(λ_1+λ_2)t},
 \]</span> so <span class="math display">\[
-\min(T_1,T_2)\sim\operatorname{Exponential}(λ_1+λ_2).
+\min(T_1,T_2)\sim\operatorname{Exp}(λ_1+λ_2).
 \]</span></p></li>
 <li><p>The probability that process 1 produces the first arrival is <span class="math display">\[\begin{align*}
 \PR(T_1&lt;T_2)
@@ -897,13 +896,12 @@ N(t)=\max\{n:S_n\le t\}.
 <section id="connection-with-continuous-time-markov-chains" class="level2" data-number="13.10">
 <h2 data-number="13.10" class="anchored" data-anchor-id="connection-with-continuous-time-markov-chains"><span class="header-section-number">13.10</span> Connection with continuous-time Markov chains</h2>
 <ol type="1">
-<li><p>A Poisson process is a continuous-time Markov process on <span class="math inline">\(\integers_{\ge0}\)</span>. From state <span class="math inline">\(n\)</span>, it waits an <span class="math inline">\(\operatorname{Exponential}(λ)\)</span> amount of time and then jumps to state <span class="math inline">\(n+1\)</span>.</p></li>
+<li><p>A Poisson process is a continuous-time Markov process on <span class="math inline">\(\integers_{\ge0}\)</span>. From state <span class="math inline">\(n\)</span>, it waits an <span class="math inline">\(\operatorname{Exp}(λ)\)</span> amount of time and then jumps to state <span class="math inline">\(n+1\)</span>.</p></li>
 <li><p>A continuous-time Markov chain generalizes this construction in two ways:</p>
 <ul>
 <li>the exponential holding-time rate may depend on the current state;</li>
 <li>when the clock rings, the process may jump to different states with different probabilities.</li>
-</ul>
-<p>Thus, the Poisson process provides the basic random-clock mechanism underlying continuous-time Markov chains.</p></li>
+</ul></li>
 </ol>
 </section>
 <section id="exercises" class="level2 unnumbered">
@@ -931,7 +929,7 @@ N(t)=\max\{n:S_n\le t\}.
 <li><p>The 100th arrival time is <span class="math inline">\(S_{100}=T_1+\cdots+T_{100}\)</span>, so <span class="math display">\[
 \EXP[S_{100}]=\frac{100}{10}=10\text{ minutes}.
 \]</span></p></li>
-<li><p>The waiting time <span class="math inline">\(T_{101}\)</span> is <span class="math inline">\(\operatorname{Exponential}(10)\)</span>, so <span class="math display">\[
+<li><p>The waiting time <span class="math inline">\(T_{101}\)</span> is <span class="math inline">\(\operatorname{Exp}(10)\)</span>, so <span class="math display">\[
 \PR(T_{101}&gt;1)=e^{-10}.
 \]</span></p></li>
 <li><p>Thinning gives a Poisson process of Canadian requests with rate <span class="math inline">\(2\)</span> per minute. Thus, <span class="math display">\[
@@ -1422,8 +1420,8 @@ window._ojs.runtime.interpretFromScriptTags();
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./gauss-markov-processes.html" class="pagination-link" aria-label="Gauss–Markov models and spectral analysis">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span>
+      <a href="./gauss-markov-processes.html" class="pagination-link" aria-label="Gauss-Markov models and spectral analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

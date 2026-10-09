@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-09-30">
+<meta name="dcterms.date" content="2026-10-09">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>14&nbsp; Continuous-time Markov chains – Probability and Random Signals II</title>
@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -506,7 +506,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./gauss-markov-processes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss–Markov models and spectral analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Gauss-Markov models and spectral analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -578,7 +578,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 30, 2026</p>
+      <p class="date">October 9, 2026</p>
     </div>
   </div>
   
@@ -695,7 +695,7 @@ window.Quarto = {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/svg/ctmc-examples3.svg" class="img-fluid figure-img"></p>
-<figcaption>Birth–death continuous-time Markov chain on three states</figcaption>
+<figcaption>Birth-death continuous-time Markov chain on three states</figcaption>
 </figure>
 </div>
 <p>Read the diagram to determine the generator <span class="math inline">\(Q\)</span>, the holding rates <span class="math inline">\(ν\)</span>, and the embedded jump matrix <span class="math inline">\(P\)</span>.</p>
@@ -728,8 +728,8 @@ window.Quarto = {
 \end{align*}\]</span> Here <span class="math inline">\(o(h)\)</span> denotes a term negligible compared with <span class="math inline">\(h\)</span>, i.e., <span class="math display">\[ \frac{o(h)}{h} \longrightarrow 0 \quad\text{as }h \to 0. \]</span></p></li>
 <li><p>Continuous-time Markov chains have the same local description. The probability of leaving state <span class="math inline">\(i\)</span> in an interval of length <span class="math inline">\(h\)</span> is <span class="math inline">\(ν_i h + o(h)\)</span>. For <span class="math inline">\(j \ne i\)</span>, <span class="math display">\[ \PR(X(t + h) = j \mid X(t) = i) = q_{ij} h + o(h). \]</span> Likewise, <span class="math display">\[ \PR(X(t + h) = i \mid X(t) = i) = 1 - ν_i h + o(h). \]</span> To first order in <span class="math inline">\(h\)</span>, remaining in <span class="math inline">\(i\)</span> means that no jump occurs in the interval. Leaving <span class="math inline">\(i\)</span> and returning requires at least two jumps, which has probability <span class="math inline">\(o(h)\)</span>. Our convention <span class="math inline">\(P_{ii} = 0\)</span> for the embedded chain does not prevent <span class="math inline">\(X(t + h) = i\)</span>.</p></li>
 <li><p>Define the transition probabilities <span class="math display">\[ P_{ij}(t) = \PR(X(t) = j \mid X(0) = i). \]</span> By time homogeneity, this is also <span class="math inline">\(\PR(X(s + t) = j \mid X(s) = i)\)</span> for any starting time <span class="math inline">\(s\)</span>. Let <span class="math inline">\(P(t)\)</span> denote the matrix with entries <span class="math inline">\(P_{ij}(t)\)</span>. Each <span class="math inline">\(P(t)\)</span> is row stochastic, and <span class="math display">\[ P(0) = I. \]</span> The notation <span class="math inline">\(P(t)\)</span> should not be confused with the matrix <span class="math inline">\(P\)</span> of the embedded jump chain. The local description above is equivalent to <span class="math display">\[ P(h) = I + hQ + o(h). \]</span></p></li>
-<li><p>Conditioning on the state after time <span class="math inline">\(s\)</span> gives the <strong>Chapman–Kolmogorov equations</strong> <span class="math display">\[ P_{ij}(s + t) = \sum_{k \in \ALPHABET X} P_{ik}(s) P_{kj}(t), \]</span> or, in matrix notation, <span class="math display">\[ P(s + t) = P(s) P(t). \]</span></p></li>
-<li><p>Combining the Chapman–Kolmogorov equations with <span class="math display">\[ P(h) = I + hQ + o(h) \]</span> gives the <strong>forward equation</strong>. Writing <span class="math display">\[ P(t + h) = P(t) P(h) \]</span> and taking <span class="math inline">\(h \to 0\)</span> yields <span class="math display">\[ \frac{d}{dt} P(t) = P(t) Q. \]</span> With <span class="math inline">\(P(0) = I\)</span>, the solution is <span class="math display">\[ P(t) = \exp(tQ) = I + tQ + \frac{t^2 Q^2}{2!} + \cdots. \]</span></p></li>
+<li><p>Conditioning on the state after time <span class="math inline">\(s\)</span> gives the <strong>Chapman-Kolmogorov equations</strong> <span class="math display">\[ P_{ij}(s + t) = \sum_{k \in \ALPHABET X} P_{ik}(s) P_{kj}(t), \]</span> or, in matrix notation, <span class="math display">\[ P(s + t) = P(s) P(t). \]</span></p></li>
+<li><p>Combining the Chapman-Kolmogorov equations with <span class="math display">\[ P(h) = I + hQ + o(h) \]</span> gives the <strong>forward equation</strong>. Writing <span class="math display">\[ P(t + h) = P(t) P(h) \]</span> and taking <span class="math inline">\(h \to 0\)</span> yields <span class="math display">\[ \frac{d}{dt} P(t) = P(t) Q. \]</span> With <span class="math inline">\(P(0) = I\)</span>, the solution is <span class="math display">\[ P(t) = \exp(tQ) = I + tQ + \frac{t^2 Q^2}{2!} + \cdots. \]</span></p></li>
 <li><p>Let <span class="math inline">\(μ(t)\)</span> be the row vector of state occupancy probabilities, <span class="math display">\[ μ_i(t) = \PR(X(t) = i). \]</span> Then <span class="math display">\[ μ(t) = μ(0) P(t), \]</span> and the forward equation implies <span class="math display">\[ \frac{d}{dt} μ(t) = μ(t) Q. \]</span> Component-wise, <span class="math display">\[ \frac{d}{dt} μ_j(t) = \sum_{i \ne j} μ_i(t) q_{ij} - μ_j(t) \sum_{k \ne j} q_{jk}. \]</span> The rate of change of the probability of state <span class="math inline">\(j\)</span> is the probability flow into <span class="math inline">\(j\)</span> minus the probability flow out of <span class="math inline">\(j\)</span>.</p></li>
 <li><p>For the two-state chain in <a href="#exm-two-state-ctmc" class="quarto-xref">Example&nbsp;<span>14.1</span></a>, <span class="math display">\[
   P(t) = \frac{1}{α + β}
@@ -743,7 +743,7 @@ window.Quarto = {
 <section id="class-structure-and-hitting-times" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="class-structure-and-hitting-times"><span class="header-section-number">14.3</span> Class structure and hitting times</h2>
 <ol type="1">
-<li><p>For a nonabsorbing state <span class="math inline">\(i\)</span>, there is a directed edge <span class="math inline">\(i \to j\)</span> in the continuous-time chain whenever <span class="math inline">\(q_{ij} &gt; 0\)</span>, equivalently whenever <span class="math inline">\(P_{ij} &gt; 0\)</span> in the embedded chain. Thus the continuous-time chain and its embedded chain have the same accessibility relations, communicating classes, closed classes, and irreducibility. A state with <span class="math inline">\(ν_i = 0\)</span> is an absorbing singleton class; its row in <span class="math inline">\(P\)</span> remains irrelevant. The class structure can therefore be read from the embedded chain, using the results for discrete-time Markov chains. Periodicity, however, is not a condition that carries over to continuous time.</p></li>
+<li><p>For a nonabsorbing state <span class="math inline">\(i\)</span>, there is a directed edge <span class="math inline">\(i \to j\)</span> in the continuous-time chain whenever <span class="math inline">\(q_{ij} &gt; 0\)</span>, equivalently whenever <span class="math inline">\(P_{ij} &gt; 0\)</span> in the embedded chain. Thus the continuous-time chain and its embedded chain have the same accessibility relations, communicating classes, closed classes, and irreducibility. A state with <span class="math inline">\(ν_i = 0\)</span> is an absorbing singleton class; its row in <span class="math inline">\(P\)</span> remains irrelevant. The class structure can therefore be read from the embedded chain, using the results for discrete-time Markov chains. Periodicity has no continuous-time analogue.</p></li>
 <li><p>For a set of states <span class="math inline">\(A\)</span>, define the <strong>hitting time</strong> <span class="math display">\[ H_A = \inf\{t \ge 0 : X(t) \in A\}. \]</span> Whether the chain reaches <span class="math inline">\(A\)</span> depends on the sequence of states visited, not on the time spent in those states. Consequently, the hitting probabilities <span class="math display">\[ h_i = \PR_i(H_A &lt; \infty) \]</span> are the same as for the embedded chain. They satisfy <span class="math display">\[ h_i = 1, \quad i \in A, \qquad h_i = \sum_j P_{ij} h_j, \quad i \notin A,\ ν_i &gt; 0. \]</span> Equivalently, <span class="math display">\[ \sum_j q_{ij} h_j = 0, \qquad i \notin A,\ ν_i &gt; 0. \]</span> An absorbing state outside <span class="math inline">\(A\)</span> has hitting probability zero. Absorption probabilities are obtained in the same way. As in discrete time, the desired probabilities are the minimal nonnegative solution when the equations do not have a unique solution.</p></li>
 <li><p>The <strong>mean hitting time</strong> does depend on the holding rates. Let <span class="math display">\[ m_i = \EXP_i[H_A]. \]</span> Starting from <span class="math inline">\(i \notin A\)</span>, the process first spends a mean time <span class="math inline">\(1/ν_i\)</span> in state <span class="math inline">\(i\)</span> and then moves according to <span class="math inline">\(P\)</span>. Hence <span class="math display">\[ m_i = 0, \quad i \in A, \qquad m_i = \frac{1}{ν_i} + \sum_j P_{ij} m_j, \quad i \notin A,\ ν_i &gt; 0. \]</span> Equivalently, <span class="math display">\[ \sum_j q_{ij} m_j = -1, \qquad i \notin A,\ ν_i &gt; 0. \]</span> An absorbing state outside <span class="math inline">\(A\)</span> has infinite mean hitting time. The embedded path determines whether a set is reached; the holding rates determine how much time elapses before it is reached. The number of jumps alone determines the continuous-time mean only when all relevant holding rates are the same.</p></li>
 <li><div id="exm-ctmc-mean-hitting" class="theorem example">
