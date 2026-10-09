@@ -4,7 +4,7 @@ execute:
   echo: false
 ---
 
-In this lecture, we introduce Brownian motion, the continuous-time analogue of the Gaussian random walk. It is the fundamental continuous-time Gaussian process with stationary independent increments. As with the Poisson process, a process with independent increments can be described through the distributions of those increments.
+In this lecture, we introduce Brownian motion, the continuous-time analogue of the Gaussian random walk. It is the continuous-time Gaussian process with stationary independent increments. As with the Poisson process, a process with independent increments can be described through the distributions of those increments.
 
 ## Gaussian increments and Brownian motion
 
@@ -117,12 +117,11 @@ Plot.plot({
      &= \int_a^b \int_c^d \EXP\bigl[w(t)w(s)\bigr]\,dt\,ds \\
      &= \int_a^b \int_c^d R^w(t - s)\,dt\,ds,
    \end{align*}
-   where $R^w(τ) = \COV(w(t + τ), w(t))$. Independent increments force the left-hand side to vanish whenever $(a, b]$ and $(c, d]$ are disjoint, so $R^w(τ) = 0$ for $τ \ne 0$. When $(c, d] = (a, b]$, the two terms on the left-hand-side are the same, so the covariance is the variance of the increment $W(b) - W(a)$. Thus,
+   where $R^w(τ) = \COV(w(t + τ), w(t))$. Independent increments force the left-hand side to vanish whenever $(a, b]$ and $(c, d]$ are disjoint, so $R^w(τ) = 0$ for $τ \ne 0$. When $(c, d] = (a, b]$, the two terms on the left-hand side are the same, so the covariance is the variance of the increment $W(b) - W(a)$. Thus,
    $$ \VAR(W(b) - W(a)) = \int_a^b \int_a^b R^w(t - s)\,dt\,ds. $$
    An ordinary function that vanishes off $τ = 0$ cannot produce this: the diagonal $(t = s)$ has area zero in the $(t, s)$-plane. However, both constraints are satisfied by the Dirac delta,
    $$ R^w(τ) = δ(τ), $$
    because $\int_a^b δ(t - s)\,ds$ equals $1$ if $t \in (a, b]$ and equals $0$ otherwise.
-
 
    The corresponding power spectral density is
    $$ S_w(Ω) = \int_{-∞}^{∞} δ(τ) e^{-\mathsf j Ω τ} \, dτ = 1. $$
@@ -153,4 +152,4 @@ Plot.plot({
    $$ \sum_k \bigl(W(t_{k+1}) - W(t_k)\bigr)^2 \longrightarrow t $$
    as the partition of $[0, t]$ becomes finer. Thus, second-order terms in a Taylor expansion contribute to the stochastic chain rule. This is the source of the additional second-derivative term in Itô's formula.
 
-4. Stochastic integration and Itô calculus are not developed here. Continuous-time Gaussian state-space models extend the discrete-time Gauss--Markov models studied earlier, but that extension requires new mathematical tools.
+4. Stochastic integration and Itô calculus are not developed here. Continuous-time Gaussian state-space models extend the discrete-time Gauss-Markov models studied earlier, but that extension requires new mathematical tools.

@@ -5,14 +5,14 @@ title: Conditional expectation for Gaussians
 
 ## Review of Gaussian random variables
 
-1. Recall that a random vector $X\in\reals^n$ is **Gaussian** if every linear combination of its components is a scalar Gaussian random variable. If $\mu=\EXP[X]$ and $\Sigma=\COV(X)$, we write
+1. Recall that a random vector $X\in\reals^n$ is **Gaussian** if every linear combination of its components is a scalar Gaussian random variable. If $μ=\EXP[X]$ and $Σ=\COV(X)$, we write
    $$
-   X\sim\mathcal N(\mu,\Sigma).
+   X\sim\mathcal N(μ,Σ).
    $$
 
-2. Gaussian random vectors are closed under affine transformations. If $X\sim\mathcal N(\mu,\Sigma)$, $A\in\reals^{m\times n}$, and $b\in\reals^m$, then
+2. Gaussian random vectors are closed under affine transformations. If $X\sim\mathcal N(μ,Σ)$, $A\in\reals^{m× n}$, and $b\in\reals^m$, then
    $$
-   AX+b\sim\mathcal N(A\mu+b,A\Sigma A^\TRANS).
+   AX+b\sim\mathcal N(Aμ+b,AΣ A^\TRANS).
    $$
 
 3. Consequently, every subvector of a Gaussian random vector is Gaussian. Its mean vector and covariance matrix are obtained by selecting the corresponding entries and blocks of the original mean and covariance.
@@ -22,10 +22,10 @@ title: Conditional expectation for Gaussians
    \MATRIX{X\\Y}
    \sim
    \mathcal N\left(
-   \MATRIX{\mu_X\\\mu_Y},
+   \MATRIX{μ_X\\μ_Y},
    \MATRIX{
-   \Sigma_{XX} & \Sigma_{XY}\\
-   \Sigma_{XY}^\TRANS & \Sigma_{YY}
+   Σ_{XX} & Σ_{XY}\\
+   Σ_{XY}^\TRANS & Σ_{YY}
    }
    \right).
    $$
@@ -34,7 +34,7 @@ title: Conditional expectation for Gaussians
    $$
    X\independent Y
    \quad\Longleftrightarrow\quad
-   \Sigma_{XY}=0.
+   Σ_{XY}=0.
    $$
    In particular, the components of a Gaussian random vector are mutually independent if and only if its covariance matrix is diagonal.
 
@@ -43,21 +43,21 @@ title: Conditional expectation for Gaussians
 
 1. If $X$ and $Y$ are jointly Gaussian, then $X|Y$ is also Gaussian. In particular, suppose 
 
-    - $X \sim \mathcal{N}(\mu_X, \sigma_X^2)$  
-    - $Y \sim \mathcal{N}(\mu_Y, \sigma_Y^2)$  
-    - $\COV(X, Y) = \rho \sigma_X \sigma_Y$, where $-1 \leq \rho \leq 1$
+    - $X \sim \mathcal{N}(μ_X, σ_X^2)$  
+    - $Y \sim \mathcal{N}(μ_Y, σ_Y^2)$  
+    - $\COV(X, Y) = ρ σ_X σ_Y$, where $-1 \leq ρ \leq 1$
 
     then 
     $$
-    X \mid (Y = y) \sim \mathcal{N}(\mu_{X|Y},\, \sigma^2_{X|Y})
+    X \mid (Y = y) \sim \mathcal{N}(μ_{X|Y},\, σ^2_{X|Y})
     $$
     where the conditional mean is
     $$
-    \mu_{X|Y} = \mu_X + \rho \frac{\sigma_X}{\sigma_Y}(y - \mu_Y)
+    μ_{X|Y} = μ_X + ρ \frac{σ_X}{σ_Y}(y - μ_Y)
     $$
-    and the conditional variance
+    and the conditional variance is
     $$
-    \sigma^2_{X|Y} = \sigma_X^2 (1 - \rho^2)
+    σ^2_{X|Y} = σ_X^2 (1 - ρ^2).
     $$
 
 2. It is possible to derive the above result from the definition of conditional probability by using some tedious algebra. However, we present a different approach here that is based on interpreting conditional expectations as orthogonal projections. 
@@ -87,12 +87,10 @@ title: Conditional expectation for Gaussians
    $$
    :::
 
-5. We also state a Lemma which will be useful later on.
+5. We also state a lemma that we use below.
 
    :::{#lem-matrix-orthogonality}
-   #### 
-
-   If $u \in \reals^n$ and $w \in \reals^m$ are vectors such that $u^\TRANS K w = 0$ for all matrices $K \in \reals^{n \times m}$, then $u w^\TRANS = \mathbf{0}_{n \times m}$.
+   If $u \in \reals^n$ and $w \in \reals^m$ are vectors such that $u^\TRANS K w = 0$ for all matrices $K \in \reals^{n × m}$, then $u w^\TRANS = \mathbf{0}_{n × m}$.
    :::
 
    :::{.callout-note collapse="true"}
@@ -103,7 +101,7 @@ title: Conditional expectation for Gaussians
 
    For any $(i', j')$ with $1 \le i' \le n$ and $1 \le j' \le m$, choose $K$ such that $K_{ij} = δ_{ii'} δ_{jj'}$ (i.e., $K$ has a $1$ in position $(i', j')$ and zeros elsewhere). Then $u^\TRANS K w = u_{i'} w_{j'} = 0$.
 
-   Since $(i', j')$ was arbitrary, we have $u_i w_j = 0$ for all $i, j$. Therefore, $u w^\TRANS = \mathbf{0}_{n \times m}$.
+   Since $(i', j')$ was arbitrary, we have $u_i w_j = 0$ for all $i, j$. Therefore, $u w^\TRANS = \mathbf{0}_{n × m}$.
    :::
 
 5. **Application to Gaussian random vectors**: Now consider $X \in \reals^n$ and $Y \in \reals^m$ to be jointly Gaussian random vectors, i.e.,
@@ -116,7 +114,7 @@ title: Conditional expectation for Gaussians
    $$
    Let $\ALPHABET M$ denote the proper linear subspace of all affine functions of $Y$, i.e.,
    $$
-        \ALPHABET M = \{ K Y + c : K \in \reals^{n \times m}, c \in \reals^n  \}.
+        \ALPHABET M = \{ K Y + c : K \in \reals^{n × m}, c \in \reals^n  \}.
    $$
    Let $\hat{X}$ denote the orthogonal projection of $X$ onto $\ALPHABET M$. From @thm-orthogonal-projection, we know that $\hat{X}$ minimizes the distance, i.e., for any $W \in \ALPHABET M$, 
    $$
@@ -147,7 +145,7 @@ title: Conditional expectation for Gaussians
    $$
      \EXP[X_i] - \EXP[\hat X_i] = \EXP[ \IP{X - \hat X}{e_i}].
    $$
-   Since $\ALPHABET M$ includes all affine functions of $Y$, it includes all constants (and hence $e_i$). Therefore, $\EXP[ \IP{X - \hat X}{e_i}] = 0$. Subsituting this in the above equation implies
+   Since $\ALPHABET M$ includes all affine functions of $Y$, it includes all constants (and hence $e_i$). Therefore, $\EXP[ \IP{X - \hat X}{e_i}] = 0$. Substituting this in the above equation implies
    $$
      \EXP[X_i] = \EXP[\hat X_i].
    $$
@@ -163,13 +161,13 @@ title: Conditional expectation for Gaussians
    :::{.callout-note}
    #### Proof
 
-   Since $\hat{X} \in \ALPHABET M$, it is an affine function of $Y$. Hence $X - \hat X$ and $Y$ are jointly Gaussian. Moreover, since $K(Y - μ_Y) \in \ALPHABET M$ for all $K \in \reals^{n \times m}$, we have
+   Since $\hat{X} \in \ALPHABET M$, it is an affine function of $Y$. Hence $X - \hat X$ and $Y$ are jointly Gaussian. Moreover, since $K(Y - μ_Y) \in \ALPHABET M$ for all $K \in \reals^{n × m}$, we have
    $$
-   \EXP[ (X - \hat{X})^\TRANS K(Y - μ_Y)] = 0, \quad \forall K \in \reals^{n \times m}.
+   \EXP[ (X - \hat{X})^\TRANS K(Y - μ_Y)] = 0, \quad \forall K \in \reals^{n × m}.
    $$
    By @lem-matrix-orthogonality, this implies that
    $$
-   \EXP[(X - \hat{X})(Y - μ_Y)^\TRANS] = \mathbf{0}_{n \times m}.
+   \EXP[(X - \hat{X})(Y - μ_Y)^\TRANS] = \mathbf{0}_{n × m}.
    $$
    Since $X - \hat X$ and $Y$ are jointly Gaussian and uncorrelated (because $\EXP[X - \hat X] = 0$), they are independent. Therefore, for any (measurable) function $g$, the independence gives:
    $$
@@ -194,11 +192,11 @@ title: Conditional expectation for Gaussians
    The orthogonality condition with $K(Y - μ_Y)$ gives:
    \begin{equation}\label{eq:orthogonal}
    \EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )^\TRANS K(Y - μ_Y)] = 0,
-  \quad \forall K \in \reals^{n \times m}.
+  \quad \forall K \in \reals^{n × m}.
    \end{equation}
    By @lem-matrix-orthogonality, \eqref{eq:orthogonal} is equivalent to 
    \begin{equation}\label{eq:claim}
-   \EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )(Y - μ_Y)^\TRANS ] = \mathbf{0}_{n \times m}.
+   \EXP[( (X - μ_X) - K_{\circ}(Y - μ_Y) )(Y - μ_Y)^\TRANS ] = \mathbf{0}_{n × m}.
    \end{equation}
 
    Now this implies that

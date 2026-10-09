@@ -50,7 +50,7 @@ execute:
    :::{#def-random-variable}
    A **random variable** $X$ is a measurable function from a measurable space $(Ω, \ALPHABET F)$ to another measurable space $(\ALPHABET X, \ALPHABET G)$, which means that for any $B \in \ALPHABET G$, $X^{-1}(B) \in \ALPHABET F$. 
 
-   If $P$ is a probability measure on $(Ω, \ALPHABET F)$ (i.e., $(Ω, \ALPHABET F, \PR)$ is a probability space), then 
+   If $\PR$ is a probability measure on $(Ω, \ALPHABET F)$ (i.e., $(Ω, \ALPHABET F, \PR)$ is a probability space), then 
    $$
        \PR_X(B) = \PR(X^{-1}(B)), \quad \forall B \in \ALPHABET G.
    $$
@@ -59,7 +59,7 @@ execute:
 
 7. In this lecture, we focus on **real-valued random variables**, i.e.,  $(\ALPHABET X, \ALPHABET G) = (\reals, \mathscr{B}(\reals))$, where $\mathscr{B}(\reals)$ denotes the Borel $σ$-algebra (see the [last lecture](probability-spaces.qmd#Borel-algebra)). 
 
-8. In fact, introductory probability textbooks often define random variable as a measurable map from $(Ω, \ALPHABET F)$ to $(\reals, \mathscr{B}(\reals))$. The more general definition that we have used (a measurable mapping from a measurable space to _any other_ measurable space) is often reserved for a follow up course on measure theory. I think that it is conceptually simpler to start with the measure-theoretic definition.
+8. In fact, introductory probability textbooks often define random variable as a measurable map from $(Ω, \ALPHABET F)$ to $(\reals, \mathscr{B}(\reals))$. The more general definition that we have used (a measurable mapping from a measurable space to _any other_ measurable space) is often reserved for a follow-up course on measure theory. I think that it is conceptually simpler to start with the measure-theoretic definition.
 
 ## Real-valued random variables
 
@@ -227,12 +227,12 @@ For $x < y$, express the following in terms of the CDF:
 
 ## Classification of random variables
 
-There are three types of random variables
+There are three types of random variables:
 
-1. A random variable $X$ is said to be **discrete** if it takes values in a finite or countable subset $\ALPHABET X \coloneqq \{x_1, x_2, \dots\}$ of $\reals$. A discrete random variable has a **probability mass function (PMF)** $p \colon \reals \to [0,1]$ which satisfies the following properties:
+1. A random variable $X$ is said to be **discrete** if it takes values in a finite or countable subset $\ALPHABET X \coloneqq \{x_1, x_2, \dots\}$ of $\reals$. A discrete random variable has a **probability mass function (PMF)** $P_X \colon \reals \to [0,1]$ which satisfies the following properties:
 
-    - $p(x) = \PR(X = x) = F_X(x) - F_X(x^{-})$.
-    - $F_X(x) = \sum_{x_n : x_n \le x} p(x_n).$
+    - $P_X(x) = \PR(X = x) = F_X(x) - F_X(x^{-})$.
+    - $F_X(x) = \sum_{x_n : x_n \le x} P_X(x_n).$
 
    [Thus, for a discrete random variable, the CDF is a piecewise constant function]{.text-primary}
 
@@ -251,7 +251,7 @@ There are three types of random variables
 
    ![CDF of a mixed random variable](figures/svg/cdf5.svg){#fig-cdf-mixed}
 
-      As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then $X \sim \text{Bernoulli}(0.5)$; if the outcome is tails; then $X \sim \text{Uniform}(0,1)$. Thus (from the law of total probability), the CDF of $X$ is given by
+      As an example, consider the following random experiment. A fair coin is tossed: if the outcome is heads, then $X \sim \text{Bernoulli}(0.5)$; if the outcome is tails, then $X \sim \text{Unif}(0,1)$. Thus (from the law of total probability), the CDF of $X$ is given by
       $$
       F_X(x) = \begin{cases}
       0, & \hbox{if } x < 0 \\
@@ -293,7 +293,7 @@ We now consider some other examples of discrete random variables, which are typi
 :::{#exm-Binomial}
 #### Binomial random variable
 
-A Binomial random variable is the sum of independent and identically distributed Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with $\PR(H) = p$) is tossed $n$ times, then the number of heads is a _binomial random variable with parameters $n$ and $p$_, which is denoted by $\text{Binomial}(n,p)$. For such a random variable,
+A Binomial random variable is the sum of independent and identically distributed Bernoulli random variables (we will prove this fact later). For example, if a biased coin (with $\PR(H) = p$) is tossed $n$ times, then the number of heads is a _binomial random variable with parameters $n$ and $p$_, which is denoted by $\text{Binom}(n,p)$. For such a random variable,
 $$
 P_X(k) = \binom n k p^k (1-p)^{n-k}, \quad 0 \le k \le n.
 $$
@@ -302,7 +302,7 @@ $$
 :::{#exm-Geometric}
 #### Geometric random variable
 
-A geometric random variable is the number of trials in i.i.d.\ Bernoulli random variables. For example, if a biased coin (with $\PR(H) = p$) is tossed repeatedly, the number of tosses needed for the first head is a geometric random variable with parameter $p \in (0,1)$, which is denoted by $\text{Geo}(p)$. For such a random variable,
+A geometric random variable is the number of trials up to and including the first success in a sequence of i.i.d.\ Bernoulli trials. For example, if a biased coin (with $\PR(H) = p$) is tossed repeatedly, the number of tosses needed for the first head is a geometric random variable with parameter $p \in (0,1)$, which is denoted by $\text{Geom}(p)$. For such a random variable,
 $$
 P_X(k) = (1-p)^{k-1} p, \quad k \in \integers_{> 0}.
 $$
@@ -314,13 +314,13 @@ Geometric random variables have the property of being **memoryless**: the distri
 :::{#exm-Poisson}
 #### Poisson random variable
 
-Poisson random variables model many different phenomenon ranging from photoelectric effect in photonics to inter-packet arrival times in computer networks. A random variable is said to be a _Poisson random variable with parameter $λ > 0$_, which is denoted by $\text{Poisson}(λ)$, if
+Poisson random variables model many different phenomena ranging from the photoelectric effect in photonics to packet arrivals in computer networks. A random variable is said to be a _Poisson random variable with parameter $λ > 0$_, which is denoted by $\text{Poisson}(λ)$, if
 $$
 P_X(k) = \frac{λ^k}{k!} e^{-λ}, \quad k \in \integers_{\ge 0}.
 $$
 :::
 
-Poisson random variables model rare events. It describes the limit of a Binomial random variable with success probability $p = λ/n$ as the number $n$ of trials increases. 
+Poisson random variables model rare events. They describe the limit of a Binomial random variable with success probability $p = λ/n$ as the number $n$ of trials increases. 
 Poisson random variables are **closed under addition**: the sum of independent Poisson random variables is Poisson.
 
 :::{#exm-Uniform-discrete}
@@ -335,14 +335,14 @@ $$P_X(k) = \frac 1{\ABS{\ALPHABET S}}, \quad k \in \ALPHABET S.$$
 :::{#exm-Uniform-continuous}
 #### Uniform random variable
 
-A random variable is said to have a (continuous) uniform distribution over an interval $[a, b]$, where $a < b$ if
+A random variable is said to have a (continuous) uniform distribution over an interval $[a, b]$, where $a < b$, if
 $$f_X(x) = \frac 1{b - a}, \quad x \in [a,b].$$
 :::
 
 :::{#exm-exponential}
 #### Exponential random variable
 
-A random variable is said to have an exponential distribution with parameter $λ > 0$, which is denoted by $\text{exp}(λ)$ if 
+A random variable is said to have an exponential distribution with parameter $λ > 0$, which is denoted by $\text{Exp}(λ)$ if 
 $$f_X(x) = λ e^{-λ x}, \quad x \ge 0.$$
 :::
 
@@ -382,17 +382,17 @@ We often encounter situations where we are interested in functions of random var
 
 In particular, suppose 
 $$
-  X \colon (\ALPHABET Ω, \ALPHABET F) \to (\reals, \mathscr{B}(\reals))
+  X \colon (Ω, \ALPHABET F) \to (\reals, \mathscr{B}(\reals))
 $$
 is a random variable and $g \colon \reals \to \reals$ is a measurable function. 
 
-Since $g$ is measurable, for any (Borel) subset $B$ of $\reals$, we have that $C = g^{-1}(B) \in \mathscr B(\reals)$. Therefore, $X^{-1}(C) \in \ALPHABET F$. Thus, we can think of $Y$ as a random variable. 
+Since $g$ is measurable, for any (Borel) subset $B$ of $\reals$, we have that $C = g^{-1}(B) \in \mathscr B(\reals)$. Therefore, $X^{-1}(C) \in \ALPHABET F$. Thus, $Y = g(X)$ is a random variable. 
 
 Since $Y$ is a random variable, it is possible to compute its CDF and PMF/PDF as appropriate. We discuss the details separately for discrete and continuous random variables.
 
 ### Functions of discrete random variables
 
-In the discrete time, it is trivial to find the PMF of $Y$ in terms of PMF of $X$. For example, consider the random variable $X$ defined in @exm-coin-toss. Let $g \colon \{0, 1, 2\} \to \{0, 1\}$ be given by 
+For discrete random variables, it is easy to find the PMF of $Y$ in terms of PMF of $X$. For example, consider the random variable $X$ defined in @exm-coin-toss. Let $g \colon \{0, 1, 2\} \to \{0, 1\}$ be given by 
 $$
   g(0) = 0, \quad g(1) = 0, \quad g(2) = 1.
 $$
@@ -407,7 +407,7 @@ However, it will be useful to visualize this slightly differently. We start with
 
 - A discrete random variable creates a partition on the sample space (we expand on this point below). 
 
-- The $σ$-algebra generated by this partition is called the **$σ$-algebra generated by $X$** and denoted by $σ(X)$. This $σ$-algebra captures the crux of measurability. 
+- The $σ$-algebra generated by this partition is called the **$σ$-algebra generated by $X$** and denoted by $σ(X)$. 
 
 We now discuss the partition generated by a discrete random variable. Let $X$ be a random variable and $\ALPHABET X = \{x_1, x_2, \dots, x_n\}$ be the range of $X$. Define
 $$A_i = \{ω \in Ω : X(ω) = x_i \} = X^{-1}(\{x_i\}).$$
@@ -433,7 +433,7 @@ The PMFs of $X$ and $Y$ can be obtained by summing up the masses in each element
 For continuous random variables, computing the PDF of a function of a random variable is more involved. We first illustrate the main idea via some examples. 
 
 :::{#exm-function-uniform-1}
-Suppose $X \sim \text{Uniform}(0,2)$. Consider a function $g$ given by 
+Suppose $X \sim \text{Unif}(0,2)$. Consider a function $g$ given by 
 $$
 g(x) = \begin{cases}
   x & x \in (0,1] \\
@@ -495,11 +495,11 @@ From the definition of $g$, we know that the range of $g$ is $[0,1]$. Thus, we k
    $$
       f_Y(y) = \dfrac{d}{dy} F_Y(y) = 1, \quad y \in [0,1].
    $$
-   Thus, $Y$ is $\text{Uniform}(0,1)$.
+   Thus, $Y$ is $\text{Unif}(0,1)$.
 :::
 
 :::{#exm-function-uniform-2}
-Suppose $X \sim \text{Uniform}(0,4)$. Consider a function $g$ given by 
+Suppose $X \sim \text{Unif}(0,4)$. Consider a function $g$ given by 
 $$
 g(x) = \begin{cases}
   x & x \in (0,1] \\
@@ -600,8 +600,7 @@ Thus $f_Z(z)=ϕ(z)$, so $Z \sim \mathcal{N}(0,1)$.
 :::{#exm-generating-random-variables}
 #### Generating non-uniform random variables by inverting the CDF
 
-Suppose $F \colon \reals \to [0,1]$ is a function that satisfies the following properties:
-there exist a pair $(a,b)$ with $a < b$ (we allow $a$ to be $-∞$ and $b$ to be $∞$) such that 
+Suppose $F \colon \reals \to [0,1]$ is a function for which there exists a pair $(a,b)$ with $a < b$ (we allow $a = -∞$ and $b = ∞$) such that 
 
 - $F(x) = 0$ for $x \le a$
 - $F(x) = 1$ for $x \ge b$
@@ -609,7 +608,7 @@ there exist a pair $(a,b)$ with $a < b$ (we allow $a$ to be $-∞$ and $b$ to be
 
 Thus, $F$ satisfies the properties of the CDF of a continuous random variable and $F$ is invertible in the interval $(a,b)$. 
 
-Suppose $U \sim \text{Uniform}(0,1)$ and $X = F^{-1}(U)$. Show that $F_X(x) = F(x)$. 
+Suppose $U \sim \text{Unif}(0,1)$ and $X = F^{-1}(U)$. Show that $F_X(x) = F(x)$. 
 :::
 
 :::{.callout-note collapse="false"}
@@ -647,7 +646,7 @@ It is possible to obtain a general change of variables formula to obtain $f_Y$.
      $$ \bbox[5pt,border: 1px solid]{f_Y(y) = f_X(g^{-1}(y)) \left| \frac{d g^{-1}(y)}{dy} \right|} $$
 
 2. From calculus, we know that if $h(y) = g^{-1}(y)$, then $h'(y) = 1/g'(h(y))$. Thus, the above expression can be simplified as
-$$ \bbox[5pt, border: 1px solid]{f_Y(y) = \frac{f_X(x)}{\ABS{g'(x)}}, \quad \text{where } x = g^{-1}(y).} $$
+   $$ \bbox[5pt, border: 1px solid]{f_Y(y) = \frac{f_X(x)}{\ABS{g'(x)}}, \quad \text{where } x = g^{-1}(y).} $$
 
    :::{#exm-transformation-Gaussian-formula}
    Resolve @exm-transformation-Gaussian using the above formula.
@@ -662,13 +661,13 @@ $$ \bbox[5pt, border: 1px solid]{f_Y(y) = \frac{f_X(x)}{\ABS{g'(x)}}, \quad \tex
 
 4. The change of variables formula can be used to verify some common ways of generating non-uniform random variables from uniform random variables. For example: 
 
-    - Suppose $U \sim \text{Uniform}(0,1)$ and $λ > 0$. Then, $X = - \ln(1 - U)/λ$ has $\text{exp}(λ)$ distribution.
+    - Suppose $U \sim \text{Unif}(0,1)$ and $λ > 0$. Then, $X = - \ln(1 - U)/λ$ has $\text{Exp}(λ)$ distribution.
 
-   Note that the change of variable formula only works for continuous function. For non-continuous functions, we need to use first principles (or the idea in @exm-generating-random-variables). For example:
+   Note that the change of variable formula only works for piecewise monotone, differentiable functions. For other functions, we need to use first principles (or the idea in @exm-generating-random-variables). For example:
 
-    - Suppose $U \sim \text{Uniform}(0,1)$ and $p \in (0,1)$. Then $X = \IND_{\{U \le p\}}$ has $\text{Bernoulli}(p)$ distribution.
+    - Suppose $U \sim \text{Unif}(0,1)$ and $p \in (0,1)$. Then $X = \IND_{\{U \le p\}}$ has $\text{Bernoulli}(p)$ distribution.
 
-    See [Devroye (1986)](https://doi.org/10.1007/978-1-4613-8643-8) for a general discussion on generating non-uniform random variables,
+    See [Devroye (1986)](https://doi.org/10.1007/978-1-4613-8643-8) for a general discussion on generating non-uniform random variables.
 
 ## Expectation of random variables
 
@@ -694,7 +693,7 @@ The **expectation** of a random variable $X$ is defined as follows:
 :::{.callout-warning}
 #### Does the summation or integration exist?
 
-When $X$ takes countably or uncountably infinite values, we need to be a bit more precise by what we mean by the summation (or the integration) formula above. In particular, we do not want the answer to depend on the order in which we do the summation or the integration (i.e., we do not want $∞ - ∞$ situation). This means that the sum or the integral should be [:_absolutely convergent_](https://en.wikipedia.org/wiki/Absolute_convergence). Such random variables are called **integrable random variables**. 
+When $X$ takes countably or uncountably infinite values, we need to be a bit more precise about what we mean by the summation (or the integration) formula above. In particular, we do not want the answer to depend on the order in which we do the summation or the integration (i.e., we do not want an $∞ - ∞$ situation). This means that the sum or the integral should be [:_absolutely convergent_](https://en.wikipedia.org/wiki/Absolute_convergence). Such random variables are called **integrable random variables**. 
 
 Formally, expectation is defined only for integrable random variables. 
 
@@ -720,7 +719,7 @@ The concern here is that the summation is **undefined**. Mathematically, we are 
 $$
 P_Y(n) = \frac {1}{C n^2}, \quad n \in \naturalnumbers 
 $$
-where $C$ is as defined above. This is called the **Zipf** distribution. By following an argument same as above, we see that
+where $C$ is as defined above. This is called the **Zipf** distribution. By following the same argument as above, we see that
 $$\EXP[Y] = ∞.$$
 :::
 
@@ -738,10 +737,10 @@ $$
 Find the expected value of the random variables with the following distributions:
 
 - $\text{Bernoulli}(p)$.
-- $\text{Binomial}(n,p)$.
-- $\text{Geo}(p)$.
+- $\text{Binom}(n,p)$.
+- $\text{Geom}(p)$.
 - $\text{Poisson}(λ)$.
-- $\text{Uniform}(a,b)$.
+- $\text{Unif}(a,b)$.
 - $\text{Exp}(λ)$.
 
 :::
@@ -761,7 +760,7 @@ Both expressions are defined only when the sum/integral is absolutely convergent
 :::{.callout-note collapse="true"}
 #### How to avoid a proof
 
-This result is sometimes called ***the law of the unconscious statistician (LOTUS).** One typically shows this result by defining a new random variable $Y = g(X)$, computing its PMF/PDF $f_Y$ and then using the definition in @def-expectation. 
+This result is sometimes called **the law of the unconscious statistician (LOTUS)**. One typically shows this result by defining a new random variable $Y = g(X)$, computing its PMF/PDF $f_Y$ and then using the definition in @def-expectation. 
 
 A simpler proof is to define expectation by @lem-expectation for any (measurable) function $g$. Then the definition of @def-expectation is a special case for $g(x) = x$. No proofs needed!
 :::
@@ -791,16 +790,16 @@ Suppose $X \sim \text{Unif}[-1,1]$. Compute $\EXP[X^2]$.
 
 1. A continuous random variable is said to be symmetric if $f_X(-x) = f_X(x)$ for all $x \in \reals$. A symmetric random variable has mean $0$.
 
-2. A continuous random variable is said to be symmetric around $m$ if $f(m - x) = f(m + x)$, for all $x \in \reals$. The mean of such a random variable is $m$.
+2. A continuous random variable is said to be symmetric around $m$ if $f_X(m - x) = f_X(m + x)$, for all $x \in \reals$. The mean of such a random variable is $m$.
 
 
 ### Higher moments
 
-1. The $m$-th **moment**, $m \ge 1$ of a random variable $X$ is defined as $\EXP[X^m]$. 
+1. The $m$-th **moment** ($m \ge 1$) of a random variable $X$ is defined as $\EXP[X^m]$. 
 
 2. The $m$-th **central moment** is defined as $\EXP[(X - μ)^m]$, where $μ = \EXP[X]$. 
 
-3. For second central moment (i.e., $m=2$) is called **variance**. The variance satisfies the following:
+3. The second central moment (i.e., $m=2$) is called the **variance**. The variance satisfies the following:
    $$\VAR(X) = \EXP[X^2] - (\EXP[X])^2.$$
 
 4. The positive square root of variance is called the **standard deviation.** Variance is often denoted by $σ^2$ and the standard deviation by $σ$. 
@@ -830,7 +829,7 @@ $$
    $$\VAR(X + c) = \VAR(X).$$
 :::
 
-The mean and variance of common random variables is show in @tbl-mean-variance
+The mean and variance of common random variables are shown in @tbl-mean-variance
 
 | **Random variable** | **Parameter(s)** | **Mean** | **Variance** |
 |:---------------:|:------------:|:----:|:--------:|
@@ -840,7 +839,7 @@ The mean and variance of common random variables is show in @tbl-mean-variance
 | Poisson         | $λ$          | $λ$  | $λ$      |
 | Uniform         | $(a,b)$      | $\frac 12 (a+b)$ | $\frac 1{12}(b-a)^2$ |
 | Exponential     | $λ$          | $\dfrac 1 λ$ | $\dfrac 1{λ^2}$ |
-| Gaussian        | $(μ,σ)$      | $μ$  | $σ^2$ |
+| Gaussian        | $(μ,σ^2)$     | $μ$  | $σ^2$ |
 
 : Mean and variance of common random variables {#tbl-mean-variance}
 

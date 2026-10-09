@@ -2,7 +2,7 @@
 title: Probability inequalities
 ---
 
-## Union Bound
+## Union bound
 
 :::{.callout-tip}
 ### Union bound
@@ -86,12 +86,12 @@ b. If $\PR(A_i) = 1$ for all $i \in \naturalnumbers$, then
 
 :::
 
-## Cauchy–Schwarz inequality {#cauchy-schwarz-inequality}
+## Cauchy-Schwarz inequality {#cauchy-schwarz-inequality}
 
-This is the Cauchy–Schwarz inequality for the inner product $\IP{X}{Y}=\EXP[XY]$ on square-integrable random variables.
+The following is the Cauchy-Schwarz inequality for the inner product $\IP{X}{Y}=\EXP[XY]$ on square-integrable random variables.
 
 :::{.callout-tip}
-### Cauchy–Schwarz inequality
+### Cauchy-Schwarz inequality
 
 Let $X$ and $Y$ be real-valued random variables with finite second moments. Then,
 $$
@@ -130,7 +130,7 @@ $$
 The covariance inequality follows by applying this result to $X-\EXP[X]$ and $Y-\EXP[Y]$.
 :::
 
-The following exercise establishes the **Paley--Zygmund inequality**, which gives a lower bound on the probability that a non-negative random variable is not too far below its mean.
+The following exercise establishes the **Paley-Zygmund inequality**, which gives a lower bound on the probability that a non-negative random variable is not too far below its mean.
 
 :::{#exm-2025-mid-term-4}
 Let $X \ge 0$ be a random variable with mean $μ>0$ and finite variance $σ^2$. Given $λ \in (0,1)$, define
@@ -147,7 +147,7 @@ b. Using the result of part (a), show that
      = (1-λ)^2 \frac{μ^2}{μ^2 + σ^2}.   
    $$
 
-      _Hint:_ Use Cauchy–Schwarz to bound $\EXP[X \IND_A]$.
+      _Hint:_ Use Cauchy-Schwarz to bound $\EXP[X \IND_A]$.
 :::
 
 :::{.callout-note collapse="true"}
@@ -168,7 +168,7 @@ $$
 \EXP[X\IND_A]\ge(1-λ)μ.
 $$
 
-By the Cauchy–Schwarz inequality,
+By the Cauchy-Schwarz inequality,
 $$
 (\EXP[X\IND_A])^2
 \le\EXP[X^2]\EXP[\IND_A^2]
@@ -186,11 +186,11 @@ Combining this with part (a) yields
 
 ## Jensen's inequality
 
-If we take $Y = 1$ in the Cauchy–Schwarz inequality, we get that
+If we take $Y = 1$ in the Cauchy-Schwarz inequality, we get that
 $$
 \EXP[X^2] \ge \EXP[X]^2.
 $$
-This also follows from the fact that $\VAR(X) \ge 0$. Jensen's inequality may be thought as a generalization of this to convex functions.
+This also follows from the fact that $\VAR(X) \ge 0$. Jensen's inequality may be thought of as a generalization of this to convex functions.
 
 :::{.callout-tip}
 ### Jensen's inequality
@@ -258,19 +258,19 @@ $$
 :::
 
 :::{#exm-Markov}
-Suppose $X \sim \text{Unif}(0,1)$. Verify Markov inequality for $\PR(X \ge 0.2)$, $\PR(X \ge 0.5)$, and $\PR(X \ge 0.8)$. 
+Suppose $X \sim \text{Unif}(0,1)$. Verify the Markov inequality for $\PR(X \ge 0.2)$, $\PR(X \ge 0.5)$, and $\PR(X \ge 0.8)$. 
 :::
 
 :::{.callout-note collapse="false"}
 ### Solution
 
-The table below compares the actual tail probability with the bound obtained from Markov inequality. 
+The table below compares the actual tail probability with the bound obtained from the Markov inequality. 
 
 | $a$ | $\PR(X \ge a)$ | $\EXP[X]/a$ | 
 |:---:|:--------------:|:-----------:|
 | $0.2$ | $0.8$  | $0.5/0.2 = 2.5$ |
 | $0.5$ | $0.5$  | $0.5/0.5 = 1$ |
-| $0.8$ | $0.2$  | $0.5/0.8 = .625$ |
+| $0.8$ | $0.2$  | $0.5/0.8 = 0.625$ |
 
 :::
 
@@ -278,7 +278,7 @@ The table below compares the actual tail probability with the bound obtained fro
 
 ### Union bound as a special case of Markov inequality
 
-Note that it is possible to derive the union bound as a corollary of Markov inequality. Given events $A_1, \dots, A_n$, define the random variables $X_1, \dots, X_n$ as 
+Note that it is possible to derive the union bound as a corollary of the Markov inequality. Given events $A_1, \dots, A_n$, define the random variables $X_1, \dots, X_n$ as 
 $$
 X_i(ω) = \IND_{A_i}(ω) = \begin{cases}
 1, & ω \in A_i \\
@@ -292,14 +292,13 @@ $$
 \PR\left(\bigcup_{i=1}^n A_i \right) 
 = \PR(X \ge 1).
 $$
-Now, by Markov inequality, we have
+Now, by the Markov inequality, we have
 $$
 \PR(X \ge 1) \le \EXP[X] = \PR(A_1) + \cdots + \PR(A_n).
 $$
 The union bound follows by combining the above equations. 
 
 ## Chebyshev inequality
-<!-- TODO: AN Lec 15 -->
 
 :::{.callout-tip}
 ### Chebyshev inequality
@@ -324,25 +323,25 @@ Observe that
 \\
 &\stackrel{(a)}\le \frac{\EXP[ (X-μ)^2 ]}{a^2} = \frac{\VAR(X)}{a^2}.
 \end{align*}
-Here, $(a)$ follows from Markov inequality.
+Here, $(a)$ follows from the Markov inequality.
 :::
 
 In the following example, we compare the strengths of the Chebyshev and Markov inequalities.
 
 :::{#exm-Binomial-comparison}
-  Let $X \sim \text{Bin}(n,p)$ and consider any $q \in (p,1)$. Use both Markov and Chebyshev inequalities to bound $\PR(X \ge nq)$. 
+  Let $X \sim \text{Binom}(n,p)$ and consider any $q \in (p,1)$. Use both Markov and Chebyshev inequalities to bound $\PR(X \ge nq)$. 
 :::
 
 :::{.callout-note collapse="false"}
 ### Solution
 
-Recall that $\EXP[X] = np$ and $\VAR(X) = n p(1-p)$. Therefore, from Markov inequality we have
+Recall that $\EXP[X] = np$ and $\VAR(X) = n p(1-p)$. Therefore, from the Markov inequality we have
 $$
 \PR(X \ge nq) \le \frac{np}{nq} = \frac{p}{q}.
 $$
-Therefore, Markov inequality does not suggest any form of concentration with $n$. 
+Therefore, the Markov inequality does not suggest any form of concentration with $n$. 
 
-We now consider Chebyshev inequality. To do so, we first massage the expression a bit
+We now consider the Chebyshev inequality. To do so, we first massage the expression a bit
 \begin{align*}
 \PR(X \ge nq) &= \PR( X - np \ge n(q-p) ) \\
 &\le \PR( \ABS{X - np} \ge n(q-p) )
@@ -351,7 +350,7 @@ We now consider Chebyshev inequality. To do so, we first massage the expression 
 which shows that $\PR(X \ge nq)$ gets smaller as $n$ increases.
 :::
 
-We can use Chebyshev inequality to prove the **weak law of large numbers**.
+We can use the Chebyshev inequality to prove the **weak law of large numbers**.
 
 :::{.callout-tip}
 ### Weak law of large numbers
@@ -377,13 +376,13 @@ Observe that
 \VAR(\bar X_n) &= \frac{1}{n^2} \sum_{i=1}^n \VAR(X_i) = \frac{σ^2}{n}.
 \end{align*}
 
-Then, by Chebyshev inequality, we have
+Then, by the Chebyshev inequality, we have
 $$
 \PR(\ABS{\bar X_n - μ} > ε) \le \frac{\VAR(\bar X_n)}{ε^2} = \frac{σ^2}{n ε^2}.
 $$
 :::
 
-If we do not know $\VAR(X)$, we can still use Chebyshev inequality with an upper bound on $\VAR(X)$. For example, if $X\in[a,b]$ almost surely, then
+If we do not know $\VAR(X)$, we can still use the Chebyshev inequality with an upper bound on $\VAR(X)$. For example, if $X\in[a,b]$ almost surely, then
 $$
 \VAR(X) \le \frac{(b-a)^2}{4}.
 $$
@@ -395,7 +394,7 @@ $$
 ## Chernoff bound
 
 :::{.callout-tip}
-### Chernoff Bound
+### Chernoff bound
 
 Let $X$ be a real-valued random variable and let $a\in\reals$. For every real $s>0$ in the region of convergence $\mathcal R_X$,
 $$
@@ -411,7 +410,7 @@ I_+(a)
 =\sup_{\substack{s>0\\s\in\mathcal R_X}}
 \{sa-K_X(s)\}.
 $$
-The function $I_+$ is the one-sided [Legendre--Fenchel transform](https://adityam.github.io/stochastic-control/convexity/duality.html) of $K_X$.
+The function $I_+$ is the one-sided [Legendre-Fenchel transform](https://adityam.github.io/stochastic-control/convexity/duality.html) of $K_X$.
 :::
 
 :::{.callout-note collapse="false"}
@@ -421,7 +420,7 @@ For any real $s>0$ in $\mathcal R_X$, the function $x\mapsto e^{sx}$ is increasi
 $$
 \{X\ge a\}=\{e^{sX}\ge e^{sa}\}.
 $$
-Since $e^{sX}$ is non-negative, Markov inequality gives
+Since $e^{sX}$ is non-negative, the Markov inequality gives
 $$
 \PR(X\ge a)
 =\PR(e^{sX}\ge e^{sa})
@@ -460,7 +459,7 @@ D(q\|p)
 $$
 Unlike the Chebyshev bound, which decreases as $1/n$, the Chernoff bound decreases exponentially in $n$.
 
-We now present another example to show the tightness of the Chernoff bound.
+We now present another example to illustrate the Chernoff bound.
 
 :::{#exm-Chernoff-Gaussian}
 Let $X\sim\mathcal N(μ,σ^2)$. For $ε>0$, use the Chernoff bound to bound
@@ -518,7 +517,7 @@ $$
 $$
 :::
 
-We will not provide a proof of this inequality. Equivalently, for any $δ\in(0,1)$, the interval
+We will not prove this inequality. It implies that, for any $δ\in(0,1)$, the interval
 $$
 \left[
 \bar X_n-(b-a)\sqrt{\frac{1}{2n}\log\frac2δ},

@@ -89,7 +89,7 @@ As was the case for random variables, we can also classify random vectors as dis
    $$
 
 :::{.callout-tip appearance="simple"}
-#### Can we always define a density if CDF is continuous?
+#### Can we always define a density if the CDF is continuous?
 
 Continuity of the CDF is not sufficient for a joint density to exist. Consider the joint CDF
 $$
@@ -226,7 +226,7 @@ Therefore, $c=8$.
 ## Independence of random vectors
 
 :::{#def-independence-RVs}
-Two random variables $X$ and $Y$ defined on a common probability space $(Ω, \ALPHABET F, \PR)$ are said to be independent if the sigma algebras $σ(X)$ and $σ(Y)$ are independent.
+Two random variables $X$ and $Y$ defined on a common probability space $(Ω, \ALPHABET F, \PR)$ are said to be independent if the $σ$-algebras $σ(X)$ and $σ(Y)$ are independent.
 :::
 
 The above definition means that if we take any (Borel) subsets $B_1$ and $B_2$ of $\reals$, then the events $\{X \in B_1\}$ and $\{Y \in B_2\}$ are independent, i.e., 
@@ -295,7 +295,7 @@ These definitions extend naturally to any number of random variables:
 Unlike independence of events, we do not need to separately check for independence of subsets of random variables because that is automatically implied due to the marginalization property.
 
 :::{#exm-independence-multiple-RVs}
-Suppose \(X, Y, Z\) are independent with joint PDF:
+Suppose $X, Y, Z$ are independent with joint PDF:
 $$
   f_{X,Y,Z}(x,y,z) = f_X(x)\, f_Y(y)\, f_Z(z).
 $$

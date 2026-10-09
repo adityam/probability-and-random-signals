@@ -2,7 +2,7 @@
 title: Moment Generating Functions
 ---
 
-## Moment Generating Functions
+## Moment generating functions
 
 The **moment generating function (MGF)** of a random variable $X$ is defined as
 $$ 
@@ -212,7 +212,7 @@ Thus, the first cumulant is the mean, the second is the variance, and the third 
    $$
    Hence, a Gaussian random variable has mean $μ$, variance $σ^2$, and all cumulants of order three and higher equal to zero.
 
-4. If $X\sim\operatorname{Pois}(λ)$, then
+4. If $X\sim\operatorname{Poisson}(λ)$, then
    $$
    K_X(s)=λ(e^s-1).
    $$
@@ -261,7 +261,7 @@ M_Z(s)
 
 1. **Sum of i.i.d. Bernoulli random variables is a Binomial random variable**
 
-    Let $X_i \sim \text{Ber}(p)$. Then $M_{X_i}(s) = (1 - p + pe^s)$.
+    Let $X_i \sim \text{Bernoulli}(p)$. Then $M_{X_i}(s) = (1 - p + pe^s)$.
 
     Let $Z = \sum_{i=1}^n X_i$. Then $M_Z(s) = (1 - p + pe^s)^n$. 
 
@@ -273,7 +273,7 @@ M_Z(s)
 
 3. **Sum of independent Poisson random variables is Poisson.**
 
-    Let $X_i \sim \text{Pois}(λ_i)$. Then $M_{X_i}(s) = e^{λ_i(e^s - 1)}$.
+    Let $X_i \sim \text{Poisson}(λ_i)$. Then $M_{X_i}(s) = e^{λ_i(e^s - 1)}$.
 
     Let $Z = \sum_{i=1}^n X_i$. Then $M_Z(s) = e^{λ(e^s - 1)}$, where $λ = \sum_{i=1}^n λ_i$. 
 
@@ -309,21 +309,21 @@ Assume that the moments and transforms below exist.
    and taking expectation of both sides yields
    $$ \EXP[S_N] = \EXP[N] \EXP[X]. $$
 
-3. If $N \sim \operatorname{Pois}(λ)$ and $X_i \sim \text{Ber}(p)$, then $M_X(s) = 1 - p + p e^s$. Since $\EXP[r^N] = \exp\bigl(λ(r - 1)\bigr)$, we obtain
+3. If $N \sim \operatorname{Poisson}(λ)$ and $X_i \sim \text{Bernoulli}(p)$, then $M_X(s) = 1 - p + p e^s$. Since $\EXP[r^N] = \exp\bigl(λ(r - 1)\bigr)$, we obtain
    $$ M_{S_N}(s) = \exp\bigl(λ p (e^s - 1)\bigr). $$
-   Thus $S_N \sim \operatorname{Pois}(λ p)$. Independently keeping each of a Poisson number of items with probability $p$ again yields a Poisson count.
+   Thus $S_N \sim \operatorname{Poisson}(λ p)$. Independently keeping each of a Poisson number of items with probability $p$ again yields a Poisson count.
 
-4. Let $N \sim \text{Geo}(p)$. Then
+4. Let $N \sim \text{Geom}(p)$. Then
    $$ \EXP[r^N] = \frac{p r}{1 - (1 - p) r}, $$
    so
    $$ M_{S_N}(s) = \frac{p M_X(s)}{1 - (1 - p) M_X(s)}. $$
-   If $X_i \sim \text{Exponential}(λ)$, this simplifies to
+   If $X_i \sim \text{Exp}(λ)$, this simplifies to
    $$ M_{S_N}(s) = \frac{p λ}{p λ - s}, $$
-   hence $S_N \sim \text{Exponential}(p λ)$. If instead $X_i \sim \text{Geo}(α)$, the same substitution yields
+   hence $S_N \sim \text{Exp}(p λ)$. If instead $X_i \sim \text{Geom}(α)$, the same substitution yields
    $$ M_{S_N}(s) = \frac{p α e^s}{1 - (1 - p α) e^s}, $$
-   hence $S_N \sim \text{Geo}(p α)$. A geometric number of exponential waiting times is exponential; a geometric number of geometric counts is geometric.
+   hence $S_N \sim \text{Geom}(p α)$. A geometric number of exponential waiting times is exponential; a geometric number of geometric counts is geometric.
 
-## The Central Limit Theorem
+## The central limit theorem
 
 One of the ways in which MGFs are useful is that they allow us to understand the limiting behavior of sums of i.i.d.\ random variables.
 
@@ -332,7 +332,7 @@ One of the ways in which MGFs are useful is that they allow us to understand the
 
 A sequence of random variables $\{X_n\}_{n \ge 1}$ is said to **converge in distribution** to a random variable $X$ (denoted by $X_n \xrightarrow{D} X$) if
 $$
-\lim_{n \to \infty} F_{X_n}(x) = F_X(x), 
+\lim_{n \to ∞} F_{X_n}(x) = F_X(x), 
 $$
 for all $x$ where $F_X$ is continuous. 
 :::
@@ -374,7 +374,7 @@ For this reason, convergence in distribution is sometimes called **weak converge
 The relationship between probability distributions and their transforms gives the following continuity theorem:
 
 :::{.callout-important}
-### Continuity Theorem
+### Continuity theorem
 
 Consider a sequence of random variables $\{X_n\}_{n \ge 1}$. For ease of notation, let $(F_n,M_n)$ denote the CDF and transform of $X_n$.
 
@@ -386,9 +386,9 @@ a. If $F_n\to F$ for some CDF $F$ with transform $M$, then
 
 b. Conversely, suppose
    $$
-   \psi(ω)=\lim_{n\to∞}M_n(jω)
+   ψ(ω)=\lim_{n\to∞}M_n(jω)
    $$
-   exists for every $ω\in\reals$ and is continuous at $ω=0$. Then $\psi(ω)=M(jω)$ for some probability distribution with CDF $F$, and $F_n\to F$.
+   exists for every $ω\in\reals$ and is continuous at $ω=0$. Then $ψ(ω)=M(jω)$ for some probability distribution with CDF $F$, and $F_n\to F$.
 :::
 
 The proof is a bit involved and is omitted. The convergence statement uses the imaginary axis, where $\ABS{e^{jωX}}=1$. Convergence of the transform away from the imaginary axis generally requires additional conditions.
@@ -453,7 +453,7 @@ The above result shows that when $n$ is large, the sum $S_n$ is approximately $n
 We prove the result below.
 
 :::{#thm-CLT}
-### Central Limit Theorem
+### Central limit theorem
 
 Let $\{X_n\}_{n \ge 1}$ be i.i.d. random variables with mean $μ$ and finite non-zero variance $σ^2$. Then, their partial sums $S_n = X_1 + \cdots + X_n$ satisfy
 $$
@@ -489,7 +489,7 @@ $$
 which is the transform of $\mathcal N(0,1)$ on the imaginary axis. The continuity theorem gives $Z_n\xrightarrow{D}\mathcal N(0,1)$.
 :::
 
-The central limit theorem is one of the cornerstones of probability theory. The earliest statement of the result goes back to de Moivre (1773), but there was little follow-up until Laplace's _Théorie analytique des probabilités_ (1812). The term "central limit theorem" is due to Pólya (1920), who chose the name because the theorem plays a central role in probability theory.
+The earliest statement of the result goes back to de Moivre (1733), but there was little follow-up until Laplace's _Théorie analytique des probabilités_ (1812). The term "central limit theorem" is due to Pólya (1920), who chose the name because the theorem plays a central role in probability theory.
 
 
 ## Moment generating functions of random vectors
@@ -534,7 +534,7 @@ In particular, $j\reals^n\subseteq\mathcal R_X$.
    \nabla^2K_X(0)=Σ_X.
    $$
 
-3. If $Y=AX+b$, where $A\in\reals^{m\times n}$ and $b\in\reals^m$, then for $t\in\mathbb C^m$ for which the expectations exist,
+3. If $Y=AX+b$, where $A\in\reals^{m× n}$ and $b\in\reals^m$, then for $t\in\mathbb C^m$ for which the expectations exist,
    $$
    M_Y(t)
    =e^{t^\TRANS b}M_X(A^\TRANS t).
@@ -556,4 +556,4 @@ In particular, $j\reals^n\subseteq\mathcal R_X$.
    \qquad s\in\mathbb C^n.
    }
    $$
-   Thus, the transform of a Gaussian random vector is completely determined by its mean vector and covariance matrix, just as its probability distribution is.
+   The transform depends only on $μ$ and $Σ$.

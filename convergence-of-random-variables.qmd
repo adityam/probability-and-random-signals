@@ -12,10 +12,10 @@ A sequence of random variables, also called a **stochastic process**, can be tho
 
 ## Almost sure convergence
 
-1. Recall that a sequence $\{x_n\}_{n \ge 1}$ of real numbers converges to a limit $x$ if for every $ε > 0$, there exists a $N$ such that for all $n \ge N$, we have that
+1. Recall that a sequence $\{x_n\}_{n \ge 1}$ of real numbers converges to a limit $x$ if for every $ε > 0$, there exists an $N$ such that for all $n \ge N$, we have that
    $$ \ABS{ x_n - x } < ε. $$
 
-2. The simplest way to define convergence of a sequence of random variables as follows: 
+2. The simplest way to define convergence of a sequence of random variables is as follows: 
    a sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a limit $X$ **surely** if for every $ω \in Ω$, the sequence $\{X_n(ω)\}_{n \ge 1}$ of real numbers converges to $X(ω)$. 
 
 3. Sure convergence can be too strong, as is illustrated by the following example.
@@ -70,7 +70,7 @@ For any $ω \in (0,1]$, $X_n(ω) = 1$ for $n \le \lfloor 1/ω \rfloor$, and $0$ 
 However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Therefore, $\{X_n\}_{n \ge 1}$ does not converge surely to the zero random variable.
 :::
 
-4. From a practical point of view, we do not care about not converging at $ω = 0$, because that is an event of zero probability. Stated differently, the set 
+4. From a practical point of view, we need not worry that the sequence fails to converge at $ω = 0$, because that is an event of zero probability. Stated differently, the set 
    $$
      \{ ω : X_n(ω) \to 0 \}
    $$
@@ -91,7 +91,7 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Therefore, $\{X_n\}_{n \ge 1}$
    $$
      \lim_{n \to ∞} \PR( \ABS{ X_n - X } > ε ) = 0.
    $$
-   Or, equivalently, for any $ε > 0$ and $δ > 0$, there exists a $N$ such that for all $n \ge N$, we have
+   Or, equivalently, for any $ε > 0$ and $δ > 0$, there exists an $N$ such that for all $n \ge N$, we have
    $$ 
      \PR( \ABS{ X_n - X} > ε ) \le δ.
    $$
@@ -132,7 +132,7 @@ However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Therefore, $\{X_n\}_{n \ge 1}$
    Hence, $X_n\xrightarrow{p}X$.
    :::
 
-2. However, the converse is not true. Convergence in probability does not imply almost sure convergence, as is illustrated by the following example. Another example is presented in @exm-convergence-5, part (a).
+2. However, the converse is not true, as the following example illustrates. Another example is presented in @exm-convergence-5, part (a).
 
 :::{#exm-convergence-2}
 Consider a probability space as in @exm-convergence-1. Let
@@ -214,7 +214,7 @@ $$
 Thus, $X_n\xrightarrow{p}0$.
 :::
 
-3. There is however a partial converse.
+3. There is, however, a partial converse.
    If $\{X_n\}_{n \ge 1}$ is a **monotone sequence** of random variables (i.e., either $X_1 \le X_2 \le \cdots$ almost surely or $X_1 \ge X_2 \ge \cdots$ almost surely) and $c$ is a constant, then
    $$
      [X_n \xrightarrow{p} c] 
@@ -224,11 +224,11 @@ Thus, $X_n\xrightarrow{p}0$.
 
 4. If $X_n \xrightarrow{p} X$, then there exists a subsequence $\{n_k : k \in \naturalnumbers \}$ such that $\{X_{n_k}\}_{k \ge 1}$ converges almost surely to $X$.
 
-5. $X_n \xrightarrow{p} X$ if and only if every subsequence $\{n_k : k \in \naturalnumbers \}$ has a sub-subsequence $\{n_{k_m} : m \in \naturalnumbers \}$ such that $\{X_{n_{k_m}} \}_{m \ge 1}$ that converges to $X$ almost surely.
+5. $X_n \xrightarrow{p} X$ if and only if every subsequence $\{n_k : k \in \naturalnumbers \}$ has a sub-subsequence $\{n_{k_m} : m \in \naturalnumbers \}$ such that $\{X_{n_{k_m}} \}_{m \ge 1}$ converges to $X$ almost surely.
 
-## Convergence in Distribution
+## Convergence in distribution
 
-1. We have already seen the notion of **convergence in distribution** (also called **weak-convergence**). A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **in distribution** if
+1. We have already seen the notion of **convergence in distribution** (also called **weak convergence**). A sequence $\{X_n\}_{n \ge 1}$ of random variables converges to a random variable $X$ **in distribution** if
     $$
        \lim_{n \to ∞} \PR(X_n \le x) = \PR(X \le x)
     $$
@@ -287,7 +287,7 @@ Thus, $X_n\xrightarrow{p}0$.
    which implies that $F_n(x) \to F(x)$. 
    :::
 
-4. The converse is not true. For example, let $X_1,X_2,\ldots,X$ be independent $\text{Uniform}(0,1)$ random variables. Clearly, $X_n \xrightarrow{D} X$. However, for any $ε \in (0,1)$,
+4. The converse is not true. For example, let $X_1,X_2,\ldots,X$ be independent $\text{Unif}(0,1)$ random variables. Clearly, $X_n \xrightarrow{D} X$. However, for any $ε \in (0,1)$,
     $$
       \PR( \ABS{X_n - X} > ε ) = (1-ε)^2
     $$
@@ -306,7 +306,7 @@ Thus, $X_n\xrightarrow{p}0$.
     $$
 
 
-6. Convergence in distribution does not imply convergence of moments! For example, consider the sequence of random variables where
+6. Convergence in distribution does not imply convergence of moments. For example, consider the sequence of random variables where
     $$
         X_n = \begin{cases}
           0 & \text{w.p. } 1 - \frac 1n \\
@@ -316,7 +316,7 @@ Thus, $X_n\xrightarrow{p}0$.
     Then,
     $$
       F_{X_n}(x) = \begin{cases}
-        0, & x < 0
+        0, & x < 0 \\
         1 - \frac 1n, & 0 \le x < n \\
         1 & x \ge n 
       \end{cases}
@@ -331,9 +331,9 @@ Thus, $X_n\xrightarrow{p}0$.
     $$
     which corresponds to a random variable $X = 0$. 
 
-      However, for any $k \ge 1$, we have $\EXP[X_n^k] = n^{k-1}$ but $\EXP[X^k] = 0$. Thus, the moments do not converge!
+      However, for any $k \ge 1$, we have $\EXP[X_n^k] = n^{k-1}$ but $\EXP[X^k] = 0$. Thus, the moments do not converge.
 
-7. **Skorokhod’s representation theorem.** If $X_n \xrightarrow{D} X$, then there exist random variables $Y_1,Y_2,\ldots,Y$ on a common probability space such that $Y_n$ has the same distribution as $X_n$ for every $n$, $Y$ has the same distribution as $X$, and $Y_n \xrightarrow{a.s.} Y$.
+7. **Skorokhod's representation theorem.** If $X_n \xrightarrow{D} X$, then there exist random variables $Y_1,Y_2,\ldots,Y$ on a common probability space such that $Y_n$ has the same distribution as $X_n$ for every $n$, $Y$ has the same distribution as $X$, and $Y_n \xrightarrow{a.s.} Y$.
 
 ## Convergence in $r$-th mean
 
@@ -409,7 +409,7 @@ Thus, $X_n\xrightarrow{p}0$.
         Ω_X &= \{ ω : \lim_{n \to ∞} X_n(ω) = X(ω) \} \\
         Ω_Y &= \{ ω : \lim_{n \to ∞} Y_n(ω) = Y(ω) \}
       \end{align*}
-      We know that $\PR(Ω_X) = 1$ and $\PR(Ω_Y) = 1$. From @exm-union-bound-infinite-events, we have that $\PR(Ω_X \cap Ω_Y) = 1$. Thus, $(X_n, Y_n) \xrightarrow{a.s} (X,Y)$.
+      We know that $\PR(Ω_X) = 1$ and $\PR(Ω_Y) = 1$. From @exm-union-bound-infinite-events, we have that $\PR(Ω_X \cap Ω_Y) = 1$. Thus, $(X_n, Y_n) \xrightarrow{a.s.} (X,Y)$.
  
       The second part follows from continuity property of convergence.
     :::
@@ -441,7 +441,7 @@ c. $X_n(ω) = \textcolor{red}{n}\IND_{A_n}(ω)$, where $A_n = [0, \frac 1n]$.
 :::
 
 :::{.callout-note collapse="false"}
-### Solution
+#### Solution
 
 For every $ω\in(0,1]$, there exists an $N(ω)$ such that $ω>1/n$ and $ω>1/n^2$ for all $n\ge N(ω)$. Hence, in each of the three parts, $X_n(ω)=0$ for all sufficiently large $n$. At $ω=0$, the sequence equals $1$ in parts (a) and (b), and equals $n$ in part (c). Since $\PR(\{0\})=0$, all three sequences converge almost surely to zero:
 $$
@@ -480,7 +480,7 @@ Therefore, the sequences in parts (a) and (b) converge in mean square to zero. T
 
 
 :::{#exm-convergence-4}
-Consider an i.i.d. sequence $\{X_n\}_{n \ge 1}$, where $X_n \sim \text{Uniform}(0,1)$. Define
+Consider an i.i.d. sequence $\{X_n\}_{n \ge 1}$, where $X_n \sim \text{Unif}(0,1)$. Define
 $$
   Y_n = \min\{X_1, \dots, X_n\}.
 $$
@@ -488,9 +488,9 @@ Determine whether $Y_n$ converges almost surely, in probability, or in mean squa
 :::
 
 :::{.callout-note collapse="false"}
-### Solution
+#### Solution
 
-#### Convergence in probability {-}
+#### Convergence in probability
 
 Fix an $ε > 0$ and consider the set
 $$
@@ -498,13 +498,13 @@ $$
 $$
 As in @exm-convergence-3, if $ε > 1$, then $\PR(E_n) = 0$. So, we assume that $ε < 1$. Then,
 \begin{align*}
-\PR(E_n) &= \PR(Y_n > ε) = \PR\bigl( \min\{ X_1, \dots, X_n \} \ge ε ) \\
+\PR(E_n) &= \PR(Y_n > ε) = \PR\bigl( \min\{ X_1, \dots, X_n \} \ge ε \bigr) \\
 &= \PR( X_1 \ge ε, X_2 \ge ε, \dots, X_n \ge ε ) \\
 &= (1-ε)^n
 \end{align*}
 which goes to zero as $n \to ∞$. Thus, $Y_n \xrightarrow{p} 0$. 
 
-#### Almost sure convergence {-}
+#### Almost sure convergence
 
 We now consider almost sure convergence. Note that for a fixed $ω$, the sequence $\{Y_n(ω)\}_{n \ge 1}$ is a decreasing sequence. Hence, it must have a limit. Denote that limit by $Y(ω)$, i.e.,
 $$
@@ -516,7 +516,7 @@ $Y(ω) \le Y_n(ω)$. Hence, for any $ε > 0$,
 $$
   \PR(Y > ε) \le \PR(Y_n > ε) = (1 - ε)^n
 $$
-where the last inequality follows from the calculations done above.
+where the last equality follows from the calculations done above.
 
 The above inequality holds for every $n$, so we have 
 $$
@@ -532,7 +532,7 @@ $$
 $$
 Hence $Y_n \xrightarrow{a.s.} 0$. 
 
-#### Mean square convergence {-}
+#### Mean square convergence
 
 Let $F_n$ denote the CDF of $Y_n$ and $f_n$ denote the PDF. As computed above, 
 $$
@@ -569,21 +569,21 @@ Hence, $Y_n \xrightarrow{m.s.} 0$.
 
 :::
 
-## Almost sure convergence from convergence in probability.
+## Almost sure convergence from convergence in probability
 
 @exm-convergence-4 shows that verifying almost sure convergence can be a bit tricky. In this section, we show that sometimes it is possible to infer almost sure convergence from convergence in probability. 
 
 :::{.callout-warning collapse="false"}
-### Lim inf and lim sup of sets
+#### Lim inf and lim sup of sets
 
 We expand on the discussion of limits of sets presented [earlier](probability-spaces.qmd#set-limits).
 
-Limits of sets is easy to describe when we have weakly increasing or weakly decreasing sequence of sets. In particular, if $\{C_n\}_{n \ge 1}$ is a **weakly increasing** sequence of sets, then 
+Limits of sets are easy to describe when we have a weakly increasing or a weakly decreasing sequence of sets. In particular, if $\{C_n\}_{n \ge 1}$ is a **weakly increasing** sequence of sets, then 
 $$
 \lim_{n \to ∞} C_n = \bigcup_{n=1}^{∞} C_n.
 $$
 Thus, the limit is the union of all sets.
-Moreover, if $\{D_n\}_{n \ge 1}$ is **weakly decreasing** sequence of sets, then 
+Moreover, if $\{D_n\}_{n \ge 1}$ is a **weakly decreasing** sequence of sets, then 
 $$
 \lim_{n \to ∞} D_n = \bigcap_{n=1}^{∞} D_n.
 $$
@@ -655,7 +655,7 @@ For example, suppose we toss a coin infinitely many times. Let $(Ω, \ALPHABET F
 We now state two fundamental results. The proofs are not difficult but are omitted due to time.
 
 :::{#lem-Borel-Cantelli}
-### Borel Cantelli Lemma
+#### Borel-Cantelli lemma
 
 Let $\{A_n\}_{n \ge 1}$ be a sequence of events defined on a common probability space $(Ω, \ALPHABET F, \PR)$. If the sum of the probability of the events is finite, i.e.,
 $$
@@ -669,14 +669,14 @@ $$
 
 [Explanation adapted from math.stackexchange
 [[1](https://math.stackexchange.com/a/1912079/763)]
-and [[2](https://math.stackexchange.com/a/40A80796/763)]]{.text-muted}
+and [[2](https://math.stackexchange.com/a/4080796/763)]]{.text-muted}
 
 :::
 
 There is a partial converse of Borel-Cantelli lemma.
 
 :::{#lem-Borel-Cantelli-2}
-### Second Borel Cantelli Lemma
+#### Second Borel-Cantelli lemma
 
 Let $\{A_n\}_{n \ge 1}$ be a sequence of **independent** events defined on a common probability space $(Ω, \ALPHABET F, \PR)$. If the sum of the probability of the events is infinite, i.e.,
 $$
@@ -688,7 +688,7 @@ $$
 $$
 :::
 
-An immediate implication of Borel-Cantelli lemma is the following:
+An immediate implication of the Borel-Cantelli lemma is the following:
 
 :::{#lem-as}
 Suppose  $X_n \xrightarrow{p} X$ and for any $ε > 0$, we have
@@ -701,13 +701,13 @@ then $X_n \xrightarrow{a.s.} X$.
 
 In light of the above result, we revisit some variations of the examples of the previous section. 
 
-- Consider @exm-convergence-3, part a, we have 
+- In @exm-convergence-3, part (a), we have 
   $$
       \PR(E_n) = \frac 1n.
   $$
   Since $\sum_{n \ge 1} \PR(E_n) = ∞$, we cannot use the above theorem to infer that $X_n \xrightarrow{a.s.} 0$. This is not a contradiction because @lem-as is a sufficient condition, not a necessary condition.  
 
-- Consider @exm-convergence-3, part b, we have 
+- In @exm-convergence-3, part (b), we have 
   $$
       \PR(E_n) = \frac 1{n^2}.
   $$
@@ -726,7 +726,7 @@ $$
    \end{cases}
 $$
 **and $\{X_n\}_{n \ge 1}$ are independent.**  
-Determine whether $\{X_n\}_{n \ge 1}$ converges almost surely, in probability, or in mean square
+Determine whether $\{X_n\}_{n \ge 1}$ converges almost surely, in probability, or in mean square, in each of the following cases:
 
 a. $p_n = \frac 1n$
 b. $p_n = \frac 1{n^2}$.
@@ -741,7 +741,7 @@ b. $p_n = \frac 1{n^2}$.
 - **Almost sure convergence:**
   For part (a), $\sum_{n \ge 1} p_n = ∞$; hence by the Second Borel-Cantelli lemma, 
   $$ \PR(\limsup_{n \to ∞} \{ \ABS{X_n} > ε \}) = 1. $$
-  So, $X_n$ does not converge almost surely!
+  So, $X_n$ does not converge almost surely.
 
     For part (b), $\sum_{n \ge 1} p_n < ∞$; hence by @lem-as, $X_n \xrightarrow{a.s.} 0$.
 
@@ -765,7 +765,7 @@ $$
 :::
 
 :::{.callout-note collapse="false"}
-### Proof
+#### Proof
 
 For every $m\in\naturalnumbers$, define
 $$
@@ -837,7 +837,7 @@ $$
 Thus, from @lem-as, we have that $\bar X_n \xrightarrow{a.s.} 0$. 
 :::
 
-## Further Reading 
+## Further reading
 
 - **Gubner:** Sec. 13.1, 14.1, 14.2, 14.3 (and corresponding problems at the end of the chapters)
 - **Grimmett and Stirzaker:** Sec. 7.1, 7.2, 7.3, 7.4, 7.5 (and corresponding problems at the end of the sections and the end of the chapters)

@@ -52,13 +52,13 @@ Communication
 | 8    | [Convergence of random variables and the strong law of large numbers](convergence-of-random-variables.qmd) | 
 | 9    | [Stochastic processes](stochastic-processes.qmd) and [Markov chains](markov-chains.qmd) |
 | 10   | [Hitting times and limiting distributions of Markov chains](markov-chains.qmd) |
-| 11   | [Gauss–Markov models and spectral analysis](gauss-markov-processes.qmd) |
+| 11   | [Gauss-Markov models and spectral analysis](gauss-markov-processes.qmd) |
 | 12   | [Poisson processes](poisson-processes.qmd) |
 | 13   | [Continuous-time Markov chains](continuous-time-markov-chains.qmd); [Brownian motion](brownian-motion.qmd) |
 
 : {tbl-colwidths="[10,90]" .striped}
 
-<small>[The material for the lecture notes is taken from various sources including the textbook and the reference book, as well as the lecture notes of Prof. Ioannis Psaromiglikos (McGill) and Prof. Ashutosh Nayyar (USC).]{.text-muted}</small>
+<small>[The material for the lecture notes is taken from various sources including the textbook and the reference book, as well as the lecture notes of Prof. Ioannis Psaromiligkos (McGill) and Prof. Ashutosh Nayyar (USC).]{.text-muted}</small>
 
 ## Course Material
 
@@ -120,9 +120,9 @@ The course is taught in a “chalk and board” style; there will be no PowerPoi
 
 ## Additional Notes
 
-- As the instructor of this course I endeavor to provide an inclusive learning environment. However, if you experience barriers to learning in this course, do not hesitate to discuss them with me or contact the office of [Student Accessibility and Achievement][OSD].
+- As the instructor of this course, I endeavor to provide an inclusive learning environment. However, if you experience barriers to learning in this course, do not hesitate to discuss them with me or contact the office of [Student Accessibility and Achievement][OSD].
 
-- [End-of-course evaluations][evaluations] are one of the ways that McGill works towards maintaining and improving the quality of courses and the student’s learning experience. You will be notified by e-mail when the evaluations are available. Please note that a minimum number of responses must be received for results to be available to students.
+- [End-of-course evaluations][evaluations] are one of the ways that McGill works towards maintaining and improving the quality of courses and students’ learning experience. You will be notified by e-mail when the evaluations are available. Please note that a minimum number of responses must be received for results to be available to students.
 
 
 [policy]: https://www.mcgill.ca/engineering/students/undergraduate/courses-registration/exams-assessment/midterms-and-class-tests/adjustments-missed-midterms-and-class-tests

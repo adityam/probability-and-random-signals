@@ -104,7 +104,7 @@ Plot.plot({
 
    Packets arrive at a buffer according to a Poisson process with rate $λ$, and their service times are independent exponential random variables with rate $μ$. The buffer can hold at most two packets, including the packet in service. Let $X(t)$ be the number of packets in the buffer at time $t$. An arrival in state $2$ is discarded and does not change the state.
 
-   ![Birth--death continuous-time Markov chain on three states](figures/svg/ctmc-examples3.svg)
+   ![Birth-death continuous-time Markov chain on three states](figures/svg/ctmc-examples3.svg)
 
    Read the diagram to determine the generator $Q$, the holding rates $ν$, and the embedded jump matrix $P$.
 
@@ -145,12 +145,12 @@ Plot.plot({
    The notation $P(t)$ should not be confused with the matrix $P$ of the embedded jump chain. The local description above is equivalent to
    $$ P(h) = I + hQ + o(h). $$
 
-4. Conditioning on the state after time $s$ gives the **Chapman--Kolmogorov equations**
+4. Conditioning on the state after time $s$ gives the **Chapman-Kolmogorov equations**
    $$ P_{ij}(s + t) = \sum_{k \in \ALPHABET X} P_{ik}(s) P_{kj}(t), $$
    or, in matrix notation,
    $$ P(s + t) = P(s) P(t). $$
 
-5. Combining the Chapman--Kolmogorov equations with
+5. Combining the Chapman-Kolmogorov equations with
    $$ P(h) = I + hQ + o(h) $$
    gives the **forward equation**. Writing
    $$ P(t + h) = P(t) P(h) $$
@@ -182,7 +182,7 @@ Plot.plot({
 
 ## Class structure and hitting times
 
-1. For a nonabsorbing state $i$, there is a directed edge $i \to j$ in the continuous-time chain whenever $q_{ij} > 0$, equivalently whenever $P_{ij} > 0$ in the embedded chain. Thus the continuous-time chain and its embedded chain have the same accessibility relations, communicating classes, closed classes, and irreducibility. A state with $ν_i = 0$ is an absorbing singleton class; its row in $P$ remains irrelevant. The class structure can therefore be read from the embedded chain, using the results for discrete-time Markov chains. Periodicity, however, is not a condition that carries over to continuous time.
+1. For a nonabsorbing state $i$, there is a directed edge $i \to j$ in the continuous-time chain whenever $q_{ij} > 0$, equivalently whenever $P_{ij} > 0$ in the embedded chain. Thus the continuous-time chain and its embedded chain have the same accessibility relations, communicating classes, closed classes, and irreducibility. A state with $ν_i = 0$ is an absorbing singleton class; its row in $P$ remains irrelevant. The class structure can therefore be read from the embedded chain, using the results for discrete-time Markov chains. Periodicity has no continuous-time analogue.
 
 2. For a set of states $A$, define the **hitting time**
    $$ H_A = \inf\{t \ge 0 : X(t) \in A\}. $$

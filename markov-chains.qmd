@@ -14,7 +14,7 @@ Let $\ALPHABET X$ be a finite set. A stochastic process $\{X_n\}_{n \ge 0}$, $X_
   = \PR(X_{n+1} = x_{n+1} \mid X_n = x_n).
 \end{equation}
 
-The variable $X_n$ is called the **state** of the Markov chain at time $n$; the set $\ALPHABET X$ is called **state space**. The \eqref{eq:Markov} implies that the current state captures all the information from the past that is relevant for the future. Stated differently, **conditioned on the present, the past is independent of the future**.
+The variable $X_n$ is called the **state** of the Markov chain at time $n$; the set $\ALPHABET X$ is called the **state space**. The \eqref{eq:Markov} implies that the current state captures all the information from the past that is relevant for the future. Stated differently, **conditioned on the present, the past is independent of the future**.
 
 The Markov property also holds when a chain is viewed backward over a finite time horizon; @exr-time-reversal asks you to prove this. However, even if the forward chain is time-homogeneous, its backward transition probabilities may depend on time. If the chain is initialized with an invariant distribution, then the reversed chain is also time-homogeneous.
 
@@ -38,9 +38,9 @@ This is the inverse-transform construction: it realizes any finite transition ma
 We now present some examples of Markov chains arising in different applications.
 
 :::{#exm-Gilbert-Elliot-channel}
-#### Gilbert Elliot channel model for burst erasures
+#### Gilbert-Elliott channel model for burst erasures
 
-The Gilbert-Elliot channel model is used to model communication channels with burst errors. The channel can be in one of two states: a "good" state (state 0) with low error probability, or a "bad" state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in @exm-on-off.
+The Gilbert-Elliott channel model is used to model communication channels with burst errors. The channel can be in one of two states: a "good" state (state 0) with low error probability, or a "bad" state (state 1) with high error probability. The channel state evolves as a Markov chain, and the error probability depends on the current state. This is essentially the same as the on-off Markov chain described in @exm-on-off.
 :::
 
 :::{#exm-Ehrenfest-diffusion}
@@ -48,7 +48,7 @@ The Gilbert-Elliot channel model is used to model communication channels with bu
 
 The following urn model was introduced by @Ehrenfest1907 to illustrate the probabilistic behavior underlying Boltzmann's $H$-theorem.
 
-There are $K$ labelled particles, each of which is in either compartment $A$ or compartment $B$. At each time, one particle is chosen uniformly at random and moved to the other compartment. Thus, if there are $X_n=i$ particles in compartment $A$ at time $n$, then $X_{n+1}=i-1$ with probability $i/K$ and $X_{n+1}=i+1$ with probability $(K-i)/K$.
+There are $K$ labeled particles, each of which is in either compartment $A$ or compartment $B$. At each time, one particle is chosen uniformly at random and moved to the other compartment. Thus, if there are $X_n=i$ particles in compartment $A$ at time $n$, then $X_{n+1}=i-1$ with probability $i/K$ and $X_{n+1}=i+1$ with probability $(K-i)/K$.
 :::
 
 :::{#exm-gamblers-ruin}
@@ -89,7 +89,7 @@ where $(0,0)$ denotes the first bad time step and $(0,1)$ denotes the second bad
 In general, identifying an appropriate state is an important component of stochastic modeling.
 :::
 
-See the following video from [Veritasium](https://www.youtube.com/@veritasium) for an excellent history of Markov chains and its applications
+See the following video from [Veritasium](https://www.youtube.com/@veritasium) for a history of Markov chains and their applications.
 
 {{< video https://www.youtube.com/watch?v=KZeIEiBrT_w >}}
 
@@ -124,9 +124,9 @@ Thus, $μ^{(0)}$ and $P$ determine all the finite-dimensional distributions of t
 Such Markov chains can also be visualized using **state transition diagrams**, as illustrated in the examples below.
 
 :::{#exm-on-off}
-#### On-Off Markov chain
+#### On-off Markov chain
 
-The On-Off Markov chain discussed earlier can be modelled with $\ALPHABET X = \{0, 1\}$ and a general transition probability matrix of the form.
+The on-off Markov chain can be modeled with $\ALPHABET X = \{0, 1\}$ and a general transition probability matrix of the form
 $$
   P = \MATRIX{ 1 - a & a \\ b & 1 - b }.
 $$
@@ -135,14 +135,14 @@ The transition matrix can be visualized as follows.
 ![On-Off Markov chain](figures/svg/markov-examples1.svg)
 :::
 
-In spite of its simplicity, such simple on-off Markov chains are used in various applications including telecommunication systems, network traffic modeling, machine failure-repair models, gene activation, and others. Some properties of the on-off Markov chain are as follows:
+Despite their simplicity, on-off Markov chains are used in various applications including telecommunication systems, network traffic modeling, machine failure-repair models, gene activation, and others. Some properties of the on-off Markov chain are as follows:
 
 - If $a + b = 1$, then both rows of the transition matrix are identical. Therefore, the Markov chain _has no memory_ and is equivalent to a Bernoulli process with success probability $a = 1-b$.
 
-- When $a$ or $b$ are small, the corresponding state is "sticky", i.e., when the Markov chain enters a sticky state, it stays there for a long time.
+- When $a$ or $b$ is small, the corresponding state is "sticky", i.e., when the Markov chain enters a sticky state, it stays there for a long time.
 
 :::{#exm-Ehrenfest-diffusion-model}
-The Ehrenfest urn model presented in @exm-Ehrenfest-diffusion can be modelled as a Markov chain with state space $\{0, 1, \dots, K\}$ and transition probability
+The Ehrenfest urn model presented in @exm-Ehrenfest-diffusion can be modeled as a Markov chain with state space $\{0, 1, \dots, K\}$ and transition probability
 $$
   P_{ij} = \begin{cases}
     i/K     & j = i-1 \\
@@ -176,7 +176,7 @@ We will consider the case where the state space is $\ALPHABET X = \{-2, -1, 0, 1
                    0 & 0 & 0 & 0 & 1}.
    $$
 
-2. **Reflected random walk:** Assume that when the particle reaches a boundary states, it is _reflected_ and returns to the point it came from. We may visualize the Markov chain as follows.
+2. **Reflected random walk:** Assume that when the particle reaches a boundary state, it is _reflected_ and returns to the point it came from. We may visualize the Markov chain as follows.
 
    ![Reflected random walk](figures/svg/random-walk2.svg)
 
@@ -238,7 +238,7 @@ In the rest of this section, we will present results in Markov chain theory that
 
 2. By the law of total probability, we have
    $$
-     \PR(X_n = j) = \sum_{i \in \ALPHABET X} \PR(X_{n-1} = i) \PR(X_n = j | X_{n-1} = i)
+     \PR(X_n = j) = \sum_{i \in \ALPHABET X} \PR(X_{n-1} = i) \PR(X_n = j \mid X_{n-1} = i)
    $$
    or, equivalently,
    $$
@@ -262,7 +262,7 @@ In the rest of this section, we will present results in Markov chain theory that
    Thus, the probability of going from $i$ to $j$ in $n+m$ steps equals the probability of going from $i$ to _somewhere_ in $n$ steps and then from there to $j$ in $m$ steps.
 
 :::{#exm-random-walk-occupancy}
-Numerically compute the state occupancy probabilities for the different examples of random walk presented in @exm-random-walk when $p = q = \tfrac 12$ for $n \in \{1, \dots, 8\}$. In all cases, the initial probability 
+Numerically compute the state occupancy probabilities for the different examples of random walk presented in @exm-random-walk when $p = q = \tfrac 12$ for $n \in \{1, \dots, 8\}$. In all cases, the initial distribution 
 $$
   μ^{(0)} = \MATRIX{0 & 0 & 1 & 0 & 0 }.
 $$
@@ -451,7 +451,7 @@ This gives both components of the occupancy distribution and agrees with the rec
 
 ## Class structure
 
-1.  We say that a state $j$ is **accessible from** state $i$ (abbreviated as $i \rightsquigarrow j$) if there exists an $m \in \integers_{\ge 0}$ (which may depend on $i$ and $j$) such that $[P^m]_{ij} > 0$. The fact that $P^{(m)}_{ij} > 0$ implies that there exists an ordered sequence of states $(i_0, \dots, i_m)$ such that $i_0 = i$ and $i_m = j$ such that $P_{i_k i_{k+1}} > 0$; thus, there is a path of positive probability from state $i$ to state $j$.
+1.  We say that a state $j$ is **accessible from** state $i$ (abbreviated as $i \rightsquigarrow j$) if there exists an $m \in \integers_{\ge 0}$ (which may depend on $i$ and $j$) such that $[P^m]_{ij} > 0$. The fact that $P^{(m)}_{ij} > 0$ implies that there exists an ordered sequence of states $(i_0, \dots, i_m)$ such that $i_0 = i$ and $i_m = j$ and $P_{i_k i_{k+1}} > 0$ for all $k$; thus, there is a path of positive probability from state $i$ to state $j$.
 
     Accessibility is a transitive relationship, i.e., if $i \rightsquigarrow j$ and $j \rightsquigarrow k$, then $i \rightsquigarrow k$.
 
@@ -486,7 +486,7 @@ This gives both components of the occupancy distribution and agrees with the rec
 
 5.  States $i$ and $j$ are said to belong to the same **communicating class** if $i$ and $j$ communicate. Communicating classes form a partition of the state space. Within a communicating class, all states are of the same type, i.e., either all states are recurrent (in which case the class is called a recurrent class) or all states are transient (in which case the class is called a transient class).
 
-    For example, in @exm-accessible, there are two communication classes: $\{1,2,3\}$ and $\{4,5,6\}$. The communication class $\{4,5,6\}$ is transient while the communication class $\{1,2,3\}$ is recurrent.
+    For example, in @exm-accessible, there are two communicating classes: $\{1,2,3\}$ and $\{4,5,6\}$. The communicating class $\{4,5,6\}$ is transient while the communicating class $\{1,2,3\}$ is recurrent.
 
 
 6.  A communicating class $C$ is said to be **closed** if
@@ -526,7 +526,7 @@ This gives both components of the occupancy distribution and agrees with the rec
 
    To formalize the special role of hitting times, let
    $$
-   \mathcal F_n=\sigma(X_0,\ldots,X_n)
+   \mathcal F_n=σ(X_0,\ldots,X_n)
    $$
    denote the information available up to time $n$. A random time $τ$ is called a **stopping time** if
    $$
@@ -568,6 +568,7 @@ This gives both components of the occupancy distribution and agrees with the rec
    Suppose we toss a coin multiple times. What is the probability of getting a head before getting a tail?
    
    We model this using a Markov chain where the state represents the outcome we're waiting for. Let $p$ denote the probability of heads and $q = 1-p$ denote the probability of tails. The Markov chain has three states:
+
    - State $-1$: tail has occurred (absorbing state, we lose)
    - State $0$: initial state (no outcome yet)
    - State $1$: head has occurred (absorbing state, we win)
@@ -590,6 +591,7 @@ This gives both components of the occupancy distribution and agrees with the rec
    Let $p$ denote the probability of heads and $q = 1-p$ denote the probability of tails. We initialize the Markov chain in state $0$, immediately before the first toss. After the first toss and until the game ends, the state records the most recent toss; once two identical tosses occur consecutively, the chain enters the corresponding absorbing state. Thus, state $0$ is visited only at time $0$. For example, after $HT$ the state is $-1$, and after $TH$ the state is $1$; the chain does not return to state $0$.
 
    The Markov chain has five states:
+
    - State $-2$: two consecutive tails (Player 2 wins, absorbing state)
    - State $-1$: the last toss was a tail, but two consecutive tails have not occurred
    - State $0$: the pre-toss state, occupied only at time $0$
@@ -640,7 +642,7 @@ This gives both components of the occupancy distribution and agrees with the rec
    #### Proof
    When $X_0 = i \in A$, the hitting time $H^A = 0$, so $h^A_i = 1$. This proves the first part of the formula.
    
-   For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
+   For the second part, consider $X_0 = i \not\in A$. Then $H^A \ge 1$ under $\PR_i$. By the Markov property, we have
    $$
    \PR_i(H^A < ∞ \mid X_1 = j) = \PR_j(H^A < ∞) = h^A_j.
    $$
@@ -668,7 +670,7 @@ This gives both components of the occupancy distribution and agrees with the rec
    
    :::{.callout-note collapse="true"}
    ### Solution
-   For the ease of notation, we use $h_i$ as a short-form for $h^{\{0\}}_i$. The hitting probabilities satisy the linear system of equations:
+   For ease of notation, we write $h_i$ for $h^{\{0\}}_i$. The hitting probabilities satisfy the linear system of equations:
    
    \begin{align*}
      h_0 &= 1 \\
@@ -697,7 +699,7 @@ This gives both components of the occupancy distribution and agrees with the rec
    $$
    :::
 
-9. Similarly as above, we can derive a formula for computing mean hitting times. We start with a couple of examples to illustrate the main idea. 
+9. As above, we can derive a formula for computing mean hitting times. We start with a couple of examples to illustrate the main idea. 
 
    :::{#exm-no-of-tosses-1}
    Suppose we toss a coin multiple times and stop at the first head. What is the expected number of coin tosses until stopping?
@@ -758,7 +760,7 @@ This gives both components of the occupancy distribution and agrees with the rec
     
     The proof is similar to the proof of @thm-hitting-probabilities. When $X_0 = i \in A$, the hitting time $H^A = 0$, so $m^A_i = 0$. This proves the first part of the formula.
     
-    For the second part, consider $X_0 = i \not\in A$. Then $H^A_i \ge 1$. By the Markov property, we have
+    For the second part, consider $X_0 = i \not\in A$. Then $H^A \ge 1$ under $\PR_i$. By the Markov property, we have
     $$
       \EXP_i[ H^A \mid X_1 = j] = 1 + \EXP_j[ H^A ] = 1 + m^A_j.
     $$
@@ -766,7 +768,6 @@ This gives both components of the occupancy distribution and agrees with the rec
     \begin{align*}
       m^A_i &= \EXP_i[ H^A ] 
       = \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
-      &= \sum_{j \in \ALPHABET X} \EXP_i[ H^A \mid X_1 = j ] \PR_i(X_1 = j) \\
       &= \sum_{j \in \ALPHABET X} P_{ij} \bigl[ 1 + m^A_j \bigr]
       \\
       &= 1 + \sum_{j \not\in A} P_{ij} m^A_j.
@@ -782,10 +783,11 @@ This gives both components of the occupancy distribution and agrees with the rec
       P = \MATRIX{ Q & R \\ 0 & I}.
     $$
     where:
-    - $Q$ is a $|\ALPHABET T| \times |\ALPHABET T|$ matrix containing transition probabilities between transient states,
-    - $R$ is a $|\ALPHABET T| \times |\ALPHABET C|$ matrix containing transition probabilities from transient states to absorbing states,
-    - $0$ is a $|\ALPHABET C| \times |\ALPHABET T|$ zero matrix (since absorbing states cannot transition to transient states),
-    - $I$ is a $|\ALPHABET C| \times |\ALPHABET C|$ identity matrix (since absorbing states stay in themselves).
+
+    - $Q$ is a $|\ALPHABET T| × |\ALPHABET T|$ matrix containing transition probabilities between transient states,
+    - $R$ is a $|\ALPHABET T| × |\ALPHABET C|$ matrix containing transition probabilities from transient states to absorbing states,
+    - $0$ is a $|\ALPHABET C| × |\ALPHABET T|$ zero matrix (since absorbing states cannot transition to transient states),
+    - $I$ is a $|\ALPHABET C| × |\ALPHABET C|$ identity matrix (since absorbing states stay in themselves).
 
 13. **Multi-step transitions:** For the canonical form, we can show by induction that
   $$
@@ -895,7 +897,7 @@ This gives both components of the occupancy distribution and agrees with the rec
     Thus, starting from state $1$, the expected duration is $m_1 = (1+p)/(1-pq)$.
     :::
 
-## Invariant Distribution
+## Invariant distribution
 
 1. A probability distribution $π$ on the state space $\ALPHABET X$ is called an **invariant distribution** if it satisfies the equation
    $$
@@ -910,9 +912,9 @@ This gives both components of the occupancy distribution and agrees with the rec
    $$
    This chain has an invariant distribution given by $π = [b/(a+b), a/(a+b)]$ (assuming $a+b > 0$). One can verify that $π = π P$, which shows that an invariant distribution exists for this chain.
 
-4. A finite Markov chain with only one communication class has a **unique** invariant distribution. Thus, irreducible Markov chains have a unique invariant distribution. Note that aperiodicity is not required. For instance, consider on-off Markov chain from @exm-on-off with $a = b = 1$. This chain is periodic, but has a unique invariant distribution $π = [\frac 12, \frac 12]$. 
+4. A finite Markov chain with only one communicating class has a **unique** invariant distribution. Thus, irreducible Markov chains have a unique invariant distribution. Note that aperiodicity is not required. For instance, consider the on-off Markov chain from @exm-on-off with $a = b = 1$. This chain is periodic, but has a unique invariant distribution $π = [\frac 12, \frac 12]$. 
 
-4. A Markov chain with more than one closed communicating class has multiple invariant distributions. For example, consider a Markov chain with two absorbing states $0$ and $1$. The transition matrix is
+5. A Markov chain with more than one closed communicating class has multiple invariant distributions. For example, consider a Markov chain with two absorbing states $0$ and $1$. The transition matrix is
    $$
      P = \MATRIX{ 1 & 0 \\ 0 & 1 }.
    $$
@@ -929,7 +931,7 @@ This gives both components of the occupancy distribution and agrees with the rec
 
    More generally, if a Markov chain has multiple irreducible communicating (closed) classes, each class can have its own invariant distribution (supported only on that class). Any convex combination of these distributions is also an invariant distribution for the whole chain.
 
-6. A Markov chain that is irreducible and **aperiodic** has a special prorperty: for any initial distribution $μ^{(0)}$, we have 
+6. A Markov chain that is irreducible and **aperiodic** has a special property: for any initial distribution $μ^{(0)}$, we have 
    $$\lim_{n \to ∞} μ^{(n)}_j = π_j, \quad \forall j \in \ALPHABET X.$$
 
      Irreducible and aperiodic Markov chains are also called **ergodic**. Thus, an ergodic Markov chain converges to its invariant distribution. For this reason, the invariant distribution is also called the **limiting distribution** or the **steady-state** distribution.
@@ -984,33 +986,34 @@ This gives both components of the occupancy distribution and agrees with the rec
    ![Three-state aperiodic Markov chain](figures/svg/markov-examples9.svg)
    
    The balance equations, equating the flow into and out of each state, can be written as:
+
    - **State 0:**  
      \begin{align*}
-     \text{Inflow} &= \pi_2 \cdot 0.7 \\
-     \text{Outflow} &= \pi_0 \cdot 0.7
+     \text{Inflow} &= π_2 \cdot 0.7 \\
+     \text{Outflow} &= π_0 \cdot 0.7
      \end{align*}
 
    - **State 1:**  
      \begin{align*}
-     \text{Inflow} &= \pi_0 \cdot 0.7 \\
-     \text{Outflow} &= \pi_1 \cdot 0.7
+     \text{Inflow} &= π_0 \cdot 0.7 \\
+     \text{Outflow} &= π_1 \cdot 0.7
      \end{align*}
 
    - **State 2:**  
      \begin{align*}
-     \text{Inflow} &= \pi_1 \cdot 0.7 \\
-     \text{Outflow} &= \pi_2 \cdot 0.7
+     \text{Inflow} &= π_1 \cdot 0.7 \\
+     \text{Outflow} &= π_2 \cdot 0.7
      \end{align*}
    
    Thus, the balance equations are given by
    \begin{align*}
-     \pi_0 \cdot 0.7 = \pi_2 \cdot 0.7 \\
-     \pi_1 \cdot 0.7 = \pi_0 \cdot 0.7 \\
-     \pi_2 \cdot 0.7 = \pi_1 \cdot 0.7
+     π_0 \cdot 0.7 = π_2 \cdot 0.7 \\
+     π_1 \cdot 0.7 = π_0 \cdot 0.7 \\
+     π_2 \cdot 0.7 = π_1 \cdot 0.7
    \end{align*}
    Together with the normalization constraint $π_0 + π_1 + π_2 = 1$, we get $π_0 = π_1 = π_2 = 1/3$. This illustrates how balance equations can be derived directly from the state diagram by considering probability flows.
 
-12. The above example is an illustration of a more general principle. If $P$ is doubly stochastic (i.e., both row sum and column sums are $1$), then the invariant distribution is a uniform distribution.
+12. The above example is an illustration of a more general principle. If $P$ is doubly stochastic (i.e., both row sums and column sums are $1$), then the invariant distribution is a uniform distribution.
 
 13. **Exercises: Computing Invariant Distributions**
 
@@ -1041,13 +1044,13 @@ This gives both components of the occupancy distribution and agrees with the rec
     Note that this chain is not irreducible (it has two absorbing states). Compute all possible invariant distributions.
     :::
 
-## Limiting Distribution
+## Limiting distribution
 
-1. Suppose a finite Markov chain has the property that starting from any initial distribution, the distribution of $X_n$ converges to some distribution $\pi$ as $n \to \infty$:
+1. Suppose a finite Markov chain has the property that starting from any initial distribution, the distribution of $X_n$ converges to some distribution $π$ as $n \to \infty$:
    $$
-   \lim_{n \to \infty} P^{(n)}_{i, j} = \pi_j \qquad \text{for all } i, j \in \ALPHABET X.
+   \lim_{n \to \infty} P^{(n)}_{i, j} = π_j \qquad \text{for all } i, j \in \ALPHABET X.
    $$
-   Then, $\pi$ is an invariant distribution.
+   Then, $π$ is an invariant distribution.
 
    :::{.callout-note collapse="true"}
    #### Proof
@@ -1074,38 +1077,38 @@ This gives both components of the occupancy distribution and agrees with the rec
 
     This is equivalent to the statement that for all $i, j \in \ALPHABET X$,
     $$\lim_{n \to \infty} P^{(n)}_{ij} = π_j.$$
-    This is an consequence of [:Perron Frobenius Theorem](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem).  In matrix form, we have
+    This is a consequence of the [:Perron-Frobenius theorem](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem).  In matrix form, we have
     $$
     \lim_{n \to \infty} P^n = 
     \MATRIX{
-      \pi \\
-      \pi \\
+      π \\
+      π \\
       \vdots \\
-      \pi
+      π
     }
     $$
     where each row of the limiting matrix is the invariant distribution $π$. That is, for large $n$, every row of $P^n$ approaches $π$.
  
 3. In fact, we have a stronger result: the **Strong Law of Large Numbers (SLLN) for finite Markov chains.** Let $\{X_n\}_{n \ge 0}$ be an irreducible Markov chain. Then, for any initial distribution,
    $$
-   \frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} \pi_j, \quad \forall j \in \ALPHABET X.
+   \frac{1}{N} \sum_{n=1}^N \IND\{X_n = j\} \xrightarrow{a.s.} π_j, \quad \forall j \in \ALPHABET X.
    $$
    This is known as the **ergodic property**: sample average equals ensemble average. Notice that aperiodicity is not required for this result.
 
 4. An immediate consequence of the ergodic property is that given an irreducible finite Markov chain $\{X_n\}_{n \ge 0}$ and any function $f \colon \ALPHABET X \to \reals$, we have
    $$
-   \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} \pi_j f(j).
+   \frac{1}{N} \sum_{n=1}^N f(X_n) \xrightarrow{a.s.} \sum_{j\in \ALPHABET X} π_j f(j).
    $$
  
-5. If the chain is periodic with period $d > 1$ (i.e., not aperiodic), the limiting distribution $\lim_{n \to \infty} P^n$ does not exist in the usual sense, as the transition probabilities continue to oscillate. The Ehrenfest chain illustrates this distinction: every transition changes the parity of the state, so the chain has period two. It has the invariant distribution computed earlier, but $P^n$ starting from a fixed state does not converge to this distribution. Nevertheless, since the chain is irreducible, the time averages in the previous two bullets converge along the full sequence $N \to \infty$. Thus, aperiodicity is needed for the convergence of $P^n$ to a matrix whose rows are $π$, but not for the Markov-chain law of large numbers.
+5. If the chain is periodic with period $d > 1$ (i.e., not aperiodic), the limiting distribution $\lim_{n \to \infty} P^n$ does not exist in the usual sense, as the transition probabilities continue to oscillate. The Ehrenfest chain illustrates this distinction: every transition changes the parity of the state, so the chain has period two. It has the invariant distribution computed earlier, but $P^n$ starting from a fixed state does not converge to this distribution. Nevertheless, since the chain is irreducible, the time averages in the previous two items converge along the full sequence $N \to \infty$. Thus, aperiodicity is needed for the convergence of $P^n$ to a matrix whose rows are $π$, but not for the Markov-chain law of large numbers.
 
 ## Censored Markov chains
 
-1. Suppose a Markov chain is only observed when the state lies in a subset $\ALPHABET O \subset \ALPHABET X$.  Let $\{τ_k\}_{k \ge 1}$ denote the \emph{stopping times} when the Markov chain returns to the set $\ALPHABET O$, i.e., $τ_1$ is the first time when the Markov chain $\{X_n\}_{n \ge 1}$ hits $\ALPHABET O$; $τ_2$ denotes the second time when the Markov chain hits $\ALPHABET O$; and so on.
+1. Suppose a Markov chain is only observed when the state lies in a subset $\ALPHABET O \subset \ALPHABET X$.  Let $\{τ_k\}_{k \ge 1}$ denote the **stopping times** when the Markov chain returns to the set $\ALPHABET O$, i.e., $τ_1$ is the first time when the Markov chain $\{X_n\}_{n \ge 0}$ hits $\ALPHABET O$; $τ_2$ denotes the second time when the Markov chain hits $\ALPHABET O$; and so on.
 
 2. Define the process $\{O_k\}_{k \ge 1}$ by $O_k = X_{τ_k}$. The **strong Markov property** implies that $\{O_k\}_{k \ge 1}$ is a Markov chain. What is the transition probability matrix $\tilde P$ of this chain?
 
-3. As we did for the absorbing Markov chains, we re-order states so that the unobservable states $\ALPHABET O^c$ come first, followed by all observable state $\ALPHABET O$. Then the transition matrix $P$ can be written as
+3. As we did for the absorbing Markov chains, we re-order states so that the unobservable states $\ALPHABET O^c$ come first, followed by all observable states $\ALPHABET O$. Then the transition matrix $P$ can be written as
    $$
       P = \MATRIX{
       Q & R \\ 
@@ -1119,14 +1122,14 @@ This gives both components of the occupancy distribution and agrees with the rec
    - $S$ is the $\ABS{\ALPHABET O} × \ABS{\ALPHABET O^c}$ matrix containing the transition probabilities from observed to unobserved states
    - $P_O$ is the $\ABS{\ALPHABET O} × \ABS{\ALPHABET O}$ matrix containing the transitions from observed to observed states.
 
-5. Suppose we start with a state $O_1 = X_1 \in \ALPHABET O$. Then the probability of going to each of the states in $\ALPHABET O$ in one step is given by $P_O$. To take more than one step, the chain must enter a state in $\ALPHABET O^c$ with probability $S$. We will assume that the set $\ALPHABET O^c$ does not have any obsorbing subsets. Then, as we showed in the analysis for absorbing Markov chains, starting from a given state in $\ALPHABET O^c$, the Markov chain enters $\ALPHABET O$ for the first time with probability $NR = (I - Q)^{-1} R$. Thus, we have that
+4. Suppose we start with a state $O_1 = X_1 \in \ALPHABET O$. Then the probability of going to each of the states in $\ALPHABET O$ in one step is given by $P_O$. To take more than one step, the chain must enter a state in $\ALPHABET O^c$ with probability $S$. We will assume that the set $\ALPHABET O^c$ does not have any absorbing subsets. Then, as we showed in the analysis for absorbing Markov chains, starting from a given state in $\ALPHABET O^c$, the Markov chain enters $\ALPHABET O$ for the first time with probability $NR = (I - Q)^{-1} R$. Thus, we have that
    $$ 
       \tilde P = P_O + S(I - Q)^{-1}R.
    $$
 
-6. If $P$ has only one communicating class, then $\{X_n\}_{n \ge 1}$ has a unique invariant distribution, which we denote by $π$. Then $(π_k)_{k \in \ALPHABET O}$ normalized to have sum $1$ is the unique invariant distribution of $\{O_n\}_{n \ge 1}$.
+5. If $P$ has only one communicating class, then $\{X_n\}_{n \ge 0}$ has a unique invariant distribution, which we denote by $π$. Then $(π_k)_{k \in \ALPHABET O}$ normalized to have sum $1$ is the unique invariant distribution of $\{O_n\}_{n \ge 1}$.
 
-7. As an example, consider the reflected random walk from @exm-random-walk (point 2) with state space $\{-2, -1, 0, 1, 2\}$ 
+6. As an example, consider the reflected random walk from @exm-random-walk (point 2) with state space $\{-2, -1, 0, 1, 2\}$ 
 
    ![Reflected random walk](figures/svg/random-walk2.svg)
 
@@ -1149,7 +1152,7 @@ This gives both components of the occupancy distribution and agrees with the rec
    &= \MATRIX{ \tfrac{3}{4} & \tfrac{1}{4} & 0 \\ \tfrac{3}{4} & 0 & \tfrac{1}{4} \\ 0 & 1 & 0 }.
    \end{align*}
 
-   This intuitively makes sense. The chain $\{X_n\}_{n \ge 1}$ can only go to unobserved states at state $X_n = 0$. When it does to go $\ALPHABET O^c$, the first observed state it visits must be $0$. Then $\tilde P_{00} = P_{0,-1} = \frac 34$. The rest of the entries of $\tilde P$ are the same as $P$. 
+   This intuitively makes sense. The chain $\{X_n\}_{n \ge 0}$ can only go to unobserved states at state $X_n = 0$. When it does go $\ALPHABET O^c$, the first observed state it visits must be $0$. Then $\tilde P_{00} = P_{0,-1} = \frac 34$. The rest of the entries of $\tilde P$ are the same as $P$. 
    
    The invariant distribution of $\tilde P$ is 
    $$\MATRIX{ \tfrac{12}{17} & \tfrac{4}{17} & \tfrac{1}{17} }$$
@@ -1158,7 +1161,8 @@ This gives both components of the occupancy distribution and agrees with the rec
 
    Observe that if we take the last three elements of the latter and normalize it, we get the former. 
 
-## Exercises{-}
+## Exercises {-}
+
 :::{#exr-time-reversal}
 #### Time reversal of Markov chains
 
@@ -1175,13 +1179,13 @@ Suppose $\{X_n\}_{n \ge 0}$ is a Markov chain with transition matrix $P$. For a 
 :::
 
 :::{#exr-biased-die}
-Suppose a (6-sided) die is 'fixed' so that two consecutive rolls cannot have the same outcome. In particular, if the outcome of a roll is $i$, then the next roll cannot be $i$; all $5$ other outcomes are equally likely. 
+Suppose a (6-sided) die is "fixed" so that two consecutive rolls cannot have the same outcome. In particular, if the outcome of a roll is $i$, then the next roll cannot be $i$; all $5$ other outcomes are equally likely. 
 
 a. Model the above as a Markov chain.
 b. If the outcome of the first roll is $1$, what is the probability that the outcome of the $n$th roll is also $1$?
 :::
 
-## Further Reading {-}
+## Further reading {-}
 
 1. Gubner, Chapter 12.
 
@@ -1191,7 +1195,7 @@ b. If the outcome of the first roll is $1$, what is the probability that the out
 
 4. [Kemeny, Snell, and Knapp, Denumerable Markov Chains](https://archive.org/details/springer_10.1007-978-1-4684-9455-6), a slightly advanced version of the previous book. 
 
-5. [Doyle and Snell, Random Walks and Electrical Networks](https://doi.org/10.5948/UPO9781614440222) shows a facinating relationship between random walks and circuits!
+5. [Doyle and Snell, Random Walks and Electrical Networks](https://doi.org/10.5948/UPO9781614440222) shows a fascinating relationship between random walks and circuits!
 
 6. [Weber's notes on Markov chains](https://www.statslab.cam.ac.uk//~rrw1/markov/M.pdf)
 

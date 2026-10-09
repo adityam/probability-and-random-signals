@@ -4,7 +4,7 @@ execute:
   echo: false
 ---
 
-Conditional expectation is not only a way of updating a probability model; it is also the optimal estimate of an unknown random variable under mean-squared error. In this lecture, we develop that interpretation, work two non-Gaussian examples (BPSK and Poisson counts), and then specialize the theory to jointly Gaussian random vectors.
+Conditional expectation also gives the optimal estimate of an unknown random variable under mean-squared error. In this lecture, we develop that interpretation, work two non-Gaussian examples (BPSK and Poisson counts), and then specialize the theory to jointly Gaussian random vectors.
 
 ## Conditional expectation as minimum mean square estimator {#MMSE}
 
@@ -19,7 +19,7 @@ Conditional expectation is not only a way of updating a probability model; it is
    :::{.callout-note}
    #### Proof
 
-   Recall that in @exm-streaming-variance, we had shown that
+   Recall that in @exm-streaming-variance, we showed that
    $$
       \EXP[ (X-t)^2 ] = \EXP[ (X - μ)^2] + (t - μ)^2.
    $$
@@ -30,7 +30,7 @@ Conditional expectation is not only a way of updating a probability model; it is
    $$
    since $h(Y)$ is $Y$-measurable.
 
-   By smoothing property of conditional expectation, we have
+   By the smoothing property of conditional expectation, we have
    \begin{equation}\label{eq:MMSE-error}
    \EXP[(X - h(Y))^2] = \EXP[(X - \EXP[X \mid Y])^2] + \EXP[(h(Y) - \EXP[X \mid Y])^2].
    \end{equation}
@@ -64,7 +64,7 @@ Conditional expectation is not only a way of updating a probability model; it is
    Expanding this, we get
    \begin{align*}
    0 &= \EXP[(X - h(Y)) (h(Y) - \EXP[X \mid Y])] \\
-     &= \EXP{ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) } \\
+     &= \EXP[ (X - \EXP[X \mid Y] - (h(Y) - \EXP[X \mid Y])) (h(Y) - \EXP[X \mid Y]) ] \\
      &= \EXP[(X - \EXP[X \mid Y]) (h(Y) - \EXP[X \mid Y])] - \EXP[(h(Y) - \EXP[X \mid Y])^2]
    \end{align*}
    The first term is zero because $h(Y) - \EXP[X \mid Y]$ is a function of $Y$ and, by the orthogonality property in point 3, $X - \EXP[X \mid Y]$ is orthogonal to all functions of $Y$. Therefore,
@@ -92,7 +92,7 @@ Conditional expectation is not only a way of updating a probability model; it is
    \VAR(X \mid Y)
    := \EXP[(X-\EXP[X\mid Y])^2 \mid Y].
    $$
-   the smoothing property gives
+   The smoothing property gives
    $$
    \EXP[(X-\EXP[X\mid Y])^2] = \EXP[\VAR(X\mid Y)].
    $$
@@ -279,9 +279,9 @@ What is the MMSE estimate of $X$ given $Z$?
    \Bigl(\frac{λ}{λ+μ}\Bigr)^{m}
    \Bigl(\frac{μ}{λ+μ}\Bigr)^{n-m}.
    \end{align*}
-   Thus, conditioned on $Z=n$, the random variable $X$ is $\text{Binomial}\bigl(n,λ/(λ+μ)\bigr)$.
+   Thus, conditioned on $Z=n$, the random variable $X$ is $\text{Binom}\bigl(n,λ/(λ+μ)\bigr)$.
 
-2. By @tbl-mean-variance, the mean of a $\text{Binomial}(n,p)$ random variable is $np$. Taking $p=λ/(λ+μ)$ gives
+2. By @tbl-mean-variance, the mean of a $\text{Binom}(n,p)$ random variable is $np$. Taking $p=λ/(λ+μ)$ gives
    $$
    \EXP[X\mid Z=n]
    =n\,\frac{λ}{λ+μ}.
@@ -304,26 +304,26 @@ $$
 \MATRIX{X\\Y}
 \sim
 \mathcal N\left(
-\MATRIX{\mu_X\\\mu_Y},
+\MATRIX{μ_X\\μ_Y},
 \MATRIX{
-\Sigma_{XX} & \Sigma_{XY}\\
-\Sigma_{YX} & \Sigma_{YY}
+Σ_{XX} & Σ_{XY}\\
+Σ_{YX} & Σ_{YY}
 }
 \right),
 $$
-where $\Sigma_{YX}=\Sigma_{XY}^\TRANS$ and $\Sigma_{YY}$ is positive definite.
+where $Σ_{YX}=Σ_{XY}^\TRANS$ and $Σ_{YY}$ is positive definite.
 
 1. Define the affine estimate
    $$
    \widehat X
-   =\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y)
+   =μ_X+Σ_{XY}Σ_{YY}^{-1}(Y-μ_Y)
    $$
    and the corresponding error $E=X-\widehat X$. Its mean and its cross-covariance with $Y$ are
    \begin{align*}
    \EXP[E]&=0,\\
    \COV(E,Y)
-   &=\Sigma_{XY}
-     -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YY}
+   &=Σ_{XY}
+     -Σ_{XY}Σ_{YY}^{-1}Σ_{YY}
      =0.
    \end{align*}
 
@@ -335,16 +335,16 @@ where $\Sigma_{YX}=\Sigma_{XY}^\TRANS$ and $\Sigma_{YY}$ is positive definite.
    $$
    \bbox[5pt,border: 1px solid]{
    \EXP[X\mid Y]
-   =\mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(Y-\mu_Y).
+   =μ_X+Σ_{XY}Σ_{YY}^{-1}(Y-μ_Y).
    }
    $$
 
 3. The covariance of the estimation error is
    \begin{align*}
-   \Sigma_E
-   &=\COV\left(X-\Sigma_{XY}\Sigma_{YY}^{-1}Y\right)\\
-   &=\Sigma_{XX}
-     -\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}.
+   Σ_E
+   &=\COV\left(X-Σ_{XY}Σ_{YY}^{-1}Y\right)\\
+   &=Σ_{XX}
+     -Σ_{XY}Σ_{YY}^{-1}Σ_{YX}.
    \end{align*}
    Because $E$ is Gaussian and independent of $Y$, conditioning on $Y=y$ gives the complete conditional distribution:
    $$
@@ -352,21 +352,21 @@ where $\Sigma_{YX}=\Sigma_{XY}^\TRANS$ and $\Sigma_{YY}$ is positive definite.
    X\mid(Y=y)
    \sim
    \mathcal N\left(
-   \mu_X+\Sigma_{XY}\Sigma_{YY}^{-1}(y-\mu_Y),
-   \Sigma_{XX}-\Sigma_{XY}\Sigma_{YY}^{-1}\Sigma_{YX}
+   μ_X+Σ_{XY}Σ_{YY}^{-1}(y-μ_Y),
+   Σ_{XX}-Σ_{XY}Σ_{YY}^{-1}Σ_{YX}
    \right).
    }
    $$
 
 4. For scalar jointly Gaussian random variables with
    $$
-   \COV(X,Y)=\rho\sigma_X\sigma_Y,
+   \COV(X,Y)=ρσ_Xσ_Y,
    $$
    the formulas reduce to
    \begin{align*}
    \EXP[X\mid Y]
-   &=\mu_X+\rho\frac{\sigma_X}{\sigma_Y}(Y-\mu_Y),\\
-   \VAR(X\mid Y)&=\sigma_X^2(1-\rho^2).
+   &=μ_X+ρ\frac{σ_X}{σ_Y}(Y-μ_Y),\\
+   \VAR(X\mid Y)&=σ_X^2(1-ρ^2).
    \end{align*}
 
 :::{#exm-sensor-network}
@@ -374,14 +374,14 @@ where $\Sigma_{YX}=\Sigma_{XY}^\TRANS$ and $\Sigma_{YY}$ is positive definite.
 
 Let the unknown state be
 $$
-X\sim\mathcal N(\mu_X,\Sigma_X).
+X\sim\mathcal N(μ_X,Σ_X).
 $$
 Sensor $i$ observes
 $$
 Y_i=C_iX+W_i,
 \qquad i=1,\ldots,N,
 $$
-where $W_i\sim\mathcal N(0,R_i)$. Assume that the noises are mutually independent and independent of $X$, and that $\Sigma_X$ and every $R_i$ are positive definite. Find the MMSE estimate of $X$ using all the sensor measurements.
+where $W_i\sim\mathcal N(0,R_i)$. Assume that the noises are mutually independent and independent of $X$, and that $Σ_X$ and every $R_i$ are positive definite. Find the MMSE estimate of $X$ using all the sensor measurements.
 :::
 
 :::{.callout-note collapse="true"}
@@ -403,34 +403,34 @@ R=\COV(W)=\operatorname{diag}(R_1,\ldots,R_N).
 $$
 Consequently,
 $$
-\mu_Y=C\mu_X,
+μ_Y=Cμ_X,
 \qquad
-\Sigma_{XY}=\Sigma_XC^\TRANS,
+Σ_{XY}=Σ_XC^\TRANS,
 \qquad
-\Sigma_{YY}=C\Sigma_XC^\TRANS+R.
+Σ_{YY}=CΣ_XC^\TRANS+R.
 $$
 The MMSE estimate and its error covariance are therefore
 $$
 \widehat X
 =\EXP[X\mid Y]
-=\mu_X+\Sigma_XC^\TRANS
-(C\Sigma_XC^\TRANS+R)^{-1}(Y-C\mu_X)
+=μ_X+Σ_XC^\TRANS
+(CΣ_XC^\TRANS+R)^{-1}(Y-Cμ_X)
 $$
 and
 $$
 P_N
 =\COV(X\mid Y)
-=\Sigma_X-\Sigma_XC^\TRANS
-(C\Sigma_XC^\TRANS+R)^{-1}C\Sigma_X.
+=Σ_X-Σ_XC^\TRANS
+(CΣ_XC^\TRANS+R)^{-1}CΣ_X.
 $$
 
 Equivalently, these expressions can be written in information form as
 \begin{align*}
 P_N^{-1}
-&=\Sigma_X^{-1}+\sum_{i=1}^N C_i^\TRANS R_i^{-1}C_i,\\
+&=Σ_X^{-1}+\sum_{i=1}^N C_i^\TRANS R_i^{-1}C_i,\\
 \widehat X
 &=P_N\left(
-\Sigma_X^{-1}\mu_X
+Σ_X^{-1}μ_X
 +\sum_{i=1}^N C_i^\TRANS R_i^{-1}Y_i
 \right).
 \end{align*}

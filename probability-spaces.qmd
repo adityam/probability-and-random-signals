@@ -4,7 +4,7 @@ title: Probability spaces
 
 ## Background
 
-This is a graduate course on probability and random signals. I am going to  assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:
+This is a graduate course on probability and random signals. I assume that everyone is familiar with the basics of undergraduate probability. For example, you should be able to answer the following questions:
 
 - A fair 6-sided die is rolled twice. What is the probability that the sum of the rolls equals 7?
 - A biased coin with $\PR({\rm heads}) = 3/4$ is tossed 10 times. What is the probability of obtaining 3 consecutive heads?
@@ -14,7 +14,7 @@ You should also be familiar with the following concepts:
 - Random variables, probability distributions, and expectations
 - Conditional distributions and independent random variables
 
-Some of you might have also seen the following concepts
+Some of you might have also seen the following concepts:
 
 - The law of large numbers
 - The central limit theorem
@@ -27,7 +27,7 @@ Probability theory is used to model, analyze, and design various engineering sys
 
 - **Noise.** Noise refers to effects beyond our control. For example, in a digital communication system, when a waveform indicating a binary $0$ is transmitted, background radiation may distort the signal, causing the receiver to incorrectly decode it as $1$. This interference can be modeled as _noise_ in the channel. Similar examples arise in computer networks, photonics, and other areas.
 
-- **Uncertainty.** Uncertainty refers to effects that arise due to lack of information. For example, to bid in an electricity market, a wind farm may need to know how much energy it can generate in the next hour, but this depends on the speed of wind which depends on a lot of factors and is difficult to predict precisely. This lack of knowledge can be modelled as uncertainty and the system modeler may have a quantified belief on that uncertainty based on historical data. Similar examples arise in circuits (where quality of a chip may depend on the vagaries in the manufacturing process). 
+- **Uncertainty.** Uncertainty refers to effects that arise due to lack of information. For example, to bid in an electricity market, a wind farm may need to know how much energy it can generate in the next hour, but this depends on the speed of wind which depends on a lot of factors and is difficult to predict precisely. This lack of knowledge can be modeled as uncertainty and the system modeler may have a quantified belief on that uncertainty based on historical data. Similar examples arise in circuits (where quality of a chip may depend on variations in the manufacturing process). 
 
 - **Randomness.** Sometimes introducing randomness can improve system performance. For example, **power of two choices** algorithm in multi-server load balancing randomly selects two servers and assigns the task to the one with lighter load. This simple strategy effectively reduces the peak load in the servers without needing to query all servers. Similar algorithms are used in bandwidth allocation in ad-hoc networks and randomized routing in networks on chips.
 
@@ -53,7 +53,7 @@ In this course, we will not focus on how such probabilistic models are construct
 As you can see, probability theory is a foundational tool for Electrical Engineering.
 
 
-## Review of Set Theory
+## Review of set theory
 
 1. A **set** is a collection of objects. We say that a set $B$ is a **subset** of set $A$ (written as $B \subseteq A$) if all elements of $B$ are also elements of $A$. We say that $B$ is a **proper subset** (written $B \subsetneq A$) if $B \subseteq A$ and $B \neq A$.
 
@@ -323,7 +323,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
  
    - If we assign probability to an event $A$ then we should be able to assign probability to "$A$ does not occur" i.e., $A^c$. Thus, if $A \in \ALPHABET F$ then $A^c \in \ALPHABET F$. 
  
-   - If we can talk about probability of $A$ and $B$, then we should be able to talk about probability that either $A$ or $B$ occurs and both $A$ and $B$ occur. Thus, if $A, B \in \ALPHABET F$, then $A \cup B \in \ALPHABET F$ and $A \cap B \in \ALPHABET F$. 
+   - If we can talk about probability of $A$ and $B$, then we should be able to talk about probability that either $A$ or $B$ occurs, or both $A$ and $B$ occur. Thus, if $A, B \in \ALPHABET F$, then $A \cup B \in \ALPHABET F$ and $A \cap B \in \ALPHABET F$. 
 
 7.  Thus, the domain of $\PR$ **must be an algebra**! However, when we go beyond finite sample spaces, being an algebra is not sufficient. But we first provide some examples of probability for finite sample spaces.
 
@@ -384,7 +384,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
      A coin is tossed repeatedly until a head turns up. The sample space is $Ω = \{ω_1, ω_2, \dots\}$ where $ω_n$ denotes the outcome that the first $n-1$ tosses are tails followed by a head. 
      :::
  
-     Suppose we are interested in finding the probability of the event that the coin is tossed an even number of times, i.e., $A = \{ω_2, ω_4, \dots\}$. Note that $ω_2, ω_4, \dots \in \ALPHABET F$. However, $A$ is a *countable* set. If we want to assign probability to $A$ in terms of probability of $ω_n$, we require $\ALPHABET F$ to be closed under **countable unions**. This motivates the following definition.
+     Suppose we are interested in finding the probability of the event that the coin is tossed an even number of times, i.e., $A = \{ω_2, ω_4, \dots\}$. Note that $\{ω_2\}, \{ω_4\}, \dots \in \ALPHABET F$. However, $A$ is a *countable* set. If we want to assign probability to $A$ in terms of probability of $ω_n$, we require $\ALPHABET F$ to be closed under **countable unions**. This motivates the following definition.
  
 11. Given a universal set $Ω$, a collection $\ALPHABET F = \{F_1, F_2, \dots\}$ of subsets of $Ω$ is called a **$\boldsymbol{σ}$-algebra** if it satisfies the following properties:
 
@@ -398,14 +398,14 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
 12. 
     :::{.callout-warning appearance="simple" #sigma-algebra}
 
-    The distinction between algebras and $σ$-algebras is technical. The reason that we need to consider $σ$-algebras is to do with the definition of probability on continuous sample spaces. Take $Ω = [0,1]$ and consider a random experiment where "any outcome is equally likely". Intuitively we capture this feature by assuming that for any interval $[a,b]$ with $0 \le a \le b \le 1$, we have
+    The distinction between algebras and $σ$-algebras is technical. The reason that we need to consider $σ$-algebras has to do with the definition of probability on continuous sample spaces. Take $Ω = [0,1]$ and consider a random experiment where "any outcome is equally likely". Intuitively we capture this feature by assuming that for any interval $[a,b]$ with $0 \le a \le b \le 1$, we have
     \begin{equation}\label{eq:uniform}
     \PR([a,b]) = b - a.
     \end{equation}
 
     We have seen that if we want $\PR$ to be a meaningful measure, the domain $\ALPHABET F$ must at least be an algebra. We have also seen that the power-set $2^Ω$ is always an algebra. So, it is tempting to take $\ALPHABET F = 2^{[0,1]}$. However, it turns out that $2^{[0,1]}$ includes some weird sets (technically, non-measurable sets) due to which we cannot define a function $\PR$ on $2^{[0,1]}$ that satisfies \eqref{eq:uniform}. 
 
-    To workaround this technical limitation, we revisit the minimum requirements that we need from the domain of $\PR$. Since we are interested in $\PR([a,b])$, $\ALPHABET F$ must contain intervals (and therefore all finite unions and intersections of intervals). Since we are working with continuous sample spaces, we also want $\PR$ to be continuous, i.e., for any sequence of sets $\{A_n\}_{n \ge 1}$, we want $\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)$. It turns out that the additional requirement of continuity implies that $\ALPHABET F$ must be closed under countable unions as well. Thus, the domain $\ALPHABET F$ must at least be a $σ$-algebra. 
+    To work around this technical limitation, we revisit the minimum requirements that we need from the domain of $\PR$. Since we are interested in $\PR([a,b])$, $\ALPHABET F$ must contain intervals (and therefore all finite unions and intersections of intervals). Since we are working with continuous sample spaces, we also want $\PR$ to be continuous, i.e., for any sequence of sets $\{A_n\}_{n \ge 1}$, we want $\PR(\lim_{n \to ∞} A_n) = \lim_{n \to ∞} \PR(A_n)$. It turns out that the additional requirement of continuity implies that $\ALPHABET F$ must be closed under countable unions as well. Thus, the domain $\ALPHABET F$ must at least be a $σ$-algebra. 
 
     So, we restrict to the simplest choice of the domain $\ALPHABET F$ needed for \eqref{eq:uniform} and continuity to hold. [For technical reasons, we need another property known as **completeness**. A probability space can be completed by adding all subsets of null measurable sets. See Sec. 1.6 of the textbook.]{.text-secondary}
     :::
@@ -414,7 +414,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
     :::{.callout-tip #Borel-algebra}
     ### $σ$-algebra generated by a collection and Borel $σ$-algebra
 
-    Given collection $\ALPHABET S$ of subsets of $Ω$,  we have the following:
+    Given a collection $\ALPHABET S$ of subsets of $Ω$, we have the following:
 
     - The power-set $2^Ω$ contains $\ALPHABET S$. Therefore, there is at least one $σ$-algebra containing $\ALPHABET S$.
     - If $\ALPHABET F_1$ and $\ALPHABET F_2$ are $σ$-algebras containing $\ALPHABET S$, then $\ALPHABET F_1 \cap \ALPHABET F_2$ also contains $\ALPHABET S$.
@@ -430,7 +430,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
 14. **$σ$-algebras as information.** A sub-$σ$-algebra $\mathcal G \subseteq \ALPHABET F$ can be interpreted as the information available to an observer. If $A \in \mathcal G$, then this information is sufficient to determine whether or not the event $A$ occurred. Events outside $\mathcal G$ cannot be distinguished using the available information.
 
     - The smallest $σ$-algebra $\{\emptyset, Ω\}$ represents no information: it distinguishes only the impossible event from the certain event.
-    - The $σ$-algebra $\ALPHABET F$ represents all the information modelled by the probability space.
+    - The $σ$-algebra $\ALPHABET F$ represents all the information modeled by the probability space.
     - If $\mathcal G_1 \subseteq \mathcal G_2$, then $\mathcal G_2$ contains at least as much information as $\mathcal G_1$.
 
     As information is collected over time, it is natural to consider an increasing sequence
@@ -471,7 +471,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
     $$
     \PR(A \cup B) = \PR(A) + \PR(B) - \PR(A \cap B).
     $$
-    d. **Continuity.** Let $A_1, A_2, \dots$ be (weakly) increasing sequence of events, i.e., $A_1 \subseteq A_2 \subseteq A_3 \subseteq \cdots$. Define
+    d. **Continuity.** Let $A_1, A_2, \dots$ be a (weakly) increasing sequence of events, i.e., $A_1 \subseteq A_2 \subseteq A_3 \subseteq \cdots$. Define
     $$
       A = \lim_{n \to ∞} A_n = \bigcup_{n=1}^∞ A_n.
     $$
@@ -480,7 +480,7 @@ Thus, $f^{-1}([3,7]) = [1,3]$.
       \PR(A) = \lim_{n \to ∞} \PR(A_n).
     $$
 
-        Similarly, let $B_1, B_2, \dots$ be (weakly) decreasing sequence of events, i.e., $B_1 \supseteq B_2 \supseteq B_3 \supseteq \cdots$. Define
+        Similarly, let $B_1, B_2, \dots$ be a (weakly) decreasing sequence of events, i.e., $B_1 \supseteq B_2 \supseteq B_3 \supseteq \cdots$. Define
         $$
           B = \lim_{n \to ∞} B_n = \bigcap_{n=1}^∞ B_n.
         $$
@@ -538,9 +538,9 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
 - $\PR(A) = \PR(A \cap B) + \PR(A \cap B^c)$.
 :::
 
-## Conditional Probability
+## Conditional probability
 
-1. Conditional probabilities quantify the uncertainty of an event when it is known that another event has occurred 
+1. Conditional probabilities quantify the uncertainty of an event when it is known that another event has occurred.
 
    :::{#def-conditional-probability}
    Let $(Ω,\ALPHABET F, \PR)$ be a probability space and $A, B \in \ALPHABET F$ such that $\PR(B) > 0$. 
@@ -731,7 +731,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    \PR(B|A) = \dfrac{\PR(A|B)\PR(B)}{\PR(A)}.
    $$
  
-   In general, if $\{B_1, B_2, \dots, B_m\}$ is a partition of $Ω$ such that $\PR(B_i) > 0$ for all $i$. Then,
+   In general, let $\{B_1, B_2, \dots, B_m\}$ be a partition of $Ω$ such that $\PR(B_i) > 0$ for all $i$. Then,
    $$
    \PR(B_i|A) = 
    \dfrac{ \PR(A|B_i) \PR(B_i) }
@@ -811,7 +811,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
  
 3. 
    :::{.callout-warning appearance="simple"}
-   It is common for students to make the mistake and think that independence means $A \cap B = \emptyset$. This is not true!
+   It is common for students to make the mistake of thinking that independence means $A \cap B = \emptyset$. This is not true!
    :::
 
 4. 
@@ -824,7 +824,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    
    2. For any event $A$, let $σ(A)$ denote the smallest $σ$-algebra containing $A$, i.e., $σ(A) = \{\emptyset, A, A^c, Ω\}$. 
    
-   3. @exr-independence-sigma-algebra implies that independence of $A$ and $B$ implies the independence of $σ(A)$ and $σ(B)$. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest $σ$-algebra containing those events.
+   3. @exr-independence-sigma-algebra shows that independence of $A$ and $B$ implies the independence of $σ(A)$ and $σ(B)$. The reverse implication is trivially true. Thus, independence of events is equivalent to the independence of the smallest $σ$-algebra containing those events.
    :::
 
 5. 
@@ -838,7 +838,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    :::
  
    :::{#exr-bits}
-   Three bits are transmitted over a noisy channel. For each bit, the probability of correct reception is $λ$. The error events for the three transmissions are mutually independent. Find the probability that two bits are received correctly.
+   Three bits are transmitted over a noisy channel. For each bit, the probability of correct reception is $λ$. The error events for the three transmissions are mutually independent. Find the probability that exactly two bits are received correctly.
    :::
  
    :::{.callout-note collapse="true"}
@@ -873,7 +873,7 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
    A family of events $\{A_1, A_2, \dots, A_n\}$ is **pairwise independent** if for every $i,j \in \{1, \dots, n\}$, $i \neq j$, we have
    $$ \PR(A_i \cap A_j) = \PR(A_i) \PR(A_j). $$
  
-   Pairwise independence is weaker than Independence. For instance, three events $A$, $B$, and $C$ are pairwise independent if
+   Pairwise independence is weaker than independence. For instance, three events $A$, $B$, and $C$ are pairwise independent if
    $$
    \PR(A \cap B) = \PR(A) \PR(B),
    \quad
@@ -910,25 +910,25 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
 
 1. So far, we have restricted attention to the outcome of one experiment. It is also possible to construct a probability model that combines the outcomes of two _independent_ experiments. For example, suppose we toss a coin and also roll a die. Let $(Ω_1, \ALPHABET F_1, \PR_1)$ and $(Ω_2, \ALPHABET F_2, \PR_2)$ be the probability spaces associated with the two experiments. What is the probability space $(Ω, \ALPHABET F, \PR)$ of the joint experiment?
 
-2. The sample space of the joint experiment is $Ω = Ω_1 \times Ω_2$. For any $A_1 \in \ALPHABET F_1$ and $A_2 \in \ALPHABET F_2$, the subset $A_1 \times A_2$ of $Ω$ is called a **measurable rectangle**. The collection of measurable rectangles is generally not a $σ$-algebra: for example, a union of two rectangles need not itself be a rectangle. We therefore define the **product $σ$-algebra** by
+2. The sample space of the joint experiment is $Ω = Ω_1 × Ω_2$. For any $A_1 \in \ALPHABET F_1$ and $A_2 \in \ALPHABET F_2$, the subset $A_1 × A_2$ of $Ω$ is called a **measurable rectangle**. The collection of measurable rectangles is generally not a $σ$-algebra: for example, a union of two rectangles need not itself be a rectangle. We therefore define the **product $σ$-algebra** by
    $$
    \ALPHABET F_1 \otimes \ALPHABET F_2
-   = σ\left(\{A_1 \times A_2 : A_1 \in \ALPHABET F_1,\ A_2 \in \ALPHABET F_2\}\right).
+   = σ\left(\{A_1 × A_2 : A_1 \in \ALPHABET F_1,\ A_2 \in \ALPHABET F_2\}\right).
    $$
 
-3. The **product probability measure** $\PR_1 \otimes \PR_2$ is the probability measure on $(Ω_1 \times Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2)$ characterized by
+3. The **product probability measure** $\PR_1 \otimes \PR_2$ is the probability measure on $(Ω_1 × Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2)$ characterized by
    $$
-   (\PR_1 \otimes \PR_2)(A_1 \times A_2)
+   (\PR_1 \otimes \PR_2)(A_1 × A_2)
    = \PR_1(A_1)\PR_2(A_2),
    \qquad A_1 \in \ALPHABET F_1,\ A_2 \in \ALPHABET F_2.
    $$
    It can be shown that this prescription extends uniquely from measurable rectangles to the entire product $σ$-algebra. The resulting probability space is called the **product** of $(Ω_1, \ALPHABET F_1, \PR_1)$ and $(Ω_2, \ALPHABET F_2, \PR_2)$ and is written as
    $$
    (Ω, \ALPHABET F, \PR)
-   = (Ω_1 \times Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2, \PR_1 \otimes \PR_2).
+   = (Ω_1 × Ω_2, \ALPHABET F_1 \otimes \ALPHABET F_2, \PR_1 \otimes \PR_2).
    $$
 
-   In the familiar finite case where $\ALPHABET F_i = 2^{Ω_i}$, the product $σ$-algebra is $2^{Ω_1 \times Ω_2}$. Thus, the probability of an arbitrary event is obtained by summing the probabilities of the individual outcomes that it contains.
+   In the familiar finite case where $\ALPHABET F_i = 2^{Ω_i}$, the product $σ$-algebra is $2^{Ω_1 × Ω_2}$. Thus, the probability of an arbitrary event is obtained by summing the probabilities of the individual outcomes that it contains.
 
 4. Given $A_1 \in \ALPHABET F_1$ and $A_2 \in \ALPHABET F_2$, define the coordinate events
    $$
@@ -955,4 +955,4 @@ Consider a probability space $(Ω, \ALPHABET F, \PR)$ and events $A, B \in \ALPH
 
 ## Notes {-}
 
-The material for this section is fairly standard and adapted from various sources. Both Grimmett and Stirzaker and Gubner have an excellent coverage of this material. The idea of categorizing random phenomena as noise, uncertainty, or randomness is borrowed from [Maxim Raginsky's course notes](https://maxim.ece.illinois.edu/teaching/spring16/notes/lec01.pdf). See the book [Against the Gods](https://a.co/d/gVfRocK), which provides a fascinating historical account of the development of probability theory and, why a conceptual leap was needed to recognize that uncertainty could be modeled and measured. 
+The material for this chapter is fairly standard and adapted from various sources. Both Grimmett and Stirzaker and Gubner have an excellent coverage of this material. The idea of categorizing random phenomena as noise, uncertainty, or randomness is borrowed from [Maxim Raginsky's course notes](https://maxim.ece.illinois.edu/teaching/spring16/notes/lec01.pdf). See the book [Against the Gods](https://a.co/d/gVfRocK), which provides a fascinating historical account of the development of probability theory and why a conceptual leap was needed to recognize that uncertainty could be modeled and measured. 

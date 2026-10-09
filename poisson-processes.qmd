@@ -12,7 +12,7 @@ The Bernoulli process describes arrivals in discrete time. We now develop its co
    $$
    N_n=\sum_{k=1}^nB_k,
    $$
-   so $N_n\sim\operatorname{Binomial}(n,p)$.
+   so $N_n\sim\operatorname{Binom}(n,p)$.
 
 2. There are two equivalent ways to describe the arrivals. Let
 
@@ -35,7 +35,7 @@ The Bernoulli process describes arrivals in discrete time. We now develop its co
 
 ## Exponential interarrival times
 
-1. The geometric distribution is the only memoryless distribution on the nonnegative integers. Its continuous-time analogue is the exponential distribution. If $T\sim\operatorname{Exponential}(λ)$, then
+1. The geometric distribution is the only memoryless distribution on the nonnegative integers. Its continuous-time analogue is the exponential distribution. If $T\sim\operatorname{Exp}(λ)$, then
    $$
    \PR(T>t)=e^{-λt},
    \qquad
@@ -88,7 +88,7 @@ The Bernoulli process describes arrivals in discrete time. We now develop its co
 
 ## Construction of the Poisson process
 
-1. Let $T_1,T_2,\ldots$ be i.i.d. $\operatorname{Exponential}(λ)$ random variables and define
+1. Let $T_1,T_2,\ldots$ be i.i.d. $\operatorname{Exp}(λ)$ random variables and define
    $$
    S_0=0,
    \qquad
@@ -192,7 +192,7 @@ Plot.plot({
 
 ## Increments and covariance
 
-1. The memoryless property implies that, at any deterministic time $s$, the waiting time until the next arrival is again $\operatorname{Exponential}(λ)$ and is independent of the arrivals before time $s$. Consequently,
+1. The memoryless property implies that, at any deterministic time $s$, the waiting time until the next arrival is again $\operatorname{Exp}(λ)$ and is independent of the arrivals before time $s$. Consequently,
    \begin{equation}\label{eq:poisson-increment-distribution}
    N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
    \qquad 0\le s<t.
@@ -221,7 +221,7 @@ Plot.plot({
    $$
    \COV(N(s),N(t))=λ\min(s,t).
    $$
-   This is the continuous-time analogue of the covariance of the Bernoulli counting process and the discrete-time random walk.
+   This parallels the covariance $p(1-p)\min(m,n)$ of the Bernoulli counting process.
 
 ## Superposition of Poisson processes
 
@@ -236,7 +236,7 @@ Plot.plot({
    N(t)-N(s)
    =[N_1(t)-N_1(s)]+[N_2(t)-N_2(s)]
    $$
-   is the sum of independent Poisson random variables and therefore has a $\operatorname{Poisson}((λ_1+λ_2)(t-s))$ distribution. Increments over disjoint intervals remain independent, so this is a process-level statement, not just a statement about $N(t)$ at one time.
+   is the sum of independent Poisson random variables and therefore has a $\operatorname{Poisson}((λ_1+λ_2)(t-s))$ distribution. Increments over disjoint intervals remain independent, so this is a statement about the whole process, not about $N(t)$ at a single time.
 
 3. More generally, the superposition of independent Poisson processes with rates $λ_1,\ldots,λ_m$ is a Poisson process with rate
    $$
@@ -277,7 +277,7 @@ Plot.plot({
    $$
    0<S_1<\cdots<S_n<t
    $$
-   have the same joint distribution as the order statistics of $n$ independent $\operatorname{Uniform}(0,t)$ random variables. Their conditional joint density is
+   have the same joint distribution as the order statistics of $n$ independent $\operatorname{Unif}(0,t)$ random variables. Their conditional joint density is
    $$
    f_{S_1,\ldots,S_n\mid N(t)}(s_1,\ldots,s_n\mid n)
    =\frac{n!}{t^n},
@@ -288,19 +288,17 @@ Plot.plot({
 
 4. We have therefore encountered three equivalent descriptions of a Poisson process:
 
-   - The interarrival times are i.i.d. $\operatorname{Exponential}(λ)$ random variables.
+   - The interarrival times are i.i.d. $\operatorname{Exp}(λ)$ random variables.
    - The process has stationary independent increments, with
      $$
      N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
      \qquad 0\le s<t.
      $$
-   - On any interval $[0,t]$, first draw $N(t)\sim\operatorname{Poisson}(λt)$; conditional on $N(t)=n$, the $n$ arrival times are the order statistics of $n$ independent $\operatorname{Uniform}(0,t)$ random variables.
-
-   The first description is based on waiting times, the second on counts over intervals, and the third provides a finite-interval construction.
+   - On any interval $[0,t]$, first draw $N(t)\sim\operatorname{Poisson}(λt)$; conditional on $N(t)=n$, the $n$ arrival times are the order statistics of $n$ independent $\operatorname{Unif}(0,t)$ random variables.
 
 ## Competing Poisson processes
 
-1. Let $T_1\sim\operatorname{Exponential}(λ_1)$ and $T_2\sim\operatorname{Exponential}(λ_2)$ be independent waiting times. Then
+1. Let $T_1\sim\operatorname{Exp}(λ_1)$ and $T_2\sim\operatorname{Exp}(λ_2)$ be independent waiting times. Then
    $$
    \PR(\min(T_1,T_2)>t)
    =e^{-λ_1t}e^{-λ_2t}
@@ -308,7 +306,7 @@ Plot.plot({
    $$
    so
    $$
-   \min(T_1,T_2)\sim\operatorname{Exponential}(λ_1+λ_2).
+   \min(T_1,T_2)\sim\operatorname{Exp}(λ_1+λ_2).
    $$
 
 2. The probability that process 1 produces the first arrival is
@@ -345,14 +343,12 @@ Plot.plot({
 
 ## Connection with continuous-time Markov chains
 
-1. A Poisson process is a continuous-time Markov process on $\integers_{\ge0}$. From state $n$, it waits an $\operatorname{Exponential}(λ)$ amount of time and then jumps to state $n+1$.
+1. A Poisson process is a continuous-time Markov process on $\integers_{\ge0}$. From state $n$, it waits an $\operatorname{Exp}(λ)$ amount of time and then jumps to state $n+1$.
 
 2. A continuous-time Markov chain generalizes this construction in two ways:
 
    - the exponential holding-time rate may depend on the current state;
    - when the clock rings, the process may jump to different states with different probabilities.
-
-   Thus, the Poisson process provides the basic random-clock mechanism underlying continuous-time Markov chains.
 
 ## Exercises {-}
 
@@ -372,7 +368,7 @@ Plot.plot({
    \EXP[S_{100}]=\frac{100}{10}=10\text{ minutes}.
    $$
 
-   (b) The waiting time $T_{101}$ is $\operatorname{Exponential}(10)$, so
+   (b) The waiting time $T_{101}$ is $\operatorname{Exp}(10)$, so
    $$
    \PR(T_{101}>1)=e^{-10}.
    $$

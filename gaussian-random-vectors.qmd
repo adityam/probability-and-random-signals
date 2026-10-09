@@ -2,7 +2,7 @@
 title: Gaussian random vectors
 ---
 
-This chapter introduces covariance as a description of second-order dependence and then develops multivariate Gaussian random vectors. Together, these ideas provide the basic language for linear Gaussian models.
+In this lecture, we introduce covariance as a description of second-order dependence and then develop multivariate Gaussian random vectors.
 
 ## Covariance of random vectors
 
@@ -26,7 +26,7 @@ Let $X$ and $Y$ be real-valued random variables defined on the same probability 
   $$
   \PR(Y = aX+b)=1
   $$
-  for some $a \neq 0$ and $b \in \reals$. [The proof follows from the Cauchy–Schwarz inequality, which we will study later.]
+  for some $a \neq 0$ and $b \in \reals$. [The proof follows from the Cauchy-Schwarz inequality, which we will study later.]
 
 - $X$ and $Y$ are said to be **uncorrelated** if
   $$\COV(X,Y)=0,$$
@@ -92,7 +92,7 @@ The idea of covariance generalizes to random vectors. First we recall the defini
 
 - For a random matrix $X = \MATRIX{ X_{1,1} & \cdots & X_{1,n} \\ X_{2,1} & \cdots & X_{2,n} \\
   \vdots & \vdots & \vdots \\
-  X_{m,1} & \cdots & X_{m,n} } \in \reals^{m \times n}$, we have
+  X_{m,1} & \cdots & X_{m,n} } \in \reals^{m × n}$, we have
   $$ \EXP[X] = \MATRIX{ \EXP[X_{1,1}] & \cdots & \EXP[X_{1,n}] \\ \EXP[X_{2,1}] & \cdots & \EXP[X_{2,n}] \\
   \vdots & \vdots & \vdots \\
   \EXP[X_{m,1}] & \cdots & \EXP[X_{m,n}] }.
@@ -125,16 +125,16 @@ With the above notation, we have the following.
    \end{align*}
    where $w = (X - μ_X)^\TRANS v$ is a scalar random variable.
 
-6. The **cross covariance matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is an $n × m$ matrix given by
+6. The **cross-covariance matrix** of random vectors $X \in \reals^n$ and $Y \in \reals^m$ is an $n × m$ matrix given by
   $$
     Σ_{XY} = \COV(X,Y) = \EXP[ (X - μ_X) (Y - μ_Y)^\TRANS ].
   $$
 
-7. Two random vectors $X$ and $Y$ are called **uncorrelated** if $Σ_{XY} = 0_{n \times m}$. Equivalently,
+7. Two random vectors $X$ and $Y$ are called **uncorrelated** if $Σ_{XY} = 0_{n × m}$. Equivalently,
   $$ \EXP[XY^\TRANS] = \EXP[X] \EXP[Y]^\TRANS. $$
 
 8. Two random vectors $X$ and $Y$ are called **orthogonal** if
-  $$\EXP[X Y^\TRANS] = 0_{n \times m}. $$
+  $$\EXP[X Y^\TRANS] = 0_{n × m}. $$
 
 9. Let $Z$ be the random vector obtained by stacking $X$ and $Y$:
    $$
@@ -161,7 +161,7 @@ With the above notation, we have the following.
   $$
   Y=AX+b \in \reals^m,
   $$
-  where $A \in \reals^{m \times n}$ and $b \in \reals^m$ are deterministic, then
+  where $A \in \reals^{m × n}$ and $b \in \reals^m$ are deterministic, then
   $$
   μ_Y=Aμ_X+b
   \quad\text{and}\quad
@@ -174,7 +174,7 @@ With the above notation, we have the following.
   \quad\text{and}\quad
   V=CY+d \in \reals^q,
   $$
-  where $A \in \reals^{m \times n}$, $C \in \reals^{q \times p}$, $b \in \reals^m$, and $d \in \reals^q$ are deterministic, then
+  where $A \in \reals^{m × n}$, $C \in \reals^{q × p}$, $b \in \reals^m$, and $d \in \reals^q$ are deterministic, then
   $$
   Σ_{UV}=\COV(U,V)=AΣ_{XY}C^\TRANS.
   $$
@@ -249,7 +249,7 @@ Thus, $X+Y$ is not a continuous random variable. It is also not constant, so it 
 
 ### Construction, density, and singularity
 
-Let $Z \sim \mathcal{N}(0,I_r)$, let $L \in \reals^{n \times r}$ be deterministic, and define
+Let $Z \sim \mathcal{N}(0,I_r)$, let $L \in \reals^{n × r}$ be deterministic, and define
 $$
 X=μ+LZ.
 $$
@@ -275,7 +275,7 @@ Conversely, if $X \sim \mathcal{N}(μ,Σ)$ and $Σ$ has rank $r$, then $Σ$ can 
 
 ### Properties of Gaussian vectors
 
-1. **Affine transformations.** If $X \sim \mathcal{N}(μ_X,Σ_X)$, $A \in \reals^{m \times n}$, and $b \in \reals^m$, then
+1. **Affine transformations.** If $X \sim \mathcal{N}(μ_X,Σ_X)$, $A \in \reals^{m × n}$, and $b \in \reals^m$, then
    $$
    AX+b \sim \mathcal{N}(Aμ_X+b,AΣ_XA^\TRANS).
    $$
@@ -603,7 +603,7 @@ $$
 \qquad
 \VAR(Y)=a^2+σ^2.
 $$
-Note that $Y$ Gaussian. In particular, for $a \neq 0$,
+Note that $Y$ is not Gaussian. In particular, for $a \neq 0$,
 $$
 \EXP[Y^4]
 =a^4+6a^2σ^2+3σ^4
@@ -612,7 +612,7 @@ $$
 $$
 where the expression on the right is the fourth moment of a zero-mean Gaussian random variable with variance $a^2+σ^2$.
 
-The shape of the mixture is determined by the normalized separation $a/σ$. The variation of the shape of the distribution as a function of $a/σ$ is shown in the figure below. At small separation the mixture appears nearly Gaussian and unimodal; at large separation it is bimodal and the two components are clearly visible.
+The figure below shows how the mixture changes with $a/σ$. At small separation the mixture appears nearly Gaussian and unimodal; at large separation it is bimodal and the two components are clearly visible.
 
 ```{ojs}
 //| echo: false

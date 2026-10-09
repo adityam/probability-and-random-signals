@@ -21,7 +21,7 @@ execute:
 ## Examples
 
 :::{#exm-bernoulli-process}
-### Bernoulli process and Bernoulli counting process
+#### Bernoulli process and Bernoulli counting process
 
 Let $\{B_n\}_{n\ge1}$ be an i.i.d. sequence with
 $$
@@ -85,17 +85,17 @@ Plot.plot({
 ```
 :::
 
-Some properties of these processes are as follows:
+These processes have the following properties:
 
 - At every time $n$, $B_n\sim\operatorname{Bernoulli}(p)$, while
   $$
-  N_n\sim\operatorname{Binomial}(n,p).
+  N_n\sim\operatorname{Binom}(n,p).
   $$
 - The random variables $B_1,B_2,\ldots$ are independent, but $N_1,N_2,\ldots$ are not. In fact, $N_{n+1}=N_n+B_{n+1}$.
 - For every $n\ge0$ and $h\ge1$,
   $$
   N_{n+h}-N_n=B_{n+1}+\cdots+B_{n+h}
-  \sim\operatorname{Binomial}(h,p).
+  \sim\operatorname{Binom}(h,p).
   $$
   Thus, the distribution of an increment depends on its length $h$ but not on its starting time $n$. Moreover, increments over disjoint time intervals are independent.
 
@@ -107,7 +107,7 @@ $$
 are independent. Thus, the Bernoulli counting process has stationary independent increments.
 
 :::{#exm-signal-plus-noise}
-### Signal plus noise
+#### Signal plus noise
 
 Consider the process
 $$
@@ -116,7 +116,7 @@ $$
 where $x_n=\sin(2πn/25)$ is a deterministic discrete-time signal and $\{W_n\}_{n\ge0}$ is an i.i.d. Gaussian sequence with $W_n\sim\mathcal N(0,σ^2)$ and $σ=0.2$. A sample path of $\{Y_n\}_{n\ge0}$ is shown below.
 
 ```{ojs}
-// Standard Gaussian variate using the Box--Muller transform.
+// Standard Gaussian variate using the Box-Muller transform.
 function gaussianRandom(mean=0, stdev=1) {
     const u = 1 - Math.random()
     const v = Math.random()
@@ -228,7 +228,7 @@ A sample path looks like a noisy signal, while the random variable $Y_n$ describ
 
 4. When two processes $\{X_n\}_{n \ge 0}$ and $\{Y_n\}_{n \ge 0}$ are defined on a common probability space and every finite collection drawn from either process is jointly Gaussian, we say that the processes are **jointly Gaussian**. Their second-order structure is then described by the auto-covariances $R^X_{n,m}$, $R^Y_{n,m}$ and the **cross-covariance**
    $$ R^{XY}_{n,m} = \COV(X_n, Y_m), $$
-   which satisfies $R^{XY}_{n,m} = R^{YX}_{m,n}$. 
+   which satisfies $R^{XY}_{n,m} = R^{YX}_{m,n}$.
 
 5. A zero-mean Gaussian process $\{W_n\}_{n\ge0}$ is called **white Gaussian noise** with variance $σ_W^2$ if
    $$
@@ -241,7 +241,7 @@ A sample path looks like a noisy signal, while the random variable $Y_n$ describ
    $$
    We call the process **standard white Gaussian noise** when $σ_W^2 = 1$.
 
-:::{#exm-cosine-gaussian-phase}
+:::{#exm-cosine-gaussian-amplitude}
 #### Cosine with Gaussian amplitude
 
 Let
@@ -301,7 +301,7 @@ Thus every finite collection is Gaussian (as a linear image of $(A,B)$), so $\{X
    $$
    have the same distribution.
 
-2. The Bernoulli process $\{B_n\}_{n\ge1}$ is strictly stationary because it is i.i.d. The Bernoulli counting process $\{N_n\}_{n\ge0}$ is not stationary because $N_n\sim\operatorname{Binomial}(n,p)$ depends on $n$. It does, however, have stationary independent increments.
+2. The Bernoulli process $\{B_n\}_{n\ge1}$ is strictly stationary because it is i.i.d. The Bernoulli counting process $\{N_n\}_{n\ge0}$ is not stationary because $N_n\sim\operatorname{Binom}(n,p)$ depends on $n$. It does, however, have stationary independent increments.
 
 3. The signal-plus-noise process in @exm-signal-plus-noise is not stationary because
    $$
@@ -315,7 +315,7 @@ Thus every finite collection is Gaussian (as a linear image of $(A,B)$), so $\{X
    $$
    R^X_k=\COV(X_{n+k},X_n),
    $$
-   stationarity means that $R^X_k$ does not depend on $n$. The converse holds because the mean and covariance determine every finite-dimensional distribution of a Gaussian process. In particular, @exm-cosine-gaussian-phase is strict-sense stationary.
+   stationarity means that $R^X_k$ does not depend on $n$. The converse holds because the mean and covariance determine every finite-dimensional distribution of a Gaussian process. In particular, @exm-cosine-gaussian-amplitude is strict-sense stationary.
 
 6. Stationarity is defined in terms of the distribution of the process, which is an ensemble property. In applications, however, we often observe only one sample path. Roughly speaking, a stationary process is **ergodic** if time averages along one sufficiently long sample path converge to the corresponding ensemble averages. For example, for zero-mean jointly stationary ergodic processes $\{X_n\}$ and $\{Y_n\}$, the cross-covariance can be estimated as
    $$
@@ -325,10 +325,10 @@ Thus every finite collection is Gaussian (as a linear image of $(A,B)$), so $\{X
    $$
    for large $N$. We will not develop the theory of ergodic processes in this course.
 
-7. Important classes of stochastic processes use different structures to simplify the description of their finite-dimensional distributions:
+7. The finite-dimensional distributions of a process are easier to specify when the process has additional structure:
 
-   - Processes with independent increments describe temporal evolution through the distributions of their increments.
-   - Markov chains describe dependence through an initial distribution and one-step conditional distributions, with the current state summarizing the relevant past.
-   - Gaussian processes are completely characterized by their mean and auto-covariance functions.
+   - For a process with independent increments, the distributions of the increments suffice.
+   - For a Markov chain, the initial distribution and the one-step conditional distributions suffice, because the current state summarizes the relevant past.
+   - For a Gaussian process, the mean and auto-covariance functions suffice.
 
-   State-space Gauss--Markov models combine the Markov and Gaussian viewpoints for stochastic systems with inputs, outputs, and an internal state.
+   State-space Gauss-Markov models combine the Markov and Gaussian structures in systems with inputs, outputs, and an internal state.
