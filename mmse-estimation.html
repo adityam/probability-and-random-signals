@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-10-09">
+<meta name="dcterms.date" content="2026-10-20">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>6&nbsp; MMSE estimation – Probability and Random Signals II</title>
@@ -87,9 +87,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-25f225e738ffd9a3c2659db7ae28c42c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-e84e36c23f27c39e13fe20477e1bd18d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-7573e997ab55601c3f10f363af9aae4b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-8b091075da1fa615e7fb5f4ea91ca1df.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-7573e997ab55601c3f10f363af9aae4b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -576,7 +576,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 9, 2026</p>
+      <p class="date">October 20, 2026</p>
     </div>
   </div>
   
@@ -939,16 +939,26 @@ P_N
 =Σ_X-Σ_XC^\TRANS
 (CΣ_XC^\TRANS+R)^{-1}CΣ_X.
 \]</span></p>
-<p>Equivalently, these expressions can be written in information form as <span class="math display">\[\begin{align*}
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Remark: information form
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The expressions in the solution can be written in terms of the inverse covariances <span class="math inline">\(Σ_X^{-1}\)</span> and <span class="math inline">\(P_N^{-1}\)</span>, which are called the <strong>information matrices</strong> of the prior and the posterior. Using the <a href="https://en.wikipedia.org/wiki/Woodbury_matrix_identity">:matrix inversion lemma</a>, <span class="math display">\[\begin{align*}
 P_N^{-1}
 &amp;=Σ_X^{-1}+\sum_{i=1}^N C_i^\TRANS R_i^{-1}C_i,\\
-\widehat X
-&amp;=P_N\left(
-Σ_X^{-1}μ_X
-+\sum_{i=1}^N C_i^\TRANS R_i^{-1}Y_i
-\right).
-\end{align*}\]</span> Each additional sensor contributes the positive-semidefinite term <span class="math inline">\(C_i^\TRANS R_i^{-1}C_i\)</span> to the information matrix. Thus, adding a sensor cannot increase the conditional covariance: <span class="math inline">\(P_N\preceq P_{N-1}\)</span>.</p>
-</div>
+P_N^{-1}\widehat X
+&amp;=Σ_X^{-1}μ_X+\sum_{i=1}^N C_i^\TRANS R_i^{-1}Y_i.
+\end{align*}\]</span> Thus, each sensor adds its own term <span class="math inline">\(C_i^\TRANS R_i^{-1}C_i\)</span> to the first equation and <span class="math inline">\(C_i^\TRANS R_i^{-1}Y_i\)</span> to the second. Since <span class="math inline">\(C_i^\TRANS R_i^{-1}C_i\)</span> is positive semidefinite, adding a sensor cannot increase the conditional covariance: <span class="math inline">\(P_N\preceq P_{N-1}\)</span>.</p>
+<p>This form is convenient when there are many sensors, or when sensors are added sequentially, because it avoids inverting the large matrix <span class="math inline">\(CΣ_XC^\TRANS+R\)</span>.</p>
 </div>
 </div>
 
