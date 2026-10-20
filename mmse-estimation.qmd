@@ -423,16 +423,19 @@ P_N
 =Σ_X-Σ_XC^\TRANS
 (CΣ_XC^\TRANS+R)^{-1}CΣ_X.
 $$
+:::
 
-Equivalently, these expressions can be written in information form as
+:::{.callout-tip}
+### Remark: information form
+
+The expressions in the solution can be written in terms of the inverse covariances $Σ_X^{-1}$ and $P_N^{-1}$, which are called the **information matrices** of the prior and the posterior. Using the [:matrix inversion lemma](https://en.wikipedia.org/wiki/Woodbury_matrix_identity),
 \begin{align*}
 P_N^{-1}
 &=Σ_X^{-1}+\sum_{i=1}^N C_i^\TRANS R_i^{-1}C_i,\\
-\widehat X
-&=P_N\left(
-Σ_X^{-1}μ_X
-+\sum_{i=1}^N C_i^\TRANS R_i^{-1}Y_i
-\right).
+P_N^{-1}\widehat X
+&=Σ_X^{-1}μ_X+\sum_{i=1}^N C_i^\TRANS R_i^{-1}Y_i.
 \end{align*}
-Each additional sensor contributes the positive-semidefinite term $C_i^\TRANS R_i^{-1}C_i$ to the information matrix. Thus, adding a sensor cannot increase the conditional covariance: $P_N\preceq P_{N-1}$.
+Thus, each sensor adds its own term $C_i^\TRANS R_i^{-1}C_i$ to the first equation and $C_i^\TRANS R_i^{-1}Y_i$ to the second. Since $C_i^\TRANS R_i^{-1}C_i$ is positive semidefinite, adding a sensor cannot increase the conditional covariance: $P_N\preceq P_{N-1}$.
+
+This form is convenient when there are many sensors, or when sensors are added sequentially, because it avoids inverting the large matrix $CΣ_XC^\TRANS+R$.
 :::
