@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-10-20">
+<meta name="dcterms.date" content="2026-10-30">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>9&nbsp; Convergence of random variables – Probability and Random Signals II</title>
@@ -82,14 +82,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0ae969d3293726db143f6e9eb89af930.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-7573e997ab55601c3f10f363af9aae4b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-8b091075da1fa615e7fb5f4ea91ca1df.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-7573e997ab55601c3f10f363af9aae4b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8d5f328cb25b463d966979eb214745b1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-e0e6a5d9dbc6bf4d762b3c4e070ca4e1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-8d5f328cb25b463d966979eb214745b1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -581,7 +581,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 20, 2026</p>
+      <p class="date">October 30, 2026</p>
     </div>
   </div>
   
@@ -604,21 +604,21 @@ window.Quarto = {
 <li><p>Sure convergence can be too strong, as is illustrated by the following example.</p></li>
 </ol>
 <div id="exm-convergence-1" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.1</strong></span> Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr{B}(0,1)\)</span>, and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math inline">\(X_n(ω) = \IND_{A_n}(ω)\)</span> where <span class="math inline">\(A_n = [0, \frac 1n]\)</span>, i.e., <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 9.1</strong></span> Consider a probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> where <span class="math inline">\(Ω = [0,1]\)</span>, <span class="math inline">\(\ALPHABET F = \mathscr{B}([0,1])\)</span>, and <span class="math inline">\(\PR\)</span> is the uniform distribution on <span class="math inline">\(Ω\)</span>. Define <span class="math display">\[
 X_n(ω) = \begin{cases}
-1, &amp; ω \in [0, \frac{1}{n}] \\
-0, &amp; ω \in (\frac{1}{n}, 1]
+1, &amp; n \text{ is odd and } ω \in [0, \min\{5/n,1\}], \\
+0, &amp; \text{otherwise}.
 \end{cases}
 \]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="33" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>viewof ω_convergence_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"ω"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span><span class="fl">0.05</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span>})</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="33" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>viewof ω_convergence_1 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"ω"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span><span class="dv">0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span>})</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>points_convergence_1 <span class="op">=</span> {</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> N <span class="op">=</span> <span class="dv">120</span></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> points <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(N)</span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(<span class="kw">var</span> n<span class="op">=</span><span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> N<span class="op">;</span> n<span class="op">++</span>) {</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> (ω_convergence_1<span class="op">*</span>n <span class="op">&lt;=</span> <span class="dv">1</span>) <span class="op">?</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span> <span class="op">;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>      <span class="kw">var</span> val <span class="op">=</span> (n <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> ω_convergence_1<span class="op">*</span>n <span class="op">&lt;=</span> <span class="dv">5</span>) <span class="op">?</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span> <span class="op">;</span></span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>      points[n<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> { <span class="dt">n</span><span class="op">:</span> n<span class="op">,</span> <span class="dt">X_n</span><span class="op">:</span> val }</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points</span>
@@ -658,7 +658,7 @@ X_n(ω) = \begin{cases}
 </div>
 </div>
 </div>
-<p>Show that <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> does not converge surely to the zero random variable.</p>
+<p>Show that <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> does not converge surely, even though <span class="math inline">\(X_n(ω) \to 0\)</span> for every <span class="math inline">\(ω \in (0,1]\)</span>.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
@@ -672,13 +672,13 @@ X_n(ω) = \begin{cases}
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>For any <span class="math inline">\(ω \in (0,1]\)</span>, <span class="math inline">\(X_n(ω) = 1\)</span> for <span class="math inline">\(n \le \lfloor 1/ω \rfloor\)</span>, and <span class="math inline">\(0\)</span> afterwards. Thus, <span class="math inline">\(X_n(ω) \to 0\)</span>.</p>
-<p>However, for <span class="math inline">\(ω = 0\)</span>, <span class="math inline">\(X_n(ω) = 1\)</span> for all <span class="math inline">\(n\)</span>. Therefore, <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> does not converge surely to the zero random variable.</p>
+<p>For any <span class="math inline">\(ω \in (0,1]\)</span>, <span class="math inline">\(X_n(ω) = 0\)</span> whenever <span class="math inline">\(n &gt; 5/ω\)</span>. Thus, <span class="math inline">\(X_n(ω) \to 0\)</span>.</p>
+<p>For <span class="math inline">\(ω = 0\)</span>, the values alternate: <span class="math inline">\(X_n(0) = 1\)</span> for odd <span class="math inline">\(n\)</span> and <span class="math inline">\(X_n(0) = 0\)</span> for even <span class="math inline">\(n\)</span>. Hence, <span class="math inline">\(\{X_n(0)\}_{n \ge 1}\)</span> has no limit, so <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> does not converge surely.</p>
 </div>
 </div>
 </div>
 <ol start="4" type="1">
-<li><p>From a practical point of view, we need not worry that the sequence fails to converge at <span class="math inline">\(ω = 0\)</span>, because that is an event of zero probability. Stated differently, the set <span class="math display">\[
+<li><p>The sequence fails to converge at <span class="math inline">\(ω = 0\)</span>, but this outcome has probability zero. Stated differently, the set <span class="math display">\[
   \{ ω : X_n(ω) \to 0 \}
 \]</span> has probability 1.</p></li>
 <li><p>Based on the previous discussion, we can relax the notion of sure convergence to <strong>almost sure convergence</strong>. A sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> of random variables converges to a random variable <span class="math inline">\(X\)</span> <strong>almost surely</strong> if <span class="math display">\[
@@ -728,7 +728,7 @@ A_n = \{ ω : \exists m \ge n, \ABS{X_m(ω) - X(ω)} \ge ε \}.
 </div>
 </div>
 </div></li>
-<li><p>However, the converse is not true, as the following example illustrates. Another example is presented in <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>9.5</span></a>, part&nbsp;(a).</p></li>
+<li><p>However, the converse is not true, as the following example illustrates. Another example is presented in <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>9.6</span></a>, part&nbsp;(a).</p></li>
 </ol>
 <div id="exm-convergence-2" class="theorem example">
 <p><span class="theorem-title"><strong>Example 9.2</strong></span> Consider a probability space as in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>9.1</span></a>. Let <span class="math display">\[
@@ -947,8 +947,8 @@ F(x + ε) \downarrow F(x)
 </div>
 </div>
 </div></li>
-<li><p>However, the converse is not true as is illustrated by <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.3</span></a>, part&nbsp;(c).</p></li>
-<li><p>Mean-square convergence and almost-sure convergence are not comparable. <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.3</span></a>, part (c) gives an example that converges almost surely but not in mean square. <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>9.5</span></a>, part (a) gives an example that converges in mean square but not almost surely.</p></li>
+<li><p>However, the converse is not true as is illustrated by <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, part&nbsp;(c).</p></li>
+<li><p>Mean-square convergence and almost-sure convergence are not comparable. <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, part (c) gives an example that converges almost surely but not in mean square. <a href="#exm-convergence-5" class="quarto-xref">Example&nbsp;<span>9.6</span></a>, part (a) gives an example that converges in mean square but not almost surely.</p></li>
 <li><p><strong>Mean-square Cauchy criterion:</strong> A sequence <span class="math inline">\(\{X_n\}_{n\ge1}\)</span> of random variables with finite second moments converges in mean square to some random variable <span class="math inline">\(X\)</span> if and only if <span class="math display">\[
 \lim_{m,n\to∞}\EXP[\ABS{X_n-X_m}^2]=0.
 \]</span> Thus, mean-square convergence can be established without knowing the limiting random variable in advance.</p>
@@ -978,6 +978,33 @@ F(x + ε) \downarrow F(x)
 </div>
 </div></li>
 </ol>
+<div id="exm-mean-square-cauchy-series" class="theorem example">
+<p><span class="theorem-title"><strong>Example 9.3</strong></span> Let <span class="math inline">\(\{\xi_n\}_{n\ge1}\)</span> be an i.i.d. sequence with mean zero and variance one. Define <span class="math display">\[
+X_n=\sum_{i=1}^n\frac{\xi_i}{i}.
+\]</span> Show that <span class="math inline">\(\{X_n\}_{n\ge1}\)</span> converges in mean square.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>For <span class="math inline">\(m&gt;n\)</span>, independence and zero means make the cross terms vanish, so <span class="math display">\[
+\EXP[\ABS{X_m-X_n}^2]
+=\EXP\left[\left(\sum_{i=n+1}^m\frac{\xi_i}{i}\right)^2\right]
+=\sum_{i=n+1}^m\frac{1}{i^2}
+\le\sum_{i=n+1}^{∞}\frac{1}{i^2}
+\le\frac{1}{n}.
+\]</span> The upper bound tends to zero as <span class="math inline">\(n\to∞\)</span>, uniformly over <span class="math inline">\(m&gt;n\)</span>. Hence <span class="math inline">\(\{X_n\}_{n\ge1}\)</span> satisfies the mean-square Cauchy criterion, so it converges in mean square to some random variable <span class="math inline">\(X\)</span>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="continuity-properties-of-convergence" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="continuity-properties-of-convergence"><span class="header-section-number">9.5</span> Continuity properties of convergence</h2>
@@ -986,7 +1013,7 @@ F(x + ε) \downarrow F(x)
 <li><p>This is not the case for mean-square convergence. For example, <span class="math inline">\(X_n = 0\)</span> with probability <span class="math inline">\(1 - \frac 1{n^3}\)</span> and <span class="math inline">\(X_n = n\)</span> with probability <span class="math inline">\(\frac 1{n^3}\)</span>. Then, <span class="math display">\[ \EXP[|X_n - 0|^2] = n^2 \frac{1}{n^3} \to 0. \]</span> Thus, <span class="math inline">\(X_n \xrightarrow{m.s.} 0\)</span>. Now consider the function <span class="math inline">\(g(x) = x^2\)</span>. <span class="math display">\[ \EXP[ | g(X_n) - g(0)|^2 ] = n^4 \frac{1}{n^3} = n \to ∞. \]</span> Thus, <span class="math inline">\(g(X_n)\)</span> does not converge in mean square to <span class="math inline">\(g(0)\)</span>.</p></li>
 <li><p>If <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span> and <span class="math inline">\(Y_n \xrightarrow{a.s.} Y\)</span>, then <span class="math inline">\((X_n, Y_n) \xrightarrow{a.s.} (X,Y)\)</span>. Therefore, for any continuous function <span class="math inline">\(g\)</span>, we have <span class="math inline">\(g(X_n, Y_n) \xrightarrow{a.s.} g(X,Y)\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -995,7 +1022,7 @@ F(x + ε) \downarrow F(x)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>Define <span class="math display">\[\begin{align*}
     Ω_X &amp;= \{ ω : \lim_{n \to ∞} X_n(ω) = X(ω) \} \\
@@ -1018,7 +1045,7 @@ g(X_n,Y_n)\xrightarrow{D}g(X,c).
 <section id="some-examples" class="level2" data-number="9.6">
 <h2 data-number="9.6" class="anchored" data-anchor-id="some-examples"><span class="header-section-number">9.6</span> Some examples</h2>
 <div id="exm-convergence-3" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.3</strong></span> Consider the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> as in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>9.1</span></a>, and consider different choices of <span class="math inline">\(X_n\)</span> shown below. For each case, determine whether <span class="math inline">\(X_n\)</span> converges almost surely, in probability, or in mean square.</p>
+<p><span class="theorem-title"><strong>Example 9.4</strong></span> Consider the probability space <span class="math inline">\((Ω, \ALPHABET F, \PR)\)</span> as in <a href="#exm-convergence-1" class="quarto-xref">Example&nbsp;<span>9.1</span></a>, and consider different choices of <span class="math inline">\(X_n\)</span> shown below. For each case, determine whether <span class="math inline">\(X_n\)</span> converges almost surely, in probability, or in mean square.</p>
 <ol type="a">
 <li><span class="math inline">\(X_n(ω) = \IND_{A_n}(ω)\)</span>, where <span class="math inline">\(A_n = [0, \frac 1n]\)</span>.</li>
 <li><span class="math inline">\(X_n(ω) = \IND_{A_n}(ω)\)</span>, where <span class="math inline">\(A_n = [0, \frac 1{n^2}]\)</span>.</li>
@@ -1026,7 +1053,7 @@ g(X_n,Y_n)\xrightarrow{D}g(X,c).
 </ol>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1035,7 +1062,7 @@ g(X_n,Y_n)\xrightarrow{D}g(X,c).
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse show">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>For every <span class="math inline">\(ω\in(0,1]\)</span>, there exists an <span class="math inline">\(N(ω)\)</span> such that <span class="math inline">\(ω&gt;1/n\)</span> and <span class="math inline">\(ω&gt;1/n^2\)</span> for all <span class="math inline">\(n\ge N(ω)\)</span>. Hence, in each of the three parts, <span class="math inline">\(X_n(ω)=0\)</span> for all sufficiently large <span class="math inline">\(n\)</span>. At <span class="math inline">\(ω=0\)</span>, the sequence equals <span class="math inline">\(1\)</span> in parts (a) and (b), and equals <span class="math inline">\(n\)</span> in part (c). Since <span class="math inline">\(\PR(\{0\})=0\)</span>, all three sequences converge almost surely to zero: <span class="math display">\[
 X_n\xrightarrow{a.s.}0.
@@ -1064,12 +1091,12 @@ X_n\xrightarrow{p}0.
 </div>
 </div>
 <div id="exm-convergence-4" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.4</strong></span> Consider an i.i.d. sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>, where <span class="math inline">\(X_n \sim \text{Unif}(0,1)\)</span>. Define <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 9.5</strong></span> Consider an i.i.d. sequence <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span>, where <span class="math inline">\(X_n \sim \text{Unif}(0,1)\)</span>. Define <span class="math display">\[
   Y_n = \min\{X_1, \dots, X_n\}.
 \]</span> Determine whether <span class="math inline">\(Y_n\)</span> converges almost surely, in probability, or in mean square.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1078,13 +1105,13 @@ X_n\xrightarrow{p}0.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse show">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <section id="convergence-in-probability-1" class="level4" data-number="9.6.0.1">
 <h4 data-number="9.6.0.1" class="anchored" data-anchor-id="convergence-in-probability-1"><span class="header-section-number">9.6.0.1</span> Convergence in probability</h4>
 <p>Fix an <span class="math inline">\(ε &gt; 0\)</span> and consider the set <span class="math display">\[
   E_n = \{ ω : |Y_n(ω) - 0| &gt; ε \}.
-\]</span> As in <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.3</span></a>, if <span class="math inline">\(ε &gt; 1\)</span>, then <span class="math inline">\(\PR(E_n) = 0\)</span>. So, we assume that <span class="math inline">\(ε &lt; 1\)</span>. Then, <span class="math display">\[\begin{align*}
+\]</span> As in <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, if <span class="math inline">\(ε &gt; 1\)</span>, then <span class="math inline">\(\PR(E_n) = 0\)</span>. So, we assume that <span class="math inline">\(ε &lt; 1\)</span>. Then, <span class="math display">\[\begin{align*}
 \PR(E_n) &amp;= \PR(Y_n &gt; ε) = \PR\bigl( \min\{ X_1, \dots, X_n \} \ge ε \bigr) \\
 &amp;= \PR( X_1 \ge ε, X_2 \ge ε, \dots, X_n \ge ε ) \\
 &amp;= (1-ε)^n
@@ -1135,9 +1162,9 @@ X_n\xrightarrow{p}0.
 </section>
 <section id="almost-sure-convergence-from-convergence-in-probability" class="level2" data-number="9.7">
 <h2 data-number="9.7" class="anchored" data-anchor-id="almost-sure-convergence-from-convergence-in-probability"><span class="header-section-number">9.7</span> Almost sure convergence from convergence in probability</h2>
-<p><a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>9.4</span></a> shows that verifying almost sure convergence can be a bit tricky. In this section, we show that sometimes it is possible to infer almost sure convergence from convergence in probability.</p>
+<p><a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>9.5</span></a> shows that verifying almost sure convergence can be a bit tricky. In this section, we show that sometimes it is possible to infer almost sure convergence from convergence in probability.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1146,7 +1173,7 @@ X_n\xrightarrow{p}0.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We expand on the discussion of limits of sets presented <a href="./probability-spaces.html#set-limits">earlier</a>.</p>
 <p>Limits of sets are easy to describe when we have a weakly increasing or a weakly decreasing sequence of sets. In particular, if <span class="math inline">\(\{C_n\}_{n \ge 1}\)</span> is a <strong>weakly increasing</strong> sequence of sets, then <span class="math display">\[
@@ -1202,6 +1229,7 @@ D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
 <li><span class="math inline">\(\limsup_{n \to ∞} A_n\)</span> is the event that there are infinitely many heads.</li>
 <li><span class="math inline">\(\liminf_{n \to ∞} A_n\)</span> is the event that all but a finite number of the coins were heads, i.e., there were only finitely many tails.</li>
 </ul>
+<p><span class="text-muted">Explanation adapted from math.stackexchange [<a href="https://math.stackexchange.com/a/1912079/763">1</a>] and [<a href="https://math.stackexchange.com/a/4080796/763">2</a>]</span></p>
 </div>
 </div>
 </div>
@@ -1212,7 +1240,6 @@ D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
 \]</span> then the probability that infinitely many of them occur is zero, i.e., <span class="math display">\[
   \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 0.
 \]</span></p>
-<p><span class="text-muted">Explanation adapted from math.stackexchange [<a href="https://math.stackexchange.com/a/1912079/763">1</a>] and [<a href="https://math.stackexchange.com/a/4080796/763">2</a>]</span></p>
 </div>
 <p>There is a partial converse of Borel-Cantelli lemma.</p>
 <div id="lem-Borel-Cantelli-2" class="theorem lemma">
@@ -1224,23 +1251,47 @@ D_3 = \phantom{A_1 \cup A_2 \cup{}} A_3 \cup \dotsb
 </div>
 <p>An immediate implication of the Borel-Cantelli lemma is the following:</p>
 <div id="lem-as" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 9.3</strong></span> Suppose <span class="math inline">\(X_n \xrightarrow{p} X\)</span> and for any <span class="math inline">\(ε &gt; 0\)</span>, we have <span class="math display">\[
+<p><span class="theorem-title"><strong>Lemma 9.3</strong></span> Suppose that for any <span class="math inline">\(ε &gt; 0\)</span>, we have <span class="math display">\[
 \sum_{n=1}^{∞} \PR(\ABS{X_n - X} &gt; ε) &lt; ∞
 \]</span> then <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span>.</p>
 </div>
+<p>The summability condition implies that <span class="math inline">\(\PR(\ABS{X_n - X} &gt; ε) \to 0\)</span> for every <span class="math inline">\(ε &gt; 0\)</span>. Hence, it also implies that <span class="math inline">\(X_n \xrightarrow{p} X\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>For <span class="math inline">\(m \in \naturalnumbers\)</span>, define <span class="math display">\[
+A_n^{(m)} = \Bigl\{ ω : \ABS{X_n(ω) - X(ω)} &gt; \frac 1m \Bigr\}.
+\]</span> By assumption, <span class="math inline">\(\sum_{n=1}^{∞} \PR(A_n^{(m)}) &lt; ∞\)</span> for every <span class="math inline">\(m\)</span>. Therefore, the Borel-Cantelli lemma gives <span class="math display">\[
+\PR\Bigl( \limsup_{n \to ∞} A_n^{(m)} \Bigr) = 0
+\qquad\text{for every } m \in \naturalnumbers.
+\]</span> The countable union of these probability-zero events also has probability zero. Outside this union, for every <span class="math inline">\(m\)</span> there exists an <span class="math inline">\(N_m(ω)\)</span> such that <span class="math display">\[
+n \ge N_m(ω) \implies \ABS{X_n(ω) - X(ω)} \le \frac 1m.
+\]</span> Thus, <span class="math inline">\(X_n(ω) \to X(ω)\)</span> outside a probability-zero set, and hence <span class="math inline">\(X_n \xrightarrow{a.s.} X\)</span>.</p>
+</div>
+</div>
+</div>
 <p>In light of the above result, we revisit some variations of the examples of the previous section.</p>
 <ul>
-<li><p>In <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.3</span></a>, part (a), we have <span class="math display">\[
+<li><p>In <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, part (a), we have <span class="math display">\[
     \PR(E_n) = \frac 1n.
 \]</span> Since <span class="math inline">\(\sum_{n \ge 1} \PR(E_n) = ∞\)</span>, we cannot use the above theorem to infer that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>. This is not a contradiction because <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>9.3</span></a> is a sufficient condition, not a necessary condition.</p></li>
-<li><p>In <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.3</span></a>, part (b), we have <span class="math display">\[
+<li><p>In <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, part (b), we have <span class="math display">\[
     \PR(E_n) = \frac 1{n^2}.
 \]</span> Since <span class="math inline">\(\sum_{n \ge 1} \PR(E_n) &lt; ∞\)</span>, we can use <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>9.3</span></a> to infer that <span class="math inline">\(X_n \xrightarrow{a.s.} 0\)</span>.</p></li>
-<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, we have argued that <span class="math inline">\(\PR(Y_n &gt; ε) = (1-ε)^n\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(Y_n &gt; ε) = \sum_{n=1}^∞ (1-ε)^n = \frac{1-ε}{ε} &lt; ∞\)</span> (for <span class="math inline">\(0 &lt; ε &lt; 1\)</span>). Hence, by <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>9.3</span></a>, <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
+<li><p>In <a href="#exm-convergence-4" class="quarto-xref">Example&nbsp;<span>9.5</span></a>, we have argued that <span class="math inline">\(\PR(Y_n &gt; ε) = (1-ε)^n\)</span>. Therefore, <span class="math inline">\(\sum_{n \ge 1} \PR(Y_n &gt; ε) = \sum_{n=1}^∞ (1-ε)^n = \frac{1-ε}{ε} &lt; ∞\)</span> (for <span class="math inline">\(0 &lt; ε &lt; 1\)</span>). Hence, by <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>9.3</span></a>, <span class="math inline">\(Y_n \xrightarrow{a.s.} 0\)</span>.</p></li>
 </ul>
 <p>We can also consider a variation of the above.</p>
 <div id="exm-convergence-5" class="theorem example">
-<p><span class="theorem-title"><strong>Example 9.5</strong></span> Consider a variation of <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.3</span></a>, where we no longer specify <span class="math inline">\(X_n\)</span> as a function of <span class="math inline">\(ω\)</span> but simply assume that <span class="math display">\[
+<p><span class="theorem-title"><strong>Example 9.6</strong></span> Consider a variation of <a href="#exm-convergence-3" class="quarto-xref">Example&nbsp;<span>9.4</span></a>, where we no longer specify <span class="math inline">\(X_n\)</span> as a function of <span class="math inline">\(ω\)</span> but simply assume that <span class="math display">\[
    X_n = \begin{cases}
      0 &amp; \text{with probability } 1 - p_n \\
      1 &amp; \text{with probability } p_n
@@ -1253,7 +1304,7 @@ Determine whether <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> converg
 </ol>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1262,7 +1313,7 @@ Determine whether <span class="math inline">\(\{X_n\}_{n \ge 1}\)</span> converg
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse show">
+<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li><p><strong>Convergence in probability:</strong> Fix <span class="math inline">\(ε \in (0,1)\)</span>. As before define <span class="math inline">\(E_n = \{ ω : \ABS{X_n(ω)} &gt; ε \} = \{ ω : X_n(ω) = 1 \}\)</span>. Thus, <span class="math inline">\(\PR(E_n) = p_n\)</span> and for both cases, <span class="math inline">\(p_n \to 0\)</span> as <span class="math inline">\(n \to ∞\)</span>. Therefore, <span class="math inline">\(X_n \xrightarrow{p} 0\)</span>.</p></li>
@@ -1283,7 +1334,7 @@ X_n \xrightarrow{a.s.} X.
 \]</span></p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1292,20 +1343,12 @@ X_n \xrightarrow{a.s.} X.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-12" class="callout-12-contents callout-collapse collapse show">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>For every <span class="math inline">\(m\in\naturalnumbers\)</span>, define <span class="math display">\[
-A_n^{(m)}=\left\{ω:\ABS{X_n(ω)-X(ω)}&gt;\frac1m\right\}.
-\]</span></p>
-<p>By Markov’s inequality, <span class="math display">\[
-\sum_{n=1}^{∞}\PR\left(A_n^{(m)}\right)
-\le m\sum_{n=1}^{∞}\EXP[\ABS{X_n-X}]&lt;∞.
-\]</span> Therefore, the Borel-Cantelli lemma gives <span class="math display">\[
-\PR\left(\limsup_{n\to∞}A_n^{(m)}\right)=0
-\qquad\text{for every }m\in\naturalnumbers.
-\]</span> The countable union of these probability-zero events also has probability zero. Outside this union, for every <span class="math inline">\(m\)</span> there exists an <span class="math inline">\(N_m(ω)\)</span> such that <span class="math display">\[
-n\ge N_m(ω)\implies \ABS{X_n(ω)-X(ω)}\le\frac1m.
-\]</span> Thus, <span class="math inline">\(X_n(ω)\to X(ω)\)</span> outside a probability-zero set, and hence <span class="math inline">\(X_n\xrightarrow{a.s.}X\)</span>.</p>
+<p>Fix <span class="math inline">\(ε &gt; 0\)</span>. By Markov’s inequality, <span class="math display">\[
+\sum_{n=1}^{∞} \PR(\ABS{X_n - X} &gt; ε)
+\le \frac 1ε \sum_{n=1}^{∞} \EXP[\ABS{X_n - X}] &lt; ∞.
+\]</span> Since <span class="math inline">\(ε &gt; 0\)</span> was arbitrary, the result follows from <a href="#lem-as" class="quarto-xref">Lemma&nbsp;<span>9.3</span></a>.</p>
 </div>
 </div>
 </div>
@@ -1321,7 +1364,7 @@ n\ge N_m(ω)\implies \ABS{X_n(ω)-X(ω)}\le\frac1m.
 </div>
 <p>We provide a proof under the assumption that the fourth moment exists.</p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1330,7 +1373,7 @@ n\ge N_m(ω)\implies \ABS{X_n(ω)-X(ω)}\le\frac1m.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse show">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>We assume that <span class="math inline">\(μ = 0\)</span> (this is just for notational simplicity) and let <span class="math inline">\(M_4=\EXP[X_1^4]&lt;∞\)</span> (this is a strong assumption).</p>
 <p>Since we know that the fourth moment exists, we can use a fourth moment version of Markov inequality: <span class="math display">\[ \PR(\ABS{\bar X_n} \ge ε) = \PR(\ABS{\bar X_n}^4 \ge ε^4) \le \frac{ \EXP[ \bar X_n^4]}{ε^4}. \]</span></p>
@@ -1363,7 +1406,7 @@ n\ge N_m(ω)\implies \ABS{X_n(ω)-X(ω)}\le\frac1m.
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiDPiV9jb252ZXJnZW5jZV8xID0gSW5wdXRzLnJhbmdlKFswLjAsIDFdLCB7bGFiZWw6IFwiz4lcIiwgdmFsdWU6MC4wNSwgc3RlcDogMC4wMX0pXG5cbnBvaW50c19jb252ZXJnZW5jZV8xID0ge1xuICAgIGNvbnN0IE4gPSAxMjBcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4pXG5cbiAgICBmb3IodmFyIG49MTsgbiA8PSBOOyBuKyspIHtcbiAgICAgIHZhciB2YWwgPSAoz4lfY29udmVyZ2VuY2VfMSpuIDw9IDEpID8gMSA6IDAgO1xuICAgICAgcG9pbnRzW24tMV0gPSB7IG46IG4sIFhfbjogdmFsIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgeSA6IHt0aWNrczogMSB9LFxuICBoZWlnaHQ6IDEwMCxcbiAgbWFya3M6IFtcbiAgICAvLyBBeGVzXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICAvLyBEYXRhXG4gICAgUGxvdC5ydWxlWChwb2ludHNfY29udmVyZ2VuY2VfMSwge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19jb252ZXJnZW5jZV8xLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiDPiV9jb252ZXJnZW5jZV8yID0gSW5wdXRzLnJhbmdlKFswLjAsIDFdLCB7bGFiZWw6IFwiz4lcIiwgdmFsdWU6MC4wNSwgc3RlcDogMC4wMX0pXG5cbnBvaW50c19jb252ZXJnZW5jZV8yID0ge1xuICAgIGNvbnN0IE4gPSAxMjBcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4pXG5cbiAgICBmb3IodmFyIG49MTsgbiA8PSBOOyBuKyspIHtcbiAgICAgIGNvbnN0IHFfbiA9IDIgKiogTWF0aC5mbG9vcihNYXRoLmxvZzIobikpXG4gICAgICBjb25zdCBrID0gbiAtIHFfblxuICAgICAgY29uc3QgbGVmdCA9IGsgLyBxX25cbiAgICAgIGNvbnN0IHJpZ2h0ID0gKGsgKyAxKSAvIHFfblxuICAgICAgY29uc3QgdmFsID0gKM+JX2NvbnZlcmdlbmNlXzIgPj0gbGVmdCAmJlxuICAgICAgICAgICAgICAgICAgICjPiV9jb252ZXJnZW5jZV8yIDwgcmlnaHQgfHwgKGsgPT09IHFfbiAtIDEgJiYgz4lfY29udmVyZ2VuY2VfMiA9PT0gMSkpKSA/IDEgOiAwXG4gICAgICBwb2ludHNbbi0xXSA9IHsgbjogbiwgWF9uOiB2YWwgfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICB5IDoge3RpY2tzOiAxIH0sXG4gIGhlaWdodDogMTAwLFxuICBtYXJrczogW1xuICAgIC8vIEF4ZXNcbiAgICBQbG90LnJ1bGVYKFswXSksXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIC8vIERhdGFcbiAgICBQbG90LnJ1bGVYKHBvaW50c19jb252ZXJnZW5jZV8yLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIHN0cm9rZVdpZHRoOiAxfSksXG4gICAgUGxvdC5kb3QocG9pbnRzX2NvbnZlcmdlbmNlXzIsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pLFxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCfPiV9jb252ZXJnZW5jZV8xJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ8+JX2NvbnZlcmdlbmNlXzInKSJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiDPiV9jb252ZXJnZW5jZV8xID0gSW5wdXRzLnJhbmdlKFswLjAsIDFdLCB7bGFiZWw6IFwiz4lcIiwgdmFsdWU6MCwgc3RlcDogMC4wMX0pXG5cbnBvaW50c19jb252ZXJnZW5jZV8xID0ge1xuICAgIGNvbnN0IE4gPSAxMjBcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4pXG5cbiAgICBmb3IodmFyIG49MTsgbiA8PSBOOyBuKyspIHtcbiAgICAgIHZhciB2YWwgPSAobiAlIDIgPT09IDEgJiYgz4lfY29udmVyZ2VuY2VfMSpuIDw9IDUpID8gMSA6IDAgO1xuICAgICAgcG9pbnRzW24tMV0gPSB7IG46IG4sIFhfbjogdmFsIH1cbiAgICB9XG4gICAgcmV0dXJuIHBvaW50c1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgZ3JpZDogdHJ1ZSxcbiAgeSA6IHt0aWNrczogMSB9LFxuICBoZWlnaHQ6IDEwMCxcbiAgbWFya3M6IFtcbiAgICAvLyBBeGVzXG4gICAgUGxvdC5ydWxlWChbMF0pLFxuICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICAvLyBEYXRhXG4gICAgUGxvdC5ydWxlWChwb2ludHNfY29udmVyZ2VuY2VfMSwge3g6IFwiblwiLCB5OiBcIlhfblwiLCBzdHJva2VXaWR0aDogMX0pLFxuICAgIFBsb3QuZG90KHBvaW50c19jb252ZXJnZW5jZV8xLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIGZpbGw6IFwiY3VycmVudENvbG9yXCIsIHI6IDJ9KSxcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiDPiV9jb252ZXJnZW5jZV8yID0gSW5wdXRzLnJhbmdlKFswLjAsIDFdLCB7bGFiZWw6IFwiz4lcIiwgdmFsdWU6MC4wNSwgc3RlcDogMC4wMX0pXG5cbnBvaW50c19jb252ZXJnZW5jZV8yID0ge1xuICAgIGNvbnN0IE4gPSAxMjBcbiAgICB2YXIgcG9pbnRzID0gbmV3IEFycmF5KE4pXG5cbiAgICBmb3IodmFyIG49MTsgbiA8PSBOOyBuKyspIHtcbiAgICAgIGNvbnN0IHFfbiA9IDIgKiogTWF0aC5mbG9vcihNYXRoLmxvZzIobikpXG4gICAgICBjb25zdCBrID0gbiAtIHFfblxuICAgICAgY29uc3QgbGVmdCA9IGsgLyBxX25cbiAgICAgIGNvbnN0IHJpZ2h0ID0gKGsgKyAxKSAvIHFfblxuICAgICAgY29uc3QgdmFsID0gKM+JX2NvbnZlcmdlbmNlXzIgPj0gbGVmdCAmJlxuICAgICAgICAgICAgICAgICAgICjPiV9jb252ZXJnZW5jZV8yIDwgcmlnaHQgfHwgKGsgPT09IHFfbiAtIDEgJiYgz4lfY29udmVyZ2VuY2VfMiA9PT0gMSkpKSA/IDEgOiAwXG4gICAgICBwb2ludHNbbi0xXSA9IHsgbjogbiwgWF9uOiB2YWwgfVxuICAgIH1cbiAgICByZXR1cm4gcG9pbnRzXG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBncmlkOiB0cnVlLFxuICB5IDoge3RpY2tzOiAxIH0sXG4gIGhlaWdodDogMTAwLFxuICBtYXJrczogW1xuICAgIC8vIEF4ZXNcbiAgICBQbG90LnJ1bGVYKFswXSksXG4gICAgUGxvdC5ydWxlWShbMF0pLFxuICAgIC8vIERhdGFcbiAgICBQbG90LnJ1bGVYKHBvaW50c19jb252ZXJnZW5jZV8yLCB7eDogXCJuXCIsIHk6IFwiWF9uXCIsIHN0cm9rZVdpZHRoOiAxfSksXG4gICAgUGxvdC5kb3QocG9pbnRzX2NvbnZlcmdlbmNlXzIsIHt4OiBcIm5cIiwgeTogXCJYX25cIiwgZmlsbDogXCJjdXJyZW50Q29sb3JcIiwgcjogMn0pLFxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCfPiV9jb252ZXJnZW5jZV8xJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ8+JX2NvbnZlcmdlbmNlXzInKSJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
