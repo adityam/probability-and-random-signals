@@ -21,23 +21,23 @@ A sequence of random variables, also called a **stochastic process**, can be tho
 3. Sure convergence can be too strong, as is illustrated by the following example.
 
 :::{#exm-convergence-1}
-Consider a probability space $(Ω, \ALPHABET F, \PR)$ where $Ω = [0,1]$, $\ALPHABET F = \mathscr{B}(0,1)$, and $\PR$ is the uniform distribution on $Ω$. Define $X_n(ω) = \IND_{A_n}(ω)$ where $A_n = [0, \frac 1n]$, i.e., 
+Consider a probability space $(Ω, \ALPHABET F, \PR)$ where $Ω = [0,1]$, $\ALPHABET F = \mathscr{B}([0,1])$, and $\PR$ is the uniform distribution on $Ω$. Define
 $$
 X_n(ω) = \begin{cases}
- 1, & ω \in [0, \frac{1}{n}] \\
- 0, & ω \in (\frac{1}{n}, 1]
+ 1, & n \text{ is odd and } ω \in [0, \min\{5/n,1\}], \\
+ 0, & \text{otherwise}.
 \end{cases}
 $$
 
 ```{ojs}
-viewof ω_convergence_1 = Inputs.range([0.0, 1], {label: "ω", value:0.05, step: 0.01})
+viewof ω_convergence_1 = Inputs.range([0.0, 1], {label: "ω", value:0, step: 0.01})
 
 points_convergence_1 = {
     const N = 120
     var points = new Array(N)
 
     for(var n=1; n <= N; n++) {
-      var val = (ω_convergence_1*n <= 1) ? 1 : 0 ;
+      var val = (n % 2 === 1 && ω_convergence_1*n <= 5) ? 1 : 0 ;
       points[n-1] = { n: n, X_n: val }
     }
     return points
@@ -59,18 +59,18 @@ Plot.plot({
   ]
 })
 ```
-Show that $\{X_n\}_{n \ge 1}$ does not converge surely to the zero random variable.
+Show that $\{X_n\}_{n \ge 1}$ does not converge surely, even though $X_n(ω) \to 0$ for every $ω \in (0,1]$.
 :::
 
 :::{.callout-note collapse="false"}
 #### Solution
 
-For any $ω \in (0,1]$, $X_n(ω) = 1$ for $n \le \lfloor 1/ω \rfloor$, and $0$ afterwards. Thus, $X_n(ω) \to 0$. 
+For any $ω \in (0,1]$, $X_n(ω) = 0$ whenever $n > 5/ω$. Thus, $X_n(ω) \to 0$.
 
-However, for $ω = 0$, $X_n(ω) = 1$ for all $n$. Therefore, $\{X_n\}_{n \ge 1}$ does not converge surely to the zero random variable.
+For $ω = 0$, the values alternate: $X_n(0) = 1$ for odd $n$ and $X_n(0) = 0$ for even $n$. Hence, $\{X_n(0)\}_{n \ge 1}$ has no limit, so $\{X_n\}_{n \ge 1}$ does not converge surely.
 :::
 
-4. From a practical point of view, we need not worry that the sequence fails to converge at $ω = 0$, because that is an event of zero probability. Stated differently, the set 
+4. The sequence fails to converge at $ω = 0$, but this outcome has probability zero. Stated differently, the set
    $$
      \{ ω : X_n(ω) \to 0 \}
    $$
@@ -390,6 +390,28 @@ Thus, $X_n\xrightarrow{p}0$.
    Equivalently, $X_n\xrightarrow{m.s.}X$.
    :::
 
+:::{#exm-mean-square-cauchy-series}
+Let $\{\xi_n\}_{n\ge1}$ be an i.i.d. sequence with mean zero and variance one. Define
+$$
+X_n=\sum_{i=1}^n\frac{\xi_i}{i}.
+$$
+Show that $\{X_n\}_{n\ge1}$ converges in mean square.
+:::
+
+:::{.callout-note collapse="false"}
+#### Solution
+
+For $m>n$, independence and zero means make the cross terms vanish, so
+$$
+\EXP[\ABS{X_m-X_n}^2]
+=\EXP\left[\left(\sum_{i=n+1}^m\frac{\xi_i}{i}\right)^2\right]
+=\sum_{i=n+1}^m\frac{1}{i^2}
+\le\sum_{i=n+1}^{∞}\frac{1}{i^2}
+\le\frac{1}{n}.
+$$
+The upper bound tends to zero as $n\to∞$, uniformly over $m>n$. Hence $\{X_n\}_{n\ge1}$ satisfies the mean-square Cauchy criterion, so it converges in mean square to some random variable $X$.
+:::
+
 ## Continuity properties of convergence
 
 1. **Continuity preserves convergence** almost surely, in probability, and in distribution. Thus, if $X_n$ converges to $X$ in any of these modes and $g$ is a continuous function, then $g(X_n)$ converges in the same mode to $g(X)$. 
@@ -650,6 +672,11 @@ For example, suppose we toss a coin infinitely many times. Let $(Ω, \ALPHABET F
 
 - $\limsup_{n \to ∞} A_n$ is the event that there are infinitely many heads.
 - $\liminf_{n \to ∞} A_n$ is the event that all but a finite number of the coins were heads, i.e., there were only finitely many tails.
+
+[Explanation adapted from math.stackexchange
+[[1](https://math.stackexchange.com/a/1912079/763)]
+and [[2](https://math.stackexchange.com/a/4080796/763)]]{.text-muted}
+
 :::
 
 We now state two fundamental results. The proofs are not difficult but are omitted due to time.
@@ -665,12 +692,6 @@ then the probability that infinitely many of them occur is zero, i.e.,
 $$
   \PR\Bigl(\limsup_{n \to ∞} A_n \Bigr) = 0.
 $$
-
-
-[Explanation adapted from math.stackexchange
-[[1](https://math.stackexchange.com/a/1912079/763)]
-and [[2](https://math.stackexchange.com/a/4080796/763)]]{.text-muted}
-
 :::
 
 There is a partial converse of Borel-Cantelli lemma.
@@ -691,11 +712,32 @@ $$
 An immediate implication of the Borel-Cantelli lemma is the following:
 
 :::{#lem-as}
-Suppose  $X_n \xrightarrow{p} X$ and for any $ε > 0$, we have
+Suppose that for any $ε > 0$, we have
 $$
 \sum_{n=1}^{∞} \PR(\ABS{X_n - X} > ε) < ∞ 
 $$
 then $X_n \xrightarrow{a.s.} X$.
+:::
+
+The summability condition implies that $\PR(\ABS{X_n - X} > ε) \to 0$ for every $ε > 0$. Hence, it also implies that $X_n \xrightarrow{p} X$.
+
+:::{.callout-note collapse="false"}
+#### Proof
+
+For $m \in \naturalnumbers$, define
+$$
+A_n^{(m)} = \Bigl\{ ω : \ABS{X_n(ω) - X(ω)} > \frac 1m \Bigr\}.
+$$
+By assumption, $\sum_{n=1}^{∞} \PR(A_n^{(m)}) < ∞$ for every $m$. Therefore, the Borel-Cantelli lemma gives
+$$
+\PR\Bigl( \limsup_{n \to ∞} A_n^{(m)} \Bigr) = 0
+\qquad\text{for every } m \in \naturalnumbers.
+$$
+The countable union of these probability-zero events also has probability zero. Outside this union, for every $m$ there exists an $N_m(ω)$ such that
+$$
+n \ge N_m(ω) \implies \ABS{X_n(ω) - X(ω)} \le \frac 1m.
+$$
+Thus, $X_n(ω) \to X(ω)$ outside a probability-zero set, and hence $X_n \xrightarrow{a.s.} X$.
 :::
 
 
@@ -767,26 +809,12 @@ $$
 :::{.callout-note collapse="false"}
 #### Proof
 
-For every $m\in\naturalnumbers$, define
+Fix $ε > 0$. By Markov's inequality,
 $$
-A_n^{(m)}=\left\{ω:\ABS{X_n(ω)-X(ω)}>\frac1m\right\}.
+\sum_{n=1}^{∞} \PR(\ABS{X_n - X} > ε)
+\le \frac 1ε \sum_{n=1}^{∞} \EXP[\ABS{X_n - X}] < ∞.
 $$
-
-By Markov's inequality,
-$$
-\sum_{n=1}^{∞}\PR\left(A_n^{(m)}\right)
-\le m\sum_{n=1}^{∞}\EXP[\ABS{X_n-X}]<∞.
-$$
-Therefore, the Borel-Cantelli lemma gives
-$$
-\PR\left(\limsup_{n\to∞}A_n^{(m)}\right)=0
-\qquad\text{for every }m\in\naturalnumbers.
-$$
-The countable union of these probability-zero events also has probability zero. Outside this union, for every $m$ there exists an $N_m(ω)$ such that
-$$
-n\ge N_m(ω)\implies \ABS{X_n(ω)-X(ω)}\le\frac1m.
-$$
-Thus, $X_n(ω)\to X(ω)$ outside a probability-zero set, and hence $X_n\xrightarrow{a.s.}X$.
+Since $ε > 0$ was arbitrary, the result follows from @lem-as.
 :::
 
 
