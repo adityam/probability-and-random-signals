@@ -1199,4 +1199,6 @@ b. If the outcome of the first roll is $1$, what is the probability that the out
 
 6. [Weber's notes on Markov chains](https://www.statslab.cam.ac.uk//~rrw1/markov/M.pdf)
 
+7. [Lefebvre, Applied Stochastic Processes](https://archive.org/details/stochastic-processes_202404). Chapter 3.
+
 ## References {-}
