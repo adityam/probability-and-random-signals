@@ -712,9 +712,9 @@ $$
 An immediate implication of the Borel-Cantelli lemma is the following:
 
 :::{#lem-as}
-Suppose that for any $ε > 0$, we have
+If, for any $ε > 0$, we have
 $$
-\sum_{n=1}^{∞} \PR(\ABS{X_n - X} > ε) < ∞ 
+\sum_{n=1}^{∞} \PR(\ABS{X_n - X} > ε) < ∞,
 $$
 then $X_n \xrightarrow{a.s.} X$.
 :::
@@ -724,20 +724,26 @@ The summability condition implies that $\PR(\ABS{X_n - X} > ε) \to 0$ for every
 :::{.callout-note collapse="false"}
 #### Proof
 
-For $m \in \naturalnumbers$, define
+Note that $X_n(ω) \to X(ω)$ if and only if, for every $ε > 0$, the inequality $\ABS{X_n(ω) - X(ω)} > ε$ holds for only finitely many $n$. It suffices to restrict attention to $ε = 1/m$, $m \in \naturalnumbers$. So, for $m \in \naturalnumbers$, define
 $$
 A_n^{(m)} = \Bigl\{ ω : \ABS{X_n(ω) - X(ω)} > \frac 1m \Bigr\}.
 $$
-By assumption, $\sum_{n=1}^{∞} \PR(A_n^{(m)}) < ∞$ for every $m$. Therefore, the Borel-Cantelli lemma gives
+By assumption, $\sum_{n=1}^{∞} \PR(A_n^{(m)}) < ∞$ for every $m$. Therefore, by the Borel-Cantelli lemma,
 $$
 \PR\Bigl( \limsup_{n \to ∞} A_n^{(m)} \Bigr) = 0
-\qquad\text{for every } m \in \naturalnumbers.
+\quad\text{for every } m \in \naturalnumbers.
 $$
-The countable union of these probability-zero events also has probability zero. Outside this union, for every $m$ there exists an $N_m(ω)$ such that
+Let
+$$
+Ω_0 = \bigcup_{m=1}^{∞} \limsup_{n \to ∞} A_n^{(m)}.
+$$
+Since a countable union of events of probability zero has probability zero, $\PR(Ω_0) = 0$.
+
+Now fix $ω \notin Ω_0$ and $m \in \naturalnumbers$. Since $ω \notin \limsup_{n \to ∞} A_n^{(m)}$, the event $A_n^{(m)}$ occurs for only finitely many $n$. So, there is an $N_m(ω)$ such that
 $$
 n \ge N_m(ω) \implies \ABS{X_n(ω) - X(ω)} \le \frac 1m.
 $$
-Thus, $X_n(ω) \to X(ω)$ outside a probability-zero set, and hence $X_n \xrightarrow{a.s.} X$.
+Since this holds for every $m$, $X_n(ω) \to X(ω)$ for every $ω \notin Ω_0$. Hence, $X_n \xrightarrow{a.s.} X$.
 :::
 
 
