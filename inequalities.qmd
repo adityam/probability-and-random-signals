@@ -533,3 +533,11 @@ $$
 $$
 
 The bound is weaker than the optimized Chernoff bound, but it requires only independence, the common mean, and the bounded range of the random variables.
+
+## Further Reading {-}
+
+- **Gubner:** Sec 2.4, Sec 4.5
+
+- **Grimmett and Stirzaker:** Sec 7.3
+
+- Chapter 18 of [Harchol-Balter, "Introduction to Probability for Computing"](https://www.cs.cmu.edu/~harchol/Probability/chapters/HarcholBalterWholeBook.pdf#page=328.09)
