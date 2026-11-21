@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aditya Mahajan">
-<meta name="dcterms.date" content="2026-11-15">
+<meta name="dcterms.date" content="2026-11-21">
 <meta name="description" content="Course Notes for ECSE 509 (McGill University)">
 
 <title>13&nbsp; Poisson processes – Probability and Random Signals II</title>
@@ -88,9 +88,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-32fe534e4497b05418807bf73793017f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ba4aa7e3168bffc08b59e641aa2a5775.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-32fe534e4497b05418807bf73793017f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-e5c58fc9fafea3c95004f42a35ad3ae5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-3a23fb5ffad049c0cbae4ce983594111.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-e5c58fc9fafea3c95004f42a35ad3ae5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/nutshell-1.0.6/nutshell.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -593,7 +593,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 15, 2026</p>
+      <p class="date">November 21, 2026</p>
     </div>
   </div>
   
@@ -610,8 +610,33 @@ window.Quarto = {
 <h2 data-number="13.1" class="anchored" data-anchor-id="from-bernoulli-processes-to-poisson-processes"><span class="header-section-number">13.1</span> From Bernoulli processes to Poisson processes</h2>
 <ol type="1">
 <li><p>Recall the Bernoulli process from <a href="stochastic-processes.html#exm-bernoulli-process" class="quarto-xref">Example&nbsp;<span>10.1</span></a>. Let <span class="math inline">\(\{B_n\}_{n\ge1}\)</span> be i.i.d. <span class="math inline">\(\operatorname{Bernoulli}(p)\)</span> random variables, where <span class="math inline">\(B_n=1\)</span> indicates an arrival at time <span class="math inline">\(n\)</span>. The number of arrivals by time <span class="math inline">\(n\)</span> is <span class="math display">\[
-N_n=\sum_{k=1}^nB_k,
+N_n=\sum_{j=1}^nB_j,
 \]</span> so <span class="math inline">\(N_n\sim\operatorname{Binom}(n,p)\)</span>.</p></li>
+<li><p>The Bernoulli variables have mean <span class="math inline">\(p\)</span> and variance <span class="math inline">\(p(1-p)\)</span>. Since <span class="math inline">\(N_n=\sum_{j=1}^nB_j\)</span>, linearity of expectation and independence give <span class="math display">\[\begin{align*}
+\EXP[N_n]&amp;=\sum_{j=1}^n\EXP[B_j]=np,\\
+\VAR(N_n)&amp;=\sum_{j=1}^n\VAR(B_j)=np(1-p).
+\end{align*}\]</span></p></li>
+<li><p>The random variables <span class="math inline">\(B_1,B_2,\ldots\)</span> are independent. Thus their auto-covariance is <span class="math display">\[
+\COV(B_m,B_n)=
+\begin{cases}
+p(1-p), &amp; m=n,\\
+0, &amp; m\ne n.
+\end{cases}
+\]</span> The cumulative counts share arrivals: for example, <span class="math inline">\(N_{n+1}=N_n+B_{n+1}\)</span>. Consequently, for <span class="math inline">\(0&lt;p&lt;1\)</span>, the counts <span class="math inline">\(N_1,N_2,\ldots\)</span> are dependent, as the covariance calculation below confirms.</p></li>
+<li><p>For every <span class="math inline">\(n\ge0\)</span> and <span class="math inline">\(h\ge1\)</span>, <span class="math display">\[
+N_{n+h}-N_n=B_{n+1}+\cdots+B_{n+h}
+\sim\operatorname{Binom}(h,p).
+\]</span> Thus, the distribution of an increment depends on its length <span class="math inline">\(h\)</span> but not on its starting time <span class="math inline">\(n\)</span>. Increments over disjoint time intervals are sums over disjoint sets of the independent variables <span class="math inline">\(B_j\)</span>, so the increments are independent. Hence the Bernoulli counting process has <strong>stationary independent increments</strong>.</p></li>
+<li><p>To compute the auto-covariance of the counting process, suppose <span class="math inline">\(0\le m\le n\)</span> and write <span class="math display">\[
+N_n=N_m+(N_n-N_m).
+\]</span> The first term counts arrivals at times <span class="math inline">\(1,\ldots,m\)</span>, while the second counts arrivals at times <span class="math inline">\(m+1,\ldots,n\)</span>. These terms are independent. Hence, <span class="math display">\[\begin{align*}
+\COV(N_m,N_n)
+&amp;=\COV(N_m,N_m)+\COV(N_m,N_n-N_m)\\
+&amp;=\VAR(N_m)\\
+&amp;=mp(1-p).
+\end{align*}\]</span> By symmetry, for arbitrary <span class="math inline">\(m,n\ge0\)</span>, <span class="math display">\[\begin{equation}\label{eq:bernoulli-counting-covariance}
+\COV(N_m,N_n)=p(1-p)\min(m,n).
+\end{equation}\]</span> The covariance comes from the arrivals shared by the two counts; arrivals after the earlier time contribute no covariance.</p></li>
 <li><p>There are two equivalent ways to describe the arrivals. Let</p>
 <ul>
 <li><span class="math inline">\(T_k\)</span> be the time between the <span class="math inline">\((k-1)\)</span>-st and <span class="math inline">\(k\)</span>-th arrivals;</li>
@@ -620,10 +645,10 @@ N_n=\sum_{k=1}^nB_k,
 <p>For a Bernoulli process, the interarrival times <span class="math inline">\(T_1,T_2,\ldots\)</span> are i.i.d. geometric random variables. The counting process and arrival times contain the same information: <span class="math display">\[
 \{N_n\ge k\}=\{S_k\le n\}.
 \]</span></p></li>
-<li><p>To pass to continuous time, divide an interval of length <span class="math inline">\(t\)</span> into <span class="math inline">\(m\)</span> short intervals and suppose that an arrival occurs in each interval with probability <span class="math inline">\(λt/m\)</span>. The number of arrivals is binomial, and for every fixed <span class="math inline">\(n\)</span>, <span class="math display">\[ \binom mn\left(\frac{λt}{m}\right)^n
-  \left(1-\frac{λt}{m}\right)^{m-n}
+<li><p>To pass to continuous time, divide an interval of length <span class="math inline">\(t\)</span> into <span class="math inline">\(m\)</span> short intervals and suppose that an arrival occurs in each interval with probability <span class="math inline">\(λt/m\)</span>. The number of arrivals is binomial, and for every fixed <span class="math inline">\(k\)</span>, <span class="math display">\[ \binom mk\left(\frac{λt}{m}\right)^k
+  \left(1-\frac{λt}{m}\right)^{m-k}
   \longrightarrow
-  e^{-λt}\frac{(λt)^n}{n!}
+  e^{-λt}\frac{(λt)^k}{k!}
   \qquad\text{as }m\to\infty.
 \]</span> This rare-event limit suggests that the number of continuous-time arrivals in an interval of length <span class="math inline">\(t\)</span> should have a <span class="math inline">\(\operatorname{Poisson}(λt)\)</span> distribution.</p></li>
 </ol>
@@ -631,25 +656,31 @@ N_n=\sum_{k=1}^nB_k,
 <section id="exponential-interarrival-times" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="exponential-interarrival-times"><span class="header-section-number">13.2</span> Exponential interarrival times</h2>
 <ol type="1">
-<li><p>The geometric distribution is the only memoryless distribution on the nonnegative integers. Its continuous-time analogue is the exponential distribution. If <span class="math inline">\(T\sim\operatorname{Exp}(λ)\)</span>, then <span class="math display">\[
-\PR(T&gt;t)=e^{-λt},
-\qquad
+<li><p>The geometric distribution is the only memoryless distribution on the positive integers. Its continuous-time analogue is the exponential distribution. If <span class="math inline">\(T\sim\operatorname{Exp}(λ)\)</span>, where <span class="math inline">\(λ&gt;0\)</span>, then <span class="math display">\[
 f_T(t)=λe^{-λt},
-\qquad t\ge0,
-\]</span> and <span class="math display">\[
-\EXP[T]=\frac1λ.
+\qquad
+F_T(t)=1-e^{-λt},
+\qquad
+t\ge0.
+\]</span> Its MGF is <span class="math display">\[
+M_T(s)=\frac{λ}{λ-s},
+\qquad \operatorname{Re}(s)&lt;λ.
+\]</span> Its mean and variance are <span class="math display">\[
+\EXP[T]=\frac1λ,
+\qquad
+\VAR(T)=\frac1{λ^2}.
 \]</span> The parameter <span class="math inline">\(λ\)</span> is called the <strong>rate</strong>.</p></li>
-<li><p>The exponential distribution is memoryless: for <span class="math inline">\(s,t\ge0\)</span>, <span class="math display">\[
-\PR(T&gt;s+t\mid T&gt;s)
-=\frac{e^{-λ(s+t)}}{e^{-λs}}
+<li><p>The exponential distribution is memoryless: for <span class="math inline">\(u,t\ge0\)</span>, <span class="math display">\[
+\PR(T&gt;u+t\mid T&gt;u)
+=\frac{e^{-λ(u+t)}}{e^{-λu}}
 =e^{-λt}
 =\PR(T&gt;t).
-\]</span> Thus, given that no arrival has occurred by time <span class="math inline">\(s\)</span>, the remaining waiting time has the same distribution as the original waiting time.</p></li>
+\]</span> Thus, given that no arrival has occurred by time <span class="math inline">\(u\)</span>, the remaining waiting time has the same distribution as the original waiting time.</p></li>
 <li><p>The converse is also true.</p>
 <div id="exm-memoryless-exponential" class="theorem example">
 <p><span class="theorem-title"><strong>Example 13.1 (Continuous memoryless distributions)</strong></span> Let <span class="math inline">\(T\)</span> be a nonnegative continuous random variable such that <span class="math display">\[
-\PR(T&gt;s+t\mid T&gt;s)=\PR(T&gt;t)
-\]</span> for every <span class="math inline">\(s,t\ge0\)</span>. Then <span class="math inline">\(T\)</span> has an exponential distribution.</p>
+\PR(T&gt;u+t\mid T&gt;u)=\PR(T&gt;t)
+\]</span> for every <span class="math inline">\(u,t\ge0\)</span>. Then <span class="math inline">\(T\)</span> has an exponential distribution.</p>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -664,9 +695,9 @@ f_T(t)=λe^{-λt},
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Let <span class="math inline">\(\overline F(t)=\PR(T&gt;t)\)</span>. The memoryless property gives <span class="math display">\[
-\overline F(s+t)=\overline F(s)\overline F(t).
+\overline F(u+t)=\overline F(u)\overline F(t).
 \]</span> Therefore, <span class="math inline">\(g(t)=-\log\overline F(t)\)</span> satisfies <span class="math display">\[
-g(s+t)=g(s)+g(t).
+g(u+t)=g(u)+g(t).
 \]</span> Since <span class="math inline">\(\overline F\)</span> is continuous, <span class="math inline">\(g\)</span> is continuous, and the continuous solutions of this equation are <span class="math inline">\(g(t)=λt\)</span> for some <span class="math inline">\(λ\ge0\)</span>. For a proper nondegenerate distribution, <span class="math inline">\(λ&gt;0\)</span>. Hence <span class="math display">\[
 \overline F(t)=e^{-λt}.
 \]</span></p>
@@ -681,38 +712,48 @@ g(s+t)=g(s)+g(t).
 <li><p>Let <span class="math inline">\(T_1,T_2,\ldots\)</span> be i.i.d. <span class="math inline">\(\operatorname{Exp}(λ)\)</span> random variables and define <span class="math display">\[
 S_0=0,
 \qquad
-S_n=T_1+\cdots+T_n,
-\quad n\ge1.
-\]</span> The random variable <span class="math inline">\(S_n\)</span> is the time of the <span class="math inline">\(n\)</span>-th arrival. The associated counting process is <span class="math display">\[\begin{equation}\label{eq:poisson-counting-process}
-N(t)=\max\{n\ge0:S_n\le t\},
+S_k=T_1+\cdots+T_k,
+\quad k\ge1.
+\]</span> The random variable <span class="math inline">\(S_k\)</span> is the time of the <span class="math inline">\(k\)</span>-th arrival. The associated counting process is <span class="math display">\[\begin{equation}\label{eq:poisson-counting-process}
+N(t)=\max\{k\ge0:S_k\le t\},
 \qquad t\ge0.
 \end{equation}\]</span> The process <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> is called a <strong>Poisson process with rate <span class="math inline">\(λ\)</span></strong>.</p>
 <p>The counting process and the arrival times contain the same information. In particular, <span class="math display">\[
-N(t)=\sum_{n=1}^{∞}\IND\{S_n\le t\},
+N(t)=\sum_{k=1}^{∞}\IND\{S_k\le t\},
 \qquad
-S_n=\inf\{t\ge0:N(t)\ge n\}.
-\]</span> The first identity counts the arrivals that have occurred by time <span class="math inline">\(t\)</span>, while the second recovers the time of the <span class="math inline">\(n\)</span>-th arrival from the counting process.</p></li>
-<li><p>The sample paths of <span class="math inline">\(N(t)\)</span> are nondecreasing, right-continuous staircase functions. They start at zero and increase by one at each arrival time <span class="math inline">\(S_n\)</span>.</p></li>
+S_k=\inf\{t\ge0:N(t)\ge k\}.
+\]</span> The first identity counts the arrivals that have occurred by time <span class="math inline">\(t\)</span>, while the second recovers the time of the <span class="math inline">\(k\)</span>-th arrival from the counting process.</p></li>
+<li><p>The sample paths of <span class="math inline">\(N(t)\)</span> are nondecreasing, right-continuous staircase functions. They start at zero and increase by one at each arrival time <span class="math inline">\(S_k\)</span>.</p>
+<div id="fig-poisson-arrival-counts" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-poisson-arrival-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/poisson-processes1.svg" class="img-fluid figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poisson-arrival-counts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13.1: The jump locations are the arrival times <span class="math inline">\(S_1,S_2,S_3\)</span>, and the gaps between them are the interarrival times <span class="math inline">\(T_1,T_2,T_3\)</span>. At the marked time <span class="math inline">\(t\)</span>, <span class="math inline">\(S_2&lt;t&lt;S_3\)</span>, so <span class="math inline">\(N(t)=2\)</span>. Filled dots indicate the value at a jump.
+</figcaption>
+</figure>
+</div></li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="116" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 115;"><span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>viewof poisson_rate <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"rate λ"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span>})</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>viewof rerun_poisson <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>poisson_path <span class="op">=</span> {</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>  rerun_poisson</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> horizon <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> [{<span class="dt">t</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> <span class="dv">0</span>}]</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> t <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (<span class="kw">true</span>) {</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> <span class="op">-</span><span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()) <span class="op">/</span> poisson_rate</span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (t <span class="op">&gt;</span> horizon) <span class="cf">break</span></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>    points<span class="op">.</span><span class="fu">push</span>({t<span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> count})</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>  points<span class="op">.</span><span class="fu">push</span>({<span class="dt">t</span><span class="op">:</span> horizon<span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> count})</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="166" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 165;"><span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>viewof poisson_rate <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"rate λ"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.5</span>})</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>viewof rerun_poisson <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate sample path"</span>)</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>poisson_path <span class="op">=</span> {</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>  rerun_poisson</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> horizon <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> [{<span class="dt">t</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> <span class="dv">0</span>}]</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (<span class="kw">true</span>) {</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>    t <span class="op">+=</span> <span class="op">-</span><span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()) <span class="op">/</span> poisson_rate</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (t <span class="op">&gt;</span> horizon) <span class="cf">break</span></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>    points<span class="op">.</span><span class="fu">push</span>({t<span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> count})</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>  points<span class="op">.</span><span class="fu">push</span>({<span class="dt">t</span><span class="op">:</span> horizon<span class="op">,</span> <span class="dt">N_t</span><span class="op">:</span> count})</span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -736,17 +777,17 @@ S_n=\inf\{t\ge0:N(t)\ge n\}.
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="136" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 135;"><span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">180</span><span class="op">,</span></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"t"</span>}<span class="op">,</span></span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"N(t)"</span>}<span class="op">,</span></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(poisson_path<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"N_t"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"step-after"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(poisson_path<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"N_t"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="186" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 185;"><span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">180</span><span class="op">,</span></span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">10</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"t"</span>}<span class="op">,</span></span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> <span class="dv">50</span>]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"N(t)"</span>}<span class="op">,</span></span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(poisson_path<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"N_t"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"step-after"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">,</span></span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(poisson_path<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="op">-</span><span class="dv">1</span>)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"N_t"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"currentColor"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span>})</span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="expression">
 
@@ -754,23 +795,47 @@ S_n=\inf\{t\ge0:N(t)\ge n\}.
 </div>
 </div>
 <ol start="3" type="1">
-<li><p>Since <span class="math inline">\(S_n\)</span> is a sum of <span class="math inline">\(n\)</span> independent exponential random variables, it has an Erlang distribution: <span class="math display">\[\begin{equation}\label{eq:erlang-density}
-f_{S_n}(s)
-=\frac{λ^n s^{n-1}e^{-λs}}{(n-1)!},
-\qquad s\ge0.
-\end{equation}\]</span> In particular, <span class="math display">\[
-\EXP[S_n]=\frac nλ,
+<li><p>Since <span class="math inline">\(S_k\)</span> is a sum of <span class="math inline">\(k\)</span> independent exponential random variables, it has an Erlang distribution: <span class="math display">\[\begin{equation}\label{eq:erlang-density}
+f_{S_k}(t)
+=\frac{λ^k t^{k-1}e^{-λt}}{(k-1)!},
+\qquad t\ge0.
+\end{equation}\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We use induction and convolution. For <span class="math inline">\(k=1\)</span>, this is the exponential density. If the formula holds for <span class="math inline">\(S_k\)</span>, then independence of <span class="math inline">\(S_k\)</span> and <span class="math inline">\(T_{k+1}\)</span> gives, for <span class="math inline">\(t\ge0\)</span>, <span class="math display">\[\begin{align*}
+f_{S_{k+1}}(t)
+&amp;=\int_0^t f_{S_k}(u)f_{T_{k+1}}(t-u)\,du\\
+&amp;=\int_0^t\frac{λ^k u^{k-1}e^{-λu}}{(k-1)!}
+  λe^{-λ(t-u)}\,du\\
+&amp;=\frac{λ^{k+1}e^{-λt}}{(k-1)!}\int_0^t u^{k-1}\,du\\
+&amp;=\frac{λ^{k+1}t^k e^{-λt}}{k!},
+\end{align*}\]</span> which is the formula for <span class="math inline">\(k+1\)</span>.</p>
+</div>
+</div>
+</div>
+<p>Since expectations and variances add for independent summands, <span class="math display">\[
+\EXP[S_k]=\frac kλ,
 \qquad
-\VAR(S_n)=\frac n{λ^2}.
+\VAR(S_k)=\frac k{λ^2}.
 \]</span></p></li>
-<li><p>The events <span class="math inline">\(\{N(t)=n\}\)</span> and <span class="math inline">\(\{S_n\le t&lt;S_{n+1}\}\)</span> are the same. For <span class="math inline">\(n\ge1\)</span>, conditioning on <span class="math inline">\(S_n=s\)</span> gives <span class="math display">\[\begin{align*}
-\PR(N(t)=n)
-&amp;=\int_0^t f_{S_n}(s)\PR(T_{n+1}&gt;t-s)\,ds\\
+<li><p>The events <span class="math inline">\(\{N(t)=k\}\)</span> and <span class="math inline">\(\{S_k\le t&lt;S_{k+1}\}\)</span> are the same. For <span class="math inline">\(k\ge1\)</span>, conditioning on <span class="math inline">\(S_k=u\)</span>, where <span class="math inline">\(0&lt;u&lt;t\)</span>, gives <span class="math display">\[\begin{align*}
+\PR(N(t)=k)
+&amp;=\int_0^t f_{S_k}(u)\PR(T_{k+1}&gt;t-u)\,du\\
 &amp;=\int_0^t
-\frac{λ^n s^{n-1}e^{-λs}}{(n-1)!}
-e^{-λ(t-s)}\,ds\\
-&amp;=e^{-λt}\frac{(λt)^n}{n!}.
-\end{align*}\]</span> The same formula holds for <span class="math inline">\(n=0\)</span> because <span class="math inline">\(\PR(N(t)=0)=\PR(T_1&gt;t)=e^{-λt}\)</span>. Therefore, <span class="math display">\[\begin{equation}\label{eq:poisson-count-distribution}
+\frac{λ^k u^{k-1}e^{-λu}}{(k-1)!}
+e^{-λ(t-u)}\,du\\
+&amp;=e^{-λt}\frac{(λt)^k}{k!}.
+\end{align*}\]</span> The same formula holds for <span class="math inline">\(k=0\)</span> because <span class="math inline">\(\PR(N(t)=0)=\PR(T_1&gt;t)=e^{-λt}\)</span>. Therefore, <span class="math display">\[\begin{equation}\label{eq:poisson-count-distribution}
 \boxed{
 N(t)\sim\operatorname{Poisson}(λt).
 }
@@ -788,23 +853,122 @@ N(t)\sim\operatorname{Poisson}(λt)
 <section id="increments-and-covariance" class="level2" data-number="13.4">
 <h2 data-number="13.4" class="anchored" data-anchor-id="increments-and-covariance"><span class="header-section-number">13.4</span> Increments and covariance</h2>
 <ol type="1">
-<li><p>The memoryless property implies that, at any deterministic time <span class="math inline">\(s\)</span>, the waiting time until the next arrival is again <span class="math inline">\(\operatorname{Exp}(λ)\)</span> and is independent of the arrivals before time <span class="math inline">\(s\)</span>. Consequently, <span class="math display">\[\begin{equation}\label{eq:poisson-increment-distribution}
-N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
-\qquad 0\le s&lt;t.
+<li><p>Fix a deterministic time <span class="math inline">\(u\ge0\)</span>. Suppose we know the entire arrival history up to <span class="math inline">\(u\)</span>: there have been <span class="math inline">\(k\)</span> arrivals, with the last at <span class="math inline">\(S_k\)</span>. If <span class="math inline">\(k=0\)</span>, use <span class="math inline">\(S_0=0\)</span>. The current interarrival time has already lasted <span class="math inline">\(a=u-S_k\)</span>, so our information about <span class="math inline">\(T_{k+1}\)</span> is that <span class="math inline">\(T_{k+1}&gt;a\)</span>.</p>
+<p>Let <span class="math inline">\(R(u)=S_{N(u)+1}-u\)</span> be the remaining time until the next arrival. Independence of the interarrival times and memorylessness give, for <span class="math inline">\(h\ge0\)</span>, <span class="math display">\[\begin{align*}
+\PR(R(u)&gt;h\mid\text{arrival history up to }u)
+&amp;=\PR(T_{k+1}&gt;a+h\mid T_{k+1}&gt;a)\\
+&amp;=e^{-λh}.
+\end{align*}\]</span> This probability does not depend on <span class="math inline">\(k\)</span>, the previous arrival times, or the elapsed wait <span class="math inline">\(a\)</span>. Therefore, the remaining wait time is exponential with rate <span class="math inline">\(λ\)</span> and independent of the arrival history.</p>
+<p>After the next arrival, the waiting times are <span class="math inline">\(T_{k+2},T_{k+3},\ldots\)</span>. These are also independent exponential random variables with rate <span class="math inline">\(λ\)</span>, independent of the history and the remaining wait time. Thus, viewed from time <span class="math inline">\(u\)</span>, the future arrivals are generated by a fresh sequence of independent exponential waiting times. The process <span class="math display">\[
+\{N(u+t)-N(u)\}_{t\ge0}
+\]</span> has the same distribution as the original Poisson process and is independent of its history up to <span class="math inline">\(u\)</span>. The past tells us how long we have already waited; memorylessness makes that information irrelevant to the remaining wait time.</p>
+<p>Consequently, <span class="math display">\[\begin{equation}\label{eq:poisson-increment-distribution}
+N(t)-N(u)\sim\operatorname{Poisson}(λ(t-u)),
+\qquad 0\le u&lt;t.
 \end{equation}\]</span> Thus, the Poisson process has <strong>stationary increments</strong>.</p></li>
-<li><p>Counts over disjoint time intervals are independent. Therefore, the Poisson process has <strong>independent increments</strong>. Equivalently, for <span class="math display">\[
+<li><p>The future process starting at <span class="math inline">\(u\)</span> is independent of the arrival history up to <span class="math inline">\(u\)</span>, so counts after <span class="math inline">\(u\)</span> are independent of earlier counts. Repeating this argument at successive interval boundaries shows that counts over disjoint time intervals are independent. Therefore, the Poisson process has <strong>independent increments</strong>. Equivalently, for <span class="math display">\[
 0\le t_0&lt;t_1&lt;\cdots&lt;t_m,
 \]</span> the random variables <span class="math display">\[
 N(t_1)-N(t_0),\ldots,N(t_m)-N(t_{m-1})
 \]</span> are independent.</p></li>
-<li><p>For <span class="math inline">\(0\le s\le t\)</span>, <span class="math display">\[
-N(t)=N(s)+[N(t)-N(s)],
+<li><p>For <span class="math inline">\(0\le u\le t\)</span>, <span class="math display">\[
+N(t)=N(u)+[N(t)-N(u)],
 \]</span> where the two terms on the right are independent. Hence <span class="math display">\[\begin{equation}\label{eq:poisson-covariance}
-\COV(N(s),N(t))=λs,
-\end{equation}\]</span> or, for arbitrary <span class="math inline">\(s,t\ge0\)</span>, <span class="math display">\[
-\COV(N(s),N(t))=λ\min(s,t).
-\]</span> This parallels the covariance <span class="math inline">\(p(1-p)\min(m,n)\)</span> of the Bernoulli counting process.</p></li>
+\COV(N(u),N(t))=λu,
+\end{equation}\]</span> or, for arbitrary <span class="math inline">\(u,t\ge0\)</span>, <span class="math display">\[
+\COV(N(u),N(t))=λ\min(u,t).
+\]</span> This is the continuous-time counterpart of the Bernoulli counting-process covariance in <span class="math inline">\(\eqref{eq:bernoulli-counting-covariance}\)</span>. In both cases, the covariance is the variance of the arrivals shared by the two counts.</p></li>
 </ol>
+<div id="exm-poisson-third-arrival-deadline" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.2 (The time of the third arrival)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ=2\)</span> per minute, counting incoming requests. Let <span class="math inline">\(S_3\)</span> be the time of the third arrival, measured from time zero.</p>
+<ol type="a">
+<li><p>Find the probability that the third arrival occurs after two minutes.</p></li>
+<li><p>Find the probability that the third arrival occurs between one and two minutes.</p></li>
+<li><p>Given that exactly one request has arrived by time one, find the probability that the third arrival occurs by time two.</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The key correspondence is <span class="math display">\[
+\{S_3&gt;t\}=\{N(t)\le2\}.
+\]</span></p>
+<ol type="a">
+<li><p>Since <span class="math inline">\(N(2)\sim\operatorname{Poisson}(4)\)</span>, <span class="math display">\[
+\PR(S_3&gt;2)
+=\sum_{k=0}^{2}e^{-4}\frac{4^k}{k!}
+=13e^{-4}\approx0.2381.
+\]</span></p></li>
+<li><p>Similarly, <span class="math inline">\(\PR(S_3&gt;1)=e^{-2}(1+2+2)=5e^{-2}\)</span>. Therefore, <span class="math display">\[\begin{align*}
+\PR(1&lt;S_3\le2)
+&amp;=\PR(S_3&gt;1)-\PR(S_3&gt;2)\\
+&amp;=5e^{-2}-13e^{-4}
+\approx0.4386.
+\end{align*}\]</span></p></li>
+<li><p>Given <span class="math inline">\(N(1)=1\)</span>, two further requests are needed during <span class="math inline">\((1,2]\)</span>. The increment <span class="math inline">\(N(2)-N(1)\)</span> is independent of <span class="math inline">\(N(1)\)</span> and has a <span class="math inline">\(\operatorname{Poisson}(2)\)</span> distribution. Hence, <span class="math display">\[\begin{align*}
+\PR(S_3\le2\mid N(1)=1)
+&amp;=\PR(N(2)-N(1)\ge2)\\
+&amp;=1-e^{-2}(1+2)
+=1-3e^{-2}\approx0.5940.
+\end{align*}\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exm-poisson-overlapping-intervals" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.3 (Counts in overlapping intervals)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ=2\)</span> per minute. Define <span class="math display">\[
+X=N(3)-N(1),\qquad Y=N(5)-N(2).
+\]</span> Find their covariance, correlation coefficient, and <span class="math inline">\(\PR(X=1,Y=1)\)</span>. Are <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> independent?</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Split the intervals into three disjoint pieces: <span class="math display">\[
+A=N(2)-N(1),\qquad
+B=N(3)-N(2),\qquad
+C=N(5)-N(3).
+\]</span> By independent increments, <span class="math inline">\(A,B,C\)</span> are independent, with <span class="math display">\[
+A\sim\operatorname{Poisson}(2),\qquad
+B\sim\operatorname{Poisson}(2),\qquad
+C\sim\operatorname{Poisson}(4).
+\]</span> Since <span class="math inline">\(X=A+B\)</span> and <span class="math inline">\(Y=B+C\)</span>, <span class="math display">\[
+\COV(X,Y)=\VAR(B)=λ=2.
+\]</span> The intervals counted by <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have lengths two and three minutes, respectively. Thus, <span class="math inline">\(\VAR(X)=2λ=4\)</span> and <span class="math inline">\(\VAR(Y)=3λ=6\)</span>, so <span class="math display">\[
+\operatorname{Corr}(X,Y)
+=\frac{λ}{\sqrt{(2λ)(3λ)}}
+=\frac{2}{\sqrt{4\cdot6}}
+=\frac1{\sqrt6}.
+\]</span></p>
+<p>For <span class="math inline">\(X=Y=1\)</span>, there are two disjoint possibilities: <span class="math inline">\((A,B,C)=(1,0,1)\)</span> or <span class="math inline">\((0,1,0)\)</span>. Hence, <span class="math display">\[\begin{align*}
+\PR(X=1,Y=1)
+&amp;=(2e^{-2})(e^{-2})(4e^{-4})
++(e^{-2})(2e^{-2})(e^{-4})\\
+&amp;=10e^{-8}.
+\end{align*}\]</span> Their positive covariance shows that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are not independent.</p>
+<p>More generally, if <span class="math inline">\(N(I)\)</span> denotes the number of arrivals in a time interval <span class="math inline">\(I\)</span>, then <span class="math display">\[
+\COV(N(I),N(J))=λ\,|I\cap J|,
+\]</span> where <span class="math inline">\(|I\cap J|\)</span> is the length of the overlap. To see this, separate each count into the count on the overlap and the count outside it. These three counts are independent, so only the variance of the shared count contributes to the covariance.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="superposition-of-poisson-processes" class="level2" data-number="13.5">
 <h2 data-number="13.5" class="anchored" data-anchor-id="superposition-of-poisson-processes"><span class="header-section-number">13.5</span> Superposition of Poisson processes</h2>
@@ -812,10 +976,10 @@ N(t)=N(s)+[N(t)-N(s)],
 <li><p>Let <span class="math inline">\(\{N_1(t)\}\)</span> and <span class="math inline">\(\{N_2(t)\}\)</span> be independent Poisson processes with rates <span class="math inline">\(λ_1\)</span> and <span class="math inline">\(λ_2\)</span>, and define <span class="math display">\[
 N(t)=N_1(t)+N_2(t).
 \]</span> Then <span class="math inline">\(\{N(t)\}\)</span> is a Poisson process with rate <span class="math inline">\(λ_1+λ_2\)</span>.</p></li>
-<li><p>To see this, consider any interval <span class="math inline">\((s,t]\)</span>. The increment <span class="math display">\[
-N(t)-N(s)
-=[N_1(t)-N_1(s)]+[N_2(t)-N_2(s)]
-\]</span> is the sum of independent Poisson random variables and therefore has a <span class="math inline">\(\operatorname{Poisson}((λ_1+λ_2)(t-s))\)</span> distribution. Increments over disjoint intervals remain independent, so this is a statement about the whole process, not about <span class="math inline">\(N(t)\)</span> at a single time.</p></li>
+<li><p>To see this, consider any interval <span class="math inline">\((u,t]\)</span>. The increment <span class="math display">\[
+N(t)-N(u)
+=[N_1(t)-N_1(u)]+[N_2(t)-N_2(u)]
+\]</span> is the sum of independent Poisson random variables and therefore has a <span class="math inline">\(\operatorname{Poisson}((λ_1+λ_2)(t-u))\)</span> distribution. Increments over disjoint intervals remain independent, so this is a statement about the whole process, not about <span class="math inline">\(N(t)\)</span> at a single time.</p></li>
 <li><p>More generally, the superposition of independent Poisson processes with rates <span class="math inline">\(λ_1,\ldots,λ_m\)</span> is a Poisson process with rate <span class="math display">\[
 λ_1+\cdots+λ_m.
 \]</span></p></li>
@@ -825,44 +989,375 @@ N(t)-N(s)
 <h2 data-number="13.6" class="anchored" data-anchor-id="splitting-a-poisson-process"><span class="header-section-number">13.6</span> Splitting a Poisson process</h2>
 <ol type="1">
 <li><p>Suppose each arrival of a rate-<span class="math inline">\(λ\)</span> Poisson process is independently labeled type 1 with probability <span class="math inline">\(p\)</span> and type 2 with probability <span class="math inline">\(1-p\)</span>. Let <span class="math inline">\(N_1(t)\)</span> and <span class="math inline">\(N_2(t)\)</span> count the two types. Then <span class="math inline">\(\{N_1(t)\}\)</span> and <span class="math inline">\(\{N_2(t)\}\)</span> are independent Poisson processes with rates <span class="math inline">\(pλ\)</span> and <span class="math inline">\((1-p)λ\)</span>, respectively.</p></li>
-<li><p>For fixed <span class="math inline">\(t\)</span>, conditional on <span class="math inline">\(N(t)=m+k\)</span>, the pair <span class="math inline">\((N_1(t),N_2(t))\)</span> has a binomial splitting distribution: <span class="math display">\[
-\PR(N_1(t)=m,N_2(t)=k\mid N(t)=m+k)
-=\frac{(m+k)!}{m!k!}p^m(1-p)^k.
+<li><p>For fixed <span class="math inline">\(t\)</span>, conditional on <span class="math inline">\(N(t)=j+k\)</span>, the pair <span class="math inline">\((N_1(t),N_2(t))\)</span> has a binomial splitting distribution: <span class="math display">\[
+\PR(N_1(t)=j,N_2(t)=k\mid N(t)=j+k)
+=\frac{(j+k)!}{j!k!}p^j(1-p)^k.
 \]</span> Therefore, <span class="math display">\[\begin{align*}
-&amp;\PR(N_1(t)=m,N_2(t)=k)\\
+&amp;\PR(N_1(t)=j,N_2(t)=k)\\
 &amp;\quad=
-\frac{(pλt)^m e^{-pλt}}{m!}
+\frac{(pλt)^j e^{-pλt}}{j!}
 \frac{((1-p)λt)^k e^{-(1-p)λt}}{k!}.
 \end{align*}\]</span> The factorization shows both the marginal Poisson distributions and their independence. Applying the same argument on disjoint intervals gives independence of the two processes.</p></li>
 <li><p>The same result holds for <span class="math inline">\(r\)</span> types. If an arrival is independently assigned type <span class="math inline">\(i\)</span> with probability <span class="math inline">\(p_i\)</span>, where <span class="math inline">\(p_1+\cdots+p_r=1\)</span>, then the type processes are independent Poisson processes with rates <span class="math inline">\(p_iλ\)</span>.</p></li>
 </ol>
+<div id="exm-poisson-web-server" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.4 (Requests at a web server)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ=10\)</span> per minute, counting requests received by a web server.</p>
+<ol type="a">
+<li><p>What is the expected time of the 100th request?</p></li>
+<li><p>What is the probability that the time between the 100th and 101st requests exceeds one minute?</p></li>
+<li><p>Each request is from Canada independently with probability <span class="math inline">\(1/5\)</span>. What is the probability that no request from Canada arrives during the next two minutes?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>The 100th arrival time is <span class="math inline">\(S_{100}=T_1+\cdots+T_{100}\)</span>, so <span class="math display">\[
+\EXP[S_{100}]=\frac{100}{10}=10\text{ minutes}.
+\]</span></p></li>
+<li><p>The waiting time <span class="math inline">\(T_{101}\)</span> is <span class="math inline">\(\operatorname{Exp}(10)\)</span>, so <span class="math display">\[
+\PR(T_{101}&gt;1)=e^{-10}.
+\]</span></p></li>
+<li><p>Thinning gives a Poisson process of Canadian requests with rate <span class="math inline">\(2\)</span> per minute. Thus, <span class="math display">\[
+\PR(N_C(2)=0)=e^{-4}.
+\]</span></p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exm-poisson-three-streams" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.5 (Splitting into three streams)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span>. Independently assign every arrival to one of three streams with probabilities <span class="math inline">\(p_1,p_2,p_3\)</span>. Show that the three output processes are independent, find their rates, and verify that their superposition recovers the original process.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(N_i(t)\)</span> count the arrivals assigned to stream <span class="math inline">\(i\)</span> by time <span class="math inline">\(t\)</span>. Since every arrival is assigned to exactly one stream, <span class="math inline">\(p_1+p_2+p_3=1\)</span> and <span class="math display">\[
+N_1(t)+N_2(t)+N_3(t)=N(t)
+\qquad\text{for every }t\ge0.
+\]</span></p>
+<p>To identify the output processes, fix an interval <span class="math inline">\((u,t]\)</span> of length <span class="math inline">\(h=t-u&gt;0\)</span> and write <span class="math inline">\(X_i=N_i(t)-N_i(u)\)</span>. Conditional on <span class="math inline">\(N(t)-N(u)=k\)</span>, the vector <span class="math inline">\((X_1,X_2,X_3)\)</span> has a multinomial distribution with <span class="math inline">\(k\)</span> trials and probabilities <span class="math inline">\(p_1,p_2,p_3\)</span>. Thus, for nonnegative integers <span class="math inline">\(k_1,k_2,k_3\)</span> and <span class="math inline">\(k=k_1+k_2+k_3\)</span>, <span class="math display">\[\begin{align*}
+\PR(X_1=k_1,X_2=k_2,X_3=k_3)
+&amp;=e^{-λh}\frac{(λh)^k}{k!}
+\frac{k!}{k_1!k_2!k_3!}
+\prod_{i=1}^3p_i^{k_i}\\
+&amp;=\prod_{i=1}^3
+\left[e^{-p_iλh}\frac{(p_iλh)^{k_i}}{k_i!}\right].
+\end{align*}\]</span> The factorization shows that the three increments are independent and that <span class="math display">\[
+N_i(t)-N_i(u)\sim\operatorname{Poisson}(p_iλ(t-u)).
+\]</span></p>
+<p>For disjoint time intervals, the original arrival counts are independent, and the assignments of their arrivals are independent as well. Hence the vectors of output increments on disjoint intervals are independent. Together with the factorization above, this proves that the three output processes are independent Poisson processes with rates <span class="math inline">\(p_1λ,p_2λ,p_3λ\)</span>.</p>
+<p>Their superposition has rate <span class="math display">\[
+p_1λ+p_2λ+p_3λ=λ.
+\]</span> Moreover, the identity <span class="math inline">\(N_1(t)+N_2(t)+N_3(t)=N(t)\)</span> shows that superposition recovers the original sample path, not just its distribution.</p>
+</div>
+</div>
+</div>
+<div id="exm-poisson-fixed-total" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.6 (Independent streams with a fixed total)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span>. Each arrival is independently marked red with probability <span class="math inline">\(p\in(0,1)\)</span> and blue otherwise. The marks are independent of the process. Let <span class="math inline">\(R\)</span> and <span class="math inline">\(B\)</span> be the red and blue counts during <span class="math inline">\([0,t]\)</span>, where <span class="math inline">\(t&gt;0\)</span>, and let <span class="math inline">\(K=R+B\)</span>.</p>
+<p>The splitting theorem says that <span class="math inline">\(R\)</span> and <span class="math inline">\(B\)</span> are independent. Yet if <span class="math inline">\(K=10\)</span>, knowing <span class="math inline">\(R\)</span> determines <span class="math inline">\(B\)</span>. Explain this, and calculate both the conditional and unconditional covariance.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Conditional on <span class="math inline">\(K=k\)</span>, <span class="math display">\[
+R\mid K=k\sim\operatorname{Binom}(k,p),
+\qquad B=k-R.
+\]</span> Therefore, <span class="math display">\[
+\COV(R,B\mid K=k)
+=-\VAR(R\mid K=k)
+=-kp(1-p).
+\]</span> For <span class="math inline">\(k\ge1\)</span>, the conditional correlation is <span class="math inline">\(-1\)</span>: the two counts must add to the known total.</p>
+<p>Unconditionally, the total is random, with <span class="math inline">\(K\sim\operatorname{Poisson}(λt)\)</span>. By the law of total covariance, <span class="math display">\[\begin{align*}
+\COV(R,B)
+&amp;=\EXP[\COV(R,B\mid K)]
++\COV(\EXP[R\mid K],\EXP[B\mid K])\\
+&amp;=-p(1-p)\EXP[K]
++\COV(pK,(1-p)K)\\
+&amp;=-p(1-p)λt+p(1-p)λt\\
+&amp;=0.
+\end{align*}\]</span> The negative covariance at a fixed total is exactly offset by variation in the total: larger totals tend to produce more arrivals of both colours.</p>
+<p>Zero covariance alone does not establish independence; independence follows from the splitting theorem. There is no contradiction because independence need not survive conditioning on a common total.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="conditional-arrival-times" class="level2" data-number="13.7">
 <h2 data-number="13.7" class="anchored" data-anchor-id="conditional-arrival-times"><span class="header-section-number">13.7</span> Conditional arrival times</h2>
 <ol type="1">
-<li><p>Suppose that <span class="math inline">\(N(t)=1\)</span>. Conditional on this event, the single arrival time <span class="math inline">\(S_1\)</span> is uniformly distributed on <span class="math inline">\([0,t]\)</span>. For <span class="math inline">\(0 \le s \le t\)</span>, <span class="math display">\[\begin{align*}
-\PR(S_1\le s\mid N(t)=1)
-&amp;=\frac{\PR(N(s)=1,N(t)-N(s)=0)}{\PR(N(t)=1)}\\
-&amp;=\frac{(λs)e^{-λs}e^{-λ(t-s)}}{(λt)e^{-λt}}\\
-&amp;=\frac st.
+<li><p>Suppose that <span class="math inline">\(N(t)=1\)</span>. Conditional on this event, the single arrival time <span class="math inline">\(S_1\)</span> is uniformly distributed on <span class="math inline">\([0,t]\)</span>. For <span class="math inline">\(0 \le u \le t\)</span>, <span class="math display">\[\begin{align*}
+\PR(S_1\le u\mid N(t)=1)
+&amp;=\frac{\PR(N(u)=1,N(t)-N(u)=0)}{\PR(N(t)=1)}\\
+&amp;=\frac{(λu)e^{-λu}e^{-λ(t-u)}}{(λt)e^{-λt}}\\
+&amp;=\frac ut.
 \end{align*}\]</span></p></li>
-<li><p>More generally, conditional on <span class="math inline">\(N(t)=n\)</span>, the arrival times <span class="math display">\[
-0&lt;S_1&lt;\cdots&lt;S_n&lt;t
-\]</span> have the same joint distribution as the order statistics of <span class="math inline">\(n\)</span> independent <span class="math inline">\(\operatorname{Unif}(0,t)\)</span> random variables. Their conditional joint density is <span class="math display">\[
-f_{S_1,\ldots,S_n\mid N(t)}(s_1,\ldots,s_n\mid n)
-=\frac{n!}{t^n},
-\]</span> on the region <span class="math inline">\(0&lt;s_1&lt;\cdots&lt;s_n&lt;t\)</span>.</p></li>
+<li><p>The <strong>order statistics</strong> of random variables <span class="math inline">\(U_1,\ldots,U_k\)</span> are their values arranged in increasing order, denoted by <span class="math display">\[
+U_{(1)}\le U_{(2)}\le\cdots\le U_{(k)}.
+\]</span> Thus, <span class="math inline">\(U_{(1)}\)</span> is the minimum, <span class="math inline">\(U_{(k)}\)</span> is the maximum, and <span class="math inline">\(U_{(j)}\)</span> is the <span class="math inline">\(j\)</span>-th smallest value. The parentheses distinguish the rank from the original index: <span class="math inline">\(U_2\)</span> is the second draw, whereas <span class="math inline">\(U_{(2)}\)</span> is the second smallest draw. For example, if <span class="math display">\[
+(U_1,U_2,U_3)=(3.2,0.7,2.1),
+\]</span> then <span class="math display">\[
+(U_{(1)},U_{(2)},U_{(3)})=(0.7,2.1,3.2).
+\]</span> Independent draws from a continuous distribution have no ties with probability one. Their order statistics are generally dependent: knowing the smallest value constrains all the others.</p>
+<div id="fig-poisson-order-statistics" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-poisson-order-statistics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/poisson-processes2.svg" class="img-fluid figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poisson-order-statistics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13.2: Sorting changes the labels, not the locations of the sampled points. The second draw is <span class="math inline">\(U_2=0.7\)</span>, but the second smallest value is <span class="math inline">\(U_{(2)}=U_3=2.1\)</span>.
+</figcaption>
+</figure>
+</div></li>
+</ol>
+<div id="exm-uniform-second-order-statistic" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.7 (The second of three uniform points)</strong></span> Let <span class="math inline">\(U_1,U_2,U_3\)</span> be independent <span class="math inline">\(\operatorname{Unif}(0,t)\)</span> random variables, where <span class="math inline">\(t&gt;0\)</span>. Find the CDF and density of their second order statistic <span class="math inline">\(U_{(2)}\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For <span class="math inline">\(0\le u\le t\)</span>, the event <span class="math inline">\(\{U_{(2)}\le u\}\)</span> occurs exactly when at least two of the three draws are at most <span class="math inline">\(u\)</span>. Each draw is at most <span class="math inline">\(u\)</span> with probability <span class="math inline">\(u/t\)</span>, independently of the others. Therefore, <span class="math display">\[\begin{align*}
+F_{U_{(2)}}(u)
+&amp;=\binom32\left(\frac ut\right)^2\left(1-\frac ut\right)
++\left(\frac ut\right)^3\\
+&amp;=3\left(\frac ut\right)^2-2\left(\frac ut\right)^3.
+\end{align*}\]</span> The CDF is zero for <span class="math inline">\(u&lt;0\)</span> and one for <span class="math inline">\(u&gt;t\)</span>. Differentiating on <span class="math inline">\((0,t)\)</span> gives <span class="math display">\[
+f_{U_{(2)}}(u)=\frac{6u}{t^2}-\frac{6u^2}{t^3}
+=\frac{6u(t-u)}{t^3},
+\qquad 0&lt;u&lt;t,
+\]</span> and the density is zero elsewhere. For example, <span class="math display">\[
+\PR(U_{(2)}\le t/2)=3\left(\frac12\right)^2-2\left(\frac12\right)^3=\frac12.
+\]</span> The useful step is to translate a statement about the <span class="math inline">\(j\)</span>-th smallest value into a statement about how many draws lie below a threshold.</p>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li><p>Returning to the Poisson process, conditional on <span class="math inline">\(N(t)=k\)</span>, where <span class="math inline">\(k\ge1\)</span>, the arrival times <span class="math display">\[
+0&lt;S_1&lt;\cdots&lt;S_k&lt;t
+\]</span> have the same joint distribution as the order statistics of <span class="math inline">\(k\)</span> independent <span class="math inline">\(\operatorname{Unif}(0,t)\)</span> random variables. Their conditional joint density is <span class="math display">\[
+f_{S_1,\ldots,S_k\mid N(t)}(u_1,\ldots,u_k\mid k)
+=\frac{k!}{t^k},
+\]</span> on the region <span class="math inline">\(0&lt;u_1&lt;\cdots&lt;u_k&lt;t\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>First consider the first <span class="math inline">\(k\)</span> arrival times without conditioning on <span class="math inline">\(N(t)\)</span>. The transformation from interarrival times to arrival times is <span class="math inline">\(S_j=T_1+\cdots+T_j\)</span>. Its inverse is <span class="math inline">\(T_j=S_j-S_{j-1}\)</span>, with <span class="math inline">\(S_0=0\)</span>.</p>
+<p>For arrival-time values <span class="math inline">\(u_1,\ldots,u_k\)</span>, set <span class="math inline">\(u_0=0\)</span> and <span class="math inline">\(v_j=u_j-u_{j-1}\)</span>. The Jacobian of this inverse transformation is <span class="math display">\[
+J=\frac{\partial(v_1,\ldots,v_k)}{\partial(u_1,\ldots,u_k)}
+=\MATRIX{
+1 &amp; 0 &amp; \cdots &amp; 0\\
+-1 &amp; 1 &amp; \ddots &amp; \vdots\\
+0 &amp; \ddots &amp; \ddots &amp; 0\\
+0 &amp; \cdots &amp; -1 &amp; 1
+}.
+\]</span> This matrix is lower triangular with every diagonal entry equal to one, so <span class="math display">\[
+\det J=\prod_{j=1}^k J_{jj}=1,
+\qquad |\det J|=1.
+\]</span> For <span class="math inline">\(k=1\)</span>, the matrix is simply <span class="math inline">\(\MATRIX{1}\)</span>. The change-of-variables formula and independence of the exponential interarrival times therefore give <span class="math display">\[\begin{align*}
+f_{S_1,\ldots,S_k}(u_1,\ldots,u_k)
+&amp;=f_{T_1,\ldots,T_k}(u_1,u_2-u_1,\ldots,u_k-u_{k-1})|\det J|\\
+&amp;=\prod_{j=1}^k λe^{-λ(u_j-u_{j-1})}\\
+&amp;=λ^k e^{-λu_k},
+\qquad 0&lt;u_1&lt;\cdots&lt;u_k.
+\end{align*}\]</span> Given <span class="math inline">\(S_k=u_k&lt;t\)</span>, exactly <span class="math inline">\(k\)</span> arrivals occur by time <span class="math inline">\(t\)</span> if the next interarrival time exceeds <span class="math inline">\(t-u_k\)</span>. This has probability <span class="math inline">\(e^{-λ(t-u_k)}\)</span>, independently of the first <span class="math inline">\(k\)</span> interarrival times. Consequently, on <span class="math inline">\(0&lt;u_1&lt;\cdots&lt;u_k&lt;t\)</span>, <span class="math display">\[\begin{align*}
+f_{S_1,\ldots,S_k\mid N(t)}(u_1,\ldots,u_k\mid k)
+&amp;=\frac{λ^k e^{-λu_k}e^{-λ(t-u_k)}}{\PR(N(t)=k)}\\
+&amp;=\frac{λ^k e^{-λt}}{e^{-λt}(λt)^k/k!}\\
+&amp;=\frac{k!}{t^k}.
+\end{align*}\]</span></p>
+<p>Why is this also the density of sorted uniform draws? The joint density of <span class="math inline">\(k\)</span> independent <span class="math inline">\(\operatorname{Unif}(0,t)\)</span> draws is <span class="math inline">\(1/t^k\)</span> on the cube <span class="math inline">\((0,t)^k\)</span>. Every strictly ordered tuple can arise from <span class="math inline">\(k!\)</span> permutations of the original draws. Sorting combines these possibilities, so the order statistics have joint density <span class="math inline">\(k!/t^k\)</span> on the ordered region. This proves the claimed equality in distribution.</p>
+</div>
+</div>
+</div>
+<p>Notice that <span class="math inline">\(S_1\sim\operatorname{Exp}(λ)\)</span> without conditioning, whereas <span class="math inline">\(S_1\mid N(t)=1\sim\operatorname{Unif}(0,t)\)</span>. Knowing that exactly one arrival occurred in <span class="math inline">\([0,t]\)</span> changes the distribution of its location.</p></li>
 <li><p>This result is useful for simulation. One can generate a Poisson process on <span class="math inline">\([0,t]\)</span> by first drawing <span class="math inline">\(N\sim\operatorname{Poisson}(λt)\)</span>, then drawing <span class="math inline">\(N\)</span> independent uniform random variables on <span class="math inline">\([0,t]\)</span>, and finally sorting them to obtain the arrival times.</p></li>
 <li><p>We have therefore encountered three equivalent descriptions of a Poisson process:</p>
 <ul>
 <li>The interarrival times are i.i.d. <span class="math inline">\(\operatorname{Exp}(λ)\)</span> random variables.</li>
 <li>The process has stationary independent increments, with <span class="math display">\[
-N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
-\qquad 0\le s&lt;t.
+N(t)-N(u)\sim\operatorname{Poisson}(λ(t-u)),
+\qquad 0\le u&lt;t.
 \]</span></li>
-<li>On any interval <span class="math inline">\([0,t]\)</span>, first draw <span class="math inline">\(N(t)\sim\operatorname{Poisson}(λt)\)</span>; conditional on <span class="math inline">\(N(t)=n\)</span>, the <span class="math inline">\(n\)</span> arrival times are the order statistics of <span class="math inline">\(n\)</span> independent <span class="math inline">\(\operatorname{Unif}(0,t)\)</span> random variables.</li>
+<li>On any interval <span class="math inline">\([0,t]\)</span>, first draw <span class="math inline">\(N(t)\sim\operatorname{Poisson}(λt)\)</span>; conditional on <span class="math inline">\(N(t)=k\)</span>, the <span class="math inline">\(k\)</span> arrival times are the order statistics of <span class="math inline">\(k\)</span> independent <span class="math inline">\(\operatorname{Unif}(0,t)\)</span> random variables.</li>
 </ul></li>
 </ol>
+<div id="exm-poisson-two-arrival-times" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.8 (Two conditional arrival times)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span> and fix <span class="math inline">\(t&gt;0\)</span>. Given that <span class="math inline">\(N(t)=2\)</span>, find the conditional joint density of <span class="math inline">\((S_1,S_2)\)</span> and the conditional marginal density of <span class="math inline">\(S_1\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The joint density is <span class="math display">\[
+f_{S_1,S_2\mid N(t)}(u_1,u_2\mid2)
+=\frac{2}{t^2},
+\qquad 0&lt;u_1&lt;u_2&lt;t.
+\]</span> Therefore, <span class="math display">\[
+f_{S_1\mid N(t)}(u\mid2)
+=\int_u^t\frac{2}{t^2}\,dv
+=\frac{2(t-u)}{t^2},
+\qquad 0&lt;u&lt;t.
+\]</span></p>
+</div>
+</div>
+</div>
+<div id="exm-poisson-first-last-arrivals" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.9 (The first and last arrivals)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span> and fix <span class="math inline">\(t&gt;0\)</span>. Suppose we know that exactly three arrivals occurred during <span class="math inline">\([0,t]\)</span>. Let <span class="math inline">\(S_1&lt;S_2&lt;S_3\)</span> denote their arrival times. Given that <span class="math inline">\(N(t)=3\)</span>, answer the following questions.</p>
+<ol type="a">
+<li><p>Find the probability densities and expected values of <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_3\)</span>.</p></li>
+<li><p>Find the expected time between the first and last arrivals.</p></li>
+<li><p>Find the probability that all three arrivals are contained in some interval of length <span class="math inline">\(t/2\)</span>.</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Given <span class="math inline">\(N(t)=3\)</span>, the arrival times are the order statistics of three independent <span class="math inline">\(\operatorname{Unif}(0,t)\)</span> variables.</p>
+<ol type="a">
+<li><p>For <span class="math inline">\(0\le x\le t\)</span>, <span class="math display">\[\begin{align*}
+\PR(S_1&gt;x\mid N(t)=3)&amp;=\left(1-\frac xt\right)^3,\\
+\PR(S_3\le x\mid N(t)=3)&amp;=\left(\frac xt\right)^3.
+\end{align*}\]</span> Differentiating gives, for <span class="math inline">\(0&lt;x&lt;t\)</span>, <span class="math display">\[\begin{align*}
+f_{S_1\mid N(t)=3}(x)&amp;=\frac3t\left(1-\frac xt\right)^2,\\
+f_{S_3\mid N(t)=3}(x)&amp;=\frac{3x^2}{t^3}.
+\end{align*}\]</span> Consequently, <span class="math display">\[\begin{align*}
+\EXP[S_1\mid N(t)=3]
+&amp;=\int_0^t x\frac3t\left(1-\frac xt\right)^2\,dx=\frac t4,\\
+\EXP[S_3\mid N(t)=3]
+&amp;=\int_0^t x\frac{3x^2}{t^3}\,dx=\frac{3t}{4}.
+\end{align*}\]</span></p></li>
+<li><p>By linearity of conditional expectation, <span class="math display">\[
+\EXP[S_3-S_1\mid N(t)=3]
+=\frac{3t}{4}-\frac t4=\frac t2.
+\]</span></p></li>
+<li><p>The interval may be chosen after observing the arrivals, so the event is <span class="math inline">\(\{S_3-S_1\le t/2\}\)</span>. The ordered triple has conditional density <span class="math inline">\(6/t^3\)</span> on <span class="math inline">\(0&lt;u_1&lt;u_2&lt;u_3&lt;t\)</span>. Integrating over <span class="math inline">\(u_2\)</span> gives <span class="math display">\[
+f_{S_1,S_3\mid N(t)=3}(u,v)
+=\int_u^v\frac6{t^3}\,du_2
+=\frac{6(v-u)}{t^3},
+\qquad 0&lt;u&lt;v&lt;t.
+\]</span> Writing <span class="math inline">\(D=S_3-S_1\)</span>, we obtain <span class="math display">\[\begin{align*}
+f_{D\mid N(t)=3}(d)
+&amp;=\int_0^{t-d}\frac{6d}{t^3}\,du\\
+&amp;=\frac{6d(t-d)}{t^3},
+\qquad 0&lt;d&lt;t.
+\end{align*}\]</span> Thus, <span class="math display">\[
+\PR(D\le t/2\mid N(t)=3)
+=\int_0^{t/2}\frac{6d(t-d)}{t^3}\,dd
+=\frac12.
+\]</span> By comparison, the probability that all three arrivals lie in the predetermined interval <span class="math inline">\([0,t/2]\)</span> is only <span class="math inline">\((1/2)^3=1/8\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exm-poisson-earlier-count" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.10 (Reconstructing an earlier count)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ&gt;0\)</span> per minute, counting incoming requests. A log records that 12 requests arrived during the first hour, but their timestamps were lost.</p>
+<ol type="a">
+<li><p>Find the probability that exactly five requests arrived during the first 20 minutes.</p></li>
+<li><p>Find the MMSE estimate of the number that arrived during those 20 minutes and the conditional mean-square error.</p></li>
+<li><p>Explain why these answers do not depend on <span class="math inline">\(λ\)</span>.</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>With time measured in minutes, for general times <span class="math inline">\(0&lt;u&lt;t\)</span>, independent increments give, for <span class="math inline">\(j=0,\ldots,k\)</span>, <span class="math display">\[\begin{align*}
+\PR(N(u)=j\mid N(t)=k)
+&amp;=\frac{\PR(N(u)=j)\PR(N(t)-N(u)=k-j)}{\PR(N(t)=k)}\\
+&amp;=\binom kj\left(\frac ut\right)^j
+\left(1-\frac ut\right)^{k-j}.
+\end{align*}\]</span> Thus, <span class="math display">\[
+N(u)\mid N(t)=k\sim\operatorname{Binom}(k,u/t).
+\]</span></p>
+<ol type="a">
+<li><p>Taking <span class="math inline">\(u=20\)</span>, <span class="math inline">\(t=60\)</span>, and <span class="math inline">\(k=12\)</span>, <span class="math display">\[
+\PR(N(20)=5\mid N(60)=12)
+=\binom{12}{5}\left(\frac13\right)^5
+\left(\frac23\right)^7
+\approx0.1908.
+\]</span></p></li>
+<li><p>The MMSE estimate is the conditional expectation: <span class="math display">\[
+\widehat N(20)=\EXP[N(20)\mid N(60)=12]
+=12\cdot\frac13=4.
+\]</span> Its conditional mean-square error is <span class="math display">\[\begin{align*}
+\EXP[(N(20)-4)^2\mid N(60)=12]
+&amp;=\VAR(N(20)\mid N(60)=12)\\
+&amp;=12\cdot\frac13\cdot\frac23
+=\frac83.
+\end{align*}\]</span></p></li>
+<li><p>The rate cancels from the conditional probability. Equivalently, given the total count, the arrival times are obtained by sorting independent uniform points over the hour. Each point falls in the first 20 minutes with probability <span class="math inline">\(1/3\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
 </section>
 <section id="competing-poisson-processes" class="level2" data-number="13.8">
 <h2 data-number="13.8" class="anchored" data-anchor-id="competing-poisson-processes"><span class="header-section-number">13.8</span> Competing Poisson processes</h2>
@@ -881,19 +1376,106 @@ N(t)-N(s)\sim\operatorname{Poisson}(λ(t-s)),
 &amp;=\frac{λ_1}{λ_1+λ_2}.
 \end{align*}\]</span> This is another way to see the superposition and splitting results: the combined clock rings at rate <span class="math inline">\(λ_1+λ_2\)</span>, and each ring comes from process <span class="math inline">\(i\)</span> with probability proportional to <span class="math inline">\(λ_i\)</span>.</p></li>
 </ol>
+<div id="exm-poisson-alarm-streams" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.11 (Combining two alarm streams)</strong></span> Let <span class="math inline">\(\{N_1(t)\}_{t\ge0}\)</span> and <span class="math inline">\(\{N_2(t)\}_{t\ge0}\)</span> be independent Poisson processes with rates <span class="math inline">\(λ_1=2\)</span> and <span class="math inline">\(λ_2=3\)</span> per minute, counting reports from sensors A and B, respectively. Each A report is classified as an alarm with probability <span class="math inline">\(1/2\)</span>, and each B report with probability <span class="math inline">\(1/5\)</span>. All classifications are mutually independent and independent of the report times.</p>
+<ol type="a">
+<li><p>Find the rate of the combined alarm process.</p></li>
+<li><p>Find the probability of no alarms during the next two minutes.</p></li>
+<li><p>Find the probability that the next alarm comes from sensor A.</p></li>
+<li><p>Are the combined alarm and nonalarm processes independent?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Thinning gives independent alarm processes with rates <span class="math display">\[
+λ_A=2\cdot\frac12=1,
+\qquad
+λ_B=3\cdot\frac15=\frac35.
+\]</span> Their superposition is Poisson with rate <span class="math display">\[
+λ_{\mathrm{alarm}}=1+\frac35=\frac85
+\quad\text{per minute}.
+\]</span></p></li>
+<li><p>The number of alarms during two minutes is Poisson with mean <span class="math inline">\(16/5\)</span>, so <span class="math display">\[
+\PR(\text{no alarms in two minutes})
+=e^{-16/5}\approx0.0408.
+\]</span></p></li>
+<li><p>By the competing-exponential formula, <span class="math display">\[
+\PR(\text{next alarm comes from A})
+=\frac{λ_A}{λ_A+λ_B}
+=\frac58.
+\]</span></p></li>
+<li><p>Yes. Splitting each sensor’s reports produces independent alarm and nonalarm processes. Since the sensors are independent, all four component processes are mutually independent. Combining the two alarm streams and the two nonalarm streams therefore yields independent processes.</p></li>
+</ol>
+<p>The combined nonalarm rate is <span class="math display">\[
+2\left(1-\frac12\right)+3\left(1-\frac15\right)
+=1+\frac{12}{5}=\frac{17}{5}.
+\]</span> The alarm and nonalarm rates sum to <span class="math inline">\(5\)</span>, the original total report rate.</p>
+</div>
+</div>
+</div>
+<div id="exm-poisson-arrival-race" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.12 (A race between several arrivals)</strong></span> Let <span class="math inline">\(\{N_1(t)\}_{t\ge0}\)</span> and <span class="math inline">\(\{N_2(t)\}_{t\ge0}\)</span> be independent Poisson processes with rates <span class="math inline">\(λ_1=2\)</span> and <span class="math inline">\(λ_2=1\)</span> per minute. Find the probability that the third arrival of process 1 occurs before the second arrival of process 2.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(S_k^{(i)}\)</span> denote the time of the <span class="math inline">\(k\)</span>-th arrival of process <span class="math inline">\(i\)</span>. The superposition of the two processes has rate <span class="math inline">\(3\)</span>. Successive arrival labels are independent, with probabilities <span class="math display">\[
+p=\frac23\quad\text{for process 1},
+\qquad
+1-p=\frac13\quad\text{for process 2}.
+\]</span></p>
+<p>Let <span class="math inline">\(K\)</span> count the process-2 arrivals before the third process-1 arrival. For <span class="math inline">\(K=k\)</span>, the last arrival must have label 1, while the preceding <span class="math inline">\(k+2\)</span> arrivals contain exactly two labels of type 1. Thus, <span class="math display">\[
+\PR(K=k)=\binom{k+2}{2}p^3(1-p)^k,
+\qquad k=0,1,\ldots.
+\]</span> This is a negative-binomial distribution, counting failures before the third success. The desired event occurs exactly when <span class="math inline">\(K\le1\)</span>, so <span class="math display">\[\begin{align*}
+\PR(S^{(1)}_3&lt;S^{(2)}_2)
+&amp;=p^3+3p^3(1-p)\\
+&amp;=\frac8{27}+\frac8{27}
+=\frac{16}{27}.
+\end{align*}\]</span></p>
+<p>Alternatively, process 1 wins precisely when at least three of the first four combined arrivals have label 1. Indeed, in that case the third process-1 arrival occurs among the first four arrivals, with at most one process-2 arrival before it. Otherwise, the second process-2 arrival occurs among the first four arrivals, before the third process-1 arrival. Hence the same probability is <span class="math display">\[
+\binom43p^3(1-p)+p^4=\frac{16}{27}.
+\]</span></p>
+</div>
+</div>
+</div>
 </section>
 <section id="renewal-processes" class="level2" data-number="13.9">
 <h2 data-number="13.9" class="anchored" data-anchor-id="renewal-processes"><span class="header-section-number">13.9</span> Renewal processes</h2>
 <ol type="1">
 <li><p>The Poisson process is a special case of a broader class of counting processes. Let <span class="math inline">\(T_1,T_2,\ldots\)</span> be arbitrary positive i.i.d. interarrival times, and define <span class="math display">\[
-S_n=T_1+\cdots+T_n,
+S_0=0,
 \qquad
-N(t)=\max\{n:S_n\le t\}.
+S_k=T_1+\cdots+T_k,
+\quad k\ge1,
+\]</span> and <span class="math display">\[
+N(t)=\max\{k\ge0:S_k\le t\},
+\qquad t\ge0.
 \]</span> Then <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> is called a <strong>renewal process</strong>. The Poisson process is the special case in which the interarrival times are exponential.</p></li>
 <li><p>If <span class="math inline">\(\EXP[T_1]&lt;\infty\)</span>, then <span class="math display">\[
 \frac{N(t)}{t}\xrightarrow{\text{a.s.}}\frac{1}{\EXP[T_1]}
 \qquad\text{as }t\to\infty.
-\]</span> This follows intuitively by applying the strong law to <span class="math inline">\(S_n/n\)</span> and viewing <span class="math inline">\(N(t)\)</span> as the inverse of the arrival-time sequence. Thus, the reciprocal of the mean interarrival time is the long-run arrival rate.</p></li>
+\]</span> This follows intuitively by applying the strong law to <span class="math inline">\(S_k/k\)</span> and viewing <span class="math inline">\(N(t)\)</span> as the inverse of the arrival-time sequence. Thus, the reciprocal of the mean interarrival time is the long-run arrival rate.</p></li>
 <li><p>The counting processes encountered so far fit into one common picture:</p>
 <ul>
 <li>geometric interarrival times give the discrete-time Bernoulli counting process;</li>
@@ -901,95 +1483,234 @@ N(t)=\max\{n:S_n\le t\}.
 <li>general positive i.i.d. interarrival times give a renewal process.</li>
 </ul></li>
 </ol>
+<div id="exm-poisson-every-second-arrival" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.13 (Keeping every second arrival)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span>. A counter records only arrivals numbered <span class="math inline">\(2,4,6,\ldots\)</span>. Let <span class="math inline">\(M(t)\)</span> be the number of recorded arrivals by time <span class="math inline">\(t\)</span>.</p>
+<ol type="a">
+<li><p>Find the interarrival distribution of the recorded process.</p></li>
+<li><p>Is <span class="math inline">\(\{M(t)\}_{t\ge0}\)</span> a Poisson process with rate <span class="math inline">\(λ/2\)</span>?</p></li>
+<li><p>Find its long-run arrival rate and its distribution at a fixed time.</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Let <span class="math inline">\(T_1,T_2,\ldots\)</span> be the original independent exponential interarrival times. The recorded interarrival times are <span class="math display">\[
+U_k=T_{2k-1}+T_{2k},\qquad k\ge1.
+\]</span> These are independent because they involve disjoint pairs of the original variables. Each has an Erlang distribution with shape <span class="math inline">\(2\)</span> and rate <span class="math inline">\(λ\)</span>. Writing <span class="math inline">\(U\)</span> for a random variable with this common distribution, <span class="math display">\[
+f_U(t)=λ^2t e^{-λt},\qquad t\ge0.
+\]</span> In particular, <span class="math display">\[
+\PR(U&gt;t)=e^{-λt}(1+λt),
+\qquad
+\EXP[U]=\frac2λ.
+\]</span></p></li>
+<li><p>The recorded process is a renewal process, but it is not Poisson because its interarrival times are not exponential. For example, for <span class="math inline">\(u,t\ge0\)</span>, <span class="math display">\[
+\PR(U&gt;u+t\mid U&gt;u)
+=e^{-λt}\frac{1+λ(u+t)}{1+λu},
+\]</span> which depends on the elapsed time <span class="math inline">\(u\)</span>.</p></li>
+<li><p>Since <span class="math inline">\(M(t)=\lfloor N(t)/2\rfloor\)</span>, <span class="math display">\[
+\frac{M(t)}t\longrightarrow\frac{λ}{2}
+\qquad\text{almost surely as }t\to\infty.
+\]</span> For <span class="math inline">\(k=0,1,\ldots\)</span>, <span class="math display">\[\begin{align*}
+\PR(M(t)=k)
+&amp;=\PR(N(t)=2k)+\PR(N(t)=2k+1)\\
+&amp;=e^{-λt}\left[
+\frac{(λt)^{2k}}{(2k)!}
++\frac{(λt)^{2k+1}}{(2k+1)!}
+\right].
+\end{align*}\]</span> Keeping every second arrival therefore gives the same long-run rate as independent thinning with probability <span class="math inline">\(1/2\)</span>, but a different process.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Sampling an object through one of its parts favours larger objects. This is called <strong>size bias</strong>. To see this, consider a batch of <span class="math inline">\(C\)</span> cookies containing at least one chocolate chip in total. Let <span class="math inline">\(c_k\)</span> be the number of cookies with exactly <span class="math inline">\(k\)</span> chips. If a cookie is chosen uniformly from the batch and <span class="math inline">\(X\)</span> is its number of chips, then <span class="math display">\[
+p_k=\PR(X=k)=\frac{c_k}{C},
+\qquad
+\EXP[X]=\sum_{k=0}^{∞}k p_k.
+\]</span> Now choose a chip uniformly from all the chips in the batch, and let <span class="math inline">\(Y\)</span> be the number of chips in its cookie. The cookies with <span class="math inline">\(k\)</span> chips contribute <span class="math inline">\(k c_k\)</span> chips, while the whole batch contains <span class="math inline">\(\sum_{j=0}^{∞}j c_j=C\EXP[X]\)</span> chips. Therefore, <span class="math display">\[\begin{align*}
+\PR(Y=k)
+&amp;=\frac{k c_k}{\sum_{j=0}^{∞}j c_j}\\
+&amp;=\frac{k p_k}{\EXP[X]},
+\qquad k=0,1,\ldots.
+\end{align*}\]</span> Consequently, <span class="math display">\[\begin{align*}
+\EXP[Y]
+&amp;=\sum_{k=0}^{∞}k\PR(Y=k)\\
+&amp;=\frac{\sum_{k=0}^{∞}k^2p_k}{\EXP[X]}\\
+&amp;=\frac{\EXP[X^2]}{\EXP[X]}\\
+&amp;=\EXP[X]+\frac{\VAR(X)}{\EXP[X]}.
+\end{align*}\]</span> For example, if half the cookies have 5 chips and half have 15, a uniformly chosen cookie has 10 chips on average. A uniformly chosen chip belongs to a 5-chip cookie with probability <span class="math inline">\(1/4\)</span> and a 15-chip cookie with probability <span class="math inline">\(3/4\)</span>, so its cookie has <span class="math display">\[
+\frac14\cdot5+\frac34\cdot15=12.5
+\]</span> chips on average. The same principle applies to renewal intervals: choosing a time uniformly from a long observation interval selects an interarrival interval in proportion to its length. The following example uses this length bias to calculate a passenger’s waiting time.</li>
+</ol>
+<div id="exm-renewal-passenger-wait" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.14 (How long does a passenger wait?)</strong></span> Consider three bus services:</p>
+<ul>
+<li><strong>Service A:</strong> a bus arrives exactly every 10 minutes.</li>
+<li><strong>Service B:</strong> successive interarrival times are independent, each equal to 5 or 15 minutes with probability <span class="math inline">\(1/2\)</span>.</li>
+<li><strong>Service C:</strong> <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> is a Poisson process with rate <span class="math inline">\(λ=1/10\)</span> per minute, counting bus arrivals.</li>
+</ul>
+<p>All three services have a mean interarrival time of 10 minutes. A passenger arrives independently of the buses at a time chosen uniformly from a long observation interval. Find the limiting expected waiting time for the next bus as the observation interval grows.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(W_A,W_B,W_C\)</span> denote the passenger’s waiting times in the long-run regime for the three services.</p>
+<p>For <strong>Service A</strong>, the passenger’s position within a 10-minute interval is uniform. Hence, <span class="math display">\[
+\EXP[W_A]=5\text{ minutes}.
+\]</span></p>
+<p>For <strong>Service B</strong>, a typical observation time is more likely to fall in a longer interval. Although half the interarrival intervals last 5 minutes, they occupy only one quarter of the total time: <span class="math display">\[
+\PR(\text{observed interval has length }5)
+=\frac{5(1/2)}{10}=\frac14.
+\]</span> Similarly, the probability of observing a 15-minute interval is <span class="math inline">\(3/4\)</span>.</p>
+<p>Within either interval, the passenger’s position is uniform. Thus, <span class="math display">\[\begin{align*}
+\EXP[W_B]
+&amp;=\frac14\cdot\frac52+\frac34\cdot\frac{15}{2}\\
+&amp;=\frac{25}{4}=6.25\text{ minutes}.
+\end{align*}\]</span></p>
+<p>For <strong>Service C</strong>, independent increments and exponential waiting times imply that the remaining wait time is exponential with rate <span class="math inline">\(1/10\)</span>. Therefore, <span class="math display">\[
+\EXP[W_C]=10\text{ minutes}.
+\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Service</th>
+<th style="text-align: right;">Mean interarrival time</th>
+<th style="text-align: right;">Mean passenger wait</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A: fixed spacing</td>
+<td style="text-align: right;">10 min</td>
+<td style="text-align: right;">5 min</td>
+</tr>
+<tr class="even">
+<td>B: 5- or 15-minute spacing</td>
+<td style="text-align: right;">10 min</td>
+<td style="text-align: right;">6.25 min</td>
+</tr>
+<tr class="odd">
+<td>C: Poisson arrivals</td>
+<td style="text-align: right;">10 min</td>
+<td style="text-align: right;">10 min</td>
+</tr>
+</tbody>
+</table>
+<p>More generally, for positive i.i.d. renewal interarrival times <span class="math inline">\(T_k\)</span> with finite second moment, the long-run mean residual wait is <span class="math display">\[
+\EXP[W]
+=\frac{\EXP[T_1^2]}{2\EXP[T_1]}
+=\frac{\EXP[T_1]}2
++\frac{\VAR(T_1)}{2\EXP[T_1]}.
+\]</span> To derive this formula, first consider one interval between consecutive buses, of length <span class="math inline">\(T_j\)</span>. A passenger arriving <span class="math inline">\(u\)</span> minutes after the previous bus waits <span class="math inline">\(T_j-u\)</span> minutes for the next one.</p>
+<div id="fig-renewal-residual-wait" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-renewal-residual-wait-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/svg/renewal-residual-wait1.svg" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-renewal-residual-wait-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13.3: The remaining wait time decreases linearly from <span class="math inline">\(T_j\)</span> to zero. The shaded area is <span class="math inline">\(T_j^2/2\)</span>; dividing by the interval length <span class="math inline">\(T_j\)</span> gives an average wait of <span class="math inline">\(T_j/2\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>Averaging over all possible arrival times within this interval gives <span class="math display">\[
+\frac1{T_j}\int_0^{T_j}(T_j-u)\,du=\frac{T_j}{2}.
+\]</span></p>
+<p>Now fix the first <span class="math inline">\(k\)</span> interarrival intervals. Their total length is <span class="math inline">\(S_k=\sum_{j=1}^kT_j\)</span>. A time chosen uniformly from <span class="math inline">\([0,S_k]\)</span> falls in interval <span class="math inline">\(j\)</span> with probability <span class="math inline">\(T_j/S_k\)</span>. Thus the average waiting time over this observation window is <span class="math display">\[\begin{align*}
+\sum_{j=1}^k\frac{T_j}{S_k}\frac{T_j}{2}
+&amp;=\frac{\sum_{j=1}^kT_j^2}{2\sum_{j=1}^kT_j}\\
+&amp;=\frac{\frac1k\sum_{j=1}^kT_j^2}{2\frac1k\sum_{j=1}^kT_j}\\
+&amp;\longrightarrow\frac{\EXP[T_1^2]}{2\EXP[T_1]}
+\qquad\text{almost surely as }k\to\infty,
+\end{align*}\]</span> by the strong law of large numbers. The square <span class="math inline">\(T_j^2\)</span> appears because a longer interval is both more likely to contain the passenger’s arrival time and has a longer average wait. This is a long-run statement; the mean residual wait at a fixed time after starting a renewal process need not equal this value.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="connection-with-continuous-time-markov-chains" class="level2" data-number="13.10">
 <h2 data-number="13.10" class="anchored" data-anchor-id="connection-with-continuous-time-markov-chains"><span class="header-section-number">13.10</span> Connection with continuous-time Markov chains</h2>
 <ol type="1">
-<li><p>A Poisson process is a continuous-time Markov process on <span class="math inline">\(\integers_{\ge0}\)</span>. From state <span class="math inline">\(n\)</span>, it waits an <span class="math inline">\(\operatorname{Exp}(λ)\)</span> amount of time and then jumps to state <span class="math inline">\(n+1\)</span>.</p></li>
+<li><p>A Poisson process is a continuous-time Markov process on <span class="math inline">\(\integers_{\ge0}\)</span>. From state <span class="math inline">\(k\)</span>, it waits an <span class="math inline">\(\operatorname{Exp}(λ)\)</span> amount of time and then jumps to state <span class="math inline">\(k+1\)</span>.</p></li>
 <li><p>A continuous-time Markov chain generalizes this construction in two ways:</p>
 <ul>
 <li>the exponential holding-time rate may depend on the current state;</li>
 <li>when the clock rings, the process may jump to different states with different probabilities.</li>
 </ul></li>
 </ol>
+<div id="exm-poisson-switching-detector" class="theorem example">
+<p><span class="theorem-title"><strong>Example 13.15 (A detector that changes state)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span>. A detector starts in state 0 and switches between states 0 and 1 at every arrival. Let <span class="math inline">\(X(t)\)</span> denote its state at time <span class="math inline">\(t\)</span>.</p>
+<p>Find <span class="math inline">\(\PR(X(t)=1)\)</span> and its limit as <span class="math inline">\(t\to\infty\)</span>.</p>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The detector is in state 1 exactly when the number of arrivals is odd. Thus, <span class="math display">\[\begin{align*}
+\PR(X(t)=1)
+&amp;=\PR(N(t)\text{ is odd})\\
+&amp;=e^{-λt}\sum_{k=0}^{∞}
+\frac{(λt)^{2k+1}}{(2k+1)!}.
+\end{align*}\]</span> Subtracting the power series for <span class="math inline">\(e^{-x}\)</span> from that for <span class="math inline">\(e^x\)</span> gives <span class="math display">\[
+e^x-e^{-x}
+=2\sum_{k=0}^{∞}\frac{x^{2k+1}}{(2k+1)!}.
+\]</span> Consequently, <span class="math display">\[\begin{align*}
+\PR(X(t)=1)
+&amp;=e^{-λt}\frac{e^{λt}-e^{-λt}}2\\
+&amp;=\frac{1-e^{-2λt}}2
+\longrightarrow\frac12.
+\end{align*}\]</span></p>
+</div>
+</div>
+</div>
 </section>
 <section id="exercises" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
-<ol type="1">
-<li><p>Suppose requests arrive at a web server according to a Poisson process with rate <span class="math inline">\(λ=10\)</span> per minute.</p>
+<div id="exr-poisson-arrival-clt" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 13.1 (Normal approximation of an arrival time)</strong></span> Let <span class="math inline">\(\{N(t)\}_{t\ge0}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span>. Let <span class="math inline">\(S_k=T_1+\cdots+T_k\)</span> be the time of the <span class="math inline">\(k\)</span>-th arrival.</p>
 <ol type="a">
-<li><p>What is the expected time of the 100th request?</p></li>
-<li><p>What is the probability that the time between the 100th and 101st requests exceeds one minute?</p></li>
-<li><p>Each request is from Canada independently with probability <span class="math inline">\(1/5\)</span>. What is the probability that no request from Canada arrives during the next two minutes?</p></li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<ol type="a">
-<li><p>The 100th arrival time is <span class="math inline">\(S_{100}=T_1+\cdots+T_{100}\)</span>, so <span class="math display">\[
-\EXP[S_{100}]=\frac{100}{10}=10\text{ minutes}.
-\]</span></p></li>
-<li><p>The waiting time <span class="math inline">\(T_{101}\)</span> is <span class="math inline">\(\operatorname{Exp}(10)\)</span>, so <span class="math display">\[
-\PR(T_{101}&gt;1)=e^{-10}.
-\]</span></p></li>
-<li><p>Thinning gives a Poisson process of Canadian requests with rate <span class="math inline">\(2\)</span> per minute. Thus, <span class="math display">\[
-\PR(N_C(2)=0)=e^{-4}.
-\]</span></p></li>
-</ol>
-</div>
-</div>
-</div></li>
-<li><p>Suppose <span class="math inline">\(N(t)=2\)</span>. Find the conditional joint density of <span class="math inline">\((S_1,S_2)\)</span> and the conditional marginal density of <span class="math inline">\(S_1\)</span>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Solution
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The joint density is <span class="math display">\[
-f_{S_1,S_2\mid N(t)}(s_1,s_2\mid2)
-=\frac{2}{t^2},
-\qquad 0&lt;s_1&lt;s_2&lt;t.
-\]</span> Therefore, <span class="math display">\[
-f_{S_1\mid N(t)}(s\mid2)
-=\int_s^t\frac{2}{t^2}\,du
-=\frac{2(t-s)}{t^2},
-\qquad 0&lt;s&lt;t.
-\]</span></p>
-</div>
-</div>
-</div></li>
-<li><p>Independent requests arrive from two sources according to Poisson processes with rates <span class="math inline">\(λ_1\)</span> and <span class="math inline">\(λ_2\)</span>. Find the distribution of the time until the first request and the probability that the first request comes from source 1.</p></li>
-<li><p>Let <span class="math inline">\(\{N(t)\}\)</span> be a Poisson process with rate <span class="math inline">\(λ\)</span>. Independently assign every arrival to one of three streams with probabilities <span class="math inline">\(p_1,p_2,p_3\)</span>. Show that the three output processes are independent, find their rates, and verify that their superposition recovers the original process.</p></li>
-<li><p>Let <span class="math inline">\(S_n=T_1+\cdots+T_n\)</span> be the time of the <span class="math inline">\(n\)</span>-th arrival in a Poisson process with rate <span class="math inline">\(λ\)</span>.</p>
-<ol type="a">
-<li><p>Use the central limit theorem to show that, for large <span class="math inline">\(n\)</span>, <span class="math display">\[
-\frac{S_n-n/λ}{\sqrt n/λ}
+<li><p>Use the central limit theorem to show that, for large <span class="math inline">\(k\)</span>, <span class="math display">\[
+\frac{S_k-k/λ}{\sqrt k/λ}
 \]</span> is approximately a standard normal random variable.</p></li>
 <li><p>Suppose arrivals occur at rate <span class="math inline">\(4\)</span> per minute. Use the normal approximation to estimate the probability that the 100th arrival occurs after 27 minutes.</p></li>
-</ol></li>
-<li><p>Independent type-1 and type-2 arrivals form Poisson processes with rates <span class="math inline">\(λ_1\)</span> and <span class="math inline">\(λ_2\)</span>, respectively. Let <span class="math inline">\(M\)</span> be the number of type-2 arrivals before the first type-1 arrival. Use superposition and labeling of the combined process to show that <span class="math display">\[
+</ol>
+</div>
+<div id="exr-poisson-first-source" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 13.2 (The first request from two sources)</strong></span> Let <span class="math inline">\(\{N_1(t)\}_{t\ge0}\)</span> and <span class="math inline">\(\{N_2(t)\}_{t\ge0}\)</span> be independent Poisson processes with rates <span class="math inline">\(λ_1\)</span> and <span class="math inline">\(λ_2\)</span>, counting requests from sources 1 and 2, respectively. Find the distribution of the time until the first request and the probability that the first request comes from source 1.</p>
+</div>
+<div id="exr-poisson-count-before-first" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 13.3 (Arrivals before the first competing arrival)</strong></span> Let <span class="math inline">\(\{N_1(t)\}_{t\ge0}\)</span> and <span class="math inline">\(\{N_2(t)\}_{t\ge0}\)</span> be independent Poisson processes with rates <span class="math inline">\(λ_1\)</span> and <span class="math inline">\(λ_2\)</span>, counting type-1 and type-2 arrivals, respectively. Let <span class="math inline">\(M\)</span> be the number of type-2 arrivals before the first type-1 arrival. Use superposition and labeling of the combined process to show that <span class="math display">\[
 \PR(M=k)
 =\left(\frac{λ_2}{λ_1+λ_2}\right)^k
 \frac{λ_1}{λ_1+λ_2},
 \qquad k=0,1,\ldots.
-\]</span> Hence, identify the distribution of <span class="math inline">\(M\)</span>.</p></li>
-</ol>
+\]</span> Hence, identify the distribution of <span class="math inline">\(M\)</span>.</p>
+</div>
 </section>
 <section id="further-reading" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="further-reading">Further reading</h2>
