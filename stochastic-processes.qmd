@@ -31,7 +31,7 @@ and define the counting process
 $$
 N_0=0,
 \qquad
-N_n=\sum_{k=1}^n B_k,
+N_n=\sum_{j=1}^n B_j,
 \quad n\ge1.
 $$
 The process $\{B_n\}_{n\ge1}$ is called a **Bernoulli process**, and $\{N_n\}_{n\ge0}$ is called the associated **Bernoulli counting process**. The latter is also sometimes called a binomial process.

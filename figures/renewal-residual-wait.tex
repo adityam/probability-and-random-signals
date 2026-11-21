@@ -1,0 +1,46 @@
+\usepath[/home/adityam/Projects/presentations]
+
+\enablemode[lucida]
+\environment env-fonts.tex
+\setupbodyfont[slidefont,16pt]
+
+\definecolor[waitfill][r=0.86,g=0.92,b=0.98]
+\definecolor[waitline][r=0.14,g=0.36,b=0.65]
+\definecolor[waitguide][s=0.50]
+
+\starttext
+
+\startMPpage[offset=1dk, scale=1500]
+  numeric w, h, elapsed;
+  w := 9cm;
+  h := 4.6cm;
+  elapsed := 0.4;
+
+  pair observed;
+  observed := (elapsed*w, (1-elapsed)*h);
+
+  fill origin -- (0,h) -- (w,0) -- cycle withcolor "waitfill";
+  draw (0,h) -- (w,0)
+    withpen pencircle scaled 1bp withcolor "waitline";
+  drawarrow origin -- (1.1w,0) withpen pencircle scaled 0.6bp;
+  drawarrow origin -- (0,1.08h) withpen pencircle scaled 0.6bp;
+
+  draw (elapsed*w,0) -- observed -- (0,(1-elapsed)*h)
+    dashed evenly withpen pencircle scaled 0.5bp
+    withcolor "waitguide";
+  drawdot observed withpen pencircle scaled 4bp withcolor "waitline";
+
+  label.top("\switchtobodyfont[10pt]Remaining wait time", (0.14w,1.12h));
+  label.lft("\switchtobodyfont[10pt]$T_j$", (0,h));
+  label.lft("\switchtobodyfont[10pt]$T_j-u$", (0,(1-elapsed)*h));
+  label.bot("\switchtobodyfont[10pt]$0$", origin);
+  label.bot("\switchtobodyfont[10pt]$u$", (elapsed*w,0));
+  label.bot("\switchtobodyfont[10pt]$T_j$", (w,0));
+  label("\switchtobodyfont[10pt]Area $=T_j^2/2$", (0.22w,0.21h));
+  label.bot("\switchtobodyfont[8pt]Previous bus", (0,-0.55cm));
+  label.bot("\switchtobodyfont[8pt]Next bus", (w,-0.55cm));
+  label.bot("\switchtobodyfont[9pt]Time elapsed since the previous bus",
+            (0.5w,-1.15cm));
+\stopMPpage
+
+\stoptext

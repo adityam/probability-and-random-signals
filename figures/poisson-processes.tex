@@ -1,0 +1,93 @@
+\usepath[/home/adityam/Projects/presentations]
+
+\enablemode[lucida]
+\environment env-fonts.tex
+\setupbodyfont[slidefont,16pt]
+
+\definecolor[arrivalblue][r=0.14,g=0.36,b=0.65]
+\definecolor[guidegray][s=0.55]
+
+\starttext
+
+% The arrival-time, interarrival-time, and counting descriptions of one path.
+\startMPpage[offset=1dk, scale=1500]
+  numeric sx, sy, a, b, c, obs;
+  sx := 1.2cm; sy := 1cm;
+  a := 1.3; b := 3.4; c := 6.1; obs := 4.7;
+
+  drawarrow origin -- (8sx,0) withpen pencircle scaled 0.6bp;
+  drawarrow origin -- (0,3.6sy) withpen pencircle scaled 0.6bp;
+  label.top("\switchtobodyfont[10pt]$N(\cdot)$", (0,3.6sy));
+  label.rt("\switchtobodyfont[9pt]time", (8sx,0));
+  label.llft("\switchtobodyfont[9pt]$0$", origin);
+
+  for j = 1 upto 3:
+    draw (-0.06cm,j*sy) -- (0.06cm,j*sy);
+    label.lft("\switchtobodyfont[9pt]$" & decimal j & "$", (0,j*sy));
+  endfor;
+
+  draw (obs*sx,0) -- (obs*sx,2sy) -- (0,2sy)
+    dashed evenly withcolor "guidegray";
+  draw (a*sx,0) -- (a*sx,sy)
+    dashed evenly withcolor "guidegray";
+  draw (b*sx,sy) -- (b*sx,2sy)
+    dashed evenly withcolor "guidegray";
+  draw (c*sx,2sy) -- (c*sx,3sy)
+    dashed evenly withcolor "guidegray";
+
+  draw origin -- (a*sx,0) withpen pencircle scaled 1bp withcolor "arrivalblue";
+  draw (a*sx,sy) -- (b*sx,sy) withpen pencircle scaled 1bp withcolor "arrivalblue";
+  draw (b*sx,2sy) -- (c*sx,2sy) withpen pencircle scaled 1bp withcolor "arrivalblue";
+  draw (c*sx,3sy) -- (7.5sx,3sy) withpen pencircle scaled 1bp withcolor "arrivalblue";
+
+  for pt = (a*sx,0), (b*sx,sy), (c*sx,2sy):
+    fill fullcircle scaled 0.14cm shifted pt withcolor white;
+    draw fullcircle scaled 0.14cm shifted pt withcolor "arrivalblue";
+  endfor;
+  for pt = (a*sx,sy), (b*sx,2sy), (c*sx,3sy), (obs*sx,2sy):
+    drawdot pt withpen pencircle scaled 4bp withcolor "arrivalblue";
+  endfor;
+
+  label.bot("\switchtobodyfont[9pt]$S_1$", (a*sx,0));
+  label.bot("\switchtobodyfont[9pt]$S_2$", (b*sx,0));
+  label.bot("\switchtobodyfont[9pt]$S_3$", (c*sx,0));
+  label.bot("\switchtobodyfont[9pt]$t$", (obs*sx,0));
+  label.top("\switchtobodyfont[10pt]$N(t)=2$", (obs*sx,2.15sy));
+
+  drawdblarrow (0,-0.85cm) -- (a*sx,-0.85cm);
+  drawdblarrow (a*sx,-0.85cm) -- (b*sx,-0.85cm);
+  drawdblarrow (b*sx,-0.85cm) -- (c*sx,-0.85cm);
+  label.bot("\switchtobodyfont[9pt]$T_1$", (0.5a*sx,-0.85cm));
+  label.bot("\switchtobodyfont[9pt]$T_2$", (0.5(a+b)*sx,-0.85cm));
+  label.bot("\switchtobodyfont[9pt]$T_3$", (0.5(b+c)*sx,-0.85cm));
+  label.bot("\switchtobodyfont[10pt]$S_2<t<S_3\quad\Longrightarrow\quad N(t)=2$",
+            (3.8sx,-1.65cm));
+\stopMPpage
+
+% Sorting three uniform points: draw index versus rank.
+\startMPpage[offset=1dk, scale=1500]
+  numeric sx;
+  sx := 2.5cm;
+
+  label("\switchtobodyfont[10pt]Draws: $(U_1,U_2,U_3)=(3.2,0.7,2.1)$", (2sx,3.1cm));
+  drawarrow (2sx,2.75cm) -- (2sx,2.1cm);
+  label.rt("\switchtobodyfont[9pt]sort by value", (2sx+0.15cm,2.43cm));
+  label("\switchtobodyfont[10pt]Order statistics: $(U_{(1)},U_{(2)},U_{(3)})=(0.7,2.1,3.2)$",
+        (2sx,1.7cm));
+
+  drawarrow origin -- (4.3sx,0);
+  for j = 0 upto 4:
+    draw (j*sx,-0.06cm) -- (j*sx,0.06cm);
+    label.bot("\switchtobodyfont[9pt]$" & decimal j & "$", (j*sx,0));
+  endfor;
+  for val = 0.7, 2.1, 3.2:
+    drawdot (val*sx,0) withpen pencircle scaled 5bp withcolor "arrivalblue";
+  endfor;
+  label.top("\switchtobodyfont[9pt]$U_{(1)}=U_2$", (0.7sx,0.16cm));
+  label.top("\switchtobodyfont[9pt]$U_{(2)}=U_3$", (2.1sx,0.16cm));
+  label.top("\switchtobodyfont[9pt]$U_{(3)}=U_1$", (3.2sx,0.16cm));
+  label.bot("\switchtobodyfont[9pt]The locations stay fixed; the new labels indicate rank.",
+            (2sx,-0.75cm));
+\stopMPpage
+
+\stoptext
